@@ -1,0 +1,27 @@
+{
+  "name": "simple-widgets",
+  "version": "1.0.0",
+  "description": "A Collection of Components to make your React code simpler",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinjackson/simple-widgets.git"
+  },
+  "keywords": [
+    "React",
+    "checkbox",
+    "choice",
+    "pulldown",
+    "pdf",
+    "radiobutton"
+  ],
+  "author": "Martin A. Jackson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinjackson/simple-widgets/issues"
+  },
+  "homepage": "https://github.com/martinjackson/simple-widgets#readme"
+}
