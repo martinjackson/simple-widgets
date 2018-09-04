@@ -2,6 +2,11 @@
 A Collection of components to make your React code simpler.
 
 __**Input Compoents**__
+
+CheckBox
+Choice
+Radio
+
 Some of the basic HTML input field types reqire different functions to handle changes.
 This collection of inputs is built on top of those to give a simpler standard interface.
 All of these widgets require the following props:
@@ -29,11 +34,9 @@ handleChange(e) {
    }
 ```
 
-CheckBox
-Choice
-Radio
 
 
 __**Report Components**__
 
 pdf-writer
+
