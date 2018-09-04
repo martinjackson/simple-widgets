@@ -1,7 +1,6 @@
 # Build Systems #
 .fusebox
 node_modules
-dist
 bin
 
 # Packages #
@@ -21,3 +20,4 @@ bin
 .Spotlight-V100
 .Trashes
 Thumbs.db
+package-lock.json

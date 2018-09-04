@@ -2,9 +2,10 @@
   "name": "simple-widgets",
   "version": "1.0.0",
   "description": "A Collection of Components to make your React code simpler",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build src/index.js "
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,16 @@
   "bugs": {
     "url": "https://github.com/martinjackson/simple-widgets/issues"
   },
-  "homepage": "https://github.com/martinjackson/simple-widgets#readme"
+  "homepage": "https://github.com/martinjackson/simple-widgets#readme",
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-react": "^6.24.1",
+    "parcel-bundler": "^1.9.7"
+  },
+  "dependencies": {
+    "@types/react": "^16.4.13",
+    "react": "^16.4.2",
+    "react-autobind": "^1.0.6",
+    "react-dom": "^16.4.2"
+  }
 }
