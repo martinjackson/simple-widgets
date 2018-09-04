@@ -36,5 +36,5 @@ handleChange(e) {
 
 __**Report Components**__
 
-pdf-writer
+pdf-writer     _requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
 
