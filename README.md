@@ -1,7 +1,7 @@
 # simple-widgets
 A Collection of components to make your React code simpler.
 
-__**Input Compoents**__
+__**Input Components**__
 
 CheckBox
 Choice
