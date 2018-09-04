@@ -1,2 +1,39 @@
 # simple-widgets
-A Collection of Components to make your React code simpler
+A Collection of components to make your React code simpler.
+
+__**Input Compoents**__
+Some of the basic HTML input field types reqire different functions to handle changes.
+This collection of inputs is built on top of those to give a simpler standard interface.
+All of these widgets require the following props:
+
+- name: A unique name for this field with corresponding name is parent compoent's state _example name="subject"_
+- value: value of specific choice or content of text field. _example value={this.state.subject}_
+- onChange: function in the parent component to catch/store state changes _example onChange={this.handleChange}_
+
+```
+handleChange(e) {
+       if (typeof e === 'string')
+          return;   // passed in by Radio, can be ignored, next event has target.name
+
+       if (typeof e.preventDefault === 'function') {
+           e.preventDefault();
+
+           var stateChange = {};
+           stateChange[e.target.name] = e.target.value;
+           this.setState(stateChange);
+           }
+         else {
+           console.log(typeof e);  // something unusual, lets find out
+           console.log(e);
+         }
+   }
+```
+
+CheckBox
+Choice
+Radio
+
+
+__**Report Components**__
+
+pdf-writer
