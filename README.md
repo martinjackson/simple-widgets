@@ -1,5 +1,8 @@
 # simple-widgets
+
 A Collection of components to make your React code simpler.
+
+[![Wallaby.js](https://img.shields.io/badge/wallaby.js-configured-green.svg)](https://wallabyjs.com)
 
 __**Input Components**__
 
@@ -13,7 +16,7 @@ All of these widgets require the following props:
 - value: value of specific choice or content of text field. _example value={this.state.subject}_
 - onChange: function in the parent component to catch/store state changes _example onChange={this.handleChange}_
 
-```
+```javascript
 handleChange(e) {
        if (typeof e === 'string')
           return;   // passed in by Radio, can be ignored, next event has target.name
@@ -32,9 +35,6 @@ handleChange(e) {
    }
 ```
 
-
-
 __**Report Components**__
 
 pdf-writer     _requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
-

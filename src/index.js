@@ -1,7 +1,7 @@
 
-let SimpleWidgets = {}
-SimpleWidgets.CheckBox = require('./CheckBox')
-SimpleWidgets.Choice = require('./Choice')
-SimpleWidgets.Radio = require('./Radio')
+import CheckBox from './CheckBox'
+import Choice from './Choice'
+import Radio  from './Radio'
+import { makeChangeHandler } from './makeChangeHandler'
 
-module.exports = SimpleWidgets
+module.exports = {CheckBox, Choice, Radio, makeChangeHandler}
