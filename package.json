@@ -27,13 +27,16 @@
   "homepage": "https://github.com/martinjackson/simple-widgets#readme",
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "parcel-bundler": "^1.9.7"
+    "parcel-bundler": "^1.9.7",
+    "wallaby-webpack": "^3.9.11",
+    "webpack": "^4.17.2"
   },
   "dependencies": {
     "@types/react": "^16.4.13",
     "react": "^16.4.2",
-    "react-autobind": "^1.0.6",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "react-autobind": "^1.0.6"
   }
 }
