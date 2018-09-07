@@ -45,7 +45,7 @@ render(){
   const st = {border: 'none', backgroundColor: 'white', borderRadius: '25px'};
   const checked = this.props.match === this.props.value;
   const symbol = (checked) ? String.fromCharCode(9899) : String.fromCharCode(9898);
-  return <button type="button" onClick={this.handle} style={st}>{symbol}</button>;
+  return <button id={this.props.id} type="button" onClick={this.handle} style={st}>{symbol}</button>;
   }
 }
 

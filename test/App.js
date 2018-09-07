@@ -8,7 +8,7 @@ import {CheckBox, Choice, Radio, makeChangeHandler} from '../src/index.js'    //
 // import simpleWidgets from 'simple-widgets'; 
 // currently wallaby doesn't know about npm link simple-widgets
 
-import simpleWidgets from './index.js'
+import simpleWidgets from '../src/index.js'
 
 
 class App extends Component {
@@ -32,6 +32,7 @@ class App extends Component {
 
         <CheckBox id="cb1" value="Preview" name="preview" text="Preview" match={this.state.preview} onChange={this.handleChange} />
         <CheckBox id="cb2" value="Help"    name="preview" text="Help"    match={this.state.preview} onChange={this.handleChange} />
+        <CheckBox id="cb3" value="Funny" color="blue" name="funny" text="Funny" match={this.state.funny} onChange={this.handleChange} />
 
         <Radio id="rd1" value="1" name="year" match={this.state.year} onChange={this.handleChange} />Year 1
         <Radio id="rd2" value="2" name="year" match={this.state.year} onChange={this.handleChange} />Year 2
@@ -40,7 +41,8 @@ class App extends Component {
 
         ex2_mode: <span id="answer1">{this.state.ex2_mode}</span> <br />
         preview: <span id="answer2">{this.state.preview}</span> <br />
-        year: <span id="answer3">{this.state.year}</span> <br />
+        funny: <span id="answer3">{this.state.funny}</span> <br />
+        year: <span id="answer4">{this.state.year}</span> <br />
 
       </div>
     );
