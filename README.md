@@ -27,26 +27,35 @@ All of these widgets require the following props:
 - onChange: function in the parent component to catch/store state changes _example onChange={this.handleChange}_
 
 ```javascript
-handleChange(e) {
-       if (typeof e === 'string')
-          return;   // passed in by Radio, can be ignored, next event has target.name
 
-       if (typeof e.preventDefault === 'function') {
-           e.preventDefault();
+import {CheckBox, Choice, Radio, makeChangeHandler} from 'simple-widgets'
 
-           var stateChange = {};
-           stateChange[e.target.name] = e.target.value;
-           this.setState(stateChange);
-           }
-         else {
-           console.log(typeof e);  // something unusual, lets find out
-           console.log(e);
-         }
-   }
+class App extends Component {
+
+  constructor(props) {
+        super(props)
+        this.handleChange = makeChangeHandler(this)
+    }
+
+  render() {
+    const modes = ["java", "javascript", "jsx", "markdown", "bash"]
+
+    return (
+      <div>
+        <Choice choices={modes} name="ex2_mode" value={this.state.ex2_mode} onChange={this.handleChange} />
+        <CheckBox value="Preview" name="preview" text="Preview" match={this.state.preview} onChange={this.handleChange} />
+        <Radio value="1" name="year" match={this.state.year} onChange={this.handleChange} />Year 1
+        <Radio value="2" name="year" match={this.state.year} onChange={this.handleChange} />Year 2
+      </div>
+    )
+  }
+}
 ```
 
 __**Report Components**__
 
-pdf-writer     _requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
+pdf-writer (still in development)
+
+    _requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
