@@ -11,6 +11,7 @@ module.exports = function (wallaby) {
 
   return {
     files: [
+      {pattern: 'test/App.js', load: false},
       {pattern: 'src/**/*.js*', load: false}
     ],
 
@@ -23,6 +24,8 @@ module.exports = function (wallaby) {
     },
 
     env: {kind: 'chrome'},
+
+    debug: true,
 
     postprocessor: webpackPostprocessor,
 

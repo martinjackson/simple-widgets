@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import App from '../src/App.js'
+import App from './App.js'
 
 function findReactById(tree, id) {
   return TestUtils.findAllInRenderedTree(tree, function(inst) {
@@ -50,13 +50,53 @@ describe('App', function () {
     var tree = TestUtils.renderIntoDocument(<App />);
 
     let cbox = findDomById(tree, 'cb1'); 
-    TestUtils.Simulate.change(cbox, {"target": {name: cbox.name, value: 'java'}}); 
+    let display = findDomById(tree, 'answer2')
 
-    let output = findDomById(tree, 'answer2')
+    TestUtils.Simulate.click(cbox);
+    const value1 = display.textContent;
+    TestUtils.Simulate.click(cbox);
+    const value2 = display.textContent;
 
-    expect(output.textContent).toBe('java');
+    expect(value1).toBe('Preview');
+    expect(value2).toBe('');
   });
 
+  it('tickle Checkbox 2', function () {
+    var tree = TestUtils.renderIntoDocument(<App />);
+
+    let cbox = findDomById(tree, 'cb2'); 
+    let display = findDomById(tree, 'answer2')
+
+    TestUtils.Simulate.click(cbox);
+    const value1 = display.textContent;
+    TestUtils.Simulate.click(cbox);
+    const value2 = display.textContent;
+
+    expect(value1).toBe('Help');
+    expect(value2).toBe('');
+  });
+
+  it('tickle Radio 1', function () {
+    var tree = TestUtils.renderIntoDocument(<App />);
+
+    let radio = findDomById(tree, 'rd1'); 
+    TestUtils.Simulate.click(radio);
+
+    let output = findDomById(tree, 'answer4')
+
+    expect(output.textContent).toBe('1');
+  });
+
+  it('tickle Radio 2', function () {
+    var tree = TestUtils.renderIntoDocument(<App />);
+
+    let radio = findDomById(tree, 'rd2'); 
+    TestUtils.Simulate.click(radio);
+
+    let output = findDomById(tree, 'answer4')
+
+    expect(output.textContent).toBe('2');
+  });
 
 
 });

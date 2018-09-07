@@ -4,6 +4,14 @@ A Collection of components to make your React code simpler.
 
 [![Wallaby.js](https://img.shields.io/badge/wallaby.js-configured-green.svg)](https://wallabyjs.com)
 
+simple-widgets ![Test Coverage](https://img.shields.io/badge/Test_Coverage-94.23%25-brightgreen.svg)
+
+- CheckBox ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
+- Choice ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
+- Radio ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
+- [makeChangeHandler ![Test Coverage](https://img.shields.io/badge/Test_Coverage-70%25-green.svg)](test/simple-widgets-coverage.html)
+
+
 __**Input Components**__
 
 CheckBox, Choice, Radio
@@ -38,3 +46,5 @@ handleChange(e) {
 __**Report Components**__
 
 pdf-writer     _requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
+
+## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
