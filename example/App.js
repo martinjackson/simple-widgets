@@ -17,7 +17,7 @@ class App extends Component {
         super(props);
         autoBind(this);
     
-        this.state = {};
+        this.state = {'name': '', 'ex2_mode': '', 'preview':'', 'funny': '', 'year':''};
         this.modes = ["java", "javascript", "jsx", "markdown", "bash"];  
         this.handleChange = makeChangeHandler(this);   
     }
@@ -32,12 +32,12 @@ class App extends Component {
         <label>Language of Choice:</label> 
         <Choice id="ch1" choices={this.modes} name="ex2_mode" value={this.state.ex2_mode} onChange={this.handleChange} />
 
-        <CheckBox id="cb1" value="Preview" name="preview" text="Preview" match={this.state.preview} onChange={this.handleChange} />
-        <CheckBox id="cb2" value="Help"    name="preview" text="Help"    match={this.state.preview} onChange={this.handleChange} />
-        <CheckBox id="cb3" value="Funny" color="blue" name="funny" text="Funny" match={this.state.funny} onChange={this.handleChange} />
+        <CheckBox id="cb1" selectedValue="Preview" text="Preview" name="preview" value={this.state.preview} onChange={this.handleChange} />
+        <CheckBox id="cb2" selectedValue="Help"    text="Help"    name="preview" value={this.state.preview} onChange={this.handleChange} />
+        <CheckBox id="cb3" selectedValue="Funny"   text="Funny"   name="funny"   value={this.state.funny}   onChange={this.handleChange} color="green" />
 
-        <Radio id="rd1" value="1" name="year" match={this.state.year} onChange={this.handleChange} />Year 1
-        <Radio id="rd2" value="2" name="year" match={this.state.year} onChange={this.handleChange} />Year 2
+        <Radio id="rd1" selectedValue="1" name="year" value={this.state.year} onChange={this.handleChange} />Year 1
+        <Radio id="rd2" selectedValue="2" name="year" value={this.state.year} onChange={this.handleChange} />Year 2
 
         <hr />
 

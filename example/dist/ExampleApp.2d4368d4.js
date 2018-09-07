@@ -21072,7 +21072,7 @@ var CheckBox = function (_React$Component) {
     value: function handle(e) {
       if (typeof e.preventDefault === 'function') e.preventDefault();
       e.target.name = this.props.name;
-      e.target.value = this.props.match === this.props.value ? '' : this.props.value;
+      e.target.value = this.props.value === this.props.selectedValue ? '' : this.props.selectedValue;
       this.props.onChange(e);
     }
   }, {
@@ -21084,7 +21084,7 @@ var CheckBox = function (_React$Component) {
         transparent.color = this.props.color;
       }
 
-      var isChecked = this.props.match === this.props.value;
+      var isChecked = this.props.value === this.props.selectedValue;
       var symbol = isChecked ? checked : unchecked;
       return _react2.default.createElement(
         'button',
@@ -21194,6 +21194,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var Frag = _react2.default.Fragment;
+
 var Radio = function (_React$Component) {
   _inherits(Radio, _React$Component);
 
@@ -21211,7 +21213,7 @@ var Radio = function (_React$Component) {
     value: function handle(e) {
       if (typeof e.preventDefault === 'function') e.preventDefault();
       e.target.name = this.props.name;
-      e.target.value = this.props.value;
+      e.target.value = this.props.selectedValue;
       this.props.onChange(e);
     }
   }, {
@@ -21241,12 +21243,17 @@ var Radio = function (_React$Component) {
       */
 
       var st = { border: 'none', backgroundColor: 'white', borderRadius: '25px' };
-      var checked = this.props.match === this.props.value;
+      var checked = this.props.value === this.props.selectedValue;
       var symbol = checked ? String.fromCharCode(9899) : String.fromCharCode(9898);
       return _react2.default.createElement(
-        'button',
-        { id: this.props.id, type: 'button', onClick: this.handle, style: st },
-        symbol
+        Frag,
+        null,
+        _react2.default.createElement(
+          'button',
+          { id: this.props.id, type: 'button', onClick: this.handle, style: st },
+          symbol
+        ),
+        this.props.text
       );
     }
   }]);
@@ -21351,7 +21358,7 @@ var App = function (_Component) {
 
     (0, _reactAutobind2.default)(_this);
 
-    _this.state = {};
+    _this.state = { 'name': '', 'ex2_mode': '', 'preview': '', 'funny': '', 'year': '' };
     _this.modes = ["java", "javascript", "jsx", "markdown", "bash"];
     _this.handleChange = (0, _index.makeChangeHandler)(_this);
     return _this;
@@ -21384,12 +21391,12 @@ var App = function (_Component) {
           'Language of Choice:'
         ),
         _react2.default.createElement(_index.Choice, { id: 'ch1', choices: this.modes, name: 'ex2_mode', value: this.state.ex2_mode, onChange: this.handleChange }),
-        _react2.default.createElement(_index.CheckBox, { id: 'cb1', value: 'Preview', name: 'preview', text: 'Preview', match: this.state.preview, onChange: this.handleChange }),
-        _react2.default.createElement(_index.CheckBox, { id: 'cb2', value: 'Help', name: 'preview', text: 'Help', match: this.state.preview, onChange: this.handleChange }),
-        _react2.default.createElement(_index.CheckBox, { id: 'cb3', value: 'Funny', color: 'blue', name: 'funny', text: 'Funny', match: this.state.funny, onChange: this.handleChange }),
-        _react2.default.createElement(_index.Radio, { id: 'rd1', value: '1', name: 'year', match: this.state.year, onChange: this.handleChange }),
+        _react2.default.createElement(_index.CheckBox, { id: 'cb1', selectedValue: 'Preview', text: 'Preview', name: 'preview', value: this.state.preview, onChange: this.handleChange }),
+        _react2.default.createElement(_index.CheckBox, { id: 'cb2', selectedValue: 'Help', text: 'Help', name: 'preview', value: this.state.preview, onChange: this.handleChange }),
+        _react2.default.createElement(_index.CheckBox, { id: 'cb3', selectedValue: 'Funny', text: 'Funny', name: 'funny', value: this.state.funny, onChange: this.handleChange, color: 'green' }),
+        _react2.default.createElement(_index.Radio, { id: 'rd1', selectedValue: '1', name: 'year', value: this.state.year, onChange: this.handleChange }),
         'Year 1',
-        _react2.default.createElement(_index.Radio, { id: 'rd2', value: '2', name: 'year', match: this.state.year, onChange: this.handleChange }),
+        _react2.default.createElement(_index.Radio, { id: 'rd2', selectedValue: '2', name: 'year', value: this.state.year, onChange: this.handleChange }),
         'Year 2',
         _react2.default.createElement('hr', null),
         'name: ',
@@ -21487,7 +21494,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57106' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63965' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
