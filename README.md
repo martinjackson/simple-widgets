@@ -84,4 +84,15 @@ pdf-writer (still in development)
 
     _requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
 
-## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
+## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/martinjackson/simple-widgets/issues)
+<table>
+<tbody>
+<tr>
+<td align="center">
+<a href="https://streamof.info"><img src="https://avatars0.githubusercontent.com/u/7481?s=460&v=4" width="100px;"/><br /><sub><b>Martin A. Jackson</b></sub></a>
+</td>
+<td align="center">
+<a href="http://google.com?JimAbele">[<img src="https://avatars0.githubusercontent.com/u/0?s=460&v=4" width="100px;"/><br /><sub><b>Jim Abele</b></sub></a>
+</td>
+</tbody>
+</table>
