@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import App from './App.js'
+import App from '../example/App.js'
 
 function findReactById(tree, id) {
   return TestUtils.findAllInRenderedTree(tree, function(inst) {

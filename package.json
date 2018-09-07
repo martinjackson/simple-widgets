@@ -1,11 +1,13 @@
 {
   "name": "simple-widgets",
-  "version": "1.0.0",
-  "description": "A Collection of Components to make your React code simpler",
+  "version": "1.0.1",
+  "description": "A Collection of React components to make your React code simpler",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build src/index.js "
+    "test": "echo \"Add Wallaby Extension to VS Code and run there\" && exit 1",
+    "build": "parcel build src/index.js ",
+    "setup": "npm install",
+    "example": "cd example && parcel ExampleApp.html"
   },
   "repository": {
     "type": "git",
