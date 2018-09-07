@@ -80,9 +80,9 @@ cd example
 
 __**Report Components**__
 
-pdf-writer (still in development)
+pdf-writer (still in development, not part of npm package yet)
 
-    _requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
+    TODO: pdf-writer requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/martinjackson/simple-widgets/issues)
 <table>
