@@ -92,7 +92,7 @@ pdf-writer (still in development)
 <a href="https://streamof.info"><img src="https://avatars0.githubusercontent.com/u/7481?s=460&v=4" width="100px;"/><br /><sub><b>Martin A. Jackson</b></sub></a>
 </td>
 <td align="center">
-<a href="http://google.com?JimAbele">[<img src="https://avatars0.githubusercontent.com/u/0?s=460&v=4" width="100px;"/><br /><sub><b>Jim Abele</b></sub></a>
+<a href="http://google.com?JimAbele"><img src="https://avatars0.githubusercontent.com/u/0?s=460&v=4" width="100px;"/><br /><sub><b>Jim Abele</b></sub></a>
 </td>
 </tbody>
 </table>
