@@ -26,6 +26,21 @@ All of these widgets require the following props:
 - value: value of specific choice or content of text field. _example value={this.state.subject}_
 - onChange: function in the parent component to catch/store state changes _example onChange={this.handleChange}_
 
+
+## Getting Started
+
+Add simple-widgets to yor project
+
+```
+npm install simple-widgets --save
+```
+or
+```
+yarn add simple-widgets 
+```
+
+use like the following
+
 ```javascript
 
 import {CheckBox, Choice, Radio, makeChangeHandler} from 'simple-widgets'
@@ -42,6 +57,7 @@ class App extends Component {
 
     return (
       <div>
+        <label>Name:</label> <input name="name" value={this.state.name} onChange={this.handleChange} /> 
         <Choice choices={modes} name="ex2_mode" value={this.state.ex2_mode} onChange={this.handleChange} />
         <CheckBox value="Preview" name="preview" text="Preview" match={this.state.preview} onChange={this.handleChange} />
         <Radio value="1" name="year" match={this.state.year} onChange={this.handleChange} />Year 1
@@ -50,6 +66,16 @@ class App extends Component {
     )
   }
 }
+```
+
+A full working example is in the project's example directory
+```bash
+cd ~/projects/
+git clone https://github.com/martinjackson/simple-widgets.git
+cd simple-widgets
+npm install
+cd example
+./example.sh
 ```
 
 __**Report Components**__
