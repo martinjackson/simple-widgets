@@ -32,7 +32,7 @@ handle(e) {
   if (typeof e.preventDefault === 'function')
       e.preventDefault();
   e.target.name = this.props.name;
-  e.target.value = (this.props.match === this.props.value) ? '' : this.props.value;
+  e.target.value = (this.props.value === this.props.selectedValue) ? '' : this.props.selectedValue;
   this.props.onChange(e);
 }
 
@@ -43,7 +43,7 @@ render() {
      transparent.color = this.props.color;
    }
 
-  const isChecked = this.props.match === this.props.value;
+  const isChecked = this.props.value === this.props.selectedValue;
   const symbol = (isChecked) ? checked : unchecked;
   return <button id={this.props.id} type="button" onClick={this.handle} style={transparent}>{symbol}{this.props.text}</button>;
   }

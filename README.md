@@ -4,7 +4,7 @@ A Collection of components to make your React code simpler.
 
 [![Wallaby.js](https://img.shields.io/badge/wallaby.js-configured-green.svg)](https://wallabyjs.com)
 
-simple-widgets ![Test Coverage](https://img.shields.io/badge/Test_Coverage-94.23%25-brightgreen.svg)
+simple-widgets ![Test Coverage](https://img.shields.io/badge/Test_Coverage-94.34%25-brightgreen.svg)
 
 - CheckBox ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
 - Choice ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
@@ -23,9 +23,11 @@ This collection of inputs is built on top of those to give a simpler standard in
 All of these widgets require the following props:
 
 - name: A unique name for this field with corresponding name in the parent compoent's state _example name="subject"_
-- value: value of specific choice or content of text field. _example value={this.state.subject}_
+- value: where the input value come from  _example value={this.state.subject}_
 - onChange: function in the parent component to catch/store state changes _example onChange={this.handleChange}_
-
+- choices: and a array of Strings as pull down choices
+- selectedValue: want the 'value' should change to when the CheckBox or Radio button is selected
+- text: a label (String or component) displayed following the CheckBox or Radio button
 
 ## Getting Started
 
@@ -57,11 +59,11 @@ class App extends Component {
 
     return (
       <div>
-        <label>Name:</label> <input name="name" value={this.state.name} onChange={this.handleChange} /> 
-        <Choice choices={modes} name="ex2_mode" value={this.state.ex2_mode} onChange={this.handleChange} />
-        <CheckBox value="Preview" name="preview" text="Preview" match={this.state.preview} onChange={this.handleChange} />
-        <Radio value="1" name="year" match={this.state.year} onChange={this.handleChange} />Year 1
-        <Radio value="2" name="year" match={this.state.year} onChange={this.handleChange} />Year 2
+        <label>Name: </label><input                      name="name"     value={this.state.name}     onChange={this.handleChange} />
+        <Choice   choices={modes}                        name="ex2_mode" value={this.state.ex2_mode} onChange={this.handleChange} />
+        <CheckBox selectedValue="Preview" text="Preview" name="preview"  value={this.state.preview}  onChange={this.handleChange} />
+        <Radio    selectedValue="1"       text="Year 1"  name="year"     value={this.state.year}     onChange={this.handleChange} />
+        <Radio    selectedValue="2"       text="Year 2"  name="year"     value={this.state.year}     onChange={this.handleChange} />
       </div>
     )
   }

@@ -1,6 +1,8 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 
+const Frag = React.Fragment
+
 class Radio extends React.Component {
 
   constructor(props) {
@@ -10,14 +12,14 @@ class Radio extends React.Component {
   }
 
 handle(e) {
-  if (typeof e.preventDefault === 'function')
-      e.preventDefault();
-  e.target.name = this.props.name;
-  e.target.value = this.props.value;
-  this.props.onChange(e);
-}
-
-render(){
+    if (typeof e.preventDefault === 'function')
+        e.preventDefault();
+    e.target.name = this.props.name;
+    e.target.value = this.props.selectedValue;
+    this.props.onChange(e);
+  }
+  
+render() {
 
   /*
      this didn't work -- inital state matched the visible, after click
@@ -43,9 +45,9 @@ render(){
   */
 
   const st = {border: 'none', backgroundColor: 'white', borderRadius: '25px'};
-  const checked = this.props.match === this.props.value;
+  const checked = this.props.value === this.props.selectedValue;
   const symbol = (checked) ? String.fromCharCode(9899) : String.fromCharCode(9898);
-  return <button id={this.props.id} type="button" onClick={this.handle} style={st}>{symbol}</button>;
+  return <Frag><button id={this.props.id} type="button" onClick={this.handle} style={st}>{symbol}</button>{this.props.text}</Frag>;
   }
 }
 
