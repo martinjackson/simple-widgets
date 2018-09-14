@@ -4,12 +4,6 @@ import autoBind from 'react-autobind';    // Not needed by simple-widgets, but u
 
 import {CheckBox, Choice, Radio, makeChangeHandler} from '../src/index.js'    // 'simple-widgets';
 
-// someday
-// import simpleWidgets from 'simple-widgets'; 
-// currently wallaby doesn't know about npm link simple-widgets
-
-import simpleWidgets from '../src/index.js'
-
 
 class App extends Component {
 
