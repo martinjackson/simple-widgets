@@ -21030,13 +21030,15 @@ var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var defaultTransparent = {
+var defaultStyle = {
   backgroundColor: 'Transparent',
   backgroundRepeat: 'no-repeat',
   border: 'none',
@@ -21078,19 +21080,22 @@ var CheckBox = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _props = this.props,
+          selectedValue = _props.selectedValue,
+          text = _props.text,
+          color = _props.color,
+          style = _props.style,
+          rest = _objectWithoutProperties(_props, ['selectedValue', 'text', 'color', 'style']);
 
-      var transparent = _extends({}, defaultTransparent);
-      if (this.props.color) {
-        transparent.color = this.props.color;
-      }
-
-      var isChecked = this.props.value === this.props.selectedValue;
+      var isChecked = this.props.value === selectedValue;
       var symbol = isChecked ? checked : unchecked;
+
+      var st = _extends({}, defaultStyle, style, { color: color });
       return _react2.default.createElement(
         'button',
-        { id: this.props.id, type: 'button', onClick: this.handle, style: transparent },
+        _extends({ type: 'button', onClick: this.handle, style: st }, rest),
         symbol,
-        this.props.text
+        text
       );
     }
   }]);
@@ -21176,6 +21181,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -21188,11 +21195,27 @@ var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/*
+  9737   Sun
+  183     &middot;
+  ⚪	9898	26AA	 	MEDIUM WHITE CIRCLE
+  ⚫	9899	26AB	 	MEDIUM BLACK CIRCLE
+   U+26AA	⚪	e2 9a aa	MEDIUM WHITE CIRCLE
+  U+26AB	⚫	e2 9a ab	MEDIUM BLACK CIRCLE
+  U+1F534	🔴	f0 9f 94 b4	LARGE RED CIRCLE
+  U+1F535	🔵	f0 9f 94 b5	LARGE BLUE CIRCLE
+*/
+
+var checked = String.fromCharCode(9899);
+var unchecked = String.fromCharCode(9898);
 
 var Frag = _react2.default.Fragment;
 
@@ -21219,41 +21242,26 @@ var Radio = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _props = this.props,
+          selectedValue = _props.selectedValue,
+          text = _props.text,
+          style = _props.style,
+          rest = _objectWithoutProperties(_props, ['selectedValue', 'text', 'style']);
 
-      /*
-         this didn't work -- inital state matched the visible, after click
-         the selected radio button disapeared.
-         const val = {
-                checked: this.props.match === this.props.value,
-                value: this.props.value
-              };
-         console.log('Radio rendered: ', this.props.name, val.value, val.checked);
-      return <input type="radio" {...val} onChange={this.props.onChange} />;
-      */
+      var isChecked = this.props.value === selectedValue;
+      var symbol = isChecked ? checked : unchecked;
 
-      /*
-        9737   Sun
-        183     &middot;
-        ⚪	9898	26AA	 	MEDIUM WHITE CIRCLE
-        ⚫	9899	26AB	 	MEDIUM BLACK CIRCLE
-         U+26AA	⚪	e2 9a aa	MEDIUM WHITE CIRCLE
-        U+26AB	⚫	e2 9a ab	MEDIUM BLACK CIRCLE
-        U+1F534	🔴	f0 9f 94 b4	LARGE RED CIRCLE
-        U+1F535	🔵	f0 9f 94 b5	LARGE BLUE CIRCLE
-      */
-
-      var st = { border: 'none', backgroundColor: 'white', borderRadius: '25px' };
-      var checked = this.props.value === this.props.selectedValue;
-      var symbol = checked ? String.fromCharCode(9899) : String.fromCharCode(9898);
+      var defaultStyle = { border: 'none', backgroundColor: 'white', borderRadius: '25px' };
+      var st = _extends({}, defaultStyle, style);
       return _react2.default.createElement(
         Frag,
         null,
         _react2.default.createElement(
           'button',
-          { id: this.props.id, type: 'button', onClick: this.handle, style: st },
+          _extends({ type: 'button', onClick: this.handle, style: st }, rest),
           symbol
         ),
-        this.props.text
+        text
       );
     }
   }]);
@@ -21394,10 +21402,10 @@ var App = function (_Component) {
         _react2.default.createElement(_index.CheckBox, { id: 'cb1', selectedValue: 'Preview', text: 'Preview', name: 'preview', value: this.state.preview, onChange: this.handleChange }),
         _react2.default.createElement(_index.CheckBox, { id: 'cb2', selectedValue: 'Help', text: 'Help', name: 'preview', value: this.state.preview, onChange: this.handleChange }),
         _react2.default.createElement(_index.CheckBox, { id: 'cb3', selectedValue: 'Funny', text: 'Funny', name: 'funny', value: this.state.funny, onChange: this.handleChange, color: 'green' }),
-        _react2.default.createElement(_index.Radio, { id: 'rd1', selectedValue: '1', name: 'year', value: this.state.year, onChange: this.handleChange }),
-        'Year 1',
-        _react2.default.createElement(_index.Radio, { id: 'rd2', selectedValue: '2', name: 'year', value: this.state.year, onChange: this.handleChange }),
-        'Year 2',
+        _react2.default.createElement(_index.CheckBox, { id: 'cb4', selectedValue: 'NotFunny', text: 'NotFunny', name: 'funny', value: this.state.funny, onChange: this.handleChange, color: 'red', disabled: true }),
+        _react2.default.createElement(_index.Radio, { id: 'rd1', selectedValue: '1', name: 'year', text: 'Year 1', value: this.state.year, onChange: this.handleChange }),
+        _react2.default.createElement(_index.Radio, { id: 'rd2', selectedValue: '2', name: 'year', text: 'Year 2', value: this.state.year, onChange: this.handleChange }),
+        _react2.default.createElement(_index.Radio, { id: 'rd3', selectedValue: '3', name: 'year', text: 'Year 3', value: this.state.year, onChange: this.handleChange, disabled: true }),
         _react2.default.createElement('hr', null),
         'name: ',
         _react2.default.createElement(
@@ -21494,7 +21502,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63965' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53886' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
