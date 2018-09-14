@@ -8,7 +8,7 @@
     "build": "parcel build src/index.js ",
     "setup": "npm install",
     "example": "cd example && parcel ExampleApp.html",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
