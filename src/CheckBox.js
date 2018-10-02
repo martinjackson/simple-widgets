@@ -1,7 +1,7 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 
-const defaultTransparent = {
+const defaultStyle = {
   backgroundColor: 'Transparent',
   backgroundRepeat:'no-repeat',
   border: 'none',
@@ -37,15 +37,13 @@ handle(e) {
 }
 
 render() {
+  const {selectedValue, text, color, style, ...rest} = this.props
 
-  let transparent = {...defaultTransparent};
-  if (this.props.color) {
-     transparent.color = this.props.color;
-   }
+  const isChecked = this.props.value === selectedValue
+  const symbol = (isChecked) ? checked : unchecked
 
-  const isChecked = this.props.value === this.props.selectedValue;
-  const symbol = (isChecked) ? checked : unchecked;
-  return <button id={this.props.id} type="button" onClick={this.handle} style={transparent}>{symbol}{this.props.text}</button>;
+  let st = {...defaultStyle, ...style, color}
+  return <button type="button" onClick={this.handle} style={st} {...rest}>{symbol}{text}</button>
   }
 }
 

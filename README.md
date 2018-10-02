@@ -13,7 +13,6 @@ simple-widgets ![Test Coverage](https://img.shields.io/badge/Test_Coverage-94.34
   [see where](
   http://htmlpreview.github.com/?https://github.com/martinjackson/simple-widgets/blob/master/test/simple-widgets-coverage.html)
 
-
 __**Input Components**__
 
 CheckBox, Choice, Radio
@@ -33,12 +32,14 @@ All of these widgets require the following props:
 
 Add simple-widgets to yor project
 
-```
+```bash
 npm install simple-widgets --save
 ```
+
 or
-```
-yarn add simple-widgets 
+
+```bash
+yarn add simple-widgets
 ```
 
 use like the following
@@ -64,6 +65,7 @@ class App extends Component {
         <CheckBox selectedValue="Preview" text="Preview" name="preview"  value={this.state.preview}  onChange={this.handleChange} />
         <Radio    selectedValue="1"       text="Year 1"  name="year"     value={this.state.year}     onChange={this.handleChange} />
         <Radio    selectedValue="2"       text="Year 2"  name="year"     value={this.state.year}     onChange={this.handleChange} />
+        <Radio    selectedValue="3"       text="Year 3"  name="year"     value={this.state.year}     onChange={this.handleChange} disabled />
       </div>
     )
   }
@@ -71,6 +73,7 @@ class App extends Component {
 ```
 
 A full working example is in the project's example directory
+
 ```bash
 cd ~/projects/
 git clone https://github.com/martinjackson/simple-widgets.git
@@ -87,6 +90,7 @@ pdf-writer (still in development, not part of npm package yet)
     TODO: pdf-writer requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/martinjackson/simple-widgets/issues)
+
 <table>
 <tbody>
 <tr>
