@@ -4,8 +4,10 @@ src/*
 test/*
 node_modules/*
 .babelrc
+.eslintrc
 .gitignore
 package-log.json
 *.tgz
 .cache/*
 wallaby.js
+webpack.config.js

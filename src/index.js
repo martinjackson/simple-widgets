@@ -2,6 +2,7 @@
 import CheckBox from './CheckBox'
 import Choice from './Choice'
 import Radio  from './Radio'
+import DatePicker  from './DatePicker'
 import { makeChangeHandler } from './makeChangeHandler'
 
-module.exports = {CheckBox, Choice, Radio, makeChangeHandler}
+export default {CheckBox, Choice, Radio, DatePicker, makeChangeHandler}
