@@ -8,6 +8,16 @@
 <body>
     <div id="app"></div>
 
-<script src="/ExampleApp.2d4368d4.js"></script>
+<script src="/ExampleApp.60bfaaf2.js"></script>
+
+<script>// show all global leakage
+(function () {
+  var keys = Object.keys(window);
+
+  for (var i in keys) {
+    if (typeof window[keys[i]] != 'function') console.log(keys[i], window[keys[i]]);
+  }
+})();</script>
+
 </body>
 </html>
