@@ -1,5 +1,4 @@
 # Build Systems #
-.fusebox
 .cache
 node_modules
 bin
@@ -22,3 +21,5 @@ package-lock.json
 .Spotlight-V100
 .Trashes
 Thumbs.db
+lib/index.js.map
+example/dist/*
