@@ -72,15 +72,14 @@ class App extends Component {
 }
 ```
 
-A full working example is in the project's example directory
+A full working example can be found in a sister github repo 
 
 ```bash
 cd ~/projects/
-git clone https://github.com/martinjackson/simple-widgets.git
-cd simple-widgets
+git clone https://github.com/martinjackson/simple-widgets-sample.git
+cd simple-widgets-sample
 npm install
-cd example
-./example.sh
+npm start
 ```
 
 __**Report Components**__

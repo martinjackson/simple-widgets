@@ -13,9 +13,8 @@ import autoBind from 'react-autobind';
     U+1F535	🔵	f0 9f 94 b5	LARGE BLUE CIRCLE
   */
  
- const checked = String.fromCharCode(9899) 
- const unchecked = String.fromCharCode(9898) 
-
+const checked = String.fromCharCode(9899) 
+const unchecked = String.fromCharCode(9898) 
 
 const Frag = React.Fragment
 
@@ -36,15 +35,23 @@ handle(e) {
   }
    
 render() {
-  const {selectedValue, text, style, ...rest} = this.props
+  const {selectedValue, text, style, children, ...rest} = this.props
 
   const isChecked = this.props.value === selectedValue;
   const symbol = (isChecked) ? checked : unchecked;
 
   const defaultStyle = {border: 'none', backgroundColor: 'white', borderRadius: '25px'};
   const st = {...defaultStyle, ...style}
-  return <Frag><button type="button" onClick={this.handle} style={st} {...rest}>{symbol}</button>{text}</Frag>;
+  return <Frag>
+           <button type="button" onClick={this.handle} style={st} {...rest}>
+             {symbol}
+             {text}
+             {children}
+           </button>
+         </Frag>;
   }
 }
+
+// 2018-10-10 {text} {children} moved to inside button clickable area
 
 export default Radio

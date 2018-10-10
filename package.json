@@ -1,14 +1,16 @@
 {
   "name": "simple-widgets",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Collection of React components to make your React code simpler",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Add Wallaby Extension to VS Code and run there\" && exit 1",
-    "build": "parcel build src/index.js --no-minify --out-dir ./lib",
+    "example": "echo \"See simple-widget-sample\" ",
     "setup": "npm install",
-    "example": "cd example && parcel ExampleApp.html",
-    "prepare": "npm run build"
+    "build-dev": "webpack --mode development --progress && npm run finish",
+    "build-prod": "webpack -p --mode production  --progress",
+    "finish": "cd lib && cp index.js.map index.map",
+    "prepare": "npm run build-prod"
   },
   "repository": {
     "type": "git",
@@ -29,24 +31,35 @@
   },
   "homepage": "https://github.com/martinjackson/simple-widgets#readme",
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "parcel-bundler": "^1.9.7",
-    "wallaby-webpack": "^3.9.11",
-    "webpack": "^4.17.2"
-  },
-  "dependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.1.0",
-    "@types/react": "^16.4.13",
+    "@types/react": "^16.4.16",
+    "@types/react-dom": "^16.0.9",
     "babel-loader": "^8.0.4",
-    "react": "^16.4.2",
+    "file-loader": "^2.0.0",
+    "json-loader": "^0.5.7",
+    "progress-bar-webpack-plugin": "^1.11.0",
+    "react": ">=16.0.1",
+    "react-dom": ">=16.0.1",
+    "style-loader": "^0.23.1",
+    "wallaby-webpack": "^3.9.11",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "peerDependencies": {
+    "@types/react": ">=16.0.1",
+    "react": ">=16.0.1",
+    "react-dom": ">=16.0.1"
+  },
+  "dependencies": {
     "react-autobind": "^1.0.6",
-    "react-dom": "^16.4.2"
+    "date-fns": "^1.29.0",
+    "react-day-picker": "^7.2.4"
   }
 }
