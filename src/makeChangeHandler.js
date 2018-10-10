@@ -1,6 +1,6 @@
 
 
-export function makeChangeHandler(yourComponent) {
+export default function (yourComponent) {
   // console.log('changeHandler generated.');
   
   return (e) => {
