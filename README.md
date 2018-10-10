@@ -72,7 +72,7 @@ class App extends Component {
 }
 ```
 
-A full working example can be found in a sister github repo 
+A full working example can be found in a sister github repo
 
 ```bash
 cd ~/projects/
