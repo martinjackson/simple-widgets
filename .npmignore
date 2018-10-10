@@ -1,11 +1,10 @@
 docs/*
-example/*
 src/*
 test/*
 node_modules/*
-.babelrc
 .gitignore
 package-log.json
 *.tgz
 .cache/*
 wallaby.js
+webpack.config.js

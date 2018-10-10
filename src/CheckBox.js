@@ -37,13 +37,17 @@ handle(e) {
 }
 
 render() {
-  const {selectedValue, text, color, style, ...rest} = this.props
+  const {selectedValue, text, color, style, children, ...rest} = this.props
 
   const isChecked = this.props.value === selectedValue
   const symbol = (isChecked) ? checked : unchecked
 
   let st = {...defaultStyle, ...style, color}
-  return <button type="button" onClick={this.handle} style={st} {...rest}>{symbol}{text}</button>
+  return <button type="button" onClick={this.handle} style={st} {...rest}>
+         {symbol}
+         {text}
+         {children}
+         </button>
   }
 }
 
