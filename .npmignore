@@ -8,3 +8,4 @@ package-log.json
 .cache/*
 wallaby.js
 webpack.config.js
+lib/index.js.map
