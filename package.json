@@ -58,8 +58,9 @@
     "react-dom": ">=16.0.1"
   },
   "dependencies": {
-    "react-autobind": "^1.0.6",
     "date-fns": "^1.29.0",
+    "ramda": "^0.25.0",
+    "react-autobind": "^1.0.6",
     "react-day-picker": "^7.2.4"
   }
 }
