@@ -36,40 +36,11 @@ Add simple-widgets to yor project
 npm install simple-widgets --save
 ```
 
-or
 
-```bash
-yarn add simple-widgets
-```
-
-use like the following
+include in your React components
 
 ```javascript
-
 import {CheckBox, Choice, Radio, makeChangeHandler} from 'simple-widgets'
-
-class App extends Component {
-
-  constructor(props) {
-        super(props)
-        this.handleChange = makeChangeHandler(this)
-    }
-
-  render() {
-    const modes = ["java", "javascript", "jsx", "markdown", "bash"]
-
-    return (
-      <div>
-        <label>Name: </label><input                      name="name"     value={this.state.name}     onChange={this.handleChange} />
-        <Choice   choices={modes}                        name="ex2_mode" value={this.state.ex2_mode} onChange={this.handleChange} />
-        <CheckBox selectedValue="Preview" text="Preview" name="preview"  value={this.state.preview}  onChange={this.handleChange} />
-        <Radio    selectedValue="1"       text="Year 1"  name="year"     value={this.state.year}     onChange={this.handleChange} />
-        <Radio    selectedValue="2"       text="Year 2"  name="year"     value={this.state.year}     onChange={this.handleChange} />
-        <Radio    selectedValue="3"       text="Year 3"  name="year"     value={this.state.year}     onChange={this.handleChange} disabled />
-      </div>
-    )
-  }
-}
 ```
 
 A full working example can be found in a sister github repo
@@ -82,11 +53,10 @@ npm install
 npm start
 ```
 
-__**Report Components**__
+## Notes about source code build
+- wallaby.js needs .babelrc for code coverage testing
+- webpack uses babel config in webpack.config.js babel-loader section
 
-pdf-writer (still in development, not part of npm package yet)
-
-    TODO: pdf-writer requires `<script src="jspdf.min.js"></script>` or `<script src="jspdf.debug.js"></script>`_
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/martinjackson/simple-widgets/issues)
 

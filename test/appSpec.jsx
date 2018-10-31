@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import App from './App.js'
+import App from '../src/App'
 
 function findReactById(tree, id) {
   return TestUtils.findAllInRenderedTree(tree, function(inst) {
@@ -19,7 +19,7 @@ describe('App', function () {
 
   it('should not be undefined', function () {
       var tree = TestUtils.renderIntoDocument(<App />);
-      var element = TestUtils.findRenderedDOMComponentWithTag(tree, 'div');
+      var element = findDomById(tree, 'AppDiv')
       expect(element).toBeTruthy();
   });
   
