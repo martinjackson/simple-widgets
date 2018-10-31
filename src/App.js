@@ -29,7 +29,7 @@ class App extends Component {
   render() {
 
     return (
-      <div>
+      <div id="AppDiv">
         <h1>A title</h1>
 
         <label>Name:</label> <input name="name" value={this.state.name} onChange={this.handleChange} /> <br/>

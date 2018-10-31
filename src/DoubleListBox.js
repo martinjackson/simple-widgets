@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import autoBind from 'react-autobind';
 
-import R from 'ramda'
+const R = require('ramda')
+
 import { SelectionPanel, SelectionPanel2 } from './SelectionPanels'
 import { SelectableListItem, SelectedListItem } from './ListItems'
 import {
