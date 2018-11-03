@@ -26,7 +26,6 @@ function formatDate(date, format, locale) {
   return dateFnsFormat(date, format, { locale });
 }
 
-
 export default class DatePicker extends React.Component {
 
   /*****************************************************************************

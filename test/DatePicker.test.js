@@ -14,7 +14,7 @@ class DPTest extends React.Component {
   }
 
   render() {
-    return <DatePicker name="doi" value={this.state.doi} onChange={this.handleChange} format='YYYY-MM-DD'/>
+    return <DatePicker name="doi" value={this.state.doi} onChange={this.handleChange} format={this.props.format} />
   }
 }
 
@@ -29,6 +29,32 @@ it('doesnt crash on partial input', () => {
   wrapper.find('input').simulate('change', {
     target: { value: '2015-05' }
   })
+})
+
+it('result of partial input', () => {
+  const props = {
+    value: '2001-11-17',
+    format: 'YYYY-MM-DD'
+  }
+  const wrapper = mount(<DPTest {...props} />)
+  wrapper.find('input').simulate('change', {
+    target: { value: '2015-05' }
+  })
+  
+  expect(wrapper.state('doi')).toEqual('2015-05-01')
+})
+
+it('result of no-date input', () => {
+  const props = {
+    value: '2001-11-17',
+    format: 'YYYY-MM-DD'
+  }
+  const wrapper = mount(<DPTest {...props} />)
+  wrapper.find('input').simulate('change', {
+    target: { value: 'blah' }
+  })
+  
+  expect(wrapper.state('doi')).toEqual('Invalid Date')
 })
 
 it('doesnt crash on full input', () => {
@@ -50,6 +76,15 @@ it('default value', () => {
   const props = {
           value: '2015-05-17'
       },
+      comp = mount(<DPTest {...props} />);
+  expect((comp).prop('value')).toEqual('2015-05-17');
+});
+
+it('default value with format', () => {  
+  const props = {
+          value: '2015-05-17',
+          format: 'YYYY-MM-DD'
+      }
       comp = mount(<DPTest {...props} />);
   expect((comp).prop('value')).toEqual('2015-05-17');
 });

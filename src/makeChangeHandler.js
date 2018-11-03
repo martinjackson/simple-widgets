@@ -1,9 +1,9 @@
 
-
 export default function (yourComponent) {
   // console.log('changeHandler generated.');
   
   return (e) => {
+
     if (typeof e === 'string')
        return;   // passed in by Radio, can be ignored, next event has target.name
 
