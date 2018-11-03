@@ -10,13 +10,18 @@ module.exports = function (wallaby) {
   });
 
   return {
-    files: [
-      {pattern: 'example/App.js', load: false},
-      {pattern: 'src/**/*.js*', load: false}
+
+    // set `load: false` to all source files and tests processed by webpack (except external files),
+    // as they should not be loaded in browser, their wrapped versions will be loaded instead
+
+    files: [ 
+      {pattern: 'src/**/*.js', load: false},
+      {pattern: 'test/**/*.js', load: false},
+      "!test/**/*.test.js",
     ],
 
-    tests: [
-      {pattern: 'test/**/*Spec.js*', load: false}
+    tests: [ 
+      {pattern: 'test/**/*.test.js', load: false}
     ],
 
     compilers: {
