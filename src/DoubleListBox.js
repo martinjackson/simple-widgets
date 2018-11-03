@@ -158,6 +158,8 @@ class DoubleListBox extends Component {
 
     const { leftOptions, rightOptions, leftSearchTerm, rightSearchTerm } = this.state;
 
+    console.log(leftOptions);
+
     return (
       <div className="ms-container" id="ms-pre-selected-options" style={bgStyle}>
         <div className="ms-selectable" style={bgStyle}>
