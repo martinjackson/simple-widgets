@@ -10,7 +10,8 @@
     "build-dev": "webpack --mode development --progress && npm run finish",
     "build-prod": "webpack -p --mode production  --progress",
     "finish": "cd lib && cp index.js.map index.map",
-    "prepare": "npm run build-prod"
+    "n-prepublishOnly": "git commit -am 'version $version' && npm run build-prod",
+    "n-postpublish": "git push"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,7 @@
     "progress-bar-webpack-plugin": "^1.11.0",
     "react": ">=16.0.1",
     "react-dom": ">=16.0.1",
+    "release-it": "^7.6.2",
     "style-loader": "^0.23.1",
     "wallaby-webpack": "^3.9.11",
     "webpack": "^4.20.2",
