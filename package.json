@@ -7,11 +7,11 @@
     "test": "echo \"Add Wallaby Extension to VS Code and run there\" && exit 1",
     "example": "echo \"See simple-widget-sample\" ",
     "setup": "npm install",
-    "build-dev": "webpack --mode development --progress && npm run finish",
+    "build-dev": "webpack --mode development --progress && npm run dev-finish",
     "build-prod": "webpack -p --mode production  --progress",
-    "finish": "cd lib && cp index.js.map index.map",
-    "n-prepublishOnly": "git commit -am 'version $version' && npm run build-prod",
-    "n-postpublish": "git push"
+    "dev-finish": "cd lib && cp index.js.map index.map",
+    "dry": "npm run build-prod && release-it --dry-run",
+    "pub": "npm run build-prod && release-it"
   },
   "repository": {
     "type": "git",
