@@ -63,6 +63,7 @@
     "date-fns": "^1.29.0",
     "ramda": "^0.25.0",
     "react-autobind": "^1.0.6",
-    "react-day-picker": "^7.2.4"
+    "react-day-picker": "^7.2.4",
+    "styled-components": "^4.0.3"
   }
 }
