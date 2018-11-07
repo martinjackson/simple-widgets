@@ -8,7 +8,7 @@
     "example": "echo \"See simple-widget-sample\" ",
     "setup": "npm install",
     "build-dev": "webpack --mode development --progress && npm run dev-finish",
-    "build-prod": "webpack -p --mode production  --progress && git commit -am 'staged for production'",
+    "build-prod": "npx webpack -p --mode production  --progress && git commit -am 'staged for production'",
     "dev-finish": "cd lib && cp index.js.map index.map",
     "dry": "npm run build-prod && release-it --dry-run",
     "pub": "npm run build-prod && release-it"
