@@ -1,0 +1,6 @@
+{
+ "src": {
+     "commit": true
+ }, 
+"requireCleanWorkingDir": false
+}
