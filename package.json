@@ -5,14 +5,15 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Add Wallaby Extension to VS Code and run there\" && exit 1",
-    "example": "echo \"See simple-widget-sample\" ",
+    "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
     "setup": "npm install",
-    "dev-build": "webpack --mode development --progress && npm run dev-finish",
-    "dev-finish": "cd lib && cp index.js.map index.map",
-    "prod-build": "webpack -p --mode production  --progress",
-    "prod-finish": "git commit --all -m staged-for-production",
-    "dry": "npm run prod-build && npm run prod-finish && release-it --dry-run",
-    "pub": "npm run prod-build && release-it"
+    "dev": "webpack --mode development --progress && maps",
+    "maps": "cd lib && cp index.js.map index.map",
+    "pack": "webpack -p --mode production  --progress",
+    "stage": "git commit --all -m staged-for-production",
+    "dry-run": "release-it --dry-run",
+    "dry": "run-s pack stage dry-run",
+    "pub": "run-s pack stage release-it"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,7 @@
     "enzyme-adapter-react-16": "^1.6.0",
     "file-loader": "^2.0.0",
     "json-loader": "^0.5.7",
+    "npm-run-all": "^4.1.3",
     "progress-bar-webpack-plugin": "^1.11.0",
     "react": ">=16.0.1",
     "react-dom": ">=16.0.1",
