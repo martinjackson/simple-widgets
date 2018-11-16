@@ -1,219 +1,184 @@
+import React, { Component } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import autoBind from 'react-autobind';
+// fake data generator
+const getItems = (count, offset = 0) =>
+    Array.from({ length: count }, (v, k) => k).map(k => ({
+        id: `item-${k + offset}`,
+        content: `item ${k + offset}`
+    }));
 
-const R = require('ramda')
+// a little function to help us with reordering the result
+const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
 
-import { SelectionPanel, SelectionPanel2 } from './SelectionPanels'
-import { SelectableListItem, SelectedListItem } from './ListItems'
-import {
-  updateValueInCollection,
-  removeValueInCollection,
-  moveLeftToRight,
-  moveRightToLeft,
-  moveVertically
-} from './utils'
+    return result;
+};
 
+/**
+ * Moves an item from one list to another list.
+ */
+const move = (source, destination, droppableSource, droppableDestination) => {
+    const sourceClone = Array.from(source);
+    const destClone = Array.from(destination);
+    const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+    destClone.splice(droppableDestination.index, 0, removed);
+
+    const result = {};
+    result[droppableSource.droppableId] = sourceClone;
+    result[droppableDestination.droppableId] = destClone;
+
+    return result;
+};
+
+const grid = 8;
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+    // some basic styles to make the items look a bit nicer
+    userSelect: 'none',
+    padding: grid * 2,
+    margin: `0 0 ${grid}px 0`,
+
+    // change background colour if dragging
+    background: isDragging ? 'lightgreen' : 'grey',
+
+    // styles we need to apply on draggables
+    ...draggableStyle
+});
+
+const getListStyle = isDraggingOver => ({
+    background: isDraggingOver ? 'lightblue' : 'lightgrey',
+    padding: grid,
+    width: 250
+});
 
 class DoubleListBox extends Component {
+    state = {
+        items: getItems(10),
+        selected: getItems(5, 10)
+    };
 
-  constructor(props) {
-      super(props);
-      autoBind(this);
-      
-      this.state = {
-        leftOptions: this.props.options.map(
-          (option) => {
-            if (R.contains(option.value, this.props.selected)) {
-              return R.set(R.lensProp('hidden'), true, option)
+    /**
+     * A semi-generic way to handle multiple lists. Matches
+     * the IDs of the droppable container to the names of the
+     * source arrays stored in the state.
+     */
+    id2List = {
+        droppable: 'items',
+        droppable2: 'selected'
+    };
+
+    allSelect = () => {
+        console.log('allSelect() called');   
+        // TODO move all the items to selected
+    }
+
+    getList = id => this.state[this.id2List[id]];
+
+    onDragEnd = result => {
+        const { source, destination } = result;
+
+        // dropped outside the list
+        if (!destination) {
+            return;
+        }
+
+        if (source.droppableId === destination.droppableId) {
+            const items = reorder(
+                this.getList(source.droppableId),
+                source.index,
+                destination.index
+            );
+
+            let state = { items };
+
+            if (source.droppableId === 'droppable2') {
+                state = { selected: items };
             }
-            return option
-          }
-        ),
-        rightOptions: this.props.options.filter(
-          option => R.contains(option.value, this.props.selected)
-        ),
-        leftSearchTerm: '',
-        rightSearchTerm: ''
-      }
 
-  }
+            this.setState(state);
+        } else {
+            const result = move(
+                this.getList(source.droppableId),
+                this.getList(destination.droppableId),
+                source,
+                destination
+            );
 
-  componentWillReceiveProps(nextProps) {
-    const { options, selected } = nextProps;
-    if (R.isEmpty(this.state.leftOptions) && R.isEmpty(this.state.rightOptions)) {
-      this.setState({
-        leftOptions: options.map(
-          (option) => {
-            if (R.contains(option.value, this.props.selected)) {
-              return R.set(R.lensProp('hidden'), true, option)
-            }
-            return option
-          }
-        ),
-        rightOptions: options.filter(
-          option => R.contains(option.value, selected)
-        )
-      })
+            this.setState({
+                items: result.droppable,
+                selected: result.droppable2
+            });
+        }
+    };
+
+    // Normally you would want to split things out into separate components.
+    // But in this example everything is just done in one place for simplicity
+    render() {
+        return (
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <Droppable droppableId="droppable">
+                    {(provided, snapshot) => (
+                        <div
+                            ref={provided.innerRef}
+                            style={getListStyle(snapshot.isDraggingOver)}>
+                            {this.state.items.map((item, index) => (
+                                <Draggable
+                                    key={item.id}
+                                    draggableId={item.id}
+                                    index={index}>
+                                    {(provided, snapshot) => (
+                                        <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            style={getItemStyle(
+                                                snapshot.isDragging,
+                                                provided.draggableProps.style
+                                            )}>
+                                            {item.content}
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+                <Droppable droppableId="droppable2">
+                    {(provided, snapshot) => (
+                        <div
+                            ref={provided.innerRef}
+                            style={getListStyle(snapshot.isDraggingOver)}>
+                            {this.state.selected.map((item, index) => (
+                                <Draggable
+                                    key={item.id}
+                                    draggableId={item.id}
+                                    index={index}>
+                                    {(provided, snapshot) => (
+                                        <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            style={getItemStyle(
+                                                snapshot.isDragging,
+                                                provided.draggableProps.style
+                                            )}>
+                                            {item.content}
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        );
     }
-  }
-
-  allSelect() {
-    let leftOptions = this.state.leftOptions;
-    for (let i = 0; i < leftOptions.length; i++) {
-      leftOptions[i].isSelected = true;
-    }
-
-    this.setState ((prevState) => ({leftOptions: leftOptions}));
-
-    this.moveRight();
-  }
-
-  onLeftSelect(obj) {
-    this.handleSelectedItem(obj, 'leftOptions')
-  }
-
-  onRightSelect(obj) {
-    this.handleSelectedItem(obj, 'rightOptions')
-  }
-
-  handleChange(rightOptions)  {
-    const { onChange } = this.props
-    if (onChange) {
-      let selectedValues = R.map(R.prop('value'), rightOptions)
-      onChange(selectedValues)
-    }
-  }
-
-  handleSelectedItem(obj, stateLabel) {
-    const newState = {};
-    const value = R.keys(obj)[0];
-    if (obj[value]) {
-      newState[stateLabel] = removeValueInCollection(+value, this.state[stateLabel])
-    } else {
-      newState[stateLabel] = updateValueInCollection(+value, this.state[stateLabel])
-    }
-    this.setState(newState)
-  }
-
-  moveRight() {
-    const newState = moveLeftToRight(this.state)
-    this.setState(newState)
-    this.handleChange(newState.rightOptions)
-  }
-
-  moveLeft() {
-    const newState = moveRightToLeft(this.state)
-    this.setState(newState)
-    this.handleChange(newState.rightOptions)
-  }
-
-  moveVertically(isDirectionUpward) {
-    const newRightOptions = moveVertically(isDirectionUpward, this.state)
-    this.setState({ rightOptions: newRightOptions })
-    this.handleChange(newRightOptions)
-  }
-
-  moveUp() {
-    this.moveVertically(true)
-  }
-
-  moveDown() {
-    this.moveVertically(false)
-  }
-
-  moveTop() {
-    this.setState({ rightOptions: R.concat(
-        R.filter(R.propEq('isSelected', true), this.state.rightOptions),
-        R.filter(R.propEq('isSelected', undefined), this.state.rightOptions)
-      )
-    })
-  }
-
-  moveBottom() {
-    this.setState({ rightOptions: R.concat(
-        R.filter(R.propEq('isSelected', undefined), this.state.rightOptions),
-        R.filter(R.propEq('isSelected', true), this.state.rightOptions)
-      )
-    })
-  }
-
-  leftChange(event) {
-    this.setState({ leftSearchTerm: event.target.value })
-  }
-
-  rightChange(event) {
-    this.setState({ rightSearchTerm: event.target.value })
-  }
-
-  onKeyDown() {
-
-  }
-
-  render() {
-    const bgStyle = {
-      backgroundColor: null   // Common.getColumnSelectColor(),
-    }
-
-    const { leftOptions, rightOptions, leftSearchTerm, rightSearchTerm } = this.state;
-
-    console.log(leftOptions);
-
-    return (
-      <div className="ms-container" id="ms-pre-selected-options" style={bgStyle}>
-        <div className="ms-selectable" style={bgStyle}>
-          <input type="text" className="search-input" onChange={this.leftChange} autoComplete="off" placeholder="Search" style={bgStyle} />
-          <ul className="ms-list" tabIndex="-1" onKeyDown={this.onKeyDown} >
-            {leftOptions
-              .filter(lo => !lo.hidden === true)
-              .filter(lo => lo.label.toLowerCase().indexOf(leftSearchTerm.toLowerCase()) !== -1)
-              .map(
-                o => <SelectableListItem
-                  key={o.value}
-                  value={o.value}
-                  label={o.label}
-                  onSelect={this.onLeftSelect}
-                  isSelected={o.isSelected}
-                />
-              )}
-          </ul>
-        </div>
-        <SelectionPanel moveRight={this.moveRight} moveLeft={this.moveLeft} allSelect={this.allSelect} options={this.props.options} />
-        <SelectionPanel2
-          moveTop={this.moveTop} moveBottom={this.moveBottom}
-          moveUp={this.moveUp} moveDown={this.moveDown}
-        />
-        <div className="ms-selection" style={bgStyle}>
-          <input type="text" className="search-input" onChange={this.rightChange} autoComplete="off" placeholder="Search" style={bgStyle}/>
-          <ul className="ms-list" tabIndex="-1">
-            {rightOptions
-              .filter(ro => ro.label.toLowerCase().indexOf(rightSearchTerm.toLowerCase()) !== -1)
-              .map(
-                o => <SelectedListItem
-                  key={o.value}
-                  value={o.value}
-                  label={o.label}
-                  onSelect={this.onRightSelect}
-                  isSelected={o.isSelected}
-                />
-            )}
-          </ul>
-        </div>
-      </div>
-    )
-  }
 }
-
-
-DoubleListBox.defaultProps = {
-    selected: []
-  }
-
-DoubleListBox.propTypes = {
-    options: PropTypes.array,
-    selected: PropTypes.array,
-    onChange: PropTypes.func
-  }
 
 export default DoubleListBox

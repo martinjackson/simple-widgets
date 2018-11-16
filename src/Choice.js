@@ -1,15 +1,9 @@
 
 import React from 'react';
 
-// TODO currently only accepts property choices as ['one','two'], later accept [{label:'One', value:1},{label:'Two', value:2}, ]
+// currently only accepts property choices as ['one','two']
 
 class Choice extends React.Component {
-
-/*
-  constructor(props) {
-    super(props);
-  }
-*/
 
   render() {
     var props = {...this.props};
