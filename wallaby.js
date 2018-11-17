@@ -18,6 +18,7 @@ module.exports = function (wallaby) {
       {pattern: 'src/**/*.js', load: false},
       {pattern: 'test/**/*.js', load: false},
       "!test/**/*.test.js",
+      "!src/PrevDoubleListBox/**/*.js",
     ],
 
     tests: [ 
