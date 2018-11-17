@@ -2,13 +2,13 @@ import React from 'react';
 import Enzyme, { mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import DoubleListBox from '../src/DoubleListBox';
+import DoubleListBox from '../src/DoubleListBox/DoubleListBox';
 import makeChangeHandler from '../src/makeChangeHandler'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-const list = ['apple', 'bannana', 'blackberry', 'blueberry', 'peach', 'strawberry', ]
-const preSelected = list.filter( item => item.startsWith('b') )
+const fullList = ['apple', 'bannana', 'blackberry', 'blueberry', 'peach', 'strawberry', ]
+const preSelected = fullList.filter( item => item.startsWith('b') )
 
 class DLBTest extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class DLBTest extends React.Component {
   }
 
   render() {
-    return <DoubleListBox choices={list} name="fruitChoice" value={this.state.fruitChoice} onChange={this.handleChange} />
+    return <DoubleListBox choices={fullList} name="fruitChoice" value={this.state.fruitChoice} onChange={this.handleChange} />
   }
 
 }
@@ -52,6 +52,6 @@ it('select all', () => {
   const ans = wrapper.state('fruitChoice')
   console.log('ans:', ans);
   
-  expect(ans).toEqual(preSelected)
+  expect(ans).toEqual(fullList)
 });
     
