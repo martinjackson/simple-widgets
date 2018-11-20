@@ -1,20 +1,22 @@
 // @flow
 import type { Task, Id, Column, Entities, TaskMap } from './types';
 
-export default (possible: String[], selected: String[]): Entities => {
+export default (possible: string[], selected: string[]): Entities => {
+
+console.log('possible:', possible, 'selected:', selected );
 
 if (!possible) {
-   console.log('Warning Possible[] is empty');
+   // console.log('Warning Possible[] list is undefined');
    possible = []
 }
 
-if (!selected) {
-   console.log('Warning Selected[] is empty');
+if (!selected) { 
+   // console.log('Warning Selected[] list is undefined');
    selected = []
 }
 
 const tasks: Task[] = possible.map(
-  (val: String, k: number): Task => ({
+  (val: string, k: number): Task => ({
     id: `task-${k}`,
     content: val,
   }),
@@ -28,7 +30,7 @@ const taskMap: TaskMap = tasks.reduce(
   {},
 );
 
-const isSelected = (content: String):Boolean => {
+const isSelected = (content: string):boolean => {
   return selected.indexOf(content) >= 0
 }
 
