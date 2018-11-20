@@ -33,11 +33,13 @@ const getTasks = (entities: Entities, columnId: Id): Task[] =>
     (taskId: Id): Task => entities.tasks[taskId],
   );
 
+type FlowProps = {choices: string[], value: string[]}
+
 export default class DoubleListBox extends Component<*, State> {
 
   state: State
 
-  constructor(props) {
+  constructor(props: FlowProps) {
     super(props);
 
     this.state = {
@@ -49,9 +51,34 @@ export default class DoubleListBox extends Component<*, State> {
     autoBind(this);
   }
 
+  notifyOfChange() {
+    if (this.props.onChange) {
+      console.log('notifyOfChange:', this.state);
+      
+      console.log('col:', this.state.entities.columns);
+      
+      const ids: Id[] = this.state.entities.columns.selected.taskIds
+
+      const answer = ids.map(id => this.state.entities.tasks[id].content)
+
+      const e = {}
+      e.target = {}
+      e.target.name = this.props.name
+      e.target.value = answer
+      console.log('answer:', answer);
+      
+      this.props.onChange(e);         
+    }    
+
+  }
+
   allSelect() {
-    // TODO 
-    console.log('allSelect() not completed');    
+    const choices = this.props.choices
+    this.setState({
+      entities: buildEntities(choices, choices),
+      selectedTaskIds: [],
+      draggingTaskId: null
+    }, this.notifyOfChange)
   }
 
   componentDidMount() {
@@ -100,11 +127,7 @@ export default class DoubleListBox extends Component<*, State> {
       destination,
     });
 
-    this.setState({
-      ...processed,
-      draggingTaskId: null,
-    });
-    // TODO have setState callback send info to this.props.onChange 
+    this.setState({...processed, draggingTaskId: null, }, this.notifyOfChange);    
   };
 
   onWindowKeyDown = (event: KeyboardEvent) => {
@@ -153,9 +176,7 @@ export default class DoubleListBox extends Component<*, State> {
       return [];
     })();
 
-    this.setState({
-      selectedTaskIds: newTaskIds,
-    });
+    this.setState({ selectedTaskIds: newTaskIds, });
   };
 
   toggleSelectionInGroup = (taskId: Id) => {

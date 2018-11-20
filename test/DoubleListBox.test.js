@@ -26,8 +26,12 @@ class DLBTest extends React.Component {
 }
 
 
-it('renders without crashing', () => {
+it('shallow render without crashing', () => {
     const wrapper = shallow(<DLBTest />)
+});
+
+it('mounted without crashing', () => {
+  const wrapper = mount(<DLBTest />)
 });
 
 it('renders with preselection', () => {    
@@ -43,15 +47,10 @@ it('gets selected values', () => {
 });
 
 it('select all', () => {      
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
-  
-  const innerWrapper = wrapper.find(DoubleListBox)
-  const comp = innerWrapper.instance()
-  
+  const wrapper = mount(<DLBTest preselected={preSelected} />)  
+  const comp = wrapper.find(DoubleListBox).instance()  
   comp.allSelect();
   const ans = wrapper.state('fruitChoice')
-  console.log('ans:', ans);
   
   expect(ans).toEqual(fullList)
 });
-    

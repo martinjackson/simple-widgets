@@ -1,5 +1,8 @@
 [ignore]
-./node_modules/
+.*/src/PrevDoubleListBox/.*
+.*/node_modules/@emotion/.*
+.*/node_modules/create-emotion/.*
+.*/node_modules/babel-plugin-emotion/.*
 
 [include]
 ./src/
