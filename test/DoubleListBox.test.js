@@ -54,3 +54,18 @@ it('select all', () => {
   
   expect(ans).toEqual(fullList)
 });
+
+it('simulate keyboard driven drag-n-drop', () => {      
+  const wrapper = mount(<DLBTest preselected={preSelected} />)  
+  const wrap = wrapper.find(DoubleListBox)
+  wrap.simulate('keypress', {key: 'Tab'})
+  wrap.simulate('keypress', {key: 'space'})
+  wrap.simulate('keypress', {key: 'down'})
+  wrap.simulate('keypress', {key: 'down'})
+  wrap.simulate('keypress', {key: 'space'})
+
+  const ans = wrapper.state('fruitChoice')
+  
+  expect(ans).toEqual(fullList)
+});
+
