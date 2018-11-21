@@ -2,7 +2,7 @@
   "name": "simple-widgets",
   "version": "1.2.4",
   "description": "A Collection of React components to make your React code simpler",
-  "main": "lib/index.js",
+  "main": "ExampleApp.js",
   "scripts": {
     "setup": "npm install",
     "dev": "run-s pack-d maps",

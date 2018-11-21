@@ -6,7 +6,10 @@ import autoBind from 'react-autobind';    // Not needed by simple-widgets, but u
 // import {CheckBox, Choice, Radio, DatePicker, makeChangeHandler} from 'simple-widgets';
 
 // testing harness
-import { CheckBox, Choice, Radio, DatePicker, makeChangeHandler, DoubleListBox, SelectionPanel1, SelectionPanel2 } from '../src/index'
+import { CheckBox, Choice, Radio, DatePicker, makeChangeHandler, DoubleListBox} from '../src/index'
+
+const fullList = ['apple', 'bannana', 'blackberry', 'blueberry', 'peach', 'strawberry', ]
+const preSelected = fullList.filter( item => item.startsWith('b') )
 
 class App extends Component {
 
@@ -20,7 +23,8 @@ class App extends Component {
           'preview':'', 
           'funny': '', 
           'year':'', 
-          'date_of_install': '1963-04-04'
+          'date_of_install': '1963-04-04',
+          'fruitChoice': preSelected
         };
         this.modes = ["java", "javascript", "jsx", "markdown", "bash"];  
         this.handleChange = makeChangeHandler(this);   
@@ -67,6 +71,9 @@ class App extends Component {
         funny: <span id="answer3">{this.state.funny}</span> <br />
         year: <span id="answer4">{this.state.year}</span> <br />
         date_of_install: <span id="answer5">{this.state.date_of_install}</span> <br />
+        <hr />
+
+        <DoubleListBox choices={fullList} name="fruitChoice" value={this.state.fruitChoice} onChange={this.handleChange} />
 
       </div>
     );
