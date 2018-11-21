@@ -99,6 +99,8 @@ export default class DoubleListBox extends Component<*, State> {
       (taskId: Id): boolean => taskId === id,
     );
 
+    console.log('onDragStart:', id);      // maj TODO: remove debug
+
     // if dragging an item that is not selected - unselect all items
     if (!selected) {
       this.unselectAll();
@@ -134,6 +136,8 @@ export default class DoubleListBox extends Component<*, State> {
     if (event.defaultPrevented) {
       return;
     }
+    console.log('onWindowKeyDown: ', event);
+    
 
     if (event.key === 'Escape') {
       this.unselectAll();

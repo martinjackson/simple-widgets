@@ -3,7 +3,7 @@ import type { Task, Id, Column, Entities, TaskMap } from './types';
 
 export default (possible: string[], selected: string[]): Entities => {
 
-console.log('possible:', possible, 'selected:', selected );
+// console.log('possible:', possible, 'selected:', selected );
 
 if (!possible) {
    // console.log('Warning Possible[] list is undefined');
