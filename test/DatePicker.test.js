@@ -84,7 +84,7 @@ it('default value with format', () => {
   const props = {
           value: '2015-05-17',
           format: 'YYYY-MM-DD'
-      }
+      },
       comp = mount(<DPTest {...props} />);
   expect((comp).prop('value')).toEqual('2015-05-17');
 });
