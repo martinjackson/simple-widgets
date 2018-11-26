@@ -53,12 +53,14 @@ export default class DoubleListBox extends Component<*, State> {
 
   notifyOfChange() {
     if (this.props.onChange) {
-      console.log('notifyOfChange:', this.state);
+      // console.log('notifyOfChange:', this.state);
       
       console.log('col:', this.state.entities.columns);
       
       const ids: Id[] = this.state.entities.columns.selected.taskIds
 
+      console.log('Id[]:', ids);
+      
       const answer = ids.map(id => this.state.entities.tasks[id].content)
 
       const e = {}
@@ -156,7 +158,7 @@ export default class DoubleListBox extends Component<*, State> {
       return;
     }
     this.unselectAll();
-  };
+  }; 
 
   toggleSelection = (taskId: Id) => {
     const selectedTaskIds: Id[] = this.state.selectedTaskIds;
