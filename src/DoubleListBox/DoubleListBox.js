@@ -7,8 +7,14 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import type { DragStart, DropResult, DraggableLocation } from 'react-beautiful-dnd';
 
-import type { Result as ReorderResult } from './utils';
 import type { Task, Id, Entities } from './types';
+
+// import type { Result as ReorderResult } from './utils';
+type ReorderResult = {|
+  entities: Entities,
+  // a drop operations can change the order of the selected task array
+  selectedTaskIds: Id[],
+|};
 
 type State = {|
   entities: Entities,
@@ -47,29 +53,31 @@ export default class DoubleListBox extends Component<*, State> {
       selectedTaskIds: [],
       draggingTaskId: null,
     };
-  
+
+    // this.myRef = React.createRef();
+
     autoBind(this);
   }
 
   notifyOfChange() {
     if (this.props.onChange) {
-      // console.log('notifyOfChange:', this.state);
       
-      console.log('col:', this.state.entities.columns);
-      
-      const ids: Id[] = this.state.entities.columns.selected.taskIds
+      const notIds: Id[] = this.state.entities.columns.notselected.taskIds
+      const selIds: Id[] = this.state.entities.columns.selected.taskIds
 
-      console.log('Id[]:', ids);
-      
-      const answer = ids.map(id => this.state.entities.tasks[id].content)
+      const left  = notIds.map(id => this.state.entities.tasks[id].content)
+      const right = selIds.map(id => this.state.entities.tasks[id].content)
+
+      console.log('notifyOfChange:', '\nnotIds:', notIds, 'selIds:', selIds,
+      '\nleft:', left, 'right:', right);
 
       const e = {}
       e.target = {}
       e.target.name = this.props.name
-      e.target.value = answer
-      console.log('answer:', answer);
+      e.target.value = right
+
       
-      this.props.onChange(e);         
+      this.props.onChange(e);          
     }    
 
   }
@@ -116,6 +124,8 @@ export default class DoubleListBox extends Component<*, State> {
     const destination: ?DraggableLocation = result.destination;
     const source: DraggableLocation = result.source;
 
+    console.log('onDragEnd:', result.draggableId, 'dest:', destination);      // maj TODO: remove debug
+
     // nothing to do
     if (!destination || result.reason === 'CANCEL') {
       this.setState({
@@ -150,6 +160,7 @@ export default class DoubleListBox extends Component<*, State> {
     if (event.defaultPrevented) {
       return;
     }
+    console.log('onWindowClick', event);
     this.unselectAll();
   };
 
@@ -157,6 +168,7 @@ export default class DoubleListBox extends Component<*, State> {
     if (event.defaultPrevented) {
       return;
     }
+    console.log('onWindowTouchEnd: ', event);
     this.unselectAll();
   }; 
 
@@ -181,6 +193,8 @@ export default class DoubleListBox extends Component<*, State> {
       // we will now clear the selection
       return [];
     })();
+
+    console.log('toggleSelection: ', newTaskIds);
 
     this.setState({ selectedTaskIds: newTaskIds, });
   };
@@ -236,25 +250,27 @@ export default class DoubleListBox extends Component<*, State> {
     const entities: Entities = this.state.entities;
     const selected: Id[] = this.state.selectedTaskIds;
     return (
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragEnd={this.onDragEnd}
-      >
-        <Container>
-          {entities.columnOrder.map((columnId: Id) => (
-            <Column
-              column={entities.columns[columnId]}
-              tasks={getTasks(entities, columnId)}
-              selectedTaskIds={selected}
-              key={columnId}
-              draggingTaskId={this.state.draggingTaskId}
-              toggleSelection={this.toggleSelection}
-              toggleSelectionInGroup={this.toggleSelectionInGroup}
-              multiSelectTo={this.multiSelectTo}
-            />
-          ))}
-        </Container>
-      </DragDropContext>
+      <div ref={(node) => this.myRef = node}>
+        <DragDropContext
+          onDragStart={this.onDragStart}
+          onDragEnd={this.onDragEnd}
+        >
+          <Container>
+            {entities.columnOrder.map((columnId: Id) => (
+              <Column
+                column={entities.columns[columnId]}
+                tasks={getTasks(entities, columnId)}
+                selectedTaskIds={selected}
+                key={columnId}
+                draggingTaskId={this.state.draggingTaskId}
+                toggleSelection={this.toggleSelection}
+                toggleSelectionInGroup={this.toggleSelectionInGroup}
+                multiSelectTo={this.multiSelectTo}
+              />
+            ))}
+          </Container>
+        </DragDropContext>
+      </div>
     );
   }
 }
