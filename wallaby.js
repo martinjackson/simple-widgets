@@ -18,6 +18,8 @@ module.exports = function (wallaby) {
       {pattern: 'src/**/*.js', load: false},
       {pattern: 'test/**/*.js', load: false},
       "!test/**/*.test.js",
+      "!test/webpack.config.js",
+      "!test/ExampleApp.js",
       "!src/PrevDoubleListBox/**/*.js",
     ],
 

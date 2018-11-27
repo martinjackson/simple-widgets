@@ -3,6 +3,8 @@
 // https://medium.com/@mattmazzola/how-to-debug-jest-tests-with-vscode-48f003c7cb41
 
 import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
+
 import Enzyme, { mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
@@ -10,7 +12,6 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import DoubleListBox from '../src/DoubleListBox/DoubleListBox';
 import makeChangeHandler from '../src/makeChangeHandler'
-import eventStub from './eventStub'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -27,7 +28,8 @@ class DLBTest extends React.Component {
   }
 
   render() {
-    return <DoubleListBox id="DoubleListBox" choices={fullList} name="fruitChoice" value={this.state.fruitChoice} onChange={this.handleChange} />
+    this.testTarget = <DoubleListBox id="DoubleListBox" choices={fullList} name="fruitChoice" value={this.state.fruitChoice} onChange={this.handleChange} />
+    return this.testTarget
   }
 
 }
@@ -76,34 +78,50 @@ it('select all', () => {
 // wrapper.find('input').simulate('keypress', {key: 'Enter'})
 // component.find('button#my-button-two').simulate('click');
 
-it('simulate keyboard driven drag-n-drop', () => {      
-  const wrapper = mount(<DLBTest preselected={preSelected} />)  
-  const wrap = wrapper.find(DragDropContext) // DoubleListBox)
+/*
+singleListContainer: [data-react-beautiful-dnd-droppable]
+firstCard: [data-react-beautiful-dnd-drag-handle]:nth-child(1)
+secondCard: [data-react-beautiful-dnd-drag-handle]:nth-child(2)
+fourthCard: [data-react-beautiful-dnd-drag-handle]:nth-child(5)
+*/
 
-  // console.log(wrap.debug());
+
+xit('simulate keyboard driven drag-n-drop', () => {   
   
-  // down   {key: 'ArrowDown', code: 'ArrowDown', which: 40}
+  var tree = ReactTestUtils.renderIntoDocument(<DLBTest preselected={preSelected} />);
+  var firstDiv = ReactTestUtils.scryRenderedDOMComponentsWithTag(tree,'div')[0];
+  console.log(tree.testTarget);
 
-  // wrap.simulate('mouseEnter', eventStub());
-  // expect(wrap.props().id).toEqual(document.activeElement.id)
-  // console.log(document.activeElement);
+  const node = firstDiv;
+
+  console.log('node:', node);
   
+  expect(node).toBeTruthy();
 
-  wrap.simulate('keypress', {key: 'Tab'})         // Tab    {key: 'Tab',       code: 'Tab',       which: 9}
-  wrap.simulate('keypress', {key: ' '})           // space  {key: ' ',         code: 'Space',     which: 32}
-  wrap.simulate('keypress', {key: 'ArrowiRight'}) // ArrowRight  {key: 'ArrowRight', code: 'ArrowRight', which: 39}
-  wrap.simulate('keypress', {key: ' '})           // space
+  // ReactTestUtils.Simulate.keyDown(node, {key: "Enter", keyCode: 13, which: 13});
+  ReactTestUtils.Simulate.keyDown(node, {key: 'Tab',        keyCode: 9});
+  ReactTestUtils.Simulate.keyDown(node, {key: ' ',          keyCode: 32});
+  ReactTestUtils.Simulate.keyDown(node, {key: 'ArrowRight', keyCode: 39});
+  ReactTestUtils.Simulate.keyDown(node, {key: ' ',          keyCode: 32});
   
-  /*
-  wrap.simulate('keydown', {keyCode: 9})   // Tab        
-  wrap.simulate('keydown', {keyCode: 32})  // space      
-  wrap.simulate('keydown', {keyCode: 39})  // ArrowRight 
-  wrap.simulate('keydown', {keyCode: 32})  // space
-  */
-
-  const ans = wrapper.state('fruitChoice')
+  const ans = tree.state.fruitChoice
   console.log('ans:', ans);
   
   expect(ans).toContain(fullList[0])
 });
 
+/*
+  Enzyme Team __nolonger__ recommends simulate  Feb 2018
+
+  wrap.simulate('keypress', {key: 'Tab'})         // Tab    {key: 'Tab',       code: 'Tab',       which: 9}
+  wrap.simulate('keypress', {key: ' '})           // space  {key: ' ',         code: 'Space',     which: 32}
+  wrap.simulate('keypress', {key: 'ArrowiRight'}) // ArrowRight  {key: 'ArrowRight', code: 'ArrowRight', which: 39}
+  wrap.simulate('keypress', {key: ' '})           // space
+
+  -- or -- 
+
+  wrap.simulate('keydown', {keyCode: 9})   // Tab        
+  wrap.simulate('keydown', {keyCode: 32})  // space      
+  wrap.simulate('keydown', {keyCode: 39})  // ArrowRight 
+  wrap.simulate('keydown', {keyCode: 32})  // space
+  */
