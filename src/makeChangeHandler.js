@@ -20,7 +20,8 @@ export default function (yourComponent) {
         yourComponent.setState(stateChange);
         }
       else {
-        console.log('something unusual here, expecting e.target.name e.target.value e:', typeof e, e);       
+          //  process.env.JEST_WORKER_ID !== undefined   then running under Jest
+          // console.log('something unusual here, expecting e.target.name e.target.value e:', typeof e, e);       
       }
     }
 }

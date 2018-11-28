@@ -62,6 +62,7 @@ export default class UnstyledDatePicker extends React.Component {
 
       return <DayPickerInput
                   {...props}
+                  className={props.className}
                   formatDate={formatDate}                  
                   parseDate={parseDate}
                   onDayChange={this.handleDayChange}

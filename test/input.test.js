@@ -16,11 +16,11 @@ it('react-testing-library works!', () => {
     keyCode: 13,
     which: 13,
   })
-  
+   
   expect(onKeyDown.mock.calls.length).toBe(1)
 })
 
-it('DoubleListBox is section 508 compliant (move apple right)', () => {
+xit('DoubleListBox is section 508 compliant (move apple right)', () => {
     const {container, debug, getByTestId, getByText} = render(<DLBTest preselected={preSelected} />)
 
     // first input area        data-react-beautiful-dnd-droppable="0" 
@@ -45,7 +45,7 @@ it('DoubleListBox is section 508 compliant (move apple right)', () => {
     expect(ans).not.toContain(apple)
   })
  
-  it('DoubleListBox, move bannana left', () => {
+xit('DoubleListBox, move bannana left', () => {
     const {container, debug, getByTestId, getByText} = render(<DLBTest preselected={preSelected} />)
 
     // first input area        data-react-beautiful-dnd-droppable="0" 

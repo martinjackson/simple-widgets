@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/DoubleListBox/DoubleListBox.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">src/DoubleListBox</a> DoubleListBox.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">34.12% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>29/85</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.17% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">41.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">33.73% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>28/83</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// @flow
+&nbsp;
+import React, { Component } from 'react';
+import autoBind from 'react-autobind';
+import styled from 'react-emotion';
+import { DragDropContext } from 'react-beautiful-dnd';
+&nbsp;
+import type { DragStart, DropResult, DraggableLocation } from 'react-beautiful-dnd';
+&nbsp;
+import type { Task, Id, Entities } from './types';
+&nbsp;
+// import type { Result as ReorderResult } from './utils';
+type ReorderResult = {|
+  entities: Entities,
+  // a drop operations can change the order of the selected task array
+  selectedTaskIds: Id[],
+|};
+&nbsp;
+type State = {|
+  entities: Entities,
+  selectedTaskIds: Id[],
+  // sad times
+  draggingTaskId: ?Id,
+|};
+&nbsp;
+&nbsp;
+import buildEntities from './buildEntities';
+import Column from './column';
+import { mutliDragAwareReorder, multiSelectTo as multiSelect } from './utils';
+&nbsp;
+&nbsp;
+const Container = styled('div')`
+  display: flex;
+  user-select: none;
+`;
+&nbsp;
+const getTasks = (entities: Entities, columnId: Id): Task[] =&gt;
+  entities.columns[columnId].taskIds.map(
+    (taskId: Id): Task =&gt; entities.tasks[taskId],
+  );
+&nbsp;
+type FlowProps = {choices: string[], value: string[]}
+&nbsp;
+export default class DoubleListBox extends Component&lt;*, State&gt; {
+&nbsp;
+  state: State
+&nbsp;
+  constructor(props: FlowProps) {
+    super(props);
+&nbsp;
+    this.state = {
+      entities: buildEntities(props.choices, props.value),
+      selectedTaskIds: [],
+      draggingTaskId: null,
+    };
+&nbsp;
+    // this.myRef = React.createRef();
+&nbsp;
+    autoBind(this);
+  }
+&nbsp;
+  notifyOfChange() {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.props.onChange) {
+      
+      const notIds: Id[] = this.state.entities.columns.notselected.taskIds
+      const selIds: Id[] = this.state.entities.columns.selected.taskIds
+&nbsp;
+      const left  = notIds.map(<span class="fstat-no" title="function not covered" >id</span> =&gt; <span class="cstat-no" title="statement not covered" >this.state.entities.tasks[id].content)</span>
+      const right = selIds.map(id =&gt; this.state.entities.tasks[id].content)
+&nbsp;
+      console.log('notifyOfChange:', '\nnotIds:', notIds, 'selIds:', selIds,
+      '\nleft:', left, 'right:', right);
+&nbsp;
+      const e = {}
+      e.target = {}
+      e.target.name = this.props.name
+      e.target.value = right
+&nbsp;
+      
+      this.props.onChange(e);          
+    }    
+&nbsp;
+  }
+&nbsp;
+  allSelect() {
+    const choices = this.props.choices
+    this.setState({
+      entities: buildEntities(choices, choices),
+      selectedTaskIds: [],
+      draggingTaskId: null
+    }, this.notifyOfChange)
+  }
+&nbsp;
+  componentDidMount() {
+    window.addEventListener('click', this.onWindowClick);
+    window.addEventListener('keydown', this.onWindowKeyDown);
+    window.addEventListener('touchend', this.onWindowTouchEnd);
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  co</span>mponentWillUnmount() {
+<span class="cstat-no" title="statement not covered" >    window.removeEventListener('click', this.onWindowClick);</span>
+<span class="cstat-no" title="statement not covered" >    window.removeEventListener('keydown', this.onWindowKeyDown);</span>
+<span class="cstat-no" title="statement not covered" >    window.removeEventListener('touchend', this.onWindowTouchEnd);</span>
+  }
+&nbsp;
+  onDragStart = <span class="fstat-no" title="function not covered" >(s</span>tart: DragStart) =&gt; {
+    const id: string = <span class="cstat-no" title="statement not covered" >start.draggableId;</span>
+    const selected: ?Id = <span class="cstat-no" title="statement not covered" >this.state.selectedTaskIds.find(</span>
+<span class="fstat-no" title="function not covered" >      (t</span>askId: Id): boolean =&gt; <span class="cstat-no" title="statement not covered" >taskId === id,</span>
+    );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    console.log('onDragStart:', id); </span>     // maj TODO: remove debug
+&nbsp;
+    // if dragging an item that is not selected - unselect all items
+<span class="cstat-no" title="statement not covered" >    if (!selected) {</span>
+<span class="cstat-no" title="statement not covered" >      this.unselectAll();</span>
+    }
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      draggingTaskId: start.draggableId,
+    });
+  };
+&nbsp;
+  onDragEnd = <span class="fstat-no" title="function not covered" >(r</span>esult: DropResult) =&gt; {
+    const destination: ?DraggableLocation = <span class="cstat-no" title="statement not covered" >result.destination;</span>
+    const source: DraggableLocation = <span class="cstat-no" title="statement not covered" >result.source;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    console.log('onDragEnd:', result.draggableId, 'dest:', destination); </span>     // maj TODO: remove debug
+&nbsp;
+    // nothing to do
+<span class="cstat-no" title="statement not covered" >    if (!destination || result.reason === 'CANCEL') {</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        draggingTaskId: null,
+      });
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+&nbsp;
+    const processed: ReorderResult = <span class="cstat-no" title="statement not covered" >mutliDragAwareReorder({</span>
+      entities: this.state.entities,
+      selectedTaskIds: this.state.selectedTaskIds,
+      source,
+      destination,
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.setState({...processed, draggingTaskId: null, }, this.notifyOfChange);    </span>
+  };
+&nbsp;
+  onWindowKeyDown = <span class="fstat-no" title="function not covered" >(e</span>vent: KeyboardEvent) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (event.defaultPrevented) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    console.log('onWindowKeyDown: ', event);</span>
+    
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (event.key === 'Escape') {</span>
+<span class="cstat-no" title="statement not covered" >      this.unselectAll();</span>
+    }
+  };
+&nbsp;
+  onWindowClick = <span class="fstat-no" title="function not covered" >(e</span>vent: KeyboardEvent) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (event.defaultPrevented) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    console.log('onWindowClick', event);</span>
+<span class="cstat-no" title="statement not covered" >    this.unselectAll();</span>
+  };
+&nbsp;
+  onWindowTouchEnd = <span class="fstat-no" title="function not covered" >(e</span>vent: TouchEvent) =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (event.defaultPrevented) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    console.log('onWindowTouchEnd: ', event);</span>
+<span class="cstat-no" title="statement not covered" >    this.unselectAll();</span>
+  }; 
+&nbsp;
+  toggleSelection = <span class="fstat-no" title="function not covered" >(t</span>askId: Id) =&gt; {
+    const selectedTaskIds: Id[] = <span class="cstat-no" title="statement not covered" >this.state.selectedTaskIds;</span>
+    const wasSelected: boolean = <span class="cstat-no" title="statement not covered" >selectedTaskIds.includes(taskId);</span>
+&nbsp;
+    const newTaskIds: Id[] = <span class="cstat-no" title="statement not covered" >(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+      // Task was not previously selected
+      // now will be the only selected item
+<span class="cstat-no" title="statement not covered" >      if (!wasSelected) {</span>
+<span class="cstat-no" title="statement not covered" >        return [taskId];</span>
+      }
+&nbsp;
+      // Task was part of a selected group
+      // will now become the only selected item
+<span class="cstat-no" title="statement not covered" >      if (selectedTaskIds.length &gt; 1) {</span>
+<span class="cstat-no" title="statement not covered" >        return [taskId];</span>
+      }
+&nbsp;
+      // task was previously selected but not in a group
+      // we will now clear the selection
+<span class="cstat-no" title="statement not covered" >      return [];</span>
+    })();
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    console.log('toggleSelection: ', newTaskIds);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.setState({ selectedTaskIds: newTaskIds, });</span>
+  };
+&nbsp;
+  toggleSelectionInGroup = <span class="fstat-no" title="function not covered" >(t</span>askId: Id) =&gt; {
+    const selectedTaskIds: Id[] = <span class="cstat-no" title="statement not covered" >this.state.selectedTaskIds;</span>
+    const index: number = <span class="cstat-no" title="statement not covered" >selectedTaskIds.indexOf(taskId);</span>
+&nbsp;
+    // if not selected - add it to the selected items
+<span class="cstat-no" title="statement not covered" >    if (index === -1) {</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        selectedTaskIds: [...selectedTaskIds, taskId],
+      });
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+&nbsp;
+    // it was previously selected and now needs to be removed from the group
+    const shallow: Id[] = <span class="cstat-no" title="statement not covered" >[...selectedTaskIds];</span>
+<span class="cstat-no" title="statement not covered" >    shallow.splice(index, 1);</span>
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      selectedTaskIds: shallow,
+    });
+  };
+&nbsp;
+  // This behaviour matches the MacOSX finder selection
+  multiSelectTo = <span class="fstat-no" title="function not covered" >(n</span>ewTaskId: Id) =&gt; {
+    const updated: ?(Id[]) = <span class="cstat-no" title="statement not covered" >multiSelect(</span>
+      this.state.entities,
+      this.state.selectedTaskIds,
+      newTaskId,
+    );
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (updated == null) {</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      selectedTaskIds: updated,
+    });
+  };
+&nbsp;
+  unselect = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    this.unselectAll();</span>
+  };
+&nbsp;
+  unselectAll = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      selectedTaskIds: [],
+    });
+  };
+&nbsp;
+  render() {
+    const entities: Entities = this.state.entities;
+    const selected: Id[] = this.state.selectedTaskIds;
+    return (
+      &lt;div ref={(node) =&gt; this.myRef = node}&gt;
+        &lt;DragDropContext
+          onDragStart={this.onDragStart}
+          onDragEnd={this.onDragEnd}
+        &gt;
+          &lt;Container&gt;
+            {entities.columnOrder.map((columnId: Id) =&gt; (
+              &lt;Column
+                column={entities.columns[columnId]}
+                tasks={getTasks(entities, columnId)}
+                selectedTaskIds={selected}
+                key={columnId}
+                draggingTaskId={this.state.draggingTaskId}
+                toggleSelection={this.toggleSelection}
+                toggleSelectionInGroup={this.toggleSelectionInGroup}
+                multiSelectTo={this.multiSelectTo}
+              /&gt;
+            ))}
+          &lt;/Container&gt;
+        &lt;/DragDropContext&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Nov 28 2018 12:32:33 GMT-0600 (Central Standard Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>
