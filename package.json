@@ -9,11 +9,38 @@
     "dry": "run-s pack dry-run",
     "pub": "run-s pack release-it",
     "test": "jest",
+    "coverage": "jest --coverage && cat ./tests/coverage/lcov.info ",
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
     "maps": "cd lib && cp index.js.map index.map",
     "pack-d": "webpack --mode development  --progress",
     "pack": "webpack -p --mode production  --progress",
     "dry-run": "release-it --dry-run -n"
+  },
+  "babel": {
+    "plugins": [
+        "@babel/plugin-proposal-object-rest-spread",
+        ["@babel/plugin-proposal-class-properties", { "loose": true }]
+    ],
+    "presets": ["@babel/env", "@babel/react", "@babel/preset-flow"]
+  },
+  "jest": {
+    "transform": {"^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest"},
+    "unmockedModulePathPatterns": [
+        "<rootDir>/node_modules/react",
+        "<rootDir>/node_modules/react-dom",
+        "<rootDir>/node_modules/react-addons-test-utils",
+        "<rootDir>/node_modules/fbjs"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/src/**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!test/**/*.test.js",
+      "!test/webpack.config.js",
+      "!test/ExampleApp.js",
+      "!src/PrevDoubleListBox/**/*.js"
+    ]  
   },
   "repository": {
     "type": "git",
@@ -81,7 +108,6 @@
   "dependencies": {
     "date-fns": "^1.29.0",
     "emotion": "^9.2.12",
-    "ramda": "^0.25.0",
     "react-autobind": "^1.0.6",
     "react-beautiful-dnd": "^10.0.1",
     "react-day-picker": "^7.2.4",

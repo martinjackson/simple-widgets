@@ -9,7 +9,7 @@ import makeChangeHandler from '../src/makeChangeHandler'
 class DPTest extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {doi: props.value};
+    this.state = {doi: props.value || ''};
     this.handleChange = makeChangeHandler(this);   
   }
 
