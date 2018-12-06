@@ -17,7 +17,7 @@ export default class DLBTest extends React.Component {
 
   render() {
     return <React.Fragment>
-              <DoubleListBox width={650} height={600} choices={fullList} name="fruitChoice" value={this.state.fruitChoice} onChange={this.handleChange} />
+              <DoubleListBox choices={fullList} name="fruitChoice" value={this.state.fruitChoice} onChange={this.handleChange} />
               <span data-testid="current-fruitChoice">{JSON.stringify(this.state.fruitChoice)}</span>
            </React.Fragment>
   }

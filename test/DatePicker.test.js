@@ -1,5 +1,5 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
+
 import Enzyme, { mount, shallow, render } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
