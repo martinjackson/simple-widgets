@@ -10,6 +10,8 @@ import dateFnsFormat from 'date-fns/format';
 import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput'
 
+import { DatePickerStyle } from './DatePickerStyle'
+
 const FORMAT = 'M/D/YYYY';
 
 function parseDate(str, format, locale) {
@@ -32,10 +34,15 @@ export default class UnstyledDatePicker extends React.Component {
     autoBind(this);
   }
 
+  componentWillMount() {
+    if (this.props.defaultStyles)
+       DatePickerStyle();
+  }
+
   handleDayChange(selectedDay, modifiers, dayPickerInput) {
     const value = dateFns.format(selectedDay, this.props.format)
     // console.log('name:', this.props.name, 'day:', value);
-    
+
     let e = {}
     e.target = {}
     e.target.name = this.props.name
@@ -52,18 +59,17 @@ export default class UnstyledDatePicker extends React.Component {
     });
     */
   }
-  
+
   render() {
       let {format, ...props} =this.props
-      if (!format) 
+      if (!format)
          format = 'M/D/YYYY'
 
       props.format = format
 
       return <DayPickerInput
                   {...props}
-                  className={props.className}
-                  formatDate={formatDate}                  
+                  formatDate={formatDate}
                   parseDate={parseDate}
                   onDayChange={this.handleDayChange}
                   placeholder={`${dateFns.format(new Date(), format)}`}
