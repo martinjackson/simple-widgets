@@ -8,7 +8,7 @@ import DLBTest, {fullList,preSelected} from './DLBTest'
 
 afterEach(cleanup)
 
-it('react-testing-library works!', () => {
+xit('react-testing-library works!', () => {
   const onKeyDown = jest.fn()
   const {container, debug} = render(<input onKeyDown={onKeyDown} />)
   fireEvent.keyDown(container.getElementsByTagName('input')[0], {
@@ -20,7 +20,17 @@ it('react-testing-library works!', () => {
   expect(onKeyDown.mock.calls.length).toBe(1)
 })
 
-xit('DoubleListBox is section 508 compliant (move apple right)', () => {
+// https://stackoverflow.com/questions/47823616/mocking-clientheight-and-scrollheight-in-react-enzyme-for-test
+
+beforeEach(() => {
+  Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return { width: 100, height: 10, top: 0, left: 0, bottom: 0, right: 0 };
+      });
+});
+
+
+it('DoubleListBox is section 508 compliant (move apple right)', () => {
+
     const {container, debug, getByTestId, getByText} = render(<DLBTest preselected={preSelected} />)
 
     // first input area        data-react-beautiful-dnd-droppable="0" 
@@ -35,7 +45,10 @@ xit('DoubleListBox is section 508 compliant (move apple right)', () => {
     fireEvent.keyUp(node,   {key: 'ArrowRight', keyCode: 39, which: 39, });        
     fireEvent.keyDown(node, {key: ' ',          keyCode: 32, which: 32, });    
     
-    const ans = getByTestId('current-fruitChoice').innerText
+    debugger;
+
+    const ans = getByTestId('current-fruitChoice').innerHTML;
+    // const ans = getByTestId('current-fruitChoice').firstChild.textContent;
     console.log('ans:', ans);
 
     // should contain apple,
