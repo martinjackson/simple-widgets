@@ -13,7 +13,7 @@ class DPTest extends React.Component {
     this.handleChange = makeChangeHandler(this);   
   }
 
-  render() {
+  render() {    
     return <DatePicker name="doi" value={this.state.doi} onChange={this.handleChange} format={this.props.format} />
   }
 }
