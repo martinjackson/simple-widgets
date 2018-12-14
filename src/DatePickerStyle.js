@@ -1,15 +1,14 @@
 
 
 export function DatePickerStyle() {
-    if (!window.document)
-       return;
-
-    var alreadyDefined = window.document.querySelector('.DayPicker');
-    if (alreadyDefined == null) {
-       if (!isTestingWithJest())
-          console.log('defining CSS .DayPicker rules');
+    if (window.document) {
+      var alreadyDefined = window.document.querySelector('.DayPicker');
+      if (alreadyDefined == null) {
+         if (!isTestingWithJest())
+            console.log('defining CSS .DayPicker rules');
        
-       addClassRules(rulesForDayPicker);
+        addClassRules(rulesForDayPicker);
+      }
     }
 }
 
@@ -18,14 +17,12 @@ function isTestingWithJest() {
 }
 
 function addClassRules(content) {
-  if (!window.document)
-     return;
-
+  if (window.document) {
     var style = window.document.createElement('style');
     style.type = 'text/css';
     style.innerHTML = content;
     window.document.getElementsByTagName('head')[0].appendChild(style);
-
+  }
 }
 
 // taken from: react-day-picker to avoid 

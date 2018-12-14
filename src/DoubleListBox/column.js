@@ -4,7 +4,7 @@ import styled from 'react-emotion';
 import memoizeOne from 'memoize-one';
 import { Droppable } from 'react-beautiful-dnd';
 import { grid, colors, borderRadius } from './constants';
-import Task from './task';
+import Task from './Task';
 
 import type { DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
 import type { Column as ColumnType, Task as TaskType, Id } from './types';

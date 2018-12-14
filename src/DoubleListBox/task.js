@@ -135,6 +135,7 @@ export default class Task extends Component<Props> {
   // Using onClick as it will be correctly
   // preventing if there was a drag
   onClick = (event: MouseEvent) => {
+
     if (event.defaultPrevented) {
       return;
     }

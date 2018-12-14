@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1544450523405" clover="3.2.0">
-  <project timestamp="1544450523405" name="All files">
-    <metrics statements="364" coveredstatements="209" conditionals="132" coveredconditionals="52" methods="89" coveredmethods="63" elements="585" coveredelements="324" complexity="0" loc="364" ncloc="364" packages="2" files="14" classes="14">
+<coverage generated="1544827941851" clover="3.2.0">
+  <project timestamp="1544827941851" name="All files">
+    <metrics statements="310" coveredstatements="262" conditionals="120" coveredconditionals="78" methods="82" coveredmethods="77" elements="512" coveredelements="417" complexity="0" loc="310" ncloc="310" packages="2" files="14" classes="14">
       <package name="src">
-        <metrics statements="84" coveredstatements="80" conditionals="33" coveredconditionals="26" methods="21" coveredmethods="20"/>
+        <metrics statements="82" coveredstatements="80" conditionals="33" coveredconditionals="26" methods="21" coveredmethods="20"/>
         <file name="CheckBox.js" path="C:\projects\simple-widgets\src\CheckBox.js">
           <metrics statements="15" coveredstatements="15" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="3"/>
           <line num="4" count="1" type="stmt"/>
@@ -37,22 +37,20 @@
           <line num="15" count="25" type="stmt"/>
         </file>
         <file name="DatePickerStyle.js" path="C:\projects\simple-widgets\src\DatePickerStyle.js">
-          <metrics statements="15" coveredstatements="12" conditionals="8" coveredconditionals="4" methods="3" coveredmethods="3"/>
+          <metrics statements="13" coveredstatements="12" conditionals="8" coveredconditionals="4" methods="3" coveredmethods="3"/>
           <line num="4" count="14" type="cond" truecount="1" falsecount="1"/>
-          <line num="5" count="0" type="stmt"/>
-          <line num="7" count="14" type="stmt"/>
-          <line num="8" count="14" type="cond" truecount="1" falsecount="1"/>
-          <line num="9" count="14" type="cond" truecount="1" falsecount="1"/>
-          <line num="10" count="0" type="stmt"/>
-          <line num="12" count="14" type="stmt"/>
-          <line num="17" count="14" type="stmt"/>
-          <line num="21" count="14" type="cond" truecount="1" falsecount="1"/>
-          <line num="22" count="0" type="stmt"/>
+          <line num="5" count="14" type="stmt"/>
+          <line num="6" count="14" type="cond" truecount="1" falsecount="1"/>
+          <line num="7" count="14" type="cond" truecount="1" falsecount="1"/>
+          <line num="8" count="0" type="stmt"/>
+          <line num="10" count="14" type="stmt"/>
+          <line num="16" count="14" type="stmt"/>
+          <line num="20" count="14" type="cond" truecount="1" falsecount="1"/>
+          <line num="21" count="14" type="stmt"/>
+          <line num="22" count="14" type="stmt"/>
+          <line num="23" count="14" type="stmt"/>
           <line num="24" count="14" type="stmt"/>
-          <line num="25" count="14" type="stmt"/>
-          <line num="26" count="14" type="stmt"/>
-          <line num="27" count="14" type="stmt"/>
-          <line num="34" count="2" type="stmt"/>
+          <line num="31" count="2" type="stmt"/>
         </file>
         <file name="Radio.js" path="C:\projects\simple-widgets\src\Radio.js">
           <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="3"/>
@@ -102,144 +100,201 @@
         </file>
         <file name="makeChangeHandler.js" path="C:\projects\simple-widgets\src\makeChangeHandler.js">
           <metrics statements="9" coveredstatements="9" conditionals="9" coveredconditionals="9" methods="2" coveredmethods="2"/>
-          <line num="5" count="23" type="stmt"/>
-          <line num="7" count="15" type="cond" truecount="2" falsecount="0"/>
+          <line num="5" count="36" type="stmt"/>
+          <line num="7" count="16" type="cond" truecount="2" falsecount="0"/>
           <line num="8" count="1" type="stmt"/>
-          <line num="10" count="14" type="cond" truecount="2" falsecount="0"/>
+          <line num="10" count="15" type="cond" truecount="2" falsecount="0"/>
           <line num="11" count="7" type="stmt"/>
-          <line num="13" count="14" type="cond" truecount="5" falsecount="0"/>
-          <line num="15" count="13" type="stmt"/>
-          <line num="16" count="13" type="stmt"/>
-          <line num="20" count="13" type="stmt"/>
+          <line num="13" count="15" type="cond" truecount="5" falsecount="0"/>
+          <line num="15" count="14" type="stmt"/>
+          <line num="16" count="14" type="stmt"/>
+          <line num="20" count="14" type="stmt"/>
         </file>
       </package>
       <package name="src.DoubleListBox">
-        <metrics statements="280" coveredstatements="129" conditionals="99" coveredconditionals="26" methods="68" coveredmethods="43"/>
-        <file name="DoubleListBox.js" path="C:\projects\simple-widgets\src\DoubleListBox\DoubleListBox.js">
-          <metrics statements="83" coveredstatements="46" conditionals="24" coveredconditionals="6" methods="24" coveredmethods="16"/>
-          <line num="32" count="3" type="stmt"/>
-          <line num="37" count="3" type="stmt"/>
-          <line num="38" count="46" type="stmt"/>
-          <line num="39" count="138" type="stmt"/>
-          <line num="49" count="12" type="stmt"/>
-          <line num="51" count="12" type="stmt"/>
-          <line num="59" count="12" type="stmt"/>
-          <line num="63" count="2" type="cond" truecount="1" falsecount="1"/>
-          <line num="65" count="2" type="stmt"/>
-          <line num="66" count="2" type="stmt"/>
-          <line num="68" count="3" type="stmt"/>
-          <line num="69" count="9" type="stmt"/>
-          <line num="71" count="2" type="stmt"/>
-          <line num="74" count="2" type="stmt"/>
-          <line num="75" count="2" type="stmt"/>
-          <line num="76" count="2" type="stmt"/>
-          <line num="77" count="2" type="stmt"/>
-          <line num="80" count="2" type="stmt"/>
-          <line num="86" count="1" type="stmt"/>
-          <line num="87" count="1" type="stmt"/>
-          <line num="95" count="12" type="stmt"/>
-          <line num="96" count="12" type="stmt"/>
-          <line num="97" count="12" type="stmt"/>
-          <line num="101" count="1" type="stmt"/>
-          <line num="102" count="1" type="stmt"/>
-          <line num="103" count="1" type="stmt"/>
-          <line num="107" count="1" type="stmt"/>
-          <line num="108" count="1" type="stmt"/>
-          <line num="109" count="0" type="stmt"/>
-          <line num="112" count="1" type="stmt"/>
-          <line num="115" count="1" type="cond" truecount="1" falsecount="1"/>
-          <line num="116" count="1" type="stmt"/>
-          <line num="118" count="1" type="stmt"/>
-          <line num="124" count="1" type="stmt"/>
-          <line num="125" count="1" type="stmt"/>
-          <line num="127" count="1" type="stmt"/>
-          <line num="130" count="1" type="cond" truecount="3" falsecount="1"/>
-          <line num="131" count="0" type="stmt"/>
-          <line num="134" count="0" type="stmt"/>
-          <line num="137" count="1" type="stmt"/>
-          <line num="144" count="1" type="stmt"/>
-          <line num="148" count="3" type="cond" truecount="1" falsecount="1"/>
-          <line num="149" count="3" type="stmt"/>
-          <line num="151" count="0" type="stmt"/>
-          <line num="154" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="155" count="0" type="stmt"/>
-          <line num="160" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="161" count="0" type="stmt"/>
-          <line num="163" count="0" type="stmt"/>
-          <line num="164" count="0" type="stmt"/>
-          <line num="168" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="169" count="0" type="stmt"/>
-          <line num="171" count="0" type="stmt"/>
-          <line num="172" count="0" type="stmt"/>
-          <line num="176" count="0" type="stmt"/>
-          <line num="177" count="0" type="stmt"/>
-          <line num="179" count="0" type="stmt"/>
-          <line num="182" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="183" count="0" type="stmt"/>
-          <line num="188" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="189" count="0" type="stmt"/>
-          <line num="194" count="0" type="stmt"/>
-          <line num="197" count="0" type="stmt"/>
-          <line num="199" count="0" type="stmt"/>
-          <line num="203" count="0" type="stmt"/>
-          <line num="204" count="0" type="stmt"/>
-          <line num="207" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="208" count="0" type="stmt"/>
-          <line num="211" count="0" type="stmt"/>
-          <line num="215" count="0" type="stmt"/>
-          <line num="216" count="0" type="stmt"/>
-          <line num="217" count="0" type="stmt"/>
-          <line num="224" count="0" type="stmt"/>
-          <line num="230" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="231" count="0" type="stmt"/>
-          <line num="234" count="0" type="stmt"/>
-          <line num="240" count="0" type="stmt"/>
-          <line num="244" count="1" type="stmt"/>
-          <line num="250" count="23" type="stmt"/>
-          <line num="251" count="23" type="stmt"/>
-          <line num="252" count="23" type="stmt"/>
-          <line num="253" count="35" type="stmt"/>
-          <line num="260" count="46" type="stmt"/>
-        </file>
-        <file name="buildEntities.js" path="C:\projects\simple-widgets\src\DoubleListBox\buildEntities.js">
-          <metrics statements="17" coveredstatements="16" conditionals="4" coveredconditionals="3" methods="8" coveredmethods="8"/>
-          <line num="8" count="13" type="cond" truecount="1" falsecount="1"/>
-          <line num="10" count="0" type="stmt"/>
-          <line num="13" count="13" type="cond" truecount="2" falsecount="0"/>
-          <line num="15" count="1" type="stmt"/>
-          <line num="18" count="13" type="stmt"/>
-          <line num="19" count="78" type="stmt"/>
-          <line num="25" count="13" type="stmt"/>
-          <line num="27" count="78" type="stmt"/>
-          <line num="28" count="78" type="stmt"/>
-          <line num="33" count="13" type="stmt"/>
-          <line num="34" count="156" type="stmt"/>
-          <line num="37" count="13" type="stmt"/>
-          <line num="40" count="78" type="stmt"/>
-          <line num="43" count="13" type="stmt"/>
-          <line num="46" count="78" type="stmt"/>
-          <line num="49" count="13" type="stmt"/>
-          <line num="58" count="13" type="stmt"/>
-        </file>
-        <file name="column.js" path="C:\projects\simple-widgets\src\DoubleListBox\column.js">
-          <metrics statements="17" coveredstatements="15" conditionals="5" coveredconditionals="3" methods="6" coveredmethods="5"/>
+        <metrics statements="228" coveredstatements="182" conditionals="87" coveredconditionals="52" methods="61" coveredmethods="57"/>
+        <file name="Column.js" path="C:\projects\simple-widgets\src\DoubleListBox\Column.js">
+          <metrics statements="17" coveredstatements="17" conditionals="5" coveredconditionals="4" methods="6" coveredmethods="6"/>
           <line num="23" count="3" type="stmt"/>
           <line num="35" count="3" type="stmt"/>
           <line num="40" count="3" type="stmt"/>
-          <line num="46" count="47" type="cond" truecount="2" falsecount="0"/>
+          <line num="46" count="114" type="cond" truecount="2" falsecount="0"/>
           <line num="53" count="3" type="stmt"/>
-          <line num="54" count="13" type="stmt"/>
-          <line num="55" count="0" type="stmt"/>
-          <line num="56" count="0" type="stmt"/>
-          <line num="62" count="46" type="stmt"/>
-          <line num="63" count="46" type="stmt"/>
-          <line num="64" count="46" type="stmt"/>
-          <line num="65" count="46" type="stmt"/>
-          <line num="66" count="46" type="stmt"/>
-          <line num="71" count="47" type="stmt"/>
-          <line num="77" count="141" type="stmt"/>
-          <line num="81" count="141" type="cond" truecount="1" falsecount="2"/>
-          <line num="84" count="141" type="stmt"/>
+          <line num="54" count="44" type="stmt"/>
+          <line num="55" count="11" type="stmt"/>
+          <line num="56" count="11" type="stmt"/>
+          <line num="62" count="112" type="stmt"/>
+          <line num="63" count="112" type="stmt"/>
+          <line num="64" count="112" type="stmt"/>
+          <line num="65" count="112" type="stmt"/>
+          <line num="66" count="112" type="stmt"/>
+          <line num="71" count="114" type="stmt"/>
+          <line num="77" count="342" type="stmt"/>
+          <line num="81" count="342" type="cond" truecount="2" falsecount="1"/>
+          <line num="84" count="342" type="stmt"/>
+        </file>
+        <file name="DoubleListBox.js" path="C:\projects\simple-widgets\src\DoubleListBox\DoubleListBox.js">
+          <metrics statements="75" coveredstatements="65" conditionals="24" coveredconditionals="16" methods="24" coveredmethods="22"/>
+          <line num="32" count="3" type="stmt"/>
+          <line num="37" count="3" type="stmt"/>
+          <line num="38" count="112" type="stmt"/>
+          <line num="39" count="336" type="stmt"/>
+          <line num="49" count="25" type="stmt"/>
+          <line num="51" count="25" type="stmt"/>
+          <line num="59" count="25" type="stmt"/>
+          <line num="63" count="3" type="cond" truecount="1" falsecount="1"/>
+          <line num="65" count="3" type="stmt"/>
+          <line num="66" count="3" type="stmt"/>
+          <line num="68" count="6" type="stmt"/>
+          <line num="69" count="12" type="stmt"/>
+          <line num="73" count="3" type="stmt"/>
+          <line num="74" count="3" type="stmt"/>
+          <line num="75" count="3" type="stmt"/>
+          <line num="76" count="3" type="stmt"/>
+          <line num="79" count="3" type="stmt"/>
+          <line num="85" count="1" type="stmt"/>
+          <line num="86" count="1" type="stmt"/>
+          <line num="94" count="25" type="stmt"/>
+          <line num="95" count="25" type="stmt"/>
+          <line num="96" count="25" type="stmt"/>
+          <line num="100" count="7" type="stmt"/>
+          <line num="101" count="7" type="stmt"/>
+          <line num="102" count="7" type="stmt"/>
+          <line num="106" count="2" type="stmt"/>
+          <line num="107" count="2" type="stmt"/>
+          <line num="112" count="2" type="cond" truecount="1" falsecount="1"/>
+          <line num="113" count="2" type="stmt"/>
+          <line num="115" count="2" type="stmt"/>
+          <line num="121" count="2" type="stmt"/>
+          <line num="122" count="2" type="stmt"/>
+          <line num="127" count="2" type="cond" truecount="3" falsecount="1"/>
+          <line num="128" count="0" type="stmt"/>
+          <line num="129" count="0" type="stmt"/>
+          <line num="132" count="2" type="stmt"/>
+          <line num="139" count="2" type="stmt"/>
+          <line num="143" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="144" count="7" type="stmt"/>
+          <line num="149" count="3" type="cond" truecount="2" falsecount="0"/>
+          <line num="150" count="2" type="stmt"/>
+          <line num="155" count="9" type="cond" truecount="2" falsecount="0"/>
+          <line num="156" count="8" type="stmt"/>
+          <line num="159" count="1" type="stmt"/>
+          <line num="163" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="164" count="0" type="stmt"/>
+          <line num="167" count="0" type="stmt"/>
+          <line num="171" count="12" type="stmt"/>
+          <line num="172" count="12" type="stmt"/>
+          <line num="174" count="12" type="stmt"/>
+          <line num="177" count="12" type="cond" truecount="2" falsecount="0"/>
+          <line num="178" count="10" type="stmt"/>
+          <line num="183" count="2" type="cond" truecount="1" falsecount="1"/>
+          <line num="184" count="0" type="stmt"/>
+          <line num="189" count="2" type="stmt"/>
+          <line num="194" count="12" type="stmt"/>
+          <line num="198" count="1" type="stmt"/>
+          <line num="199" count="1" type="stmt"/>
+          <line num="202" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="203" count="1" type="stmt"/>
+          <line num="206" count="1" type="stmt"/>
+          <line num="210" count="0" type="stmt"/>
+          <line num="211" count="0" type="stmt"/>
+          <line num="212" count="0" type="stmt"/>
+          <line num="219" count="1" type="stmt"/>
+          <line num="225" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="226" count="1" type="stmt"/>
+          <line num="229" count="0" type="stmt"/>
+          <line num="235" count="1" type="stmt"/>
+          <line num="239" count="7" type="stmt"/>
+          <line num="245" count="56" type="stmt"/>
+          <line num="246" count="56" type="stmt"/>
+          <line num="247" count="56" type="stmt"/>
+          <line num="248" count="94" type="stmt"/>
+          <line num="255" count="112" type="stmt"/>
+        </file>
+        <file name="Task.js" path="C:\projects\simple-widgets\src\DoubleListBox\Task.js">
+          <metrics statements="62" coveredstatements="50" conditionals="36" coveredconditionals="24" methods="15" coveredmethods="14"/>
+          <line num="11" count="3" type="stmt"/>
+          <line num="30" count="3" type="stmt"/>
+          <line num="34" count="342" type="cond" truecount="1" falsecount="1"/>
+          <line num="35" count="0" type="stmt"/>
+          <line num="38" count="342" type="cond" truecount="2" falsecount="0"/>
+          <line num="39" count="11" type="stmt"/>
+          <line num="42" count="331" type="stmt"/>
+          <line num="45" count="3" type="stmt"/>
+          <line num="46" count="342" type="cond" truecount="1" falsecount="1"/>
+          <line num="47" count="0" type="stmt"/>
+          <line num="49" count="342" type="cond" truecount="2" falsecount="0"/>
+          <line num="50" count="11" type="stmt"/>
+          <line num="52" count="331" type="stmt"/>
+          <line num="55" count="3" type="stmt"/>
+          <line num="56" count="342" type="stmt"/>
+          <line num="57" count="342" type="stmt"/>
+          <line num="64" count="342" type="cond" truecount="2" falsecount="0"/>
+          <line num="67" count="342" type="cond" truecount="1" falsecount="1"/>
+          <line num="81" count="3" type="stmt"/>
+          <line num="83" count="3" type="stmt"/>
+          <line num="85" count="3" type="stmt"/>
+          <line num="99" count="3" type="stmt"/>
+          <line num="113" count="10" type="cond" truecount="1" falsecount="1"/>
+          <line num="114" count="10" type="stmt"/>
+          <line num="117" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="118" count="6" type="stmt"/>
+          <line num="121" count="4" type="cond" truecount="1" falsecount="1"/>
+          <line num="122" count="0" type="stmt"/>
+          <line num="125" count="4" type="cond" truecount="2" falsecount="0"/>
+          <line num="126" count="3" type="stmt"/>
+          <line num="130" count="1" type="stmt"/>
+          <line num="132" count="1" type="stmt"/>
+          <line num="139" count="10" type="cond" truecount="1" falsecount="1"/>
+          <line num="140" count="0" type="stmt"/>
+          <line num="143" count="10" type="cond" truecount="2" falsecount="0"/>
+          <line num="144" count="2" type="stmt"/>
+          <line num="148" count="8" type="stmt"/>
+          <line num="150" count="8" type="stmt"/>
+          <line num="154" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="155" count="0" type="stmt"/>
+          <line num="161" count="0" type="stmt"/>
+          <line num="162" count="0" type="stmt"/>
+          <line num="167" count="9" type="stmt"/>
+          <line num="168" count="9" type="cond" truecount="1" falsecount="1"/>
+          <line num="172" count="9" type="stmt"/>
+          <line num="180" count="9" type="stmt"/>
+          <line num="182" count="9" type="cond" truecount="1" falsecount="1"/>
+          <line num="183" count="0" type="stmt"/>
+          <line num="184" count="0" type="stmt"/>
+          <line num="187" count="9" type="cond" truecount="1" falsecount="1"/>
+          <line num="188" count="0" type="stmt"/>
+          <line num="189" count="0" type="stmt"/>
+          <line num="192" count="9" type="stmt"/>
+          <line num="196" count="342" type="stmt"/>
+          <line num="197" count="342" type="stmt"/>
+          <line num="198" count="342" type="stmt"/>
+          <line num="199" count="342" type="stmt"/>
+          <line num="200" count="342" type="stmt"/>
+          <line num="201" count="342" type="stmt"/>
+          <line num="205" count="342" type="cond" truecount="2" falsecount="0"/>
+          <line num="207" count="342" type="stmt"/>
+          <line num="215" count="10" type="stmt"/>
+        </file>
+        <file name="buildEntities.js" path="C:\projects\simple-widgets\src\DoubleListBox\buildEntities.js">
+          <metrics statements="17" coveredstatements="16" conditionals="4" coveredconditionals="3" methods="8" coveredmethods="8"/>
+          <line num="8" count="26" type="cond" truecount="1" falsecount="1"/>
+          <line num="10" count="0" type="stmt"/>
+          <line num="13" count="26" type="cond" truecount="2" falsecount="0"/>
+          <line num="15" count="1" type="stmt"/>
+          <line num="18" count="26" type="stmt"/>
+          <line num="19" count="156" type="stmt"/>
+          <line num="25" count="26" type="stmt"/>
+          <line num="27" count="156" type="stmt"/>
+          <line num="28" count="156" type="stmt"/>
+          <line num="33" count="26" type="stmt"/>
+          <line num="34" count="312" type="stmt"/>
+          <line num="37" count="26" type="stmt"/>
+          <line num="40" count="156" type="stmt"/>
+          <line num="43" count="26" type="stmt"/>
+          <line num="46" count="156" type="stmt"/>
+          <line num="49" count="26" type="stmt"/>
+          <line num="58" count="26" type="stmt"/>
         </file>
         <file name="constants.js" path="C:\projects\simple-widgets\src\DoubleListBox\constants.js">
           <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -247,85 +302,20 @@
           <line num="24" count="3" type="stmt"/>
           <line num="26" count="3" type="stmt"/>
         </file>
-        <file name="task.js" path="C:\projects\simple-widgets\src\DoubleListBox\task.js">
-          <metrics statements="62" coveredstatements="31" conditionals="36" coveredconditionals="12" methods="15" coveredmethods="10"/>
-          <line num="11" count="3" type="stmt"/>
-          <line num="30" count="3" type="stmt"/>
-          <line num="34" count="141" type="cond" truecount="1" falsecount="1"/>
-          <line num="35" count="0" type="stmt"/>
-          <line num="38" count="141" type="cond" truecount="1" falsecount="1"/>
-          <line num="39" count="0" type="stmt"/>
-          <line num="42" count="141" type="stmt"/>
-          <line num="45" count="3" type="stmt"/>
-          <line num="46" count="141" type="cond" truecount="1" falsecount="1"/>
-          <line num="47" count="0" type="stmt"/>
-          <line num="49" count="141" type="cond" truecount="1" falsecount="1"/>
-          <line num="50" count="0" type="stmt"/>
-          <line num="52" count="141" type="stmt"/>
-          <line num="55" count="3" type="stmt"/>
-          <line num="56" count="141" type="stmt"/>
-          <line num="57" count="141" type="stmt"/>
-          <line num="64" count="141" type="cond" truecount="2" falsecount="0"/>
-          <line num="67" count="141" type="cond" truecount="1" falsecount="1"/>
-          <line num="81" count="3" type="stmt"/>
-          <line num="83" count="3" type="stmt"/>
-          <line num="85" count="3" type="stmt"/>
-          <line num="99" count="3" type="stmt"/>
-          <line num="113" count="3" type="cond" truecount="1" falsecount="1"/>
-          <line num="114" count="3" type="stmt"/>
-          <line num="117" count="3" type="cond" truecount="1" falsecount="1"/>
-          <line num="118" count="3" type="stmt"/>
-          <line num="121" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="122" count="0" type="stmt"/>
-          <line num="125" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="126" count="0" type="stmt"/>
-          <line num="130" count="0" type="stmt"/>
-          <line num="132" count="0" type="stmt"/>
-          <line num="138" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="139" count="0" type="stmt"/>
-          <line num="142" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="143" count="0" type="stmt"/>
-          <line num="147" count="0" type="stmt"/>
-          <line num="149" count="0" type="stmt"/>
-          <line num="153" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="154" count="0" type="stmt"/>
-          <line num="160" count="0" type="stmt"/>
-          <line num="161" count="0" type="stmt"/>
-          <line num="166" count="0" type="stmt"/>
-          <line num="167" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="171" count="0" type="stmt"/>
-          <line num="179" count="0" type="stmt"/>
-          <line num="181" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="182" count="0" type="stmt"/>
-          <line num="183" count="0" type="stmt"/>
-          <line num="186" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="187" count="0" type="stmt"/>
-          <line num="188" count="0" type="stmt"/>
-          <line num="191" count="0" type="stmt"/>
-          <line num="195" count="141" type="stmt"/>
-          <line num="196" count="141" type="stmt"/>
-          <line num="197" count="141" type="stmt"/>
-          <line num="198" count="141" type="stmt"/>
-          <line num="199" count="141" type="stmt"/>
-          <line num="200" count="141" type="stmt"/>
-          <line num="204" count="141" type="cond" truecount="2" falsecount="0"/>
-          <line num="206" count="141" type="stmt"/>
-          <line num="214" count="3" type="stmt"/>
-        </file>
         <file name="utils.js" path="C:\projects\simple-widgets\src\DoubleListBox\utils.js">
-          <metrics statements="98" coveredstatements="18" conditionals="30" coveredconditionals="2" methods="15" coveredmethods="4"/>
+          <metrics statements="54" coveredstatements="31" conditionals="18" coveredconditionals="5" methods="8" coveredmethods="7"/>
           <line num="9" count="3" type="stmt"/>
-          <line num="10" count="1" type="stmt"/>
-          <line num="11" count="1" type="stmt"/>
-          <line num="12" count="1" type="stmt"/>
-          <line num="14" count="1" type="stmt"/>
+          <line num="10" count="2" type="stmt"/>
+          <line num="11" count="2" type="stmt"/>
+          <line num="12" count="2" type="stmt"/>
+          <line num="14" count="2" type="stmt"/>
           <line num="31" count="3" type="stmt"/>
           <line num="37" count="3" type="stmt"/>
-          <line num="44" count="1" type="cond" truecount="1" falsecount="1"/>
-          <line num="45" count="1" type="stmt"/>
-          <line num="46" count="1" type="stmt"/>
-          <line num="52" count="1" type="stmt"/>
-          <line num="60" count="1" type="stmt"/>
+          <line num="44" count="2" type="cond" truecount="1" falsecount="1"/>
+          <line num="45" count="2" type="stmt"/>
+          <line num="46" count="2" type="stmt"/>
+          <line num="52" count="2" type="stmt"/>
+          <line num="60" count="2" type="stmt"/>
           <line num="67" count="0" type="stmt"/>
           <line num="68" count="0" type="stmt"/>
           <line num="71" count="0" type="stmt"/>
@@ -336,82 +326,38 @@
           <line num="81" count="0" type="stmt"/>
           <line num="90" count="0" type="stmt"/>
           <line num="98" count="3" type="stmt"/>
-          <line num="99" count="0" type="stmt"/>
-          <line num="100" count="0" type="stmt"/>
-          <line num="101" count="0" type="stmt"/>
-          <line num="104" count="0" type="stmt"/>
-          <line num="106" count="0" type="stmt"/>
-          <line num="109" count="3" type="stmt"/>
-          <line num="115" count="0" type="stmt"/>
-          <line num="116" count="0" type="stmt"/>
-          <line num="118" count="0" type="stmt"/>
-          <line num="119" count="0" type="stmt"/>
-          <line num="121" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="122" count="0" type="stmt"/>
-          <line num="125" count="0" type="stmt"/>
-          <line num="126" count="0" type="stmt"/>
-          <line num="128" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="129" count="0" type="stmt"/>
-          <line num="132" count="0" type="stmt"/>
-          <line num="134" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="135" count="0" type="stmt"/>
-          <line num="140" count="0" type="stmt"/>
-          <line num="145" count="0" type="stmt"/>
-          <line num="146" count="0" type="stmt"/>
-          <line num="151" count="0" type="stmt"/>
-          <line num="152" count="0" type="stmt"/>
+          <line num="99" count="2" type="stmt"/>
+          <line num="100" count="4" type="stmt"/>
+          <line num="101" count="4" type="stmt"/>
+          <line num="104" count="2" type="stmt"/>
+          <line num="106" count="2" type="stmt"/>
+          <line num="110" count="3" type="stmt"/>
+          <line num="111" count="2" type="cond" truecount="1" falsecount="1"/>
+          <line num="112" count="0" type="stmt"/>
+          <line num="114" count="2" type="stmt"/>
+          <line num="117" count="3" type="stmt"/>
+          <line num="119" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="120" count="0" type="stmt"/>
+          <line num="123" count="1" type="stmt"/>
+          <line num="124" count="1" type="stmt"/>
+          <line num="126" count="1" type="stmt"/>
+          <line num="127" count="1" type="stmt"/>
+          <line num="128" count="1" type="stmt"/>
+          <line num="132" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="133" count="0" type="stmt"/>
+          <line num="140" count="1" type="cond" truecount="1" falsecount="1"/>
+          <line num="141" count="1" type="stmt"/>
+          <line num="144" count="0" type="stmt"/>
+          <line num="145" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="146" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="148" count="0" type="stmt"/>
+          <line num="153" count="0" type="stmt"/>
           <line num="155" count="0" type="cond" truecount="0" falsecount="2"/>
           <line num="156" count="0" type="stmt"/>
-          <line num="158" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="159" count="0" type="stmt"/>
+          <line num="158" count="0" type="stmt"/>
+          <line num="162" count="0" type="cond" truecount="0" falsecount="2"/>
           <line num="163" count="0" type="stmt"/>
-          <line num="164" count="0" type="stmt"/>
           <line num="165" count="0" type="stmt"/>
-          <line num="166" count="0" type="stmt"/>
-          <line num="168" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="169" count="0" type="stmt"/>
-          <line num="173" count="0" type="stmt"/>
-          <line num="178" count="0" type="stmt"/>
-          <line num="180" count="0" type="stmt"/>
-          <line num="183" count="0" type="stmt"/>
-          <line num="184" count="0" type="stmt"/>
-          <line num="187" count="0" type="stmt"/>
-          <line num="188" count="0" type="stmt"/>
-          <line num="193" count="0" type="stmt"/>
-          <line num="194" count="0" type="stmt"/>
-          <line num="195" count="0" type="stmt"/>
-          <line num="196" count="0" type="stmt"/>
-          <line num="197" count="0" type="stmt"/>
-          <line num="201" count="0" type="stmt"/>
-          <line num="206" count="0" type="stmt"/>
-          <line num="211" count="0" type="stmt"/>
-          <line num="217" count="3" type="stmt"/>
-          <line num="218" count="1" type="cond" truecount="1" falsecount="1"/>
-          <line num="219" count="0" type="stmt"/>
-          <line num="221" count="1" type="stmt"/>
-          <line num="224" count="3" type="stmt"/>
-          <line num="230" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="231" count="0" type="stmt"/>
-          <line num="234" count="0" type="stmt"/>
-          <line num="235" count="0" type="stmt"/>
-          <line num="237" count="0" type="stmt"/>
-          <line num="238" count="0" type="stmt"/>
-          <line num="239" count="0" type="stmt"/>
-          <line num="243" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="244" count="0" type="stmt"/>
-          <line num="251" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="252" count="0" type="stmt"/>
-          <line num="255" count="0" type="stmt"/>
-          <line num="256" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="257" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="259" count="0" type="stmt"/>
-          <line num="264" count="0" type="stmt"/>
-          <line num="267" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="268" count="0" type="stmt"/>
-          <line num="270" count="0" type="stmt"/>
-          <line num="274" count="0" type="cond" truecount="0" falsecount="2"/>
-          <line num="275" count="0" type="stmt"/>
-          <line num="277" count="0" type="stmt"/>
         </file>
       </package>
     </metrics>
