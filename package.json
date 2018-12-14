@@ -5,31 +5,45 @@
   "main": "ExampleApp.js",
   "scripts": {
     "setup": "npm install",
-    "dev": "run-s pack-d maps",
-    "dry": "run-s pack dry-run",
-    "pub": "run-s pack release-it",
-    "test": "jest",
+    "dev": "pack-d && maps",
+    "dry": "pack && dry-run",
+    "pub": "pack && release",
+    "test": "jest --colors",
+    "watch": "jest --watch",
     "coverage": "jest --coverage && cat ./tests/coverage/lcov.info ",
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
     "maps": "cd lib && cp index.js.map index.map",
     "pack-d": "webpack --mode development  --progress",
     "pack": "webpack -p --mode production  --progress",
-    "dry-run": "release-it --dry-run -n"
+    "dry-run": "release-it --dry-run -n",
+    "release": "release-it"
   },
   "babel": {
     "plugins": [
-        "@babel/plugin-proposal-object-rest-spread",
-        ["@babel/plugin-proposal-class-properties", { "loose": true }]
+      "@babel/plugin-proposal-object-rest-spread",
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
     ],
-    "presets": ["@babel/env", "@babel/react", "@babel/preset-flow"]
+    "presets": [
+      "@babel/env",
+      "@babel/react",
+      "@babel/preset-flow"
+    ]
   },
   "jest": {
-    "transform": {"^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest"},
+    "browser": true,
+    "transform": {
+      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest"
+    },
     "unmockedModulePathPatterns": [
-        "<rootDir>/node_modules/react",
-        "<rootDir>/node_modules/react-dom",
-        "<rootDir>/node_modules/react-addons-test-utils",
-        "<rootDir>/node_modules/fbjs"
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/fbjs"
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -40,7 +54,7 @@
       "!test/webpack.config.js",
       "!test/ExampleApp.js",
       "!src/PrevDoubleListBox/**/*.js"
-    ]  
+    ]
   },
   "repository": {
     "type": "git",
@@ -85,7 +99,6 @@
     "jest": "^23.6.0",
     "jest-dom": "^2.1.1",
     "json-loader": "^0.5.7",
-    "npm-run-all": "^4.1.3",
     "progress-bar-webpack-plugin": "^1.11.0",
     "react": ">=16.0.1",
     "react-dom": ">=16.0.1",

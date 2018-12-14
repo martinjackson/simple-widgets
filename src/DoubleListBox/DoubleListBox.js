@@ -25,7 +25,7 @@ type State = {|
 
 
 import buildEntities from './buildEntities';
-import Column from './column';
+import Column from './Column';
 import { mutliDragAwareReorder, multiSelectTo as multiSelect } from './utils';
 
 
@@ -61,24 +61,23 @@ export default class DoubleListBox extends Component<*, State> {
 
   notifyOfChange() {
     if (this.props.onChange) {
-      
+
       const notIds: Id[] = this.state.entities.columns.notselected.taskIds
       const selIds: Id[] = this.state.entities.columns.selected.taskIds
 
       const left  = notIds.map(id => this.state.entities.tasks[id].content)
       const right = selIds.map(id => this.state.entities.tasks[id].content)
 
-      console.log('notifyOfChange:', '\nnotIds:', notIds, 'selIds:', selIds,
-      '\nleft:', left, 'right:', right);
+      // DEBUG console.log('notifyOfChange:', 'left: [', ...left, '] right: [', ...right, ']');
 
       const e = {}
       e.target = {}
       e.target.name = this.props.name
       e.target.value = right
 
-      
-      this.props.onChange(e);          
-    }    
+
+      this.props.onChange(e);
+    }
 
   }
 
@@ -105,11 +104,9 @@ export default class DoubleListBox extends Component<*, State> {
 
   onDragStart = (start: DragStart) => {
     const id: string = start.draggableId;
-    const selected: ?Id = this.state.selectedTaskIds.find(
-      (taskId: Id): boolean => taskId === id,
-    );
+    const selected: ?Id = this.state.selectedTaskIds.find( (taskId: Id): boolean => taskId === id, );
 
-    console.log('onDragStart:', id);      // maj TODO: remove debug
+    // DEBUG console.log('onDragStart:', id);      // maj TODO: remove debug
 
     // if dragging an item that is not selected - unselect all items
     if (!selected) {
@@ -124,13 +121,11 @@ export default class DoubleListBox extends Component<*, State> {
     const destination: ?DraggableLocation = result.destination;
     const source: DraggableLocation = result.source;
 
-    console.log('onDragEnd:', result.draggableId, 'dest:', destination);      // maj TODO: remove debug
+    // DEBUG console.log('onDragEnd:', result.draggableId, 'dest:', destination);      // maj TODO: remove debug
 
     // nothing to do
     if (!destination || result.reason === 'CANCEL') {
-      this.setState({
-        draggingTaskId: null,
-      });
+      this.setState({ draggingTaskId: null, });
       return;
     }
 
@@ -141,15 +136,15 @@ export default class DoubleListBox extends Component<*, State> {
       destination,
     });
 
-    this.setState({...processed, draggingTaskId: null, }, this.notifyOfChange);    
+    this.setState({...processed, draggingTaskId: null, }, this.notifyOfChange);
   };
 
   onWindowKeyDown = (event: KeyboardEvent) => {
     if (event.defaultPrevented) {
       return;
     }
-    console.log('onWindowKeyDown: ', event);
-    
+    // DEBUG console.log('onWindowKeyDown: ', event);
+
 
     if (event.key === 'Escape') {
       this.unselectAll();
@@ -160,7 +155,7 @@ export default class DoubleListBox extends Component<*, State> {
     if (event.defaultPrevented) {
       return;
     }
-    console.log('onWindowClick', event);
+    // DEBUG console.log('onWindowClick', event);
     this.unselectAll();
   };
 
@@ -168,9 +163,9 @@ export default class DoubleListBox extends Component<*, State> {
     if (event.defaultPrevented) {
       return;
     }
-    console.log('onWindowTouchEnd: ', event);
+    // DEBUG console.log('onWindowTouchEnd: ', event);
     this.unselectAll();
-  }; 
+  };
 
   toggleSelection = (taskId: Id) => {
     const selectedTaskIds: Id[] = this.state.selectedTaskIds;
@@ -194,7 +189,7 @@ export default class DoubleListBox extends Component<*, State> {
       return [];
     })();
 
-    console.log('toggleSelection: ', newTaskIds);
+    // DEBUG console.log('toggleSelection: ', newTaskIds);
 
     this.setState({ selectedTaskIds: newTaskIds, });
   };
