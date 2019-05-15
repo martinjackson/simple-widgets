@@ -1,6 +1,6 @@
 {
   "name": "simple-widgets",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A Collection of React components to make your React code simpler",
   "main": "ExampleApp.js",
   "scripts": {
@@ -15,8 +15,8 @@
     "maps": "cd lib && cp index.js.map index.map",
     "pack-d": "webpack --mode development  --progress",
     "pack": "webpack -p --mode production  --progress",
-    "dry-run": "release-it --dry-run -n",
-    "release": "release-it"
+    "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
+    "release": "release-it --no-git.requireCleanWorkingDir"
   },
   "babel": {
     "plugins": [
