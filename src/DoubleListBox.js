@@ -1,6 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind';
-import List from './List';
+import { List } from './List';
 
 export default class DoubleListBox extends React.Component {
     constructor(props) {
@@ -31,10 +31,10 @@ export default class DoubleListBox extends React.Component {
         const colSt = { flexDirection: 'column' }
         const listSt = { width: 300 }
         const buttonSt = {
-            width: 50
-            margin: 10
-            backgroundColor: this.props.buttonBackgroundColor || 'blue';
-            color: this.props.buttonColor || 'white';
+            width: 50,
+            margin: 10,
+            backgroundColor: this.props.buttonBackgroundColor || 'blue',
+            color: this.props.buttonColor || 'white',
         }
 
         return (

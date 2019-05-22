@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-const Choice = (props) => {
+export const Choice = (props) => {
 
     var props = {...this.props};
     const list = (props.list) ? props.list: props.choices;
@@ -27,6 +27,4 @@ const Choice = (props) => {
 
 }
 
-const List = <Choice multiple={true} {...props} />
-
-export {List, Choice}
+export const List = (props) => { return <Choice multiple={true} {...props} /> }
