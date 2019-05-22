@@ -62,12 +62,8 @@ export default class DoubleListBox extends React.Component {
     }
 
     reportChange(e, value) {
-        if (!e.target)
-            e.target = {}
-
-        e.target.name = this.props.name;
-        e.target.value = value;
-        this.props.onChange(e);
+        // dont modify 'e', a Synthetic Event
+        this.props.onChange({target: {name: this.props.name, value: value}});
     }
 
     moveRightSelectButton(e) {
@@ -94,7 +90,6 @@ export default class DoubleListBox extends React.Component {
             leftSelections: []
         });
 
-        // this.props.rightValues (right);
         this.reportChange(e,right)
 
     }
@@ -112,10 +107,7 @@ export default class DoubleListBox extends React.Component {
             leftValues: [],
             rightValues: right,
             leftSelections: [],
-        });
-
-        // this.props.rightValues (right);
-        this.reportChange(e,right)
+        }, () => {this.reportChange(e,right)});
     }
 
     moveLeftSelectButton(e) {
@@ -137,10 +129,7 @@ export default class DoubleListBox extends React.Component {
             leftValues: left,
             rightValues: right,
             rightSelections: []
-        });
-
-        // this.props.rightValues (right);
-        this.reportChange(e,right)
+        }, () => {this.reportChange(e,right)});
     }
 
     moveLeftAllButton(e) {
@@ -158,7 +147,6 @@ export default class DoubleListBox extends React.Component {
             rightSelections: [],
         });
 
-        // this.props.rightValues (right);
         this.reportChange(e,right)
     }
 
