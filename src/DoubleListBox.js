@@ -8,17 +8,18 @@ export default class DoubleListBox extends React.Component {
         autoBind(this);
 
         this.state = {
-            leftValues: this.props.leftList,
-            rightValues: this.props.rightList,
+            leftValues: this.props.leftList || this.props.choices,
+            rightValues: this.props.rightList || this.props.value,
             leftSelections: [],
             rightSelections: [],
         }
     }
 
     static getDerivedStateFromProps(props, state) {
-        for (let i = 0; i < props.leftList.length; i++) {
-            if (props.leftList[i] !== state.leftValues[i]) {
-                return { leftValues: props.leftList}
+        const choices = props.leftList || props.choices;
+        for (let i = 0; i < choices.length; i++) {
+            if (choices[i] !== state.leftValues[i]) {
+                return { leftValues: choices }
             }
         }
 
@@ -48,7 +49,7 @@ export default class DoubleListBox extends React.Component {
                 </div>
                 <div style={topSt}>
                     <List list={this.state.leftValues} id="leftBox" onChange={this.leftHandleChange} style={listSt} />
-                    <div style={buttonsSt}>
+                    <div style={colSt}>
                         <button name="moveRightSelect"   style={buttonSt} onClick={this.moveRightSelectButton}>&gt;</button><br />
                         <button name="moveRightAll"      style={buttonSt} onClick={this.moveRightAllButton}>&gt;&gt;</button><br />
                         <button name="moveLeftSelect"    style={buttonSt} onClick={this.moveLeftSelectButton}>&lt;</button><br />
@@ -61,8 +62,9 @@ export default class DoubleListBox extends React.Component {
     }
 
     reportChange(e, value) {
-        if (typeof e.preventDefault === 'function')
-            e.preventDefault();
+        if (!e.target)
+            e.target = {}
+
         e.target.name = this.props.name;
         e.target.value = value;
         this.props.onChange(e);
@@ -93,7 +95,7 @@ export default class DoubleListBox extends React.Component {
         });
 
         // this.props.rightValues (right);
-        this.reportChange(right)
+        this.reportChange(e,right)
 
     }
 
@@ -113,7 +115,7 @@ export default class DoubleListBox extends React.Component {
         });
 
         // this.props.rightValues (right);
-        this.reportChange(right)
+        this.reportChange(e,right)
     }
 
     moveLeftSelectButton(e) {
@@ -138,7 +140,7 @@ export default class DoubleListBox extends React.Component {
         });
 
         // this.props.rightValues (right);
-        this.reportChange(right)
+        this.reportChange(e,right)
     }
 
     moveLeftAllButton(e) {
@@ -157,7 +159,7 @@ export default class DoubleListBox extends React.Component {
         });
 
         // this.props.rightValues (right);
-        this.reportChange(right)
+        this.reportChange(e,right)
     }
 
     leftHandleChange(e) {

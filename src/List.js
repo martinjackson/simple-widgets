@@ -1,30 +1,35 @@
 import React, { Fragment } from 'react';
 
-export const Choice = (props) => {
+export const Choice = (propsIn) => {
 
-    var props = {...this.props};
-    const list = (props.list) ? props.list: props.choices;
-    delete props.list;
-    delete props.choices;   // legacy support
-    const siz = (props.size) ? props.size : 10;
-    delete props.size;
+    const {list, choices, size, ...props} = propsIn
+    const siz = size || 10;
+    const opt = list || choices || []
+    console.log(`props.value: '${props.value}'`);
+    console.log({opt});
+
+    if ( typeof(props.value) == 'string' && !opt.includes(props.value) )
+       {
+         console.log(`Adding missing default value: '${props.value}'`);
+         opt.unshift(props.value)
+       }
+
+    console.log({opt});
 
     if (props.multiple) {
       return <Fragment>
-                <select multiple {...props} size={siz} >
-                  {list.map( el => <option key={el} value={el}>{el}</option>)}
+                <select multiple size={siz} {...props} >
+                  {opt.map( el => <option key={el} value={el}>{el}</option>)}
                 </select>
             </Fragment>;
     }
     else {
       return <Fragment>
-                <select {...props} size={siz} >
-                  {list.map( el => <option key={el} value={el}>{el}</option>)}
+                <select {...props} >
+                  {opt.map( el => <option key={el} value={el}>{el}</option>)}
                 </select>
             </Fragment>;
     }
-
-
 }
 
 export const List = (props) => { return <Choice multiple={true} {...props} /> }
