@@ -2,7 +2,7 @@
   "name": "simple-widgets",
   "version": "1.2.5",
   "description": "A Collection of React components to make your React code simpler",
-  "main": "ExampleApp.js",
+  "main": "./lib/index.js",
   "scripts": {
     "setup": "npm install",
     "dev": "npm run pack-d && npm run maps",
@@ -14,7 +14,7 @@
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
     "maps": "cd lib && cp index.js.map index.map",
     "pack-d": "webpack --mode development  --progress && npm run maps",
-    "pack": "webpack -p --mode production  --progress && npm run maps",
+    "pack": "rm lib/*.map && webpack -p --mode production  --progress",
     "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
     "release": "release-it --no-git.requireCleanWorkingDir"
   },
@@ -120,10 +120,7 @@
   },
   "dependencies": {
     "date-fns": "^1.30.1",
-    "emotion": "^10.0.9",
     "react-autobind": "^1.0.6",
-    "react-day-picker": "^7.3.0",
-    "react-emotion": "^10.0.0",
-    "styled-components": "^4.2.0"
+    "react-day-picker": "^7.3.0"
   }
 }
