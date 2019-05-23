@@ -8,29 +8,30 @@ import ReactTestUtils from 'react-dom/test-utils';
 import Enzyme, { mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import { DragDropContext } from 'react-beautiful-dnd';
-
-import DoubleListBox from '../src/DoubleListBox/DoubleListBox';
-import Column from '../src/DoubleListBox/Column';
-import Task from '../src/DoubleListBox/Task';
+import DoubleListBox from '../src/DoubleListBox';
 import makeChangeHandler from '../src/makeChangeHandler'
 
 Enzyme.configure({ adapter: new Adapter() })
 
 const fullList = ['apple', 'bannana', 'blackberry', 'blueberry', 'peach', 'strawberry', ]
 const preSelected = fullList.filter( item => item.startsWith('b') )
+const notSelected = fullList.filter( item => !item.startsWith('b') )
 
 class DLBTest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fruitChoice: this.props.preselected
+      fruitChoice: [...this.props.preselected],
+      notFruit: [...this.props.notselected]
     };
     this.handleChange = makeChangeHandler(this);
   }
 
   render() {
-    this.testTarget = <DoubleListBox id="DoubleListBox" choices={fullList} name="fruitChoice" value={this.state.fruitChoice} onChange={this.handleChange} />
+    this.testTarget = <DoubleListBox id="DoubleListBox" name="fruitChoice"
+                choices={this.state.notFruit}
+                value={this.state.fruitChoice}
+                onChange={this.handleChange} />
     return this.testTarget
   }
 
@@ -46,18 +47,18 @@ it('mounted without crashing', () => {
 });
 
 it('renders with preselection', () => {
-    const wrapper = mount(<DLBTest preselected={preSelected} />)
+    const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
 });
 
 it('gets selected values', () => {
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
+  const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const comp = wrapper.instance()
   const ans = wrapper.state('fruitChoice')
   expect(ans).toEqual(preSelected)
 });
 
 it('select all', () => {
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
+  const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const comp = wrapper.find(DoubleListBox).instance()
   comp.allSelect();
   const ans = wrapper.state('fruitChoice')
@@ -65,7 +66,7 @@ it('select all', () => {
 });
 
 it('unselect all', () => {
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
+  const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const comp = wrapper.find(DoubleListBox).instance()
   comp.unselect();        // same as unselectAll()
   comp.unselectAll();
@@ -74,7 +75,7 @@ it('unselect all', () => {
 });
 
 it('toggle apple', () => {
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
+  const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const comp = wrapper.find(DoubleListBox).instance()
   comp.toggleSelection('task-0');    // apple
   const ans = wrapper.state('fruitChoice')
@@ -82,7 +83,7 @@ it('toggle apple', () => {
 });
 
 it('toggle blueberry', () => {
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
+  const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const comp = wrapper.find(DoubleListBox).instance()
   comp.toggleSelection('task-3');    // blueberry
   const ans = wrapper.state('fruitChoice')
@@ -90,7 +91,7 @@ it('toggle blueberry', () => {
 });
 
 it('toggle apple in group', () => {
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
+  const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const comp = wrapper.find(DoubleListBox).instance()
   comp.toggleSelectionInGroup('task-0');
   const ans = wrapper.state('fruitChoice')
@@ -98,7 +99,7 @@ it('toggle apple in group', () => {
 });
 
 it('multiSelectTo bananna', () => {
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
+  const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const comp = wrapper.find(DoubleListBox).instance()
   comp.toggleSelection('task-1');    // bananna
   comp.multiSelectTo('task-1');    // select one already selected
@@ -108,12 +109,10 @@ it('multiSelectTo bananna', () => {
 
 
 it('right click on 1st item in first column', () => {
-  const wrapper = mount(<DLBTest preselected={preSelected} />)
+  const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const dlb = wrapper.find(DoubleListBox)
-  const fcol = dlb.find(Column)
-  const tk = fcol.find(Task).first()
-  tk.simulate('click');
-  tk.simulate('click', { button: 1 });
+  const fcol = wrapper.find('#leftBox')
+  fcol.simulate('change', {target { value : 'apple'}});
   const ans = wrapper.state('fruitChoice')
   expect(ans).toEqual(preSelected)
 });

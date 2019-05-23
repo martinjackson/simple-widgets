@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-export const Choice = (propsIn) => {
+export const Choice = React.forwardRef((propsIn, ref) => {
 
     const {list, choices, size, ...props} = propsIn
     const siz = size || 10;
@@ -14,18 +14,20 @@ export const Choice = (propsIn) => {
 
     if (props.multiple) {
       return <Fragment>
-                <select multiple size={siz} {...props} >
-                  {opt.map( el => <option key={el} value={el}>{el}</option>)}
+                <select ref={ref} multiple size={siz} {...props} >
+                  {opt.map( (el,k) => <option key={k} value={el}>{el}</option>)}
                 </select>
             </Fragment>;
     }
     else {
       return <Fragment>
                 <select {...props} >
-                  {opt.map( el => <option key={el} value={el}>{el}</option>)}
+                  {opt.map( (el,k) => <option key={k} value={el}>{el}</option>)}
                 </select>
             </Fragment>;
     }
-}
+});
 
-export const List = (props) => { return <Choice multiple={true} {...props} /> }
+export const List = React.forwardRef((props, ref) => (
+        <Choice ref={ref} multiple={true} {...props} />)
+        );

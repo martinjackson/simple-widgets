@@ -1,22 +1,18 @@
 import React from 'react';
 
- 
+
 
 // currently only accepts property choices as ['one','two']
 
- 
+
 
 class ChoiceText extends React.Component {
 
- 
+
 
   render() {
 
-    var props = {...this.props};
-
-    const choices = props.choices;
-
-    delete props.choices;
+    const {choices, ...props} = this.props;
 
     return <span>
 
@@ -32,11 +28,11 @@ class ChoiceText extends React.Component {
 
   }
 
- 
+
 
 }
 
- 
+
 
 export default ChoiceText;
 

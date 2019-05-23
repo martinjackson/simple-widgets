@@ -36,7 +36,6 @@ Add simple-widgets to yor project
 npm install simple-widgets --save
 ```
 
-
 include in your React components
 
 ```javascript
@@ -54,9 +53,9 @@ npm start
 ```
 
 ## Notes about source code build
+
 - wallaby.js needs .babelrc for code coverage testing
 - webpack uses babel config in webpack.config.js babel-loader section
-
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/martinjackson/simple-widgets/issues)
 
