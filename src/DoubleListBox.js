@@ -1,25 +1,35 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 import { List } from './List';
+import { resetWarningCache } from 'prop-types';
+
+const reset = (props,state) => {
+    return {
+        choices: [...props.choices],
+        leftValues: [...props.choices],
+        rightValues: [...props.value],
+        leftSelections: [],
+        rightSelections: [],
+    }
+
+}
 
 export default class DoubleListBox extends React.Component {
     constructor(props) {
         super(props);
         autoBind(this);
 
-        this.state = {
-            leftValues: this.props.leftList || this.props.choices,
-            rightValues: this.props.rightList || this.props.value,
-            leftSelections: [],
-            rightSelections: [],
-        }
+        this.leftRef = React.createRef();
+        this.rightRef = React.createRef();
+
+        this.state = reset(this.props, this.state)
     }
 
+
     static getDerivedStateFromProps(props, state) {
-        const choices = props.leftList || props.choices;
-        for (let i = 0; i < choices.length; i++) {
-            if (choices[i] !== state.leftValues[i]) {
-                return { leftValues: choices }
+        for (let i = 0; i < props.choices.length; i++) {
+            if (props.choices[i] !== state.choices[i]) {
+                return reset(props, state)
             }
         }
 
@@ -48,56 +58,66 @@ export default class DoubleListBox extends React.Component {
                     <label style={listSt}>{this.props.rightTitle}</label>
                 </div>
                 <div style={topSt}>
-                    <List list={this.state.leftValues} id="leftBox" onChange={this.leftHandleChange} style={listSt} />
+                    <List list={this.state.leftValues} ref={this.leftRef} onChange={this.leftHandleChange} style={listSt} />
                     <div style={colSt}>
                         <button name="moveRightSelect"   style={buttonSt} onClick={this.moveRightSelectButton}>&gt;</button><br />
                         <button name="moveRightAll"      style={buttonSt} onClick={this.moveRightAllButton}>&gt;&gt;</button><br />
                         <button name="moveLeftSelect"    style={buttonSt} onClick={this.moveLeftSelectButton}>&lt;</button><br />
                         <button name="moveLeftAll"       style={buttonSt} onClick={this.moveLeftAllButton}>&lt;&lt;</button><br />
                     </div>
-                    <List list={this.state.rightValues} id="rightBox" onChange={this.rightHandleChange} style={listSt} />
+                    <List list={this.state.rightValues} ref={this.rightRef}  onChange={this.rightHandleChange} style={listSt} />
                 </div>
             </div>
         )
     }
 
-    reportChange(e, value) {
+    reportChange(right) {
         // dont modify 'e', a Synthetic Event
-        this.props.onChange({target: {name: this.props.name, value: value}});
+        this.props.onChange({target: {name: this.props.name, value: right}});
+    }
+
+    add(a,b) {
+        let ans = [...a];
+        for (let i = 0; i < b.length; i++) {
+            ans.push (b[i]);
+        }
+        return ans
+    }
+
+    sub(a,b) {
+        let ans = [];
+        for (let i = 0; i < a.length; i++) {
+            if ( !b.includes(a[i]) )
+               ans.push (a[i]);
+        }
+        return ans
     }
 
     moveRightSelectButton(e) {
-        console.log ('moveRightSelectButton');
-
-        let selectedValues = this.state.leftSelections;
-        let left = this.state.leftValues;
-        let right = this.state.rightValues;
-
-        console.log ('selectedValues', selectedValues);
-
-        for (let i = 0; i < selectedValues.length; i++) {
-            right.push (selectedValues[i]);
-            for (let j = 0; j < left.length; j++) {
-                if (selectedValues[i] === left[j]) {
-                    left.splice (j, 1);
-                }
-            }
-        }
+        let right = this.add(this.state.rightValues, this.state.leftSelections)
+        let left =  this.sub(this.state.leftValues, right)
 
         this.setState ({
             leftValues: left,
             rightValues: right,
             leftSelections: []
-        });
+        }, () => {this.reportChange(right)});
+    }
 
-        this.reportChange(e,right)
+    moveLeftSelectButton(e) {
+        let left = this.add(this.state.leftValues, this.state.rightSelections)
+        let right =  this.sub(this.state.rightValues, left)
 
+        this.setState ({
+            leftValues: left,
+            rightValues: right,
+            rightSelections: []
+        }, () => {this.reportChange(right)});
     }
 
     moveRightAllButton(e) {
-        console.log ('moveRightAllButton');
         let left = this.state.leftValues;
-        let right = this.state.rightValues;
+        let right = [...this.state.rightValues];
 
         for (let i = 0; i < left.length; i++) {
             right.push (left[i]);
@@ -107,34 +127,11 @@ export default class DoubleListBox extends React.Component {
             leftValues: [],
             rightValues: right,
             leftSelections: [],
-        }, () => {this.reportChange(e,right)});
-    }
-
-    moveLeftSelectButton(e) {
-        console.log ('moveLeftSelectButton');
-        let selectedValues = this.state.rightSelections;
-        let left = this.state.leftValues;
-        let right = this.state.rightValues;
-
-        for (let i = 0; i < selectedValues.length; i++) {
-            left.push (selectedValues[i]);
-            for (let j = 0; j < right.length; j++) {
-                if (selectedValues[i] === right[j]) {
-                    right.splice (j, 1);
-                }
-            }
-        }
-
-        this.setState ({
-            leftValues: left,
-            rightValues: right,
-            rightSelections: []
-        }, () => {this.reportChange(e,right)});
+        }, () => {this.reportChange(right)});
     }
 
     moveLeftAllButton(e) {
-        console.log ('moveLeftSelectButton')
-        let left = this.state.leftValues;
+        let left = [...this.state.leftValues];
         let right = this.state.rightValues;
 
         for (let i = 0; i < right.length; i++) {
@@ -145,9 +142,7 @@ export default class DoubleListBox extends React.Component {
             leftValues: left,
             rightValues: [],
             rightSelections: [],
-        });
-
-        this.reportChange(e,right)
+        }, () => {this.reportChange([])});
     }
 
     leftHandleChange(e) {
@@ -158,6 +153,7 @@ export default class DoubleListBox extends React.Component {
           e.preventDefault();
         }
 
+        const leftBox = this.leftRef.current;
         let values = [];
         for (let i = 0; i < leftBox.length; i++) {
             if (leftBox[i].selected === true) {
@@ -176,6 +172,7 @@ export default class DoubleListBox extends React.Component {
           e.preventDefault();
         }
 
+        const rightBox = this.rightRef.current;
         let values = [];
         for (let i = 0; i < rightBox.length; i++) {
             if (rightBox[i].selected === true) {
