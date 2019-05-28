@@ -2,6 +2,8 @@ docs/*
 src/*
 test/*
 misc/*
+coverage/*
+notes/*
 node_modules/*
 .gitignore
 package-log.json
