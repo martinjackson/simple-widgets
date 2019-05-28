@@ -1,69 +1,28 @@
-
-$  cost-of-modules
+$ cost-of-modules
 
 Making sure dependencies are installed
 npm install --production
 
+npm WARN acorn-dynamic-import@4.0.0 requires a peer of acorn@^6.0.0 but none is installed. You must install peer dependencies yourself.
 
-> styled-components@4.0.3 postinstall C:\projects\simple-widgets\node_modules\styled-components
-> node ./scripts/postinstall.js || exit 0
-
-Use styled-components at work? Consider supporting our development efforts at https://opencollective.com/styled-components
-added 39 packages from 110 contributors and audited 14101 packages in 24.164s
-found 0 vulnerabilities
-
+audited 889225 packages in 9.649s
+found 1 low severity vulnerability
+  run `npm audit fix` to fix them, or `npm audit` for details
 
 Calculating...
 
 
-┌───────────────────┬─────────────┬───────┐
-│ name              │ children    │ size  │
-├───────────────────┼─────────────┼───────┤
-│ styled-components │ 34          │ 7.83M │
-├───────────────────┼─────────────┼───────┤
-│ ramda             │ 0           │ 0.93M │
-├───────────────────┼─────────────┼───────┤
-│ react-day-picker  │ 4           │ 0.89M │
-├───────────────────┼─────────────┼───────┤
-│ date-fns          │ 0           │ 0.74M │
-├───────────────────┼─────────────┼───────┤
-│ react-autobind    │ 0           │ 0.02M │
-├───────────────────┼─────────────┼───────┤
-│ 5 modules         │ 34 children │ 8.99M │
-└───────────────────┴─────────────┴───────┘
+┌──────────────────┬────────────┬───────┐
+│ name             │ children   │ size  │
+├──────────────────┼────────────┼───────┤
+│ react-day-picker │ 5          │ 0.94M │
+├──────────────────┼────────────┼───────┤
+│ date-fns         │ 0          │ 0.70M │
+├──────────────────┼────────────┼───────┤
+│ react-autobind   │ 0          │ 0.02M │
+├──────────────────┼────────────┼───────┤
+│ 3 modules        │ 5 children │ 1.66M │
+└──────────────────┴────────────┴───────┘
 
-
-Martinjackson@NCW0154780 MINGW64 /c/projects/simple-widgets (master)
-$
-
-Martinjackson@NCW0154780 MINGW64 /c/projects/simple-widgets (master)
-$ alias cost-of-modules='cost-of-modules --no-install'
-
-Martinjackson@NCW0154780 MINGW64 /c/projects/simple-widgets (master)
-$ cost-of-modules
-
-Calculating...
-
-
-┌─────────────────────┬─────────────┬────────┐
-│ name                │ children    │ size   │
-├─────────────────────┼─────────────┼────────┤
-│ styled-components   │ 34          │ 9.91M  │
-├─────────────────────┼─────────────┼────────┤
-│ react-beautiful-dnd │ 26          │ 4.33M  │
-├─────────────────────┼─────────────┼────────┤
-│ ramda               │ 0           │ 0.93M  │
-├─────────────────────┼─────────────┼────────┤
-│ react-day-picker    │ 1           │ 0.86M  │
-├─────────────────────┼─────────────┼────────┤
-│ date-fns            │ 0           │ 0.74M  │
-├─────────────────────┼─────────────┼────────┤
-│ react-autobind      │ 0           │ 0.02M  │
-├─────────────────────┼─────────────┼────────┤
-│ 6 modules           │ 46 children │ 13.04M │
-└─────────────────────┴─────────────┴────────┘
-
-
-Martinjackson@NCW0154780 MINGW64 /c/projects/simple-widgets (master)
-$
+$ 
 
