@@ -8,7 +8,7 @@ export const Choice = React.forwardRef((propsIn, ref) => {
 
     if ( typeof(props.value) == 'string' && !opt.includes(props.value) )
        {
-         console.log(`Adding missing default value: '${props.value}'`);
+         console.log(`Adding missing default value: '${props.value}' to ${opt}`);
          opt.unshift(props.value)
        }
 
