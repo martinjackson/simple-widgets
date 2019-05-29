@@ -14,7 +14,7 @@
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
     "maps": "cd lib && cp index.js.map index.map",
     "pack-d": "webpack --mode development  --progress && npm run maps",
-    "pack": "rm lib/*.map && webpack -p --mode production  --progress",
+    "pack": "webpack -p --mode production  --progress && npm run maps",
     "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
     "release": "release-it --no-git.requireCleanWorkingDir"
   },
