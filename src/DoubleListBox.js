@@ -4,6 +4,21 @@ import autoBind from 'react-autobind';
 import { List } from './List';
 
 const reset = (props,state) => {
+
+    if (props.values) {
+        console.log("DoubleListBox props 'values' not used, please use 'value'.");
+    }
+
+    if (!props.value) {
+        console.log("DoubleListBox props 'value' field is missing.");
+        props.value = []
+    }
+
+    if (!props.choices) {
+        console.log("DoubleListBox props 'choices' field is missing.");
+        props.choices = []
+    }
+
     return {
         choices: [...props.choices],
         leftValues: [...props.choices],
