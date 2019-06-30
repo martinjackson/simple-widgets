@@ -4,7 +4,17 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const pkg = require('./package.json');
 const libraryName= pkg.name;  
 
-module.exports = {
+// TODO: Fix source-map option in production environment 
+// config.devtool = env === 'production' ? false /* 'source-map' */ : 'inline-source-map' 
+
+module.exports = function(env, argv) {
+
+  console.log('env:', env);
+  
+  return {
+  mode: env === "prod" ? 'production' : 'development',
+  devtool: env === "prod" ? 'eval' : 'source-maps',
+
   entry: path.join(__dirname, "./src/index.js"),
   target: "web",
   output: {
@@ -20,8 +30,7 @@ module.exports = {
       path.join(__dirname, "src"),
       "node_modules"
     ]
-  },
-  devtool: "source-map",
+  },  
   stats: "normal",
   plugins: [
     new ProgressBarPlugin(),
@@ -83,4 +92,6 @@ externals: {
         root: "ReactDOM"      
     }  
 }
+}
+
 }
