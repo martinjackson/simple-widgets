@@ -4,25 +4,27 @@ export const Choice = React.forwardRef((propsIn, ref) => {
 
     const {list, choices, size, ...props} = propsIn
     const siz = size || 10;
-    const opt = list || choices || []
+    const opt = list || choices || [];
+    const keyPart = (props.hasOwnProperty('name')) ? props.keyName + '_' : '';
+    const pref = (props.hasOwnProperty('name')) ? props.name + '_' + keyPart : '';
 
     if ( typeof(props.value) == 'string' && !opt.includes(props.value) )
-       {
-         console.log(`Adding missing default value: '${props.value}' to ${opt}`);
-         opt.unshift(props.value)
-       }
+    {
+        console.log(`Adding missing default value: '${props.value}' to ${opt}`);
+        opt.unshift(props.value)
+    }
 
     if (props.multiple) {
       return <Fragment>
                 <select ref={ref} multiple size={siz} {...props} >
-                  {opt.map( (el,k) => <option key={k} value={el}>{el}</option>)}
+                  {opt.map( (el,k) => <option key={pref + k} value={el}>{el}</option>)}
                 </select>
             </Fragment>;
     }
     else {
       return <Fragment>
                 <select {...props} >
-                  {opt.map( (el,k) => <option key={k} value={el}>{el}</option>)}
+                  {opt.map( (el,k) => <option key={pref + k} value={el}>{el}</option>)}
                 </select>
             </Fragment>;
     }
@@ -30,4 +32,4 @@ export const Choice = React.forwardRef((propsIn, ref) => {
 
 export const List = React.forwardRef((props, ref) => (
         <Choice ref={ref} multiple={true} {...props} />)
-        );
+);

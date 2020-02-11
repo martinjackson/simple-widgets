@@ -73,14 +73,14 @@ export default class DoubleListBox extends React.Component {
                     <label style={listSt}>{this.props.rightTitle}</label>
                 </div>
                 <div style={topSt}>
-                    <List list={this.state.leftValues} ref={this.leftRef} onChange={this.leftHandleChange} style={listSt} />
+                    <List list={this.state.leftValues} ref={this.leftRef} onChange={this.leftHandleChange} keyname="left" style={listSt} />
                     <div style={colSt}>
                         <button name="moveRightSelect"   style={buttonSt} onClick={this.moveRightSelectButton}>&gt;</button><br />
                         <button name="moveRightAll"      style={buttonSt} onClick={this.moveRightAllButton}>&gt;&gt;</button><br />
                         <button name="moveLeftSelect"    style={buttonSt} onClick={this.moveLeftSelectButton}>&lt;</button><br />
                         <button name="moveLeftAll"       style={buttonSt} onClick={this.moveLeftAllButton}>&lt;&lt;</button><br />
                     </div>
-                    <List list={this.state.rightValues} ref={this.rightRef}  onChange={this.rightHandleChange} style={listSt} />
+                    <List list={this.state.rightValues} ref={this.rightRef}  onChange={this.rightHandleChange} keyname="right" style={listSt} />
                 </div>
             </div>
         )
@@ -117,6 +117,21 @@ export default class DoubleListBox extends React.Component {
             rightValues: right,
             leftSelections: []
         }, () => {this.reportChange(right)});
+
+        this.clearSelections();
+    }
+
+    clearSelections() {
+        const leftBox = this.leftRef.current;
+        const rightBox = this.rightRef.current;
+
+        for (let i = 0; i < leftBox.length; i++) {
+            leftBox[i].selected = false;
+        }
+
+        for (let i = 0; i < rightBox.length; i++) {
+            rightBox[i].selected = false;
+        }
     }
 
     moveLeftSelectButton(e) {
@@ -128,6 +143,8 @@ export default class DoubleListBox extends React.Component {
             rightValues: right,
             rightSelections: []
         }, () => {this.reportChange(right)});
+
+        this.clearSelections();
     }
 
     moveRightAllButton(e) {
@@ -169,6 +186,7 @@ export default class DoubleListBox extends React.Component {
         }
 
         const leftBox = this.leftRef.current;
+
         let values = [];
         for (let i = 0; i < leftBox.length; i++) {
             if (leftBox[i].selected === true) {
@@ -188,6 +206,7 @@ export default class DoubleListBox extends React.Component {
         }
 
         const rightBox = this.rightRef.current;
+
         let values = [];
         for (let i = 0; i < rightBox.length; i++) {
             if (rightBox[i].selected === true) {
