@@ -2,35 +2,30 @@
 const path = require('path');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const pkg = require('./package.json');
-const libraryName= pkg.name;  
-
-// TODO: Fix source-map option in production environment 
-// config.devtool = env === 'production' ? false /* 'source-map' */ : 'inline-source-map' 
+const libraryName= pkg.name;
 
 module.exports = function(env, argv) {
 
-  console.log('env:', env);
-  
   return {
-  mode: env === "prod" ? 'production' : 'development',
-  devtool: env === "prod" ? 'eval' : 'source-maps',
+  mode: 'development',
+  devtool: 'source-maps',
 
   entry: path.join(__dirname, "./src/index.js"),
   target: "web",
   output: {
     path: path.join(__dirname, 'lib'),
     filename: "index.js",
-    library: libraryName,      
-    libraryTarget: 'umd',      
-    publicPath: '/lib/',      
-    umdNamedDefine: true  
+    library: libraryName,
+    libraryTarget: 'umd',
+    publicPath: '/lib/',
+    umdNamedDefine: true
   },
   resolve: {
     modules: [
       path.join(__dirname, "src"),
       "node_modules"
     ]
-  },  
+  },
   stats: "normal",
   plugins: [
     new ProgressBarPlugin(),
@@ -50,7 +45,7 @@ module.exports = function(env, argv) {
             test: /\.tsx?$/,
             loader: "awesome-typescript-loader",
           },
-          
+
           {
               test: /\.css$/,
               use: [ 'style-loader', 'css-loader' ]
@@ -71,26 +66,26 @@ module.exports = function(env, argv) {
           }
     ]
   },
-  resolve: {      
-    alias: {          
+  resolve: {
+    alias: {
         'react': path.resolve(__dirname, './node_modules/react'),
-        'react-dom': path.resolve(__dirname, './node_modules/react-dom'),      
-    }  
-},  
-externals: {      
-    // Don't bundle react or react-dom      
-    react: {          
-        commonjs: "react",          
-        commonjs2: "react",          
-        amd: "React",          
-        root: "React"      
-    },      
-    "react-dom": {          
-        commonjs: "react-dom",          
-        commonjs2: "react-dom",          
-        amd: "ReactDOM",          
-        root: "ReactDOM"      
-    }  
+        'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+    }
+},
+externals: {
+    // Don't bundle react or react-dom
+    react: {
+        commonjs: "react",
+        commonjs2: "react",
+        amd: "React",
+        root: "React"
+    },
+    "react-dom": {
+        commonjs: "react-dom",
+        commonjs2: "react-dom",
+        amd: "ReactDOM",
+        root: "ReactDOM"
+    }
 }
 }
 
