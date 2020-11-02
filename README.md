@@ -41,8 +41,8 @@ All of these widgets require the following props:
 
 __**Modal Box Components**__
 
-[AlertModal docs](docs/AlartModal.md),
-[ConfirmMocal docs](docs/ConfirmModal.md),
+[AlertModal docs](docs/AlertModal.md),
+[ConfirmModal docs](docs/ConfirmModal.md),
 [ErrorModal docs](docs/ErrorModal.md),
 [Invalid docs](docs/Invalid.md),
 [Modal docs](docs/Modal.md)
