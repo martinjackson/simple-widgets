@@ -2,20 +2,31 @@
 
 A Collection of components to make your React code simpler.
 
+(Appologies:  We have had several contributions and this documentation needs work)
+
 [![Wallaby.js](https://img.shields.io/badge/wallaby.js-configured-green.svg)](https://wallabyjs.com)
 
 simple-widgets ![Test Coverage](https://img.shields.io/badge/Test_Coverage-94.34%25-brightgreen.svg)
 
-- CheckBox ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
-- Choice ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
-- Radio ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
+- CheckBox    ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
+- Choice      ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
+- List
+- ChoiceText
+- Radio       ![Test Coverage](https://img.shields.io/badge/Test_Coverage-100%25-brightgreen.svg)
+- DatePicker
+- DoubleListBox
+- AlertModal
+- ConfirmMocal
+- ErrorModal
+- Invalid
+- Modal
 - makeChangeHandler ![Test Coverage](https://img.shields.io/badge/Test_Coverage-70%25-green.svg)
   [see where](
   http://htmlpreview.github.com/?https://github.com/martinjackson/simple-widgets/blob/master/test/simple-widgets-coverage.html)
 
 __**Input Components**__
 
-CheckBox, Choice, Radio
+CheckBox, Choice, List, Radio, DatePicker, DoubleListBox
 
 Some of the basic HTML input field types reqire different functions to handle changes.
 This collection of inputs is built on top of those to give a simpler standard interface.
@@ -28,29 +39,17 @@ All of these widgets require the following props:
 - selectedValue: want the 'value' should change to when the CheckBox or Radio button is selected
 - text: a label (String or component) displayed following the CheckBox or Radio button
 
-## Getting Started
+__**Modal Box Components**__
 
-Add simple-widgets to yor project
+[AlertModal docs](docs/AlartModal.md),
+[ConfirmMocal docs](docs/ConfirmModal.md),
+[ErrorModal docs](docs/ErrorModal.md),
+[Invalid docs](docs/Invalid.md),
+[Modal docs](docs/Modal.md)
 
-```bash
-npm install simple-widgets --save
-```
-
-include in your React components
-
-```javascript
-import {CheckBox, Choice, Radio, makeChangeHandler} from 'simple-widgets'
-```
-
-A full working example can be found in a sister github repo
-
-```bash
-cd ~/projects/
-git clone https://github.com/martinjackson/simple-widgets-sample.git
-cd simple-widgets-sample
-npm install
-npm start
-```
+__**Getting Started**__
+- [Short Tutorial](GettingStarted.md)
+- [Example Project](https://github.com/martinjackson/simple-widgets-sample)
 
 ## Notes about source code build
 

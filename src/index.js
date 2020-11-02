@@ -10,5 +10,13 @@ import Radio  from './Radio'
 import DatePicker  from './DatePicker'
 import DoubleListBox  from './DoubleListBox'
 
+import AlertModal from './AlertModal.js'
+import ConfirmMocal from './ConfirmModal.js'
+import ErrorModal from 'ErrorModal.js'
+import Invalid from './Invalid.js'
+import Modal from './Modal.js'
+import Theme from './Theme.js'
 
-export { makeChangeHandler, CheckBox, Choice, ChoiceText, List, Radio, DatePicker, DoubleListBox }
+export { makeChangeHandler, CheckBox, Choice, ChoiceText, List, Radio, DatePicker, DoubleListBox,
+ AlertModal, ConfirmMocal, ErrorModal, Invalid, Modal, Theme }
+
