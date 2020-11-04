@@ -1,6 +1,6 @@
 
 const path = require('path');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+
 const pkg = require('./package.json');
 const libraryName= pkg.name;
 
@@ -8,7 +8,7 @@ module.exports = function(env, argv) {
 
   return {
   mode: 'development',
-  devtool: 'source-maps',
+  devtool: 'source-map',
 
   entry: path.join(__dirname, "./src/index.js"),
   target: "web",
@@ -27,43 +27,44 @@ module.exports = function(env, argv) {
     ]
   },
   stats: "normal",
-  plugins: [
-    new ProgressBarPlugin(),
-  ],
   module: {
     rules: [
-          {
-            test: /^(?!.*\.{test,min}\.js$).*\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            query: {
-                      presets: ['@babel/preset-env', '@babel/preset-react']
-                   },
-          },
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
 
-          {
-            test: /\.tsx?$/,
-            loader: "awesome-typescript-loader",
-          },
-
-          {
-              test: /\.css$/,
-              use: [ 'style-loader', 'css-loader' ]
-          },
-
-          // "file" loader for svg
-          {
-             test: /\.svg|\.png|\.gif|\.jpg$/,
-             loader: 'file-loader',
-             query: {
-               name: 'static/media/[name].[hash:8].[ext]'
-             }
-          },
-
-          {
-            test: /\.html$/,
-            loader: 'raw-loader'
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+          plugins: [
+              '@babel/plugin-proposal-object-rest-spread',
+              [ '@babel/plugin-proposal-class-properties', {"loose": true} ]
+            ]
           }
+        }
+      },
+
+      // Images
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource',
+      },
+
+      // Fonts and SVGs
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: 'asset/inline',
+      },
+
     ]
   },
   resolve: {

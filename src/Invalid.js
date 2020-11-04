@@ -1,9 +1,9 @@
 import Theme from './Theme';
 
 /***************************************************************************************
- * 
+ *
  * Invalid Values format for the screen:
- * 
+ *
  * invalidValues = [
  *  { validity: true or false,  This indicates whether the input item contains an
  *                              invalid item (true) or not (false).  The initial value
@@ -11,28 +11,28 @@ import Theme from './Theme';
  *                              input item.
  *    display: true or false,   This indicates whether the message should be displayed
  *                              or not.  Initially this value will be false, when an
- *                              invalid value for this input item is found, it will 
+ *                              invalid value for this input item is found, it will
  *                              be set to true.  When the mouse is clicked for this
  *                              input item, the value will be set back to false.
  *    message: string           The message that will be displayed whenever the mouse
  *                              is hovered over the input item and display is true.
  *  }, ...
  * ]
- * 
- * 
+ *
+ *
  * Input Values format for the table:
- * 
+ *
  * invalidValues = [
  *  { validity: [],             Each array position will indicate whether that input item on
- *                              a row in the table is invalid (true).  Only those items that 
- *                              have invalid values are placed in the array.  Initially the 
+ *                              a row in the table is invalid (true).  Only those items that
+ *                              have invalid values are placed in the array.  Initially the
  *                              array will be empty.
  *    display: [],              Each array position will indicate whether the message should
  *                              be displayed for that item (true) or not (false) for that row
  *                              in the table.  The value will be true when initally inserted
  *                              with the validity value.  When the user click on the mouse on
  *                              the input item, the value will be changed to false.
- *    index: [],                Each array position will contain the row number (starting at 0) 
+ *    index: [],                Each array position will contain the row number (starting at 0)
  *                              in the table for the input item that constains the invalid
  *                              value.  Initially the array will be empty.
  *    message: [],              Each array positon will contain the message that will be displayed
@@ -40,62 +40,62 @@ import Theme from './Theme';
  *                              is true.  Initially the array will be empty.
  *  }
  * ]
- * 
- * 
+ *
+ *
  * Input Values format for both screen and table (dual):
- * 
+ *
  *  The invalid values array will contain the format for the screen (see above) and the format
  *  for the table (see above).  The screen format should be first followed by the table.
- * 
- * 
+ *
+ *
  * Contants
  *  The constants indicate the array position for each input item.  The are generally given a
  *  name followed by the index value.  The name is given in the code.
- * 
- * 
+ *
+ *
  * Screen Example:
- * 
+ *
  *  invalidValues = [
  *      { validity: false, display: false, message: 'The name must be given a value' },
  *      { validity: true, display: true, message: 'The SSN must be given a value' },
  *      { validity: true, display: false, message: 'The address must be given a value' }
  *  ]
- * 
+ *
  *  const NAME = 0;
  *  const SSN = 1;
  *  const ADDR = 2;
- * 
+ *
  *  invalidValues[NAME] contains a valid name, since validity is false.
- *  invalidValues[SSN] contains an invalid SSN (validity is true) and the message will be 
- *      displayed when the mouse is hovered over it, since display is true.  If the user, 
+ *  invalidValues[SSN] contains an invalid SSN (validity is true) and the message will be
+ *      displayed when the mouse is hovered over it, since display is true.  If the user,
  *      clicks on the input item, display will be set to false and the message will not be
  *      displayed.
  *  invalidValues[ADDR] contains an invalid addresss (validity is true), but the message will
  *      not be displayed, since display is false.
- * 
- * 
+ *
+ *
  * Table Example:
- *  
+ *
  *  invalidValues = [
  *      { validity: [true, true], display: [true, false], index: [3, 4], message: ['The name is a duplicate, 'Invalid Name']},
  *      { validity: [true, true], display: [true, false], index: [8, 14], message: ['The SSN is a duplicate, 'Invalid SSN']},
  *  ]
- * 
+ *
  *  const NAME = 0;
  *  const SSN = 1;
- * 
- *  invalidValues[NAME] contains two invalid names (validity is true) in the table at rows 3 and 4 
+ *
+ *  invalidValues[NAME] contains two invalid names (validity is true) in the table at rows 3 and 4
  *      (actual 4 and 5).  The message 'The name is a duplicate' is being displayed, since display is true
  *      for that input item on row 3 of the table.   The message 'Invalid name' will not be displayed,
  *      since display is false for that input item on row 4 of the table.
- * 
- *  ivalidValues[SSN] contains two invalid SSNs (validity is true) in the table at rows 8 and 14 
+ *
+ *  ivalidValues[SSN] contains two invalid SSNs (validity is true) in the table at rows 8 and 14
  *  (actual 9 and 15).  The message 'The SSN is a duplicate' is being displayed, since display is true
  *      for that input item on row 8 of the table.   The message 'Invalid SSN' will not be displayed,
  *      since display is false for that input item on row 14 of the table.
- * 
+ *
  * Dual Example (screen and table):
- * 
+ *
  *  invalidValues = [
  *      { validity: false, display: false, message: 'The name must be given a value' },
  *      { validity: true, display: true, message: 'The SSN must be given a value' },
@@ -103,36 +103,36 @@ import Theme from './Theme';
  *      { validity: [true, true], display: [true, false], index: [3, 4], message: ['The name is a duplicate, 'Invalid Name']},
  *      { validity: [true, true], display: [true, false], index: [8, 14], message: ['The SSN is a duplicate, 'Invalid SSN']},
  *  ]
- * 
+ *
  *  const NAME = 0;
  *  const SSN = 1;
  *  const ADDR = 2;
  *  const NAMET = 3;
  *  const SSNT = 4;
- * 
+ *
  *  invalidValues[NAME] see invalidValues[NAME] in the Screen Example.
  *  invalidValues[SSN] see invalidValues[SSN] in the Screen Example.
  *  invalidValues[ADDR] see invalidValues[ADDR] in the Screen Example.
  *  invalidValues[NAMET] see invalidValues[NAME] in the Table Example.
  *  invalidValues[SSNT] see invalidValues[SSN] in the Table Example.
- *  
+ *
  ************************************************************************************************/
 
 /***************************************************************************************
- * 
+ *
  * This indicates that one of the input items on the screen contains an invalid value.
- * 
+ *
  * @param {*} invalidValues     list of valid and invalid inputs for the screen
  * @param {*} constant          indicates which of the input items that is in invalid
  *                              (the index into the array)
  * @param {*} message           message for the invalid value
- * 
+ *
  ****************************************************************************************/
 export const setInvalidScreen = (invalidValues, constant, message) => {
     console.log ('invalidValues', invalidValues);
     console.log ('constant', constant);
     console.log ('message', message);
-    
+
     invalidValues[constant].validity = true;    // Indicates the value is invalid
     invalidValues[constant].display = true;     // Indicates the message should be displayed
     if (message !== null) { // There is a message
@@ -143,22 +143,22 @@ export const setInvalidScreen = (invalidValues, constant, message) => {
 }
 
 /*******************************************************************************************
- * 
+ *
  * This indicates that one of the input items in a table contains an invalid value.
- * 
+ *
  * @param {*} invalidValues     list of invalid inputs for the table
  * @param {*} constant          indicates which of the input items is invalid (the index
  *                              into the array)
- * @param {*} index             row number (from zero) in the table that contains the 
- *                              invalid item 
+ * @param {*} index             row number (from zero) in the table that contains the
+ *                              invalid item
  * @param {*} message           message for the invalid value
- * 
+ *
  ********************************************************************************************/
 export const setInvalidTable = (invalidValues, constant, index, message) => {
     let found = false;  // Indicates whether the invalid item already exists in the invalid values array
     let pos = 0;        // Position where the item was found in the index array
 
-    // Spin through the array to find whether the item already exists in the 
+    // Spin through the array to find whether the item already exists in the
     // index array for that input item
     for (let i = 0; i < invalidValues[constant].index.length; i++) {
         if (invalidValues[constant].index[i] === index) {
@@ -188,17 +188,17 @@ export const setInvalidTable = (invalidValues, constant, index, message) => {
 }
 
 /***********************************************************************************************
- * 
- * This indicates that one of the input items is either on the screen or in a table and 
+ *
+ * This indicates that one of the input items is either on the screen or in a table and
  * contains an invalid value.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the screen or table
  * @param {*} constant1     index into the screen input items
  * @param {*} constant2     index into the table screen items
  * @param {*} index         row number in the table from zero
  * @param {*} type          indicates whether it is a screen entry (I) or table entry
  * @param {*} message       message for the invalid value
- * 
+ *
  ***********************************************************************************************/
 export const setInvalidDual = (invalidValues, constant1, constant2, index, type, message) => {
     if (type === 'S') { // Screen entry
@@ -211,13 +211,13 @@ export const setInvalidDual = (invalidValues, constant1, constant2, index, type,
 }
 
 /***********************************************************************************************
- * 
+ *
  * This will set the display value to false for an invalid input item.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the screen
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
- * 
+ *
  ***********************************************************************************************/
 export const resetDisplayScreen = (invalidValues, constant) => {
     invalidValues[constant].display = false;
@@ -226,20 +226,20 @@ export const resetDisplayScreen = (invalidValues, constant) => {
 }
 
 /***********************************************************************************************
- * 
+ *
  * This will set the display value to false for an invalid input item.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the screen
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
  * @param {*} index         row number in the table from zero
- * 
+ *
  ***********************************************************************************************/
 export const resetDisplayTable = (invalidValues, constant, index) => {
     let found = false;  // Indicates whether the invalid item already exists in the invalid values array
     let pos = 0;        // Position where the item was found in the index array
 
-    // Spin through the array to find whether the item already exists in the 
+    // Spin through the array to find whether the item already exists in the
     // index array for that input item
     for (let i = 0; i < invalidValues[constant].index.length; i++) {
         if (invalidValues[constant].index[i] === index) {
@@ -257,14 +257,14 @@ export const resetDisplayTable = (invalidValues, constant, index) => {
 }
 
 /*******************************************************************************************
- * 
+ *
  * Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea
- * HTML tag on the regular screen.  If the field was invalid and clicked on, it will remove 
+ * HTML tag on the regular screen.  If the field was invalid and clicked on, it will remove
  * the error message from being displayed when the mouse is hovered over the HTML item.
- * 
+ *
  * @param {*} constant  indicates which item the mouse was clicked on.  Set the contants
  *                      after the invalid array.
- * 
+ *
  ******************************************************************************************/
 export const wasClickedScreen = (invalidValues, constant, setInvalid) => {
     let localInvalid = [...invalidValues];
@@ -273,14 +273,14 @@ export const wasClickedScreen = (invalidValues, constant, setInvalid) => {
 }
 
 /*******************************************************************************************
- * 
+ *
  * Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea
- * HTML tag on a table.  If the field was invalid and clicked on, it will remove 
+ * HTML tag on a table.  If the field was invalid and clicked on, it will remove
  * the error message from being displayed when the mouse is hovered over the HTML item.
- * 
+ *
  * @param {*} constant  indicates which item the mouse was clicked on.  Set the contants
  *                      after the invalid array.
- * 
+ *
  ******************************************************************************************/
 export const wasClickedTable = (invalidValues, constant, pos, setInvalid) => {
     let localInvalid = [...invalidValues];
@@ -290,14 +290,14 @@ export const wasClickedTable = (invalidValues, constant, pos, setInvalid) => {
 
 
 /*********************************************************************************************
- * 
- * Indicates whether the index matches one of the screen constants (constant indexes into the 
+ *
+ * Indicates whether the index matches one of the screen constants (constant indexes into the
  * invalidValues array) (true) or not (false).
- * 
- * @param {*} index     an index into the invalidArray to see if it matches one of the 
+ *
+ * @param {*} index     an index into the invalidArray to see if it matches one of the
  *                      screen constants or not
  * @param {*} constants the array of screen contants to see if there is a match
- * 
+ *
  *********************************************************************************************/
 export const isConstant = (index, constants) => {
     // Spin through the array of contants to see if the index matches one of them
@@ -311,19 +311,19 @@ export const isConstant = (index, constants) => {
 }
 
 /***********************************************************************************************
- * 
+ *
  * This will check to see if any of the validity values is true in the invalid values array.
  * If one of the values is true, this function returns false.  If all the values are false, it
  * returns true to indicate that there are not invalid values.  This is genearally called at
  * the end of the validation function.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the screen or table
  * @param {*} constants     list of screen constants
- * 
+ *
  ***********************************************************************************************/
 export const validCheckDual = (invalidValues, constants) => {
     // Determine if any of the validation checks were invalid
-    for (let i = 0; i < invalidValues.length; i++) { 
+    for (let i = 0; i < invalidValues.length; i++) {
         if (isConstant(i, constants) === true) {   // Checking screen edits
             if (invalidValues[i].validity === true) {
                 return false;
@@ -334,21 +334,21 @@ export const validCheckDual = (invalidValues, constants) => {
                     return false;
                 }
             }
-        }  
+        }
     }
-    
+
     return true;
 }
 
 /**********************************************************************************************
- * 
- * This will check to see if any of the screen validity values is true in the invalid values 
- * array.  If one of the values is true, this function returns false.  If all the values are 
- * false, it returns true to indicate that there are not invalid values.  This is genearally 
+ *
+ * This will check to see if any of the screen validity values is true in the invalid values
+ * array.  If one of the values is true, this function returns false.  If all the values are
+ * false, it returns true to indicate that there are not invalid values.  This is genearally
  * called at the end of the validation function.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the screen
- * 
+ *
  **********************************************************************************************/
 export const validCheckScreen = (invalidValues) => {
     for (let i = 0; i < invalidValues.length; i++) {
@@ -361,39 +361,39 @@ export const validCheckScreen = (invalidValues) => {
 }
 
 /**********************************************************************************************
- * 
- * This will check to see if any of the table validity values is true in the invalid values 
- * array.  If one of the values is true, this function returns false.  If all the values are 
- * false, it returns true to indicate that there are not invalid values.  This is genearally 
+ *
+ * This will check to see if any of the table validity values is true in the invalid values
+ * array.  If one of the values is true, this function returns false.  If all the values are
+ * false, it returns true to indicate that there are not invalid values.  This is genearally
  * called at the end of the validation function.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the table
- * 
+ *
  **********************************************************************************************/
 export const validCheckTable = (invalidValues) => {
     // Determine if any of the validation checks were invalid
-    for (let i = 0; i < invalidValues.length; i++) { 
+    for (let i = 0; i < invalidValues.length; i++) {
         for (let j = 0; j < invalidValues[i].validity.length; j++) {
             if (invalidValues[i].validity[j] === true) {
                 return false;
             }
         }
     }
-    
+
     return true;
 }
 
 /***********************************************************************************************
- * 
+ *
  * This will clear the invalid values array, and reset the array to its original settings.  It
  * will do this for the screen and table parts.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the screen and table
- * @param {*} screen        array holding the starting and ending indexes (contants) for the 
+ * @param {*} screen        array holding the starting and ending indexes (contants) for the
  *                          screen part of the array
- * @param {*} table         array holding the starting and ending indexes (contants) for the 
+ * @param {*} table         array holding the starting and ending indexes (contants) for the
  *                          screen part of the array
- * 
+ *
  ***********************************************************************************************/
 export const clearInvalidDual = (invalidValues, screen, table) => {
     // Clear the screen part of the array
@@ -414,12 +414,12 @@ export const clearInvalidDual = (invalidValues, screen, table) => {
 }
 
 /***********************************************************************************************
- * 
+ *
  * This will clear the invalid values array, and reset the array to its original settings.  It
  * will do this for the screen.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the screen
- * 
+ *
  ***********************************************************************************************/
 export const clearInvalidScreen = (invalidValues) => {
     // Clear the screen values
@@ -432,12 +432,12 @@ export const clearInvalidScreen = (invalidValues) => {
 }
 
 /***********************************************************************************************
- * 
+ *
  * This will clear the invalid values array, and reset the array to its original settings.  It
  * will do this for the table.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the table
- * 
+ *
  ***********************************************************************************************/
 export const clearInvalidTable = (invalidValues) => {
     // Clear the table entries, by setting to empty arrays
@@ -452,15 +452,15 @@ export const clearInvalidTable = (invalidValues) => {
 }
 
 /***********************************************************************************************
- * 
+ *
  * This will copy another style of the form:
- * 
+ *
  *  const someStyle = {
  *    cssname: cssvalue;
  *  };
- * 
+ *
  * @param {*} copyStyle the style to copy
- * 
+ *
  ***********************************************************************************************/
 export const copyStyle = (copyStyle) => {
     let style = { ...copyStyle };   // Copy the style and set the background color to normal
@@ -470,15 +470,15 @@ export const copyStyle = (copyStyle) => {
 }
 
 /***********************************************************************************************
- * 
- * This will determine if the style should change to the background color to the invalid color 
+ *
+ * This will determine if the style should change to the background color to the invalid color
  * because the input table item has an invalid value.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
- * @param {*} style         the style to change the backgound 
- * 
+ * @param {*} style         the style to change the backgound
+ *
  ***********************************************************************************************/
 export const processStyleScreen = (invalidValues, constant, style) => {
     if (invalidValues[constant].validity === true) { // and the entry is invalid
@@ -492,16 +492,16 @@ export const processStyleScreen = (invalidValues, constant, style) => {
 
 
 /***********************************************************************************************
- * 
- * This will determine if the style should change to the background color to the invalid color 
+ *
+ * This will determine if the style should change to the background color to the invalid color
  * because the input table item has an invalid value.
- * 
+ *
  * @param {*} invalidValues list of invalid inputs for the table
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
  * @param {*} pos           row number in the table
- * @param {*} style         the style to change the backgound 
- * 
+ * @param {*} style         the style to change the backgound
+ *
  ***********************************************************************************************/
 export const processStyleTable = (invalidValues, constant, pos, style) => {
     // Spin through the validity array for that item in the invalid values array
@@ -517,9 +517,9 @@ export const processStyleTable = (invalidValues, constant, pos, style) => {
 }
 
 /**********************************************************************************************
- * 
+ *
  * This will create a style with a normal background color, this a valid style.
- * 
+ *
  **********************************************************************************************/
 export const validStyling = () => {
     const validStyle = {
@@ -530,9 +530,9 @@ export const validStyling = () => {
 }
 
 /**********************************************************************************************
- * 
+ *
  * This will create a style with a invalid background color, this a invalid style.
- * 
+ *
  **********************************************************************************************/
 export const invalidStyling = () => {
     const invalidStyle = {
@@ -543,16 +543,16 @@ export const invalidStyling = () => {
 }
 
 /*********************************************************************************************
- * 
+ *
  * This will determine if the input item contains an invalid value and the message should be
- * displayed or not based on the validity and display values for that item in the invalid 
- * value array.  This will work for screen or table entry.  If a screen entry, pos should 
+ * displayed or not based on the validity and display values for that item in the invalid
+ * value array.  This will work for screen or table entry.  If a screen entry, pos should
  * be -1.
- * 
+ *
  * @param {*} invalid   a specific input item in the invalid value array (specific index)
- * @param {*} pos       row number in the table if looking up a table entry or -1 for a 
+ * @param {*} pos       row number in the table if looking up a table entry or -1 for a
  *                      screen entry
- * 
+ *
  ***********************************************************************************************/
 export const isInvalid = (invalid, pos) => {
     if (pos === -1) {   // Screen entry
@@ -569,13 +569,13 @@ export const isInvalid = (invalid, pos) => {
 }
 
 /**********************************************************************************************
- * 
+ *
  * This will retrieve the message from the entry invalid value array for a table entry.
- * 
+ *
  * @param {*} invalid   a specific input item in the invalid value array (specific index)
- * @param {*} pos       row number in the table if looking up a table entry or -1 for a 
+ * @param {*} pos       row number in the table if looking up a table entry or -1 for a
  *                      screen entry
- * 
+ *
  **********************************************************************************************/
 export const getInvalidMessage = (invalid, pos) => {
     for (let i = 0; i < invalid.index.length; i++) {
@@ -583,6 +583,7 @@ export const getInvalidMessage = (invalid, pos) => {
             return invalid.message[i];  // Return the message
         }
     }
-    
+
     return '';
 }
+
