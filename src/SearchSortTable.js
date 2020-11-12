@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { CheckBox} from './CheckBox';
+import CheckBox from './CheckBox';
 import { Choice } from './List';
 import { isInvalid, setInvalidScreen, copyStyle,
          validStyling, processStyleScreen, wasClickedScreen} from './Invalid'
