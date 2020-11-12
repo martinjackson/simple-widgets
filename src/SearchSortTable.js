@@ -1,9 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
 
-require("core-js/stable");                    // instead of @babel/polyfill
-require("regenerator-runtime/runtime");
-
-
 import { CheckBox} from './CheckBox';
 import { Choice } from './List';
 import { isInvalid, setInvalidScreen, copyStyle,
