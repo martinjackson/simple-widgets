@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { CheckBox} from './CheckBox';
 import { Choice } from './List';
@@ -373,10 +373,10 @@ const SearchSortTable = (props) => {
     }
 
     const filterSection = (props.hasOwnProperty('nofilter') === true) ? null :
-        <Fragment>
+        (<>
             <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />
             <button name="filter" style={genFilterButtonStyle} onClick={async() => filterButton()} disabled={error || filterDisabled}>Filter</button>
-        </Fragment>
+        </>)
 
     searchStyle = processStyleScreen(invalid, SRCHHDR, searchStyle);
 
@@ -384,7 +384,7 @@ const SearchSortTable = (props) => {
     itemStyle = processStyleScreen(invalid, SRCHITEM, itemStyle)
 
     const searchSection = (props.hasOwnProperty('nosearch') === true) ? null :
-        <Fragment>
+        (<>
             <span className="checkForError">
                 <Choice choices={searchHeaderValues}  name="searchHeader" value={searchHeader} onChange={(event) => setSearchHeader(event.target.value)} onClick={() => wasClickedScreen(invalid, SRCHHDR, setInvalid)} style={searchStyle} disabled={error} />
                 {(isInvalid(invalid[SRCHHDR], -1) === true) ? <span className="errMessage">{invalid[SRCHHDR].message}</span> : null }
@@ -394,10 +394,10 @@ const SearchSortTable = (props) => {
                 {(isInvalid(invalid[SRCHITEM], -1) === true) ? <span className="errMessage">{invalid[SRCHITEM].message}</span> : null }
             </span>
             <button name="searchButtonName" style={genButtonStyle} onClick={async() => searchItemButton()} disabled={error}>Search</button>
-        </Fragment>
+        </>)
 
     const footer = (props.hasOwnProperty('nofooter') === true) ? null :
-        <div style={footStyle}>
+        (<div style={footStyle}>
             { (props.hasOwnProperty('norows') === true) ? null :
                 <span style={marginStyle}>
                     <Choice choices={rowValues} name="rows" value={maximum} onChange={(event) => processMaxItems(event.target.value)} style={noBorderStyle} disabled={error} />
@@ -411,7 +411,7 @@ const SearchSortTable = (props) => {
             }
             {nextButtonHTML}
             {bottomButtonHTML}
-        </div>
+        </div>)
 
     let hoverClassName = null;
     if (props.hasOwnProperty('hover') === true) {
@@ -445,12 +445,12 @@ const SearchSortTable = (props) => {
             {title}
             <div>
                 { (props.hasOwnProperty('sfbottom') === false) ?
-                    <Fragment>
+                    (<>
                         {filterSection}
                         {searchSection}
                         {allButtonHTML}
                         {letters}
-                    </Fragment> : null
+                    </>) : null
                 }
             </div>
             { (props.data.length === 0 && props.hasOwnProperty('showtable') === false) ?
@@ -471,12 +471,12 @@ const SearchSortTable = (props) => {
                 {footer}
                 <div>
                     { (props.hasOwnProperty('sfbottom') === true) ?
-                        <Fragment>
+                        (<>
                             {filterSection}
                             {searchSection}
                             {allButtonHTML}
                             {letters}
-                        </Fragment> : null
+                        </>) : null
                     }
                 </div>
             </div>
