@@ -222,13 +222,22 @@ Assist Functions (functions that will assist in building fields showing up in pi
         Parameters:
         a. invalidValues    list of invalid inputs for the screen
 
-14. clearInvalidTable
+14. clearInvalidScreenOnly
+        This function is used when there are both screen and table invalid entries.  This will clear
+        the invalid screen entries only.  It will not clear the table entries.
+ 
+        Parameters:
+        a. invalidValues    list of invalid inputs for the screen
+        b. constant         the constant for the last screen entry
+
+
+15. clearInvalidTable
         This will clear the invalid values array, and reset the array to its original settings.  It will do this for the table.
 
         Parameters:
         a. invalidValues    list of invalid inputs for the table
 
-15. copyStyle
+16. copyStyle
         This will copy another style of the form:
  
         const someStyle = {
@@ -238,7 +247,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
         Parameters:
         a. copyStyle        the style to copy
 
-16. processStyleScreen
+17. processStyleScreen
         This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
  
         Parameters:
@@ -246,7 +255,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
         b. constant         indicates which of the input items is invalid (the index into the array)
         c. style            the style to change the backgound 
 
-17. processStyleTable
+18. processStyleTable
         This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
  
         Parameters:
@@ -255,13 +264,13 @@ Assist Functions (functions that will assist in building fields showing up in pi
         c. pos              row number in the table
         d. style            the style to change the backgound 
 
-18. validStyling
+19. validStyling
         This will create a style with a normal background color, this a valid style.  No parameters.
 
-19. invalidStyling
+20. invalidStyling
         This will create a style with a invalid background color, this a invalid style.  No parameters.
 
-20. getInvalidMessage
+21. getInvalidMessage
         This will retrieve the message from the entry invalid value array for a table entry.
 
         Parameters:
