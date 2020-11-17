@@ -1,20 +1,9 @@
 import React from 'react';
 import Modal from './Modal';
-import Theme from './Theme';
+import { buttonStyle } from './Theme';
 import './modal.css';
 
 const ErrorModal = props => {
-    let buttonStyle = {
-        margin: "10px",
-        borderRadius: "10px",
-        color: Theme.getButtonFGColor(),
-        backgroundColor: Theme.getButtonBGColor(),
-        width: "100px",
-        height: "30px",
-        font: Theme.getButtonFont(),
-        fontWeight: "bold",
-    };
-
     if (props.hasOwnProperty('show') === false) {
         console.error ('The show property is not present');
         return;
