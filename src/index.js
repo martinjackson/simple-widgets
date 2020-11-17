@@ -19,20 +19,22 @@ import SearchSortTable from './SearchSortTable'
 export {CheckBox, ChoiceText, Radio, DatePicker, DoubleListBox, AlertModal, ConfirmModal,
         ErrorModal, Modal, SearchSortTable}
 
-export { Choice, List }
+import { DatePickerStyle() } from 'DatePickerStyle.js'
 export { DatePickerStyle() }
-export { defaultThemeSettings, buttonStyle, generateButton, generateDefaultButton }
-export { setInvalidScreen, setInvalidTable, setInvalidDual, resetDisplayScreen, resetDisplayTable,
-         wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, validCheckTable,
-         clearInvalidDual, clearInvalidScreen, clearInvalidTable, copyStyle, processStyleScreen,
-         clearInvalidScreenOnly, processStyleTable, validStyling, invalidStyling, isInvalid, getInvalidMessage }
+
+import { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage,
+         invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable,
+         setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling,
+         wasClickedScreen, wasClickedTable } from 'Invalid.js'
+export { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage,
+         invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable,
+         setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling,
+         wasClickedScreen, wasClickedTable }
 
 import { Choice, List } from 'List.js'
-import { DatePickerStyle() } from 'DatePickerStyle.js'
-import { defaultThemeSettings, buttonStyle, generateButton, generateDefaultButton } from 'Theme.js'
-import { setInvalidScreen, setInvalidTable, setInvalidDual, resetDisplayScreen, resetDisplayTable,
-         wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, validCheckTable,
-         clearInvalidDual, clearInvalidScreen, clearInvalidTable, copyStyle, processStyleScreen,
-         clearInvalidScreenOnly, processStyleTable, validStyling, invalidStyling, isInvalid,
-         getInvalidMessage } from 'Invalid.js'
+export { Choice, List }
+
+import { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton } from 'Theme.js'
+export { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton }
+
 
