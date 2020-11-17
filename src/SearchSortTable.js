@@ -5,7 +5,7 @@ import { Choice } from './List';
 import { isInvalid, setInvalidScreen, copyStyle,
          validStyling, processStyleScreen, wasClickedScreen} from './Invalid'
 import AlertModal from './AlertModal';
-import Theme from './Theme';
+import { defaultThemeSettings, buttonStyle, generateButton } from './Theme';
 import './table.css';
 import './mousehover.css';
 
@@ -21,6 +21,8 @@ const digit = [...'0123456789'];
  *
  ****************************************************************************/
 const SearchSortTable = (props) => {
+    const Theme = [...defaultThemeSettings];
+
     let error = false;   // Indicates that an error has occrred
     let MAX_ITEMS = 10;
 
@@ -159,22 +161,11 @@ const SearchSortTable = (props) => {
         textAlign: "center",
         margin: "5px",
         padding: "10px",
-        backgroundColor: Theme.getBackgroundColor(),  // "#CCCC66",
+        backgroundColor: Theme.backgroundColor,  // "#CCCC66",
     };
 
     if (props.hasOwnProperty('divStyle') === true) {
         divStyle = props.divStyle;
-    }
-
-    let buttonStyle = {
-        margin: "10px",
-        borderRadius: "10px",
-        color: Theme.getButtonFGColor(),
-        backgroundColor: Theme.getButtonBGColor(),
-        width: "100px",
-        height: "30px",
-        font: Theme.getButtonFont(),
-        fontWeight: "bold",
     }
 
     if (props.hasOwnProperty('buttonStyle') === true) {
@@ -264,7 +255,7 @@ const SearchSortTable = (props) => {
 
     let searchStyle = {
         margin: "5px",
-        backgroundColor: Theme.getNormalBackColor(),
+        backgroundColor: Theme.normalColor,
     }
 
     let footStyle = {
@@ -273,19 +264,19 @@ const SearchSortTable = (props) => {
         position: "sticky",
         bottom: 0,
         zIndex: 2,
-        backgroundColor: Theme.getBackgroundColor(),
+        backgroundColor: Theme.backgroundColor,
     }
 
     if (props.hasOwnProperty('footStyle') === true) {
         footStyle = props.footStyle;
     }
 
-    const genButtonStyle = Theme.generateButton(buttonStyle, error, false, 'gray');
-    const genTopButtonStyle = Theme.generateButton(noButtonStyle, error, topDisabled, 'gray');
-    const genPreviousButtonStyle = Theme.generateButton(noButtonStyle, error, previousDisabled, 'gray');
-    const genNextButtonStyle = Theme.generateButton(noButtonStyle, error, nextDisabled, 'gray');
-    const genBottomButtonStyle = Theme.generateButton(noButtonStyle, error, bottomDisabled, 'gray');
-    const genFilterButtonStyle = Theme.generateButton(buttonStyle, error, filterDisabled, 'gray');
+    const genButtonStyle = generateButton(buttonStyle, error, false, 'gray');
+    const genTopButtonStyle = generateButton(noButtonStyle, error, topDisabled, 'gray');
+    const genPreviousButtonStyle = generateButton(noButtonStyle, error, previousDisabled, 'gray');
+    const genNextButtonStyle = generateButton(noButtonStyle, error, nextDisabled, 'gray');
+    const genBottomButtonStyle = generateButton(noButtonStyle, error, bottomDisabled, 'gray');
+    const genFilterButtonStyle = generateButton(buttonStyle, error, filterDisabled, 'gray');
 
     const topSymbol = '|\u2BC7';        // Bar and left triangle
     const previousSymbol = '\u2BC7';    // Left triangle
@@ -535,7 +526,7 @@ const SearchSortTable = (props) => {
             top: 0,
             zIndex: 2,
             border: "1px solid black",
-            backgroundColor: Theme.getBackgroundColor(),
+            backgroundColor: Theme.backgroundColor,
         }
 
         if (props.hasOwnProperty('headerStyle') === true) {
@@ -567,7 +558,7 @@ const SearchSortTable = (props) => {
         // Filter is turned on
         if (filterOn === 'Y' && props.hasOwnProperty('nofilter') === false) {
             let filterStyle = copyStyle(widthStyle);
-            filterStyle.backgroundColor = Theme.getNormalBackColor();
+            filterStyle.backgroundColor = Theme.normalColor;
             filterStyle = processStyleScreen(invalid, FILTER, filterStyle);
 
             if (row.sort === false || props.hasOwnProperty('nosort') === true) { // No sorting, so no onClick handler
