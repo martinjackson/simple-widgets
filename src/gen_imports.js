@@ -1,7 +1,7 @@
 
 const fs = require('fs');
 
-var files = fs.readdirSync('.')
+const files = fs.readdirSync('.')
               .filter(fn => fn.endsWith('.js'))
               .filter(fn => fn !== 'gen_imports.js')
               .filter(fn => fn !== 'index.js')
