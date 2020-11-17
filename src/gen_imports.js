@@ -13,7 +13,7 @@ const ans = files.map( fname => {
       .filter( line => !line.includes('export default'))
       .map(line => line.split(' ')[2])  // get 3rd word
 
-  return { fname, names:names.join(', ') }
+  return { fname, names:names.sort().join(', ') }
 })
    .filter(f => f.names.length>0)
    .map( info => [
@@ -21,17 +21,15 @@ const ans = files.map( fname => {
      `export { ${info.names} }`
    ])
 
-ans.flat().sort().forEach(f => console.log(f))
+ans.flat().forEach(f => console.log(f))
 
 /*
-export { Choice, List }
-export { DatePickerStyle() }
-export { defaultThemeSettings, buttonStyle, generateButton, generateDefaultButton }
-export { setInvalidScreen, setInvalidTable, setInvalidDual, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable, copyStyle, processStyleScreen, clearInvalidScreenOnly, processStyleTable, validStyling, invalidStyling, isInvalid, getInvalidMessage }
-
-import { Choice, List } from 'List.js'
 import { DatePickerStyle() } from 'DatePickerStyle.js'
-import { defaultThemeSettings, buttonStyle, generateButton, generateDefaultButton } from 'Theme.js'
-import { setInvalidScreen, setInvalidTable, setInvalidDual, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable, copyStyle, processStyleScreen, clearInvalidScreenOnly, processStyleTable, validStyling, invalidStyling, isInvalid, getInvalidMessage } from 'Invalid.js'
-
+export { DatePickerStyle() }
+import { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage, invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling, wasClickedScreen, wasClickedTable } from 'Invalid.js'
+export { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage, invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling, wasClickedScreen, wasClickedTable }
+import { Choice, List } from 'List.js'
+export { Choice, List }
+import { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton } from 'Theme.js'
+export { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton }
 */
