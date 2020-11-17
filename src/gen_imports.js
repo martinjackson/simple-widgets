@@ -21,5 +21,5 @@ const ans = files.map( fname => {
      `export { ${info.names} }`
    ])
 
-console.log(ans.flat());
+ans.flat().sort().forEach(f => console.log(f))
 
