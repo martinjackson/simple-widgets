@@ -540,7 +540,7 @@ export const processStyleTable = (invalidValues, constant, pos, style) => {
  *
  **********************************************************************************************/
 export const validStyling = () => {
-    return { backgroundColor: defaultThemeSettings.backgroundColor }
+    return { backgroundColor: defaultThemeSettings.normalColor }
 }
 
 /**********************************************************************************************
