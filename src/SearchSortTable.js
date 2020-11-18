@@ -1,3 +1,5 @@
+/* eslint react/prop-types: 0 */
+
 import React, { useState, useEffect } from 'react';
 
 import CheckBox from './CheckBox';
@@ -13,6 +15,8 @@ const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
 const digit = [...'0123456789'];
 
+const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+
 /****************************************************************************
  *
  * This will allow the user to add a filter / search bar to a table in case
@@ -20,49 +24,26 @@ const digit = [...'0123456789'];
  * sorted by clicking on it.
  *
  ****************************************************************************/
-const SearchSortTable = (props) => {
-    const Theme = [...defaultThemeSettings];
+const SearchSortTable = (propsPassed) => {
+const Theme = {...defaultThemeSettings};
 
-    let error = false;   // Indicates that an error has occrred
-    let MAX_ITEMS = 10;
+  const defaultEachRowInTable = (row, i) => {
+        const cols = row.map( (cell, j) => {
+            const k = i+'_'+j
+          return (<td key={k}>{cell}</td>)
+        })
+        // console.log('cols:', cols);
+    return (<tr key={i}>{cols}</tr>)
+  }
 
-    // Validate and set props
-    if (props.hasOwnProperty('error') === true) {
-        error = props.error;
+  const defaultProps = {
+    error: false,          // Indicates that an error has occrred
+    MAX_ITEMS: 10,
+    eachRowInTable: defaultEachRowInTable,
     }
 
-    if (props.hasOwnProperty('data') === false) {
-        console.error ('Search Sort Table component: A data prop must be passed');
-        return (<span></span>);
-    }
+    const props = Object.assign(defaultProps, propsPassed);
 
-    if (props.hasOwnProperty('table') === false) {
-        console.error ('Search Sort Table component: A table object prop must be passed');
-        return (<span></span>);
-    }
-
-    if (props.hasOwnProperty('eachRowInTable') === false) {
-        console.error ('Search Sort Table component: A eachRowInTable function prop must be passed');
-        return (<span></span>);
-    }
-
-    if (props.hasOwnProperty('MAX_ITEMS') === true) {
-        MAX_ITEMS = props.MAX_ITEMS;
-    }
-
-    if (props.hasOwnProperty('letters') === true) {
-        if (props.hasOwnProperty('noupper') === true &&
-            props.hasOwnProperty('nolower') === true &&
-            props.hasOwnProperty('nodigit') === true) {
-            console.error ('Search Sort Table component: If using letters prop, can not have all three: noupper, nolower, and nodigit');
-            return (<span></span>);
-        }
-    } else if (props.hasOwnProperty('noupper') === true ||
-               props.hasOwnProperty('nolower') === true ||
-               props.hasOwnProperty('nodigit') === true) {
-        console.error ('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop');
-        return (<span></span>);
-    }
 
     const invalidArray = [  // Used to tell whether the user entered and invalid value or not
         { validity: false, display: false, message: '' },
@@ -76,26 +57,85 @@ const SearchSortTable = (props) => {
 
     // Set the state variables
     const [start, setStart] = useState(0);
-    const [end, setEnd] = useState((props.hasOwnProperty('showAll') === true) ? props.data.length : MAX_ITEMS);
+    const [end, setEnd] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);
     const [searchItem, setSearchItem] = useState('');                   // The item to search for
     const [searchHeader, setSearchHeader] = useState('');               // The column to search
-    const [searchHeaderValues, setSearchHeaderValues] = useState([]);   // The value of each header in the table
+    const [searchHeaderValues, setSearchHeaderValues] = useState([searchHeader]); // The value of each header in the table -- intialize array to include default value
     const [sortOrder, setSortOrder] = useState([]);                     // Indicates whether the sort is ascending (A) or descending (D) (starts of a ascending and then alternates)
     const [topDisabled, setTopDisabled] = useState(true);               // Indicates whether the top button is disabled or not
     const [previousDisabled, setPreviousDisabled] = useState(true);     // Indicates whether the previous button is disabled or not
     const [nextDisabled, setNextDisabled] = useState(false);            // Indicates whether the next button is disabled or not
     const [bottomDisabled, setBottomDisabled] = useState(false);        // Indicates whether the bottom button is disabled or not
     const [rowValues, setRowValues] = useState([]);                     // Indicates how many rows in the table should be displayed
-    const [maxItems, setMaxItems] = useState((props.hasOwnProperty('showAll') === true) ? props.data.length : MAX_ITEMS);   // Maximum number of rows to display in the table
-    const [maximum, setMaximum] = useState((props.hasOwnProperty('showAll') === true) ? props.data.length : MAX_ITEMS);     // Maximum number of rows selected by the user to display in the table
+    const [maxItems, setMaxItems] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);   // Maximum number of rows to display in the table
+    const [maximum, setMaximum] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);     // Maximum number of rows selected by the user to display in the table
     const [filter, setFilter] = useState([]);                           // The values for each column to be filtered
     const [filterOn, setFilterOn] = useState('');                       // Indicates whether the user has checked the Filter On check box or not
     const [copyData, setCopyData] = useState([...props.data]);          // Copies the main data to another storage area
-    const [length, setLength] = useState(0);                            // The length of the data
     const [filterDisabled, setFilterDisabled] = useState(true);         // Indicates whether the filtering is enabled or disabled (Filter button)
     const [invalid, setInvalid] = useState(invalidArray);
     const [alertMessage, setAlertMessage] = useState('');
     const [showAlert, setShowAlert] = useState(false);
+
+    // TODO: setLength is called but length is never used ???
+
+    /* eslint-disable no-unused-vars */
+    const [length, setLength] = useState(0);                            // The length of the data
+    /* eslint-enable no-unused-vars */
+
+    /******************************************************************************
+     *
+     * Called to populate the header drop down
+     *
+     ******************************************************************************/
+
+/*
+   Style 1
+*/
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      useEffect (populateSearch, []);    // only do this when component mounts
+
+/*
+   Style 2
+
+    useEffect (() => {
+      populateSearch();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);    // only do this when component mounts
+*/
+
+    useEffect (() => {
+      setCopyData([...props.data]);
+      setLength(props.data.length);
+    }, [props.data]);
+
+
+    if (hasProperty(props,'data') === false) {
+      console.error ('Search Sort Table component: A data prop must be passed');
+      return (<span></span>);
+    }
+
+    if (hasProperty(props,'table') === false) {
+      console.error ('Search Sort Table component: A table object prop must be passed');
+      return (<span></span>);
+    }
+
+
+    if (hasProperty(props,'letters') === true) {
+      if (hasProperty(props,'noupper') === true &&
+          hasProperty(props,'nolower') === true &&
+          hasProperty(props,'nodigit') === true) {
+            console.error ('Search Sort Table component: If using letters prop, can not have all three: noupper, nolower, and nodigit');
+            return (<span></span>);
+        }
+    } else {
+    if (hasProperty(props,'noupper') === true ||
+        hasProperty(props,'nolower') === true ||
+        hasProperty(props,'nodigit') === true) {
+          console.error ('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop');
+          return (<span></span>);
+        }
+    }
 
     /****************************************************************************
      *
@@ -114,7 +154,7 @@ const SearchSortTable = (props) => {
                 search.push (props.table[i].header);
             }
             order.push ('N');
-            if (props.hasOwnProperty('nofilter') === false) {
+            if (hasProperty(props,'nofilter') === false) {
                 localFilter.push('');
             }
         }
@@ -125,27 +165,13 @@ const SearchSortTable = (props) => {
 
         // Build the values for the row drop down on the bottom right of the screen.
         let values = [];
-        for (let count = MAX_ITEMS; count <= 100; count += 5) {
+        for (let count = props.MAX_ITEMS; count <= 100; count += 5) {
             values.push(count);
         }
 
         values.push ('All');
         setRowValues (values);
     }
-
-    /******************************************************************************
-     *
-     * Called to populate the header drop down
-     *
-     ******************************************************************************/
-    useEffect (() => {
-        populateSearch();
-    }, []);
-
-    useEffect (() => {
-        setCopyData([...props.data]);
-        setLength(props.data.length);
-    }, [props.data]);
 
 
 
@@ -164,11 +190,22 @@ const SearchSortTable = (props) => {
         backgroundColor: Theme.backgroundColor,  // "#CCCC66",
     };
 
-    if (props.hasOwnProperty('divStyle') === true) {
+    if (hasProperty(props,'divStyle') === true) {
         divStyle = props.divStyle;
     }
 
-    if (props.hasOwnProperty('buttonStyle') === true) {
+    let buttonStyle = {
+        margin: "10px",
+        borderRadius: "10px",
+        color: Theme.getButtonFGColor(),
+        backgroundColor: Theme.getButtonBGColor(),
+        width: "100px",
+        height: "30px",
+        font: Theme.getButtonFont(),
+        fontWeight: "bold",
+    }
+
+    if (hasProperty(props,'buttonStyle') === true) {
         buttonStyle = props.buttonStyle;
     }
 
@@ -201,16 +238,8 @@ const SearchSortTable = (props) => {
         position: "relative",
     }
 
-    if (props.hasOwnProperty('tableStyle') === true) {
+    if (hasProperty(props,'tableStyle') === true) {
         tableStyle = props.tableStyle;
-    }
-
-    let borderStyle = {
-        border: "1px solid black",
-    };
-
-    if (props.hasOwnProperty('borderStyle') === true) {
-        borderStyle = props.borderStyle;
     }
 
     let centerBoldStyle = {
@@ -219,7 +248,7 @@ const SearchSortTable = (props) => {
         fontSize: "20px"
     }
 
-    if (props.hasOwnProperty('headerStyle') === true) {
+    if (hasProperty(props,'headerStyle') === true) {
         centerBoldStyle = props.headerStyle;
     }
 
@@ -230,23 +259,23 @@ const SearchSortTable = (props) => {
         border: "1px solid black",
     }
 
-    if (props.hasOwnProperty('footerStyle') === true) {
+    if (hasProperty(props,'footerStyle') === true) {
         footerStyle = props.footerStyle;
     }
 
     let scrollStyle = {
         display: "block",
         overflow: "scroll",
-        height: (props.hasOwnProperty('height') == true) ? props.height : "auto",
-        width: (props.hasOwnProperty('width') == true) ? props.width : "auto",
+        height: (hasProperty(props,'height') == true) ? props.height : "auto",
+        width: (hasProperty(props,'width') == true) ? props.width : "auto",
         border: "1px solid black",
         marginLeft: "auto",
         marginRight: "auto"
     }
 
     let tableDivStyle = {};
-    if (props.hasOwnProperty('scroll') === true) {
-        if (props.hasOwnProperty('scrollStyle') === true) {
+    if (hasProperty(props,'scroll') === true) {
+        if (hasProperty(props,'scrollStyle') === true) {
             tableDivStyle = props.scrollStyle;
         } else {
             tableDivStyle = scrollStyle;
@@ -267,7 +296,7 @@ const SearchSortTable = (props) => {
         backgroundColor: Theme.backgroundColor,
     }
 
-    if (props.hasOwnProperty('footStyle') === true) {
+    if (hasProperty(props,'footStyle') === true) {
         footStyle = props.footStyle;
     }
 
@@ -293,26 +322,26 @@ const SearchSortTable = (props) => {
 
     let letterDigit = [];
     let letters = null;
-    if (props.hasOwnProperty('letters') === true) {
-        if (props.hasOwnProperty('noupper') === true) {
-            if (props.hasOwnProperty('nolower') === true) {
+    if (hasProperty(props,'letters') === true) {
+        if (hasProperty(props,'noupper') === true) {
+            if (hasProperty(props,'nolower') === true) {
                 letterDigit = [...digit];
             } else {    // Lower
-                if (props.hasOwnProperty('nodigit') === true) {
+                if (hasProperty(props,'nodigit') === true) {
                     letterDigit = [...lower];
                 } else {    // Digit
                     letterDigit = [...lower, ...digit];
                 }
             }
         } else {    // Upper
-            if (props.hasOwnProperty('nolower') === true) {
-                if (props.hasOwnProperty('nodigit') === true) {
+            if (hasProperty(props,'nolower') === true) {
+                if (hasProperty(props,'nodigit') === true) {
                     letterDigit = [...upper];
                 } else {    // Digit
                     letterDigit = [...upper, ...digit];
                 }
             } else {    // Lower
-                if (props.hasOwnProperty('nodigit') === true) {
+                if (hasProperty(props,'nodigit') === true) {
                     letterDigit = [...upper, ...lower];
                 } else {    // Digit
                     letterDigit = [...upper, ...lower, ...digit];
@@ -324,33 +353,33 @@ const SearchSortTable = (props) => {
     }
 
     let topButtonHTML = <span></span>;
-    if (props.hasOwnProperty('notop') === false && props.hasOwnProperty('showAll') === false) {
-        topButtonHTML = <button name="top" style={genTopButtonStyle} onClick={async() => topButton()} disabled={error || topDisabled}>{topSymbol}</button>;
+    if (hasProperty(props,'notop') === false && hasProperty(props,'showAll') === false) {
+        topButtonHTML = <button name="top" style={genTopButtonStyle} onClick={() => topButton()} disabled={props.error || topDisabled}>{topSymbol}</button>;
     }
 
     let previousButtonHTML = <span></span>;
-    if (props.hasOwnProperty('noprevious') === false && props.hasOwnProperty('showAll') === false) {
-        previousButtonHTML = <button name="previous" style={genPreviousButtonStyle} onClick={async() => previousButton()} disabled={error || previousDisabled}>{previousSymbol}</button>;
+    if (hasProperty(props,'noprevious') === false && hasProperty(props,'showAll') === false) {
+        previousButtonHTML = <button name="previous" style={genPreviousButtonStyle} onClick={() => previousButton()} disabled={props.error || previousDisabled}>{previousSymbol}</button>;
     }
 
     let nextButtonHTML = <span></span>;
-    if (props.hasOwnProperty('nonext') === false && props.hasOwnProperty('showAll') === false) {
-        nextButtonHTML = <button name="next" style={genNextButtonStyle} onClick={async() => nextButton()} disabled={error || nextDisabled}>{nextSymbol}</button>;
+    if (hasProperty(props,'nonext') === false && hasProperty(props,'showAll') === false) {
+        nextButtonHTML = <button name="next" style={genNextButtonStyle} onClick={() => nextButton()} disabled={props.error || nextDisabled}>{nextSymbol}</button>;
     }
 
     let bottomButtonHTML = <span></span>;
-    if (props.hasOwnProperty('nobottom') === false && props.hasOwnProperty('showAll') === false) {
-        bottomButtonHTML = <button name="bottom" style={genBottomButtonStyle} onClick={async() => bottomButton()} disabled={error || bottomDisabled}>{bottomSymbol}</button>;
+    if (hasProperty(props,'nobottom') === false && hasProperty(props,'showAll') === false) {
+        bottomButtonHTML = <button name="bottom" style={genBottomButtonStyle} onClick={() => bottomButton()} disabled={props.error || bottomDisabled}>{bottomSymbol}</button>;
     }
 
     let allButtonHTML = <span></span>;
-    if (props.hasOwnProperty('showAll') === true) {
-        allButtonHTML = <button name="all" style={genBottomButtonStyle} onClick={async() => allButton()} disabled={error}>All</button>;
+    if (hasProperty(props,'showAll') === true) {
+        allButtonHTML = <button name="all" style={genBottomButtonStyle} onClick={() => allButton()} disabled={props.error}>All</button>;
     }
 
     let title = null;
-    if (props.hasOwnProperty('title') === true) {
-        if (props.hasOwnProperty('titleSize') === true) {
+    if (hasProperty(props,'title') === true) {
+        if (hasProperty(props,'titleSize') === true) {
             if (props.titleSize === '1') {
                 title = <h1 style={props.titleStyle}>{props.title}</h1>
             } else if (props.titleSize === '2') {
@@ -363,10 +392,10 @@ const SearchSortTable = (props) => {
         }
     }
 
-    const filterSection = (props.hasOwnProperty('nofilter') === true) ? null :
+    const filterSection = (hasProperty(props,'nofilter') === true) ? null :
         (<>
             <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />
-            <button name="filter" style={genFilterButtonStyle} onClick={async() => filterButton()} disabled={error || filterDisabled}>Filter</button>
+            <button name="filter" style={genFilterButtonStyle} onClick={() => filterButton()} disabled={props.error || filterDisabled}>Filter</button>
         </>)
 
     searchStyle = processStyleScreen(invalid, SRCHHDR, searchStyle);
@@ -374,43 +403,43 @@ const SearchSortTable = (props) => {
     let itemStyle = validStyling();
     itemStyle = processStyleScreen(invalid, SRCHITEM, itemStyle)
 
-    const searchSection = (props.hasOwnProperty('nosearch') === true) ? null :
+    const searchSection = (hasProperty(props,'nosearch') === true) ? null :
         (<>
             <span className="checkForError">
-                <Choice choices={searchHeaderValues}  name="searchHeader" value={searchHeader} onChange={(event) => setSearchHeader(event.target.value)} onClick={() => wasClickedScreen(invalid, SRCHHDR, setInvalid)} style={searchStyle} disabled={error} />
+                <Choice choices={searchHeaderValues}  name="searchHeader" value={searchHeader} onChange={(event) => setSearchHeader(event.target.value)} onClick={() => wasClickedScreen(invalid, SRCHHDR, setInvalid)} style={searchStyle} disabled={props.error} />
                 {(isInvalid(invalid[SRCHHDR], -1) === true) ? <span className="errMessage">{invalid[SRCHHDR].message}</span> : null }
             </span>
             <span className="checkForError">
-                <input type="text" name="searchItem" value={searchItem} onChange={(event) => setupSearch(event.target.value)} onClick={() => wasClickedScreen(invalid, SRCHITEM, setInvalid)} style={itemStyle} disabled={error} />
+                <input type="text" name="searchItem" value={searchItem} onChange={(event) => setupSearch(event.target.value)} onClick={() => wasClickedScreen(invalid, SRCHITEM, setInvalid)} style={itemStyle} disabled={props.error} />
                 {(isInvalid(invalid[SRCHITEM], -1) === true) ? <span className="errMessage">{invalid[SRCHITEM].message}</span> : null }
             </span>
-            <button name="searchButtonName" style={genButtonStyle} onClick={async() => searchItemButton()} disabled={error}>Search</button>
+            <button name="searchButtonName" style={genButtonStyle} onClick={() => searchItemButton()} disabled={props.error}>Search</button>
         </>)
 
-    const footer = (props.hasOwnProperty('nofooter') === true) ? null :
-        (<div style={footStyle}>
-            { (props.hasOwnProperty('norows') === true) ? null :
+    const footer = (hasProperty(props,'nofooter') === true) ? null :
+        <div style={footStyle}>
+            { (hasProperty(props,'norows') === true) ? null :
                 <span style={marginStyle}>
-                    <Choice choices={rowValues} name="rows" value={maximum} onChange={(event) => processMaxItems(event.target.value)} style={noBorderStyle} disabled={error} />
+                    <Choice choices={rowValues} name="rows" value={maximum} onChange={(event) => processMaxItems(event.target.value)} style={noBorderStyle} disabled={props.error} />
                     rows
                 </span>
             }
             {topButtonHTML}
             {previousButtonHTML}
-            { (props.hasOwnProperty('nodisplay') === true) ? null :
+            { (hasProperty(props,'nodisplay') === true) ? null :
                 <span>{start + ' - ' + end + ' of ' + props.data.length}</span>
             }
             {nextButtonHTML}
             {bottomButtonHTML}
-        </div>)
+        </div>
 
     let hoverClassName = null;
-    if (props.hasOwnProperty('hover') === true) {
+    if (hasProperty(props,'hover') === true) {
         let root = document.documentElement;
         let hoverBackColor = 'cyan';
         let found = false;
 
-        if (props.hasOwnProperty('hoverColor') === true) {
+        if (hasProperty(props,'hoverColor') === true) {
             hoverBackColor = props.hoverColor;
         }
 
@@ -435,7 +464,7 @@ const SearchSortTable = (props) => {
         <div style={divStyle}>
             {title}
             <div>
-                { (props.hasOwnProperty('sfbottom') === false) ?
+                { (hasProperty(props,'sfbottom') === false) ?
                     (<>
                         {filterSection}
                         {searchSection}
@@ -444,7 +473,7 @@ const SearchSortTable = (props) => {
                     </>) : null
                 }
             </div>
-            { (props.data.length === 0 && props.hasOwnProperty('showtable') === false) ?
+            { (props.data.length === 0 && hasProperty(props,'showtable') === false) ?
             <div>No Data to Display</div> :
             <div>
                 <div style={tableDivStyle}>
@@ -454,14 +483,14 @@ const SearchSortTable = (props) => {
                                 {props.table.map(buildHeaders)}
                             </tr>
                            { showData.map(props.eachRowInTable) }
-                           { (props.hasOwnProperty('footer') === true) ?
+                           { (hasProperty(props,'footer') === true) ?
                                 <tr style={footerStyle}>{ props.footer.map(buildFooter) }</tr> : null }
                         </tbody>
                     </table>
                 </div>
                 {footer}
                 <div>
-                    { (props.hasOwnProperty('sfbottom') === true) ?
+                    { (hasProperty(props,'sfbottom') === true) ?
                         (<>
                             {filterSection}
                             {searchSection}
@@ -516,7 +545,7 @@ const SearchSortTable = (props) => {
     function buildHeaders (row, i) {
         let key = 'cell_' + i;
         let header = row.header;
-        let filterKey = 'filter_' + i;
+        // let filterKey = 'filter_' + i;
         let filterName = row.header + '_filter'
 
 
@@ -529,7 +558,7 @@ const SearchSortTable = (props) => {
             backgroundColor: Theme.backgroundColor,
         }
 
-        if (props.hasOwnProperty('headerStyle') === true) {
+        if (hasProperty(props,'headerStyle') === true) {
             headerStyle = props.headerStyle;
         }
 
@@ -538,10 +567,6 @@ const SearchSortTable = (props) => {
             paddingBottom: "0px",
             width: "99%",
             textAlign: "center",
-        }
-
-        const heightStyle = {
-            height: "100px",
         }
 
         if (props.table[i].sort === true && sortOrder[i] !== 'N') {
@@ -556,12 +581,12 @@ const SearchSortTable = (props) => {
         }
 
         // Filter is turned on
-        if (filterOn === 'Y' && props.hasOwnProperty('nofilter') === false) {
+        if (filterOn === 'Y' && hasProperty(props,'nofilter') === false) {
             let filterStyle = copyStyle(widthStyle);
             filterStyle.backgroundColor = Theme.normalColor;
             filterStyle = processStyleScreen(invalid, FILTER, filterStyle);
 
-            if (row.sort === false || props.hasOwnProperty('nosort') === true) { // No sorting, so no onClick handler
+            if (row.sort === false || hasProperty(props,'nosort') === true) { // No sorting, so no onClick handler
                 if (row.search === false) { // No searching on this field, so no filtering on it also
                     return (<th key={key} style={headerStyle}>{row.header}</th>)  // Display the header only
                 } else {    // Can filter; therefore, display the input field
@@ -569,7 +594,7 @@ const SearchSortTable = (props) => {
                         <th key={key} style={headerStyle}>
                             <div>{row.header}</div>
                             <span className="checkForError">
-                                <input type="text" style={filterStyle} name={filterName} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={error} />
+                                <input type="text" style={filterStyle} name={filterName} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} />
                             </span>
                         </th>
                     );
@@ -586,14 +611,14 @@ const SearchSortTable = (props) => {
                         <th key={key} onClick={() => sortClicked(row.name, 'X')} style={headerStyle}>
                             <div>{header}</div>
                             <span className="checkForError">
-                                <input type="text" style={filterStyle} name={filterName} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={error} />
+                                <input type="text" style={filterStyle} name={filterName} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} />
                             </span>
                         </th>
                     );
                 }
             }
         // Filtering is off or not allowed
-        } else if (row.sort === false || props.hasOwnProperty('nosort') === true) { // No sorting, so no onClick handler
+        } else if (row.sort === false || hasProperty(props,'nosort') === true) { // No sorting, so no onClick handler
             return ( <th key={key} style={headerStyle}>{row.header}</th> ); // Display the header only
         } else {    // Soring on the column is allowed
             return (
@@ -670,7 +695,7 @@ const SearchSortTable = (props) => {
             setLength(props.data.length);   // Used to re-render the screen
             setFilterDisabled(true);        // Disable the filter button
             setStart(0);
-            setEnd((props.hasOwnProperty('showAll') === true || props.data.length < maxItems) ? props.data.length : maxItems);
+            setEnd((hasProperty(props,'showAll') === true || props.data.length < maxItems) ? props.data.length : maxItems);
         }
     }
 
@@ -832,12 +857,12 @@ const SearchSortTable = (props) => {
     function searchItemButton() {
         if (validate('B') === true) {  // Make sure a value has been selected in the drop down and text box
             let search = null;
-            search = (props.hasOwnProperty('ignorecase') === true) ?
+            search = (hasProperty(props,'ignorecase') === true) ?
                 searchItem.toUpperCase() :  // Convert to upper case to ignore case
                 searchItem;
             // Find a match in the correct column of the data
             let tableIndex = props.table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
-            if (props.hasOwnProperty('searchstart') === true) {
+            if (hasProperty(props,'searchstart') === true) {
                 searchStart (search, props.table[tableIndex].name);
             } else {
                 searchAny (search, props.table[tableIndex].name);
@@ -857,7 +882,7 @@ const SearchSortTable = (props) => {
      *
      *********************************************************************************************/
     function searchStart (search, name) {
-        let begin = (props.hasOwnProperty('nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
+        let begin = (hasProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
         let found = false;  // Indicates that the item was found
 
         for (let i = begin; i < props.data.length && found === false; i++) {
@@ -878,7 +903,7 @@ const SearchSortTable = (props) => {
      *
      *********************************************************************************************/
     function searchAny (search, name) {
-        let begin = (props.hasOwnProperty('nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
+        let begin = (hasProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
         let found = false;  // Indicates that the item was found
 
         for (let i = begin; i < props.data.length && found === false; i++) {
@@ -917,7 +942,7 @@ const SearchSortTable = (props) => {
         props.data.sort(function (item1, item2) {
             // Convert to upper case if ignoring case
             if (typeof item1[name] === 'string' &&
-                props.hasOwnProperty('ignorecase') === true) {
+                hasProperty(props,'ignorecase') === true) {
                 item1[name] = (item1[name] !== null) ? item1[name].toUpperCase() : null;
                 item2[name] = (item2[name] !== null) ? item2[name].toUpperCase() : null;
             }
@@ -995,12 +1020,10 @@ const SearchSortTable = (props) => {
 
             // Find the end of the letter
             let stop = 0;       // Where the end of the letter is
-            let next = false;   // Indicates that the end of the letter was found
             for (stop = begin; stop < props.data.length; stop++) {
                 // End of the letter or digit is found
                 if (props.data[stop][props.table[index].name] !== null &&
                     props.data[stop][props.table[index].name].toString().startsWith(letter) === false) {
-                    next = true;
                     break;
                 }
             }
@@ -1008,7 +1031,7 @@ const SearchSortTable = (props) => {
             if (found === true) {
                 setStart (begin);
                 setEnd (stop);
-                (props.hasOwnProperty('startEnd') === true) ? props.startEnd (begin, stop) : null;
+                (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, stop) : null;
                 setDisable (begin);
             } else {
                 setAlertMessage ('No ' + searchHeader + ' starts with a ' + letter);
@@ -1072,11 +1095,11 @@ const SearchSortTable = (props) => {
             if (index + maxItems >= props.data.length) { // End is past the data
                 setStart (index);
                 setEnd (props.data.length);
-                (props.hasOwnProperty('startEnd') === true) ? props.startEnd (index, props.data.length) : null;
+                (hasProperty(props,'startEnd') === true) ? props.startEnd (index, props.data.length) : null;
             } else {    // End is not past the data
                 setStart (index);
                 setEnd (index + maxItems);
-                (props.hasOwnProperty('startEnd') === true) ? props.startEnd (index, index + maxItems) : null;
+                (hasProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;
             }
 
             setDisable(index);
@@ -1093,11 +1116,11 @@ const SearchSortTable = (props) => {
         if (maxItems < props.data.length) {  // Not at the end of the data
             setStart (0);
             setEnd (maxItems);
-            (props.hasOwnProperty('startEnd') === true) ? props.startEnd (0, maxItems) : null;
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
         } else {    // At the end of the data
             setStart (0);
             setEnd (props.data.length);
-            (props.hasOwnProperty('startEnd') === true) ? props.startEnd (0, props.data.length) : null;
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, props.data.length) : null;
         }
 
         setDisable(0);  // Determine which buttons to disable
@@ -1114,11 +1137,11 @@ const SearchSortTable = (props) => {
         if (index <= 0) {   // Past the beginning of the data
             setStart (0);
             setEnd (maxItems);
-            (props.hasOwnProperty('startEnd') === true) ? props.startEnd (0, maxItems) : null;
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
         } else {    // Not past the beginning of the data
             setStart (index);
             setEnd (index + maxItems);
-            (props.hasOwnProperty('startEnd') === true) ? props.startEnd (index, index + maxItems) : null;    // Add max items to get the new current end
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;    // Add max items to get the new current end
         }
 
         setDisable(index);  // Determine which buttons to disable
@@ -1143,11 +1166,11 @@ const SearchSortTable = (props) => {
         if (index + maxItems >= props.data.length) { // At the end of the data
             setStart (begin);
             setEnd (props.data.length);
-            (props.hasOwnProperty('startEnd') === true) ? props.startEnd (begin, props.data.length) : null;
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, props.data.length) : null;
         } else {    // Not at the end of the data
             setStart (begin);
             setEnd (index + maxItems);
-            (props.hasOwnProperty('startEnd') === true) ? props.startEnd (begin, index + maxItems) : null;    // Increment to the next max items
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, index + maxItems) : null;    // Increment to the next max items
         }
 
         setDisable(index);  // Determine which buttons to disable
@@ -1163,11 +1186,11 @@ const SearchSortTable = (props) => {
         if (props.data.length - maxItems < 0) {  // At the end of the data
             setStart (0);
             setEnd (props.data.length);
-            (props.hasOwnProperty('startEnd') === true) ? props.startEnd (0, props.data.length) : null;
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, props.data.length) : null;
         } else {    // Not at the end of the data
             setStart (props.data.length - maxItems);
             setEnd (props.data.length);
-            (props.hasOwnProperty('startEnd') === true) ? props.startEnd(props.data.length - maxItems, props.data.length) : null;
+            (hasProperty(props,'startEnd') === true) ? props.startEnd(props.data.length - maxItems, props.data.length) : null;
         }
 
         setDisable(props.data.length);
