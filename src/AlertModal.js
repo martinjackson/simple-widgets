@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from './Modal';
 import { buttonStyle } from './Theme';
-import 'modal.css';
+import './modal.css';
 
 const AlertModal = props => {
     return (
@@ -16,7 +16,7 @@ const AlertModal = props => {
                     </Modal>
                 ) : null
             }
-        </div>    
+        </div>
     );
 }
 

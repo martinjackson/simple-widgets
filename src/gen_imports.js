@@ -17,7 +17,7 @@ const ans = files.map( fname => {
 })
    .filter(f => f.names.length>0)
    .map( info => [
-     `import { ${info.names} } from '${info.fname}' `,
+     `import { ${info.names} } from './${info.fname}' `,
      `export { ${info.names} }`
    ])
 
