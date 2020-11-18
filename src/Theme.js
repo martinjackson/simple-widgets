@@ -63,7 +63,7 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
     } else {    // Do not disable the button
         // Make sure the style has a background color, if not use the theme color
         genButtonStyle.backgroundColor = (style.hasOwnProperty('backgroundColor') === true) ? 
-            style.backgroundColor : Theme.getBackgroundColor();
+            style.backgroundColor : defaultThemeSettings.backgroundColor;
     }
 
     return genButtonStyle;  // Return the button
@@ -80,12 +80,12 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
  * 
  *********************************************************************************/
 export const generateDefaultButton = (error, disabled = false) => {
-    const genButtonStyle = Object.assign ({}, Theme.getButtonStyle()); // Copy the button style
+    const genButtonStyle = Object.assign ({}, buttonStyle); // Copy the button style
     if (error === true || disabled === true) {  // Change certain buttons to the disable color to reflect the buttons have been disabled due to an error
-        genButtonStyle.backgroundColor = Theme.getDisableButtonColor();
+        genButtonStyle.backgroundColor = defaultThemeSettings.disableButtonColor;
     } else {    // Do not disable the button
         // Make sure the style has a background color, if not use the theme color
-        genButtonStyle.backgroundColor = Theme.getBackgroundColor();
+        genButtonStyle.backgroundColor = defaultThemeSettings.backgroundColor;
     }
 
     return genButtonStyle;  // Return the button
