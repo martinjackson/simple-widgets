@@ -197,11 +197,11 @@ const Theme = {...defaultThemeSettings};
     let buttonStyle = {
         margin: "10px",
         borderRadius: "10px",
-        color: Theme.defaultThemeSetting.buttonTextColor,
-        backgroundColor: Theme.defaultThemeSetting.buttonColor,
+        color: Theme.buttonTextColor,
+        backgroundColor: Theme.buttonColor,
         width: "100px",
         height: "30px",
-        font: Theme.defaultThemeSetting.buttonFont,
+        font: Theme.buttonFont,
         fontWeight: "bold",
     }
 
