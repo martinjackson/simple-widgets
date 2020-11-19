@@ -1,4 +1,6 @@
 
+const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+
 /***********************************************************************************
  *
  * The default theme settings.
@@ -70,7 +72,7 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
         genButtonStyle.backgroundColor = disableColor;
     } else {    // Do not disable the button
         // Make sure the style has a background color, if not use the theme color
-        genButtonStyle.backgroundColor = (style.hasOwnProperty('backgroundColor') === true) ?
+        genButtonStyle.backgroundColor = (hasProperty(style, 'backgroundColor') === true) ?
             style.backgroundColor : defaultThemeSettings.backgroundColor;
     }
 

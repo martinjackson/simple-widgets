@@ -7,7 +7,7 @@ import { Choice } from './List';
 import { isInvalid, setInvalidScreen, copyStyle,
          validStyling, processStyleScreen, wasClickedScreen} from './Invalid'
 import AlertModal from './AlertModal';
-import { defaultThemeSettings, buttonStyle, generateButton } from './Theme';
+import { defaultThemeSettings, generateButton } from './Theme';
 import './table.css';
 import './mousehover.css';
 
