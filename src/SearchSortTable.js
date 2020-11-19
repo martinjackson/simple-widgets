@@ -300,12 +300,12 @@ const Theme = {...defaultThemeSettings};
         footStyle = props.footStyle;
     }
 
-    const genButtonStyle = generateButton(buttonStyle, error, false, 'gray');
-    const genTopButtonStyle = generateButton(noButtonStyle, error, topDisabled, 'gray');
-    const genPreviousButtonStyle = generateButton(noButtonStyle, error, previousDisabled, 'gray');
-    const genNextButtonStyle = generateButton(noButtonStyle, error, nextDisabled, 'gray');
-    const genBottomButtonStyle = generateButton(noButtonStyle, error, bottomDisabled, 'gray');
-    const genFilterButtonStyle = generateButton(buttonStyle, error, filterDisabled, 'gray');
+    const genButtonStyle         = generateButton(buttonStyle,   props.error, false, 'gray');
+    const genTopButtonStyle      = generateButton(noButtonStyle, props.error, topDisabled, 'gray');
+    const genPreviousButtonStyle = generateButton(noButtonStyle, props.error, previousDisabled, 'gray');
+    const genNextButtonStyle     = generateButton(noButtonStyle, props.error, nextDisabled, 'gray');
+    const genBottomButtonStyle   = generateButton(noButtonStyle, props.error, bottomDisabled, 'gray');
+    const genFilterButtonStyle   = generateButton(buttonStyle,   props.error, filterDisabled, 'gray');
 
     const topSymbol = '|\u2BC7';        // Bar and left triangle
     const previousSymbol = '\u2BC7';    // Left triangle
