@@ -1,3 +1,25 @@
+
+/***********************************************************************************
+ *
+ * The default theme settings.
+ *
+ ***********************************************************************************/
+const defaultSettings = {
+  backgroundColor: 'aliceblue',
+  buttonColor: 'blue',
+  buttonTextColor: 'white',
+  buttonFont: 'Times New Roman',
+  buttonFontWeight: 'bold',
+  buttonFontSize: 12,
+  disableButtonColor: 'gray',
+  font: 'Times New Roman',
+  fontWeight: 'plain',
+  fontSize: 12,
+  errorColor: 'pink',
+  normalColor: 'white',
+  textColor: 'black',
+};
+
 /***********************************************************************************
  *
  * The default button style.
@@ -6,11 +28,11 @@
 export const buttonStyle = {
   margin: "10px",
   borderRadius: "10px",
-  color: defaultThemeSettings.buttonTextColor,
-  backgroundColor: defaultThemeSettings.buttonColor,
+  color: defaultSettings.buttonTextColor,
+  backgroundColor: defaultSettings.buttonColor,
   width: "100px",
   height: "30px",
-  font: defaultThemeSettings.buttonFont,
+  font: defaultSettings.buttonFont,
   fontWeight: "bold",
 };
 
@@ -19,23 +41,7 @@ export const buttonStyle = {
  * The default theme settings.
  *
  ***********************************************************************************/
-export const defaultThemeSettings = {
-    backgroundColor: 'aliceblue',
-    buttonColor: 'blue',
-    buttonTextColor: 'white',
-    buttonFont: 'Times New Roman',
-    buttonFontWeight: 'bold',
-    buttonFontSize: 12,
-    disableButtonColor: 'gray',
-    font: 'Times New Roman',
-    fontWeight: 'plain',
-    fontSize: 12,
-    errorColor: 'pink',
-    normalColor: 'white',
-    textColor: 'black',
-    buttonStyle: buttonStyle,
-};
-
+export const defaultThemeSettings = { ...defaultSettings,  buttonStyle: buttonStyle};
 
 
 /*********************************************************************
