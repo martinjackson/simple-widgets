@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from './Modal';
 import { buttonStyle } from './Theme';
-import 'modal.css';
+import './modal.css';
 
 const ConfirmModal = props => {
     return (
@@ -11,13 +11,13 @@ const ConfirmModal = props => {
                     <Modal>
                         <div>
                             <h1>{props.message}</h1>
-                            <button name="yes" onClick={(async) => processYesFunct()} style={buttonStyle} >Yes</button> 
+                            <button name="yes" onClick={(async) => processYesFunct()} style={buttonStyle} >Yes</button>
                             <button name="no" onClick={() => props.noFunct(false)} style={buttonStyle} >No</button>
                         </div>
                     </Modal>
                 ) : null
             }
-        </div>    
+        </div>
     );
 
     function processYesFunct() {
