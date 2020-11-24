@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 
-import CheckBox from './CheckBox';
-import { Choice } from './List';
+import CheckBox from './CheckBox.js';
+import { Choice } from './List.js';
 import { isInvalid, setInvalidScreen, copyStyle,
-         validStyling, processStyleScreen, wasClickedScreen} from './Invalid'
-import AlertModal from './AlertModal';
-import { defaultThemeSettings, generateButton } from './Theme';
+         validStyling, processStyleScreen, wasClickedScreen} from './Invalid.js'
+import AlertModal from './AlertModal.js';
+import { defaultThemeSettings, generateButton } from './Theme.js';
 import './table.css';
 import './mousehover.css';
 

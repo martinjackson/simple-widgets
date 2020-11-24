@@ -1,16 +1,19 @@
+
+/* eslint react/prop-types: 0 */
+
 import React from 'react';
 import autoBind from 'react-autobind';
 
-import dateFnsParse from 'date-fns/parse';
-import dateFnsFormat from 'date-fns/format';
+import dateFnsParse from 'date-fns/parse/index.js';
+import dateFnsFormat from 'date-fns/format/index.js';
 
 // https://react-day-picker.js.org/
 // http://react-day-picker.js.org/examples/basic
 
 import { DateUtils } from 'react-day-picker';
-import DayPickerInput from 'react-day-picker/DayPickerInput'
+import DayPickerInput from 'react-day-picker/DayPickerInput/index.js'
 
-import { DatePickerStyle } from './DatePickerStyle'
+import { DatePickerStyle } from './DatePickerStyle.js'
 
 // const FORMAT = 'M/D/YYYY';
 
@@ -40,6 +43,12 @@ export default class UnstyledDatePicker extends React.Component {
   }
 
   handleDayChange(selectedDay, modifiers, dayPickerInput) {
+
+    /* eslint-disable */
+    const unusedButInterfaceRequired = {modifiers, dayPickerInput}  // eslint no-unused-vars
+    /* eslint-enable */
+
+
     const value = dateFnsFormat(selectedDay, this.props.format)
     // console.log('name:', this.props.name, 'day:', value);
 

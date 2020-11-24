@@ -1,12 +1,15 @@
 import React, { Fragment } from 'react';
 
-export const Choice = React.forwardRef((propsIn, ref) => {
+const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+
+
+const _Choice = (propsIn, ref) => {
 
     const {list, choices, size, ...props} = propsIn
     const siz = size || 10;
     const opt = list || choices || [];
-    const keyPart = (props.hasOwnProperty('name')) ? props.keyName + '_' : '';
-    const pref = (props.hasOwnProperty('name')) ? props.name + '_' + keyPart : '';
+    const keyPart = (hasProperty(props,'keyName')) ? props.keyName + '_' : '';
+    const pref = (hasProperty(props,'name')) ? props.name + '_' + keyPart : '';
 
     if ( typeof(props.value) == 'string' && !opt.includes(props.value) )
     {
@@ -28,8 +31,11 @@ export const Choice = React.forwardRef((propsIn, ref) => {
                 </select>
             </Fragment>;
     }
-});
+}
 
-export const List = React.forwardRef((props, ref) => (
-        <Choice ref={ref} multiple={true} {...props} />)
-);
+const _List = (props, ref) => (
+  <Choice ref={ref} multiple={true} {...props} />
+  )
+
+export const Choice = React.forwardRef(_Choice);
+export const List = React.forwardRef(_List);

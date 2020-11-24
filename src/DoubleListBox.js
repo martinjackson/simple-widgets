@@ -1,7 +1,8 @@
 
 import React from 'react';
 import autoBind from 'react-autobind';
-import { List } from './List';
+
+import { List } from './List.js';
 
 const reset = (props,state) => {
 
