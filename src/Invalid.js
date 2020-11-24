@@ -1,5 +1,5 @@
 
-import { defaultThemeSettings, buttonStyle, generateButton } from './Theme';
+import { defaultThemeSettings, buttonStyle, generateButton } from './Theme.js';
 
 /***************************************************************************************
  *

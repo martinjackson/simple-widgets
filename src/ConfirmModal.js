@@ -1,6 +1,7 @@
 import React from 'react';
-import Modal from './Modal';
-import { buttonStyle } from './Theme';
+
+import Modal from './Modal.js';
+import { buttonStyle } from './Theme.js';
 import './modal.css';
 
 const ConfirmModal = props => {

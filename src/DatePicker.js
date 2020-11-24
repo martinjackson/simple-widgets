@@ -1,7 +1,7 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 
-import UnstyledDatePicker from './UnstyledDatePicker'
+import UnstyledDatePicker from './UnstyledDatePicker.js'
 
 export default class DatePicker extends React.Component {
 
