@@ -12,7 +12,7 @@ const AlertModal = props => {
                     <Modal>
                         <div>
                             <h1>{props.message}</h1>
-                            <button name="ok" onClick={() => props.showFunct(false)} style={buttonStyle} >OK</button>
+                            <button name="ok" onClick={() => props.closeFunct(false)} style={buttonStyle} >OK</button>
                         </div>
                     </Modal>
                 ) : null
