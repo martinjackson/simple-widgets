@@ -27,9 +27,11 @@ const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescripto
 const SearchSortTable = (propsPassed) => {
 const Theme = {...defaultThemeSettings};
 
+  // let iter = Object.keys(row)       // also works when row === ["hello", "there"]
+
   const defaultEachRowInTable = (row, i) => {
-        const idx = (Array.isArray(row)) ? [0..row.length-1] : Object.keys(row)
-        let cols = idx.map( (name, j) => ( <td key={i+'_'+j}>{row[name]}</td> ) )
+      const cols = (!row) ? null :
+        Object.keys(row).map( (idx, j) => ( <td key={i+'_'+j}>{row[idx]}</td> ) )
     return (<tr key={i}>{cols}</tr>)
   }
 
