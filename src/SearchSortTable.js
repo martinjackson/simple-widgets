@@ -28,11 +28,8 @@ const SearchSortTable = (propsPassed) => {
 const Theme = {...defaultThemeSettings};
 
   const defaultEachRowInTable = (row, i) => {
-        const cols = row.map( (cell, j) => {
-            const k = i+'_'+j
-          return (<td key={k}>{cell}</td>)
-        })
-        // console.log('cols:', cols);
+        const idx = (Array.isArray(row)) ? [0..row.length-1] : Object.keys(row)
+        let cols = idx.map( (name, j) => ( <td key={i+'_'+j}>{row[name]}</td> ) )
     return (<tr key={i}>{cols}</tr>)
   }
 
