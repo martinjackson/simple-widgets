@@ -771,20 +771,84 @@ const Theme = {...defaultThemeSettings};
             }
         }
 
+        let areDates = false;
+        if (props.hasOwnProperty('dateTable')) {
+            areDates = true;
+        }
+        let foundDate = false;
+        let dateIndex = -1;
+
         // Spin through the data and see if it meets the filter criteria
         for (let i = 0; i < data.length; i++) {
             found = [];     // Empty the found array for the next data element
             done = false;
             // Spin through the filter input boxes to see if the data element matches
             for (let j = 0; j < indexes.length && done === false; j++) {
+                if (areDates === true) {    // There are dates in the table
+                    foundDate = false;
+                    dateIndex = -1;
+                    for (let k = 0; k < props.dateTable.length; k++) {  // Find the index in the date table
+                        if (props.dateTable[k].index === indexes[j]) {
+                            foundDate = true;
+                            dateIndex = k;
+                        }
+                    }
+                }
+
                 // The data element matches one of the filter input boxes
-                if (data[i][props.table[indexes[j]].name].toString().indexOf(filter[indexes[j]]) !== -1) {
+                if (data[i][props.table[indexes[j]].name] === null) {   // The data field is blank
+                    found.push(false);
+                    done = true;
+                } else if (foundDate === true) {    // The data field is a date
+                    let dataPart = null;
+                    let filterPart = null;
+
+                    // Determine the format of the data date
+                    if (props.dateTable[dateIndex].data === 'MM/DD/YYYY') {
+                        dataPart = convertDate(data[i][props.table[indexes[j]].name], '/');
+                    } else if (props.dateTable[dateIndex].data === 'MM-DD-YYYY') {
+                        dataPart = convertDate(data[i][props.table[indexes[j]].name], '-');
+                    } else if (props.dateTable[dateIndex].data === 'MM/DD/YYYY HH:MM:SS') {
+                        dataPart = convertDateTime(data[i][props.table[indexes[j]].name], '/');
+                    } else if (props.dateTable[dateIndex].data === 'MM-DD-YYYY HH:MM:SS') {
+                        dataPart = convertDateTime (data[i][props.table[indexes[j]].name], '-');
+                    } else if (props.dateTable[dateIndex].data === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                        dataPart = convertDateTimeReg (data[i][props.table[indexes[j]].name]);
+                    } else {
+                        dataPart = data[i][props.table[indexes[j]].name];
+                    }
+
+                    // Determine the format of the filter date
+                    if (props.dateTable[dateIndex].filter === 'MM/DD/YYYY') {
+                        filterPart = convertDate(filter[indexes[j]], '/');
+                    } else if (props.dateTable[dateIndex].filter === 'MM-DD-YYYY') {
+                        filterPart = convertDate(filter[indexes[j]], '-');
+                    } else if (props.dateTable[dateIndex].filter === 'MM/DD/YYYY HH:MM:SS') {
+                        filterPart = convertDateTime(filter[indexes[j]], '/');
+                    } else if (props.dateTable[dateIndex].filter === 'MM-DD-YYYY HH:MM:SS') {
+                        filterPart = convertDateTime (filter[indexes[j]], '-');
+                    } else if (props.dateTable[dateIndex].filter === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                        filterPart = convertDateTimeReg (filter[indexes[j]]);
+                    } else {
+                        filterPart = filter[indexes[j]];
+                    }
+
+                    // Compare the dates
+                    if (dataPart === filterPart) {
+                        found.push(true);
+                    } else {    // Dates are not equal
+                        found.push(false);
+                        done = true;
+                    }
+                // Compare the data and filter
+                } else if (data[i][props.table[indexes[j]].name].toString().indexOf(filter[indexes[j]].toString()) !== -1) {
                     found.push(true);   // Place a true in the found array indicating the filter input box matched
                 } else {    // The data element did not match the filter input box
                     found.push(false);
                     done = true;    // Since a match was not found the data element will not meet the filter criteria
                 }
             }
+
 
             // Check to see if the data element met all the filter criteria
             let move = true;
@@ -812,6 +876,54 @@ const Theme = {...defaultThemeSettings};
             data.splice(0, length);     // Remove the data at the beginning of the data area
             setLength (newData.length); // Used to re-render the screen
             setStartEnd(0);             // Set the start and end values
+        }
+    }
+
+    /****************************************************************************************
+     * 
+     * This will convert the date from the MM/DD/YYYY or MM-DD-YYYY to the YYYY-MM-DD format.
+     * 
+     * @param {*} date  the date to be converted
+     * @param {*} char  indicates whether / or - was between the MM, DD, and YYYY.
+     * 
+     *****************************************************************************************/
+    function convertDate(date, char) {
+        let split = date.split(char);
+
+        return `${split[2]}-${split[0]}-${split[1]}`;
+    }
+
+    /****************************************************************************************
+     * 
+     * This will convert the date from the MM/DD/YYYY HH:MM:SS or MM-DD-YYYY HH:MM:SS to the 
+     * YYYY-MM-DDTHH:MM:SS format.
+     * 
+     * @param {*} date  the date and time to be converted
+     * @param {*} char  indicates whether / or - was between the MM, DD, and YYYY.
+     * 
+     *****************************************************************************************/
+    function convertDateTime(date, char) {
+        let dateTime = date.split(' ');
+        let localDate = dateTime[0].split(char);
+
+        return `${split[2]}-${split[0]}-${split[1]}T${dateTime[1]}`;
+    }
+
+    /*****************************************************************************************
+     * 
+     * This will convert the YYYY-MM-DDTHH:MM:SS.SSS format to the YYYY-MM-DDTHH:MM:SS.  This
+     * will trim of the milliseconds.
+     * 
+     * @param {*} date the date and time to be converted.
+     * 
+     ******************************************************************************************/
+    function convertDateTimeReg(date) {
+        let split = date.split('.');
+
+        if (split.length === 0) {   // No milliseconds in date and time
+            return date;
+        } else {
+            return split[0];    // Strip the milliseconds
         }
     }
 
