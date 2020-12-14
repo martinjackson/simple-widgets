@@ -1,5 +1,5 @@
 
-import { defaultThemeSettings, buttonStyle, generateButton } from './Theme';
+import { defaultThemeSettings, buttonStyle, generateButton } from './Theme.js';
 
 /***************************************************************************************
  *
@@ -465,7 +465,7 @@ export const clearInvalidTable = (invalidValues) => {
  ***********************************************************************************************/
 export const copyStyle = (copyStyle) => {
     let style = { ...copyStyle };   // Copy the style and set the background color to normal
-    style.backgroundColor = defaultThemeSettings.backgroundColor;
+    style.backgroundColor = defaultThemeSettings.normalColor;
 
     return style;
 }
@@ -484,7 +484,7 @@ export const copyStyle = (copyStyle) => {
 export const processStyleScreen = (invalidValues, constant, style) => {
 
     style.backgroundColor = (invalidValues[constant].validity === true) ?
-             defaultThemeSettings.errorColor : defaultThemeSettings.backgroundColor;
+             defaultThemeSettings.errorColor : defaultThemeSettings.normalColor;
 
     return style;
 }
