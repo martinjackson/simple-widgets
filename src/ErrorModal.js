@@ -1,25 +1,29 @@
 import React from 'react';
-import Modal from './Modal';
-import { buttonStyle } from './Theme';
+
+import Modal from './Modal.js';
+import { buttonStyle as defButtonStyle} from './Theme.js';
 import './modal.css';
 
+const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+
 const ErrorModal = props => {
-    if (props.hasOwnProperty('show') === false) {
+    if (hasProperty(props,'show') === false) {
         console.error ('The show property is not present');
         return;
     }
 
-    if (props.hasOwnProperty('closeFunct') === false) {
+    if (hasProperty(props,'closeFunct') === false) {
         console.error ('The closeFunct property is not present');
         return;
     }
 
-    if (props.hasOwnProperty('message') === false) {
+    if (hasProperty(props,'message') === false) {
         console.error ('The message property is not present');
         return;
     }
 
-    if (props.hasOwnProperty('buttonStyle') === true) {
+    let buttonStyle = {...defButtonStyle}
+    if (hasProperty(props,'buttonStyle') === true) {
         buttonStyle = props.buttonStyle;
     }
 
@@ -30,7 +34,7 @@ const ErrorModal = props => {
     return (
         <div>
             {
-                props.show === true ?  (
+                (props.show === true) ?  (
                     <Modal>
                         <div>
                             <h1 style={marginStyle}>Error</h1>

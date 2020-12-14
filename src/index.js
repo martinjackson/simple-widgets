@@ -1,42 +1,44 @@
 
 // functions
-import makeChangeHandler from './makeChangeHandler'
+import makeChangeHandler from './makeChangeHandler.js'
 
 // React.Components
-import CheckBox from './CheckBox'
-import ChoiceText from './ChoiceText'
-import Radio  from './Radio'
-import DatePicker  from './DatePicker'
-import DoubleListBox  from './DoubleListBox'
+import CheckBox from './CheckBox.js'
+import ChoiceText from './ChoiceText.js'
+import Radio  from './Radio.js'
+import DatePicker  from './DatePicker.js'
+import DoubleListBox  from './DoubleListBox.js'
 
-import AlertModal from './AlertModal'
-import ConfirmModal from './ConfirmModal'
-import ErrorModal from './ErrorModal'
-import Modal from './Modal'
+import AlertModal from './AlertModal.js'
+import ConfirmModal from './ConfirmModal.js'
+import ErrorModal from './ErrorModal.js'
+import Modal from './Modal.js'
 
-import SearchSortTable from './SearchSortTable'
+import SearchSortTable from './SearchSortTable.js'
 
-export {CheckBox, ChoiceText, Radio, DatePicker, DoubleListBox, AlertModal, ConfirmModal,
-        ErrorModal, Modal, SearchSortTable}
 
 /* generated */
 
 import { DatePickerStyle } from './DatePickerStyle.js'
-export { DatePickerStyle }
 
 import { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage,
          invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable,
          setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling,
          wasClickedScreen, wasClickedTable } from './Invalid.js'
-export { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage,
-         invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable,
-         setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling,
-         wasClickedScreen, wasClickedTable }
 
 import { Choice, List } from './List.js'
-export { Choice, List }
 
 import { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton } from './Theme.js'
-export { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton }
 
-
+/* */
+export {makeChangeHandler,
+        CheckBox, ChoiceText, Radio, DatePicker, DoubleListBox, AlertModal, ConfirmModal,
+        ErrorModal, Modal, SearchSortTable,
+        DatePickerStyle,
+        clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage,
+        invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable,
+        setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling,
+        wasClickedScreen, wasClickedTable,
+        Choice, List,
+        buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton
+        }

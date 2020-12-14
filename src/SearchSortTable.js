@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 
-import CheckBox from './CheckBox';
-import { Choice } from './List';
+import CheckBox from './CheckBox.js';
+import { Choice } from './List.js';
 import { isInvalid, setInvalidScreen, copyStyle,
-         validStyling, processStyleScreen, wasClickedScreen} from './Invalid'
-import AlertModal from './AlertModal';
-import { defaultThemeSettings, generateButton } from './Theme';
+         validStyling, processStyleScreen, wasClickedScreen} from './Invalid.js'
+import AlertModal from './AlertModal.js';
+import { defaultThemeSettings, generateButton } from './Theme.js';
 import './table.css';
 import './mousehover.css';
 
@@ -27,12 +27,11 @@ const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescripto
 const SearchSortTable = (propsPassed) => {
 const Theme = {...defaultThemeSettings};
 
+  // let iter = Object.keys(row)       // also works when row === ["hello", "there"]
+
   const defaultEachRowInTable = (row, i) => {
-        const cols = row.map( (cell, j) => {
-            const k = i+'_'+j
-          return (<td key={k}>{cell}</td>)
-        })
-        // console.log('cols:', cols);
+      const cols = (!row) ? null :
+        Object.keys(row).map( (idx, j) => ( <td key={i+'_'+j}>{row[idx]}</td> ) )
     return (<tr key={i}>{cols}</tr>)
   }
 
@@ -771,6 +770,7 @@ const Theme = {...defaultThemeSettings};
             }
         }
 
+        // Check for the dateTable in the props
         let areDates = false;
         if (props.hasOwnProperty('dateTable')) {
             areDates = true;
@@ -784,10 +784,11 @@ const Theme = {...defaultThemeSettings};
             done = false;
             // Spin through the filter input boxes to see if the data element matches
             for (let j = 0; j < indexes.length && done === false; j++) {
-                if (areDates === true) {    // There are dates in the table
+                if (areDates === true) {
                     foundDate = false;
                     dateIndex = -1;
-                    for (let k = 0; k < props.dateTable.length; k++) {  // Find the index in the date table
+                    // Find if the index is in the date table
+                    for (let k = 0; k < props.dateTable.length; k++) {
                         if (props.dateTable[k].index === indexes[j]) {
                             foundDate = true;
                             dateIndex = k;
@@ -795,15 +796,15 @@ const Theme = {...defaultThemeSettings};
                     }
                 }
 
-                // The data element matches one of the filter input boxes
-                if (data[i][props.table[indexes[j]].name] === null) {   // The data field is blank
+                // The data field is blank or has no value
+                if (data[i][props.table[indexes[j]].name] === null) {
                     found.push(false);
                     done = true;
-                } else if (foundDate === true) {    // The data field is a date
+                } else if (foundDate === true) {    // The field contains a date
                     let dataPart = null;
                     let filterPart = null;
 
-                    // Determine the format of the data date
+                    // Convert the format for the data part
                     if (props.dateTable[dateIndex].data === 'MM/DD/YYYY') {
                         dataPart = convertDate(data[i][props.table[indexes[j]].name], '/');
                     } else if (props.dateTable[dateIndex].data === 'MM-DD-YYYY') {
@@ -818,7 +819,7 @@ const Theme = {...defaultThemeSettings};
                         dataPart = data[i][props.table[indexes[j]].name];
                     }
 
-                    // Determine the format of the filter date
+                    // Convert the format for the filter part
                     if (props.dateTable[dateIndex].filter === 'MM/DD/YYYY') {
                         filterPart = convertDate(filter[indexes[j]], '/');
                     } else if (props.dateTable[dateIndex].filter === 'MM-DD-YYYY') {
@@ -833,14 +834,13 @@ const Theme = {...defaultThemeSettings};
                         filterPart = filter[indexes[j]];
                     }
 
-                    // Compare the dates
-                    if (dataPart === filterPart) {
+                    if (dataPart === filterPart) {  // Compare the dates
                         found.push(true);
                     } else {    // Dates are not equal
                         found.push(false);
                         done = true;
                     }
-                // Compare the data and filter
+                // The data element matches one of the filter input boxes
                 } else if (data[i][props.table[indexes[j]].name].toString().indexOf(filter[indexes[j]].toString()) !== -1) {
                     found.push(true);   // Place a true in the found array indicating the filter input box matched
                 } else {    // The data element did not match the filter input box
@@ -879,29 +879,30 @@ const Theme = {...defaultThemeSettings};
         }
     }
 
-    /****************************************************************************************
+    /**********************************************************************************************
      * 
-     * This will convert the date from the MM/DD/YYYY or MM-DD-YYYY to the YYYY-MM-DD format.
+     * This will convert the date from the MM/DD/YYYY or MM-DD-YYYY format to the YYYY-MM-DD 
+     * format.
      * 
-     * @param {*} date  the date to be converted
-     * @param {*} char  indicates whether / or - was between the MM, DD, and YYYY.
+     * @param {*} date the date to be converted to the YYYY-MM-DD format
+     * @param {*} char the slash (/) or dash (-)
      * 
-     *****************************************************************************************/
+     **********************************************************************************************/
     function convertDate(date, char) {
         let split = date.split(char);
 
         return `${split[2]}-${split[0]}-${split[1]}`;
     }
 
-    /****************************************************************************************
+    /**********************************************************************************************
      * 
-     * This will convert the date from the MM/DD/YYYY HH:MM:SS or MM-DD-YYYY HH:MM:SS to the 
-     * YYYY-MM-DDTHH:MM:SS format.
+     * This will convert the date and time from the MM/DD/YYYY HH:MM:SS or MM-DD-YYYY HH:MM:SS
+     * format to the YYYY-MM-DD HH:MM:SS format.
      * 
-     * @param {*} date  the date and time to be converted
-     * @param {*} char  indicates whether / or - was between the MM, DD, and YYYY.
+     * @param {*} date the date to be converted to the YYYY-MM-DD format
+     * @param {*} char the slash (/) or dash (-)
      * 
-     *****************************************************************************************/
+     **********************************************************************************************/
     function convertDateTime(date, char) {
         let dateTime = date.split(' ');
         let localDate = dateTime[0].split(char);
@@ -909,21 +910,21 @@ const Theme = {...defaultThemeSettings};
         return `${split[2]}-${split[0]}-${split[1]}T${dateTime[1]}`;
     }
 
-    /*****************************************************************************************
+    /**********************************************************************************************
      * 
-     * This will convert the YYYY-MM-DDTHH:MM:SS.SSS format to the YYYY-MM-DDTHH:MM:SS.  This
-     * will trim of the milliseconds.
+     * This will strip of the milliseconds from the YYYY-MM-DDTHH:MM:SS.SSS format (strips the 
+     * .SSS).
      * 
-     * @param {*} date the date and time to be converted.
+     * @param {*} date the date to strip the milliseconds from
      * 
-     ******************************************************************************************/
+     ***********************************************************************************************/
     function convertDateTimeReg(date) {
         let split = date.split('.');
 
-        if (split.length === 0) {   // No milliseconds in date and time
+        if (split.length === 0) {
             return date;
         } else {
-            return split[0];    // Strip the milliseconds
+            return split[0];
         }
     }
 

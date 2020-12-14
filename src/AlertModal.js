@@ -1,6 +1,7 @@
 import React from 'react';
-import Modal from './Modal';
-import { buttonStyle } from './Theme';
+
+import Modal from './Modal.js';
+import { buttonStyle } from './Theme.js';
 import './modal.css';
 
 const AlertModal = props => {
@@ -11,7 +12,7 @@ const AlertModal = props => {
                     <Modal>
                         <div>
                             <h1>{props.message}</h1>
-                            <button name="ok" onClick={() => props.showFunct(false)} style={buttonStyle} >OK</button>
+                            <button name="ok" onClick={() => props.closeFunct(false)} style={buttonStyle} >OK</button>
                         </div>
                     </Modal>
                 ) : null

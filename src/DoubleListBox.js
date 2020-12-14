@@ -1,7 +1,8 @@
 
 import React from 'react';
 import autoBind from 'react-autobind';
-import { List } from './List';
+
+import { List } from './List.js';
 
 const reset = (props,state) => {
 
@@ -42,6 +43,10 @@ export default class DoubleListBox extends React.Component {
 
 
     static getDerivedStateFromProps(props, state) {
+        if (props.choices.length === 0) {
+          return reset(props, state)
+        }
+
         for (let i = 0; i < props.choices.length; i++) {
             if (props.choices[i] !== state.choices[i]) {
                 return reset(props, state)
