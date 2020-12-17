@@ -120,7 +120,18 @@ Dual Example (screen and table):
 
 Assist Functions (functions that will assist in building fields showing up in pink and hovering over the pink fields to show errors):
 
-1.  isInvalid 
+1.  generateInvalid
+        This will generate the invalid array mentioned above for both screen and table.  It will then return the invalid array.  If there are no screen entries set the number
+        of screen constants parameter to 0.  If there are not table entries set the number 
+        of table constants parameter to 0.
+
+        Parameters:
+        a. numScreenConstants   the number of entries for the screen.  If there are no
+                                screen entries then the value should be zero.
+        b. numTableConstants    the number of entries for the table.  If there are no
+                                table entries then the value should be zero.
+
+2.  isInvalid 
         This will determine if the input item contains an invalid value and the message should be displayed or not based on the validity and display values for that item in the invalid value array.  This will work for screen or table entry.  If a screen entry, pos should be -1.
 
         Parameters:
@@ -128,7 +139,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
         a. invalid  a specific input item in the invalid value array (specific index)
         b. pos      row number in the table if looking up a table entry or -1 for a screen entry
 
-2.  setInvalidScreen
+3.  setInvalidScreen
         This indicates that one of the input items on the screen contains an invalid value.
 
         Parameters:
@@ -136,7 +147,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
         b. constant         indicates which of the input items that is in invalid (the index into the array)
         c. message          message for the invalid value (will be displayed when the user hovers over the field)
 
-3.  setInvalidTable
+4.  setInvalidTable
         This indicates that one of the input items in a table contains an invalid value.
 
         Parameters:
@@ -145,7 +156,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
         c. index            row number (from zero) in the table that contains the invalid item 
         d. message          message for the invalid value
 
-4.  setInvalidDual
+5.  setInvalidDual
         This indicates that one of the input items is either on the screen or in a table and contains an invalid value.
  
         Parameters:
@@ -156,14 +167,33 @@ Assist Functions (functions that will assist in building fields showing up in pi
         e. type             indicates whether it is a screen entry (S) or table entry (T)
         f. message          message for the invalid value
 
-5.  resetDisplayScreen
+6.  checkValidityScreen
+        This will check to see if there is an invalid screen entry, and if there is, it will 
+        display an invalid message.
+
+        Parameters:
+        a. invalidValues    the invalid array that contains what entries are invalid
+        b. constant         the screen constant that represents the array index to check in
+                            the invalid array.
+7.  checkValidityTable
+        This will check to see if there is an invalid table entry, and if there is, it will 
+        display an invalid message.
+
+        Parameters:
+        a. invalidValues    the invalid array that contains what entries are invalid
+        b. constant         the table constant that represents the array index to check in
+                            the invalid array.
+        c. index            the index into the table that contains the value being validated.
+                            This is not the invalid array.
+
+8.  resetDisplayScreen
         This will set the display value to false for an invalid input item.
  
         Parameters:
         a. invalidValues    list of invalid inputs for the screen
         b. constant         indicates which of the input items is invalid (the index into the array)
 
-6.  resetDisplayTable
+9.  resetDisplayTable
         This will set the display value to false for an invalid input item.
  
         Parameters:
@@ -171,7 +201,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
         b. constant         indicates which of the input items is invalid (the index into the array)
         c. index            row number in the table from zero
 
-7.  wasClickedScreen
+10. wasClickedScreen
         Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on the regular screen.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons or check boxes.
  
         Parameters:
@@ -179,7 +209,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
         b. constant         indicates which item the mouse was clicked on.  Set the contants after the invalid array.
         c. setInvalid       a state variable function that will place the invalidValues in the corresponding state variable.
 
-8.  wasClickedTable
+11. wasClickedTable
         Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on a table.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons
         or check boxes.
 
@@ -187,28 +217,28 @@ Assist Functions (functions that will assist in building fields showing up in pi
         a. invalidValues    list of invalid inputs for the screen
         b. constant         indicates which item the mouse was clicked on.  Set the contants after the invalid array.
         c. index            row number in the table from zero
-        d. setInvalid       a state variable function that will place the invalidValues in the corresponding state variable.
+        d. setInvalid       a state variable function that will place the invalidValues in the  corresponding state variable.
 
-9.  validCheckDual
+12. validCheckDual
         This will check to see if any of the validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
  
         Parameters:
         a. invalidValues    list of invalid inputs for the screen or table
         b. constants        list of screen constants to distinguish between screen and table constants
 
-10. validCheckScreen
+13. validCheckScreen
         This will check to see if any of the screen validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally  called at the end of the validation function.
 
         Parameters:
         a. invalidValues    list of invalid inputs for the screen
 
-11. validCheckTable
+14. validCheckTable
         This will check to see if any of the table validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
 
         Parameters: 
         a. invalidValues    list of invalid inputs for the table
 
-12. clearInvalidDual
+15. clearInvalidDual
         This will clear the invalid values array, and reset the array to its original settings.  It will do this for the screen and table parts.
 
         Parameters:
@@ -216,13 +246,13 @@ Assist Functions (functions that will assist in building fields showing up in pi
         b. screen           array holding the starting and ending indexes (contants) for the screen part of the array
         c. table            array holding the starting and ending indexes (contants) for the screen part of the array
 
-13. clearInvalidScreen
+16. clearInvalidScreen
         This will clear the invalid values array, and reset the array to its original settings.  It will do this for the screen.
 
         Parameters:
         a. invalidValues    list of invalid inputs for the screen
 
-14. clearInvalidScreenOnly
+17. clearInvalidScreenOnly
         This function is used when there are both screen and table invalid entries.  This will clear
         the invalid screen entries only.  It will not clear the table entries.
  
@@ -230,14 +260,13 @@ Assist Functions (functions that will assist in building fields showing up in pi
         a. invalidValues    list of invalid inputs for the screen
         b. constant         the constant for the last screen entry
 
-
-15. clearInvalidTable
+18. clearInvalidTable
         This will clear the invalid values array, and reset the array to its original settings.  It will do this for the table.
 
         Parameters:
         a. invalidValues    list of invalid inputs for the table
 
-16. copyStyle
+19. copyStyle
         This will copy another style of the form:
  
         const someStyle = {
@@ -247,7 +276,17 @@ Assist Functions (functions that will assist in building fields showing up in pi
         Parameters:
         a. copyStyle        the style to copy
 
-17. processStyleScreen
+20. processInvalidStyleScreen
+        This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.  This will return the style for the component.
+
+        Parameters:
+        a. invalidValues list of invalid inputs
+        b. constant      indicates which of the input items is invalid (the index
+                         into the array)
+        c. style         the style that is to be copied.  This parameter is optional and
+                         is only there if the style is to be copied and used.
+
+21. processStyleScreen
         This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
  
         Parameters:
@@ -255,7 +294,19 @@ Assist Functions (functions that will assist in building fields showing up in pi
         b. constant         indicates which of the input items is invalid (the index into the array)
         c. style            the style to change the backgound 
 
-18. processStyleTable
+22. processInvalidStyleTable
+        This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.  This will return the style for the component.
+
+        Parameters:
+        a. invalidValues list of invalid inputs for the table
+        b. constant      indicates which of the input items is invalid (the index
+                         into the array)
+        c. pos           row number in the table
+        d. style         the style that is to be copied.  This parameter is optional and
+                         is only there if the style is to be copied and used.
+
+
+23. processStyleTable
         This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
  
         Parameters:
@@ -264,13 +315,13 @@ Assist Functions (functions that will assist in building fields showing up in pi
         c. pos              row number in the table
         d. style            the style to change the backgound 
 
-19. validStyling
+24. validStyling
         This will create a style with a normal background color, this a valid style.  No parameters.
 
-20. invalidStyling
+25. invalidStyling
         This will create a style with a invalid background color, this a invalid style.  No parameters.
 
-21. getInvalidMessage
+26. getInvalidMessage
         This will retrieve the message from the entry invalid value array for a table entry.
 
         Parameters:
@@ -301,11 +352,7 @@ import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen,
 import 'mousehover.css'
 ...
 const Test = (props) => {
-    const invalidArray = [
-        { validity: false, display: false, message: ''},
-        { validity: false, display: false, message: ''},
-        { validity: false, display: false, message: ''},
-    ];
+    const invalidArray = generateInvalid(3, 0);
 
     const NAME = 0;
     const SAMPLE = 1;
@@ -320,12 +367,6 @@ const Test = (props) => {
         width: '20%',
     };
 
-    let nameStyle = copyStyle(listStyle);
-    nameStyle.backgroundColor = Theme.getNormalBackColor(),
-    nameStyle = processStyleScreen(invalid, NAME, nameStyle);
-
-    // Need styles for sample and address (same as name)
-
     return (
         <div className="checkForError">
             <label htmlFor="id_name" className="tableLabel">Name:</label>
@@ -335,8 +376,8 @@ const Test = (props) => {
                    value={name} 
                    onChange={(event) => setName(event.target.value)} 
                    onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} 
-                   style={nameStyle} /><br />
-            {(isInvalid(invalid[NAME], -1) === true) ? <span className="errMessage">{invalid[NAME].message}</span> : null }
+                   style={processInvalidStyleScreen(invalid, NAME, listStyle)} /><br />
+            { checkValidityScreen(invalid, NAME) }
             // Need sample and address (same as name)
             ...
         </div>
@@ -370,11 +411,7 @@ import { isInvalid, setInvalidTable,
 import 'mousehover.css';
 
 const Test = (props) => {
-    const invalidArray = [  // Used to tell whether the user entered and invalid value or not
-        { validity: [], display: [], index: [], message: [] },
-        { validity: [], display: [], index: [], message: [] },
-        { validity: [], display: [], index: [], message: [] },
-    ];
+    const invalidArray = generateInvalid(0, 3);
 
     const NAME = 0;
     const SAMPLE = 1;
@@ -387,11 +424,6 @@ const Test = (props) => {
     function eachRow (row, i) {
         let key = "row_" + i;                       // The key attribute for a row in the table
 
-        let nameStyle = validStyling();
-        nameStyle = processStyleTable(invalid, NAME, i, nameStyle);
-
-        // Need styles for sample and address (same as name)
-
         return (  // Build the row in the table
             <tr key={key}>
                 <td className="checkForError">
@@ -400,8 +432,8 @@ const Test = (props) => {
                            value={row.name} 
                            onChange={(event) => processName(event, i)} 
                            onClick={() => wasClickedTable(invalid, NAME, i, setInvalid)} 
-                           style={nameStyle} />
-                    {(isInvalid(invalid[NAME], i) === true) ? <span className="errMessage">{getInvalidMessage(invalid[NAME], i)}</span> : null }
+                           style={processInvalidStyleTable(invalid, NAME, i)} />
+                    { checkValidityTable(invalid, NAME, i) }
                 </td>
                 // Need td for sample and address (same as name)
                 ...
@@ -436,13 +468,7 @@ import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen,
 import 'mousehover.css'
 ...
 const Test = (props) => {
-    const invalidArray = [
-        { validity: false, display: false, message: ''},
-        { validity: false, display: false, message: ''},
-        { validity: false, display: false, message: ''},
-        { validity: [], display: [], index: [], message: [] },
-        { validity: [], display: [], index: [], message: [] },
-    ];
+    const invalidArray = generateInvalid(3, 2);
 
     const NAME = 0;
     const ADDR = 1;
@@ -456,11 +482,6 @@ const Test = (props) => {
     const [invalid, setInvalid] = useState(invalidArray);
 ...
 
-    let nameStyle = validStyling();
-    nameStyle = processStyleScreen(invalid, NAME, ipListStyle);
-
-    // Need styles for address and city (same as name)
-
     return (
         <div className="checkForError">
             <label htmlFor="id_name" className="tableLabel">Name:</label>
@@ -470,8 +491,8 @@ const Test = (props) => {
                    value={name} 
                    onChange={(event) => setName(event.target.value)} 
                    onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} 
-                   style={nameStyle} /><br />
-            {(isInvalid(invalid[NAME], -1) === true) ? <span className="errMessage">{invalid[NAME].message}</span> : null }
+                   style={processInvalidStyleScreen(invalid, NAME)} /><br />
+            { checkValidityScreen(invalid, NAME) }
             // Need address and city (same as name)
             ...
         </div>
@@ -479,11 +500,6 @@ const Test = (props) => {
 
     function eachRow (row, i) {
         let key = "row_" + i;                       // The key attribute for a row in the table
-
-        let sampleStyle = validStyling();
-        sampleStyle = processStyleTable(invalid, SAMPLE, i, sampleStyle);
-
-        // Need style for description (same as sample)
 
         return (  // Build the row in the table
             <tr key={key}>
@@ -494,8 +510,8 @@ const Test = (props) => {
                            value={row.sample} 
                            onChange={(event) => processSample(event, i)} 
                            onClick={() => wasClickedTable(invalid, SAMPLE, i, setInvalid)} 
-                           style={sampleStyle} />
-                    {(isInvalid(invalid[SAMPLE], i) === true) ? <span className="errMessage">{getInvalidMessage(invalid[SAMPLE], i)}</span> : null }
+                           style={processInvalidStyleTable(invalid, SAMPLE, i} />
+                    { checkValidityScreen(invalid, SAMPLE, i) }
                 </td>
                 // Description (same as sample)
                 ... 
