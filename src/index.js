@@ -21,10 +21,11 @@ import SearchSortTable from './SearchSortTable.js'
 
 import { DatePickerStyle } from './DatePickerStyle.js'
 
-import { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage,
-         invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable,
-         setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling,
-         wasClickedScreen, wasClickedTable } from './Invalid.js'
+import { checkValidityScreen, checkValidityTable, clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, 
+         clearInvalidTable, copyStyle, generateInvalid, getInvalidMessage, invalidStyling, isConstant, isInvalid, 
+         processInvalidStyleScreen, processInvalidStyleTable, processStyleScreen, processStyleTable, 
+         resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, 
+         validCheckScreen, validCheckTable, validStyling, wasClickedScreen, wasClickedTable } from './Invalid.js'
 
 import { Choice, List } from './List.js'
 
@@ -35,10 +36,11 @@ export {makeChangeHandler,
         CheckBox, ChoiceText, Radio, DatePicker, DoubleListBox, AlertModal, ConfirmModal,
         ErrorModal, Modal, SearchSortTable,
         DatePickerStyle,
-        clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage,
-        invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable,
-        setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling,
-        wasClickedScreen, wasClickedTable,
+        checkValidityScreen, checkValidityTable, clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, 
+        clearInvalidTable, copyStyle, generateInvalid, getInvalidMessage, invalidStyling, isConstant, isInvalid, 
+        processInvalidStyleScreen, processInvalidStyleTable, processStyleScreen, processStyleTable, 
+        resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, 
+        validCheckScreen, validCheckTable, validStyling, wasClickedScreen, wasClickedTable,
         Choice, List,
         buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton
         }
