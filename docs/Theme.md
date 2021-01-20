@@ -10,26 +10,26 @@ Theme will also allow you to retrieve and set a default button style.
 
 The following fields are available for theming:
 
-    Name                        Value               Field
-
-1.  Background Color            aliceblue           backgroundColor
-2.  Button Color                blue                buttonColor
-3.  Button Text Color           white               buttonTextColor
-4.  Button Font                 Times New Roman     buttonFont
-5.  Button Font Weight          bold                buttonFontWeight
-6.  Button Font Size            12                  buttonFontSize
-7.  Disable Button Color        gray                disableButtonColor
-8.  Font                        Times New Roman     font
-9.  Font Weight                 plain               fontWeight
-10. Font Size                   12                  fontSize
-11. Error Color                 pink                errorColor
-12. Normal Background Color     white               normalColor
-13. Text Color                  black               textColor
+| Name | Value     | Field |
+|  :--------------- | :-------- | :--------------- |
+| Background Color | aliceblue | backgroundColor |
+| Button Color |blue | buttonColor |
+| Button Text Color | white | buttonTextColor |
+| Button Font | Times New Roman | buttonFont |
+| Button Font Weight | bold | buttonFontWeight |
+| Button Font Size | 12 | buttonFontSize |
+| Disable Button Color | gray | disableButtonColor |
+| Font | Times New Roman | font |
+| Font Weight | plain | fontWeight |
+| Font Size | 12 | fontSize |
+| Error Color | pink | errorColor |
+| Normal Background Color | white | normalColor |
+| Text Color  black | textColor |
 
 The normal background color and error color are used in error notification.
 If there is an error, the field will have the error color.  If there is not an error for that field, the field will have the normal background color.
 
-The default theme settings object:
+**The default theme settings object:**
 
 ```javascript
 const defaultThemeSettings = {
@@ -49,7 +49,7 @@ const defaultThemeSettings = {
 };
 ```
 
-Example with some of the using some of the above fields:
+**Example with some of the using some of the above fields:**
 
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
@@ -76,9 +76,9 @@ const buttonStyle = {
 
 ```
 
-To overwrite the some of the theme settings or to add new ones:
+**To overwrite the some of the theme settings or to add new ones:**
 
-Override Example:
+**Override Example:**
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
 
@@ -91,7 +91,7 @@ const override = {
 const Theme = [...defaultThemeSettings, ...override];
 ```
 
-Another way to override theme settings:
+**Another way to override theme settings:**
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
 
@@ -101,7 +101,7 @@ Theme.buttonTextColor = 'blue';
 Theme.backgroundColor = 'lightBlue';
 ```
 
-To add theme settings:
+**To add theme settings:**
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
 
@@ -113,7 +113,7 @@ const additional = {
 const Theme = [...defaultThemeSettings, ...additional];
 ```
 
-To both override and add new theme items:
+**To both override and add new theme items:**
 
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
@@ -129,7 +129,7 @@ const overrideAdd = {
 const Theme = [...defaultThemeSettings, ...overrideAdd];
 ```
 
-The button style allows all buttons in the application to look the same:
+**The button style allows all buttons in the application to look the same:**
 
 ```javascript
 export const buttonStyle = {
@@ -144,7 +144,7 @@ export const buttonStyle = {
 };
 ```
 
-To access the button style:
+**To access the button style:**
 
 ```javascript
 import { buttonStyle } from 'simple-widgets';
@@ -152,7 +152,7 @@ import { buttonStyle } from 'simple-widgets';
 <button style={buttonStyle}>Test</button>
 ```
 
-To change values on the button style:
+**To change values on the button style:**
 
 ```javascript
 import { buttonStyle } from 'simple-widgets';
@@ -167,7 +167,7 @@ const newButtonStyle = [...buttonStyle, ...override];
 <button style={newButtonStyle}>Test</button>
 ```
 
-Another way to change the values on the button style:
+**Another way to change the values on the button style:**
 
 ```javascript
 import { buttonStyle } from 'simple-widgets';
@@ -179,7 +179,7 @@ newButtonStyle.color = 'red';
 <button style={newButtonStyle}>Test</button>
 ```
 
-To add new values to the button style:
+**To add new values to the button style:**
 
 ```javascript
 import { buttonStyle } from 'simple-widgets';
@@ -198,7 +198,7 @@ const newButtonStyle = [...buttonStyle, ...additional];
 
 To generate a button that uses an existing style and will allow the style to either set the button style to its standard color of to the disable color if the the disable value is true.  These functions must be called everytime the screen is rendered.
 
-1.  generateButton
+1.  **generateButton**
     This will generate a button and will determine if the button should be
     disabled or not.
     
@@ -210,7 +210,7 @@ To generate a button that uses an existing style and will allow the style to eit
                         be disabled or not.  This should be a boolean value and if true, it will be set to the disable color; otherwise, it will be its normal color (default is false)
     d.  disableColor    the color for the disabled button (default is gray)
 
-    Example:
+    **Example:**
     ```javascript
     import { generateButton } from 'simple-widgets';
 
@@ -235,7 +235,7 @@ To generate a button that uses an existing style and will allow the style to eit
 
     In getButtonStyle3 associated with button Test 3, if error is true the button color will be gray; otherwise, the button color will be blue.  Since no disableColor was given, that value will default to false.  Since no disable color was given, it will default to gray.
 
-2.  generateDefaultButton
+2.  **generateDefaultButton**
     This will generate a button and will determine if the button should be
     disabled or not.  It will use the default button style (see above for the default button style) and the disable color of gray.
 
@@ -245,7 +245,7 @@ To generate a button that uses an existing style and will allow the style to eit
     b.  disabled    indicates whether the button should be disabled or  
                     not.  The default is false.
 
-    Example:
+    **Example:**
     ```javascript
     import { generateDefaultButton } from 'simple-widgets';
 

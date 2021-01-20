@@ -1,69 +1,48 @@
 # Radio
 
-Radio is simple [React] component to with Radio Button behavior.
-
-[![Codecov][codecov-badge]][codecov]
-[![Discord][discord-badge]][discord]
-
-
-**Older Versions:**
-
-none yet...
-
-For questions and support, please visit [Stack Overflow](http://stackoverflow.com/questions/tagged/Radio).
+Radio is a simple [React] component that acts like a radio button behavior, but allows a value to be placed in a state variable.
 
 ### Browser Support
 
 We support all browsers and environments where React runs.
 
-### Installation
+### Props
+The Radio component uses the following props:
 
-Using [npm](https://www.npmjs.com/):
-```
-    $ npm install --save Radio
-```
-   or [yarn](https://yarnpkg.com/en/docs/migrating-from-npm):
-```
-    $ yarn add Radio
-```
+1.  **name**: A unique name for this field with corresponding name in the parent component's state    
+    _example name="subject"_
+2.  **value**: the value of the checkbox if checked  
+    _example value="checked"
+3.  **onChange**: function in the parent component to catch/store state changes 
+    _example onChange={handleChange}_
+5.  **match**: the state variable the holds the 'value' (see 2) that was selected
+6.  **text**: a label (String or component) that is displayed after the CheckBox
 
-Then with a module bundler like [webpack](https://webpack.github.io/) that supports either CommonJS or ES2015 modules, use as you would anything else:
+If there are several radio buttons and it is desired that they operate as a group (only one radio button can be selected), the name and match props for all radio buttons must have the same value.
 
-```
-// using an ES6 transpiler, like babel
-import Radio from 'Radio';
+### Example
+```javascript
+import { Radio } from 'simple-widgets';
 
-handleChange(e) {
-       if (typeof e === 'string')
-          return;   // passed in by Radio, can be ignored, next event has target.name
+const YourComponent = (props) => {
+   const [year, setYear] = useState('');
 
-       if (typeof e.preventDefault === 'function') {
-           e.preventDefault();
-
-           var name = e.target.name;
-           var value = e.target.value;
-
-           // console.log({name,value});
-
-           var stateChange = {};
-           stateChange[name] = value;
-           this.setState(stateChange);
-           }
-         else {
-           console.log(typeof e);  // something unusual, lets find out
-           console.log(e);
-         }
-   }
-
- render() {
-
-    return <div>
-              <Radio value="1" name="year" match={this.state.year} onChange={this.handleChange} />Year 1
-              <Radio value="2" name="year" match={this.state.year} onChange={this.handleChange} />Year 2
-           </div>
+   return (
+      <div>
+         <Radio value="1" 
+                name="year" 
+                match={year} 
+                onChange={(event) => setYear(event.target.value)}>Year 1</Radio>
+         <Radio value="2" 
+                name="year" 
+                match={year} 
+                onChange={(event) => setYear(event.target.value)}>Year 2</Radio>
+      </div>
+   )
 }
 ```
 
+Since the two radio buttons use the same names in the name prop and the match prop, they will be treated as a group.  If the user clicks on the first radio button, a 1 will be placed in the state variable year.  If the user clicks on the second radio button, a 2 will be placed in the state variable year.
 
 ### Versioning and Stability
 
