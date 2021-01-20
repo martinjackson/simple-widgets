@@ -24,3 +24,5 @@ Thumbs.db
 lib/index.js.map
 example/dist/*
 lib/index.map
+lib/*.css
+src/obs
