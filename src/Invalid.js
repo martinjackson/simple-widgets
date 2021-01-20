@@ -121,15 +121,15 @@ import { defaultThemeSettings, buttonStyle, generateButton } from './Theme.js';
  ************************************************************************************************/
 
 /*****************************************************************************************
- * 
+ *
  * This will generate the invalid array for both screen and table.  It will then return
  * the invalid array.
- * 
+ *
  * @param {*} numScreenConstants    the number of entries for the screen.  If there are no
  *                                  screen entries then the value should be zero.
  * @param {*} numTableConstants     the number of entries for the table.  If there are no
  *                                  table entries then the value should be zero.
- * 
+ *
  *****************************************************************************************/
 export const generateInvalid = (numScreenConstants, numTableConstants) => {
     let invalidArray = [];  // The invalid array to be built
@@ -158,10 +158,6 @@ export const generateInvalid = (numScreenConstants, numTableConstants) => {
  *
  ****************************************************************************************/
 export const setInvalidScreen = (invalidValues, constant, message) => {
-    console.log ('invalidValues', invalidValues);
-    console.log ('constant', constant);
-    console.log ('message', message);
-
     invalidValues[constant].validity = true;    // Indicates the value is invalid
     invalidValues[constant].display = true;     // Indicates the message should be displayed
     if (message !== null) { // There is a message
@@ -240,28 +236,28 @@ export const setInvalidDual = (invalidValues, constant1, constant2, index, type,
 }
 
 /******************************************************************************************
- * 
- * This will check to see if there is an invalid screen entry, and if there is, it will 
+ *
+ * This will check to see if there is an invalid screen entry, and if there is, it will
  * display an invalid message.
- * 
+ *
  * @param {*} invalidValues the invalid array that contains what entries are invalid
  * @param {*} constant      the screen constant that represents the array index to check in
  *                          the invalid array.
- * 
+ *
  ******************************************************************************************/
 export const checkValidityScreen = (invalidValues, constant) => {
     return (isInvalid(invalidValues[constant], -1) === true) ? <span className="errMessage">{invalidValues[constant].message}</span> : null
 }
 
 /******************************************************************************************
- * 
- * This will check to see if there is an invalid table entry, and if there is, it will 
+ *
+ * This will check to see if there is an invalid table entry, and if there is, it will
  * display an invalid message.
- * 
+ *
  * @param {*} invalidValues the invalid array that contains what entries are invalid
  * @param {*} constant      the table constant that represents the array index to check in
  *                          the invalid array.
- * 
+ *
  ******************************************************************************************/
 export const checkValidityTable = (invalidValues, constant, index) => {
     return (isInvalid(invalidValues[constant], index) === true) ? <span className="errMessage">{getInvalidMessage(invalidValues[constant], index)}</span> : null
@@ -541,7 +537,7 @@ export const copyStyle = (copyStyle) => {
  ***********************************************************************************************/
 export const processInvalidStyleScreen = (invalidValues, constant, style = null) => {
     let newStyle = null;    // The copied style that a background will be added
-    let backColor = null;   // The background color of the component
+    let backColor = defaultThemeSettings.normalColor;   // The background color of the component
 
     if (style === null) {   // No style given, so use the valid styling
         newStyle = validStyling();
@@ -553,6 +549,7 @@ export const processInvalidStyleScreen = (invalidValues, constant, style = null)
         }
 
         newStyle = copyStyle (style);
+        newStyle.backgroundColor = backColor;
     }
 
     // Set the background color based on whether the value is invalid or not
@@ -617,7 +614,7 @@ export const clearInvalidScreenOnly = (invalidValues, constant) => {
  ***********************************************************************************************/
 export const processInvalidStyleTable = (invalidValues, constant, pos, style = null) => {
     let newStyle = null;    // The copied style that a background will be added
-    let backColor = null;   // The background color of the component
+    let backColor = defaultThemeSettings.normalColor;   // The background color of the component
 
     if (style === null) {   // No style given, so use the valid styling
         newStyle = validStyling();
@@ -628,21 +625,23 @@ export const processInvalidStyleTable = (invalidValues, constant, pos, style = n
             backColor = defaultThemeSettings.normalColor;
         }
         newStyle = copyStyle (style);
+        newStyle.backgroundColor = backColor;
     }
 
     // Spin through the validity array for that item in the invalid values array
     for (let j = 0; j < invalidValues[constant].validity.length; j++) {
         if (pos === invalidValues[constant].index[j]) { // Check to see if it is the correct index
             if (invalidValues[constant].validity[j] === true) { // and the entry is invalid
-                style.backgroundColor = defaultThemeSettings.errorColor;
+                newStyle.backgroundColor = defaultThemeSettings.errorColor;
             } else {    // Entry is valid
-                style.backgroundColor = backColor;
+                newStyle.backgroundColor = backColor;
             }
         }
     }
 
-    return style;
+    return newStyle;
 }
+
 
 /***********************************************************************************************
  *
