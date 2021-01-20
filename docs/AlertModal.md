@@ -2,13 +2,14 @@
 
 This will allow the user to pop up an alert modal giving the user of the application information.  It will have an OK button to close the Alert modal.
 
+### Props
 In order to use the alert modal the user must pass the following props:
 
-1.  show = a boolean variable indicating whether the alert modal should be displayed (true) or not (false).
-2.  closeFunct = a function that will set the show variable back to false to close the alert modal.
-3.  message = the message to display in the alert modal.
-4.  extra = a function with no parameters that will execute when the OK button is pressed and before the modal is closed.
-5.  buttonStyle = the style for the OK button.  The default style for the button is:
+1.  **show** = a boolean variable indicating whether the alert modal should be displayed (true) or not (false).
+2.  **closeFunct** = a function that will set the show variable back to false to close the alert modal.
+3.  **message** = the message to display in the alert modal.
+4.  **extra** = a function with no parameters that will execute when the OK button is pressed and before the modal is closed.
+5.  **buttonStyle** = the style for the OK button.  The default style for the button is:
 ```javascript
         margin: "10px",
         borderRadius: "10px",
@@ -22,6 +23,7 @@ In order to use the alert modal the user must pass the following props:
 
 The show, closeFunct, and message props are required.  The extra and button style props are not required.
 
+### Example
 The following is a code example:
 
 ```javascript
@@ -44,6 +46,7 @@ The following is a code example:
     }
 ```
 
+### Index.html
 In the index.html add the following line in the body:
 ```html
     <div id="modal"></div>

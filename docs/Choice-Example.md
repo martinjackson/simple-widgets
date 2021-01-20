@@ -1,81 +1,43 @@
 # Choice
 
-Choice is simple [React] component to with Choice pulldown behavior.
+ChoiceText is simple [React] component that allows the user to select a value from a list of choice via a pulldown behavior.  
 
-[![Codecov][codecov-badge]][codecov]
-[![Discord][discord-badge]][discord]
+### Props
+The Choice component uses the following props:
 
+1.  **name**: A unique name for this field with corresponding name in the parent component's state    
+    _example name="subject"_
+2.  **value**: the state variable that holds the selected value 
+    _example value={subject}_
+3.  **onChange**: function in the parent component to catch/store state changes 
+    _example onChange={handleChange}_
+4.  **choices**: an array of Strings as pull down choices
 
-**Older Versions:**
+### Example
+```javascript
+import { Choice } from 'simple-widgets';
 
-none yet...
+const YourComponent = (props) => {
 
-For questions and support, please visit [Stack Overflow](http://stackoverflow.com/questions/tagged/Choice).
+    const [exMode, setExMode] = useState('');
+    
+    const modes = ["java", "javascript", "jsx", "markdown", "sh"];  
 
-### Browser Support
-
-We support all browsers and environments where React runs.
-
-### Installation
-
-Using [npm](https://www.npmjs.com/):
-```
-    $ npm install --save Choice
-```
-   or [yarn](https://yarnpkg.com/en/docs/migrating-from-npm):
-```
-    $ yarn add Choice
-```
-
-Then with a module bundler like [webpack](https://webpack.github.io/) that supports either CommonJS or ES2015 modules, use as you would anything else:
-
-```
-// using an ES6 transpiler, like babel
-
-import autoBind from 'react-autobind';    // Not needed by Choice but used in this example
-import Choice from 'Choice';
-
-export default class YourComponent extends Component {
-
-constructor(props) {
-    super(props);
-    autoBind(this);
-
-    this.state = {};
-    this.modes = ["java", "javascript", "jsx", "markdown", "sh"];  
-  }
-
-handleChange(e) {
-       if (typeof e === 'string')
-          return;   // passed in by Radio, can be ignored, next event has target.name
-
-       if (typeof e.preventDefault === 'function') {
-           e.preventDefault();
-
-           var name = e.target.name;
-           var value = e.target.value;
-
-           // console.log({name,value});
-
-           var stateChange = {};
-           stateChange[name] = value;
-           this.setState(stateChange);
-           }
-         else {
-           console.log(typeof e);  // something unusual, lets find out
-           console.log(e);
-         }
-   }
-
- render() {
-
-    return <div>
-              <Choice choices={this.modes} name="ex2_mode" value={this.state.ex2_mode} onChange={this.handleChange} style={transparent}/>
-              &nbsp;
-
-           </div>
+    return (
+      <div>
+        <Choice 
+          choices={modes} 
+          name="exMode" 
+          value={exMode} 
+          onChange={(event) => setExMode(event.target.value)}  />
+      </div>
+    )
 }
+
+export default YourComponent;
 ```
+
+The choice that was selected by the user will be in the state variable exMode.
 
 
 ### Versioning and Stability

@@ -1,98 +1,30 @@
-## Confirm Modal
+## Double List Box
 
-This will allow the user to pop up a confirm modal asking the user of the application a yes or no question.  If the user answers by pressing the Yes button, the noFunct will be executed to close the confirm modal and the yesFunct will then be executed.  If the user answers by pressing the No button, the confirm modal will close.
+This will allow the user to move a list of items from the left list to the right list or vice a versa.  Therefore, the double list box has a left list that has items in it initially and a right list that is initially empty.  Between the lists is a set of buttons that will move the selected items from the left list to the right list or vice a versa.  The > button will move the selected items from the left list to the right list.  The >> button will move all the items from the left list to the right list .  The < button will move all the selected items in the right list to the left list.  The << button will move all the items in the right list to the left list.  To select items press the hold the shift key and drag the mouse over the items to be selected.
 
-In order to use the alert modal the user must pass the following props:
+### Props
+In order to use the double list box the user must pass the following props:
 
-1.  show = a boolean variable indicating whether the confirm modal should be displayed (true) or not (false).
-2.  yesFunct = a function that will be executed when the user presses the Yes button on the confirm modal.
-3.  noFunct = a function that will set the show variable back to false to close the confirm modal, when the user presses the No button.  Also, called to close the confirm modal when the Yes button is pressed.  
-4.  message = the message to display in the confirm modal.
-5.  buttonStyle = the style for the OK button.  The default style for the button is:
-```javascript
-        margin: "10px",
-        borderRadius: "10px",
-        color: "white",
-        backgroundColor: "blue",
-        width: "100px",
-        height: "30px",
-        font: "Times New Roman",
-        fontWeight: "bold",
-```
+1.  **choices** = the values for the left list in an array.
+2.  **value** = an array containing the values in the right list
 
-The show, yesFunct, noFunct, and message props are required.  The button style prop is not required.
+Other optional props:
 
-The following is a code example:
+1.  **name**
+2.  **onChange**
+3.  **onClick**
+
+### Example:
 
 ```javascript
-let functYes = null;
-
-const Test = props => {
-    const [showConfirm, setShowConfirm] = useState(false);
-    const [confirmMessage, setConfirmMessage] = useState('');
-    ...
-    return (
-        <div>
-            ...
-            <button onClick={saveButton}>Save</button>
-            ...
-            <ConfirmModal show={showConfirm} yesFunct={functYes} noFunct={setShowConfirm} message={confirmMessage} />
-        </div>
-    );
-
-    function saveButton() {
-        setConfirmMessage('Are you sure you want to save?');
-        functYes = saveButtonYes;
-        setShowConfirm(true);
-    }
-
-    function saveButtonYes() {
-        ...
-    }
-}
+const [leftList, setLeftList] = useState(['Jones', 'Smith', 'Wesson', 'Doe', 'Johnson]);
+const [rightList, setRightList] = useState([]);
+...
+<DoubleListBox choices={leftList} 
+               name="rightList" 
+               value={rightList} 
+               onChange={(event) => setRightList(event.target.value)} />
+...
 ```
 
-When the user clicks on the Save button, the saveButton function is executed, which will display the confirm modal.  If the user presses the Yes button, the confirm modal will close and saveButtonYes function will be executed.  If the user presses the No button, the confirm modal will close.
-
-Another example:
-
-```javascript
-let functYes = null;
-
-const Test = props => {
-    const [showConfirm, setShowConfirm] = useState(false);
-    const [confirmMessage, setConfirmMessage] = useState('');
-    ...
-    return (
-        <div>
-            ...
-            <button onClick={() => saveButton(value)}>Save</button>
-            ...
-            <ConfirmModal show={showConfirm} yesFunct={functYes} noFunct={setShowConfirm} message={confirmMessage} />
-        </div>
-    );
-
-    function saveButton(value) {
-        setConfirmMessage('Are you sure you want to save?');
-        functYes = () => saveButtonYes(value);
-        setShowConfirm(true);
-    }
-
-    function saveButtonYes(value) {
-        ...
-    }
-}
-```
-
-In the index.html add the following line in the body:
-```html
-    <div id="modal"></div>
-```
-
-
-The ConfirmModal requires the following:
-
-1.  Modal.js
-2.  modal.css
-3.  Theme.js
-4.  react
+If the user selected Jones and Smith from the list and moved them to the right list with > button, rightList would contain Jones and Smith as an array.

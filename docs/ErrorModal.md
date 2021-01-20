@@ -2,12 +2,13 @@
 
 This will allow the user to pop up an error modal for displaying an error message.  It will have an OK button to close the Error modal.
 
+### Props
 In order to use the alert modal the user must pass the following props:
 
-1.  show = a boolean variable indicating whether the alert modal should be displayed (true) or not (false).
-2.  closeFunct = a function that will set the show variable back to false to close the alert modal.
-3.  message = the message to display in the alert modal.
-5.  buttonStyle = the style for the OK button.  The default style for the button is:
+1.  **show** = a boolean variable indicating whether the alert modal should be displayed (true) or not (false).
+2.  **closeFunct** = a function that will set the show variable back to false to close the alert modal.
+3.  **message** = the message to display in the alert modal.
+5.  **buttonStyle** = the style for the OK button.  The default style for the button is:
 ```javascript
         margin: "10px",
         borderRadius: "10px",
@@ -21,6 +22,7 @@ In order to use the alert modal the user must pass the following props:
 
 The show, closeFunct, and message props are required.  The button style props is not required.
 
+### Example
 The following is a code example:
 
 ```javascript

@@ -1,80 +1,46 @@
 # CheckBox
 
-CheckBox is simple [React] component to with CheckBox Button behavior.
+CheckBox is a simple [React] component that acts like a check box button behavior, but allows a value to be placed in a state variable.
 
-[![Codecov][codecov-badge]][codecov]
-[![Discord][discord-badge]][discord]
-
-
-**Older Versions:**
-
-none yet...
-
-For questions and support, please visit [Stack Overflow](http://stackoverflow.com/questions/tagged/CheckBox).
 
 ### Browser Support
 
 We support all browsers and environments where React runs.
+ ### Props
+The CheckBox component uses the following props:
 
-### Installation
+1.  **name**: A unique name for this field with corresponding name in the parent component's state    
+    _example name="subject"_
+2.  **value**: the value of the checkbox if checked  
+    _example value="checked"
+3.  **onChange**: function in the parent component to catch/store state changes 
+    _example onChange={handleChange}_
+5.  **match**: the state variable the holds the 'value' (see 2) that was selected
+6.  **text**: a label (String or component) that is displayed after the CheckBox
 
-Using [npm](https://www.npmjs.com/):
-```
-    $ npm install --save CheckBox
-```
-   or [yarn](https://yarnpkg.com/en/docs/migrating-from-npm):
-```
-    $ yarn add CheckBox
-```
+### Example
+```javascript
+import { CheckBox } from 'simple-widgets';
 
-Then with a module bundler like [webpack](https://webpack.github.io/) that supports either CommonJS or ES2015 modules, use as you would anything else:
+const YourComponent = (props) => {
 
-```
-// using an ES6 transpiler, like babel
-import CheckBox from 'CheckBox';
+  const [preview, setPreview] = useState('');
 
-export default class YourComponent extends Component {
-
-constructor(props) {
-    super(props);
-    autoBind(this);
-
-    this.state = {};
-  }
-
-handleChange(e) {
-       if (typeof e === 'string')
-          return;   // passed in by CheckBox, can be ignored, next event has target.name
-
-       if (typeof e.preventDefault === 'function') {
-           e.preventDefault();
-
-           var name = e.target.name;
-           var value = e.target.value;
-
-           // console.log({name,value});
-
-           var stateChange = {};
-           stateChange[name] = value;
-           this.setState(stateChange);
-           }
-         else {
-           console.log(typeof e);  // something unusual, lets find out
-           console.log(e);
-         }
-   }
-
- render() {
-
-    return <div>
-              <Choice choices={this.modes} name="ex2_mode" value={this.state.ex2_mode} onChange={this.handleChange} style={transparent}/>
-              &nbsp;
-
-              <CheckBox value="Preview" name="preview" text="Preview" match={this.state.preview} onChange={this.handleChange} />
-              <CheckBox value="Help"    name="preview" text="Help"    match={this.state.preview} onChange={this.handleChange} />
-           </div>
+  return  (
+    <div>
+              <CheckBox value="Preview" 
+                        name="preview" 
+                        text="Preview" 
+                        match={preview} 
+                        onChange={(event) => setPreview(event.target.value)} />
+    </div>
+  )
 }
+
+export default YourComponent;
 ```
+
+The value Preview will be placed in the state variable when the check box with the label Preview is checked and blank when unchecked.
 
 
 ### Versioning and Stability
