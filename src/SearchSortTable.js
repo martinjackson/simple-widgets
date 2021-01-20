@@ -247,8 +247,8 @@ const Theme = {...defaultThemeSettings};
         fontSize: "20px"
     }
 
-    if (hasProperty(props,'headerStyle') === true) {
-        centerBoldStyle = props.headerStyle;
+    if (hasProperty(props,'headerTableStyle') === true) {
+        centerBoldStyle = props.headerTableStyle;
     }
 
     let footerStyle = {

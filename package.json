@@ -5,17 +5,18 @@
   "main": "./lib/index.js",
   "scripts": {
     "setup": "npm install",
-    "dev": "npm run pack-d && npm run maps",
-    "dry": "npm run pack && npm run dry-run",
-    "pub": "npm run pack && npm run release",
+    "pack": "npm run buildIndex && webpack && run-s maps copy",
+    "dry": "run-s pack dry-run",
+    "pub": "run-s pack release",
     "test": "jest --colors",
     "watch": "jest --watch",
     "coverage": "jest --coverage && cat ./tests/coverage/lcov.info ",
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
     "maps": "cd lib && cp index.js.map index.map",
-    "pack": "webpack && npm run maps",
     "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
-    "release": "release-it --no-git.requireCleanWorkingDir"
+    "release": "release-it --no-git.requireCleanWorkingDir",
+    "buildIndex": "cd src && rm -f index.js && node buildIndex.js",
+    "copy": "cp ./src/*.css ./lib"
   },
   "babel": {
     "plugins": [
@@ -103,6 +104,7 @@
     "flow-bin": "^0.140.0",
     "jest": "^26.6.3",
     "json-loader": "^0.5.7",
+    "npm-run-all": "^4.1.5",
     "progress-bar-webpack-plugin": "^2.1.0",
     "react": ">=17.0.1",
     "react-dom": ">=17.0.1",
