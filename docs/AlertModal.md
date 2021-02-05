@@ -8,7 +8,6 @@ In order to use the alert modal the user must pass the following props:
 1.  **show** = a boolean variable indicating whether the alert modal should be displayed (true) or not (false).
 2.  **closeFunct** = a function that will set the show variable back to false to close the alert modal.
 3.  **message** = the message to display in the alert modal.
-4.  **extra** = a function with no parameters that will execute when the OK button is pressed and before the modal is closed.
 5.  **buttonStyle** = the style for the OK button.  The default style for the button is:
 ```javascript
         margin: "10px",
