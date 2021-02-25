@@ -2,7 +2,7 @@
 
 The two functions in this file are a sequential search and a binary search.
 
-1.  **search**
+1.  **search**<br>
     This will sequential search a table until the key is found and return the number the table entry associated with this key.
 
     Parameters:
@@ -33,7 +33,7 @@ The two functions in this file are a sequential search and a binary search.
         found2: null
 
 
-2.  **binSearch**
+2.  **binSearch**<br>
     This will binary search a table until the key is found and returns the table entry associated with this key.
 
     Parameters:
