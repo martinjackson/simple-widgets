@@ -36,7 +36,7 @@ __**Component Documents**__
 
 [AlertModal](docs/AlertModal.md), [ErrorModal](docs/ErrorModal.md), [ConfirmModal](docs/ConfirmModal.md), [Modal](docs/Modal.md),  
 
-[Invalid](docs/Invalid.md),
+[Invalid](docs/Invalid.md)
 
 [SearchSortTable](docs/SearchSortTable.md), [Theme](docs/Theme.md)
 
