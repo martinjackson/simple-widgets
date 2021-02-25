@@ -40,6 +40,8 @@ __**Component Documents**__
 
 [SearchSortTable](docs/SearchSortTable.md), [Theme](docs/Theme.md)
 
+[Search Functions](docs/SearchFunct.md), [Date Functions](docs/DateFunct.md), [Common Functions](docs/Common.md)
+
 __**Getting Started**__
 - [Short Tutorial](GettingStarted.md)
 - [Example Project](https://github.com/martinjackson/simple-widgets-sample)
