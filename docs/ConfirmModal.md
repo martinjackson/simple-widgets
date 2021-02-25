@@ -1,8 +1,8 @@
-## Confirm Modal
+# **Confirm Modal**
 
 This will allow the user to pop up a confirm modal asking the user of the application a yes or no question.  If the user answers by pressing the Yes button, the noFunct will be executed to close the confirm modal and the yesFunct will then be executed.  If the user answers by pressing the No button, the confirm modal will close.
 
-### Props
+### **Props**
 In order to use the alert modal the user must pass the following props:
 
 1.  **show** = a boolean variable indicating whether the confirm modal should be displayed (true) or not (false).
@@ -24,7 +24,7 @@ In order to use the alert modal the user must pass the following props:
 
 The show, yesFunct, and noFunct and / or closeFunct props are required.  The message and button style prop is not required.  If the message prop is not supplied, the default message will be 'No Confirm message given'.
 
-### Examples
+### **Examples**
 The following is a code example:
 
 ```javascript
@@ -170,7 +170,7 @@ const Test = props => {
 
 When the user presses the Save button, the confirm modal will appear, asking 'Are you sure you want to save?'.  If they respond with Yes, the value will be passed to saveButtonYes and that function will execute.  If the they respond with No, the value will be passed to saveButtonNo and that function will execute.
 
-### Index.html
+### **Index.html**
 In the index.html add the following line in the body:
 ```html
     <div id="modal"></div>

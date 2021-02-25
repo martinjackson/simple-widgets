@@ -1,10 +1,10 @@
-## Search Sort Table
+# **Search Sort Table**
 
 This will allow a user to display a limited number of items in a table.  The user can search for an item by typing in the starting value of an item in the table.  The user can also use the Top, Bottom, Previous, and Next buttons to display the next set of values in the table.
 
 The user can also click on a column and the column will be sorted in either ascending or descending order.  The first type a column is clicked it will be sorted in ascending order.  After that it will alternate between descending and ascending order, respectively.
 
-### Props
+### **Props**
 In order for the user to use the Search Sort Table, they must pass the following props:
 
 1.  **data** = the data to be displayed which is an array of objects that contains a header and name fields.
@@ -12,7 +12,7 @@ In order for the user to use the Search Sort Table, they must pass the following
 The header field is the name of the header for that column of the table.  The name is field name in the data object passed as the data prop.  The search field name indicates whether that column can be searched or not.  The sort field indicates whether the column can be sorted or not.
 3.  **eachRowInTable** = a function that indicates how each cell in a row will be displayed.
 
-### Example
+### **Example**
 The following is a code example:
 
 ```javascript
@@ -57,7 +57,7 @@ The following is a code example:
                          startEnd={startEnd} />
 ```
 
-### Searching
+### **Searching**
 The search bar contains the following:
 1.  A drop down listing all the headers in the table.  Select one to search that column in the table.
 2.  A text box to enter the text to be searched for in that header column.
@@ -73,7 +73,7 @@ How to search:
 2.  Type a value to search underneath the header selected from the drop down.  This will also take you back to the first data item, which will be at the top of the screen.
 3.  Press the Search button.  The search will search that field until it finds the first item that anywhere within that value and places it as the first item in the table.  For example, suppose you enter 2 for Order Number, then 123 will be displayed as the first item in the table.  If the search button is pressed again, it will find the next data in that column that matches the search item.
 
-### Other props:
+### **Other props:**
 
 1.  **borderStyle** = the style for each cell in the table.  The default object is:
 ```javascript
@@ -262,7 +262,7 @@ the search bar at the top of the screen will contain the search column, search i
 
 36.  **width** = the width of the scroll box only.
 
-### Example 1:
+### **Example 1:**
 
 Contains a footer for the totals in the table.  The filter and the search are at the bottom of the table:
 ```javascript
@@ -326,7 +326,7 @@ function editRow(index) {
 }
 ```
 
-### Example 2 (SearchSortTable only)
+### **Example 2 (SearchSortTable only)**
 ```javascript
 <SearchSortTable data={data}
                     table={table}
@@ -345,7 +345,7 @@ In this example, uppercase letters and numbers will appear in the search area of
 
 The user can also hover over a row and it will be highlighted in cyan.  To detect that the row being hovered on has been clicked, the user should have an onClick event handler on the tr in eachRowInTable.  If another color besides cyan is desired, the hoverColor prop should be used.  An example would be hoverColor="yellow" 
 
-### Example 3 (SearchSortTable only)
+### **Example 3 (SearchSortTable only)**
 ```javascript
 <SearchSortTable data={pickData}
                 table={pickTable}
@@ -363,7 +363,7 @@ In this example, the search and filter information will be placed at the bottom 
 
 A title of Pick will be displayed centered at the top of the table.  If a different size other than an h3 header is desired, use the titleSize prop.  A title size of 1 uses the h1 header and a size of 2 uses the h2 header.  If you want to style the title, in an object place the styling information and assign it to the prop titleStyle.
 
-### Example 4
+### **Example 4**
 ```javascript
 <SearchSortTable data={data}
                     table={table}

@@ -1,4 +1,4 @@
-# Date Functions
+# **Date Functions**
 
 This set of functions will convert from one date format to another or will return the current date in a specific format.
 
@@ -8,7 +8,7 @@ This set of functions will convert from one date format to another or will retur
     Parameters:<br>
     -  convDate = the date in the YYYY-MM-DD format
 
-    Example:
+    **Example:**
     ```javascript
     let date1 = convertDate('2020-12-31');              Result: 12/31/2020
     ```
@@ -19,7 +19,7 @@ This set of functions will convert from one date format to another or will retur
     Parameters:<br>
     -  dateAndTime = the date in the YYYY-MM-DDTHH:MM:SS.sss format
 
-    Example:
+    **Example:**
     ```javascript
     let date2 = dateTime('2020-12-31T13:23:34.123');    Result: 12/31/2020 13:23:34
     ```
@@ -33,7 +33,7 @@ This set of functions will convert from one date format to another or will retur
 4.  **currentDateTime**<br>
     This will return the current date and time in the MM/DD/YYYY HH:MM:SS format.
 
-    Example:
+    **Example:**
     ```javascript
     let date3 = currentDateTime();                      Result: 02/25/2021 11:25:43
     ```
@@ -41,7 +41,7 @@ This set of functions will convert from one date format to another or will retur
 5.  **currentDate**<br>
     This will return the current date in the MM/DD/YYYY format.
 
-    Example:
+    **Example:**
     ```javascript
     let date4 = currentDate();                          Result: 02/25/2021
     ```
@@ -49,7 +49,7 @@ This set of functions will convert from one date format to another or will retur
 6.  **currentDBDateTime**<br>
     This will return the current date that the database expects to receive as a string.  The format will be YY-MON-DD HH:MM:SS.sss.
 
-    Example:
+    **Example:**
     ```javascript
     let date5 = currentDBDateTime();                    Result: 21-FEB-25 11:25:43.100
     ```
@@ -57,7 +57,7 @@ This set of functions will convert from one date format to another or will retur
 7.  **currentDBDate**<br>
     This will place the current date in the YYYY-MM-DD format.
 
-    Example:
+    **Example:**
     ```javascript
     let date6 = currentDBDate();                        Result: 2021-02-25
     ```
@@ -68,7 +68,7 @@ This set of functions will convert from one date format to another or will retur
     Parameters:
     -  date = the date in the MM/DD/YYYY format
 
-    Example:
+    **Example:**
     ```javascript
     let date7 = dbDate('02/15/2020');                   Result: 2020-02-15
     ```

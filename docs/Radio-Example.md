@@ -1,12 +1,12 @@
-# Radio
+# **Radio**
 
 Radio is a simple [React] component that acts like a radio button behavior, but allows a value to be placed in a state variable.
 
-### Browser Support
+### **Browser Support**
 
 We support all browsers and environments where React runs.
 
-### Props
+### **Props**
 The Radio component uses the following props:
 
 1.  **name**: A unique name for this field with corresponding name in the parent component's state    
@@ -20,7 +20,7 @@ The Radio component uses the following props:
 
 If there are several radio buttons and it is desired that they operate as a group (only one radio button can be selected), the name and match props for all radio buttons must have the same value.
 
-### Example
+### **Example**
 ```javascript
 import { Radio } from 'simple-widgets';
 
@@ -44,11 +44,11 @@ const YourComponent = (props) => {
 
 Since the two radio buttons use the same names in the name prop and the match prop, they will be treated as a group.  If the user clicks on the first radio button, a 1 will be placed in the state variable year.  If the user clicks on the second radio button, a 2 will be placed in the state variable year.
 
-### Versioning and Stability
+### **Versioning and Stability**
 
 We want Radio to be a stable dependency that’s easy to keep current. We take the same approach to versioning as React.js itself: [React Versioning Scheme](https://facebook.github.io/react/blog/2016/02/19/new-versioning-scheme.html).
 
-### Thanks
+### **Thanks**
 
 To CPC project team where this was developed.
 

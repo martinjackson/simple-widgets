@@ -1,8 +1,8 @@
-# Modal
+# **Modal**
 
 Modal allows a user to create their own modal (popup).  The modal will appear in the middle of the screen, with the background lightly grayed out.
 
-### Example
+### **Example**
 An example of a Modal:
 
 ```javascript
@@ -31,7 +31,7 @@ const YourModal = props => {
 export default YourModal;
 ```
 
-### modal.css
+### **modal.css**
 
 ```css
 #modal {
@@ -60,7 +60,7 @@ export default YourModal;
   }
 ```
 
-### Props
+### **Props**
 This modal takes three props:
 
 1.  **show**: boolean value indicating whether to show the modal (true) or not (false)

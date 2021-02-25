@@ -1,8 +1,8 @@
-# List
+# **List**
 
 List is simple [React] component that allows the user to select a value from a list of values in a box.  
 
-### Props
+### **Props**
 The List component uses the following props:
 
 1.  **name**: A unique name for this field with corresponding name in the parent component's state    
@@ -15,7 +15,7 @@ The List component uses the following props:
 5.  **multiple**: allows multiple items in the list box to be selected.
 6.  **size**: the size of the list box (number of items to display, after that the user must scroll to see the rest of the items).  Default size is 10.
 
-### Example
+### **Example**
 ```javascript
 import { List } from 'simple-widgets';
 

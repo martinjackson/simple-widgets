@@ -1,8 +1,8 @@
-# ChoiceText
+# **ChoiceText**
 
 ChoiceText is simple [React] component that allows the user to select a value from a list of choice via a pulldown behavior.  If the list is a long list, the user can start typing the value they want and the pull down list will start to match what the user is typing.  Also, this will allow the user to add new text to the pull down.
 
-### Props
+### **Props**
 The ChoiceText component uses the following props:
 
 1.  **name**: A unique name for this field with corresponding name in the parent component's state    
@@ -15,7 +15,7 @@ The ChoiceText component uses the following props:
 5.  **list**: any name the user wants.  This is used to associate the list of values to the ChoiceText box.
     _example: list="listItems"_
 
-### Example
+### **Example**
 ```javascript
 import { ChoiceText } from 'simple-widgets';
 

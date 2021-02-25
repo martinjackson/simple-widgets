@@ -1,8 +1,8 @@
-# Choice
+# **Choice**
 
 ChoiceText is simple [React] component that allows the user to select a value from a list of choice via a pulldown behavior.  
 
-### Props
+### **Props**
 The Choice component uses the following props:
 
 1.  **name**: A unique name for this field with corresponding name in the parent component's state    
@@ -13,7 +13,7 @@ The Choice component uses the following props:
     _example onChange={handleChange}_
 4.  **choices**: an array of Strings as pull down choices
 
-### Example
+### **Example**
 ```javascript
 import { Choice } from 'simple-widgets';
 
@@ -40,11 +40,11 @@ export default YourComponent;
 The choice that was selected by the user will be in the state variable exMode.
 
 
-### Versioning and Stability
+### **Versioning and Stability**
 
 We want Choice to be a stable dependency that’s easy to keep current. We take the same approach to versioning as React.js itself: [React Versioning Scheme](https://facebook.github.io/react/blog/2016/02/19/new-versioning-scheme.html).
 
-### Thanks
+### **Thanks**
 
 To CPC project team where this was developed.
 

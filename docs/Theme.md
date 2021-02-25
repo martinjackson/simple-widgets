@@ -1,4 +1,4 @@
-## Theme
+# **Theme**
 
 Theme allows the user to standardize their screens to the same background color, button style, font, error color, etc.  
 
@@ -49,7 +49,7 @@ const defaultThemeSettings = {
 };
 ```
 
-**Example with some of the using some of the above fields:**
+### **Example with some of the using some of the above fields:**
 
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
@@ -76,9 +76,9 @@ const buttonStyle = {
 
 ```
 
-**To overwrite the some of the theme settings or to add new ones:**
+### **To overwrite the some of the theme settings or to add new ones:**
 
-**Override Example:**
+### **Override Example:**
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
 
@@ -101,7 +101,7 @@ Theme.buttonTextColor = 'blue';
 Theme.backgroundColor = 'lightBlue';
 ```
 
-**To add theme settings:**
+### **To add theme settings:**
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
 
@@ -113,7 +113,7 @@ const additional = {
 const Theme = [...defaultThemeSettings, ...additional];
 ```
 
-**To both override and add new theme items:**
+### **To both override and add new theme items:**
 
 ```javascript
 import { defaultThemeSettings } from 'simple-widgets';
@@ -129,7 +129,7 @@ const overrideAdd = {
 const Theme = [...defaultThemeSettings, ...overrideAdd];
 ```
 
-**The button style allows all buttons in the application to look the same:**
+### **The button style allows all buttons in the application to look the same:**
 
 ```javascript
 export const buttonStyle = {
@@ -144,7 +144,7 @@ export const buttonStyle = {
 };
 ```
 
-**To access the button style:**
+### **To access the button style:**
 
 ```javascript
 import { buttonStyle } from 'simple-widgets';
@@ -167,7 +167,7 @@ const newButtonStyle = [...buttonStyle, ...override];
 <button style={newButtonStyle}>Test</button>
 ```
 
-**Another way to change the values on the button style:**
+### **Another way to change the values on the button style:**
 
 ```javascript
 import { buttonStyle } from 'simple-widgets';
@@ -194,7 +194,7 @@ const newButtonStyle = [...buttonStyle, ...additional];
 <button style={newButtonStyle}>Test</button>
 ```
 
-# The Generate Button Functions
+## **The Generate Button Functions**
 
 To generate a button that uses an existing style and will allow the style to either set the button style to its standard color of to the disable color if the the disable value is true.  These functions must be called everytime the screen is rendered.
 
@@ -203,12 +203,10 @@ To generate a button that uses an existing style and will allow the style to eit
     disabled or not.
     
     Parameters:
-    a.  style           the style used for the button as an object
-    b.  error           indicates whether an error occurred and if so, 
-                        change the color to the disable color for the button.  This is a boolean variable and if true will set the button to the disable color.
-    c.  disabled        indicates whether the button should     
-                        be disabled or not.  This should be a boolean value and if true, it will be set to the disable color; otherwise, it will be its normal color (default is false)
-    d.  disableColor    the color for the disabled button (default is gray)
+    - style = the style used for the button as an object
+    - error = indicates whether an error occurred and if so, change the color to the disable color for the button.  This is a boolean variable and if true will set the button to the disable color.
+    - disabled = indicates whether the button should be disabled or not.  This should be a boolean value and if true, it will be set to the disable color; otherwise, it will be its normal color (default is false)
+    - disableColor = the color for the disabled button (default is gray)
 
     **Example:**
     ```javascript
@@ -240,10 +238,8 @@ To generate a button that uses an existing style and will allow the style to eit
     disabled or not.  It will use the default button style (see above for the default button style) and the disable color of gray.
 
     Parameters:
-    a.  error       indicates whether an error occurred and if so, 
-                    disable the button
-    b.  disabled    indicates whether the button should be disabled or  
-                    not.  The default is false.
+    - error = indicates whether an error occurred and if so, disable the button
+    - disabled = indicates whether the button should be disabled or not.  The default is false.
 
     **Example:**
     ```javascript

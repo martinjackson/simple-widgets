@@ -1,12 +1,13 @@
-# CheckBox
+# **CheckBox**
 
 CheckBox is a simple [React] component that acts like a check box button behavior, but allows a value to be placed in a state variable.
 
 
-### Browser Support
+### **Browser Support**
 
 We support all browsers and environments where React runs.
- ### Props
+
+### **Props**
 The CheckBox component uses the following props:
 
 1.  **name**: A unique name for this field with corresponding name in the parent component's state    
@@ -18,7 +19,7 @@ The CheckBox component uses the following props:
 5.  **match**: the state variable the holds the 'value' (see 2) that was selected
 6.  **text**: a label (String or component) that is displayed after the CheckBox
 
-### Example
+### **Example**
 ```javascript
 import { CheckBox } from 'simple-widgets';
 
@@ -43,11 +44,11 @@ export default YourComponent;
 The value Preview will be placed in the state variable when the check box with the label Preview is checked and blank when unchecked.
 
 
-### Versioning and Stability
+### **Versioning and Stability**
 
 We want CheckBox to be a stable dependency that’s easy to keep current. We take the same approach to versioning as React.js itself: [React Versioning Scheme](https://facebook.github.io/react/blog/2016/02/19/new-versioning-scheme.html).
 
-### Thanks
+### **Thanks**
 
 To CPC project team where this was developed.
 

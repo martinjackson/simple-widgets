@@ -4,59 +4,47 @@ This will show the user how to show errors on fields.  The field in error will s
 
 How to use:
 
-Invalid Values format for the screen:
-
+### Invalid Values format for the screen:
+```javascript
 invalidValues = [
- { validity: true or false,  This indicates whether the input item contains an
-                             invalid item (true) or not (false).  The initial value
-                             will be false, until an invalid item is found for this
-                             input item.
-   display: true or false,   This indicates whether the message should be displayed
-                             or not.  Initially this value will be false, when an
-                             invalid value for this input item is found, it will 
-                             be set to true.  When the mouse is clicked for this
-                             input item, the value will be set back to false.
-   message: string           The message that will be displayed whenever the mouse
-                             is hovered over the input item and display is true.
+ { validity: true or false,  
+ /* This indicates whether the input item contains an invalid item (true) or not (false).  The initial value will be false, until an invalid item is found for this input item. */
+   display: true or false,   
+/* This indicates whether the message should be displayed or not.  Initially this value will be false, when an invalid value for this input item is found, it will be set to true.  When the mouse is clicked for this input item, the value will be set back to false. */
+   message: string
+/* The message that will be displayed whenever the mouse is hovered over the input item and display is true. */
  }, ...
 ]
+```
 
-
-Input Values format for the table:
-
-invalidValues = [
- { validity: [],             Each array position will indicate whether that input item on
-                             a row in the table is invalid (true).  Only those items that 
-                             have invalid values are placed in the array.  Initially the 
-                             array will be empty.
-   display: [],              Each array position will indicate whether the message should
-                             be displayed for that item (true) or not (false) for that row
-                             in the table.  The value will be true when initally inserted
-                             with the validity value.  When the user click on the mouse on
-                             the input item, the value will be changed to false.
-   index: [],                Each array position will contain the row number (starting at 0) 
-                             in the table for the input item that constains the invalid
-                             value.  Initially the array will be empty.
-   message: [],              Each array positon will contain the message that will be displayed
-                             whenever the mouse is hovered over the input item and the display
-                             is true.  Initially the array will be empty.
+### Input Values format for the table:
+```javascript
+invalidValues = [<br>
+ { validity: [],             
+/* Each array position will indicate whether that input item on a row in the table is invalid (true).  Only those items that have invalid values are placed in the array.  Initially the array will be empty. */
+   display: [],              
+/* Each array position will indicate whether the message should be displayed for that item (true) or not (false) for that row in the table.  The value will be true when initally inserted with the validity value.  When the user click on the mouse on the input item, the value will be changed to false. */
+   index: [],                
+/* Each array position will contain the row number (starting at 0) in the table for the input item that constains the invalid value.  Initially the array will be empty. */
+  message: [],
+/* Each array positon will contain the message that will be displayed whenever the mouse is hovered over the input item and the display is true.  Initially the array will be empty. */
  }
 ]
+```
 
-
-Input Values format for both screen and table (dual):
+### Input Values format for both screen and table (dual):
 
  The invalid values array will contain the format for the screen (see above) and the format
  for the table (see above).  The screen format should be first followed by the table.
 
 
-Contants
+### **Contants**<br>
  The constants indicate the array position for each input item.  The are generally given a
  name followed by the index value.  The name is given in the code.
 
 
-Screen Example:
-
+## **Screen Example:**
+```javascript
  invalidValues = [
      { validity: false, display: false, message: 'The name must be given a value' },
      { validity: true, display: true, message: 'The SSN must be given a value' },
@@ -66,7 +54,7 @@ Screen Example:
  const NAME = 0;
  const SSN = 1;
  const ADDR = 2;
-
+```
  invalidValues[NAME] contains a valid name, since validity is false.
  invalidValues[SSN] contains an invalid SSN (validity is true) and the message will be 
      displayed when the mouse is hovered over it, since display is true.  If the user, 
@@ -76,8 +64,8 @@ Screen Example:
      not be displayed, since display is false.
 
 
-Table Example:
- 
+## **Table Example:**
+```javascript 
  invalidValues = [
      { validity: [true, true], display: [true, false], index: [3, 4], message: ['The name is a duplicate, 'Invalid Name']},
      { validity: [true, true], display: [true, false], index: [8, 14], message: ['The SSN is a duplicate, 'Invalid SSN']},
@@ -85,6 +73,7 @@ Table Example:
 
  const NAME = 0;
  const SSN = 1;
+```
 
  invalidValues[NAME] contains two invalid names (validity is true) in the table at rows 3 and 4 
      (actual 4 and 5).  The message 'The name is a duplicate' is being displayed, since display is true
@@ -96,8 +85,8 @@ Table Example:
      for that input item on row 8 of the table.   The message 'Invalid SSN' will not be displayed,
      since display is false for that input item on row 14 of the table.
 
-Dual Example (screen and table):
-
+## **Dual Example (screen and table):**
+```javascript
  invalidValues = [
      { validity: false, display: false, message: 'The name must be given a value' },
      { validity: true, display: true, message: 'The SSN must be given a value' },
@@ -111,6 +100,7 @@ Dual Example (screen and table):
  const ADDR = 2;
  const NAMET = 3;
  const SSNT = 4;
+```
 
  invalidValues[NAME] see invalidValues[NAME] in the Screen Example.
  invalidValues[SSN] see invalidValues[SSN] in the Screen Example.
@@ -118,221 +108,208 @@ Dual Example (screen and table):
  invalidValues[NAMET] see invalidValues[NAME] in the Table Example.
  invalidValues[SSNT] see invalidValues[SSN] in the Table Example.
 
-### Functions
+## **Functions**
 Assist Functions (functions that will assist in building fields showing up in pink and hovering over the pink fields to show errors):
 
-1.  **checkValidityScreen**
-        This will check to see if there is an invalid screen entry, and if there is, it will 
-        display an invalid message.
+1.  **checkValidityScreen**<br>
+    This will check to see if there is an invalid screen entry, and if there is, it will display an invalid message.
 
-        Parameters:
-        a. invalidValues    the invalid array that contains what entries are invalid
-        b. constant         the screen constant that represents the array index to check in
-                            the invalid array.
+    Parameters:
+    - invalidValues = the invalid array that contains what entries are invalid
+    - constant = the screen constant that represents the array index to check in the invalid array.
                             
-2.  **checkValidityTable**
-        This will check to see if there is an invalid table entry, and if there is, it will 
-        display an invalid message.
+2.  **checkValidityTable**<br>
+    This will check to see if there is an invalid table entry, and if there is, it will display an invalid message.
 
-        Parameters:
-        a. invalidValues    the invalid array that contains what entries are invalid
-        b. constant         the table constant that represents the array index to check in
-                            the invalid array.
-        c. index            the index into the table that contains the value being validated.
+    Parameters:
+    - invalidValues = the invalid array that contains what entries are invalid
+    - constant = the table constant that represents the array index to check in the invalid array.
+    - index = the index into the table that contains the value being validated.
                             This is not the invalid array.
 
-3. **clearInvalidDual**
-        This will clear the invalid values array, and reset the array to its original settings.  It will do this for the screen and table parts.
+3.  **clearInvalidDual**<br>
+    This will clear the invalid values array, and reset the array to its original settings.  It will do this for the screen and table parts.
 
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen and table
-        b. screen           array holding the starting and ending indexes (contants) for the screen part of the array
-        c. table            array holding the starting and ending indexes (contants) for the screen part of the array
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen and table
+    - screen = array holding the starting and ending indexes (contants) for the screen part of the array
+    - table = array holding the starting and ending indexes (contants) for the screen part of the array
 
-4. **clearInvalidScreen**
-        This will clear the invalid values array, and reset the array to its original settings.  It will do this for the screen.
+4.  **clearInvalidScreen**<br>
+    This will clear the invalid values array, and reset the array to its original settings.  It will do this for the screen.
 
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen
 
-5. **clearInvalidScreenOnly**
-        This function is used when there are both screen and table invalid entries.  This will clear
-        the invalid screen entries only.  It will not clear the table entries.
+5.  **clearInvalidScreenOnly**<br>
+    This function is used when there are both screen and table invalid entries.  This will clear the invalid screen entries only.  It will not clear the table entries.
  
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen
-        b. constant         the constant for the last screen entry
+    Parameters:
+    -  invalidValues = list of invalid inputs for the screen
+    -  constant = the constant for the last screen entry
 
-6. **clearInvalidTable**
-        This will clear the invalid values array, and reset the array to its original settings.  It will do this for the table.
+6.  **clearInvalidTable**<br>
+    This will clear the invalid values array, and reset the array to its original settings.  It will do this for the table.
 
-        Parameters:
-        a. invalidValues    list of invalid inputs for the table
+    Parameters:
+    - invalidValues = list of invalid inputs for the table
 
-7. **copyStyle**
-        This will copy another style of the form:
+7.  **copyStyle**<br>
+    This will copy another style of the form:
  
-        const someStyle = {
-                cssname: cssvalue;
-        };
-        
-        Parameters:
-        a. copyStyle        the style to copy
+    ```css
+    const someStyle = {
+        cssname: cssvalue;
+    };
+    ```
 
-8.  **generateInvalid**
-        This will generate the invalid array mentioned above for both screen and table.  It will then return the invalid array.  If there are no screen entries set the number
-        of screen constants parameter to 0.  If there are not table entries set the number 
-        of table constants parameter to 0.
+    Parameters:
+    - copyStyle = the style to copy
 
-        Parameters:
-        a. numScreenConstants   the number of entries for the screen.  If there are no
-                                screen entries then the value should be zero.
-        b. numTableConstants    the number of entries for the table.  If there are no
-                                table entries then the value should be zero.
+8.  **generateInvalid**<br>
+    This will generate the invalid array mentioned above for both screen and table.  It will then return the invalid array.  If there are no screen entries set the number of screen constants parameter to 0.  If there are not table entries set the number of table constants parameter to 0.
 
-9. **getInvalidMessage**
-        This will retrieve the message from the entry invalid value array for a table entry.
+    Parameters:
+    - numScreenConstants = the number of entries for the screen.  If there are no screen entries then the value should be zero.
+    - numTableConstants = the number of entries for the table.  If there are no table entries then the value should be zero.
 
-        Parameters:
-        a. invalid         a specific input item in the invalid value array (specific index)
-        b. pos             row number in the table if looking up a table entry or -1 for a screen entry
+9.  **getInvalidMessage**<br>
+    This will retrieve the message from the entry invalid value array for a table entry.
 
-10. **invalidStyling**
-        This will create a style with a invalid background color, this a invalid style.  No parameters.
+    Parameters:
+    - invalid = a specific input item in the invalid value array (specific index)
+    - pos = row number in the table if looking up a table entry or -1 for a screen entry
 
-11.  **isInvalid** 
-        This will determine if the input item contains an invalid value and the message should be displayed or not based on the validity and display values for that item in the invalid value array.  This will work for screen or table entry.  If a screen entry, pos should be -1.
+10. **invalidStyling**<br>
+    This will create a style with a invalid background color, this a invalid style.  No parameters.
 
-        Parameters:
-    
-        a. invalid  a specific input item in the invalid value array (specific index)
-        b. pos      row number in the table if looking up a table entry or -1 for a screen entry
+11. **isInvalid** <br>
+    This will determine if the input item contains an invalid value and the message should be displayed or not based on the validity and display values for that item in the invalid value array.  This will work for screen or table entry.  If a screen entry, pos should be -1.
 
-12. **processInvalidStyleScreen**
-        This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.  This will return the style for the component.
+    Parameters:
+    - invalid = a specific input item in the invalid value array (specific index)
+    - pos = row number in the table if looking up a table entry or -1 for a screen entry
 
-        Parameters:
-        a. invalidValues list of invalid inputs
-        b. constant      indicates which of the input items is invalid (the index
-                         into the array)
-        c. style         the style that is to be copied.  This parameter is optional and
-                         is only there if the style is to be copied and used.
+12. **processInvalidStyleScreen**<br>
+    This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.  This will return the style for the component.
 
-13. **processInvalidStyleTable**
-        This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.  This will return the style for the component.
+    Parameters:
+    - invalidValues = list of invalid inputs
+    - constant = indicates which of the input items is invalid (the index into the array)
+    - style = the style that is to be copied.  This parameter is optional and is only there if the style is to be copied and used.
 
-        Parameters:
-        a. invalidValues list of invalid inputs for the table
-        b. constant      indicates which of the input items is invalid (the index
-                         into the array)
-        c. pos           row number in the table
-        d. style         the style that is to be copied.  This parameter is optional and
-                         is only there if the style is to be copied and used.
+13. **processInvalidStyleTable**<br>
+    This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.  This will return the style for the component.
 
-14. **processStyleScreen**
-        This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
+    Parameters:
+    - invalidValues = list of invalid inputs for the table
+    - constant = indicates which of the input items is invalid (the index into the array)
+    - pos = row number in the table
+    - style = the style that is to be copied.  This parameter is optional and is only there if the style is to be copied and used.
+
+14. **processStyleScreen**<br>
+    This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
  
-        Parameters:
-        a. invalidValues    list of invalid inputs
-        b. constant         indicates which of the input items is invalid (the index into the array)
-        c. style            the style to change the backgound 
+    Parameters:
+    - invalidValues = list of invalid inputs
+    - constant = indicates which of the input items is invalid (the index into the array)
+    - style = the style to change the backgound 
 
 
-15. **processStyleTable**
-        This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
+15. **processStyleTable**<br>
+    This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
  
-        Parameters:
-        a. invalidValues    list of invalid inputs for the table
-        b. constant         indicates which of the input items is invalid (the index into the array)
-        c. pos              row number in the table
-        d. style            the style to change the backgound 
+    Parameters:
+    - invalidValues = list of invalid inputs for the table
+    - constant = indicates which of the input items is invalid (the index into the array)
+    - pos = row number in the table
+    - style = the style to change the backgound 
 
-16.  **resetDisplayScreen**
-        This will set the display value to false for an invalid input item.
+16. **resetDisplayScreen**<br>
+    This will set the display value to false for an invalid input item.
  
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen
-        b. constant         indicates which of the input items is invalid (the index into the array)
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen
+    - constant = indicates which of the input items is invalid (the index into the array)
 
-17.  **resetDisplayTable**
-        This will set the display value to false for an invalid input item.
+17. **resetDisplayTable**<br>
+    This will set the display value to false for an invalid input item.
  
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen
-        b. constant         indicates which of the input items is invalid (the index into the array)
-        c. index            row number in the table from zero
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen
+    - constant = indicates which of the input items is invalid (the index into the array)
+    - index = row number in the table from zero
 
-18.  **setInvalidDual**
-        This indicates that one of the input items is either on the screen or in a table and contains an invalid value.
+18. **setInvalidDual**<br>
+    This indicates that one of the input items is either on the screen or in a table and contains an invalid value.
  
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen or table
-        b. constant1        index into the screen input items
-        c. constant2        index into the table screen items
-        d. index            row number in the table from zero
-        e. type             indicates whether it is a screen entry (S) or table entry (T)
-        f. message          message for the invalid value
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen or table
+    - constant1 = index into the screen input items
+    - constant2 = index into the table screen items
+    - index = row number in the table from zero
+    - type = indicates whether it is a screen entry (S) or table entry (T)
+    - message = message for the invalid value
 
-19.  **setInvalidScreen**
-        This indicates that one of the input items on the screen contains an invalid value.
+19. **setInvalidScreen**<br>
+    This indicates that one of the input items on the screen contains an invalid value.
 
-        Parameters:
-        a. invalidValues    list of valid and invalid inputs for the screen
-        b. constant         indicates which of the input items that is in invalid (the index into the array)
-        c. message          message for the invalid value (will be displayed when the user hovers over the field)
+    Parameters:
+    - invalidValues = list of valid and invalid inputs for the screen
+    - constant = indicates which of the input items that is in invalid (the index into the array)
+    - message = message for the invalid value (will be displayed when the user hovers over the field)
 
-20.  **setInvalidTable**
-        This indicates that one of the input items in a table contains an invalid value.
+20. **setInvalidTable**<br>
+    This indicates that one of the input items in a table contains an invalid value.
 
-        Parameters:
-        a. invalidValues    list of invalid inputs for the table
-        b. constant         indicates which of the input items is invalid (the index into the array)
-        c. index            row number (from zero) in the table that contains the invalid item 
-        d. message          message for the invalid value
+    Parameters:
+    - invalidValues = list of invalid inputs for the table
+    - constant = indicates which of the input items is invalid (the index into the array)
+    - index = row number (from zero) in the table that contains the invalid item 
+    - message = message for the invalid value
 
-21. **validCheckDual**
-        This will check to see if any of the validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
+21. **validCheckDual**<br>
+    This will check to see if any of the validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
  
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen or table
-        b. constants        list of screen constants to distinguish between screen and table constants
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen or table
+    - constants = list of screen constants to distinguish between screen and table constants
 
-22. **validCheckScreen**
-        This will check to see if any of the screen validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally  called at the end of the validation function.
+22. **validCheckScreen**<br>
+    This will check to see if any of the screen validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally  called at the end of the validation function.
 
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen
 
-23. **validCheckTable**
-        This will check to see if any of the table validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
+23. **validCheckTable**<br>
+    This will check to see if any of the table validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
 
-        Parameters: 
-        a. invalidValues    list of invalid inputs for the table
+    Parameters: 
+    - invalidValues = list of invalid inputs for the table
 
-24. **validStyling**
-        This will create a style with a normal background color, this a valid style.  No parameters.
+24. **validStyling**<br>
+    This will create a style with a normal background color, this a valid style.  No parameters.
 
-25. **wasClickedScreen**
-        Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on the regular screen.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons or check boxes.
+25. **wasClickedScreen**<br>
+    Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on the regular screen.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons or check boxes.
  
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen
-        b. constant         indicates which item the mouse was clicked on.  Set the contants after the invalid array.
-        c. setInvalid       a state variable function that will place the invalidValues in the corresponding state variable.
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen
+    - constant = indicates which item the mouse was clicked on.  Set the contants after the invalid array.
+    - setInvalid = a state variable function that will place the invalidValues in the corresponding state variable.
 
-26. **wasClickedTable**
-        Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on a table.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons
-        or check boxes.
+26. **wasClickedTable**<br>
+    Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on a table.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons or check boxes.
 
-        Parameters:
-        a. invalidValues    list of invalid inputs for the screen
-        b. constant         indicates which item the mouse was clicked on.  Set the contants after the invalid array.
-        c. index            row number in the table from zero
-        d. setInvalid       a state variable function that will place the invalidValues in the  corresponding state variable.
-
+    Parameters:
+    - invalidValues = list of invalid inputs for the screen
+    - constant = indicates which item the mouse was clicked on.  Set the contants after the invalid array.
+    - index = row number in the table from zero
+    - setInvalid = a state variable function that will place the invalidValues in the  corresponding state variable.
 
 
-### mousehover.css
+
+### **mousehover.css**
 
 This file contains two important class names:
 
@@ -368,9 +345,9 @@ This file contains two important class names:
 
 Both classes are required.  See the examples below.
 
-### Examples:
+## **Examples:**
 
-### Screen
+### **Screen**
 
 ```javascript
 import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen, 
@@ -427,7 +404,7 @@ const Test = (props) => {
     }
 ```
 
-### Table
+## **Table**
 
 ```javascript
 import { isInvalid, setInvalidTable, 
@@ -486,7 +463,7 @@ const Test = (props) => {
 
 ```
 
-### Dual
+## **Dual**
 
 ```javascript
 import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen, 
