@@ -2,13 +2,13 @@
 
 The two functions in this file are a sequential search and a binary search.
 
-1.  ** search **
+1.  **search**
     This will sequential search a table until the key is found and return the number the table entry associated with this key.
 
     Parameters:
-    a.  table       the table or array to be searched
-    b.  key         the key to search for in the table
-    c.  field       the field in the table to search
+    -  table = the table or array to be searched
+    -  key = the key to search for in the table
+    -  field = the field in the table to search
 
     Returns the entry in the table associated with the key.  If the key is not found null is returned.
 
@@ -28,18 +28,18 @@ The two functions in this file are a sequential search and a binary search.
     let found2 = search(names, 23, 'id');
     ```
 
-    Result: 
-        found1: {id: 3, name: 'Mary'}
+    Result:<br>
+        found1: {id: 3, name: 'Mary'}<br>
         found2: null
 
 
-2.  ** binSearch **
+2.  **binSearch**
     This will binary search a table until the key is found and returns the table entry associated with this key.
 
     Parameters:
-    a.  table       the table or array to be searched
-    b.  key         the key to search for in the table
-    c.  field       the field in the table to search
+    -  table = the table or array to be searched
+    -  key = the key to search for in the table
+    -  field = the field in the table to search
 
     Returns the entry in the table associated with the key or null if the key is not found.
 
@@ -59,6 +59,6 @@ The two functions in this file are a sequential search and a binary search.
     let binFound2 = binSearch(names, 23, 'id');
     ```
     
-    Result: 
-        binFound1: {id: 3, name: 'Mary'}
+    Result:<br> 
+        binFound1: {id: 3, name: 'Mary'}<br>
         binFound2: null
