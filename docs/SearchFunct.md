@@ -12,7 +12,7 @@ The two functions in this file are a sequential search and a binary search.
 
     Returns the entry in the table associated with the key.  If the key is not found null is returned.
 
-    Example:
+    **Example:**
     ```javascript
     const names = [
         {id: 1, name: 'Jones'},
@@ -43,7 +43,7 @@ The two functions in this file are a sequential search and a binary search.
 
     Returns the entry in the table associated with the key or null if the key is not found.
 
-    Example:
+    **Example:**
     ```javascript
     const names = [
         {id: 1, name: 'Jones'},
