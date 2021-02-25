@@ -2,6 +2,14 @@
 
 Modal allows a user to create their own modal (popup).  The modal will appear in the middle of the screen, with the background lightly grayed out.
 
+### **Props**
+This modal takes three props:
+
+1.  **show**: boolean value indicating whether to show the modal (true) or not (false)
+2.  **message**: the message to display in the modal
+3.  **closeFunct**: used to close the modal when the user presses the OK button
+
+
 ### **Example**
 An example of a Modal:
 
@@ -59,10 +67,3 @@ export default YourModal;
     text-align: center;
   }
 ```
-
-### **Props**
-This modal takes three props:
-
-1.  **show**: boolean value indicating whether to show the modal (true) or not (false)
-2.  **message**: the message to display in the modal
-3.  **closeFunct**: used to close the modal when the user presses the OK button
