@@ -30,7 +30,7 @@ This set of functions will convert from one date format to another or will retur
     Parameters:
     -  value = the value to determine whether a 0 should be placed in front of the single digit
 
-4.  ** currentDateTime **
+4.  **currentDateTime**
     This will return the current date and time in the MM/DD/YYYY HH:MM:SS format.
 
     Example:
