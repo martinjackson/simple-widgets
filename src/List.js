@@ -5,7 +5,8 @@ const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescripto
 
 const _Choice = (propsIn, ref) => {
 
-    const {list, choices, size, ...props} = propsIn
+    const {list, choices, size, value, ...props} = propsIn
+    // Value should not be a prop, take it out and ignore it.
     const siz = size || 10;
     const opt = list || choices || [];
     const keyPart = (hasProperty(props,'keyName')) ? props.keyName + '_' : '';
