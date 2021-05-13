@@ -25,13 +25,24 @@ const YourComponent = (props) => {
     
     const modes = ["java", "javascript", "jsx", "markdown", "sh"];  
 
+    function buildList(value) {
+        let selections = [];
+        for (let i = 0; i < value.length; i++) {
+            if (value[i].selected === true) {
+                selections.push(value[i].text);
+            }
+        }
+
+        console.log ('selections', selections);
+        setExMode(selections);
+    }
+
     return (
       <div>
         <List 
           list={modes} 
           name="exMode" 
-          value={exMode} 
-          onChange={(event) => setExMode(event.target.value)}
+          onChange={(event) => buildList(event.target.options)}
           multiple
           size="4"  />
       </div>
