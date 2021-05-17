@@ -7,13 +7,19 @@ The List component uses the following props:
 
 1.  **name**: A unique name for this field with corresponding name in the parent component's state    
     _example name="subject"_
-2.  **value**: the state variable that holds the selected value 
-    _example value={subject}_
-3.  **onChange**: function in the parent component to catch/store state changes 
+2.  **onChange**: function in the parent component to catch/store state changes 
     _example onChange={handleChange}_
-4.  **list**: an array of Strings displayed in the list box
-5.  **multiple**: allows multiple items in the list box to be selected.
-6.  **size**: the size of the list box (number of items to display, after that the user must scroll to see the rest of the items).  Default size is 10.
+3.  **list**: an array of Strings displayed in the list box
+4.  **multiple**: allows multiple items in the list box to be selected.
+5            <ContextMenu menu={menu}
+                         show={showMenu}
+                         closeFunct={setShowMenu}
+                         backColor="cyan"
+                         border="none"
+                         radius="none"
+                         positionX={position.X}
+                         positionY={position.Y} />
+.  **size**: the size of the list box (number of items to display, after that the user must scroll to see the rest of the items).  Default size is 10.
 
 ### **Example**
 ```javascript
