@@ -1,0 +1,11 @@
+.contextMenuHov {
+    position: absolute;
+    display: block;
+    padding: 10px;
+    z-index: 1;
+}
+
+span:hover {
+    visibility: visible;
+    background-color: lightgray;
+}
