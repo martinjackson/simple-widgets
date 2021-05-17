@@ -38,7 +38,7 @@ __**Component Documents**__
 
 [Invalid](docs/Invalid.md)
 
-[SearchSortTable](docs/SearchSortTable.md), [Theme](docs/Theme.md)
+[SearchSortTable](docs/SearchSortTable.md), [ContextMenu](docs/ContextMenu.md), [Theme](docs/Theme.md)
 
 [Search Functions](docs/SearchFunct.md), [Date Functions](docs/DateFunct.md), [Common Functions](docs/Common.md)
 
