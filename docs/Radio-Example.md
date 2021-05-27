@@ -29,15 +29,15 @@ const YourComponent = (props) => {
 
    return (
       <div>
-         <Radio value="1" 
+        <Radio  selectedValue="1" 
                 name="year" 
-                match={year} 
+                value={year} 
                 onChange={(event) => setYear(event.target.value)}>Year 1</Radio>
-         <Radio value="2" 
+        <Radio  selectedValue="2" 
                 name="year" 
-                match={year} 
+                value={year} 
                 onChange={(event) => setYear(event.target.value)}>Year 2</Radio>
-      </div>
+     </div>
    )
 }
 ```
