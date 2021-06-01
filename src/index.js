@@ -4,7 +4,14 @@ import CheckBox from './CheckBox.js'
 
 import ChoiceText from './ChoiceText.js'
 
+import  { sanitize, formatMoney }  from './Common.js'
+
 import ConfirmModal from './ConfirmModal.js'
+
+import ContextMenu from './ContextMenu.js'
+
+import  { convertDate, dateTime, addDigit, currentDateTime, currentDate, 
+currentDBDateTime, currentDBDate, dbDate, monthName }  from './DateFunct.js'
 
 import DatePicker from './DatePicker.js'
 
@@ -27,6 +34,8 @@ import Modal from './Modal.js'
 
 import Radio from './Radio.js'
 
+import  { search, binSearch }  from './SearchFunct.js'
+
 import SearchSortTable from './SearchSortTable.js'
 
 import  { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton }  from './Theme.js'
@@ -35,14 +44,16 @@ import UnstyledDatePicker from './UnstyledDatePicker.js'
 
 import makeChangeHandler from './makeChangeHandler.js'
 
-export { AlertModal, CheckBox, ChoiceText, ConfirmModal, DatePicker, 
-DatePickerStyle, DoubleListBox, ErrorModal, generateInvalid, setInvalidScreen, 
-setInvalidTable, setInvalidDual, checkValidityScreen, checkValidityTable, resetDisplayScreen, 
-resetDisplayTable, wasClickedScreen, wasClickedTable, isConstant, validCheckDual, 
-validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable, 
-copyStyle, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable, 
-processStyleTable, validStyling, invalidStyling, isInvalid, getInvalidMessage, 
-Choice, List, Modal, Radio, SearchSortTable, 
-buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton, UnstyledDatePicker, 
-makeChangeHandler }
+export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, 
+ConfirmModal, ContextMenu, convertDate, dateTime, addDigit, 
+currentDateTime, currentDate, currentDBDateTime, currentDBDate, dbDate, 
+monthName, DatePicker, DatePickerStyle, DoubleListBox, ErrorModal, 
+generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
+checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
+isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, 
+clearInvalidScreen, clearInvalidTable, copyStyle, processInvalidStyleScreen, processStyleScreen, 
+clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, validStyling, invalidStyling, 
+isInvalid, getInvalidMessage, Choice, List, Modal, 
+Radio, search, binSearch, SearchSortTable, buttonStyle, 
+defaultThemeSettings, generateButton, generateDefaultButton, UnstyledDatePicker, makeChangeHandler }
 
