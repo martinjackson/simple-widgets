@@ -42,12 +42,14 @@ The following is a code example:
         function eachRowInTable(row, i) {
             let key = 'row_' + i + start;
 
-            <tr key={key}>
-                <td>{row.ORDER_NUM}</td>
-                <td>{row.ITEM}</td>
-                <td>{row.ON_HAND}</td>
-                <td>{row.COST}</td>
-            </tr>
+            return (
+                <tr key={key}>
+                    <td>{row.ORDER_NUM}</td>
+                    <td>{row.ITEM}</td>
+                    <td>{row.ON_HAND}</td>
+                    <td>{row.COST}</td>
+                </tr>
+            )
         }
 
         <SearchSortTable data={data}
