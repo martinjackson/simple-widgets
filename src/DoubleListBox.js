@@ -6,24 +6,18 @@ import { List } from './List.js';
 
 const reset = (props,state) => {
 
-    if (props.values) {
-        console.log("DoubleListBox props 'values' not used, please use 'value'.");
-    }
-
     if (!props.value) {
         console.log("DoubleListBox props 'value' field is missing.");
-        props.value = []
     }
 
     if (!props.choices) {
         console.log("DoubleListBox props 'choices' field is missing.");
-        props.choices = []
     }
 
     return {
-        choices: [...props.choices],
-        leftValues: [...props.choices],
-        rightValues: [...props.value],
+        choices: [...props.choices || []],
+        leftValues: [...props.choices || []],
+        rightValues: [...props.value || []],
         leftSelections: [],
         rightSelections: [],
     }
@@ -57,7 +51,6 @@ export default class DoubleListBox extends React.Component {
     }
 
     render() {
-
         const topSt = { display: 'flex' }
         const colSt = { flexDirection: 'column' }
         const listSt = { width: 300 }
@@ -70,22 +63,25 @@ export default class DoubleListBox extends React.Component {
 
         return (
             <div>
-                <div style={topSt}>
+                <div  className="titleClass" style={this.props.titleStyle}>
                     <label>{this.props.title}</label>
                 </div>
                 <div style={topSt}>
-                    <label>{this.props.leftTitle}</label>
-                    <label style={listSt}>{this.props.rightTitle}</label>
-                </div>
-                <div style={topSt}>
-                    <List list={this.state.leftValues} ref={this.leftRef} onChange={this.leftHandleChange} keyname="left" style={listSt} />
+                    <div>
+                        <label className="leftClass" style={this.props.leftStyle}>{this.props.leftTitle}</label>
+                        <List list={this.state.leftValues} ref={this.leftRef} onChange={this.leftHandleChange} keyname="left" style={listSt} />
+                    </div>
                     <div style={colSt}>
+                        <br />
                         <button name="moveRightSelect"   style={buttonSt} onClick={this.moveRightSelectButton}>&gt;</button><br />
                         <button name="moveRightAll"      style={buttonSt} onClick={this.moveRightAllButton}>&gt;&gt;</button><br />
                         <button name="moveLeftSelect"    style={buttonSt} onClick={this.moveLeftSelectButton}>&lt;</button><br />
                         <button name="moveLeftAll"       style={buttonSt} onClick={this.moveLeftAllButton}>&lt;&lt;</button><br />
                     </div>
-                    <List list={this.state.rightValues} ref={this.rightRef}  onChange={this.rightHandleChange} keyname="right" style={listSt} />
+                    <div>
+                        <label className="rightClass" style={this.props.rightStyle}>{this.props.rightTitle}</label>
+                        <List list={this.state.rightValues} ref={this.rightRef}  onChange={this.rightHandleChange} keyname="right" style={listSt} />
+                    </div>
                 </div>
             </div>
         )
