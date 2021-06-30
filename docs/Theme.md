@@ -66,11 +66,11 @@ const screenStyle = {
 const buttonStyle = {
     margin: "10px",
     borderRadius: "10px",
-    color: Theme.buttonColor(),
+    color: defaultSettings.buttonTextColor,
     backgroundColor: Theme.buttonTextColor,
     width: "100px",
     height: "30px",
-    font: Theme.buttonFont(),
+    font: defaultSettings.buttonFont,
     fontWeight: "bold",
 }
 
