@@ -18,17 +18,25 @@ const _Choice = (propsIn, ref) => {
         opt.unshift(props.value)
     }
 
+    const genOptionJSX = (value, pref, el, key) => {
+        if (el === value || Array.isArray(value) && value.includes(el) ) {
+          return (<option key={pref + key} value={el} selected>{el}</option>)
+        }
+
+      return (<option key={pref + key} value={el}>{el}</option>)
+    }
+
     if (props.multiple) {
       return <Fragment>
                 <select ref={ref} multiple size={siz} {...props} >
-                  {opt.map( (el,k) => <option key={pref + k} value={el}>{el}</option>)}
+                  {opt.map( (el,k) => genOptionJSX(value, pref, el, k))}
                 </select>
             </Fragment>;
     }
     else {
       return <Fragment>
-                <select {...props} >
-                  {opt.map( (el,k) => <option key={pref + k} value={el}>{el}</option>)}
+                <select ref={ref} {...props} >
+                  {opt.map( (el,k) => genOptionJSX(value, pref, el, k))}
                 </select>
             </Fragment>;
     }
