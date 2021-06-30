@@ -67,3 +67,9 @@ export default YourModal;
     text-align: center;
   }
 ```
+
+## **Index.html**
+In the index.html add the following line in the body:
+```html
+    <div id="modal"></div>
+```
