@@ -25,7 +25,7 @@ const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescripto
  *
  ****************************************************************************/
 const SearchSortTable = (propsPassed) => {
-const Theme = {...defaultThemeSettings};
+    const Theme = {...defaultThemeSettings};
 
   // let iter = Object.keys(row)       // also works when row === ["hello", "there"]
 
@@ -106,6 +106,7 @@ const Theme = {...defaultThemeSettings};
     useEffect (() => {
       setCopyData([...props.data]);
       setLength(props.data.length);
+      setDisable(0);
     }, [props.data]);
 
 
