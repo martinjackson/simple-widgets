@@ -290,7 +290,7 @@ const SearchSortTable = (propsPassed) => {
     let footStyle = {
         margin: "10px",
         textAlign: "right",
-        position: "sticky",
+//        position: "sticky",
         bottom: 0,
         zIndex: 2,
         backgroundColor: Theme.backgroundColor,
