@@ -26,3 +26,4 @@ example/dist/*
 lib/index.map
 lib/*.css
 src/obs
+coverage
