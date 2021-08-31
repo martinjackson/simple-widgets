@@ -20,7 +20,8 @@ const _Choice = (propsIn, ref) => {
 
     const genOptionJSX = (value, pref, el, key) => {
         if (el === value || Array.isArray(value) && value.includes(el) ) {
-          return (<option key={pref + key} value={el} selected>{el}</option>)
+          // return (<option key={pref + key} value={el} selected>{el}</option>)
+             return (<option key={pref + key} value={el} default="true">{el}</option>)
         }
 
       return (<option key={pref + key} value={el}>{el}</option>)

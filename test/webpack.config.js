@@ -17,71 +17,55 @@ module.exports = {
       resolve('../src'),
       resolve('../node_modules') ]
     },
-  devtool: 'source-map',   
-  stats: 'normal',    // 'minimal',    // 'errors-only',
+
+  devtool: 'source-map',
+
   devServer: {
-
-     // dont include boolean equivalent of these commandline switches, it will not work here
-     // these are in the package.json where the following is executed
-     //  webpack-dev-server --mode development --devtool eval-source --progress --colors
-
-     // CLI only    --colors  --progress
-     // Docs lie --hot --inline are CLI Only
-
-     // --history-api-fallback
      historyApiFallback: true,
-
-     // host: '0.0.0.0',     // allow more than localhost (0.0.0.0 confuses win10)
+     static: path.resolve(__dirname, './'),  // All other content is served from files here
      port: 8080,
-     contentBase: './',
-     open: true,
-     clientLogLevel: 'none',
-     stats: 'errors-only',
-
-     // allow NodeJS to run side-by-side with webpack-dev-server
+     // host: '0.0.0.0',             // allow more than localhost (0.0.0.0 confuses win10)
      proxy: {  '/api/*': 'http://localhost:8081/' }   // <- backend
   },
-  plugins: [
-    new ProgressBarPlugin(),
-  ],
+
+  stats: 'normal',    // 'minimal',    // 'errors-only',
+
   module: {
     rules: [
-          {
-            test: /^(?!.*\.{test,min}\.js$).*\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            query: {
-                      "plugins": [
-                        "@babel/plugin-proposal-object-rest-spread",
-                        ["@babel/plugin-proposal-class-properties", { "loose": true }]
-                      ],
-                      "presets": ["@babel/env", "@babel/react", "@babel/preset-flow"]                      
-                   },
-          },
+      {
+        test: /\.(scss|css)$/,
+        use: [ "style-loader", "css-loader", "sass-loader", ],
+      },
 
-          {
-            test: /\.tsx?$/,
-            loader: "awesome-typescript-loader",
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/preset-env", "@babel/preset-react"],
+          plugins: [
+              "@babel/plugin-proposal-object-rest-spread",
+              "@babel/plugin-proposal-optional-chaining",
+              ["@babel/plugin-proposal-class-properties", {"loose": true} ],
+              ["@babel/plugin-proposal-private-methods", {"loose": true} ],
+              ["@babel/plugin-proposal-private-property-in-object", {"loose": true} ],
+            ],
           },
-          
-          {
-              test: /\.css$/,
-              use: [ 'style-loader', 'css-loader' ]
-          },
+        },
+      },
 
-          // "file" loader for svg
-          {
-             test: /\.svg|\.png|\.gif|\.jpg$/,
-             loader: 'file-loader',
-             query: {
-               name: 'static/media/[name].[hash:8].[ext]'
-             }
-          },
+      // Images
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: "asset/resource",
+      },
 
-          {
-            test: /\.html$/,
-            loader: 'raw-loader'
-          }
-    ]
+      // Fonts and SVGs
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: "asset/inline",
+      },
+    ],
   }
 }
