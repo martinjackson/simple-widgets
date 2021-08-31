@@ -25,16 +25,14 @@ module.exports = {
     },
     modules: [path.join(__dirname, "src"), "node_modules"],
   },
+
   stats: "normal",
+
   module: {
     rules: [
       {
         test: /\.(scss|css)$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader",
-        ],
+        use: [ "style-loader", "css-loader", "sass-loader", ],
       },
 
       {

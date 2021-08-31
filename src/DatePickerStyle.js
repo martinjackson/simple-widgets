@@ -6,14 +6,14 @@ export function DatePickerStyle() {
       if (alreadyDefined == null) {
          if (!isTestingWithJest())
             console.log('defining CSS .DayPicker rules');
-       
+
         addClassRules(rulesForDayPicker);
       }
     }
 }
 
 function isTestingWithJest() {
-  return process.env.JEST_WORKER_ID !== undefined;
+  return typeof jest !== 'undefined'
 }
 
 function addClassRules(content) {
@@ -25,7 +25,7 @@ function addClassRules(content) {
   }
 }
 
-// taken from: react-day-picker to avoid 
+// taken from: react-day-picker to avoid
 //     import 'react-day-picker/lib/style.css';
 
 const rulesForDayPicker = `
