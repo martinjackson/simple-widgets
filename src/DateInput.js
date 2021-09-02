@@ -3,9 +3,9 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 // import formatDateToStr from 'dateformat';
-import {date2str} from "../date2str"
-import {localStrToDate} from "../localStrToDate";
-import {isSafari, isIE} from '../browserDetect'
+import {date2str} from "./date2str"
+import {localStrToDate} from "./localStrToDate";
+import {isSafari, isIE} from './browserDetect'
 
 const DateInput = (props) => {
 

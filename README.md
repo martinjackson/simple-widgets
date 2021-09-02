@@ -2,6 +2,13 @@
 
 A Collection of components to make your React code simpler.
 
+Breaking Change:
+- 2021-09-01   DatePicker, DatePickerStyle, UnstyledDatePicker are now obsolete  please used DateInput instead (same React props)
+- last version (1.11.3) of simple-widgets to have DatePicker, DatePickerStyle, UnstyledDatePicker `npm install --save simple-widgets@1.11.3`
+
+Planned removal:
+- dropping makeChangeHandler from library (It assumes React Component style 'this', not React components using React Hooks)
+
 ### Installation
 
 Using [npm](https://www.npmjs.com/):
@@ -34,7 +41,7 @@ __**Component Documents**__
 
 [CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md)
 
-[AlertModal](docs/AlertModal.md), [ErrorModal](docs/ErrorModal.md), [ConfirmModal](docs/ConfirmModal.md), [Modal](docs/Modal.md),  
+[AlertModal](docs/AlertModal.md), [ErrorModal](docs/ErrorModal.md), [ConfirmModal](docs/ConfirmModal.md), [Modal](docs/Modal.md),
 
 [Invalid](docs/Invalid.md)
 
@@ -49,7 +56,7 @@ __**Getting Started**__
 ### Build and Publish
 
 1. npm run pack
-2. npm run dry  
+2. npm run dry
 3. npm run pub
 
 ## Source Code Build Dependencies

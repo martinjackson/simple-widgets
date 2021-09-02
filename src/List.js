@@ -1,50 +1,57 @@
 import React, { Fragment } from 'react';
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
-
+const min = (arr) => arr.reduce((acc))
 
 const _Choice = (propsIn, ref) => {
 
-    const {list, choices, size, value, ...props} = propsIn
-    // Value should not be a prop, take it out and ignore it.
-    const siz = size || 10;
-    const opt = list || choices || [];
-    const keyPart = (hasProperty(props,'keyName')) ? props.keyName + '_' : '';
-    const pref = (hasProperty(props,'name')) ? props.name + '_' + keyPart : '';
+    const {list, choices, size, value, onChange, ...props} = propsIn
+    const opt = list || choices || []
+    const keyPart = (hasProperty(props,'keyName')) ? props.keyName + '_' : ''
+    const pref = (hasProperty(props,'name')) ? props.name + '_' + keyPart : ''
 
-    if ( typeof(props.value) == 'string' && !opt.includes(props.value) )
+    if ( typeof(value) == 'string' && !opt.includes(value) )
     {
-        console.log(`Adding missing default value: '${props.value}' to ${opt}`);
-        opt.unshift(props.value)
+        console.log(`Adding missing default value: '${value}' to ${JSON.stringify(opt)}`);
+        opt.unshift(value)
     }
 
-    const genOptionJSX = (value, pref, el, key) => {
-        if (el === value || Array.isArray(value) && value.includes(el) ) {
-          // return (<option key={pref + key} value={el} selected>{el}</option>)
-             return (<option key={pref + key} value={el} default="true">{el}</option>)
-        }
 
-      return (<option key={pref + key} value={el}>{el}</option>)
+    const listHandleChange = (e) => {
+
+      if (typeof e.preventDefault === "function") {
+        e.preventDefault();
+      }
+
+      // if multiple is true the returning value should be an array of selected values,
+      //     not just the value on the last clicked/unclicked element
+      // if multiple is false, e.target.value will be a string of the choice selected
+      // See React SyntheticEvent   https://reactjs.org/docs/events.html
+
+      const e2 = {
+        preventDefault: e.preventDefault,
+        target: { ...e.target}
+      }
+
+      const arr = Array.from(e.target.selectedOptions, option => option.value)
+      e2.target.name = e.target.name
+      e2.target.value = (props?.multiple) ? arr : e.target.value
+
+      // console.log(`listHandleChange calling onChange(e2) ${e2.target.name} ${JSON.stringify(e2.target.value)} `);
+
+      onChange(e2)
     }
 
-    if (props.multiple) {
-      return <Fragment>
-                <select ref={ref} multiple size={siz} {...props} >
-                  {opt.map( (el,k) => genOptionJSX(value, pref, el, k))}
-                </select>
-            </Fragment>;
-    }
-    else {
-      return <Fragment>
-                <select ref={ref} {...props} >
-                  {opt.map( (el,k) => genOptionJSX(value, pref, el, k))}
-                </select>
-            </Fragment>;
-    }
+    return <Fragment>
+              <select ref={ref} multiple={props.multiple} size={size} value={value} onChange={listHandleChange} {...props} >
+                  {opt.map( (el,key) => <option key={pref + key} value={el}>{el}</option>)}
+              </select>
+           </Fragment>;
+
 }
 
 const _List = (props, ref) => (
-  <Choice ref={ref} multiple={true} {...props} />
+  <Choice className="ChoiceClass" ref={ref} multiple={true} {...props} />
   )
 
 export const Choice = React.forwardRef(_Choice);

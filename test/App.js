@@ -1,21 +1,21 @@
 
 import React, { useState } from 'react';
 
-// if a stand alone app
-// import {CheckBox, Choice, Radio, DateInput, DoubleListBox} from 'simple-widgets';
-
-// testing harness
-import { CheckBox, Choice, Radio, DateInput, DoubleListBox } from '../src/index'
+import { CheckBox, Choice, List, Radio, DateInput, DoubleListBox } from '../src/index'
+     // from 'simple-widgets'  if a stand alone app
 
 const fullList = ['apple', 'bannana', 'blackberry', 'blueberry', 'peach', 'strawberry', ]
 const preSelected = fullList.filter( item => item.startsWith('b') )
-const modes = ["java", "javascript", "jsx", "markdown", "bash"];
+const lang = ["java", "javascript", "jsx", "markdown", "bash"]
+const shoppingChoices = ["bannana", 'bread', 'milk']
+
 const initialState = {
   name: "",
-  ex2_mode: "",
+  lang: "",
   preview: "",
   funny: "",
   year: "",
+  shop: ["bread","milk"],
   date_of_install: "1963-04-04",
   fruitChoice: preSelected,
 };
@@ -23,34 +23,33 @@ const initialState = {
 const App = () => {
 
   const [formData, setFormData] = useState(initialState);
-  const handleChange = (e) => {
-    if (typeof e === "string") {
-      console.log('encountered e typeof string');
-      return; // passed in by Radio, can be ignored, next event has target.name
-    }
 
+  const handleChange = (e) => {
     if (typeof e.preventDefault === "function") {
       e.preventDefault();
     }
 
-    if ("target" in e && "name" in e.target && "value" in e.target) {
-      var stateChange = {};
-      stateChange[e.target.name] = e.target.value;
-
-      // console.log(typeof e, e.target, ':', e.target.value, '->', e.target.name);
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    } else {
-      // console.log('something unusual here, expecting e.target.name e.target.value e:', typeof e, e);
-    }
+    setFormData({ ...formData, [e.target.name]: e.target.value });  // value can be an array
   }
 
-    return (
-      <div id="AppDiv">
-        <h1>A title</h1>
+  const dlbSt = {
+    display: "inline-block",
+    verticalAlign: 'middle'
+  }
 
-        <label>Name:</label> <input name="name" value={formData.name} onChange={handleChange} /> <br/>
+  const appSt = {}
+
+  const shopSt = {
+    verticalAlign: 'middle'
+  }
+
+  return (
+      <div id="AppDiv" style={appSt}>
+        <h1>A Title</h1>
+
+        <label>Name:</label> <input name="name" value={formData.name} onChange={handleChange} />
         <label>Language of Choice:</label>
-        <Choice id="ch1" choices={modes} name="ex2_mode" value={formData.ex2_mode} onChange={handleChange} />
+        <Choice id="ch1" choices={lang} name="lang" value={formData.lang} onChange={handleChange} />
 
         <CheckBox id="cb1" selectedValue="Preview" text="Preview" name="preview" value={formData.preview} onChange={handleChange} />
         <CheckBox id="cb2" selectedValue="Help"    text="Help"    name="preview" value={formData.preview} onChange={handleChange} />
@@ -62,31 +61,21 @@ const App = () => {
         <Radio id="rd3" selectedValue="3" name="year" text="Year 3" value={formData.year} onChange={handleChange} disabled />
 
         <br />
-        <label>Date Of Installation: </label><DateInput name="date_of_install" value={formData.date_of_install} onChange={handleChange} format='yyyy-MM-dd' />
-        <br />
+        <label>Shopping List: </label>
+        <List style={shopSt} id="lt1" choices={shoppingChoices} name="shop" value={formData.shop} onChange={handleChange} />
+
+        <label>Date Of Installation: </label>
+        <DateInput name="date_of_install" value={formData.date_of_install} onChange={handleChange} format='yyyy-MM-dd' />
+
+        <label>Fruit Selection: </label>
+        <DoubleListBox choices={fullList} name="fruitChoice" value={formData.fruitChoice} onChange={handleChange} style={dlbSt} />
         <hr />
 
         <br />
+        <pre>{JSON.stringify({formData}, null, 2)}</pre>
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        name: <span>{formData.name}</span> <br />
-        ex2_mode: <span id="answer1">{formData.ex2_mode}</span> <br />
-        preview: <span id="answer2">{formData.preview}</span> <br />
-        funny: <span id="answer3">{formData.funny}</span> <br />
-        year: <span id="answer4">{formData.year}</span> <br />
-        date_of_install: <span id="answer5">{formData.date_of_install}</span> <br />
         <hr />
 
-        <DoubleListBox choices={fullList} name="fruitChoice" value={formData.fruitChoice} onChange={handleChange} />
 
       </div>
     )
