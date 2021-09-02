@@ -133,6 +133,7 @@
     "babel-node": "^0.0.1-security",
     "date-fns": "^2.23.0",
     "react-autobind": "^1.0.6",
+    "react-calendar": "^3.4.0",
     "react-day-picker": "^7.4.10"
   }
 }

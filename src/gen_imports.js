@@ -23,13 +23,3 @@ const ans = files.map( fname => {
 
 ans.flat().forEach(f => console.log(f))
 
-/*
-import { DatePickerStyle() } from 'DatePickerStyle.js'
-export { DatePickerStyle() }
-import { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage, invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling, wasClickedScreen, wasClickedTable } from 'Invalid.js'
-export { clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, copyStyle, getInvalidMessage, invalidStyling, isConstant, isInvalid, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, validStyling, wasClickedScreen, wasClickedTable }
-import { Choice, List } from 'List.js'
-export { Choice, List }
-import { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton } from 'Theme.js'
-export { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton }
-*/

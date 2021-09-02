@@ -13,9 +13,6 @@ import ContextMenu from './ContextMenu.js'
 import  { convertDate, dateTime, addDigit, currentDateTime, currentDate,
 currentDBDateTime, currentDBDate, dbDate, monthName }  from './DateFunct.js'
 
-// import DatePicker from './DatePicker.js'
-// import  { DatePickerStyle }  from './DatePickerStyle.js'
-
 import DateInput from "./DateInput"
 
 import DoubleListBox from './DoubleListBox.js'
@@ -41,7 +38,6 @@ import SearchSortTable from './SearchSortTable.js'
 
 import  { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton }  from './Theme.js'
 
-import UnstyledDatePicker from './UnstyledDatePicker.js'
 
 import makeChangeHandler from './makeChangeHandler.js'
 
@@ -49,7 +45,6 @@ import makeChangeHandler from './makeChangeHandler.js'
 export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney,
 ConfirmModal, ContextMenu, convertDate, dateTime, addDigit,
 currentDateTime, currentDate, currentDBDateTime, currentDBDate, dbDate, monthName,
-// DatePicker, DatePickerStyle,
 DateInput,
 DoubleListBox, ErrorModal,
 generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen,
@@ -59,5 +54,5 @@ clearInvalidScreen, clearInvalidTable, copyStyle, processInvalidStyleScreen, pro
 clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, validStyling, invalidStyling,
 isInvalid, getInvalidMessage, Choice, List, Modal,
 Radio, search, binSearch, SearchSortTable, buttonStyle,
-defaultThemeSettings, generateButton, generateDefaultButton, UnstyledDatePicker, makeChangeHandler }
+defaultThemeSettings, generateButton, generateDefaultButton, makeChangeHandler }
 
