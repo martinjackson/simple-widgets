@@ -8,8 +8,19 @@ import { isInvalid, setInvalidScreen, copyStyle,
          validStyling, processStyleScreen, wasClickedScreen} from './Invalid.js'
 import AlertModal from './AlertModal.js';
 import { defaultThemeSettings, generateButton } from './Theme.js';
+
+/*   
+for stand alone testing
+import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
+    validStyling, processStyleScreen, wasClickedScreen,
+    AlertModal,
+    defaultThemeSettings, generateButton
+} from 'simple-widgets'
+*/
+
 import './table.css';
 import './mousehover.css';
+
 
 const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
@@ -54,6 +65,9 @@ const SearchSortTable = (propsPassed) => {
     const SRCHITEM = 1;
     const SRCHHDR = 2;
 
+    const numCols = props?.data[0]?.length || 10
+    const initialFilters = Array(numCols).fill('');  // React doesn't like <input value={null}
+
     // Set the state variables
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);
@@ -68,7 +82,7 @@ const SearchSortTable = (propsPassed) => {
     const [rowValues, setRowValues] = useState([]);                     // Indicates how many rows in the table should be displayed
     const [maxItems, setMaxItems] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);   // Maximum number of rows to display in the table
     const [maximum, setMaximum] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);     // Maximum number of rows selected by the user to display in the table
-    const [filter, setFilter] = useState([]);                           // The values for each column to be filtered
+    const [filter, setFilter] = useState(initialFilters);               // The values for each column to be filtered
     const [filterOn, setFilterOn] = useState('');                       // Indicates whether the user has checked the Filter On check box or not
     const [copyData, setCopyData] = useState([...props.data]);          // Copies the main data to another storage area
     const [filterDisabled, setFilterDisabled] = useState(true);         // Indicates whether the filtering is enabled or disabled (Filter button)
@@ -145,7 +159,7 @@ const SearchSortTable = (propsPassed) => {
      ****************************************************************************/
     function populateSearch() {
         let order = [];         // The next sort order
-        let localFilter = [];   // The values in the filter input boxes
+        let localFilter = [...filter];   // The values in the filter input boxes
         let search = [''];      // The values for the drop down
 
         // Build the items for the drop down, the sort order, and the filter
@@ -155,10 +169,11 @@ const SearchSortTable = (propsPassed) => {
             }
             order.push ('N');
             if (hasProperty(props,'nofilter') === false) {
-                localFilter.push('');
+                localFilter[i] = '';
             }
         }
 
+        // console.log(`populateSearch() localFilter[${localFilter.length}]`, JSON.stringify(localFilter));
         setSearchHeaderValues(search);
         setSortOrder(order);
         setFilter(localFilter);
@@ -548,6 +563,7 @@ const SearchSortTable = (propsPassed) => {
         // let filterKey = 'filter_' + i;
         let filterName = row.header + '_filter'
 
+        // console.log(`buildHeaders() filter[${filter.length}]:`, JSON.stringify(filter));
 
         let headerStyle = {
             position: "sticky",
@@ -712,6 +728,9 @@ const SearchSortTable = (propsPassed) => {
 
 
         local[i] = value;
+
+        // console.log(`processFilter() local[${local.length}]`, JSON.stringify(local));
+
         setFilter(local);
     }
 
