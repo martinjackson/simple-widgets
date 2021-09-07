@@ -2,6 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 
+/*
+import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
+    validStyling, processStyleScreen, wasClickedScreen,
+    AlertModal,
+    defaultThemeSettings, generateButton
+} from 'simple-widgets'
+*/
+
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
 import { isInvalid, setInvalidScreen, copyStyle,
@@ -9,14 +17,6 @@ import { isInvalid, setInvalidScreen, copyStyle,
 import AlertModal from './AlertModal.js';
 import { defaultThemeSettings, generateButton } from './Theme.js';
 
-/*   
-for stand alone testing
-import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
-    validStyling, processStyleScreen, wasClickedScreen,
-    AlertModal,
-    defaultThemeSettings, generateButton
-} from 'simple-widgets'
-*/
 
 import './table.css';
 import './mousehover.css';
@@ -102,22 +102,8 @@ const SearchSortTable = (propsPassed) => {
      *
      ******************************************************************************/
 
-/*
-   Style 1
-*/
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      useEffect (populateSearch, []);    // only do this when component mounts
-
-/*
-   Style 2
-
     useEffect (() => {
-      populateSearch();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);    // only do this when component mounts
-*/
-
-    useEffect (() => {
+      populateSearch()
       setCopyData([...props.data]);
       setLength(props.data.length);
       setDisable(0);
@@ -173,9 +159,12 @@ const SearchSortTable = (propsPassed) => {
             }
         }
 
-        // console.log(`populateSearch() localFilter[${localFilter.length}]`, JSON.stringify(localFilter));
+        console.log(`populateSearch() search[${search.length}]`, JSON.stringify(search));
         setSearchHeaderValues(search);
+
         setSortOrder(order);
+
+        console.log(`populateSearch() localFilter[${localFilter.length}]`, JSON.stringify(localFilter));
         setFilter(localFilter);
 
         // Build the values for the row drop down on the bottom right of the screen.
@@ -1040,7 +1029,8 @@ const SearchSortTable = (propsPassed) => {
         let found = false;  // Indicates that the item was found
 
         for (let i = begin; i < props.data.length && found === false; i++) {
-            if (props.data[i][name].toString().indexOf(search) !== -1) {    // Item was found
+            const str = (props.data[i][name]) ? props.data[i][name].toString() : ''
+            if (str.indexOf(search) !== -1) {    // Item was found
                 found = true;
                 setStartEnd(i);  // Set the start and end positions of the data on the screen.
             }
