@@ -10,6 +10,7 @@ import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
 } from 'simple-widgets'
 */
 
+
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
 import { isInvalid, setInvalidScreen, copyStyle,
@@ -17,9 +18,11 @@ import { isInvalid, setInvalidScreen, copyStyle,
 import AlertModal from './AlertModal.js';
 import { defaultThemeSettings, generateButton } from './Theme.js';
 
-
 import './table.css';
 import './mousehover.css';
+
+
+import funnel from './funnel-filter-svgrepo-com.svg';
 
 
 const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
@@ -27,6 +30,10 @@ const lower = [...'abcdefghijklmnopqrstuvwxyz'];
 const digit = [...'0123456789'];
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+
+function range(start, end) {
+  return Array(end - start + 1).fill().map((_, idx) => start + idx)
+}
 
 /****************************************************************************
  *
@@ -67,6 +74,9 @@ const SearchSortTable = (propsPassed) => {
 
     const numCols = props?.data[0]?.length || 10
     const initialFilters = Array(numCols).fill('');  // React doesn't like <input value={null}
+    const initialBackground = Array(63).fill({backgroundColor: Theme.backgroundColor});
+
+    let startIndexes = range(0, props.data.length-1)
 
     // Set the state variables
     const [start, setStart] = useState(0);
@@ -84,17 +94,19 @@ const SearchSortTable = (propsPassed) => {
     const [maximum, setMaximum] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);     // Maximum number of rows selected by the user to display in the table
     const [filter, setFilter] = useState(initialFilters);               // The values for each column to be filtered
     const [filterOn, setFilterOn] = useState('');                       // Indicates whether the user has checked the Filter On check box or not
-    const [copyData, setCopyData] = useState([...props.data]);          // Copies the main data to another storage area
-    const [filterDisabled, setFilterDisabled] = useState(true);         // Indicates whether the filtering is enabled or disabled (Filter button)
+    const [filterPressed, setFilterPressed] = useState(false);         // Indicates whether the filtering is enabled or disabled (Filter button)
     const [invalid, setInvalid] = useState(invalidArray);
     const [alertMessage, setAlertMessage] = useState('');
     const [showAlert, setShowAlert] = useState(false);
+    const [indexes, setIndexes] = useState([...startIndexes]);
+    const [copyIndex, setCopyIndex] = useState([]);
+    const [length, setLength] = useState(props.data.length);                            // The length of the data
+    const [background, setBackground] = useState(initialBackground);
 
-    // TODO: setLength is called but length is never used ???
+    // const [indexSet, setIndexSet] = useState([[...startIndexes]]);
+    // const [origIndexes, setOrigIndexes] = useState([...startIndexes]);
+    const origIndexes = [...startIndexes];
 
-    /* eslint-disable no-unused-vars */
-    const [length, setLength] = useState(0);                            // The length of the data
-    /* eslint-enable no-unused-vars */
 
     /******************************************************************************
      *
@@ -103,11 +115,19 @@ const SearchSortTable = (propsPassed) => {
      ******************************************************************************/
 
     useEffect (() => {
-      populateSearch()
-      setCopyData([...props.data]);
-      setLength(props.data.length);
-      setDisable(0);
-    }, [props.data]);
+        populateSearch();
+        if (props.reset === true) {
+            // setIndexSet([[...startIndexes]]);
+            setIndexes(startIndexes);
+            setLength(startIndexes.length);
+            setStartEnd(0, startIndexes.length, startIndexes);
+            setDisable(0, startIndexes.length);
+            props.resetReset(false);
+        } else {
+            setDisable(start, length);
+            sendIndexes(start, end, indexes);
+        }
+    }, [props.data, props.reset]);
 
 
     if (hasProperty(props,'data') === false) {
@@ -159,12 +179,10 @@ const SearchSortTable = (propsPassed) => {
             }
         }
 
-        console.log(`populateSearch() search[${search.length}]`, JSON.stringify(search));
         setSearchHeaderValues(search);
 
         setSortOrder(order);
 
-        console.log(`populateSearch() localFilter[${localFilter.length}]`, JSON.stringify(localFilter));
         setFilter(localFilter);
 
         // Build the values for the row drop down on the bottom right of the screen.
@@ -304,23 +322,32 @@ const SearchSortTable = (propsPassed) => {
         footStyle = props.footStyle;
     }
 
+    const imageStyle = {
+        backgroundColor: "lightgreen",
+    }
+
+    const imageStyle2 = {
+        backgroundColor: Theme.backgroundColor,
+    }
+
     const genButtonStyle         = generateButton(buttonStyle,   props.error, false, 'gray');
     const genTopButtonStyle      = generateButton(noButtonStyle, props.error, topDisabled, 'gray');
     const genPreviousButtonStyle = generateButton(noButtonStyle, props.error, previousDisabled, 'gray');
     const genNextButtonStyle     = generateButton(noButtonStyle, props.error, nextDisabled, 'gray');
     const genBottomButtonStyle   = generateButton(noButtonStyle, props.error, bottomDisabled, 'gray');
-    const genFilterButtonStyle   = generateButton(buttonStyle,   props.error, filterDisabled, 'gray');
+    const genFilterStyle         = generateButton((filterPressed === true) ? imageStyle : imageStyle2,  props.error, filterOn !== 'Y', 'gray');
 
     const topSymbol = '|\u2BC7';        // Bar and left triangle
     const previousSymbol = '\u2BC7';    // Left triangle
     const nextSymbol = '\u2BC8';        // Right triangle
     const bottomSymbol = '\u2BC8|';     // Right triangle and bar
 
-   // Populate the table with the next set of data to populate
+    // Populate the table with the next set of data to populate
+
     let showData = [];
-    if (props.data !== undefined && props.data !== null) {
+    if (props.data !== undefined && props.data !== null && indexes.length !== 0) {
         for (let i = start; i < end && i < props.data.length; i++) {
-            showData.push (props.data[i]);
+            showData.push (props.data[indexes[i]]);
         }
     }
 
@@ -353,7 +380,8 @@ const SearchSortTable = (propsPassed) => {
             }
         }
 
-       letters = <span key="letters"><br />{letterDigit.map(alphabet)}<br /><br /></span>
+        letterDigit.push('^');
+        letters = <span key="letters"><br />{letterDigit.map(alphabet)}<br /><br /></span>
     }
 
     let topButtonHTML = <span></span>;
@@ -396,10 +424,17 @@ const SearchSortTable = (propsPassed) => {
         }
     }
 
+    const buttonStyle2 = {
+        border: "none",
+        backgroundColor: "none",
+    }
+
     const filterSection = (hasProperty(props,'nofilter') === true) ? null :
         (<>
             <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />
-            <button name="filter" style={genFilterButtonStyle} onClick={() => filterButton()} disabled={props.error || filterDisabled}>Filter</button>
+            <button onClick={filterButton} style={buttonStyle2} disabled={props.error || filterOn !== 'Y'}>
+                <img src={funnel} width="30px" height="30px" style={genFilterStyle} />
+            </button>
         </>)
 
     searchStyle = processStyleScreen(invalid, SRCHHDR, searchStyle);
@@ -431,7 +466,7 @@ const SearchSortTable = (propsPassed) => {
             {topButtonHTML}
             {previousButtonHTML}
             { (hasProperty(props,'nodisplay') === true) ? null :
-                <span>{start + ' - ' + end + ' of ' + props.data.length}</span>
+                <span>{start + ' - ' + end + ' of ' + length}</span>
             }
             {nextButtonHTML}
             {bottomButtonHTML}
@@ -463,6 +498,7 @@ const SearchSortTable = (propsPassed) => {
             console.error ('You can have at most 10 different hover colors for tables.')
         }
     }
+
 
     return (    // Render the screen
         <div style={divStyle}>
@@ -534,7 +570,7 @@ const SearchSortTable = (propsPassed) => {
      *
      **********************************************************************************/
     function setupSearch(value) {
-        setStartEnd(0);
+        setStartEnd(0, length, indexes);
         setSearchItem(value);
     }
 
@@ -548,7 +584,7 @@ const SearchSortTable = (propsPassed) => {
      *********************************************************************************/
     function buildHeaders (row, i) {
         let key = 'cell_' + i;
-        let header = row.header;
+        let btnImg = '\u2BC8';
         // let filterKey = 'filter_' + i;
         let filterName = row.header + '_filter'
 
@@ -574,14 +610,17 @@ const SearchSortTable = (propsPassed) => {
             textAlign: "center",
         }
 
+
         if (props.table[i].sort === true && sortOrder[i] !== 'N') {
             // After the sort was done, it flips the sort order; therefore, if it is
             // now a D, that means it was sorted in ascending order previously.  If
             // it is now an A, that means it was sorted in descending order previously.
-            if (sortOrder[i] === 'D') {
-                header = row.header + ' \u2BC5';    // Up arrow
-            } else {
-                header = row.header + ' \u2BC6';    // Down arrow
+            if (sortOrder[i] === 'A') {
+                btnImg = '\u2BC5';    // Up arrow
+            } else if (sortOrder[i] === 'D') {
+                btnImg = '\u2BC6';    // Down arrow
+            } else if (sortOrder[i] === 'N') {
+                btnImg = '\u2BC8';    // Right arrow
             }
         }
 
@@ -599,7 +638,7 @@ const SearchSortTable = (propsPassed) => {
                         <th key={key} style={headerStyle}>
                             <div>{row.header}</div>
                             <span className="checkForError">
-                                <input type="text" style={filterStyle} name={filterName} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} />
+                                <input type="text" name={filterName} style={filterStyle} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} />
                             </span>
                         </th>
                     );
@@ -607,16 +646,20 @@ const SearchSortTable = (propsPassed) => {
             } else {    // Sorting on the column is allowed
                 if (row.search === false) { // No searching or filtering on the column, so display header only
                     return (
-                        <th key={key} onClick={() => sortClicked(row.name, 'X')} style={headerStyle}>
-                            {header}
+                        <th key={key} style={headerStyle}>
+                            {row.header}
+                            <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes)} style={buttonStyle2}>{btnImg}</button>
                         </th>
                     );
                 } else {    // Searching and filtering is allowed
                     return (    // Display header and input field for filtering
-                        <th key={key} onClick={() => sortClicked(row.name, 'X')} style={headerStyle}>
-                            <div>{header}</div>
+                        <th key={key} style={headerStyle}>
+                            <div>
+                                {row.header}
+                                <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes)} style={buttonStyle2}>{btnImg}</button>
+                            </div>
                             <span className="checkForError">
-                                <input type="text" style={filterStyle} name={filterName} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} />
+                                <input type="text" name={filterName} style={filterStyle} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} />
                             </span>
                         </th>
                     );
@@ -627,8 +670,9 @@ const SearchSortTable = (propsPassed) => {
             return ( <th key={key} style={headerStyle}>{row.header}</th> ); // Display the header only
         } else {    // Soring on the column is allowed
             return (
-                <th key={key} onClick={() => sortClicked(row.name, 'X')} style={headerStyle}>
-                    {header}
+                <th key={key} style={headerStyle}>
+                    {row.header}
+                    <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes)} style={buttonStyle2}>{btnImg}</button>
                 </th>
             );
         }
@@ -671,37 +715,13 @@ const SearchSortTable = (propsPassed) => {
         setFilterOn(value);
 
         if (value === 'Y') {    // Filter is on
-            let data = props.data;
-
-            // Build the index to make it easier to copy the filtered data back
-            for (let i = 0; i < props.data.length; i++) {
-                data[i]['filterIndex'] = i;
-            }
-
-            setCopyData([...data]);     // Store a copy of the main data
-            setFilterDisabled(false);   // Enable the filter button
+            clearSetBackground(0, false);
         } else {
-            let data = props.data;              // The filtered data
-            let len = props.data.length;        // Length of the filtered data
-            let localCopyData = [...copyData];  // Copy of the main data
-
-            // Copy the filtered data back to the main copied data using the filter index
-            for (let i = 0; i < len; i++) {
-                localCopyData[data[i].filterIndex] = data[i];
-            }
-
-            data.splice (0, len);   // Remove the filtered data
-
-            // Replace the filtered data with the main data
-            for (let i = 0; i < localCopyData.length; i++) {
-                data.push(localCopyData[i]);
-            }
-
-            setLength(props.data.length);   // Used to re-render the screen
-            setFilterDisabled(true);        // Disable the filter button
-            setStart(0);
-            setEnd((hasProperty(props,'showAll') === true || props.data.length < maxItems) ? props.data.length : maxItems);
+            setFilterPressed(false);        // Disable the filter button
         }
+
+        setIndex(origIndexes, true);
+        resetSortOrder();
     }
 
     /****************************************************************************************
@@ -767,7 +787,7 @@ const SearchSortTable = (propsPassed) => {
 
         let data = props.data;  // The data to filter
         let newData = [];       // The filtered data
-        let indexes = [];       // List of indexes that indicate which filter input boxes have data
+        let indexing = [];      // List of indexes that indicate which filter input boxes have data
         let found = [];         // Indicates whether that filter input box found data to filter
         let count = 0;          // counts the number of filtered data
         let done = false;       // Indicates that we are done filtering that data element
@@ -775,7 +795,7 @@ const SearchSortTable = (propsPassed) => {
         // Build the indexes in which the user entered data in the filter input box
         for (let i = 0; i < props.table.length; i++) {
             if (filter[i] !== '') {
-                indexes.push(i);
+                indexing.push(i);
             }
         }
 
@@ -788,17 +808,17 @@ const SearchSortTable = (propsPassed) => {
         let dateIndex = -1;
 
         // Spin through the data and see if it meets the filter criteria
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < indexes.length; i++) {
             found = [];     // Empty the found array for the next data element
             done = false;
             // Spin through the filter input boxes to see if the data element matches
-            for (let j = 0; j < indexes.length && done === false; j++) {
+            for (let j = 0; j < indexing.length && done === false; j++) {
                 if (areDates === true) {
                     foundDate = false;
                     dateIndex = -1;
                     // Find if the index is in the date table
                     for (let k = 0; k < props.dateTable.length; k++) {
-                        if (props.dateTable[k].index === indexes[j]) {
+                        if (props.dateTable[k].index === indexing[j]) {
                             foundDate = true;
                             dateIndex = k;
                         }
@@ -806,7 +826,7 @@ const SearchSortTable = (propsPassed) => {
                 }
 
                 // The data field is blank or has no value
-                if (data[i][props.table[indexes[j]].name] === null) {
+                if (data[indexes[i]][props.table[indexing[j]].name] === null) {
                     found.push(false);
                     done = true;
                 } else if (foundDate === true) {    // The field contains a date
@@ -815,32 +835,32 @@ const SearchSortTable = (propsPassed) => {
 
                     // Convert the format for the data part
                     if (props.dateTable[dateIndex].data === 'MM/DD/YYYY') {
-                        dataPart = convertDate(data[i][props.table[indexes[j]].name], '/');
+                        dataPart = convertDate(data[indexes[i]][props.table[indexing[j]].name], '/');
                     } else if (props.dateTable[dateIndex].data === 'MM-DD-YYYY') {
-                        dataPart = convertDate(data[i][props.table[indexes[j]].name], '-');
+                        dataPart = convertDate(data[indexes[i]][props.table[indexing[j]].name], '-');
                     } else if (props.dateTable[dateIndex].data === 'MM/DD/YYYY HH:MM:SS') {
-                        dataPart = convertDateTime(data[i][props.table[indexes[j]].name], '/');
+                        dataPart = convertDateTime(data[indexes[i]][props.table[indexing[j]].name], '/');
                     } else if (props.dateTable[dateIndex].data === 'MM-DD-YYYY HH:MM:SS') {
-                        dataPart = convertDateTime (data[i][props.table[indexes[j]].name], '-');
+                        dataPart = convertDateTime (data[indexes[i]][props.table[indexing[j]].name], '-');
                     } else if (props.dateTable[dateIndex].data === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                        dataPart = convertDateTimeReg (data[i][props.table[indexes[j]].name]);
+                        dataPart = convertDateTimeReg (data[indexes[i]][props.table[indexing[j]].name]);
                     } else {
-                        dataPart = data[i][props.table[indexes[j]].name];
+                        dataPart = data[indexes[i]][props.table[indexing[j]].name];
                     }
 
                     // Convert the format for the filter part
                     if (props.dateTable[dateIndex].filter === 'MM/DD/YYYY') {
-                        filterPart = convertDate(filter[indexes[j]], '/');
+                        filterPart = convertDate(filter[indexing[j]], '/');
                     } else if (props.dateTable[dateIndex].filter === 'MM-DD-YYYY') {
-                        filterPart = convertDate(filter[indexes[j]], '-');
+                        filterPart = convertDate(filter[indexing[j]], '-');
                     } else if (props.dateTable[dateIndex].filter === 'MM/DD/YYYY HH:MM:SS') {
-                        filterPart = convertDateTime(filter[indexes[j]], '/');
+                        filterPart = convertDateTime(filter[indexing[j]], '/');
                     } else if (props.dateTable[dateIndex].filter === 'MM-DD-YYYY HH:MM:SS') {
-                        filterPart = convertDateTime (filter[indexes[j]], '-');
+                        filterPart = convertDateTime (filter[indexing[j]], '-');
                     } else if (props.dateTable[dateIndex].filter === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                        filterPart = convertDateTimeReg (filter[indexes[j]]);
+                        filterPart = convertDateTimeReg (filter[indexing[j]]);
                     } else {
-                        filterPart = filter[indexes[j]];
+                        filterPart = filter[indexing[j]];
                     }
 
                     if (dataPart === filterPart) {  // Compare the dates
@@ -850,7 +870,7 @@ const SearchSortTable = (propsPassed) => {
                         done = true;
                     }
                 // The data element matches one of the filter input boxes
-                } else if (data[i][props.table[indexes[j]].name].toString().indexOf(filter[indexes[j]].toString()) !== -1) {
+                } else if (data[indexes[i]][props.table[indexing[j]].name].toString().indexOf(filter[indexing[j]].toString()) !== -1) {
                     found.push(true);   // Place a true in the found array indicating the filter input box matched
                 } else {    // The data element did not match the filter input box
                     found.push(false);
@@ -871,31 +891,72 @@ const SearchSortTable = (propsPassed) => {
 
             // Data element matches the filter criteria, so place the data in the filtered data area
             if (move === true) {
-                newData.push(data[i]);
+                newData.push(indexes[i]);
                 count++;
             }
         }
 
         if (count > 0) {    // There are filtered data elements
-            let length = props.data.length;
-            // Copy the filtered data elements to the end of main data area
-            for (let i = 0; i < newData.length; i++) {
-                data.push (newData[i]);
-            }
-            data.splice(0, length);     // Remove the data at the beginning of the data area
-            setLength (newData.length); // Used to re-render the screen
-            setStartEnd(0);             // Set the start and end values
+            setIndex(newData, true);
+            setFilterPressed(true);
         }
     }
 
+    function setIndex(indexing, doCopy) {
+        setIndexes(indexing);
+        if (doCopy === true) {
+            setCopyIndex(indexing);
+        }
+        setLength (indexing.length);
+        setStartEnd (0, indexing.length, indexes);
+    }
+
+    /*
+    function pushIndex (indexes) {
+        let localSet = [...indexSet];
+
+        localSet.push(indexes);
+        setIndexSet(localSet);
+
+        setIndexes (indexes);
+        setLength (indexes.length);
+        setStartEnd (0, indexes.length, indexes);
+    }
+
+    function popIndex() {
+        let localSet = [...indexSet];
+
+        if (localSet.length > 1) {
+            localSet.pop();
+        }
+
+        setIndexSet(localSet);
+
+        let len = localSet.length - 1;
+        setIndexes(localSet[len]);
+        setLength (localSet[len].length);
+        setStartEnd (0, localSet[len].length, localSet[len]);
+
+        return localSet[len];
+    }
+
+    function getIndex() {
+        let len = indexSet.length - 1;
+
+        setIndexes(indexSet[len]);
+        setLength (indexSet[len].length);
+        setStartEnd (0, indexSet[len].length, indexSet[len]);
+    }
+    */
+
     /**********************************************************************************************
-     * 
-     * This will convert the date from the MM/DD/YYYY or MM-DD-YYYY format to the YYYY-MM-DD 
+     *
+     * This will convert the date from the MM/DD/YYYY or MM-DD-YYYY format to the YYYY-MM-DD
      * format.
-     * 
+     *
      * @param {*} date the date to be converted to the YYYY-MM-DD format
      * @param {*} char the slash (/) or dash (-)
-     * 
+     *
      **********************************************************************************************/
     function convertDate(date, char) {
         let split = date.split(char);
@@ -904,28 +965,28 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /**********************************************************************************************
-     * 
+     *
      * This will convert the date and time from the MM/DD/YYYY HH:MM:SS or MM-DD-YYYY HH:MM:SS
      * format to the YYYY-MM-DD HH:MM:SS format.
-     * 
+     *
      * @param {*} date the date to be converted to the YYYY-MM-DD format
      * @param {*} char the slash (/) or dash (-)
-     * 
+     *
      **********************************************************************************************/
     function convertDateTime(date, char) {
         let dateTime = date.split(' ');
         let localDate = dateTime[0].split(char);
 
-        return `${split[2]}-${split[0]}-${split[1]}T${dateTime[1]}`;
+        return `${localDate[2]}-${localDate[0]}-${localDate[1]}T${dateTime[1]}`;
     }
 
     /**********************************************************************************************
-     * 
-     * This will strip of the milliseconds from the YYYY-MM-DDTHH:MM:SS.SSS format (strips the 
+     *
+     * This will strip of the milliseconds from the YYYY-MM-DDTHH:MM:SS.SSS format (strips the
      * .SSS).
-     * 
+     *
      * @param {*} date the date to strip the milliseconds from
-     * 
+     *
      ***********************************************************************************************/
     function convertDateTimeReg(date) {
         let split = date.split('.');
@@ -1007,10 +1068,10 @@ const SearchSortTable = (propsPassed) => {
         let begin = (hasProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
         let found = false;  // Indicates that the item was found
 
-        for (let i = begin; i < props.data.length && found === false; i++) {
-            if (props.data[i][name].toString().startsWith(search)) {    // Item was found
+        for (let i = begin; i < length && found === false; i++) {
+            if (props.data[indexes[i]][name].toString().startsWith(search)) {    // Item was found
                 found = true;
-                setStartEnd(i); // Set the start and end positions of the data on the screen.
+                setStartEnd(i, length, indexes); // Set the start and end positions of the data on the screen.
             }
         }
     }
@@ -1029,10 +1090,11 @@ const SearchSortTable = (propsPassed) => {
         let found = false;  // Indicates that the item was found
 
         for (let i = begin; i < props.data.length && found === false; i++) {
-            const str = (props.data[i][name]) ? props.data[i][name].toString() : ''
+            const str = (props.data[indexes[i]][name]) ? props.data[indexes[i]][name].toString() : ''
+
             if (str.indexOf(search) !== -1) {    // Item was found
                 found = true;
-                setStartEnd(i);  // Set the start and end positions of the data on the screen.
+                setStartEnd(i, length, indexes);  // Set the start and end positions of the data on the screen.
             }
         }
     }
@@ -1046,7 +1108,7 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} name the name of the column header to sort
      *
      *************************************************************************************/
-    function sortClicked(name, orderType) {
+    function sortClicked(name, orderType, indexes) {
         let index = props.table.map(function(e) { return e.name; }).indexOf(name);   // Column match
         let order = [...sortOrder];
         let ordering = 'A';
@@ -1057,40 +1119,48 @@ const SearchSortTable = (propsPassed) => {
             if (order[index] === 'N') { // If sort is not specified (first time), change it to ascending
                 ordering = 'A';
                 order[index] = 'A';
-            } else {
-                ordering = order[index];
+            } else if (order[index] === 'A') {
+                ordering = 'D';
+                order[index] = 'D';
+            } else if (order[index] === 'D') {
+                ordering = 'N'
+                order[index] = 'N'
             }
+
+            setSortOrder(order);
         }
 
-        props.data.sort(function (item1, item2) {
+        if (ordering === 'N') {
+            setIndex(copyIndex, false);
+
+            return;
+        }
+
+        let sortAry = [];
+        indexes.map ((row) => sortAry.push({index: row, data: props.data[row][name]}));
+
+        sortAry.sort(function (item1, item2) {
             // Convert to upper case if ignoring case
-            if (typeof item1[name] === 'string' &&
+            if (typeof item1.data === 'string' &&
                 hasProperty(props,'ignorecase') === true) {
-                item1[name] = (item1[name] !== null) ? item1[name].toUpperCase() : null;
-                item2[name] = (item2[name] !== null) ? item2[name].toUpperCase() : null;
+                item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
+                item2.data = (item2.data !== null) ? item2.data.toUpperCase() : null;
             }
 
             // Make the comparison
-            if (item1[name] < item2[name]) {
+            if (item1.data < item2.data) {
                 return (ordering === 'A') ? -1 : 1;
-            } else if (item1[name] > item2[name]) {
+            } else if (item1.data > item2.data) {
                 return (ordering === 'A') ? 1 : -1;
             } else {
                 return 0;   // Equal
             }
         });
 
-        if (orderType !== 'A') {
-            // Reverse the sort order
-            if (order[index] === 'A') {
-                order[index] = 'D';
-            } else {
-                order[index] = 'A';
-            }
-        }
+        let newIndexes = [];
+        sortAry.map((row) => newIndexes.push(row.index));
 
-        setSortOrder(order);
-        setStartEnd(0);
+        setIndex(newIndexes, false);
     }
 
     /***********************************************************************************
@@ -1105,9 +1175,26 @@ const SearchSortTable = (propsPassed) => {
         let key = 'anchor_' + i;
 
         return (
-            <span key={key}><a onClick={() => letterLink(`${row}`)}>{row}</a>&nbsp;&nbsp;</span>
+            <span key={key}><a onClick={() => letterLink(`${row}`, i)} style={background[i]}>{row}</a>&nbsp;&nbsp;</span>
         )
     }
+
+    function resetSortOrder() {
+        let order = new Array(props.table.length).fill('N');
+        setSortOrder(order);
+    }
+
+    function clearSetBackground(index, set) {
+        let backgrd = [...background];
+        for (let i = 0; i < backgrd.length; i++) {
+            backgrd[i] = { backgroundColor: Theme.backgroundColor};
+        }
+        if (set === true) {
+            backgrd[index] = { backgroundColor: "lightblue" };
+        }
+
+        setBackground(backgrd);
+}
 
     /***********************************************************************************
      *
@@ -1122,20 +1209,34 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} letter the selected by the user
      *
      *************************************************************************************/
-    function letterLink(letter) {
+    function letterLink(letter, bIndex) {
+        let indexing = [...origIndexes];
+
         if (validate('H') === true) {   // Validate that a search header was entered
             // Used to get the field name of the data item
             let index = props.table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
 
-            sortClicked (props.table[index].name, 'A'); // ascending order
+            clearSetBackground(bIndex, true);
+
+            resetSortOrder();
+            setIndex(origIndexes, true);
+            if (letter === '^') {
+//                setIndex(origIndexes, true);
+//                setDisableLetter(false);
+                return;
+            }
+
+            sortClicked (props.table[index].name, 'A', indexing); // ascending order
+
+            let newIndexes = [];
 
             // Find the beginning of the letter
             let begin = 0;      // Where the beginning of the letter is
             let found = false;  // Indicates that the letter was found
-            for (begin = 0; begin < props.data.length; begin++) {
+            for (begin = 0; begin < indexing.length; begin++) {
                 // Letter or digit is found
-                if (props.data[begin][props.table[index].name] !== null &&
-                    props.data[begin][props.table[index].name].toString().startsWith(letter) === true) {
+                if (props.data[indexing[begin]][props.table[index].name] !== null &&
+                    props.data[indexing[begin]][props.table[index].name].toString().startsWith(letter) === true) {
                     found = true;
                     break;
                 }
@@ -1143,19 +1244,19 @@ const SearchSortTable = (propsPassed) => {
 
             // Find the end of the letter
             let stop = 0;       // Where the end of the letter is
-            for (stop = begin; stop < props.data.length; stop++) {
+            for (stop = begin; stop < indexing.length; stop++) {
                 // End of the letter or digit is found
-                if (props.data[stop][props.table[index].name] !== null &&
-                    props.data[stop][props.table[index].name].toString().startsWith(letter) === false) {
+                if (props.data[indexing[stop]][props.table[index].name] !== null &&
+                    props.data[indexing[stop]][props.table[index].name].toString().startsWith(letter) === false) {
                     break;
                 }
+                newIndexes.push(indexing[stop]);
             }
 
             if (found === true) {
-                setStart (begin);
-                setEnd (stop);
-                (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, stop) : null;
-                setDisable (begin);
+                setIndex(newIndexes, true);
+                setDisable (0, newIndexes.length);
+                setFilterOn(false);
             } else {
                 setAlertMessage ('No ' + searchHeader + ' starts with a ' + letter);
                 setShowAlert(true);
@@ -1172,7 +1273,7 @@ const SearchSortTable = (propsPassed) => {
      **********************************************************************************/
     function allButton() {
         setStart(0);
-        setEnd(props.data.length);
+        setEnd(length);
     }
 
     /*********************************************************************************
@@ -1183,11 +1284,11 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} index the current starting index in the data
      *
      *********************************************************************************/
-    function setDisable(index) {
+    function setDisable(index, endLen) {
         if (index > 0) {    // Index is past the start of the data, so enable top and previous
             setPreviousDisabled(false);
             setTopDisabled(false);
-        } else if (props.data.length - maxItems < 0) {   // Can not go any further up so disable top and previous
+        } else if (endLen - maxItems < 0) {   // Can not go any further up so disable top and previous
             setPreviousDisabled(true);
             setTopDisabled(true);
         } else {    // Index is before the start of the data, so disable top and previous
@@ -1196,12 +1297,27 @@ const SearchSortTable = (propsPassed) => {
         }
 
         // Cannot go any further down so disable, next and bottom
-        if (index + maxItems >= props.data.length) {
+        if (index + maxItems >= endLen) {
             setNextDisabled(true);
             setBottomDisabled(true);
         } else {    // Not at the bottom so enable next and bottom
             setNextDisabled(false);
             setBottomDisabled(false);
+        }
+    }
+
+    function sendIndexes(start, end, indexes) {
+        if (hasProperty(props, 'indexing') === true) {
+            let sentIndexes = [];
+            for (let i = start; i < end && i < length; i++) {
+                sentIndexes.push(indexes[i]);
+            }
+
+            props.indexing(sentIndexes);
+        }
+
+        if (hasProperty(props, 'allIndexes') === true) {
+            props.allIndexes(indexes);
         }
     }
 
@@ -1213,19 +1329,21 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} index the current starting position
      *
      ***********************************************************************************/
-    function setStartEnd (index) {
+    function setStartEnd (index, dataLen, indexes) {
         if (index !== -1) {
-            if (index + maxItems >= props.data.length) { // End is past the data
+            if (index + maxItems >= dataLen) { // End is past the data
                 setStart (index);
-                setEnd (props.data.length);
-                (hasProperty(props,'startEnd') === true) ? props.startEnd (index, props.data.length) : null;
+                setEnd (dataLen);
+                (hasProperty(props,'startEnd') === true) ? props.startEnd (index, dataLen) : null;
+                sendIndexes(index, dataLen, indexes);
+                setDisable(index, dataLen);
             } else {    // End is not past the data
                 setStart (index);
                 setEnd (index + maxItems);
+                setDisable(index, dataLen);
                 (hasProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;
+                sendIndexes(index, index + maxItems, indexes);
             }
-
-            setDisable(index);
         }
     }
 
@@ -1236,17 +1354,19 @@ const SearchSortTable = (propsPassed) => {
      *
      ***********************************************************************************/
     function topButton() {
-        if (maxItems < props.data.length) {  // Not at the end of the data
+        if (maxItems < length) {  // Not at the end of the data
             setStart (0);
             setEnd (maxItems);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
+            sendIndexes(0, maxItems, indexes);
         } else {    // At the end of the data
             setStart (0);
-            setEnd (props.data.length);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, props.data.length) : null;
+            setEnd (length);
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
+            sendIndexes(0, length, indexes);
         }
 
-        setDisable(0);  // Determine which buttons to disable
+        setDisable(0, length);  // Determine which buttons to disable
     }
 
     /***********************************************************************************
@@ -1261,13 +1381,15 @@ const SearchSortTable = (propsPassed) => {
             setStart (0);
             setEnd (maxItems);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
+            sendIndexes(0, maxItems, indexes);
         } else {    // Not past the beginning of the data
             setStart (index);
             setEnd (index + maxItems);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;    // Add max items to get the new current end
+            sendIndexes(index, index + maxItems, indexes);
         }
 
-        setDisable(index);  // Determine which buttons to disable
+        setDisable(index, length);  // Determine which buttons to disable
     }
 
     /***********************************************************************************
@@ -1280,23 +1402,25 @@ const SearchSortTable = (propsPassed) => {
         let index = end;    // Set the start at the current end of data for the table
         let begin = 0;      // Current beginning of the start of the data
 
-        if (index < props.data.length) {    // Not at the end of the data
+        if (index < length) {    // Not at the end of the data
             begin = index;
         } else {    // At the end of the data, so place the beginning at the current start
             begin = props.start;
         }
 
-        if (index + maxItems >= props.data.length) { // At the end of the data
+        if (index + maxItems >= length) { // At the end of the data
             setStart (begin);
-            setEnd (props.data.length);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, props.data.length) : null;
+            setEnd (length);
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, length) : null;
+            sendIndexes(begin, length, indexes);
         } else {    // Not at the end of the data
             setStart (begin);
             setEnd (index + maxItems);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, index + maxItems) : null;    // Increment to the next max items
+            sendIndexes(begin, index + maxItems, indexes);
         }
 
-        setDisable(index);  // Determine which buttons to disable
+        setDisable(index, length);  // Determine which buttons to disable
     }
 
     /***********************************************************************************
@@ -1306,17 +1430,19 @@ const SearchSortTable = (propsPassed) => {
      *
      ***********************************************************************************/
     function bottomButton() {
-        if (props.data.length - maxItems < 0) {  // At the end of the data
+        if (length - maxItems < 0) {  // At the end of the data
             setStart (0);
-            setEnd (props.data.length);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, props.data.length) : null;
+            setEnd (length);
+            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
+            sendIndexes(0, length, indexes);
         } else {    // Not at the end of the data
-            setStart (props.data.length - maxItems);
-            setEnd (props.data.length);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd(props.data.length - maxItems, props.data.length) : null;
+            setStart (length - maxItems);
+            setEnd (length);
+            (hasProperty(props,'startEnd') === true) ? props.startEnd(length - maxItems, length) : null;
+            sendIndexes(length - maxItems, length, indexes);
         }
 
-        setDisable(props.data.length);
+        setDisable(length, length);
     }
 }
 
