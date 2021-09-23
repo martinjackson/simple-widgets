@@ -19,9 +19,13 @@ The following is a code example:
         const MAX_ITEMS = 2;
 
         const [start, setStart] = useState(0);
+        const [indexing, setIndexing] = useState([]);
 
-        function startEnd (start, end) {
+        const startEnd (start, end) {
             setStart(start);
+        }
+        const getIndexes (indexing) {
+            setIndexing(indexing);
         }
 
         let data = [
@@ -42,8 +46,10 @@ The following is a code example:
         function eachRowInTable(row, i) {
             let key = 'row_' + i + start;
 
+            pos = indexing[i];
+
             return (
-                <tr key={key}>
+                <tr key={key} onClick={(event) => functName(pos)}>
                     <td>{row.ORDER_NUM}</td>
                     <td>{row.ITEM}</td>
                     <td>{row.ON_HAND}</td>
@@ -56,7 +62,8 @@ The following is a code example:
                          table={table}
                          MAX_ITEMS={MAX_ITEMS}
                          eachRowInTable={eachRowInTable}
-                         startEnd={startEnd} />
+                         startEnd={startEnd}
+                         indexing={getIndexes} />
 ```
 
 ### **Searching**
@@ -246,9 +253,17 @@ the search bar at the top of the screen will contain the search column, search i
 
 30. **showTable** = this will show the table and headers even if there is no data to display.
 
-31.  **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used if in eachRowInTable function i is being used.  The user will need to add start to it as in the key prop in the example above.
+31.  **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 
-32.  **tableStyle** = the style for the overall table itself.  The default object is:
+32. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
+
+33. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing (32).  The format of the function is the same as indexing.
+
+34. **reset** = is a boolean flag that will cause the indexes to be reset to the original data.  This is needed it the user is using Search Sort Table to add or delete data records.  The user will set this flag to true after they have saved the data.  The clearReset (35) will clear the flag back to false.
+
+35. **clearReset** = is a function that is used to clear the reset flag back to false. 
+
+36.  **tableStyle** = the style for the overall table itself.  The default object is:
 ```javascript
     let tableStyle = {
         margin: "auto",
@@ -256,13 +271,13 @@ the search bar at the top of the screen will contain the search column, search i
     }
 ```
 
-33. **title** = supplies a title to be displayed centered at the top of the table.
+37. **title** = supplies a title to be displayed centered at the top of the table.
 
-34. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
+38. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
 
-35. **titleStyle** = the styling for the title.  There is no default style.  Format must be an object, similiar to the styles above.
+39. **titleStyle** = the styling for the title.  There is no default style.  Format must be an object, similiar to the styles above.
 
-36.  **width** = the width of the scroll box only.
+40.  **width** = the width of the scroll box only.
 
 ### **Example 1:**
 
@@ -272,9 +287,19 @@ const RANGE = 50;
 
 const [error, setError] = useState(false);
 const [start, setStart] = useState(0);
+const [indexing, setIndexing] = useState([]);
+const [reset, setReset] = useState(false)
 
 function startEnd (start, end) {
     setStart(start);
+}
+
+function getIndexes(indexing) {
+    setIndexing(indexing);
+}
+
+function clearReset(value) {
+    setReset(value);
 }
 
 const table = [
@@ -296,6 +321,9 @@ let footer = [
                     MAX_ITEMS={RANGE}
                     eachRowInTable={eachRowInTable}
                     startEnd={startEnd}
+                    indexing={getIndexes}
+                    reset={reset}
+                    clearReset={clearReset}
                     error={error}
                     title="Finance CSV"
                     footer={footer}
@@ -305,16 +333,18 @@ let footer = [
                     hover />
 
 function eachRowInTable (row, i) {
-    const key = 'row_' + i; // The key for the row
+    const key = 'row_' + i + start; // The key for the row
 
     const tableCellStyle2 = {  // The style for each cell in the table
         padding: "5px",
         textAlign: "left",
         border: "1px solid black",
     };
+
+    let pos = indexing[i]
     
     return (    // Render the row (action)
-        <tr key={key} onClick={() => editRow (i + start)}>
+        <tr key={key} onClick={() => editRow (pos)}>
             <td style={tableCellStyle}>{row.CAN}</td>
             <td style={tableCellStyle}>{row.STOCK_TOTAL}</td>
             <td style={tableCellStyle}>{row.GAS_CYLINDER_RENTAL_TOTAL}</td>
@@ -335,6 +365,9 @@ function editRow(index) {
                     MAX_ITEMS={MAX_ITEMS}
                     eachRowInTable={eachRowInTable}
                     startEnd={startEnd}
+                    indexing={getIndexes}
+                    reset={reset}
+                    clearReset={clearReset}
                     error={error}
                     letters
                     nolower
@@ -354,6 +387,9 @@ The user can also hover over a row and it will be highlighted in cyan.  To detec
                 MAX_ITEMS="10"
                 eachRowInTable={eachRowInPickTable}
                 startEnd={startEndPick}
+                indexing={getIndexes}
+                reset={reset}
+                clearReset={clearReset}
                 error={error}
                 title="Picks"
                 scroll
@@ -372,6 +408,9 @@ A title of Pick will be displayed centered at the top of the table.  If a differ
                     MAX_ITEMS={MAX_ITEMS}
                     eachRowInTable={eachRowInTable}
                     startEnd={startEnd}
+                    indexing={getIndexes}
+                    reset={reset}
+                    clearReset={clearReset}
                     dateTable={dateTable}
                     error = {error} 
                     scroll
