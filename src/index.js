@@ -19,6 +19,8 @@ import DoubleListBox from './DoubleListBox.js'
 
 import ErrorModal from './ErrorModal.js'
 
+import InputFile from './InputFile.js'
+
 import  { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
 checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
 isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, 
@@ -50,15 +52,15 @@ import makeChangeHandler from './makeChangeHandler.js'
 export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, 
 ConfirmModal, ContextMenu, convertDate, dateTime, addDigit, 
 currentDateTime, currentDate, currentDBDateTime, currentDBDate, dbDate, 
-monthName, DateInput, DoubleListBox, ErrorModal, generateInvalid, 
-setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, checkValidityTable, 
-resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, isConstant, 
-validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, 
-clearInvalidTable, copyStyle, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, 
-processInvalidStyleTable, processStyleTable, validStyling, invalidStyling, isInvalid, 
-getInvalidMessage, Choice, List, Modal, Radio, 
-search, binSearch, SearchSortTable, buttonStyle, defaultThemeSettings, 
-generateButton, generateDefaultButton, isOpera, isFirefox, isSafari, 
-isIE, isEdge, isChrome, isEdgeChromium, isBlink, 
-date2str, localStrToDate, makeChangeHandler }
+monthName, DateInput, DoubleListBox, ErrorModal, InputFile, 
+generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
+checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
+isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, 
+clearInvalidScreen, clearInvalidTable, copyStyle, processInvalidStyleScreen, processStyleScreen, 
+clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, validStyling, invalidStyling, 
+isInvalid, getInvalidMessage, Choice, List, Modal, 
+Radio, search, binSearch, SearchSortTable, buttonStyle, 
+defaultThemeSettings, generateButton, generateDefaultButton, isOpera, isFirefox, 
+isSafari, isIE, isEdge, isChrome, isEdgeChromium, 
+isBlink, date2str, localStrToDate, makeChangeHandler }
 
