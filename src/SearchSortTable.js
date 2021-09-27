@@ -118,10 +118,12 @@ const SearchSortTable = (propsPassed) => {
         populateSearch();
         if (props.reset === true) {
             // setIndexSet([[...startIndexes]]);
-            setIndexes(startIndexes);
-            setLength(startIndexes.length);
-            setStartEnd(0, startIndexes.length, startIndexes);
-            setDisable(0, startIndexes.length);
+            setIndexes(origIndexes);
+            setLength(origIndexes.length);
+            setStartEnd(0, origIndexes.length, origIndexes);
+            setDisable(0, origIndexes.length);
+            setFilterOn(false)
+            setIndexes(0, origIndexes.length, origIndexes);
             props.resetReset(false);
         } else {
             setDisable(start, length);
