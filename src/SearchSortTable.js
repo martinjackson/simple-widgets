@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 
-/*
+
 import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
     validStyling, processStyleScreen, wasClickedScreen,
     AlertModal,
     defaultThemeSettings, generateButton
 } from 'simple-widgets'
-*/
 
 
+/*
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
 import { isInvalid, setInvalidScreen, copyStyle,
@@ -20,7 +20,7 @@ import { defaultThemeSettings, generateButton } from './Theme.js';
 
 import './table.css';
 import './mousehover.css';
-
+*/
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 
@@ -80,7 +80,7 @@ const SearchSortTable = (propsPassed) => {
 
     // Set the state variables
     const [start, setStart] = useState(0);
-    const [end, setEnd] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);
+    const [end, setEnd] = useState((hasProperty(props,'showAll') === true) ? props.data.length : parseInt(props.MAX_ITEMS));
     const [searchItem, setSearchItem] = useState('');                   // The item to search for
     const [searchHeader, setSearchHeader] = useState('');               // The column to search
     const [searchHeaderValues, setSearchHeaderValues] = useState([searchHeader]); // The value of each header in the table -- intialize array to include default value
@@ -90,8 +90,8 @@ const SearchSortTable = (propsPassed) => {
     const [nextDisabled, setNextDisabled] = useState(false);            // Indicates whether the next button is disabled or not
     const [bottomDisabled, setBottomDisabled] = useState(false);        // Indicates whether the bottom button is disabled or not
     const [rowValues, setRowValues] = useState([]);                     // Indicates how many rows in the table should be displayed
-    const [maxItems, setMaxItems] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);   // Maximum number of rows to display in the table
-    const [maximum, setMaximum] = useState((hasProperty(props,'showAll') === true) ? props.data.length : props.MAX_ITEMS);     // Maximum number of rows selected by the user to display in the table
+    const [maxItems, setMaxItems] = useState((hasProperty(props,'showAll') === true) ? props.data.length : parseInt(props.MAX_ITEMS));   // Maximum number of rows to display in the table
+    const [maximum, setMaximum] = useState((hasProperty(props,'showAll') === true) ? props.data.length : parseInt(props.MAX_ITEMS));     // Maximum number of rows selected by the user to display in the table
     const [filter, setFilter] = useState(initialFilters);               // The values for each column to be filtered
     const [filterOn, setFilterOn] = useState('');                       // Indicates whether the user has checked the Filter On check box or not
     const [filterPressed, setFilterPressed] = useState(false);         // Indicates whether the filtering is enabled or disabled (Filter button)
@@ -107,7 +107,6 @@ const SearchSortTable = (propsPassed) => {
     // const [origIndexes, setOrigIndexes] = useState([...startIndexes]);
     const origIndexes = [...startIndexes];
 
-
     /******************************************************************************
      *
      * Called to populate the header drop down
@@ -116,15 +115,16 @@ const SearchSortTable = (propsPassed) => {
 
     useEffect (() => {
         populateSearch();
-        if (props.reset === true) {
-            // setIndexSet([[...startIndexes]]);
+        if (props.reset === true || indexes.length === 0) {
+            setFilterOn(false);
+            setStartEnd(0, origIndexes.length, origIndexes);
             setIndexes(origIndexes);
             setLength(origIndexes.length);
-            setStartEnd(0, origIndexes.length, origIndexes);
+            sendIndexes(0, origIndexes.length, origIndexes);
             setDisable(0, origIndexes.length);
-            setFilterOn(false)
-            setIndexes(0, origIndexes.length, origIndexes);
-            props.resetReset(false);
+            if (hasProperty(props, 'clearReset')) {
+                props.clearReset(false);
+            }
         } else {
             setDisable(start, length);
             sendIndexes(start, end, indexes);
@@ -500,7 +500,6 @@ const SearchSortTable = (propsPassed) => {
             console.error ('You can have at most 10 different hover colors for tables.')
         }
     }
-
 
     return (    // Render the screen
         <div style={divStyle}>
@@ -1401,13 +1400,13 @@ const SearchSortTable = (propsPassed) => {
      *
      ***********************************************************************************/
     function nextButton() {
-        let index = end;    // Set the start at the current end of data for the table
+        let index = parseInt(end);    // Set the start at the current end of data for the table
         let begin = 0;      // Current beginning of the start of the data
 
         if (index < length) {    // Not at the end of the data
             begin = index;
         } else {    // At the end of the data, so place the beginning at the current start
-            begin = props.start;
+            begin = start;
         }
 
         if (index + maxItems >= length) { // At the end of the data
