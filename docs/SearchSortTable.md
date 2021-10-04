@@ -259,11 +259,7 @@ the search bar at the top of the screen will contain the search column, search i
 
 33. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing (32).  The format of the function is the same as indexing.
 
-34. **reset** = is a boolean flag that will cause the indexes to be reset to the original data.  This is needed it the user is using Search Sort Table to add or delete data records.  The user will set this flag to true after they have saved the data.  The clearReset (35) will clear the flag back to false.
-
-35. **clearReset** = is a function that is used to clear the reset flag back to false. 
-
-36.  **tableStyle** = the style for the overall table itself.  The default object is:
+34.  **tableStyle** = the style for the overall table itself.  The default object is:
 ```javascript
     let tableStyle = {
         margin: "auto",
@@ -271,13 +267,13 @@ the search bar at the top of the screen will contain the search column, search i
     }
 ```
 
-37. **title** = supplies a title to be displayed centered at the top of the table.
+35. **title** = supplies a title to be displayed centered at the top of the table.
 
-38. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
+36. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
 
-39. **titleStyle** = the styling for the title.  There is no default style.  Format must be an object, similiar to the styles above.
+37. **titleStyle** = the styling for the title.  There is no default style.  Format must be an object, similiar to the styles above.
 
-40.  **width** = the width of the scroll box only.
+38.  **width** = the width of the scroll box only.
 
 ### **Example 1:**
 
