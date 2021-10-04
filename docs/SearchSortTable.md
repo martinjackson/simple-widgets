@@ -284,7 +284,6 @@ const RANGE = 50;
 const [error, setError] = useState(false);
 const [start, setStart] = useState(0);
 const [indexing, setIndexing] = useState([]);
-const [reset, setReset] = useState(false)
 
 function startEnd (start, end) {
     setStart(start);
@@ -292,10 +291,6 @@ function startEnd (start, end) {
 
 function getIndexes(indexing) {
     setIndexing(indexing);
-}
-
-function clearReset(value) {
-    setReset(value);
 }
 
 const table = [
@@ -318,8 +313,6 @@ let footer = [
                     eachRowInTable={eachRowInTable}
                     startEnd={startEnd}
                     indexing={getIndexes}
-                    reset={reset}
-                    clearReset={clearReset}
                     error={error}
                     title="Finance CSV"
                     footer={footer}
@@ -362,8 +355,6 @@ function editRow(index) {
                     eachRowInTable={eachRowInTable}
                     startEnd={startEnd}
                     indexing={getIndexes}
-                    reset={reset}
-                    clearReset={clearReset}
                     error={error}
                     letters
                     nolower
@@ -384,8 +375,6 @@ The user can also hover over a row and it will be highlighted in cyan.  To detec
                 eachRowInTable={eachRowInPickTable}
                 startEnd={startEndPick}
                 indexing={getIndexes}
-                reset={reset}
-                clearReset={clearReset}
                 error={error}
                 title="Picks"
                 scroll
@@ -405,8 +394,6 @@ A title of Pick will be displayed centered at the top of the table.  If a differ
                     eachRowInTable={eachRowInTable}
                     startEnd={startEnd}
                     indexing={getIndexes}
-                    reset={reset}
-                    clearReset={clearReset}
                     dateTable={dateTable}
                     error = {error} 
                     scroll
