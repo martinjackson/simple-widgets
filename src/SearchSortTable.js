@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 
-/*
+
 import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
     validStyling, processStyleScreen, wasClickedScreen,
     AlertModal,
     defaultThemeSettings, generateButton
 } from 'simple-widgets'
-*/
 
 
+/*
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
 import { isInvalid, setInvalidScreen, copyStyle,
@@ -20,7 +20,7 @@ import { defaultThemeSettings, generateButton } from './Theme.js';
 
 import './table.css';
 import './mousehover.css';
-
+*/
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 
@@ -117,15 +117,15 @@ const SearchSortTable = (propsPassed) => {
 
     useEffect (() => {
         if (indexes.length === 0) {
+            sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
             setFilterOn(false);
             setStartEnd(0, origIndexes.length, origIndexes);
             setIndexes(origIndexes);
             setLength(origIndexes.length);
-            sendIndexes(0, origIndexes.length, origIndexes);
             setDisable(0, origIndexes.length);
         } else {
             setDisable(start, length);
-            sendIndexes(start, end, indexes);
+            sendIndexes(start, end, length, indexes);
         }
     }, [props.data]);
 
@@ -135,11 +135,13 @@ const SearchSortTable = (propsPassed) => {
         setStartEnd(0, origIndexes.length, origIndexes);
         setIndexes(origIndexes);
         setLength(origIndexes.length);
-        sendIndexes(0, origIndexes.length, origIndexes);
+        sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
         setDisable(0, origIndexes.length);
     }, [props.data.length])
 
+
 /*
+    console.log('props.data.length :', props.data.length);
     console.log ('start', start);
     console.log ('end', end);
     console.log ('length', length);
@@ -929,46 +931,9 @@ const SearchSortTable = (propsPassed) => {
             setCopyIndex(indexing);
         }
         setLength (indexing.length);
-        setStartEnd (0, indexing.length, indexes);
+        setStartEnd (0, indexing.length, indexing);
     }
 
-    /*
-    function pushIndex (indexes) {
-        let localSet = [...indexSet];
-
-        localSet.push(indexes);
-        setIndexSet(localSet);
-
-        setIndexes (indexes);
-        setLength (indexes.length);
-        setStartEnd (0, indexes.length, indexes);
-    }
-
-    function popIndex() {
-        let localSet = [...indexSet];
-
-        if (localSet.length > 1) {
-            localSet.pop();
-        }
-
-        setIndexSet(localSet);
-
-        let len = localSet.length - 1;
-        setIndexes(localSet[len]);
-        setLength (localSet[len].length);
-        setStartEnd (0, localSet[len].length, localSet[len]);
-
-        return localSet[len];
-    }
-
-    function getIndex() {
-        let len = indexSet.length - 1;
-
-        setIndexes(indexSet[len]);
-        setLength (indexSet[len].length);
-        setStartEnd (0, indexSet[len].length, indexSet[len]);
-    }
-    */
 
     /**********************************************************************************************
      *
@@ -1327,13 +1292,13 @@ const SearchSortTable = (propsPassed) => {
         }
     }
 
-    function sendIndexes(start, end, indexes) {
-        if (hasProperty(props, 'indexing') === true) {
-            let sentIndexes = [];
-            for (let i = start; i < end && i < length; i++) {
-                sentIndexes.push(indexes[i]);
-            }
+    function sendIndexes(start, end, length, indexes) {
+        let sentIndexes = [];
+        for (let i = start; i < end && i < length; i++) {
+            sentIndexes.push(indexes[i]);
+        }
 
+        if (hasProperty(props, 'indexing')) {
             props.indexing(sentIndexes);
         }
 
@@ -1356,14 +1321,14 @@ const SearchSortTable = (propsPassed) => {
                 setStart (index);
                 setEnd (dataLen);
                 (hasProperty(props,'startEnd') === true) ? props.startEnd (index, dataLen) : null;
-                sendIndexes(index, dataLen, indexes);
+                sendIndexes(index, dataLen, dataLen, indexes);
                 setDisable(index, dataLen);
             } else {    // End is not past the data
                 setStart (index);
                 setEnd (index + maxItems);
                 setDisable(index, dataLen);
                 (hasProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;
-                sendIndexes(index, index + maxItems, indexes);
+                sendIndexes(index, index + maxItems, dataLen, indexes);
             }
         }
     }
@@ -1379,12 +1344,12 @@ const SearchSortTable = (propsPassed) => {
             setStart (0);
             setEnd (maxItems);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
-            sendIndexes(0, maxItems, indexes);
+            sendIndexes(0, maxItems, length, indexes);
         } else {    // At the end of the data
             setStart (0);
             setEnd (length);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
-            sendIndexes(0, length, indexes);
+            sendIndexes(0, length, length, indexes);
         }
 
         setDisable(0, length);  // Determine which buttons to disable
@@ -1402,12 +1367,12 @@ const SearchSortTable = (propsPassed) => {
             setStart (0);
             setEnd (maxItems);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
-            sendIndexes(0, maxItems, indexes);
+            sendIndexes(0, maxItems, length, indexes);
         } else {    // Not past the beginning of the data
             setStart (index);
             setEnd (index + maxItems);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;    // Add max items to get the new current end
-            sendIndexes(index, index + maxItems, indexes);
+            sendIndexes(index, index + maxItems, length, indexes);
         }
 
         setDisable(index, length);  // Determine which buttons to disable
@@ -1433,12 +1398,12 @@ const SearchSortTable = (propsPassed) => {
             setStart (begin);
             setEnd (length);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, length) : null;
-            sendIndexes(begin, length, indexes);
+            sendIndexes(begin, length, length, indexes);
         } else {    // Not at the end of the data
             setStart (begin);
             setEnd (index + maxItems);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, index + maxItems) : null;    // Increment to the next max items
-            sendIndexes(begin, index + maxItems, indexes);
+            sendIndexes(begin, index + maxItems, length, indexes);
         }
 
         setDisable(index, length);  // Determine which buttons to disable
@@ -1455,12 +1420,12 @@ const SearchSortTable = (propsPassed) => {
             setStart (0);
             setEnd (length);
             (hasProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
-            sendIndexes(0, length, indexes);
+            sendIndexes(0, length, length, indexes);
         } else {    // Not at the end of the data
             setStart (length - maxItems);
             setEnd (length);
             (hasProperty(props,'startEnd') === true) ? props.startEnd(length - maxItems, length) : null;
-            sendIndexes(length - maxItems, length, indexes);
+            sendIndexes(length - maxItems, length, length, indexes);
         }
 
         setDisable(length, length);
