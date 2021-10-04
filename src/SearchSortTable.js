@@ -10,6 +10,7 @@ import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
 } from 'simple-widgets'
 */
 
+
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
 import { isInvalid, setInvalidScreen, copyStyle,
@@ -17,10 +18,9 @@ import { isInvalid, setInvalidScreen, copyStyle,
 import AlertModal from './AlertModal.js';
 import { defaultThemeSettings, generateButton } from './Theme.js';
 
-/*
 import './table.css';
 import './mousehover.css';
-*/
+
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 
@@ -113,24 +113,42 @@ const SearchSortTable = (propsPassed) => {
      *
      ******************************************************************************/
 
+    useEffect (populateSearch, []);
+
     useEffect (() => {
-        populateSearch();
-        if (props.reset === true || indexes.length === 0) {
+        if (indexes.length === 0) {
             setFilterOn(false);
             setStartEnd(0, origIndexes.length, origIndexes);
             setIndexes(origIndexes);
             setLength(origIndexes.length);
             sendIndexes(0, origIndexes.length, origIndexes);
             setDisable(0, origIndexes.length);
-            if (hasProperty(props, 'clearReset')) {
-                props.clearReset(false);
-            }
         } else {
             setDisable(start, length);
             sendIndexes(start, end, indexes);
         }
-    }, [props.data, props.reset]);
+    }, [props.data]);
 
+
+    useEffect (() => {
+        setFilterOn(false);
+        setStartEnd(0, origIndexes.length, origIndexes);
+        setIndexes(origIndexes);
+        setLength(origIndexes.length);
+        sendIndexes(0, origIndexes.length, origIndexes);
+        setDisable(0, origIndexes.length);
+    }, [props.data.length])
+
+/*
+    console.log ('start', start);
+    console.log ('end', end);
+    console.log ('length', length);
+    console.log ('indexes', indexes);
+    console.log ('maxItems', maxItems);
+    console.log ('maximum', maximum);
+    console.log ('origIndexes', origIndexes);
+    console.log ('startIndexes :', startIndexes);
+*/
 
     if (hasProperty(props,'data') === false) {
       console.error ('Search Sort Table component: A data prop must be passed');
@@ -352,6 +370,8 @@ const SearchSortTable = (propsPassed) => {
             showData.push (props.data[indexes[i]]);
         }
     }
+
+//    console.log('showData :', showData);
 
     let letterDigit = [];
     let letters = null;
