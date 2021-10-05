@@ -929,7 +929,6 @@ const SearchSortTable = (propsPassed) => {
 
     function setIndex(indexing, doCopy) {
         setIndexes(indexing);
-        console.log('indexing :', indexing);
         if (doCopy === true) {
             setCopyIndex(indexing);
         }
@@ -1098,7 +1097,6 @@ const SearchSortTable = (propsPassed) => {
      *
      *************************************************************************************/
     function sortClicked(name, orderType, indexes) {
-        console.log('sortClicked :');
         let index = props.table.map(function(e) { return e.name; }).indexOf(name);   // Column match
         let order = [...sortOrder];
         let ordering = 'A';
@@ -1119,8 +1117,6 @@ const SearchSortTable = (propsPassed) => {
 
             setSortOrder(order);
         }
-
-        console.log('ordering :', ordering);
 
         if (ordering === 'N') {
             setIndex(copyIndex, false);
