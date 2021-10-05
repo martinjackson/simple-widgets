@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 
-
+/*
 import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
     validStyling, processStyleScreen, wasClickedScreen,
     AlertModal,
     defaultThemeSettings, generateButton
 } from 'simple-widgets'
+*/
 
 
-/*
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
 import { isInvalid, setInvalidScreen, copyStyle,
@@ -20,7 +20,7 @@ import { defaultThemeSettings, generateButton } from './Theme.js';
 
 import './table.css';
 import './mousehover.css';
-*/
+
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 
