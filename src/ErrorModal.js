@@ -2,9 +2,9 @@ import React from 'react';
 
 import Modal from './Modal.js';
 import { buttonStyle as defButtonStyle} from './Theme.js';
-import './modal.css';
+// import './modal.css';
 
-const defProps = { 
+const defProps = {
     show: true,
     closeFunct: () => {},
     message: 'No Error message given',

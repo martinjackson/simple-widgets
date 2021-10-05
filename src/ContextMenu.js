@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import { defaultThemeSettings } from './Theme';
-import './contextMenuHover.css';
+// import './contextMenuHover.css';
 
 const ContextMenu = (propsIn) => {
     console.log ('props', propsIn);
-    const { positionX, positionY, noLeave, noCancel, menu, 
+    const { positionX, positionY, noLeave, noCancel, menu,
             backColor, border, radius, ...props } = propsIn;
 
     const propsPositionX = positionX || 10;
@@ -36,7 +36,7 @@ const ContextMenu = (propsIn) => {
 
     function mouseLeave() {
         console.log ('mouseLeave');
-        if (propsNoLeave === false) { 
+        if (propsNoLeave === false) {
             props.closeFunct(false);
         }
     }
@@ -53,7 +53,7 @@ const ContextMenu = (propsIn) => {
         )
     }
 
-    if (props.show === true) { 
+    if (props.show === true) {
         return (
             <div className="contextMenuHov" style={menuStyle} onMouseLeave={mouseLeave}>
                 {propsMenu.map(buildMenuItem)}

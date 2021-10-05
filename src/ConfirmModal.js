@@ -2,9 +2,9 @@ import React from 'react';
 
 import Modal from './Modal.js';
 import { buttonStyle as defButtonStyle} from './Theme.js';
-import './modal.css';
+// import './modal.css';
 
-const defProps = { 
+const defProps = {
     show: true,
     yesFunct: () => {},
     noFunct: () => {},
@@ -46,7 +46,7 @@ const ConfirmModal = inProps => {
 
     function processYesFunct() {
         if (('noFunct' in inProps) === true && ('closeFunct' in inProps) === false) {
-            props.noFunct(false);            
+            props.noFunct(false);
         } else {
             props.closeFunct(false);
         }
@@ -58,7 +58,7 @@ const ConfirmModal = inProps => {
 
     function processNoFunct() {
         if (('noFunct' in inProps) === true && ('closeFunct' in inProps) === false) {
-            props.noFunct(false);            
+            props.noFunct(false);
         } else {
             props.closeFunct(false);
         }
