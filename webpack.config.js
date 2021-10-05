@@ -31,16 +31,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [ "style-loader", "css-loader" ],
-      },
-
-      {
-        test: /\.scss$/,
-        use: [ "style-loader", "css-loader", "sass-loader", ],
-      },
-
-      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
@@ -56,6 +46,13 @@ module.exports = {
             ],
           },
         },
+      },
+
+      // style-loader css-loader ar mangling the css
+      // CSS
+      {
+        test: /\.css$/,
+        type: "asset/resource",
       },
 
       // Images
