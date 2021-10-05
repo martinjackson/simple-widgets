@@ -99,7 +99,7 @@ const SearchSortTable = (propsPassed) => {
     const [alertMessage, setAlertMessage] = useState('');
     const [showAlert, setShowAlert] = useState(false);
     const [indexes, setIndexes] = useState([...startIndexes]);
-    const [copyIndex, setCopyIndex] = useState([]);
+    const [copyIndex, setCopyIndex] = useState([...startIndexes]);
     const [length, setLength] = useState(props.data.length);                            // The length of the data
     const [background, setBackground] = useState(initialBackground);
 
@@ -121,6 +121,7 @@ const SearchSortTable = (propsPassed) => {
             setFilterOn(false);
             setStartEnd(0, origIndexes.length, origIndexes);
             setIndexes(origIndexes);
+            setCopyIndex(origIndexes);
             setLength(origIndexes.length);
             setDisable(0, origIndexes.length);
         } else {
@@ -134,6 +135,7 @@ const SearchSortTable = (propsPassed) => {
         setFilterOn(false);
         setStartEnd(0, origIndexes.length, origIndexes);
         setIndexes(origIndexes);
+        setCopyIndex(origIndexes);
         setLength(origIndexes.length);
         sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
         setDisable(0, origIndexes.length);
@@ -927,6 +929,7 @@ const SearchSortTable = (propsPassed) => {
 
     function setIndex(indexing, doCopy) {
         setIndexes(indexing);
+        console.log('indexing :', indexing);
         if (doCopy === true) {
             setCopyIndex(indexing);
         }
@@ -1095,6 +1098,7 @@ const SearchSortTable = (propsPassed) => {
      *
      *************************************************************************************/
     function sortClicked(name, orderType, indexes) {
+        console.log('sortClicked :');
         let index = props.table.map(function(e) { return e.name; }).indexOf(name);   // Column match
         let order = [...sortOrder];
         let ordering = 'A';
@@ -1115,6 +1119,8 @@ const SearchSortTable = (propsPassed) => {
 
             setSortOrder(order);
         }
+
+        console.log('ordering :', ordering);
 
         if (ordering === 'N') {
             setIndex(copyIndex, false);
