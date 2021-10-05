@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Modal from './Modal.js';
 import { buttonStyle as defButtonStyle} from './Theme.js';
-import './modal.css';
+// import './modal.css';
 
 const defProps = {
     show: true,
