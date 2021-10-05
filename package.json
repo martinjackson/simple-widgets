@@ -16,7 +16,7 @@
     "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
     "release": "release-it --no-git.requireCleanWorkingDir",
     "buildIndex": "cd src && rm -f index.js && node buildIndex.js",
-    "copy": "cp ./src/*.css ./lib"
+    "copy": "# cp ./src/*.css ./lib"
   },
   "babel": {
     "plugins": [
