@@ -5,7 +5,7 @@
     z-index: 1;
 }
 
-.contextMenuHov div:hover span {
+div.contextMenuHov:hover span {
     visibility: visible;
     background-color: lightgray;
 }
