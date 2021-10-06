@@ -1,22 +1,20 @@
 {
   "name": "simple-widgets",
-  "version": "1.16.1",
+  "version": "1.17.0",
   "description": "A Collection of React components to make your React code simpler",
   "main": "./lib/index.js",
   "scripts": {
     "setup": "npm install",
-    "pack": "npm run buildIndex && webpack && run-s maps copy",
-    "dry": "run-s pack dry-run",
-    "pub": "run-s pack release",
+    "build": "npm run buildIndex && webpack",
+    "dry": "run-s build dry-run",
+    "pub": "run-s build release",
     "test": "jest --colors",
     "watch": "jest --watch",
     "coverage": "jest --coverage && cat ./tests/coverage/lcov.info ",
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
-    "maps": "cd lib && cp index.js.map index.map",
     "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
     "release": "release-it --no-git.requireCleanWorkingDir",
-    "buildIndex": "cd src && rm -f index.js && node buildIndex.js",
-    "copy": "# cp ./src/*.css ./lib"
+    "buildIndex": "cd src && rm -f index.js && node buildIndex.js"
   },
   "babel": {
     "plugins": [

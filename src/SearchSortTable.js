@@ -11,7 +11,7 @@ import AlertModal from './AlertModal.js';
 import { defaultThemeSettings, generateButton } from './Theme.js';
 
 // import './table.css';
-//  import './mousehover.css';
+// import './mousehover.css';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';

@@ -21,8 +21,6 @@ package-lock.json
 .Spotlight-V100
 .Trashes
 Thumbs.db
-lib/index.js.map
 example/dist/*
-lib/index.map
-lib/*.css
 coverage
+

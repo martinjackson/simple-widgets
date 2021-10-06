@@ -48,7 +48,7 @@ const ContextMenu = (propsIn) => {
 
         return (
             <div>
-                <span key={key} onClick={() => execute(row.funct)}>{row.name}</span><br /><br />
+                <span className="contextMenuHov" key={key} onClick={() => execute(row.funct)}>{row.name}</span><br /><br />
             </div>
         )
     }
@@ -57,7 +57,7 @@ const ContextMenu = (propsIn) => {
         return (
             <div className="contextMenuHov" style={menuStyle} onMouseLeave={mouseLeave}>
                 {propsMenu.map(buildMenuItem)}
-                { (propsNoCancel) ? <br /> : <span><span key="cancelKey" onClick={cancelButton}>Cancel</span><br /><br /></span> }
+                { (propsNoCancel) ? <br /> : <span><span className="contextMenuHov" key="cancelKey" onClick={cancelButton}>Cancel</span><br /><br /></span> }
             </div>
         )
     } else {
