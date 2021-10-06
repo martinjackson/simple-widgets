@@ -2,6 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 
+/*
+import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
+    validStyling, processStyleScreen, wasClickedScreen,
+    AlertModal,
+    defaultThemeSettings, generateButton
+} from 'simple-widgets'
+*/
+
 
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
@@ -10,8 +18,8 @@ import { isInvalid, setInvalidScreen, copyStyle,
 import AlertModal from './AlertModal.js';
 import { defaultThemeSettings, generateButton } from './Theme.js';
 
-// import './table.css';
-// import './mousehover.css';
+import './table.css';
+import './mousehover.css';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -1141,6 +1149,8 @@ const SearchSortTable = (propsPassed) => {
         sortAry.map((row) => newIndexes.push(row.index));
 
         setIndex(newIndexes, false);
+
+        return newIndexes;
     }
 
     /***********************************************************************************
@@ -1206,17 +1216,17 @@ const SearchSortTable = (propsPassed) => {
                 return;
             }
 
-            sortClicked (props.table[index].name, 'A', indexing); // ascending order
+            const sortIndexes = sortClicked (props.table[index].name, 'A', indexing); // ascending order
 
             let newIndexes = [];
 
             // Find the beginning of the letter
             let begin = 0;      // Where the beginning of the letter is
             let found = false;  // Indicates that the letter was found
-            for (begin = 0; begin < indexing.length; begin++) {
+            for (begin = 0; begin < sortIndexes.length; begin++) {
                 // Letter or digit is found
-                if (props.data[indexing[begin]][props.table[index].name] !== null &&
-                    props.data[indexing[begin]][props.table[index].name].toString().startsWith(letter) === true) {
+                if (props.data[sortIndexes[begin]][props.table[index].name] !== null &&
+                    props.data[sortIndexes[begin]][props.table[index].name].toString().startsWith(letter) === true) {
                     found = true;
                     break;
                 }
@@ -1224,13 +1234,13 @@ const SearchSortTable = (propsPassed) => {
 
             // Find the end of the letter
             let stop = 0;       // Where the end of the letter is
-            for (stop = begin; stop < indexing.length; stop++) {
+            for (stop = begin; stop < sortIndexes.length; stop++) {
                 // End of the letter or digit is found
-                if (props.data[indexing[stop]][props.table[index].name] !== null &&
-                    props.data[indexing[stop]][props.table[index].name].toString().startsWith(letter) === false) {
+                if (props.data[sortIndexes[stop]][props.table[index].name] !== null &&
+                    props.data[sortIndexes[stop]][props.table[index].name].toString().startsWith(letter) === false) {
                     break;
                 }
-                newIndexes.push(indexing[stop]);
+                newIndexes.push(sortIndexes[stop]);
             }
 
             if (found === true) {
