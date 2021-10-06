@@ -1,3 +1,8 @@
+#modalButton {
+   background: transparent;
+   border: none !important;
+}
+
 #modal {
     background-color: rgba(129, 127, 127, 0.5);
     position: fixed;
@@ -10,11 +15,11 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   #modal:empty {
     display: none;
   }
-  
+
   #modal > div {
     background-color: white;
     max-width: 500px;
@@ -22,4 +27,4 @@
     border-radius: 5px;
     text-align: center;
   }
-  
+
