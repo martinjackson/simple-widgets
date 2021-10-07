@@ -4,12 +4,32 @@ This will allow a user to display a limited number of items in a table.  The use
 
 The user can also click on a column and the column will be sorted in either ascending or descending order.  The first type a column is clicked it will be sorted in ascending order.  After that it will alternate between descending and ascending order, respectively.
 
+The user can also filter the data that is to be displayed.
+
 ### **Props**
 In order for the user to use the Search Sort Table, they must pass the following props:
 
 1.  **data** = the data to be displayed which is an array of objects that contains a header and name fields.
 2.  **table** = an object that contains the headers for each column in the table, the field name for each item in the data array, whether the column can be searched or not, and whether the column could be sorted or not.
-The header field is the name of the header for that column of the table.  The name is field name in the data object passed as the data prop.  The search field name indicates whether that column can be searched or not.  The sort field indicates whether the column can be sorted or not.
+The header field is the name of the header for that column of the table.  The name is field name in the data object passed as the data prop.  The search field name indicates whether that column can be searched or not.  The sort field indicates whether the column can be sorted or not.  
+Other possible fields for a row in the table are: dataDate, filterDate, and sortDate.  The dataDate field indicates the format of a date field in the data.  The filterDate field indicates the format of the date on the filter field in the display table.  The sort date field is the format of the date field to be sorted.  The possible date formats are:
+  a. MM/DD/YYYY
+  b. MM-DD-YYYY
+  c. YYYY-MM-DD (default)
+  d. MM/DD/YYYY HH:MM:SS
+  e. MM-DD-YYYY HH:MM:SS
+  f. YYYY-MM-DD HH:MM:SS (default for date with time)
+  g. YYYY-MM-DDTHH:MM:SS.SSS
+  
+ An example row in the table for a date field might look like:
+ ```javascript
+        { header: 'Date', name: 'DATE', sort: true, search: true, dataDate: 'YYYY-MM-DD', filterDate: 'MM/DD/YYYY', sortDate: 'YYYY-MM-DD' }
+ ```
+        
+In the above example, the header in the display table will be Date.  The name of the field in the data will be DATE.  You can sort and search on the field.  The date in the data will be in the form of YYYY-MM-DD.  The date in the filter field on the display table will be in the form of MM/DD/YYYY.  If you have the dateField you must also have the filterData field and vice a versa.  The sortDate field indicates how the data is in the data, which is YYYY-MM-DD.  Since this is the default, this field can be left off.  
+
+Both the data date and filter date are both converted to either YYYY-MM-DD or YYYY-DD-MMTHH:MM:SS for comparision.  If the data or filter fields do not match one of the above formats, it retains its current format.
+  
 3.  **eachRowInTable** = a function that indicates how each cell in a row will be displayed.
 
 ### **Example**
@@ -81,6 +101,22 @@ How to search:
 1.  Select a header option from the drop down.
 2.  Type a value to search underneath the header selected from the drop down.  This will also take you back to the first data item, which will be at the top of the screen.
 3.  Press the Search button.  The search will search that field until it finds the first item that anywhere within that value and places it as the first item in the table.  For example, suppose you enter 2 for Order Number, then 123 will be displayed as the first item in the table.  If the search button is pressed again, it will find the next data in that column that matches the search item.
+
+### **Filtering**
+
+The filter bar contains the following:
+
+1.  Filter On checkbox which starts the filter process by displaying an input box under the headers of all the columns in the table that can be filtered.
+2.  The funnel which does the filtering.  When filtering is off the funnel background is gray, when the Filter On is checked it the funnel background is white.  When filtering takes place the funnel background will be green.
+
+How to filter:
+
+1.  Check the Filter On.  An input box will appear below the header of each column in which filtering can take place.
+2.  Enter values to filter on in each of the input boxes.  For dates there are three possible ways to filter: MM/DD/YYYY, MM/YYYY, or YYYY if using the MM/DD/YYYY for the filter date on the table entry in number 2.  You can use MM-DD-YYYY, MM-YYYY, or YYYY if using MM-DD-YYYY, etc.
+3.  Press the Funnel to do the filtering.
+4.  The user can add other fields to refine the filtering and press the Funnel.
+5.  If you want to change values to start a new filtering process, the user first should uncheck and recheck the Filter On.  The old filter values will remain in the input boxes.  The user should change the ones desired and press the Funnel.
+
 
 ### **Other props:**
 
