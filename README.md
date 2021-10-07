@@ -39,7 +39,7 @@ All of these widgets require the following props:
 
 __**Component Documents**__
 
-[CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md)
+[CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md), [InputFile](docs/InputFile.md)
 
 [AlertModal](docs/AlertModal.md), [ErrorModal](docs/ErrorModal.md), [ConfirmModal](docs/ConfirmModal.md), [Modal](docs/Modal.md),
 
