@@ -2,6 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 
+/*
+import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
+    validStyling, processStyleScreen, wasClickedScreen,
+    AlertModal,
+    defaultThemeSettings, generateButton
+} from 'simple-widgets'
+*/
+
 
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
@@ -813,13 +821,7 @@ const SearchSortTable = (propsPassed) => {
             }
         }
 
-        // Check for the dateTable in the props
-        let areDates = false;
-        if (props.hasOwnProperty('dateTable')) {
-            areDates = true;
-        }
         let foundDate = false;
-        let dateIndex = -1;
 
         // Spin through the data and see if it meets the filter criteria
         for (let i = 0; i < indexes.length; i++) {
@@ -827,16 +829,10 @@ const SearchSortTable = (propsPassed) => {
             done = false;
             // Spin through the filter input boxes to see if the data element matches
             for (let j = 0; j < indexing.length && done === false; j++) {
-                if (areDates === true) {
-                    foundDate = false;
-                    dateIndex = -1;
-                    // Find if the index is in the date table
-                    for (let k = 0; k < props.dateTable.length; k++) {
-                        if (props.dateTable[k].index === indexing[j]) {
-                            foundDate = true;
-                            dateIndex = k;
-                        }
-                    }
+                foundDate = false;
+                // Find if the index is in the date table
+                if (hasProperty(props.table[indexing[j]], 'dataDate') && hasProperty(props.table[indexing[j]], 'filterDate')) {
+                    foundDate = true;
                 }
 
                 // The data field is blank or has no value
@@ -848,36 +844,64 @@ const SearchSortTable = (propsPassed) => {
                     let filterPart = null;
 
                     // Convert the format for the data part
-                    if (props.dateTable[dateIndex].data === 'MM/DD/YYYY') {
-                        dataPart = convertDate(data[indexes[i]][props.table[indexing[j]].name], '/');
-                    } else if (props.dateTable[dateIndex].data === 'MM-DD-YYYY') {
-                        dataPart = convertDate(data[indexes[i]][props.table[indexing[j]].name], '-');
-                    } else if (props.dateTable[dateIndex].data === 'MM/DD/YYYY HH:MM:SS') {
-                        dataPart = convertDateTime(data[indexes[i]][props.table[indexing[j]].name], '/');
-                    } else if (props.dateTable[dateIndex].data === 'MM-DD-YYYY HH:MM:SS') {
-                        dataPart = convertDateTime (data[indexes[i]][props.table[indexing[j]].name], '-');
-                    } else if (props.dateTable[dateIndex].data === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                    if (props.table[indexing[j]].dataDate === 'MM/DD/YYYY') {
+                        dataPart = convertDate(data[indexes[i]][props.table[indexing[j]].name], '/', 1);
+                    } else if (props.table[indexing[j]].dataDate === 'MM-DD-YYYY') {
+                        dataPart = convertDate(data[indexes[i]][props.table[indexing[j]].name], '-', 1);
+                    } else if (props.table[indexing[j]].dataDate === 'MM/DD/YYYY HH:MM:SS') {
+                        dataPart = convertDateTime(data[indexes[i]][props.table[indexing[j]].name], '/', 1);
+                    } else if (props.table[indexing[j]].dataDate === 'MM-DD-YYYY HH:MM:SS') {
+                        dataPart = convertDateTime (data[indexes[i]][props.table[indexing[j]].name], '-', 1);
+                    } else if (props.table[indexing[j]].dataDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
                         dataPart = convertDateTimeReg (data[indexes[i]][props.table[indexing[j]].name]);
                     } else {
                         dataPart = data[indexes[i]][props.table[indexing[j]].name];
                     }
 
                     // Convert the format for the filter part
-                    if (props.dateTable[dateIndex].filter === 'MM/DD/YYYY') {
-                        filterPart = convertDate(filter[indexing[j]], '/');
-                    } else if (props.dateTable[dateIndex].filter === 'MM-DD-YYYY') {
-                        filterPart = convertDate(filter[indexing[j]], '-');
-                    } else if (props.dateTable[dateIndex].filter === 'MM/DD/YYYY HH:MM:SS') {
-                        filterPart = convertDateTime(filter[indexing[j]], '/');
-                    } else if (props.dateTable[dateIndex].filter === 'MM-DD-YYYY HH:MM:SS') {
-                        filterPart = convertDateTime (filter[indexing[j]], '-');
-                    } else if (props.dateTable[dateIndex].filter === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                        filterPart = convertDateTimeReg (filter[indexing[j]]);
+                    if (props.table[indexing[j]].filterDate === 'MM/DD/YYYY') {
+                        if (filter[indexing[j]].length === 'MM/DD/YYYY'.length) {
+                            filterPart = convertDate(filter[indexing[j]], '/', 1);
+                        } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('/') !== -1) {
+                            filterPart = convertDate(filter[indexing[j]], '/', 2);
+                        } else {
+                            filterPart = filter[indexing[j]];
+                        }
+                    } else if (props.table[indexing[j]].filterDate === 'MM-DD-YYYY') {
+                        if (filter[indexing[j]].length === 'MM-DD-YYYY'.length) {
+                            filterPart = convertDate(filter[indexing[j]], '-', 1);
+                        } else if (filter[indexing[j]].length === 'MM-YYYY'.length && filter[indexing[j]].indexOf('-') !== -1) {
+                            filterPart = convertDate(filter[indexing[j]], '-', 2);
+                        } else {
+                            filterPart = filter[indexing[j]];
+                        }
+                    } else if (props.table[indexing[j]].filterDate === 'MM/DD/YYYY HH:MM:SS') {
+                        if (filter[indexing[j]].length === 'MM/DD/YYYY HH:MM:SS'.length) {
+                            filterPart = convertDateTime(filter[indexing[j]], '/', 1);
+                        } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('/') !== -1) {
+                            filterPart = convertDate(filter[indexing[j]], '/', 2);
+                        } else {
+                            filterPart = filter[indexing[j]];
+                        }
+                    } else if (props.table[indexing[j]].filterDate === 'MM-DD-YYYY HH:MM:SS') {
+                        if (filter[indexing[j]].length === 'MM-DD-YYYY HH:MM:SS'.length) {
+                            filterPart = convertDateTime (filter[indexing[j]], '-', 1);
+                        } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('-') !== -1) {
+                            filterPart = convertDate(filter[indexing[j]], '-', 2);
+                        } else {
+                            filterPart = filter[indexing[j]];
+                        }
+                    } else if (props.table[indexing].filterDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                        if (filter[indexing[j]].length === 'YYYY-MM-DDTHH:MM:SS.SSS'.length) {
+                            filterPart = convertDateTimeReg (filter[indexing[j]]);
+                        } else {
+                            filterPart = filter[indexing[j]];
+                        }
                     } else {
                         filterPart = filter[indexing[j]];
                     }
 
-                    if (dataPart === filterPart) {  // Compare the dates
+                    if (dataPart.toString().indexOf(filterPart.toString()) !== -1) {  // Compare the dates
                         found.push(true);
                     } else {    // Dates are not equal
                         found.push(false);
@@ -935,10 +959,14 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} char the slash (/) or dash (-)
      *
      **********************************************************************************************/
-    function convertDate(date, char) {
+    function convertDate(date, char, type) {
         let split = date.split(char);
 
-        return `${split[2]}-${split[0]}-${split[1]}`;
+        if (type === 1) {
+            return `${split[2]}-${split[0]}-${split[1]}`;
+        } else {
+            return `${split[1]}-${split[0]}`;
+        }
     }
 
     /**********************************************************************************************
@@ -950,11 +978,15 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} char the slash (/) or dash (-)
      *
      **********************************************************************************************/
-    function convertDateTime(date, char) {
+    function convertDateTime(date, char, type) {
         let dateTime = date.split(' ');
         let localDate = dateTime[0].split(char);
 
-        return `${localDate[2]}-${localDate[0]}-${localDate[1]}T${dateTime[1]}`;
+        if (type === 1) {
+            return `${localDate[2]}-${localDate[0]}-${localDate[1]}T${dateTime[1]}`;
+        } else {
+            return `${localDate[1]}-${localDate[0]}`;
+        }
     }
 
     /**********************************************************************************************
@@ -1113,8 +1145,31 @@ const SearchSortTable = (propsPassed) => {
             return;
         }
 
+        let dateFormat = null;
+        if (hasProperty(props.table[index], 'sortDate')) {
+            dateFormat = props.table[index].sortDate;
+        }
+
         let sortAry = [];
-        indexes.map ((row) => sortAry.push({index: row, data: props.data[row][name]}));
+        indexes.map ((row) => {
+            if (dateFormat !== null) {
+                if (dateFormat === 'MM/DD/YYYY') {
+                    sortAry.push({index: row, data: convertDate(props.data[row][name], '/', 1)});
+                } else if (dateFormat === 'MM-DD-YYYY') {
+                    sortAry.push({index: row, data: convertDate(props.data[row][name], '-', 1)});
+                } else if (dateFormat === 'MM/DD/YYYY HH:MM:SS') {
+                    sortAry.push({index: row, data: convertDateTime(props.data[row][name], '/', 1)});
+                } else if (dateFormat === 'MM-DD-YYYY HH:MM:SS') {
+                    sortAry.push({index: row, data: convertDateTime(props.data[row][name], '-', 1)});
+                } else if (dateFormat === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                    sortAry.push({index: row, data: convertDateTimeReg (data[row][name])});
+                } else {
+                    sortAry.push({index: row, data: props.data[row][name]})
+                }
+            } else {
+                sortAry.push({index: row, data: props.data[row][name]})
+            }
+        });
 
         sortAry.sort(function (item1, item2) {
             // Convert to upper case if ignoring case
