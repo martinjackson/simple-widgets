@@ -106,16 +106,16 @@ How to search:
 
 The filter bar contains the following:
 
-1.  Filter On checkbox which starts the filter process by displaying an input box under the headers of all the columns in the table that can be filtered.
-2.  The funnel which does the filtering.  When filtering is off the funnel background is gray, when the Filter On is checked it the funnel background is white.  When filtering takes place the funnel background will be green.
+1.  The Filter On checkbox starts the filter process by displaying an input box under the headers of all the columns in the display table that can be filtered.
+2.  The funnel does the filtering.  When filtering is off the funnel background is gray, when the Filter On is checked, the funnel background is white.  When filtering takes place the funnel background will be green.
 
 How to filter:
 
 1.  Check the Filter On.  An input box will appear below the header of each column in which filtering can take place.
-2.  Enter values to filter on in each of the input boxes.  For dates there are three possible ways to filter: MM/DD/YYYY, MM/YYYY, or YYYY if using the MM/DD/YYYY for the filter date on the table entry in number 2.  You can use MM-DD-YYYY, MM-YYYY, or YYYY if using MM-DD-YYYY, etc.
+2.  Enter values to filter on in each of the input boxes.  For dates there are three possible ways to filter: MM/DD/YYYY, MM/YYYY, or YYYY if using the MM/DD/YYYY for the filter date on the table entry in number 2 above.  You can use MM-DD-YYYY, MM-YYYY, or YYYY if using MM-DD-YYYY, etc.
 3.  Press the Funnel to do the filtering.
 4.  The user can add other fields to refine the filtering and press the Funnel.
-5.  If you want to change values to start a new filtering process, the user first should uncheck and recheck the Filter On.  The old filter values will remain in the input boxes.  The user should change the ones desired and press the Funnel.
+5.  If you want to change values to start a new filtering process, the user first should uncheck and recheck the Filter On.  This will rest the display table to the original values.  The old filter values will remain in the input boxes.  The user should change the ones desired and press the Funnel.
 
 
 ### **Other props:**
