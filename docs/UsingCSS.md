@@ -9,8 +9,10 @@ To use the CSS files in your project:
 ```
 2.  In the index.html file in the public directory, in the <head> section of the HTML, place the following:
 ```html
-    <link rel="stylesheet" href="DropDown.css" />
-    <link rel="stylesheet" href="NavBar.css" />
+    <link rel="stylesheet" href="contextMenuHover.css" />
+    <link rel="stylesheet" href="modal.css" />
+    <link rel="stylesheet" href="mousehover.css" />
+    <link rel="stylesheet" href="table.css" />
 ```
 
 The above css files are now avaliable to any file in the src directory.  There is ***no*** need to import the css files in the source files.
