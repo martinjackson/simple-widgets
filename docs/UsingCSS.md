@@ -2,9 +2,10 @@
 
 To use the CSS files in your project:
 
-1.  Copy the css files from the library into the public directory of your project.  There might be a postinstall script in your package.json to do this.  If you plan on changing the css you might want to remove this script after you do the initial install.
+1.  Copy the css files from the library into the public directory of your project.  ***There might be a postinstall script in your package.json to do this.  If you plan on changing the css you might want to remove this script after you do the initial install.***
 ```
     cd your-project-name
+    npm install
     cp ./node_modules/simple-widgets/lib/*.css ./public/
 ```
 2.  In the index.html file in the public directory, in the <head> section of the HTML, place the following:
