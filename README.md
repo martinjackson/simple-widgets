@@ -53,6 +53,10 @@ __**Getting Started**__
 - [Short Tutorial](GettingStarted.md)
 - [Example Project](https://github.com/martinjackson/simple-widgets-sample)
 
+__**CSS File Information**__
+
+[Using CSS Files](docs/UsingCSS.md)
+
 ### Build and Publish
 
 1. npm run pack
