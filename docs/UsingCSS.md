@@ -13,6 +13,7 @@ To use the CSS files in your project:
     <link rel="stylesheet" href="contextMenuHover.css" />
     <link rel="stylesheet" href="modal.css" />
     <link rel="stylesheet" href="mousehover.css" />
+    <link rel="stylesheet" href="slider(num).css" />
     <link rel="stylesheet" href="table.css" />
 ```
 
@@ -24,7 +25,8 @@ The css files in the simple-widgets library are:
 1.  contextMenuHover.css
 2.  modal.css
 3.  mousehover.css
-4.  table.css
+4.  slider1.css to slider5.css
+5.  table.css
   
 ### contextMenuHover.css
   
@@ -70,6 +72,11 @@ The wasClickedScreen, processInvalidStyleScreen, and checkValidityScreen are all
       
 The only class name is checkForError which is for the entire div.
       
+
+### slider1.css to slider5.css
+
+These five slider CSS files are 5 different sliders the user can have in their project.  See the slider documentation for more information.  [Slider](./Slider.md)
+
 ### table.css
       
    This css file is used to align labels and input components so that they line up underneath each at the exact same position using a table grid.  The css file is also used to style regular tables.
