@@ -1,4 +1,4 @@
-# Header
+# Slider
 
 This will allow the user to create a slider to specify a range of values to be selected by sliding the slider.  The value to the right of the slider will display the value of the slider.  The following are the possible sliders that are available:
 
