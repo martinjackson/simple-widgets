@@ -1,5 +1,6 @@
 .tableLabel {
-    width: 300px;
+/*    width: 300px; */
+    width: 19em;
     margin: 5px;
     text-align: left;
     line-height: 20px;
@@ -7,7 +8,8 @@
   }
 
 .tableLabel2 {
-    width: 300px;
+/*    width: 300px; */
+    width: 19em;
     padding: 10px;
     text-align: left;
     line-height: 20px;
@@ -15,7 +17,8 @@
 }
 
 .tableLabel3 {
-  width: 290px;
+/*  width: 290px; */
+  width: 18em;
   margin: 5px;
   text-align: left;
   line-height: 20px;
@@ -23,7 +26,8 @@
 }
 
 .tableLabel4 {
-  width: 255px;
+/*  width: 255px; */
+  width: 18em;
   padding: 10px;
   text-align: left;
   line-height: 20px;
@@ -31,7 +35,8 @@
 }
 
 .tableLabel5 {
-  width: 195px;
+/*  width: 195px; */
+  width: 12em;
   margin: 5px;
   text-align: left;
   line-height: 20px;
@@ -39,7 +44,8 @@
 }
 
 .tableLabel6 {
-  width: 90px;
+/*  width: 90px; */
+  width: 6em;
   margin: 5px;
   text-align: left;
   line-height: 20px;
@@ -47,7 +53,8 @@
 }
 
 .tableLabel7 {
-  width: 50px;
+/*  width: 50px; */
+  width: 3em;
   margin: 5px;
   text-align: left;
   line-height: 20px;
@@ -55,14 +62,23 @@
 }
 
 .tableLabel8 {
-  width: 120px;
+/*  width: 120px; */
+  width: 8em;
   margin: 5px;
   text-align: left;
   line-height: 20px;
   display: table-cell;
 }
 
-
+.tableLabel9 {
+  /*  width: 150px; */
+    width: 9em;
+    margin: 5px;
+    text-align: left;
+    line-height: 20px;
+    display: table-cell;
+}
+  
 
 .table {
     margin: 15px;
@@ -83,7 +99,8 @@
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 900px;
+/*    width: 900px; */
+    width: 56em;
     line-height: 20px;
   }
 
@@ -92,7 +109,8 @@
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 500px;
+/*    width: 500px; */
+    width: 31em;
     line-height: 20px;
   }
 
@@ -101,7 +119,8 @@
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 100px;
+/*    width: 100px; */
+    width: 6em;
     line-height: 20px;
     text-align: right;
   }
@@ -111,7 +130,8 @@
     margin-right: 50px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 150px;
+/*    width: 150px; */
+    width: 9em;
     line-height: 20px;
     text-align: right;
   }
@@ -121,7 +141,8 @@
     margin-right: 50px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 300px;
+/*    width: 300px; */
+    width: 19em;
     line-height: 20px;
     text-align: left;
   }
@@ -131,7 +152,8 @@
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 400px;
+/*    width: 400px; */
+    width: 25em;
     line-height: 20px;
     text-align: "left";
   }
@@ -141,7 +163,8 @@
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 700px;
+/*    width: 700px; */
+    width: 44em;
     line-height: 20px;
   }
 
@@ -150,7 +173,8 @@
 
 .choice-style {
     display: table-cell;
-    width: 700px;
+/*    width: 700px; */
+    width: 44em;
     margin-right: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -168,7 +192,8 @@ table1 {
 
 .special_choice_style {
   display: table-cell;
-  width: 400px;
+/*  width: 400px; */
+  width: 25em;
   margin-right: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
