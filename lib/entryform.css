@@ -1,0 +1,207 @@
+.tLabel {
+/*    width: 300px; */
+    width: 19em;
+    margin: 5px;
+    text-align: left;
+    line-height: 1.25em;
+    display: table-cell;
+}
+
+.cell {
+    display: table-cell;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    line-height: 1.25em;
+}
+
+.w3 {
+/*  width: 50px; */
+    width: 3em;
+    text-align: left;
+}
+        
+.w3R {
+/*  width: 50px; */
+    width: 3em;
+    text-align: right;
+}
+            
+.w6 {
+/*  width: 90px; */
+    width: 6em;
+    text-align: left;
+}
+        
+.w6R {
+/*  width: 90px; */
+    width: 6em;
+    text-align: right;
+}
+            
+.w8 {
+/*  width: 120px; */
+    width: 8em;
+    text-align: left;
+}
+        
+.w8R {
+/*  width: 120px; */
+    width: 8em;
+    text-align: right;
+}
+            
+.w9 {
+/*  width: 150px; */
+    width: 9em;
+    text-align: left;
+}
+          
+.w9R {
+/*  width: 150px; */
+    width: 9em;
+    text-align: right;
+}
+              
+.w12 {
+/*  width: 195px; */
+    width: 12em;
+    text-align: left;
+}
+        
+.w12R {
+/*  width: 195px; */
+    width: 12em;
+    text-align: right;
+}
+            
+.w18 {
+/*  width: 290px; */
+    width: 18em;
+    text-align: left;
+}
+        
+.w18R {
+/*  width: 290px; */
+    width: 18em;
+    text-align: right;
+}
+            
+.w18P {
+/*  width: 255px; */
+    width: 18em;
+    padding: 10px;
+    text-align: left;
+}
+        
+.w18PR {
+/*  width: 255px; */
+    width: 18em;
+    padding: 10px;
+    text-align: right;
+}
+            
+.w19 {
+/*    width: 300px; */
+    width: 19em;
+    text-align: left;
+}
+
+.w19P {
+/*    width: 300px; */
+    width: 19em;
+    padding: 10px;
+    text-align: left;
+}
+    
+.w19R {
+/*    width: 300px; */
+    width: 19em;
+    text-align: right;
+}
+    
+.w19PR {
+/*    width: 300px; */
+    width: 19em;
+    padding: 10px;
+    text-align: right;
+}
+
+.w25 {
+/*    width: 400px; */
+    width: 25em;
+    text-align: left;
+}
+        
+.w25R {
+/*    width: 400px; */
+    width: 25em;
+    text-align: right;
+}
+            
+.w31 {
+/*    width: 500px; */
+    width: 31em;
+    text-align: left;
+}
+        
+.w31R {
+/*    width: 500px; */
+    width: 31em;
+    text-align: right;
+}
+            
+.w44 {
+/*    width: 700px; */
+    width: 44em;
+    text-align: left;
+}
+        
+.w44R {
+/*    width: 700px; */
+    width: 44em;
+    text-align: right;
+}
+            
+.w56 {
+/*    width: 900px; */
+    width: 56em;
+    text-align: left;
+}
+        
+.w56R {
+/*    width: 900px; */
+    width: 56em;
+    text-align: right;
+}
+     
+        
+.table {
+    margin: 15px;
+    display: table;
+}
+    
+.row {
+    display: table-row;
+}
+    
+.specialrow {
+    display: table-row;
+    margin: 50px;
+}
+    
+       
+        
+    
+    
+th1, td1 {
+    border: 2px solid black;
+}
+    
+table1 {
+    border: 2px solid black;
+    margin: 20px;
+}
+    
+        
+    

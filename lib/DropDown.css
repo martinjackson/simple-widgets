@@ -1,0 +1,101 @@
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+/*    align-self: self-end; */
+    
+    background: #1888ff;
+    position: absolute;
+    top: 100%;
+
+    list-style: none;
+    text-align: start;
+
+    min-width: 6em;
+
+    z-index: 9;
+
+    border-radius: .25rem;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.5);
+  
+  }
+  
+  .dropdown-menu li, .dropdown-menu li span  {
+    background: #1888ff;
+    cursor: pointer;
+  }
+  
+ .dropdown-menu li:hover span {
+    background:  #5cabff; 
+    border-radius: .25rem;
+    box-shadow: 35px 35px 35px 35px rgba(0, 0, 0, 0.7);
+    /* width: 200px; */
+  }
+
+  .dropdown-menu li:hover {
+    background: #5cabff; 
+    /* width: 200px; */
+  }
+
+
+  .dropdown-menu.clicked {
+    display: none;
+/*    width: 200px */
+  }
+  
+  .dropdown-menu2 {
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    list-style: none; 
+    text-align: start;
+
+    margin-left: 6.8em;
+    min-width: 6em;
+/*    width: 200px */
+
+    z-index: 9;
+  }
+
+  .dropdown-menu ul {
+    min-width: 6em;
+/*    width: 200px */
+}  
+  .dropdown-menu2 ul {
+    min-width: 6em;
+/*    width: 200px */
+}  
+
+  .dropdown-menu li span {
+    min-width: 6em;
+  }
+
+  .dropdown-menu2 li span {
+    min-width: 6em;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu2 li:hover span {
+    background: lightblue;
+  }
+
+  .dropdown-menu2.clicked {
+    display: none;
+  }
+  
+  .dropdown-link {
+    display: block;
+    height: 100%;
+    width: 100%; 
+    text-decoration: none;
+    color: white;
+    padding: 16px;
+  }
+
+
+  .dropdown-link:hover {
+    background: #5cabff;
+    height: 100%;
+    width: 100%;
+  }
+
