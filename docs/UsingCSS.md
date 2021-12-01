@@ -129,8 +129,8 @@ These five slider CSS files are 5 different sliders the user can have in their p
    ```
 The first div starts the table grid with className="table".  The table grid ends with the closing div.
 The three consecutive divs after the first div, indicate a row in the table grid, with the className="row checkForError".
-Each label in the three divs all have tLabel w12.  They should all have the same tableLabel if items are to line up correctly.
-Each input component in the three divs all have cell w19.  They should all have the same cell if items are to line up correctly.
+Each label in the three divs all have tLabel w12 (width of 12em and text alignment of left).  They should all have the same tableLabel if items are to line up correctly.
+Each input component in the three divs all have cell w19 (width of 19em and text alignment of left).  They should all have the same cell if items are to line up correctly.
 
 ### table.css
 
