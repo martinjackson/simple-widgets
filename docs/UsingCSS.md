@@ -98,14 +98,12 @@ These five slider CSS files are 5 different sliders the user can have in their p
    The w19PR class specifies a width of 19em, a padding of 10px, and a text alignment of right.
    Each w class has a left and right text alignment for that number; however, there may or may not have a padding class for that number.
 
-      
-   The choice-style and special_choice_style are used for styling Choice (input) components in the div.
+   To convert from px to em, there is a calculator for doing this at [Calculator](https://www.w3schools.com/tags/ref_pxtoemconversion.asp).
       
    The th1, and td1 is used for placing a grid around a regular HTML table.
       
    The table1 class is used for styling a regular HTML table.
       
-   The root and table.search_sort_table items are used by the SearchSortTable component to keep track of the hover colors that have been used and should not changed at all.
       
    ***Example***
    ```javascript
@@ -134,7 +132,7 @@ Each input component in the three divs all have cell w19 (width of 19em and text
 
 ### table.css
 
-This CSS file is used by the searchSortTable for the hover effect if used.  The searchSortTable can have up to 10 different hover colors.  A different color can be used for each searchSortTable in the application.
+   The root and table.search_sort_table items are used by the SearchSortTable component to keep track of the hover colors that have been used and should not changed at all.
 
 ***This table should not be modified.***
 
