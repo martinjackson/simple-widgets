@@ -32,10 +32,10 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 ## checkboxRadio.css
 
-***checkbox_defaultStyle*** = the styling for the checkbox.
+***sw-checkbox_defaultStyle*** = the styling for the checkbox.
 
 ```css
-.checkbox_defaultStyle {
+.sw-checkbox_defaultStyle {
     background-color: Transparent;
     background-repeat: no-repeat;
     border: none;

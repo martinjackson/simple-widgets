@@ -353,13 +353,8 @@ const Test = (props) => {
     // Need state variables for sample and address (same as name)
     const [invalid, setInvalid] = useState(invalidArray);
 ...
-    const listStyle = {
-        marginTop: '10px',
-        width: '20%',
-    };
-
     return (
-        <div className="checkForError">
+        <div className="sw-invalid_checkForError">
             <label htmlFor="id_name" className="tableLabel">Name:</label>
             <input type="text" 
                    id="id_name" 
@@ -367,7 +362,7 @@ const Test = (props) => {
                    value={name} 
                    onChange={(event) => setName(event.target.value)} 
                    onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} 
-                   style={processInvalidStyleScreen(invalid, NAME, listStyle)} /><br />
+                   className={processInvalidStyleScreen(invalid, NAME)} /><br />
             { checkValidityScreen(invalid, NAME) }
             // Need sample and address (same as name)
             ...
@@ -417,13 +412,13 @@ const Test = (props) => {
 
         return (  // Build the row in the table
             <tr key={key}>
-                <td className="checkForError">
+                <td className="sw-invalid_checkForError">
                     <input type="text" 
                            id="id_name name="name" 
                            value={row.name} 
                            onChange={(event) => processName(event, i)} 
                            onClick={() => wasClickedTable(invalid, NAME, i, setInvalid)} 
-                           style={processInvalidStyleTable(invalid, NAME, i)} />
+                           className={processInvalidStyleTable(invalid, NAME, i)} />
                     { checkValidityTable(invalid, NAME, i) }
                 </td>
                 // Need td for sample and address (same as name)
@@ -474,7 +469,7 @@ const Test = (props) => {
 ...
 
     return (
-        <div className="checkForError">
+        <div className="sw-invalid_checkForError">
             <label htmlFor="id_name" className="tableLabel">Name:</label>
             <input type="text" 
                    id="id_name" 
@@ -482,7 +477,7 @@ const Test = (props) => {
                    value={name} 
                    onChange={(event) => setName(event.target.value)} 
                    onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} 
-                   style={processInvalidStyleScreen(invalid, NAME)} /><br />
+                   className={processInvalidStyleScreen(invalid, NAME)} /><br />
             { checkValidityScreen(invalid, NAME) }
             // Need address and city (same as name)
             ...
@@ -494,14 +489,14 @@ const Test = (props) => {
 
         return (  // Build the row in the table
             <tr key={key}>
-                <td className="checkForError">
+                <td className="sw-invalid_checkForError">
                     <input type="text" 
                            id="id_sample"
                            name="sample" 
                            value={row.sample} 
                            onChange={(event) => processSample(event, i)} 
                            onClick={() => wasClickedTable(invalid, SAMPLE, i, setInvalid)} 
-                           style={processInvalidStyleTable(invalid, SAMPLE, i} />
+                           className={processInvalidStyleTable(invalid, SAMPLE, i} />
                     { checkValidityScreen(invalid, SAMPLE, i) }
                 </td>
                 // Description (same as sample)

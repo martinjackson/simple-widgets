@@ -21,9 +21,9 @@ To use one of the CSS Files, see [UsingCSS Files](./UsingCSS.md).
 
 There are three basic classes in the CSS file:
 
-1. ***slider_rangeValue*** = describes the formatting of the number to the right of the slider
-2. ***slider_range*** = the css for the line that the slider slides on
-3. ***slider_range::-webkit-slider-thumb*** = the css for the item that is slided
+1. ***sw-slider_rangeValue*** = describes the formatting of the number to the right of the slider
+2. ***sw-slider_range*** = the css for the line that the slider slides on
+3. ***sw-slider_range::-webkit-slider-thumb*** = the css for the item that is slided
 
 On the range and range::-webkit-slider-thumb the width, height, border radius, and colors should be changed.
 

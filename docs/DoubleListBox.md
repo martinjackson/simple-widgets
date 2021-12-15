@@ -33,10 +33,10 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 A css file that contains the title, left list, and right list classes.  The names of the classes for the css file are:
 
-1. ***dlb_buttonSt*** = the styles for the <, >, <<, and >> buttons
+1. ***sw-dlb_buttonSt*** = the styles for the <, >, <<, and >> buttons
 
 ```css
-.dlb_buttonSt {
+.sw-dlb_buttonSt {
     width: 50;
     margin: 0.25em 0.75em;   /* top/bot 0.25  left/right 0.75 */
     justify-content: center;
@@ -45,74 +45,74 @@ A css file that contains the title, left list, and right list classes.  The name
 }
 ```
 
-2. ***dlb_topSt*** = the styling for displaying the Double List Box.  This should not be changed.
+2. ***sw-dlb_topSt*** = the styling for displaying the Double List Box.  This should not be changed.
 
 ```css
-.dlb_topSt { 
+.sw-dlb_topSt { 
     display: flex;
     flex-direction: row;
 }
 ```
 
-3. ***dlb_colSt*** = the styling for the button group.  This should not be changed.
+3. ***sw-dlb_colSt*** = the styling for the button group.  This should not be changed.
 
 ```css
-.dlb_colSt { 
+.sw-dlb_colSt { 
     width: min-content;
     align-self: center;
 }
 ```
 
-4. ***dlb_listSt*** = the styling for the right and left lists.  If you notice when the size option is used, the empty list box is shorter than the one with values in it.  If there are values in both list boxes, the size of the boxes are the same.  If you want to make them the same size, the height property can be added to the class.  A height of 13em is approximately as the size of 10.  The height property will override the size prop.
+4. ***sw-dlb_listSt*** = the styling for the right and left lists.  If you notice when the size option is used, the empty list box is shorter than the one with values in it.  If there are values in both list boxes, the size of the boxes are the same.  If you want to make them the same size, the height property can be added to the class.  A height of 13em is approximately as the size of 10.  The height property will override the size prop.
 
 ```css
-.dlb_listSt { 
+.sw-dlb_listSt { 
     min-width: 8em;
 }
 ```
 
-5. ***dlb_rightClass*** = the styling for the right list title, if there is one
+5. ***sw-dlb_rightClass*** = the styling for the right list title, if there is one
 
 ```css
-.dlb_rightClass {
+.sw-dlb_rightClass {
     font-size: 16;
     font-weight: bold;
     margin-bottom: 5px;
 }
 ```
 
-6. ***dlb_leftClass*** = the styling for the left list title, if there is one
+6. ***sw-dlb_leftClass*** = the styling for the left list title, if there is one
 
 ```css
-.dlb_leftClass {
+.sw-dlb_leftClass {
     font-size: 16;
     font-weight: bold;
     margin-bottom: 5px;
 }
 ```
 
-7. ***dlb_titleClass*** = the styling for the title, if there is one
+7. ***sw-dlb_titleClass*** = the styling for the title, if there is one
 
 ```css
-.dlb_titleClass {
+.sw-dlb_titleClass {
     font-size: 24;
     font-weight: bold;
 }
 ```
 
-8. ***dlb_overallStyle*** = the overall style of the list box, which will center the list box.
+8. ***sw-dlb_overallStyle*** = the overall style of the list box, which will center the list box.
 
 ```css
-.dlb_overallStyle {
+.sw-dlb_overallStyle {
     margin-left: auto;
     margin-right: auto;
 }
 ```
 
-9. ***dlb_display*** = used for displaying the title over the list box and the list box.  This should not be changed.
+9. ***sw-dlb_display*** = used for displaying the title over the list box and the list box.  This should not be changed.
 
 ```css
-.dlb_display {
+.sw-dlb_display {
    display: block;
 }
 ```

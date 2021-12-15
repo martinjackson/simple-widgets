@@ -227,10 +227,10 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 
 ### Classes
 
-1.  ***sst_divStyle*** = the overall style of the Search Sort Table.  It defines the border, background, margins, and padding for the entire table.
+1.  ***sw-sst_divStyle*** = the overall style of the Search Sort Table.  It defines the border, background, margins, and padding for the entire table.
 
 ```css
-.sst_divStyle {
+.sw-sst_divStyle {
   border: 2px solid black;
   border-radius: 10px;
   text-align: center;
@@ -240,10 +240,10 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 };
 ```
 
-2.  ***sst_noButtonStyle*** = the style for the top, page up, page down, and bottom buttons on the bottom right of the Search Sort Table.
+2.  ***sw-sst_noButtonStyle*** = the style for the top, page up, page down, and bottom buttons on the bottom right of the Search Sort Table.
 
 ```css
-.sst_noButtonStyle {
+.sw-sst_noButtonStyle {
   margin: 10px;
   padding: 0px;
   border: none;
@@ -253,10 +253,10 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-3.  ***sst_marginStyle*** = the margin style for the dropdown followed by rows on the bottm of the Search Sort Table.
+3.  ***sw-sst_marginStyle*** = the margin style for the dropdown followed by rows on the bottm of the Search Sort Table.
 
 ```css
-.sst_marginStyle {
+.sw-sst_marginStyle {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
@@ -264,10 +264,10 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-4.  ***sst_noBorderStyle = the styling for the dropdown followed by rows on the bottm of the Search Sort Table.
+4.  ***sw-sst_noBorderStyle*** = the styling for the dropdown followed by rows on the bottm of the Search Sort Table.
 
 ```css
-.sst_noBorderStyle {
+.sw-sst_noBorderStyle {
   margin: 10px;
   padding: 0px;
   border: none;
@@ -275,29 +275,29 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-5.  ***sst_tableStyle*** = the style for the table containing the data.
+5.  ***sw-sst_tableStyle*** = the style for the table containing the data.
 
 ```css
-.sst_tableStyle {  /* The style for the table */
+.sw-sst_tableStyle {  /* The style for the table */
   margin: auto;
   border: 1px solid black;
 }
 ```
 
-6.  ***sst_centerBoldStyle*** = the row style for the headers in the table.
+6.  ***sw-sst_centerBoldStyle*** = the row style for the headers in the table.
 
 ```css
-.sst_centerBoldStyle {
+.sw-sst_centerBoldStyle {
   text-align: center;
   font-weight: bold;
   font-size: 20px;
 }
 ```
 
-7.  ***sst_footerStyle*** = the style of the one line table footer containing possible totals for each column.
+7.  ***sw-sst_footerStyle*** = the style of the one line table footer containing possible totals for each column.
 
 ```css
-.sst_footerStyle {
+.sw-sst_footerStyle {
   text-align: center;
   font-weight: bold;
   font-size: 20px;
@@ -305,10 +305,10 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-8.  ***sst_scrollStyle*** = the CSS styling for the scroll box.  This is only applied if scroll is a prop on the component.  This will also determine the height of the Search Sort Table.  This height can also be passed in as a prop and will override the value in the CSS.
+8.  ***sw-sst_scrollStyle*** = the CSS styling for the scroll box.  This is only applied if scroll is a prop on the component.  This will also determine the height of the Search Sort Table.  This height can also be passed in as a prop and will override the value in the CSS.
 
 ```css
-.sst_scrollStyle {
+.sw-sst_scrollStyle {
   display: block;
   overflow: scroll;
   height: 500px;
@@ -319,18 +319,18 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-9. ***sst_searchStyle*** = the styling of the dropdown column search that is after the funnel.
+9. ***sw-sst_searchStyle*** = the styling of the dropdown column search that is after the funnel.
 
 ```css
-.sst_searchStyle {
+.sw-sst_searchStyle {
   margin: 5px;
 }
 ```
 
-10. ***sst_footStyle*** = the style of the footer that contains the number of rows, top, bottom, previous, and next values.
+10. ***sw-sst_footStyle*** = the style of the footer that contains the number of rows, top, bottom, previous, and next values.
 
 ```css
-.sst_footStyle {
+.sw-sst_footStyle {
   margin: 10px;
   text-align: right;
 /*        position: sticky; */
@@ -340,43 +340,43 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-11. ***sst_imageStyleFilter*** = the style of the filter funnel after it has been pressed.
+11. ***sw-sst_imageStyleFilter*** = the style of the filter funnel after it has been pressed.
 
 ```css
-.sst_imageStyleFilter {
+.sw-sst_imageStyleFilter {
   background-color: lightgreen;
 }
 ```
 
-12. ***sst_imageStyleNormal*** = the style of the filter funnel when filtering has been turned on after checking the Filter On checkbox.
+12. ***sw-sst_imageStyleNormal*** = the style of the filter funnel when filtering has been turned on after checking the Filter On checkbox.
 
 ```css
-.sst_imageStyleNormal {
+.sw-sst_imageStyleNormal {
   background-color: aliceblue;
 }
 ```
 
-13. ***sst_imageStyleDisable*** = the style of the filter funnel with filtering off (Filter On checkbox is not checked).
+13. ***sw-sst_imageStyleDisable*** = the style of the filter funnel with filtering off (Filter On checkbox is not checked).
 
 ```css
-.sst_imageStyleDisable {
+.sw-sst_imageStyleDisable {
   background-color: var(--theme_disableButtonColor);
 }
 ```
 
-14. ***sst_buttonStyle2*** = the styling of the sort buttons (up arrow, right arrow, and down arrow).
+14. ***sw-sst_buttonStyle2*** = the styling of the sort buttons (up arrow, right arrow, and down arrow).
 
 ```css
-.sst_buttonStyle2 {
+.sw-sst_buttonStyle2 {
   border: none;
   background-color: var(--theme_backgroundColor);
 }
 ```
 
-15. ***sst_headerStyle*** = the specific style of the table column headers.
+15. ***sw-sst_headerStyle*** = the specific style of the table column headers.
 
 ```css
-.sst_headerStyle {
+.sw-sst_headerStyle {
   position: sticky;
   flex-direction: column;
   top: 0;
@@ -386,10 +386,10 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-16. ***sst_widthStyle*** = the styling for each of the filter boxes beneath the headers when filtering is on (Filter On checkbox is checked).
+16. ***sw-sst_widthStyle*** = the styling for each of the filter boxes beneath the headers when filtering is on (Filter On checkbox is checked).
 
 ```css
-.sst_widthStyle {
+.sw-sst_widthStyle {
   margin-bottom: 0px;
   padding-bottom: 0px;
   width: 99%;
@@ -397,19 +397,19 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-17. ***titleStyle*** = the styling for the title if there is one.Format must be an object, similiar to the title size above.
+17. ***sw-sst_titleStyle*** = the styling for the title if there is one.Format must be an object, similiar to the title size above.
 
 ```css
-.sst_titleStyle {
+.sw-sst_titleStyle {
   color: black;
   background-color: var(--theme_backgroundColor);
 }
 ```
 
-18. ***sst_buttonStyle*** = the button style of the Search button.
+18. ***sw-sst_buttonStyle*** = the button style of the Search button.
 
 ```css
-.sst_buttonStyle {
+.sw-sst_buttonStyle {
   margin: var(--theme_buttonMargin);
   border-radius: var(--theme_buttonRadius);
   color: var(--theme_buttonTextColor);
@@ -421,34 +421,34 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-20. ***sst_grayButtonBackground*** = the disable background color for the Search button.
+20. ***sw-sst_grayButtonBackground*** = the disable background color for the Search button.
 
 ```css
-.sst_grayButtonBackground {
+.sw-sst_grayButtonBackground {
   background-color: var(--theme_disableButtonColor);
 }
 ```
 
-21. ***sst_normalButtonBackground*** = the normal background color for the Search button.
+21. ***sw-sst_normalButtonBackground*** = the normal background color for the Search button.
 
 ```css
-.sst_normalButtonBackground {
+.sw-sst_normalButtonBackground {
   background-color: var(--theme_buttonColor);
 }
 ```
 
-20. ***sst_letterBackground*** = this is the background color for a selected letter in the Search Sort Table.  The letters are only used when the letters prop is used in the SearchSortTable component.
+20. ***sw-sst_letterBackground*** = this is the background color for a selected letter in the Search Sort Table.  The letters are only used when the letters prop is used in the SearchSortTable component.
 
 ```css
-.sst_letterBackground {
+.sw-sst_letterBackground {
   background-color: lightblue;
 }
 ```
 
-21. ***sst_regBackground*** = this is the background color for an unselected letter in the Search Sort Table.  The letters are only used when the letters prop is used in the SearchSortTable component.
+21. ***sw-sst_regBackground*** = this is the background color for an unselected letter in the Search Sort Table.  The letters are only used when the letters prop is used in the SearchSortTable component.
 
 ```css
-.sst_regBackground {
+.sw-sst_regBackground {
   background-color: var(--theme_backgroundColor);
 }
 ```
