@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Modal from './Modal.js';
-import { buttonStyle as defButtonStyle} from './Theme.js';
-// import './modal.css';
 
 const defProps = {
     show: true,
@@ -10,7 +8,6 @@ const defProps = {
     noFunct: () => {},
     closeFunct: () => {},
     message: 'No Confirm message given',
-    buttonStyle: {...defButtonStyle},
 }
 
 const ConfirmModal = inProps => {
@@ -35,8 +32,8 @@ const ConfirmModal = inProps => {
                     <Modal>
                         <div>
                             <h1>{(props.message === '') ? defProps.message : props.message}</h1>
-                            <button name="yes" onClick={(async) => processYesFunct()} style={props.buttonStyle} >Yes</button>
-                            <button name="no" onClick={(async) => processNoFunct()} style={props.buttonStyle} >No</button>
+                            <button name="yes" onClick={(async) => processYesFunct()} className="modal_cbuttonStyle" >Yes</button>
+                            <button name="no" onClick={(async) => processNoFunct()} className="modal_cbuttonStyle" >No</button>
                         </div>
                     </Modal>
                 ) : null

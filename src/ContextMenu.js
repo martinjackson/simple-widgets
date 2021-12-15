@@ -1,32 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
-import { defaultThemeSettings } from './Theme';
-
-
 const ContextMenu = (propsIn) => {
     console.log ('props', propsIn);
-    const { positionX, positionY, noLeave, noCancel, menu,
-            backColor, border, radius, ...props } = propsIn;
+    const { positionX, positionY, noLeave, noCancel, menu, ...props } = propsIn;
 
     const propsPositionX = positionX || 10;
     const propsPositionY = positionY || 10;
     const propsNoLeave = noLeave || false;
     const propsNoCancel = noCancel || false;
     const propsMenu = menu || [];
-    const backgroundColor = backColor || defaultThemeSettings.backgroundColor;
-    const propsBorder =  border || "2px solid black";
-    const propsRadius = radius || "10px"
+
+    const menuPositionStyle = {
+        left: propsPositionX,
+        right: propsPositionY,
+    }
 
     function cancelButton() {
         props.closeFunct (false);
-    }
-
-    const menuStyle = {
-        left: propsPositionX,
-        top: propsPositionY,
-        border: propsBorder,
-        borderRadius: propsRadius,
-        backgroundColor: backgroundColor,  // "#CCCC66",
     }
 
     function execute (funct) {
@@ -42,22 +32,20 @@ const ContextMenu = (propsIn) => {
     }
 
     function buildMenuItem(row, i) {
-        let key = 'row_' + i;
-
-        console.log ('row', row);
+        let key = 'row_' + props.name + i;
 
         return (
             <div>
-                <span className="contextMenuHov" key={key} onClick={() => execute(row.funct)}>{row.name}</span><br /><br />
+                <span className="cm_contextMenuHov" key={key} onClick={() => execute(row.funct)}>{row.name}</span><br /><br />
             </div>
         )
     }
 
     if (props.show === true) {
         return (
-            <div className="contextMenuHov" style={menuStyle} onMouseLeave={mouseLeave}>
+            <div className="cm_contextMenuHov cm_menuStyle" onMouseLeave={mouseLeave} style={menuPositionStyle}>
                 {propsMenu.map(buildMenuItem)}
-                { (propsNoCancel) ? <br /> : <span><span className="contextMenuHov" key="cancelKey" onClick={cancelButton}>Cancel</span><br /><br /></span> }
+                { (propsNoCancel) ? <br /> : <span><span className="cm_contextMenuHov" key="cancelKey" onClick={cancelButton}>Cancel</span><br /><br /></span> }
             </div>
         )
     } else {

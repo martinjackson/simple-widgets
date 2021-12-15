@@ -6,34 +6,6 @@ const InputFile = (props) => {
     const [inputFile, setInputFile] = useState('');
     const [displayFile, setDisplayFile] = useState('');
 
-    const fileStyle = {
-        display: "none",
-    };
-    
-    let buttonStyle ={
-        margin: "10px",
-        borderRadius: "10px",
-        color: "white",
-        backgroundColor: "blue",
-        fontWeight: "bold",
-        padding: "5px",
-        display: "inline-block",
-        cursor: "pointer",
-    }
-
-    if (hasProperty(props, 'buttonStyle')) {
-        buttonStyle = props.buttonStyle;
-    }
-
-    let textStyle = {
-        width: "40em",
-        height: "25px"
-    }
-
-    if (hasProperty(props, 'textStyle')) {
-        textStyle = props.textStyle;
-    }
-
     let buttonName = 'Browse';
     if (hasProperty(props, 'buttonname')) {
         buttonName = props.buttonname;
@@ -63,16 +35,12 @@ const InputFile = (props) => {
         processDisplay = props.processDisplay;
     }
 
-    const marginStyle = {
-        marginRight: "10px",
-    }
-
     return (
         <span className="InputFileClass">
-            <label htmlFor={props.id} style={marginStyle}>{props.title}</label>
-            <input file="text" id="pfile" name="displayFile" value={displayFile} style={textStyle} onChange={(event) => processDisplay(event.target.value)} />
-            <label htmlFor={props.id} style={buttonStyle} >
-                <input type="file" name={props.name} value={inputFile} id={props.id} accept={(props.hasOwnProperty('accept')) ? props.accept : '' } style={fileStyle} onChange={(event) => processFile(event.target.value)} />
+            <label htmlFor={props.id} className="infile_marginStyle">{props.title}</label>
+            <input file="text" id="pfile" name="displayFile" value={displayFile} className="infile_textStyle" onChange={(event) => processDisplay(event.target.value)} />
+            <label htmlFor={props.id} className="infile_buttonStyle  theme_normalButtonBackground" >
+                <input type="file" name={props.name} value={inputFile} id={props.id} accept={(props.hasOwnProperty('accept')) ? props.accept : '' } className="infile_fileStyle" onChange={(event) => processFile(event.target.value)} />
                 {buttonName}
             </label>
         </span>

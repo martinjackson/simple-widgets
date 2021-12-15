@@ -2,10 +2,9 @@ import React from 'react';
 
 // currently only accepts property choices as ['one','two']
 
-class ChoiceText extends React.Component {
+const ChoiceText = inProps => {
 
-  render() {
-    var props = {...this.props};
+    let props = {...inProps};
     const pref = (props.hasOwnProperty('name')) ? props.name + '_' : '';
     const choices = props.choices;
     delete props.choices;
@@ -16,8 +15,6 @@ class ChoiceText extends React.Component {
                  {choices.map( (el, k) => <option key={pref + k} value={el}>{el}</option>)}
                </datalist>
           </span>;
-  }
-
 }
 
 export default ChoiceText;
