@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import Modal from './Modal.js';
-import { buttonStyle as defButtonStyle} from './Theme.js';
-// import './modal.css';
 
 const defProps = {
     show: true,
     closeFunct: () => {},
     message: 'No Alert message given',
-    buttonStyle: {...defButtonStyle},
 }
 
 const AlertModal = inProps => {
@@ -30,7 +27,7 @@ const AlertModal = inProps => {
                     <Modal>
                         <div>
                             <h1>{(props.message === '') ? defProps.message : props.message}</h1>
-                            <button name="ok" onClick={() => props.closeFunct(false)} style={props.buttonStyle} >OK</button>
+                            <button name="ok" onClick={() => props.closeFunct(false)} className="modal_abuttonStyle" >OK</button>
                         </div>
                     </Modal>
                 ) : null

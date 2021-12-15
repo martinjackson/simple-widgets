@@ -1,50 +1,6 @@
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
-/***********************************************************************************
- *
- * The default theme settings.
- *
- ***********************************************************************************/
-const defaultSettings = {
-  backgroundColor: 'aliceblue',
-  buttonColor: 'blue',
-  buttonTextColor: 'white',
-  buttonFont: 'Times New Roman',
-  buttonFontWeight: 'bold',
-  buttonFontSize: 12,
-  disableButtonColor: 'gray',
-  font: 'Times New Roman',
-  fontWeight: 'plain',
-  fontSize: 12,
-  errorColor: 'pink',
-  normalColor: 'white',
-  textColor: 'black',
-};
-
-/***********************************************************************************
- *
- * The default button style.
- *
- ***********************************************************************************/
-export const buttonStyle = {
-  margin: "10px",
-  borderRadius: "10px",
-  color: defaultSettings.buttonTextColor,
-  backgroundColor: defaultSettings.buttonColor,
-  width: "100px",
-  height: "30px",
-  font: defaultSettings.buttonFont,
-  fontWeight: "bold",
-};
-
-/***********************************************************************************
- *
- * The default theme settings.
- *
- ***********************************************************************************/
-export const defaultThemeSettings = { ...defaultSettings,  buttonStyle: buttonStyle};
-
 
 /*********************************************************************
  *
@@ -67,13 +23,17 @@ export const defaultThemeSettings = { ...defaultSettings,  buttonStyle: buttonSt
  *
  *********************************************************************************/
 export const generateButton = (style, error, disabled = false, disableColor = 'gray') => {
-    const genButtonStyle = Object.assign ({}, style); // Copy the button style
+    let genButtonStyle = {};
+    if (style !== null) {
+        genButtonStyle = Object.assign ({}, style); // Copy the button style
+    }
     if (error === true || disabled === true) {  // Change certain buttons to the disable color to reflect the buttons have been disabled due to an error
         genButtonStyle.backgroundColor = disableColor;
     } else {    // Do not disable the button
         // Make sure the style has a background color, if not use the theme color
-        genButtonStyle.backgroundColor = (hasProperty(style, 'backgroundColor') === true) ?
-            style.backgroundColor : defaultThemeSettings.backgroundColor;
+        genButtonStyle.backgroundColor = (style !== null && hasProperty(style, 'backgroundColor') === true) ?
+            style.backgroundColor : 
+            Style(document.documentElement).getPropertyValue('--theme_buttonColor');;
     }
 
     return genButtonStyle;  // Return the button
@@ -92,12 +52,34 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
 export const generateDefaultButton = (error, disabled = false) => {
     const genButtonStyle = Object.assign ({}, buttonStyle); // Copy the button style
     if (error === true || disabled === true) {  // Change certain buttons to the disable color to reflect the buttons have been disabled due to an error
-        genButtonStyle.backgroundColor = defaultThemeSettings.disableButtonColor;
+        genButtonStyle.backgroundColor = 
+            getComputedStyle(document.documentElement).getPropertyValue('--theme_disableButtonColor');
     } else {    // Do not disable the button
         // Make sure the style has a background color, if not use the theme color
-        genButtonStyle.backgroundColor = defaultThemeSettings.backgroundColor;
+        genButtonStyle.backgroundColor =  
+            getComputedStyle(document.documentElement).getPropertyValue('--theme_buttonColor');
     }
 
     return genButtonStyle;  // Return the button
 }
 
+export const generateCSSButton = (cssClassName,
+                                  error, 
+                                  disabled = false,
+                                  noBackground = false,
+                                  cssNormalName = 'theme_normalButtonBackground',
+                                  cssDisableName = 'theme_grayButtonBackground') => {
+    if (error === true || disabled === true) {
+        return `${cssClassName} ${cssDisableName}`;
+    } else {
+        if (noBackground === true) {
+            return cssClassName;
+        } else {
+            return `${cssClassName} ${cssNormalName}`;
+        }
+    }
+}
+
+export const generateCSSDefaultButton = (error, disabled = false) => {
+    generateCSSButton('theme_buttonStyle', error, disabled);
+}

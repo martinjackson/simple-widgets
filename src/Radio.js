@@ -1,5 +1,4 @@
 import React from 'react';
-import autoBind from 'react-autobind';
 
   /*
     9737   Sun
@@ -18,40 +17,29 @@ const unchecked = String.fromCharCode(9898)
 
 const Frag = React.Fragment
 
-class Radio extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    autoBind(this);
-  }
-
-handle(e) {
+const Radio = props => {
+  const handle = (e) => {
     if (typeof e.preventDefault === 'function')
         e.preventDefault();
-    e.target.name = this.props.name;
-    e.target.value = this.props.selectedValue;
-    this.props.onChange(e);
+    e.target.name = props.name;
+    e.target.value = props.selectedValue;
+    props.onChange(e);
   }
    
-render() {
-  const {selectedValue, text, style, children, ...rest} = this.props
+  const {selectedValue, text, children, ...rest} = props
 
-  const isChecked = this.props.value === selectedValue;
+  const isChecked = props.value === selectedValue;
   const symbol = (isChecked) ? checked : unchecked;
 
-  const defaultStyle = {border: 'none', backgroundColor: 'white', borderRadius: '25px'};
-  const st = {...defaultStyle, ...style}
   return <Frag>
-           <button type="button" onClick={this.handle} style={st} {...rest}>
+           <button type="button" onClick={handle} className="radio_defaultStyle" {...rest}>
              {symbol}
              {text}
              {children}
            </button>
          </Frag>;
-  }
 }
 
 // 2018-10-10 {text} {children} moved to inside button clickable area
 
-export default Radio
+export default Radio;

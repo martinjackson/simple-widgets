@@ -1,15 +1,4 @@
 import React from 'react';
-import autoBind from 'react-autobind';
-
-const defaultStyle = {
-  backgroundColor: 'Transparent',
-  backgroundRepeat:'no-repeat',
-  border: 'none',
-  cursor:'pointer',
-  overflow: 'hidden',
-  outline:'none',
-  color: 'inherit'            // dont default to color: buttontext, wont match the current theme
-}
 
   /*
     ☐  U+2610 &#9744;  Ballot Box
@@ -20,35 +9,25 @@ const defaultStyle = {
  const checked = String.fromCharCode(9745) 
  const unchecked = String.fromCharCode(9744) 
 
-class CheckBox extends React.Component {
-
-  constructor(props) {
-    super(props);
-    
-    autoBind(this);
+const CheckBox = props => {
+  const handle = (e) => {
+    if (typeof e.preventDefault === 'function')
+        e.preventDefault();
+    e.target.name = props.name;
+    e.target.value = (props.value === props.selectedValue) ? '' : props.selectedValue;
+    props.onChange(e);
   }
 
-handle(e) {
-  if (typeof e.preventDefault === 'function')
-      e.preventDefault();
-  e.target.name = this.props.name;
-  e.target.value = (this.props.value === this.props.selectedValue) ? '' : this.props.selectedValue;
-  this.props.onChange(e);
-}
+  const {selectedValue, text, children, ...rest} = props
 
-render() {
-  const {selectedValue, text, color, style, children, ...rest} = this.props
-
-  const isChecked = this.props.value === selectedValue
+  const isChecked = props.value === selectedValue
   const symbol = (isChecked) ? checked : unchecked
 
-  let st = {...defaultStyle, ...style, color}
-  return <button type="button" onClick={this.handle} style={st} {...rest}>
+  return <button type="button" onClick={handle} className="checkbox_defaultStyle" {...rest}>
          {symbol}
          {text}
          {children}
          </button>
-  }
 }
 
 export default CheckBox

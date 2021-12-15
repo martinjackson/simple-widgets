@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { defaultThemeSettings, buttonStyle, generateButton } from './Theme.js';
 
 /***************************************************************************************
  *
@@ -506,24 +505,6 @@ export const clearInvalidTable = (invalidValues) => {
 
 /***********************************************************************************************
  *
- * This will copy another style of the form:
- *
- *  const someStyle = {
- *    cssname: cssvalue;
- *  };
- *
- * @param {*} copyStyle the style to copy
- *
- ***********************************************************************************************/
-export const copyStyle = (copyStyle) => {
-    let style = { ...copyStyle };   // Copy the style and set the background color to normal
-    style.backgroundColor = defaultThemeSettings.normalColor;
-
-    return style;
-}
-
-/***********************************************************************************************
- *
  * This will determine if the style should change to the background color to the invalid color
  * because the input table item has an invalid value.  This will return the style for the
  * component.
@@ -531,32 +512,19 @@ export const copyStyle = (copyStyle) => {
  * @param {*} invalidValues list of invalid inputs
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
- * @param {*} style         the style that is to be copied.  This parameter is optional and
- *                          is only there if the style is to be copied and used.
+ * @param {*} cssClassName  the name of a cssClassName that will be concatenated with either
+ *                          theme_normalBackground or theme_errorBackground.
  *
  ***********************************************************************************************/
-export const processInvalidStyleScreen = (invalidValues, constant, style = null) => {
-    let newStyle = null;    // The copied style that a background will be added
-    let backColor = defaultThemeSettings.normalColor;   // The background color of the component
-
-    if (style === null) {   // No style given, so use the valid styling
-        newStyle = validStyling();
-    } else {    // A style is present
-        if (style.hasOwnProperty('backgroundColor')) {  // Check to see if there already is a background color
-            backColor = style.backgroundColor;
-        } else {    // No background color exists for the component
-            backColor = defaultThemeSettings.normalColor;
-        }
-
-        newStyle = copyStyle (style);
-        newStyle.backgroundColor = backColor;
-    }
-
+export const processInvalidStyleScreen = (invalidValues, constant, cssClassName = null) => {
     // Set the background color based on whether the value is invalid or not
-    newStyle.backgroundColor = (invalidValues[constant].validity === true) ?
-             defaultThemeSettings.errorColor : backColor;
-
-    return newStyle;
+    if (cssClassName === null) {
+        return (invalidValues[constant].validity === true) ?
+             "theme_errorBackground" : "theme_normalBackground";
+    } else {
+        return (invalidValues[constant].validity === true) ?
+             `${cssClassName} theme_errorBackground` : `${cssClassName} theme_normalBackground`;
+    }
 }
 
 
@@ -568,15 +536,13 @@ export const processInvalidStyleScreen = (invalidValues, constant, style = null)
  * @param {*} invalidValues list of invalid inputs
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
- * @param {*} style         the style to change the backgound
+ * @param {*} cssClassName  the name of a cssClassName that will be concatenated with either
+ *                          theme_normalBackground or theme_errorBackground.
  *
  ***********************************************************************************************/
-export const processStyleScreen = (invalidValues, constant, style) => {
-
-    style.backgroundColor = (invalidValues[constant].validity === true) ?
-             defaultThemeSettings.errorColor : defaultThemeSettings.normalColor;
-
-    return style;
+export const processStyleScreen = (invalidValues, constant, cssClassName) => {
+    return (invalidValues[constant].validity === true) ?
+             `${cssClassName} theme_errorBackground` : `${cssClassName} theme_normalBackground`;
 }
 
 /***********************************************************************************************
@@ -608,38 +574,29 @@ export const clearInvalidScreenOnly = (invalidValues, constant) => {
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
  * @param {*} pos           row number in the table
- * @param {*} style         the style that is to be copied.  This parameter is optional and
- *                          is only there if the style is to be copied and used.
+ * @param {*} cssClassName  the name of a cssClassName that will be concatenated with either
+ *                          theme_normalBackground or theme_errorBackground.
  *
  ***********************************************************************************************/
-export const processInvalidStyleTable = (invalidValues, constant, pos, style = null) => {
-    let newStyle = null;    // The copied style that a background will be added
-    let backColor = defaultThemeSettings.normalColor;   // The background color of the component
-
-    if (style === null) {   // No style given, so use the valid styling
-        newStyle = validStyling();
-    } else {    // A style is present
-        if (style.hasOwnProperty('backgroundColor')) {  // Check to see if there already is a background color
-            backColor = style.backgroundColor;
-        } else {    // No background color exists for the component
-            backColor = defaultThemeSettings.normalColor;
-        }
-        newStyle = copyStyle (style);
-        newStyle.backgroundColor = backColor;
-    }
-
+export const processInvalidStyleTable = (invalidValues, constant, pos, cssClassName = null) => {
     // Spin through the validity array for that item in the invalid values array
     for (let j = 0; j < invalidValues[constant].validity.length; j++) {
         if (pos === invalidValues[constant].index[j]) { // Check to see if it is the correct index
             if (invalidValues[constant].validity[j] === true) { // and the entry is invalid
-                newStyle.backgroundColor = defaultThemeSettings.errorColor;
+                if (cssClassName === null) {
+                    return `theme_errorBackground`;
+                } else {
+                    return `${cssClassName} theme_errorBackground`;
+                }
             } else {    // Entry is valid
-                newStyle.backgroundColor = backColor;
+                if (cssClassName === null) {
+                    return `theme_normalBackground`;
+                } else {
+                    return `${cssClassName} theme_normalBackground`;
+                }
             }
         }
     }
-
-    return newStyle;
 }
 
 
@@ -652,39 +609,21 @@ export const processInvalidStyleTable = (invalidValues, constant, pos, style = n
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
  * @param {*} pos           row number in the table
- * @param {*} style         the style to change the backgound
+ * @param {*} cssClassName  the name of a cssClassName that will be concatenated with either
+ *                          theme_normalBackground or theme_errorBackground.
  *
  ***********************************************************************************************/
-export const processStyleTable = (invalidValues, constant, pos, style) => {
-
+export const processStyleTable = (invalidValues, constant, pos, cssClassName) => {
     // Spin through the validity array for that item in the invalid values array
     for (let j = 0; j < invalidValues[constant].validity.length; j++) {
         if (pos === invalidValues[constant].index[j]) { // Check to see if it is the correct index
             if (invalidValues[constant].validity[j] === true) { // and the entry is invalid
-                style.backgroundColor = defaultThemeSettings.errorColor;
+                return `${cssClassName} theme_errorBackground`;
             }
         }
     }
 
-    return style;
-}
-
-/**********************************************************************************************
- *
- * This will create a style with a normal background color, this a valid style.
- *
- **********************************************************************************************/
-export const validStyling = () => {
-    return { backgroundColor: defaultThemeSettings.normalColor }
-}
-
-/**********************************************************************************************
- *
- * This will create a style with a invalid background color, this a invalid style.
- *
- **********************************************************************************************/
-export const invalidStyling = () => {
-    return { backgroundColor: defaultThemeSettings.errorColor }
+    return `${cssClassName} theme_normalBackground`;
 }
 
 /*********************************************************************************************
