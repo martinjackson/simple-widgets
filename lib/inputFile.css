@@ -1,26 +1,28 @@
-.infile_fileStyle {
+/* sw = simple-widgets */
+
+.sw-infile_fileStyle {
     display: none;
 };
 
-.infile_buttonStyle {
-    margin: var(--theme_buttonMargin);
-    border-radius: var(--theme_buttonRadius);;
-    color: var(--theme_buttonTextColor);
-    font: var(--theme_buttonFont);
-    font-weight: var(--theme_buttonFontWeight);
-    font-size: var(--theme_buttonFontSize);
+.sw-infile_buttonStyle {
+    margin: var(--sw-theme_buttonMargin);
+    border-radius: var(--sw-theme_buttonRadius);;
+    color: var(--sw-theme_buttonTextColor);
+    font: var(--sw-theme_buttonFont);
+    font-weight: var(--sw-theme_buttonFontWeight);
+    font-size: var(--sw-theme_buttonFontSize);
     padding: 5px;
     display: inline-block;
     cursor: pointer;
 }
 
 
-.infile_textStyle {
+.sw-infile_textStyle {
     width: 40em;
     height: 25px;
 }
 
-.infile_marginStyle {
+.sw-infile_marginStyle {
     margin-right: 10px;
 }
 
