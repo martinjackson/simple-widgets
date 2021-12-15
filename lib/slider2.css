@@ -1,18 +1,20 @@
-.rangeValue {
+.slider_rangeValue {
   text-align: center;
   font-size: 2em;
   color: #999;
   font-weight: 400;
   margin-left: 20px;
 }
-.range {
+
+.slider_range {
   -webkit-appearance: none;
 	background-color: lightgray;
   height: 4px;
 	width: 400px;
   outline: none;
 }
-.range::-webkit-slider-thumb {
+
+.slider_range::-webkit-slider-thumb {
   -webkit-appearance: none;
   border:solid black 2px;
   background: blue;

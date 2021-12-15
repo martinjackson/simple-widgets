@@ -1,0 +1,47 @@
+:root {
+    --theme_backgroundColor: aliceblue;
+    --theme_buttonMargin: 10px;
+    --theme_buttonRadius: 10px;
+    --theme_buttonWidth: 100px;
+    --theme_buttonHeight: 30px;
+    --theme_buttonColor: blue;
+    --theme_buttonTextColor: white;
+    --theme_buttonFont: Times New Roman;
+    --theme_buttonFontWeight: bold;
+    --theme_buttonFontSize: 12;
+    --theme_disableButtonColor: gray;
+    --theme_font: Times New Roman;
+    --theme_fontWeight: plain;
+    --theme_fontSize: 12;
+    --theme_errorColor: pink;
+    --theme_normalColor: white;
+    --theme_textColor: black;
+}
+
+.theme_buttonStyle {
+    margin: var(--theme_buttonMargin);
+    border-radius: var(--theme_buttonRadius);
+    color: var(--theme_buttonTextColor);
+    width: var(--theme_buttonWidth);
+    height: var(--theme_buttonHeight);
+    font: var(--theme_buttonFont);
+    font-weight: var(--theme_buttonFontWeight);
+    font-size: var(--theme_buttonFontSize);
+  };
+
+.theme_grayButtonBackground {
+    background-color: var(--theme_disableButtonColor);
+}
+
+.theme_normalButtonBackground {
+    background-color: var(--theme_buttonColor);
+}
+
+.theme_errorBackground {
+    background-color: var(--theme_errorColor);
+}
+
+.theme_normalBackground {
+    background-color: var(--theme_normalColor);
+}
+

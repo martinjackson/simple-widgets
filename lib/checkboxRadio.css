@@ -1,0 +1,16 @@
+.checkbox_defaultStyle {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color: inherit;            /* dont default to color: buttontext, wont match the current theme */
+  }
+  
+.radio_defaultStyle {
+      border: none;
+      background-color: white;
+      border-radius: 25px;
+}
+   

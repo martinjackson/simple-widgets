@@ -1,11 +1,18 @@
-div.contextMenuHov {
+div.cm_contextMenuHov {
     position: absolute;
     display: block;
     padding: 10px;
     z-index: 1;
 }
 
-span.contextMenuHov:hover {
+span.cm_contextMenuHov:hover {
     visibility: visible;
     background-color: lightgray;
+}
+
+.cm_menuStyle {
+    width: 15em;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: var(--theme_backgroundColor);  /* "#CCCC66", */
 }

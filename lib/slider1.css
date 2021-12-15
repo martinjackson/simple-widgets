@@ -1,11 +1,12 @@
-.rangeValue {
+.slider_rangeValue {
   text-align: center;
   font-size: 2em;
   color: #999;
   font-weight: 400;
   margin-left: 20px;
 }
-.range {
+
+.slider_range {
   width: 400px;
   height: 25px;
   -webkit-appearance: none;
@@ -15,7 +16,8 @@
   overflow: hidden;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
 }
-.range::-webkit-slider-thumb {
+
+.slider_range::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 25px;
   height: 25px;
