@@ -36,6 +36,9 @@ Other possible fields for a row in the table are: dataDate, filterDate, and sort
 The following is a code example:
 
 ```javascript
+        import '../node_modules/simple-widgets/lib/theme.css';
+        import '../node_modules/simple-widgets/lib/table.css';
+
         const MAX_ITEMS = 2;
 
         const [start, setStart] = useState(0);
@@ -117,63 +120,23 @@ How to filter:
 4.  The user can add other fields to refine the filtering and press the Funnel.
 5.  If you want to change values to start a new filtering process, the user first should uncheck and recheck the Filter On.  This will rest the display table to the original values.  The old filter values will remain in the input boxes.  The user should change the ones desired and press the Funnel.
 
+# **Letters**
+
+Use the letters that appear to select a column and then select the letter for all the items that start with that letter to appear.
+
+1.  The letters prop must be used for the letters to appear in the Search Sort Table.
+2.  The dropdown Search is used to indicate which column is to be used when a letter is selected.
+3.  A set of letters appears after the filtering line.  The letters can be upper case letters, lower case letters, or digits.  See the letters prop for more information.
+
+How to use Letters:
+
+1.  Select a column from the dropdown Search.
+2.  Select a letter from the list.  The selected letter will be highlighted and all the values that start with that letter in that column will be displayed.
+
 
 ### **Other props:**
 
-1.  **borderStyle** = the style for each cell in the table.  The default object is:
-```javascript
-    let borderStyle = {
-        border: "1px solid black",
-    };
-```
-
-2.  **buttonStyle** = the style of the buttons.  The default object is:
-```javascript
-    let buttonStyle = {
-        margin: "10px",
-        borderRadius: "10px",
-        color: "white",
-        backgroundColor: "blue",
-        width: "100px",
-        height: "30px",
-        font: "Times New Roman",
-        fontWeight: "bold",
-    }
-```
-
-3. **dateTable** = indicates how a data date and filter date are formatted, so that they can be converted to
-the YYYY-MM-DD format.  The possible formats that are allowed are:
-    MM/DD/YYYY
-    MM-DD-YYYY
-    MM/DD/YYYY MM:HH:SS
-    MM-DD-YYYY MM:HH:SS
-    YYYY-MM-DDTHH:MM:SS.SSS
-
-Both the data date and filter date are both converted to either YYYY-MM-DD or YYYY-DD-MMTHH:MM:SS for comparision.  The dateTable is an array containing objects with the index, data, and filter fields.  The index is the index in the table array above.  The data is the format of the data date.  The filter is the format of the filter date.  If the data or filter fields do not match one of the above formats, it retains its current format.  The following is an example:
-```javascript
-dateTable=[
-    { index: 2, date: 'YYYY-MM-DD', filter: 'MM/DD/YYYY' }
-]
-```
-
-The index is 2, which indicates the third field in the table contains a date field.  The data field contains the YYYY-MM-DD format which is not one of the above formats; therefore, the data part is not
-changed.  The filter field contains the MM/DD/YYYY format.  Therefore, the date value of the filter will be converted to YYYY-MM-DD from MM/DD/YYYY.
-
-If there are no dates in the table, the dateTable can be left out; therefore, it is optional.
-
-4.  **divStyle** = the style that goes around the search bar and table.  The default object is:
-```javascript
-    let divStyle = {
-        border: "2px solid black",
-        borderRadius: "10px",
-        textAlign: "center",
-        margin: "5px",
-        padding: "10px",
-        backgroundColor: "aliceblue",
-    };
-```
-
-5. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  A sample footer might be:
+1. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  A sample footer might be:
 ```javascript
     let footer = [
         'Totals', 
@@ -182,139 +145,321 @@ If there are no dates in the table, the dateTable can be left out; therefore, it
         totalCAN,
     ];
 ```
+2. **height** = the height of the scroll box only.
 
-6. **footerStyle** = the style of the table footer for the totals.  The default object is:
-```javascript
-    let footerStyle = {
-        textAlign: "center",
-        fontWeight: "bold",
-        fontSize: "20px",
-        border: "1px solid black",
-    }
-```
+3. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
 
-7. **footStyle** = the style of the footer that contains the number of rows, top, bottom, previous, and next values..  The default object is
-```javascript
-    let footStyle = {
-        margin: "10px",
-        textAlign: "right",
-        position: "sticky",
-        bottom: 0,
-        zIndex: 2,
-        backgroundColor: aliceblue,
-    }
-```
-
-8. **headerStyle** = the style of the table headers.  The default object is
-```javascript
-        let headerStyle = {
-            position: "sticky",
-            top: 0,
-            zIndex: 2,
-            border: "1px solid black",
-            backgroundColor: aliceblue,
-        }
-```
-
-9.  **headerTableStyle** = the style for the headers in the table.  The default object is:
-```javascript
-    let headerBoldStyle = {
-        textAlign: "center",
-        fontWeight: "bold",
-        fontSize: "20px"
-    }
-```
-
-10.  **height** = the height of the scroll box only.
-
-11. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
-
-12. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
+4. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
 ```javascript
 hoverColor="yellow"
 ```
 
-13. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
-  a.   To use the letters option:
-    1.  Select a column header from the drop down menu.
-    2.  Select a letter or digit.
-    3.  The data will be sorted on that column header.  It will then search the data for first letter or digit that matches the one selected.  For letters, this option is the best.  For example, if A is selected, then all items in the column header that begin with A are listed in the table.  However, if digits are used, for example suppose 5 is selected, it sort the table on that column header.  If the data contains 5, 11, 51, 123,and 532.  It will only list the 5.
-  b.    Other options with letters:
-    1.  **noupper** = does not display the upper case letters
-    2.  **nolower** = does not display the lower case letters
-    3.  **nodigit** = does not display the digits
+5. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
+  a. To use the letters option:
+    1. Select a column header from the drop down menu.
+    2. Select a letter or digit.
+    3. The data will be sorted on that column header.  It will then search the data for first letter or digit that matches the one selected.  For letters, this option is the best.  For example, if A is selected, then all items in the column header that begin with A are listed in the table.  However, if digits are used, for example suppose 5 is selected, it sort the table on that column header.  If the data contains 5, 11, 51, 123,and 532.  It will only list the 5.
+  b. Other options with letters:
+    1. **noupper** = does not display the upper case letters
+    2. **nolower** = does not display the lower case letters
+    3. **nodigit** = does not display the digits
 
-14.  **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.
+6. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.
 
-15. **nobottom** = does not display the bottom button.
+7. **nobottom** = does not display the bottom button.
 
-16. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
+8. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
 
-17. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
+9. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-18. **nofilter** = this will not display the Filter On check box and the filter button
+10. **nofilter** = this will not display the Filter On check box and the filter button
 
-19. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed, 
-20. **nonext** = does not display the next button.
+11. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed, 
+12. **nonext** = does not display the next button.
 
-21. **noprevious** = does not display the previous button.
+13. **noprevious** = does not display the previous button.
 
-22. **nosearch** = does not display the header drop down, text box, and Search button.
+14. **nosearch** = does not display the header drop down, text box, and Search button.
 
-23. **nosort** = does not allow the headers to be sorted.
+15. **nosort** = does not allow the headers to be sorted.
 
-24. **notop** = does not display the top button or the total number of rows.
+16. **notop** = does not display the top button or the total number of rows.
 
-25.  **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+17. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-26.  **scrollStyle** = the CSS styling for the scroll box.  The default object is:
-```javascript
-    let scrollStyle = {
-        display: "block",
-        overflow: "scroll",
-        height: "auto",
-        width: "auto",
-        border: "1px solid black",
-        marginLeft: "auto",
-        marginRight: "auto"
-    }
-```
+18. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-27. **searchstart** = indicates that the search item will only match those data items that start with the search item
+19. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
-28. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
-
-29.  **ShowAll** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+20. **ShowAll** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-30. **showTable** = this will show the table and headers even if there is no data to display.
+21. **showTable** = this will show the table and headers even if there is no data to display.
 
-31.  **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+22. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 
-32. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
+23. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
 
-33. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing (32).  The format of the function is the same as indexing.
+24. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing (32).  The format of the function is the same as indexing.
 
-34.  **tableStyle** = the style for the overall table itself.  The default object is:
+25. **title** = supplies a title to be displayed centered at the top of the table.
+
+26. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
+
+27. **width** = the width of the scroll box only.
+
+## CSS Files
+
+The following CSS file will need to be imported into the file that uses this SearchSortTable component.  The import would be, if it is not be changed:
+
 ```javascript
-    let tableStyle = {
-        margin: "auto",
-        border: "1px solid black",
-    }
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/table.css';
 ```
 
-35. **title** = supplies a title to be displayed centered at the top of the table.
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
-36. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
+## table.css
 
-37. **titleStyle** = the styling for the title.  There is no default style.  Format must be an object, similiar to the styles above.
+This is the CSS file that styles the SearchSortTable component.
 
-38.  **width** = the width of the scroll box only.
+The root and table.search_sort_table items are used by the SearchSortTable component to keep track of the hover colors that have been used and should not changed at all.
+
+### Classes
+
+1.  ***sst_divStyle*** = the overall style of the Search Sort Table.  It defines the border, background, margins, and padding for the entire table.
+
+```css
+.sst_divStyle {
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+  background-color: var(--theme_backgroundColor);  /* "#CCCC66" */
+};
+```
+
+2.  ***sst_noButtonStyle*** = the style for the top, page up, page down, and bottom buttons on the bottom right of the Search Sort Table.
+
+```css
+.sst_noButtonStyle {
+  margin: 10px;
+  padding: 0px;
+  border: none;
+  background: none;
+  font-weight: bold;
+  color: black;
+}
+```
+
+3.  ***sst_marginStyle*** = the margin style for the dropdown followed by rows on the bottm of the Search Sort Table.
+
+```css
+.sst_marginStyle {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 30px;
+}
+```
+
+4.  ***sst_noBorderStyle = the styling for the dropdown followed by rows on the bottm of the Search Sort Table.
+
+```css
+.sst_noBorderStyle {
+  margin: 10px;
+  padding: 0px;
+  border: none;
+  background: none;
+}
+```
+
+5.  ***sst_tableStyle*** = the style for the table containing the data.
+
+```css
+.sst_tableStyle {  /* The style for the table */
+  margin: auto;
+  border: 1px solid black;
+}
+```
+
+6.  ***sst_centerBoldStyle*** = the row style for the headers in the table.
+
+```css
+.sst_centerBoldStyle {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+```
+
+7.  ***sst_footerStyle*** = the style of the one line table footer containing possible totals for each column.
+
+```css
+.sst_footerStyle {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  border: 1px solid black;
+}
+```
+
+8.  ***sst_scrollStyle*** = the CSS styling for the scroll box.  This is only applied if scroll is a prop on the component.  This will also determine the height of the Search Sort Table.  This height can also be passed in as a prop and will override the value in the CSS.
+
+```css
+.sst_scrollStyle {
+  display: block;
+  overflow: scroll;
+  height: 500px;
+  width: auto;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
+```
+
+9. ***sst_searchStyle*** = the styling of the dropdown column search that is after the funnel.
+
+```css
+.sst_searchStyle {
+  margin: 5px;
+}
+```
+
+10. ***sst_footStyle*** = the style of the footer that contains the number of rows, top, bottom, previous, and next values.
+
+```css
+.sst_footStyle {
+  margin: 10px;
+  text-align: right;
+/*        position: sticky; */
+  bottom: 0;
+  z-index: 2;
+  background-color: var(--theme_backgroundColor);
+}
+```
+
+11. ***sst_imageStyleFilter*** = the style of the filter funnel after it has been pressed.
+
+```css
+.sst_imageStyleFilter {
+  background-color: lightgreen;
+}
+```
+
+12. ***sst_imageStyleNormal*** = the style of the filter funnel when filtering has been turned on after checking the Filter On checkbox.
+
+```css
+.sst_imageStyleNormal {
+  background-color: aliceblue;
+}
+```
+
+13. ***sst_imageStyleDisable*** = the style of the filter funnel with filtering off (Filter On checkbox is not checked).
+
+```css
+.sst_imageStyleDisable {
+  background-color: var(--theme_disableButtonColor);
+}
+```
+
+14. ***sst_buttonStyle2*** = the styling of the sort buttons (up arrow, right arrow, and down arrow).
+
+```css
+.sst_buttonStyle2 {
+  border: none;
+  background-color: var(--theme_backgroundColor);
+}
+```
+
+15. ***sst_headerStyle*** = the specific style of the table column headers.
+
+```css
+.sst_headerStyle {
+  position: sticky;
+  flex-direction: column;
+  top: 0;
+  z-index: 2;
+  border: 1px solid black;
+  background-color: var(--theme_backgroundColor);
+}
+```
+
+16. ***sst_widthStyle*** = the styling for each of the filter boxes beneath the headers when filtering is on (Filter On checkbox is checked).
+
+```css
+.sst_widthStyle {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  width: 99%;
+  text-align: center;
+}
+```
+
+17. ***titleStyle*** = the styling for the title if there is one.Format must be an object, similiar to the title size above.
+
+```css
+.sst_titleStyle {
+  color: black;
+  background-color: var(--theme_backgroundColor);
+}
+```
+
+18. ***sst_buttonStyle*** = the button style of the Search button.
+
+```css
+.sst_buttonStyle {
+  margin: var(--theme_buttonMargin);
+  border-radius: var(--theme_buttonRadius);
+  color: var(--theme_buttonTextColor);
+  width: var(--theme_buttonWidth);
+  height: var(--theme_buttonHeight);
+  font: var(--theme_buttonFont);
+  font-weight: var(--theme_buttonFontWeight);
+  font-size: var(--theme_buttonFontSize);
+}
+```
+
+20. ***sst_grayButtonBackground*** = the disable background color for the Search button.
+
+```css
+.sst_grayButtonBackground {
+  background-color: var(--theme_disableButtonColor);
+}
+```
+
+21. ***sst_normalButtonBackground*** = the normal background color for the Search button.
+
+```css
+.sst_normalButtonBackground {
+  background-color: var(--theme_buttonColor);
+}
+```
+
+20. ***sst_letterBackground*** = this is the background color for a selected letter in the Search Sort Table.  The letters are only used when the letters prop is used in the SearchSortTable component.
+
+```css
+.sst_letterBackground {
+  background-color: lightblue;
+}
+```
+
+21. ***sst_regBackground*** = this is the background color for an unselected letter in the Search Sort Table.  The letters are only used when the letters prop is used in the SearchSortTable component.
+
+```css
+.sst_regBackground {
+  background-color: var(--theme_backgroundColor);
+}
+```
 
 ### **Example 1:**
 
 Contains a footer for the totals in the table.  The filter and the search are at the bottom of the table:
 ```javascript
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/table.css';
+
 const RANGE = 50;
 
 const [error, setError] = useState(false);
@@ -385,6 +530,9 @@ function editRow(index) {
 
 ### **Example 2 (SearchSortTable only)**
 ```javascript
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/table.css';
+
 <SearchSortTable data={data}
                     table={table}
                     MAX_ITEMS={MAX_ITEMS}
@@ -405,6 +553,9 @@ The user can also hover over a row and it will be highlighted in cyan.  To detec
 
 ### **Example 3 (SearchSortTable only)**
 ```javascript
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/table.css';
+
 <SearchSortTable data={pickData}
                 table={pickTable}
                 MAX_ITEMS="10"
@@ -424,6 +575,9 @@ A title of Pick will be displayed centered at the top of the table.  If a differ
 
 ### **Example 4**
 ```javascript
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/table.css';
+
 <SearchSortTable data={data}
                     table={table}
                     MAX_ITEMS={MAX_ITEMS}

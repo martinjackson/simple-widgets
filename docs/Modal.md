@@ -9,6 +9,23 @@ This modal takes three props:
 2.  **message**: the message to display in the modal
 3.  **closeFunct**: used to close the modal when the user presses the OK button
 
+## CSS File
+
+The following CSS file will need to be imported into the file that uses this modal component.  The import would be, if it is not be changed:
+
+```javascript
+import '../node_modules/simple-widgets/lib/modal.css';
+```
+
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
+
+
+## modal.css
+
+The CSS class to style the button:
+
+***modal_buttonStyle*** = the style used for the OK button.
+
 
 ### **Example**
 An example of a Modal:
@@ -16,8 +33,8 @@ An example of a Modal:
 ```javascript
 import React from 'react';
 
-import { Modal, buttonStyle }  from 'simple-widgets';
-import './modal.css';
+import { Modal }  from 'simple-widgets';
+import '../node_modules/simple-widgets/lib/modal.css';
 
 const YourModal = props => {
     return (
@@ -27,7 +44,7 @@ const YourModal = props => {
                     <Modal>
                         <div>
                             <h1>{props.message}</h1>
-                            <button name="ok" onClick={() => props.closeFunct(false)} style={buttonStyle} >OK</button>
+                            <button name="ok" onClick={() => props.closeFunct(false)} className="modal_buttonStyle"} >OK</button>
                         </div>
                     </Modal>
                 ) : null
@@ -53,19 +70,36 @@ export default YourModal;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
   
-  #modal:empty {
+#modal:empty {
     display: none;
-  }
+}
   
-  #modal > div {
+#modal > div {
     background-color: white;
     max-width: 500px;
     padding: 15px;
     border-radius: 5px;
     text-align: center;
-  }
+}
+
+.modal_marginStyle {
+    margin-bottom: 10px;
+}
+
+.modal_abuttonStyle, .modal_ebuttonStyle, .modal_cbuttonStyle, .modal_buttonStyle {
+    margin: var(--theme_buttonMargin);
+    border-radius: var(--theme_buttonRadius);
+    color: var(--theme_buttonTextColor);
+    width: var(--theme_buttonWidth);
+    height: var(--theme_buttonHeight);
+    font: var(--theme_buttonFont);
+    font-weight: var(--theme_buttonFontWeight);
+    font-size: var(--theme_buttonFontSize);
+    background-color: var(--theme_buttonColor);
+}
+
 ```
 
 ## **Index.html**

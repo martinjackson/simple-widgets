@@ -5,13 +5,13 @@ ChoiceText is simple [React] component that allows the user to select a value fr
 ### **Props**
 The Choice component uses the following props:
 
-1.  **name**: A unique name for this field with corresponding name in the parent component's state    
+1. **name**: A unique name for this field with corresponding name in the parent component's state    
     _example name="subject"_
-2.  **value**: the state variable that holds the selected value 
+2. **value**: the state variable that holds the selected value 
     _example value={subject}_
-3.  **onChange**: function in the parent component to catch/store state changes 
+3. **onChange**: function in the parent component to catch/store state changes 
     _example onChange={handleChange}_
-4.  **choices**: an array of Strings as pull down choices
+4. **choices**: an array of Strings as pull down choices
 
 ### **Example**
 ```javascript

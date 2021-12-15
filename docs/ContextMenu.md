@@ -22,16 +22,62 @@ The ContextMenu component uses the following props:
     _example positionY={event.clientY}_
 7.  **backColor**: the background color of the context menu.  The default is aliceblue.
     _example backColor="cyan"
-8.  **border**: the border around the context menu.  The default is 2px solid black.
-    _example border="none"_
-9.  **radius**: the border radius for the context menu.  The default is "10px".
     _example radius="none"
-10. **noCancel**: indicates that the Cancel menu item should not be placed in the context menu.  By default the Cancel menu item is automatically added as the last item in the context menu and will close the context menu without any action.
-7.  **noLeave**: indicates that when the user leaves the context menu, it will not automatically disappear.  By default when the user leave the context menu area, the context menu will disappear.
+8. **noCancel**: indicates that the Cancel menu item should not be placed in the context menu.  By default the Cancel menu item is automatically added as the last item in the context menu and will close the context menu without any action.
+9.  **noLeave**: indicates that when the user leaves the context menu, it will not automatically disappear.  By default when the user leave the context menu area, the context menu will disappear.
+
+## CSS File
+
+The following CSS file will need to be imported into the file that uses this ContextMenu component.  The import would be, if it is not be changed:
+
+```javascript
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/contextMenuHover.css';
+```
+
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
+
+## contextMenuHover.css
+
+The classes in the CSS file are:
+
+1. ***div.cm_contextMenuHov*** = the positioning of the context menu.  The position is relative to the current div.  If another html tag is desired, it should be substituted for this one.  The propeties in the class should not be changed, except for the z-index to make the context menu on top.
+
+```css
+div.cm_contextMenuHov {
+    position: absolute;
+    display: block;
+    padding: 10px;
+    z-index: 1;
+}
+```
+
+2. ***span.cm_contextMenuHov:hover*** = the styling of the menu item when the mouse hovers over it.
+
+```css
+span.cm_contextMenuHov:hover {
+    visibility: visible;
+    background-color: lightgray;
+}
+```
+
+3. ***cm_menuStyle*** = the styling of the overall context menu (width, border, and background color)
+
+```css
+.cm_menuStyle {
+    width: 15em;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: var(--theme_backgroundColor);  /* "#CCCC66", */
+}
+```
 
 ### **Example**
 ```javascript
 import { ContextMenu } from 'simple-widgets';
+
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/contextMenuHover.css';
 
 const YourComponent = (props) => {
 

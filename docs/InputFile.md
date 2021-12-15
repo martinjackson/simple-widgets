@@ -9,29 +9,68 @@ The bring up the file menu, the user must press the button to the right of the i
 3.  additionalProcessing is a function that does any additional processing after the file name has been selected.
 4.  accept is a list of file extensions seperated by commas that are displayed in the file menu.
 5.  buttonname is the name of the button to the right of the input box.  If no prop is given, the name of the button will be Browse.
-6.  textStyle is the style of the input box.  The default is:
+
+## CSS File
+
+The following CSS file will need to be imported into the file that uses this InputFile component.  The import would be, if it is not be changed:
+
 ```javascript
-    let textStyle = {
-        width: "40em",
-        height: "25px"
-    }
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/inputFile.css';
 ```
-7.  buttonStyle is the style of the button to the right of input box.  The default is:
-```javascript
-    let buttonStyle ={
-        margin: "10px",
-        borderRadius: "10px",
-        color: "white",
-        backgroundColor: "blue",
-        fontWeight: "bold",
-        padding: "5px",
-        display: "inline-block",
-        cursor: "pointer",
-    }
+
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
+
+## inputFile.css
+
+The classes in the file are:
+
+1. ***infile_fileStyle*** = displays the input box and button in the correct format.  This should not be changed.
+
+```css
+.infile_fileStyle {
+    display: none;
+};
+```
+
+2. ***infile_buttonStyle*** = the style of the button to the right of input box.  
+
+```css
+.infile_buttonStyle {
+    margin: var(--theme_buttonMargin);
+    border-radius: var(--theme_buttonRadius);;
+    color: var(--theme_buttonTextColor);
+    font: var(--theme_buttonFont);
+    font-weight: var(--theme_buttonFontWeight);
+    font-size: var(--theme_buttonFontSize);
+    padding: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+```
+
+3. ***infile_textStyle*** = the style of the input file box.
+
+```css
+.infile_textStyle {
+    width: 40em;
+    height: 25px;
+}
+```
+
+4. ***infile_marginStyle*** = the margin between the input file box and the button.
+
+```css
+.infile_marginStyle {
+    margin-right: 10px;
+}
 ```
 
 ## Example
 ```javascript
+    import '../node_modules/simple-widgets/lib/theme.css';
+    import '../node_modules/simple-widgets/lib/inputFile.css';
+    
     const addProcessFile = (value) => {
         setDisable(false);
     }
