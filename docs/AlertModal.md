@@ -13,7 +13,7 @@ The show, closeFunct, and message props are required.  The extra style prop is n
 
 ## CSS File
 
-The following CSS file will need to be imported into the file that uses this AlertModal component.  The import would be, if it is not be changed:
+The following CSS file will need to be imported into your code that uses this AlertModal component.  We did this so you can style the AlertModal, any way you desire.  The import would be, if it is not be changed:
 
 ```javascript
 import '../node_modules/simple-widgets/lib/theme.css';
@@ -27,10 +27,10 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 The CSS class to style the button:
 
-***modal_abuttonStyle*** = the style used for the OK button.
+***sw-modal_abuttonStyle*** = the style used for the OK button.
 
 ```css
-.modal_abuttonStyle {
+.sw-modal_abuttonStyle {
     margin: var(--theme_buttonMargin);
     border-radius: var(--theme_buttonRadius);
     color: var(--theme_buttonTextColor);
@@ -72,5 +72,5 @@ The following is a code example:
 ## **Index.html**
 In the index.html add the following line in the body:
 ```html
-    <div id="modal"></div>
+    <div id="sw-modal"></div>
 ```

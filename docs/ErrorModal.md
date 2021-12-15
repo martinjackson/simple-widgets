@@ -26,10 +26,10 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 The CSS class to style the button:
 
-***modal_ebuttonStyle*** = the style used for the OK button.
+***sw-modal_ebuttonStyle*** = the style used for the OK button.
 
 ```css
-.modal_ebuttonStyle {
+.sw-modal_ebuttonStyle {
     margin: var(--theme_buttonMargin);
     border-radius: var(--theme_buttonRadius);
     color: var(--theme_buttonTextColor);
@@ -72,6 +72,6 @@ The following is a code example:
 
 In the index.html add the following line in the body:
 ```html
-    <div id="modal"></div>
+    <div id="sw-modal"></div>
 ```
 

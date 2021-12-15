@@ -5,26 +5,26 @@ ContextMenu is a [React] component that allows the user to right click on an ite
 ### **Props**
 The ContextMenu component uses the following props:
 
-1.  **name**: A unique name for this field with corresponding name in the parent component's state    
+1. **name**: A unique name for this field with corresponding name in the parent component's state    
     _example name="subject"_
-2.  **menu**: this is an array that will describe the items in the context menu and the functions to execute when the item is selected.  The array will contain a list of objects that contain a name and funct field.  The name field will be the name of the menu item and funct will be the function that is called when the name is selected.  An example menu might look like:
+2. **menu**: this is an array that will describe the items in the context menu and the functions to execute when the item is selected.  The array will contain a list of objects that contain a name and funct field.  The name field will be the name of the menu item and funct will be the function that is called when the name is selected.  An example menu might look like:
     let menuList = [
         { name: 'Edit', funct: () => editMenu(value) },
         { name: 'Save', funct: saveItem }
     ];
     _example menu={menuList}_
 
-3.  **show**: a boolean value that indicates whether the context menu should be displayed or not.  If the value is true the context menu is displayed; otherwise, it is not.  This is generally a state variable in the parent.
-4.  **closeFunct**: is a function that sets a boolean variable false to indicate that the context menu should be closed.  This is generally a state function in the parent.
-5.  **positionX**: the X coordinate from the top left corner of where the context menu will appear.  The value of can be retrieved from the event.clientX.  The default is 10.
+3. **show**: a boolean value that indicates whether the context menu should be displayed or not.  If the value is true the context menu is displayed; otherwise, it is not.  This is generally a state variable in the parent.
+4. **closeFunct**: is a function that sets a boolean variable false to indicate that the context menu should be closed.  This is generally a state function in the parent.
+5. **positionX**: the X coordinate from the top left corner of where the context menu will appear.  The value of can be retrieved from the event.clientX.  The default is 10.
     _example positionX={event.clientX}_
-6.  **positionY**: the Y coordinate from the top left corner of where the context menu will appear.  The value of can be retrieved from the event.clientY.  The default is 10.
+6. **positionY**: the Y coordinate from the top left corner of where the context menu will appear.  The value of can be retrieved from the event.clientY.  The default is 10.
     _example positionY={event.clientY}_
-7.  **backColor**: the background color of the context menu.  The default is aliceblue.
+7. **backColor**: the background color of the context menu.  The default is aliceblue.
     _example backColor="cyan"
     _example radius="none"
 8. **noCancel**: indicates that the Cancel menu item should not be placed in the context menu.  By default the Cancel menu item is automatically added as the last item in the context menu and will close the context menu without any action.
-9.  **noLeave**: indicates that when the user leaves the context menu, it will not automatically disappear.  By default when the user leave the context menu area, the context menu will disappear.
+9. **noLeave**: indicates that when the user leaves the context menu, it will not automatically disappear.  By default when the user leave the context menu area, the context menu will disappear.
 
 ## CSS File
 
@@ -41,10 +41,10 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 The classes in the CSS file are:
 
-1. ***div.cm_contextMenuHov*** = the positioning of the context menu.  The position is relative to the current div.  If another html tag is desired, it should be substituted for this one.  The propeties in the class should not be changed, except for the z-index to make the context menu on top.
+1. ***div.sw-cm_contextMenuHov*** = the positioning of the context menu.  The position is relative to the current div.  If another html tag is desired, it should be substituted for this one.  The propeties in the class should not be changed, except for the z-index to make the context menu on top.
 
 ```css
-div.cm_contextMenuHov {
+div.sw-cm_contextMenuHov {
     position: absolute;
     display: block;
     padding: 10px;
@@ -52,19 +52,19 @@ div.cm_contextMenuHov {
 }
 ```
 
-2. ***span.cm_contextMenuHov:hover*** = the styling of the menu item when the mouse hovers over it.
+2. ***span.sw-cm_contextMenuHov:hover*** = the styling of the menu item when the mouse hovers over it.
 
 ```css
-span.cm_contextMenuHov:hover {
+span.sw-cm_contextMenuHov:hover {
     visibility: visible;
     background-color: lightgray;
 }
 ```
 
-3. ***cm_menuStyle*** = the styling of the overall context menu (width, border, and background color)
+3. ***sw-cm_menuStyle*** = the styling of the overall context menu (width, border, and background color)
 
 ```css
-.cm_menuStyle {
+.sw-cm_menuStyle {
     width: 15em;
     border: 2px solid black;
     border-radius: 10px;

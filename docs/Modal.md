@@ -24,8 +24,19 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 The CSS class to style the button:
 
-***modal_buttonStyle*** = the style used for the OK button.
+***sw-modal_buttonStyle*** = the style used for the OK button.
 
+.sw-modal_buttonStyle {
+    margin: var(--theme_buttonMargin);
+    border-radius: var(--theme_buttonRadius);
+    color: var(--theme_buttonTextColor);
+    width: var(--theme_buttonWidth);
+    height: var(--theme_buttonHeight);
+    font: var(--theme_buttonFont);
+    font-weight: var(--theme_buttonFontWeight);
+    font-size: var(--theme_buttonFontSize);
+    background-color: var(--theme_buttonColor);
+}
 
 ### **Example**
 An example of a Modal:
@@ -59,7 +70,7 @@ export default YourModal;
 ### **modal.css**
 
 ```css
-#modal {
+#sw-modal {
     background-color: rgba(129, 127, 127, 0.5);
     position: fixed;
     left: 0;
@@ -72,11 +83,11 @@ export default YourModal;
     align-items: center;
 }
   
-#modal:empty {
+#sw-modal:empty {
     display: none;
 }
   
-#modal > div {
+#sw-modal > div {
     background-color: white;
     max-width: 500px;
     padding: 15px;
@@ -84,11 +95,11 @@ export default YourModal;
     text-align: center;
 }
 
-.modal_marginStyle {
+.sw-modal_marginStyle {
     margin-bottom: 10px;
 }
 
-.modal_abuttonStyle, .modal_ebuttonStyle, .modal_cbuttonStyle, .modal_buttonStyle {
+.sw-modal_abuttonStyle, .sw-modal_ebuttonStyle, .sw-modal_cbuttonStyle, .sw-modal_buttonStyle {
     margin: var(--theme_buttonMargin);
     border-radius: var(--theme_buttonRadius);
     color: var(--theme_buttonTextColor);
@@ -99,11 +110,10 @@ export default YourModal;
     font-size: var(--theme_buttonFontSize);
     background-color: var(--theme_buttonColor);
 }
-
 ```
 
 ## **Index.html**
 In the index.html add the following line in the body:
 ```html
-    <div id="modal"></div>
+    <div id="sw-modal"></div>
 ```

@@ -25,18 +25,18 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 The classes in the file are:
 
-1. ***infile_fileStyle*** = displays the input box and button in the correct format.  This should not be changed.
+1. ***sw-infile_fileStyle*** = displays the input box and button in the correct format.  This should not be changed.
 
 ```css
-.infile_fileStyle {
+.sw-infile_fileStyle {
     display: none;
 };
 ```
 
-2. ***infile_buttonStyle*** = the style of the button to the right of input box.  
+2. ***sw-infile_buttonStyle*** = the style of the button to the right of input box.  
 
 ```css
-.infile_buttonStyle {
+.sw-infile_buttonStyle {
     margin: var(--theme_buttonMargin);
     border-radius: var(--theme_buttonRadius);;
     color: var(--theme_buttonTextColor);
@@ -49,19 +49,19 @@ The classes in the file are:
 }
 ```
 
-3. ***infile_textStyle*** = the style of the input file box.
+3. ***sw-infile_textStyle*** = the style of the input file box.
 
 ```css
-.infile_textStyle {
+.sw-infile_textStyle {
     width: 40em;
     height: 25px;
 }
 ```
 
-4. ***infile_marginStyle*** = the margin between the input file box and the button.
+4. ***sw-infile_marginStyle*** = the margin between the input file box and the button.
 
 ```css
-.infile_marginStyle {
+.sw-infile_marginStyle {
     margin-right: 10px;
 }
 ```

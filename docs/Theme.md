@@ -25,41 +25,41 @@ The following CSS variables are available for theming:
 
 | Name | Value     | Variable |
 |  :--------------- | :-------- | :--------------- |
-| Background Color | aliceblue | --theme_backgroundColor |
-| Button Margin |10px | --theme_buttonMargin |
-| Button Border Radius |blue | --theme_buttonRadius |
-| Button Width |100px | --theme_buttonWidth |
-| Button Height |30px | --theme_buttonHeight |
-| Button Color |blue | --theme_buttonColor |
-| Button Text Color | white | --theme_buttonTextColor |
-| Button Font | Times New Roman | --theme_buttonFont |
-| Button Font Weight | bold | --theme_buttonFontWeight |
-| Button Font Size | 12 | --theme_buttonFontSize |
-| Disable Button Color | gray | --theme_disableButtonColor |
-| Font | Times New Roman | --theme_font |
-| Font Weight | plain | --theme_fontWeight |
+| Background Color | aliceblue | --sw-theme_backgroundColor |
+| Button Margin |10px | --sw-theme_buttonMargin |
+| Button Border Radius |blue | --sw-theme_buttonRadius |
+| Button Width |100px | --sw-theme_buttonWidth |
+| Button Height |30px | --sw-theme_buttonHeight |
+| Button Color |blue | --sw-theme_buttonColor |
+| Button Text Color | white | --sw-theme_buttonTextColor |
+| Button Font | Times New Roman | --sw-theme_buttonFont |
+| Button Font Weight | bold | --sw-theme_buttonFontWeight |
+| Button Font Size | 12 | --sw-theme_buttonFontSize |
+| Disable Button Color | gray | --sw-theme_disableButtonColor |
+| Font | Times New Roman | --sw-theme_font |
+| Font Weight | plain | --sw-theme_fontWeight |
 | Font Size | 12 | --theme_fontSize |
-| Error Color | pink | --theme_errorColor |
-| Normal Background Color | white | --theme_normalColor |
-| Text Color | black | --theme_textColor |
+| Error Color | pink | --sw-theme_errorColor |
+| Normal Background Color | white | --sw-theme_normalColor |
+| Text Color | black | --sw-theme_textColor |
 
-1. --theme_backgroundColor - the background color of all components
-2. --theme_buttonMargin = the margin around all buttons
-3. --theme_buttonRadius - the border radius around all buttons
-4. --theme_buttonWidth - the width of all buttons
-5. --theme-buttonHeight - the height of all buttons
-6. --theme-buttonColor - the background color of all buttons
-7. --theme_buttonTextColor - the color of the text in all buttons
-8. --theme_buttonFont - the font for the text in all buttons
-9. --theme_buttonFontWeight - the font weight for the text in all buttons
-10. --theme_buttonFontSize - the font size for the text in all buttons
-11. --theme_disableButtonColor - the background color of a button when it is disabled
-12. --theme_font - the overall font for all components, except themed buttons
-13. --theme_fontWeight - the overall font weight for all components, except themed buttons
-14. --theme_fontSize - the overall font size for all components, except themed buttons
-15. --theme_errorColor - the background color a component turns when there is an error for that component
-16. --theme_normalColor - the normal background color for a component, , except themed buttons
-17. --theme_textColor - the text color for all components, except themed buttons
+1. --sw-theme_backgroundColor - the background color of all components
+2. --sw-theme_buttonMargin = the margin around all buttons
+3. --sw-theme_buttonRadius - the border radius around all buttons
+4. --sw-theme_buttonWidth - the width of all buttons
+5. --sw-theme-buttonHeight - the height of all buttons
+6. --sw-theme-buttonColor - the background color of all buttons
+7. --sw-theme_buttonTextColor - the color of the text in all buttons
+8. --sw-theme_buttonFont - the font for the text in all buttons
+9. --sw-theme_buttonFontWeight - the font weight for the text in all buttons
+10. --sw-theme_buttonFontSize - the font size for the text in all buttons
+11. --sw-theme_disableButtonColor - the background color of a button when it is disabled
+12. --sw-theme_font - the overall font for all components, except themed buttons
+13. --sw-theme_fontWeight - the overall font weight for all components, except themed buttons
+14. --sw-theme_fontSize - the overall font size for all components, except themed buttons
+15. --sw-theme_errorColor - the background color a component turns when there is an error for that component
+16. --sw-theme_normalColor - the normal background color for a component, , except themed buttons
+17. --sw-theme_textColor - the text color for all components, except themed buttons
 
 The normal background color and error color are used in error notification.
 If there is an error, the field will have the error color.  If there is not an error for that field, the field will have the normal background color.
@@ -67,7 +67,7 @@ If there is an error, the field will have the error color.  If there is not an e
 **The theme button Class:**
 
 ```css
-.theme_buttonStyle {
+.sw-theme_buttonStyle {
     margin: var(--theme_buttonMargin);
     border-radius: var(--theme_buttonRadius);
     color: var(--theme_buttonTextColor);
@@ -87,22 +87,43 @@ the theme_buttonStyle class in the CSS.
 ```javascript
 import 'theme.css';
 
-<button name="save" className="theme_buttonStyle">Save</button>
+<button name="save" className="sw-theme_buttonStyle">Save</button>
 ```
 
 ### Other Classes
 
-1. ***theme_grayButtonBackground Class*** = this class is used when a button is disabled.  If the generate button functions are used, it will automatically use this class.
+1. ***sw-theme_grayButtonBackground Class*** = this class is used when a button is disabled.  If the generate button functions are used, it will automatically use this class.
 
-2. ***theme_normalButtonBackground*** = this class is used for the normal background color of a button.  If the generate button functions are used, it will automatically use this class.
+```css
+.sw-theme_grayButtonBackground {
+    background-color: var(--theme_disableButtonColor);
+}
+```
 
-3. ***theme_errorBackground*** = this class is used to indicate that there is an error for this component.  If the invalid functions are used, it will automatically use this class.
+2. ***sw-theme_normalButtonBackground*** = this class is used for the normal background color of a button.  If the generate button functions are used, it will automatically use this class.
 
-4. ***theme_normalBackground*** = this class is used for the normal background color of a component.  If the invalid functions are used, it will automatically use this class.
+```css
+.sw-theme_normalButtonBackground {
+    background-color: var(--theme_buttonColor);
+}
+```
 
-5. ***theme_letterBackground*** = this is the background color for a selected letter in the searchSortTable.  The letters are only used when the letters prop is used in the SearchSortTable component.
+3. ***sw-theme_errorBackground*** = this class is used to indicate that there is an error for this component.  If the invalid functions are used, it will automatically use this class.
 
-6. ***theme_regBackground*** = this is the background color for an unselected letter in the searchSortTable.  The letters are only used when the letters prop is used in the SearchSortTable component.
+```css
+.sw-theme_errorBackground {
+    background-color: var(--theme_errorColor);
+}
+```
+
+4. ***sw-theme_normalBackground*** = this class is used for the normal background color of a component.  If the invalid functions are used, it will automatically use this class.
+
+```css
+.sw-theme_normalBackground {
+    background-color: var(--theme_normalColor);
+}
+```
+
 
 
 # **The Generate Button Functions**
@@ -129,11 +150,11 @@ To generate a button that uses an existing style and will allow the style to eit
     let error = false;
     let disableValue = false;
     ...
-    let genButtonStyle1 = generateButton('theme_buttonStyle', 
+    let genButtonStyle1 = generateCSSButton('sw-theme_buttonStyle', 
                                     error, disableValue);
-    let genButtonStyle2 = generateButton(Theme.getButtonStyle(),
+    let genButtonStyle2 = generateCSSButton('sw-theme_buttonStyle',
                                     error, true);
-    let genButtonStyle3 = generateButton(Theme.getButtonStyle(), 
+    let genButtonStyle3 = generateCSSButton('sw-theme_buttonStyle', 
                                     error);
     ...
     <button className={genButtonStyle1}>Test 1</button>
@@ -163,8 +184,8 @@ To generate a button that uses an existing style and will allow the style to eit
     let error = false;
     let disableValue = false;
     ...
-    let genButtonStyle1 = generateDefaultButton(error, disableValue);
-    let genButtonStyle2 = generateDefaultButton(error);
+    let genButtonStyle1 = generateCSSDefaultButton(error, disableValue);
+    let genButtonStyle2 = generateCSSDefaultButton(error);
     ...
     <button style={genButtonStyle1}>Test 1</button>
     <button style={genButtonStyle2}>Test 2</button>

@@ -29,10 +29,10 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 The CSS class to style the button:
 
-***modal_cbuttonStyle*** = the style used for the Yes and No  button.
+***sw-modal_cbuttonStyle*** = the style used for the Yes and No  button.
 
 ```css
-.modal_cbuttonStyle {
+.sw-modal_cbuttonStyle {
     margin: var(--theme_buttonMargin);
     border-radius: var(--theme_buttonRadius);
     color: var(--theme_buttonTextColor);
@@ -194,7 +194,7 @@ When the user presses the Save button, the confirm modal will appear, asking 'Ar
 ### **Index.html**
 In the index.html add the following line in the body:
 ```html
-    <div id="modal"></div>
+    <div id="sw-modal"></div>
 ```
 
 

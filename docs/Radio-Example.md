@@ -33,10 +33,10 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 ## checkboxRadio.css
 
-***radio_defaultStyle*** = the styling for the radio button.
+***sw-radio_defaultStyle*** = the styling for the radio button.
 
 ```css
-.radio_defaultStyle {
+.sw-radio_defaultStyle {
       border: none;
       background-color: white;
       border-radius: 25px;
