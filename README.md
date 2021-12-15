@@ -49,6 +49,8 @@ __**Component Documents**__
 
 [Search Functions](docs/SearchFunct.md), [Date Functions](docs/DateFunct.md), [Common Functions](docs/Common.md)
 
+[Entry Form](docs/EntryForm.md) is used to line up components in a form.
+
 __**Getting Started**__
 - [Short Tutorial](GettingStarted.md)
 - [Example Project](https://github.com/martinjackson/simple-widgets-sample)
