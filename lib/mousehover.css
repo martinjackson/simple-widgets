@@ -1,10 +1,11 @@
+/* sw = simple-widgets */
 
-.checkForError {
+.sw-invalid_checkForError {
     position: relative;
 /*    display: inline-block; */
   }
   
- .errMessage {
+ .sw-invalid_errMessage {
     visibility: hidden;
     background-color: black;
     color: #fff;
@@ -19,7 +20,7 @@
   }
 
 
-.checkForError:hover .errMessage {
+.sw-invalid_checkForError:hover .sw-invalid_errMessage {
     visibility: visible;
   }
 

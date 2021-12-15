@@ -1,4 +1,6 @@
-.checkbox_defaultStyle {
+/* sw = simple widgets */
+
+.sw-checkbox_defaultStyle {
     background-color: Transparent;
     background-repeat: no-repeat;
     border: none;
@@ -6,9 +8,9 @@
     overflow: hidden;
     outline: none;
     color: inherit;            /* dont default to color: buttontext, wont match the current theme */
-  }
+}
   
-.radio_defaultStyle {
+.sw-radio_defaultStyle {
       border: none;
       background-color: white;
       border-radius: 25px;

@@ -1,4 +1,6 @@
-.slider_rangeValue {
+/* sw = simple-widgets */
+
+.sw-slider_rangeValue {
   text-align: center;
   font-size: 2em;
   color: #999;
@@ -6,7 +8,7 @@
   margin-left: 20px;
 }
 
-.slider_range {
+.sw-slider_range {
   -webkit-appearance: none;
 	background-color: lightgray;
   height: 4px;
@@ -14,7 +16,7 @@
   outline: none;
 }
 
-.slider_range::-webkit-slider-thumb {
+.sw-slider_range::-webkit-slider-thumb {
   -webkit-appearance: none;
   border:solid black 2px;
   background: blue;

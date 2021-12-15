@@ -1,18 +1,20 @@
-div.cm_contextMenuHov {
+/* sw = simple-widgets */
+
+div.sw-cm_contextMenuHov {
     position: absolute;
     display: block;
     padding: 10px;
     z-index: 1;
 }
 
-span.cm_contextMenuHov:hover {
+span.sw-cm_contextMenuHov:hover {
     visibility: visible;
     background-color: lightgray;
 }
 
-.cm_menuStyle {
+.sw-cm_menuStyle {
     width: 15em;
     border: 2px solid black;
     border-radius: 10px;
-    background-color: var(--theme_backgroundColor);  /* "#CCCC66", */
+    background-color: var(--sw-theme_backgroundColor);  /* "#CCCC66", */
 }

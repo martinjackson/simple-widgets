@@ -1,4 +1,6 @@
-.slider_rangeValue {
+/* sw = simple-widgets */
+
+.sw-slider_rangeValue {
     text-align: center;
     font-size: 2em;
     color: #999;
@@ -6,18 +8,18 @@
     margin-left: 20px;
 }
 
-.slider_range {
+.sw-slider_range {
     width: 400px;
     margin: 13.8px 0;
     background-color: transparent;
     -webkit-appearance: none;
 }
 
-.slider_range:focus {
+.sw-slider_range:focus {
     outline: none;
 }
 
-.slider_range::-webkit-slider-runnable-track {
+.sw-slider_range::-webkit-slider-runnable-track {
     background: #3071a9;
     border: 0.2px solid #010101;
     border-radius: 1.3px;
@@ -26,7 +28,7 @@
     cursor: pointer;
 }
 
-.slider_range::-webkit-slider-thumb {
+.sw-slider_range::-webkit-slider-thumb {
     margin-top: -14px;
     width: 16px;
     height: 36px;
@@ -37,11 +39,11 @@
     -webkit-appearance: none;
 }
 
-.slider_range:focus::-webkit-slider-runnable-track {
+.sw-slider_range:focus::-webkit-slider-runnable-track {
     background: #367ebd;
 }
 
-.slider_range::-moz-range-track {
+.sw-slider_range::-moz-range-track {
     background: #3071a9;
     border: 0.2px solid #010101;
     border-radius: 1.3px;
@@ -50,7 +52,7 @@
     cursor: pointer;
 }
   
-.slider_range::-moz-range-thumb {
+.sw-slider_range::-moz-range-thumb {
     width: 16px;
     height: 36px;
     background: #ffffff;
@@ -59,7 +61,7 @@
     cursor: pointer;
 }
 
-.slider_range::-ms-track {
+.sw-slider_range::-ms-track {
     background: transparent;
     border-color: transparent;
     border-width: 14.8px 0;
@@ -69,19 +71,19 @@
     cursor: pointer;
 }
 
-.slider_range::-ms-fill-lower {
+.sw-slider_range::-ms-fill-lower {
     background: #2a6495;
     border: 0.2px solid #010101;
     border-radius: 2.6px;
 }
 
-.slider_range::-ms-fill-upper {
+.sw-slider_range::-ms-fill-upper {
     background: #3071a9;
     border: 0.2px solid #010101;
     border-radius: 2.6px;
 }
 
-.slider_range::-ms-thumb {
+.sw-slider_range::-ms-thumb {
     width: 16px;
     height: 36px;
     background: #ffffff;
@@ -92,11 +94,11 @@
     /*Needed to keep the Edge thumb centred*/
 }
 
-.slider_range:focus::-ms-fill-lower {
+.sw-slider_range:focus::-ms-fill-lower {
     background: #3071a9;
 }
 
-.slider_range:focus::-ms-fill-upper {
+.sw-slider_range:focus::-ms-fill-upper {
     background: #367ebd;
 }
   

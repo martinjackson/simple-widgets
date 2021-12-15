@@ -1,3 +1,5 @@
+/* sw = simple-widgets */
+
 #modalButton {
    background: transparent;
    border: none !important;
@@ -28,18 +30,18 @@
     text-align: center;
 }
 
-.modal_marginStyle {
+.sw-modal_marginStyle {
     margin-bottom: 10px;
 }
 
-.modal_abuttonStyle, .modal_ebuttonStyle, .modal_cbuttonStyle, .modal_buttonStyle {
-    margin: var(--theme_buttonMargin);
-    border-radius: var(--theme_buttonRadius);
-    color: var(--theme_buttonTextColor);
-    width: var(--theme_buttonWidth);
-    height: var(--theme_buttonHeight);
-    font: var(--theme_buttonFont);
-    font-weight: var(--theme_buttonFontWeight);
-    font-size: var(--theme_buttonFontSize);
-    background-color: var(--theme_buttonColor);
+.sw-modal_abuttonStyle, .sw-modal_ebuttonStyle, .sw-modal_cbuttonStyle, .sw-modal_buttonStyle {
+    margin: var(--sw-theme_buttonMargin);
+    border-radius: var(--sw-theme_buttonRadius);
+    color: var(--sw-theme_buttonTextColor);
+    width: var(--sw-theme_buttonWidth);
+    height: var(--sw-theme_buttonHeight);
+    font: var(--sw-theme_buttonFont);
+    font-weight: var(--sw-theme_buttonFontWeight);
+    font-size: var(--sw-theme_buttonFontSize);
+    background-color: var(--sw-theme_buttonColor);
 }
