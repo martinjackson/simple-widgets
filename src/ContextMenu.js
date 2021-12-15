@@ -36,16 +36,16 @@ const ContextMenu = (propsIn) => {
 
         return (
             <div>
-                <span className="cm_contextMenuHov" key={key} onClick={() => execute(row.funct)}>{row.name}</span><br /><br />
+                <span className="sw-cm_contextMenuHov" key={key} onClick={() => execute(row.funct)}>{row.name}</span><br /><br />
             </div>
         )
     }
 
     if (props.show === true) {
         return (
-            <div className="cm_contextMenuHov cm_menuStyle" onMouseLeave={mouseLeave} style={menuPositionStyle}>
+            <div className="sw-cm_contextMenuHov sw-cm_menuStyle" onMouseLeave={mouseLeave} style={menuPositionStyle}>
                 {propsMenu.map(buildMenuItem)}
-                { (propsNoCancel) ? <br /> : <span><span className="cm_contextMenuHov" key="cancelKey" onClick={cancelButton}>Cancel</span><br /><br /></span> }
+                { (propsNoCancel) ? <br /> : <span><span className="sw-cm_contextMenuHov" key="cancelKey" onClick={cancelButton}>Cancel</span><br /><br /></span> }
             </div>
         )
     } else {

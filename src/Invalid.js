@@ -513,17 +513,17 @@ export const clearInvalidTable = (invalidValues) => {
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
  * @param {*} cssClassName  the name of a cssClassName that will be concatenated with either
- *                          theme_normalBackground or theme_errorBackground.
+ *                          sw-theme_normalBackground or sw-theme_errorBackground.
  *
  ***********************************************************************************************/
 export const processInvalidStyleScreen = (invalidValues, constant, cssClassName = null) => {
     // Set the background color based on whether the value is invalid or not
     if (cssClassName === null) {
         return (invalidValues[constant].validity === true) ?
-             "theme_errorBackground" : "theme_normalBackground";
+             "sw-theme_errorBackground" : "sw-theme_normalBackground";
     } else {
         return (invalidValues[constant].validity === true) ?
-             `${cssClassName} theme_errorBackground` : `${cssClassName} theme_normalBackground`;
+             `${cssClassName} sw-theme_errorBackground` : `${cssClassName} sw-theme_normalBackground`;
     }
 }
 
@@ -537,12 +537,12 @@ export const processInvalidStyleScreen = (invalidValues, constant, cssClassName 
  * @param {*} constant      indicates which of the input items is invalid (the index
  *                          into the array)
  * @param {*} cssClassName  the name of a cssClassName that will be concatenated with either
- *                          theme_normalBackground or theme_errorBackground.
+ *                          sw-theme_normalBackground or sw-theme_errorBackground.
  *
  ***********************************************************************************************/
 export const processStyleScreen = (invalidValues, constant, cssClassName) => {
     return (invalidValues[constant].validity === true) ?
-             `${cssClassName} theme_errorBackground` : `${cssClassName} theme_normalBackground`;
+             `${cssClassName} sw-theme_errorBackground` : `${cssClassName} sw-theme_normalBackground`;
 }
 
 /***********************************************************************************************
@@ -575,7 +575,7 @@ export const clearInvalidScreenOnly = (invalidValues, constant) => {
  *                          into the array)
  * @param {*} pos           row number in the table
  * @param {*} cssClassName  the name of a cssClassName that will be concatenated with either
- *                          theme_normalBackground or theme_errorBackground.
+ *                          sw-theme_normalBackground or sw-theme_errorBackground.
  *
  ***********************************************************************************************/
 export const processInvalidStyleTable = (invalidValues, constant, pos, cssClassName = null) => {
@@ -584,15 +584,15 @@ export const processInvalidStyleTable = (invalidValues, constant, pos, cssClassN
         if (pos === invalidValues[constant].index[j]) { // Check to see if it is the correct index
             if (invalidValues[constant].validity[j] === true) { // and the entry is invalid
                 if (cssClassName === null) {
-                    return `theme_errorBackground`;
+                    return `sw-theme_errorBackground`;
                 } else {
-                    return `${cssClassName} theme_errorBackground`;
+                    return `${cssClassName} sw-theme_errorBackground`;
                 }
             } else {    // Entry is valid
                 if (cssClassName === null) {
-                    return `theme_normalBackground`;
+                    return `sw-theme_normalBackground`;
                 } else {
-                    return `${cssClassName} theme_normalBackground`;
+                    return `${cssClassName} sw-theme_normalBackground`;
                 }
             }
         }
@@ -610,7 +610,7 @@ export const processInvalidStyleTable = (invalidValues, constant, pos, cssClassN
  *                          into the array)
  * @param {*} pos           row number in the table
  * @param {*} cssClassName  the name of a cssClassName that will be concatenated with either
- *                          theme_normalBackground or theme_errorBackground.
+ *                          sw-theme_normalBackground or sw-theme_errorBackground.
  *
  ***********************************************************************************************/
 export const processStyleTable = (invalidValues, constant, pos, cssClassName) => {
@@ -618,12 +618,12 @@ export const processStyleTable = (invalidValues, constant, pos, cssClassName) =>
     for (let j = 0; j < invalidValues[constant].validity.length; j++) {
         if (pos === invalidValues[constant].index[j]) { // Check to see if it is the correct index
             if (invalidValues[constant].validity[j] === true) { // and the entry is invalid
-                return `${cssClassName} theme_errorBackground`;
+                return `${cssClassName} sw-theme_errorBackground`;
             }
         }
     }
 
-    return `${cssClassName} theme_normalBackground`;
+    return `${cssClassName} sw-theme_normalBackground`;
 }
 
 /*********************************************************************************************

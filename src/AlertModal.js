@@ -27,7 +27,7 @@ const AlertModal = inProps => {
                     <Modal>
                         <div>
                             <h1>{(props.message === '') ? defProps.message : props.message}</h1>
-                            <button name="ok" onClick={() => props.closeFunct(false)} className="modal_abuttonStyle" >OK</button>
+                            <button name="ok" onClick={() => props.closeFunct(false)} className="sw-modal_abuttonStyle" >OK</button>
                         </div>
                     </Modal>
                 ) : null

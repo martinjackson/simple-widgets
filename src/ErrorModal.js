@@ -27,7 +27,7 @@ const ErrorModal = inProps => {
                         <div>
                             <h1 className="modal_marginStyle">Error</h1>
                             <h2>{(props.message === '') ? defProps.message : props.message}</h2>
-                            <button name="ok" onClick={() => props.closeFunct(false)} className="modal_ebuttonStyle" >OK</button>
+                            <button name="ok" onClick={() => props.closeFunct(false)} className="sw-modal_ebuttonStyle" >OK</button>
                         </div>
                     </Modal>
                 ) : null

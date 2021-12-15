@@ -37,10 +37,10 @@ const InputFile = (props) => {
 
     return (
         <span className="InputFileClass">
-            <label htmlFor={props.id} className="infile_marginStyle">{props.title}</label>
-            <input file="text" id="pfile" name="displayFile" value={displayFile} className="infile_textStyle" onChange={(event) => processDisplay(event.target.value)} />
-            <label htmlFor={props.id} className="infile_buttonStyle  theme_normalButtonBackground" >
-                <input type="file" name={props.name} value={inputFile} id={props.id} accept={(props.hasOwnProperty('accept')) ? props.accept : '' } className="infile_fileStyle" onChange={(event) => processFile(event.target.value)} />
+            <label htmlFor={props.id} className="sw-infile_marginStyle">{props.title}</label>
+            <input file="text" id="pfile" name="displayFile" value={displayFile} className="sw-infile_textStyle" onChange={(event) => processDisplay(event.target.value)} />
+            <label htmlFor={props.id} className="sw-infile_buttonStyle  sw-theme_normalButtonBackground" >
+                <input type="file" name={props.name} value={inputFile} id={props.id} accept={(props.hasOwnProperty('accept')) ? props.accept : '' } className="sw-infile_fileStyle" onChange={(event) => processFile(event.target.value)} />
                 {buttonName}
             </label>
         </span>
