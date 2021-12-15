@@ -6,17 +6,17 @@ Theme will also allow you to change the theme settings by changing variables or 
 
 Theme will also contains a theme button style.
 
-*** Other CSS files and simple widget components that use theme.css***
+***Other CSS files and simple widget components that use theme.css***
 
-1.  checkboxRadio.css
-2.  contextMenuHover.css
-3.  doubleListBox.css
-4.  inputFile.css
-5.  table.css
-6.  AlertModal
-7.  ConfirmModal
-8.  DoubleListBox
-9.  ErrorModal
+1. checkboxRadio.css
+2. contextMenuHover.css
+3. doubleListBox.css
+4. inputFile.css
+5. table.css
+6. AlertModal
+7. ConfirmModal
+8. DoubleListBox
+9. ErrorModal
 10. InputFile
 11. Invalid
 12. SearchSortTable
@@ -43,19 +43,19 @@ The following CSS variables are available for theming:
 | Normal Background Color | white | --theme_normalColor |
 | Text Color | black | --theme_textColor |
 
-1.  --theme_backgroundColor - the background color of all components
-2.  --theme_buttonMargin = the margin around all buttons
-3.  --theme_buttonRadius - the border radius around all buttons
-4.  --theme_buttonWidth - the width of all buttons
-5.  --theme-buttonHeight - the height of all buttons
-6.  --theme-buttonColor - the background color of all buttons
-7.  --theme_buttonTextColor - the color of the text in all buttons
-8.  --theme_buttonFont - the font for the text in all buttons
-9.  --theme_buttonFontWeight - the font weight for the text in all buttons
-10.  --theme_buttonFontSize - the font size for the text in all buttons
-11.  --theme_disableButtonColor - the background color of a button when it is disabled
-12.  --theme_font - the overall font for all components, except themed buttons
-13.  --theme_fontWeight - the overall font weight for all components, except themed buttons
+1. --theme_backgroundColor - the background color of all components
+2. --theme_buttonMargin = the margin around all buttons
+3. --theme_buttonRadius - the border radius around all buttons
+4. --theme_buttonWidth - the width of all buttons
+5. --theme-buttonHeight - the height of all buttons
+6. --theme-buttonColor - the background color of all buttons
+7. --theme_buttonTextColor - the color of the text in all buttons
+8. --theme_buttonFont - the font for the text in all buttons
+9. --theme_buttonFontWeight - the font weight for the text in all buttons
+10. --theme_buttonFontSize - the font size for the text in all buttons
+11. --theme_disableButtonColor - the background color of a button when it is disabled
+12. --theme_font - the overall font for all components, except themed buttons
+13. --theme_fontWeight - the overall font weight for all components, except themed buttons
 14. --theme_fontSize - the overall font size for all components, except themed buttons
 15. --theme_errorColor - the background color a component turns when there is an error for that component
 16. --theme_normalColor - the normal background color for a component, , except themed buttons

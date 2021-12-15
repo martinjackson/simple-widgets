@@ -5,9 +5,9 @@ This will allow the user to pop up an error modal for displaying an error messag
 ### **Props**
 In order to use the alert modal the user must pass the following props:
 
-1.  **show** = a boolean variable indicating whether the alert modal should be displayed (true) or not (false).
-2.  **closeFunct** = a function that will set the show variable back to false to close the alert modal.
-3.  **message** = the message to display in the alert modal.
+1. **show** = a boolean variable indicating whether the alert modal should be displayed (true) or not (false).
+2. **closeFunct** = a function that will set the show variable back to false to close the alert modal.
+3. **message** = the message to display in the alert modal.
 
 The show, closeFunct, and message props are required.  
 
