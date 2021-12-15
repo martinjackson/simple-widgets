@@ -9,20 +9,45 @@ We support all browsers and environments where React runs.
 ### **Props**
 The Radio component uses the following props:
 
-1.  **name**: A unique name for this field with corresponding name in the parent component's state    
+1. **name**: A unique name for this field with corresponding name in the parent component's state    
     _example name="subject"_
-2.  **value**: the value of the checkbox if checked  
+2. **value**: the value of the checkbox if checked  
     _example value="checked"
-3.  **onChange**: function in the parent component to catch/store state changes 
+3. **onChange**: function in the parent component to catch/store state changes 
     _example onChange={handleChange}_
-5.  **match**: the state variable the holds the 'value' (see 2) that was selected
-6.  **text**: a label (String or component) that is displayed after the CheckBox
+5. **match**: the state variable the holds the 'value' (see 2) that was selected
+6. **text**: a label (String or component) that is displayed after the CheckBox
 
 If there are several radio buttons and it is desired that they operate as a group (only one radio button can be selected), the name and match props for all radio buttons must have the same value.
+
+## CSS Files
+
+The following CSS file will need to be imported into the file that uses this Radio component.  The import would be, if it is not be changed:
+
+```javascript
+import '../node_modules/simple-widgets/lib/checkboxRadio.css';
+```
+
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
+
+
+## checkboxRadio.css
+
+***radio_defaultStyle*** = the styling for the radio button.
+
+```css
+.radio_defaultStyle {
+      border: none;
+      background-color: white;
+      border-radius: 25px;
+}
+```
 
 ### **Example**
 ```javascript
 import { Radio } from 'simple-widgets';
+
+import '../node_modules/simple-widgets/lib/checkboxRadio.css';
 
 const YourComponent = (props) => {
    const [year, setYear] = useState('');

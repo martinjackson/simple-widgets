@@ -5,24 +5,45 @@ This will allow the user to pop up a confirm modal asking the user of the applic
 ### **Props**
 In order to use the alert modal the user must pass the following props:
 
-1.  **show** = a boolean variable indicating whether the confirm modal should be displayed (true) or not (false).
-2.  **yesFunct** = a function that will be executed when the user presses the Yes button on the confirm modal.
-3.  **noFunct** = a function that will be executed when the user presses the No button on the confirm model.  Another use this for this function is to set the show variable back to false to close the confirm modal, when the user presses the No button.  Also, called to close the confirm modal when the Yes button is pressed.
-4.  **closeFunct** = a function that is used to close the modal when the Yes or No button is pressed.  If there are both a yesFunct and noFunct, the closeFunct is required to set the show variable back to false to close the confirm modal.  This option should not be present if the noFunct is used to close the modal.
-4.  **message** = the message to display in the confirm modal.
-5.  **buttonStyle** = the style for the OK button.  The default style for the button is:
+1. **show** = a boolean variable indicating whether the confirm modal should be displayed (true) or not (false).
+2. **yesFunct** = a function that will be executed when the user presses the Yes button on the confirm modal.
+3. **noFunct** = a function that will be executed when the user presses the No button on the confirm model.  Another use this for this function is to set the show variable back to false to close the confirm modal, when the user presses the No button.  Also, called to close the confirm modal when the Yes button is pressed.
+4. **closeFunct** = a function that is used to close the modal when the Yes or No button is pressed.  If there are both a yesFunct and noFunct, the closeFunct is required to set the show variable back to false to close the confirm modal.  This option should not be present if the noFunct is used to close the modal.
+5. **message** = the message to display in the confirm modal.
+
+The show, yesFunct, and noFunct and / or closeFunct props are required.  The message style prop is not required.  If the message prop is not supplied, the default message will be 'No Confirm message given'.
+
+## CSS File
+
+The following CSS file will need to be imported into the file that uses this AlertModal component.  The import would be, if it is not be changed:
+
 ```javascript
-        margin: "10px",
-        borderRadius: "10px",
-        color: "white",
-        backgroundColor: "blue",
-        width: "100px",
-        height: "30px",
-        font: "Times New Roman",
-        fontWeight: "bold",
+import '../node_modules/simple-widgets/lib/theme.css';
+import '../node_modules/simple-widgets/lib/modal.css';
 ```
 
-The show, yesFunct, and noFunct and / or closeFunct props are required.  The message and button style prop is not required.  If the message prop is not supplied, the default message will be 'No Confirm message given'.
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
+
+
+## modal.css
+
+The CSS class to style the button:
+
+***modal_cbuttonStyle*** = the style used for the Yes and No  button.
+
+```css
+.modal_cbuttonStyle {
+    margin: var(--theme_buttonMargin);
+    border-radius: var(--theme_buttonRadius);
+    color: var(--theme_buttonTextColor);
+    width: var(--theme_buttonWidth);
+    height: var(--theme_buttonHeight);
+    font: var(--theme_buttonFont);
+    font-weight: var(--theme_buttonFontWeight);
+    font-size: var(--theme_buttonFontSize);
+    background-color: var(--theme_buttonColor);
+}
+```
 
 ### **Examples**
 The following is a code example:

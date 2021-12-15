@@ -10,18 +10,48 @@ We support all browsers and environments where React runs.
 ### **Props**
 The CheckBox component uses the following props:
 
-1.  **name**: A unique name for this field with corresponding name in the parent component's state    
+1. **name**: A unique name for this field with corresponding name in the parent component's state    
     _example name="subject"_
-2.  **value**: the value of the checkbox if checked  
+2. **value**: the value of the checkbox if checked  
     _example value="checked"
-3.  **onChange**: function in the parent component to catch/store state changes 
+3. **onChange**: function in the parent component to catch/store state changes 
     _example onChange={handleChange}_
-5.  **match**: the state variable the holds the 'value' (see 2) that was selected
-6.  **text**: a label (String or component) that is displayed after the CheckBox
+5. **match**: the state variable the holds the 'value' (see 2) that was selected
+6. **text**: a label (String or component) that is displayed after the CheckBox
+
+## CSS File
+
+The following CSS file will need to be imported into the file that uses this CheckBox component.  The import would be, if it is not be changed:
+
+```javascript
+import '../node_modules/simple-widgets/lib/checkboxRadio.css';
+```
+
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
+
+
+## checkboxRadio.css
+
+***checkbox_defaultStyle*** = the styling for the checkbox.
+
+```css
+.checkbox_defaultStyle {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color: inherit;            /* dont default to color: buttontext, wont match the current theme */
+}
+```
 
 ### **Example**
 ```javascript
 import { CheckBox } from 'simple-widgets';
+
+import '../node_modules/simple-widgets/lib/checkboxRadio.css';
+
 
 const YourComponent = (props) => {
 

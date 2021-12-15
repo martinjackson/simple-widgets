@@ -2,240 +2,154 @@
 
 Theme allows the user to standardize their screens to the same background color, button style, font, error color, etc.  
 
-Theme will also allow you to change the theme settings by changing all the settings, a single setting, or multiple settings.
+Theme will also allow you to change the theme settings by changing variables or classes.
 
-Theme will also allow you to generate button styles that will allow the button colors to change if they are enabled or disabled.
+Theme will also contains a theme button style.
 
-Theme will also allow you to retrieve and set a default button style.
+*** Other CSS files and simple widget components that use theme.css***
 
-The following fields are available for theming:
+1.  checkboxRadio.css
+2.  contextMenuHover.css
+3.  doubleListBox.css
+4.  inputFile.css
+5.  table.css
+6.  AlertModal
+7.  ConfirmModal
+8.  DoubleListBox
+9.  ErrorModal
+10. InputFile
+11. Invalid
+12. SearchSortTable
 
-| Name | Value     | Field |
+The following CSS variables are available for theming:
+
+| Name | Value     | Variable |
 |  :--------------- | :-------- | :--------------- |
-| Background Color | aliceblue | backgroundColor |
-| Button Color |blue | buttonColor |
-| Button Text Color | white | buttonTextColor |
-| Button Font | Times New Roman | buttonFont |
-| Button Font Weight | bold | buttonFontWeight |
-| Button Font Size | 12 | buttonFontSize |
-| Disable Button Color | gray | disableButtonColor |
-| Font | Times New Roman | font |
-| Font Weight | plain | fontWeight |
-| Font Size | 12 | fontSize |
-| Error Color | pink | errorColor |
-| Normal Background Color | white | normalColor |
-| Text Color  black | textColor |
+| Background Color | aliceblue | --theme_backgroundColor |
+| Button Margin |10px | --theme_buttonMargin |
+| Button Border Radius |blue | --theme_buttonRadius |
+| Button Width |100px | --theme_buttonWidth |
+| Button Height |30px | --theme_buttonHeight |
+| Button Color |blue | --theme_buttonColor |
+| Button Text Color | white | --theme_buttonTextColor |
+| Button Font | Times New Roman | --theme_buttonFont |
+| Button Font Weight | bold | --theme_buttonFontWeight |
+| Button Font Size | 12 | --theme_buttonFontSize |
+| Disable Button Color | gray | --theme_disableButtonColor |
+| Font | Times New Roman | --theme_font |
+| Font Weight | plain | --theme_fontWeight |
+| Font Size | 12 | --theme_fontSize |
+| Error Color | pink | --theme_errorColor |
+| Normal Background Color | white | --theme_normalColor |
+| Text Color | black | --theme_textColor |
+
+1.  --theme_backgroundColor - the background color of all components
+2.  --theme_buttonMargin = the margin around all buttons
+3.  --theme_buttonRadius - the border radius around all buttons
+4.  --theme_buttonWidth - the width of all buttons
+5.  --theme-buttonHeight - the height of all buttons
+6.  --theme-buttonColor - the background color of all buttons
+7.  --theme_buttonTextColor - the color of the text in all buttons
+8.  --theme_buttonFont - the font for the text in all buttons
+9.  --theme_buttonFontWeight - the font weight for the text in all buttons
+10.  --theme_buttonFontSize - the font size for the text in all buttons
+11.  --theme_disableButtonColor - the background color of a button when it is disabled
+12.  --theme_font - the overall font for all components, except themed buttons
+13.  --theme_fontWeight - the overall font weight for all components, except themed buttons
+14. --theme_fontSize - the overall font size for all components, except themed buttons
+15. --theme_errorColor - the background color a component turns when there is an error for that component
+16. --theme_normalColor - the normal background color for a component, , except themed buttons
+17. --theme_textColor - the text color for all components, except themed buttons
 
 The normal background color and error color are used in error notification.
 If there is an error, the field will have the error color.  If there is not an error for that field, the field will have the normal background color.
 
-**The default theme settings object:**
+**The theme button Class:**
 
-```javascript
-const defaultThemeSettings = {
-    backgroundColor: 'lightblue',
-    buttonColor: 'yellow',
-    buttonTextColor: 'white',
-    buttonFont: 'Sanserif',
-    buttonFontWeight: 'plain',
-    buttonFontSize: 10,
-    disableButtonColor: 'gray',
-    font: 'Sanserif',
-    fontWeight: 'plain',
-    fontSize: 10,
-    errorColor: 'pink',
-    normalColor: 'white',
-    textColor: 'black',
-};
+```css
+.theme_buttonStyle {
+    margin: var(--theme_buttonMargin);
+    border-radius: var(--theme_buttonRadius);
+    color: var(--theme_buttonTextColor);
+    width: var(--theme_buttonWidth);
+    height: var(--theme_buttonHeight);
+    font: var(--theme_buttonFont);
+    font-size: var(--theme_buttonFontSize);
+    font-weight: var(--theme_buttonFontWeight);
+  };
 ```
+
+This is the theme for all buttons in a project.  This class can be used to make all the buttons throughout the project.  If you notice there is no background color, since the color can change if disabled or not.  To get the background color, the theme is normally used with either theme_normalButtonBackground or theme_grayButtonBackground classes (see below).  The user can either change the variable or
+the theme_buttonStyle class in the CSS.
 
 ### **Example with some of the using some of the above fields:**
 
 ```javascript
-import { defaultThemeSettings } from 'simple-widgets';
+import 'theme.css';
 
-const Theme = [...defaultThemeSettings];
-
-const screenStyle = {
-    backgroundColor: Theme.backgroundColor,
-    font: Theme.font,
-    fontSize: Theme.fontSize,
-    color: Theme.textColor,
-};
-
-const buttonStyle = {
-    margin: "10px",
-    borderRadius: "10px",
-    color: defaultSettings.buttonTextColor,
-    backgroundColor: Theme.buttonTextColor,
-    width: "100px",
-    height: "30px",
-    font: defaultSettings.buttonFont,
-    fontWeight: "bold",
-}
-
+<button name="save" className="theme_buttonStyle">Save</button>
 ```
 
-### **To overwrite the some of the theme settings or to add new ones:**
+### Other Classes
 
-### **Override Example:**
-```javascript
-import { defaultThemeSettings } from 'simple-widgets';
+1. ***theme_grayButtonBackground Class*** = this class is used when a button is disabled.  If the generate button functions are used, it will automatically use this class.
 
-const override = {
-    buttonColor: 'yellow',
-    buttonTextColor: 'blue',
-    backgroundColor: 'lightBlue',
-}
+2. ***theme_normalButtonBackground*** = this class is used for the normal background color of a button.  If the generate button functions are used, it will automatically use this class.
 
-const Theme = [...defaultThemeSettings, ...override];
-```
+3. ***theme_errorBackground*** = this class is used to indicate that there is an error for this component.  If the invalid functions are used, it will automatically use this class.
 
-**Another way to override theme settings:**
-```javascript
-import { defaultThemeSettings } from 'simple-widgets';
+4. ***theme_normalBackground*** = this class is used for the normal background color of a component.  If the invalid functions are used, it will automatically use this class.
 
-let Theme = [...defaultThemeSettings];
-Theme.buttonColor = 'yellow';
-Theme.buttonTextColor = 'blue';
-Theme.backgroundColor = 'lightBlue';
-```
+5. ***theme_letterBackground*** = this is the background color for a selected letter in the searchSortTable.  The letters are only used when the letters prop is used in the SearchSortTable component.
 
-### **To add theme settings:**
-```javascript
-import { defaultThemeSettings } from 'simple-widgets';
+6. ***theme_regBackground*** = this is the background color for an unselected letter in the searchSortTable.  The letters are only used when the letters prop is used in the SearchSortTable component.
 
-const additional = {
-    paragraphBackColor: 'yellow',
-    paragraphTextColor: 'black',
-}
 
-const Theme = [...defaultThemeSettings, ...additional];
-```
+# **The Generate Button Functions**
 
-### **To both override and add new theme items:**
+Theme will also allow you to generate button styles that will allow the button colors to change if they are enabled or disabled.
 
-```javascript
-import { defaultThemeSettings } from 'simple-widgets';
+To generate a button that uses an existing style and will allow the style to either set the button style to its standard color or to the disable color if the the disable value is true.  These functions must be called everytime the screen is rendered.
 
-const overrideAdd = {
-    buttonColor: 'yellow',
-    buttonTextColor: 'blue',
-    backgroundColor: 'lightBlue',
-    paragraphBackColor: 'yellow',
-    paragraphTextColor: 'black',
-}
-
-const Theme = [...defaultThemeSettings, ...overrideAdd];
-```
-
-### **The button style allows all buttons in the application to look the same:**
-
-```javascript
-export const buttonStyle = {
-    margin: "10px",
-    borderRadius: "10px",
-    color: defaultThemeSettings.buttonTextColor,
-    backgroundColor: defaultThemeSettings.buttonColor,
-    width: "100px",
-    height: "30px",
-    font: defaultThemeSettings.buttonFont,
-    fontWeight: "bold",
-};
-```
-
-### **To access the button style:**
-
-```javascript
-import { buttonStyle } from 'simple-widgets';
-
-<button style={buttonStyle}>Test</button>
-```
-
-**To change values on the button style:**
-
-```javascript
-import { buttonStyle } from 'simple-widgets';
-
-const override = {
-    backgroundColor: 'yellow',
-    color: 'red',
-};
-
-const newButtonStyle = [...buttonStyle, ...override];
-
-<button style={newButtonStyle}>Test</button>
-```
-
-### **Another way to change the values on the button style:**
-
-```javascript
-import { buttonStyle } from 'simple-widgets';
-
-let newButtonStyle = [...buttonStyle];
-newButtonStyle.backgroundColor = 'yellow';
-newButtonStyle.color = 'red';
-
-<button style={newButtonStyle}>Test</button>
-```
-
-**To add new values to the button style:**
-
-```javascript
-import { buttonStyle } from 'simple-widgets';
-
-const additional = {
-    padding: "15px",
-    textAlign: "center",
-};
-
-const newButtonStyle = [...buttonStyle, ...additional];
-
-<button style={newButtonStyle}>Test</button>
-```
-
-## **The Generate Button Functions**
-
-To generate a button that uses an existing style and will allow the style to either set the button style to its standard color of to the disable color if the the disable value is true.  These functions must be called everytime the screen is rendered.
-
-1.  **generateButton**
+1.  **generateCSSButton**
     This will generate a button and will determine if the button should be
     disabled or not.
     
     Parameters:
-    - style = the style used for the button as an object
+    - cssClassName = the CSS class name the defines the style for the button used for the button.  This is a string.
     - error = indicates whether an error occurred and if so, change the color to the disable color for the button.  This is a boolean variable and if true will set the button to the disable color.
     - disabled = indicates whether the button should be disabled or not.  This should be a boolean value and if true, it will be set to the disable color; otherwise, it will be its normal color (default is false)
-    - disableColor = the color for the disabled button (default is gray)
+    - noBackground = indicates that a background color should not be set if there is not an error (default is false).
 
     **Example:**
     ```javascript
-    import { generateButton } from 'simple-widgets';
+    import { generateCSSButton } from 'simple-widgets';
+    import '../node_modules/simple-widgets/lib/theme.css';
 
     let error = false;
     let disableValue = false;
     ...
-    let genButtonStyle1 = generateButton(Theme.getButtonStyle(), 
-                                    error, disableValue, 'gray');
-    let genButtonStyle2 = generateButton(Theme.getButtonStyle(),
+    let genButtonStyle1 = generateButton('theme_buttonStyle', 
                                     error, disableValue);
+    let genButtonStyle2 = generateButton(Theme.getButtonStyle(),
+                                    error, true);
     let genButtonStyle3 = generateButton(Theme.getButtonStyle(), 
                                     error);
     ...
-    <button style={genButtonStyle1}>Test 1</button>
-    <button style={genButtonStyle2}>Test 2</button>
-    <button style={genButtonStyle3}>Test 3</button>
+    <button className={genButtonStyle1}>Test 1</button>
+    <button className={genButtonStyle2}>Test 2</button>
+    <button className={genButtonStyle3}>Test 3</button>
     ```
 
     In getButtonStyle1 associated with button Test 1, if error or disableValue is true the button color will be gray; otherwise, the button color will be blue.
 
-    In getButtonStyle2 associated with button Test 2, if error or disableValue is true the button color will be gray; otherwise, the button color will be blue.  Since no disable color was given, it will default to gray.
+    In getButtonStyle2 associated with button Test 2, if error or disableValue is true the button color will be gray; otherwise, the button color will not be set; therefore, it will be the current background color.
 
-    In getButtonStyle3 associated with button Test 3, if error is true the button color will be gray; otherwise, the button color will be blue.  Since no disableColor was given, that value will default to false.  Since no disable color was given, it will default to gray.
+    In getButtonStyle3 associated with button Test 3, if error is true the button color will be gray; otherwise, the button color will be blue.  Since no disabled value was given, that value will default to false.  
 
-2.  **generateDefaultButton**
+2.  **generateCSSDefaultButton**
     This will generate a button and will determine if the button should be
-    disabled or not.  It will use the default button style (see above for the default button style) and the disable color of gray.
+    disabled or not.  It will use the theme button style (see above for the theme button style) and the disable color of gray.
 
     Parameters:
     - error = indicates whether an error occurred and if so, disable the button
@@ -243,7 +157,8 @@ To generate a button that uses an existing style and will allow the style to eit
 
     **Example:**
     ```javascript
-    import { generateDefaultButton } from 'simple-widgets';
+    import { generateCSSDefaultButton } from 'simple-widgets';
+    import '../node_modules/simple-widgets/lib/theme.css';
 
     let error = false;
     let disableValue = false;
