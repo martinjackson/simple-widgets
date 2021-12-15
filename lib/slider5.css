@@ -1,4 +1,4 @@
-.rangeValue {
+.slider_rangeValue {
     text-align: center;
     font-size: 2em;
     color: #999;
@@ -6,7 +6,7 @@
     margin-left: 20px;
 }
 
-.range {
+.slider_range {
     width: 400px;
 }
 

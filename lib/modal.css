@@ -14,17 +14,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  #modal:empty {
+#modal:empty {
     display: none;
-  }
+}
 
-  #modal > div {
+#modal > div {
     background-color: white;
     max-width: 500px;
     padding: 15px;
     border-radius: 5px;
     text-align: center;
-  }
+}
 
+.modal_marginStyle {
+    margin-bottom: 10px;
+}
+
+.modal_abuttonStyle, .modal_ebuttonStyle, .modal_cbuttonStyle, .modal_buttonStyle {
+    margin: var(--theme_buttonMargin);
+    border-radius: var(--theme_buttonRadius);
+    color: var(--theme_buttonTextColor);
+    width: var(--theme_buttonWidth);
+    height: var(--theme_buttonHeight);
+    font: var(--theme_buttonFont);
+    font-weight: var(--theme_buttonFontWeight);
+    font-size: var(--theme_buttonFontSize);
+    background-color: var(--theme_buttonColor);
+}
