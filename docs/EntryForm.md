@@ -25,23 +25,23 @@ The table1 class is used for styling a regular HTML table.
       
 ***Example***
 ```javascript
-     <div className="table">
-        <div className="row checkForError">
-            <label htmlFor="id_user" className="tLabel w12">User:</label>
-            <ChoiceText id="id_user" list="listOfNames" choices={nameValues} name="addUser" value={addUser} className="cell w19" onChange={(event) => processName(event.target.value)} onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} style={processInvalidStyleScreen(invalid, NAME)} disabled={error} />
-            { checkValidityScreen(invalid, NAME) }
-        </div>
-        <div className="row checkForError">
-            <label htmlFor="id_role" className="tLabel w12">Role:</label>
-            <Choice id="id_role" choices={roleNames} name="addRole" value={addRole} onChange={(event) => setAddRole(event.target.value)} onClick={() => wasClickedScreen(invalid, ROLE, setInvalid)} className="cell w19"  disabled={error} style={processInvalidStyleScreen(invalid, ROLE)} />
-            { checkValidityScreen(invalid, ROLE) }
-        </div>
-        <div className="row checkForError">
-            <label htmlFor="id_active" className="tLabel w12">Active / Inactive:</label>
-            <Choice choices={activeValues} name="addActive" value={addActive} onChange={(event) => setAddActive(event.target.value)} onClick={() => wasClickedScreen(invalid, AORI, setInvalid)} className="cell w19"  disabled={error} style={processInvalidStyleScreen(invalid, AORI)} />
-            { checkValidityScreen(invalid, AORI) }
-        </div>
+<div className="table">
+    <div className="row checkForError">
+        <label htmlFor="id_user" className="tLabel w12">User:</label>
+        <ChoiceText id="id_user" list="listOfNames" choices={nameValues} name="addUser" value={addUser} className="cell w19" onChange={(event) => processName(event.target.value)} onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} style={processInvalidStyleScreen(invalid, NAME)} disabled={error} />
+        { checkValidityScreen(invalid, NAME) }
     </div>
+    <div className="row checkForError">
+        <label htmlFor="id_role" className="tLabel w12">Role:</label>
+        <Choice id="id_role" choices={roleNames} name="addRole" value={addRole} onChange={(event) => setAddRole(event.target.value)} onClick={() => wasClickedScreen(invalid, ROLE, setInvalid)} className="cell w19"  disabled={error} style={processInvalidStyleScreen(invalid, ROLE)} />
+        { checkValidityScreen(invalid, ROLE) }
+    </div>
+    <div className="row checkForError">
+        <label htmlFor="id_active" className="tLabel w12">Active / Inactive:</label>
+        <Choice choices={activeValues} name="addActive" value={addActive} onChange={(event) => setAddActive(event.target.value)} onClick={() => wasClickedScreen(invalid, AORI, setInvalid)} className="cell w19"  disabled={error} style={processInvalidStyleScreen(invalid, AORI)} />
+        { checkValidityScreen(invalid, AORI) }
+    </div>
+</div>
 ```
 
 The first div starts the table grid with className="table".  The table grid ends with the closing div.
