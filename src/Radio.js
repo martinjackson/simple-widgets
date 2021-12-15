@@ -32,7 +32,7 @@ const Radio = props => {
   const symbol = (isChecked) ? checked : unchecked;
 
   return <Frag>
-           <button type="button" onClick={handle} className="radio_defaultStyle" {...rest}>
+           <button type="button" onClick={handle} className="sw-radio_defaultStyle" {...rest}>
              {symbol}
              {text}
              {children}

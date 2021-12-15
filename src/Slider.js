@@ -9,10 +9,10 @@ const Slider = (props) => {
     const [rangeValue, setRangeValue] = useState(startValue);
 
     return (
-        <div className="slider_rangeslider">
-            <input type="range" className="slider_range" name="slider" min={min} defaultValue={startValue} max={max} onChange={(event) => setRangeValue(event.target.value)} onMouseMove={(event) => setRangeValue(event.target.value)} />
+        <div className="sw-slider_rangeslider">
+            <input type="range" className="sw-slider_range" name="slider" min={min} defaultValue={startValue} max={max} onChange={(event) => setRangeValue(event.target.value)} onMouseMove={(event) => setRangeValue(event.target.value)} />
             { (displayValue === true) ? 
-                <span id="id_rangeValue" name="rangeValue" value={rangeValue} className="slider_rangeValue">
+                <span id="id_rangeValue" name="rangeValue" value={rangeValue} className="sw-slider_rangeValue">
                     {rangeValue}
                 </span> : null
             }

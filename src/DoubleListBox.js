@@ -210,24 +210,24 @@ const DoubleListBox = props => {
 
 
     return (
-        <div className="dlb_overallStyle">
-            <div  className="dlb_titleClass">
+        <div className="sw-dlb_overallStyle">
+            <div  className="sw-dlb_titleClass">
                 <label>{props.title}</label>
             </div>
-            <div className="dlb_topSt">
-                <div className="dlb_display">
-                    <p className="dlb_leftClass">{props.leftTitle}</p>
-                    <List list={leftValues} ref={leftRef} size={size} onChange={leftHandleChange} keyname="left" className="dlb_listSt" />
+            <div className="sw-dlb_topSt">
+                <div className="sw-dlb_display">
+                    <p className="sw-dlb_leftClass">{props.leftTitle}</p>
+                    <List list={leftValues} ref={leftRef} size={size} onChange={leftHandleChange} keyname="left" className="sw-dlb_listSt" />
                 </div>
-                <div className="dlb_colSt">
-                    <button name="moveRightSelect"   className="dlb_buttonSt" onClick={moveRightSelectButton}>&gt;</button>
-                    <button name="moveRightAll"      className="dlb_buttonSt" onClick={moveRightAllButton}>&gt;&gt;</button>
-                    <button name="moveLeftSelect"    className="dlb_buttonSt" onClick={moveLeftSelectButton}>&lt;</button>
-                    <button name="moveLeftAll"       className="dlb_buttonSt" onClick={moveLeftAllButton}>&lt;&lt;</button>
+                <div className="sw-dlb_colSt">
+                    <button name="moveRightSelect"   className="sw-dlb_buttonSt" onClick={moveRightSelectButton}>&gt;</button>
+                    <button name="moveRightAll"      className="sw-dlb_buttonSt" onClick={moveRightAllButton}>&gt;&gt;</button>
+                    <button name="moveLeftSelect"    className="sw-dlb_buttonSt" onClick={moveLeftSelectButton}>&lt;</button>
+                    <button name="moveLeftAll"       className="sw-dlb_buttonSt" onClick={moveLeftAllButton}>&lt;&lt;</button>
                 </div>
-                <div className="dlb_display">
-                    <p className="dlb_rightClass"> {props.rightTitle}</p>
-                    <List list={rightValues} ref={rightRef} size={size} onChange={rightHandleChange} keyname="right" className="dlb_listSt" />
+                <div className="sw-dlb_display">
+                    <p className="sw-dlb_rightClass"> {props.rightTitle}</p>
+                    <List list={rightValues} ref={rightRef} size={size} onChange={rightHandleChange} keyname="right" className="sw-dlb_listSt" />
                 </div>
             </div>
         </div>

@@ -23,7 +23,7 @@ const CheckBox = props => {
   const isChecked = props.value === selectedValue
   const symbol = (isChecked) ? checked : unchecked
 
-  return <button type="button" onClick={handle} className="checkbox_defaultStyle" {...rest}>
+  return <button type="button" onClick={handle} className="sw-checkbox_defaultStyle" {...rest}>
          {symbol}
          {text}
          {children}
