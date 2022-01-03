@@ -1,6 +1,6 @@
 {
   "name": "simple-widgets",
-  "version": "1.18.0",
+  "version": "1.19.0",
   "description": "A Collection of React components to make your React code simpler",
   "main": "./lib/index.js",
   "scripts": {
