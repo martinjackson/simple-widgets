@@ -1,0 +1,49 @@
+/* sw = simple-widgets */
+
+:root {
+    --sw-theme_backgroundColor: aliceblue;
+    --sw-theme_buttonMargin: 10px;
+    --sw-theme_buttonRadius: 10px;
+    --sw-theme_buttonWidth: 100px;
+    --sw-theme_buttonHeight: 30px;
+    --sw-theme_buttonColor: blue;
+    --sw-theme_buttonTextColor: white;
+    --sw-theme_buttonFont: Times New Roman;
+    --sw-theme_buttonFontWeight: bold;
+    --sw-theme_buttonFontSize: 12;
+    --sw-theme_disableButtonColor: gray;
+    --sw-theme_font: Times New Roman;
+    --sw-theme_fontWeight: plain;
+    --sw-theme_fontSize: 12;
+    --sw-theme_errorColor: pink;
+    --sw-theme_normalColor: white;
+    --sw-theme_textColor: black;
+}
+
+.sw-theme_buttonStyle {
+    margin: var(--sw-theme_buttonMargin);
+    border-radius: var(--sw-theme_buttonRadius);
+    color: var(--sw-theme_buttonTextColor);
+    width: var(--sw-theme_buttonWidth);
+    height: var(--sw-theme_buttonHeight);
+    font: var(--sw-theme_buttonFont);
+    font-weight: var(--sw-theme_buttonFontWeight);
+    font-size: var(--sw-theme_buttonFontSize);
+  };
+
+.sw-theme_grayButtonBackground {
+    background-color: var(--sw-theme_disableButtonColor);
+}
+
+.sw-theme_normalButtonBackground {
+    background-color: var(--sw-theme_buttonColor);
+}
+
+.sw-theme_errorBackground {
+    background-color: var(--sw-theme_errorColor);
+}
+
+.sw-theme_normalBackground {
+    background-color: var(--sw-theme_normalColor);
+}
+
