@@ -1,0 +1,27 @@
+/* sw = simple-widgets */
+
+.sw-invalid_checkForError {
+    position: relative;
+/*    display: inline-block; */
+  }
+  
+ .sw-invalid_errMessage {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    width: 350px; 
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+  
+    /* Position the tooltip */
+    position: absolute; 
+    z-index: 1; 
+  }
+
+
+.sw-invalid_checkForError:hover .sw-invalid_errMessage {
+    visibility: visible;
+  }
+
+
