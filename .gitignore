@@ -21,6 +21,7 @@ package-lock.json
 .Spotlight-V100
 .Trashes
 Thumbs.db
+token
 example/dist/*
 coverage
 
