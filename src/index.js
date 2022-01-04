@@ -24,9 +24,8 @@ import InputFile from './InputFile.js'
 import  { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
 checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
 isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, 
-clearInvalidScreen, clearInvalidTable, copyStyle, processInvalidStyleScreen, processStyleScreen, 
-clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, validStyling, invalidStyling, 
-isInvalid, getInvalidMessage }  from './Invalid.js'
+clearInvalidScreen, clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, 
+processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage }  from './Invalid.js'
 
 import  { Choice, List }  from './List.js'
 
@@ -38,7 +37,9 @@ import  { search, binSearch }  from './SearchFunct.js'
 
 import SearchSortTable from './SearchSortTable.js'
 
-import  { buttonStyle, defaultThemeSettings, generateButton, generateDefaultButton }  from './Theme.js'
+import Slider from './Slider.js'
+
+import  { generateButton, generateDefaultButton, generateCSSButton, generateCSSDefaultButton }  from './Theme.js'
 
 import  { isOpera, isFirefox, isSafari, isIE, isEdge, 
 isChrome, isEdgeChromium, isBlink }  from './browserDetect.js'
@@ -56,11 +57,11 @@ monthName, DateInput, DoubleListBox, ErrorModal, InputFile,
 generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
 checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
 isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, 
-clearInvalidScreen, clearInvalidTable, copyStyle, processInvalidStyleScreen, processStyleScreen, 
-clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, validStyling, invalidStyling, 
-isInvalid, getInvalidMessage, Choice, List, Modal, 
-Radio, search, binSearch, SearchSortTable, buttonStyle, 
-defaultThemeSettings, generateButton, generateDefaultButton, isOpera, isFirefox, 
-isSafari, isIE, isEdge, isChrome, isEdgeChromium, 
-isBlink, date2str, localStrToDate, makeChangeHandler }
+clearInvalidScreen, clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, 
+processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage, Choice, 
+List, Modal, Radio, search, binSearch, 
+SearchSortTable, Slider, generateButton, generateDefaultButton, generateCSSButton, 
+generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, 
+isEdge, isChrome, isEdgeChromium, isBlink, date2str, 
+localStrToDate, makeChangeHandler }
 
