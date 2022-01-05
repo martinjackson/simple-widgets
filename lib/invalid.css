@@ -3,9 +3,9 @@
 .sw-invalid_checkForError {
     position: relative;
 /*    display: inline-block; */
-  }
+}
   
- .sw-invalid_errMessage {
+.sw-invalid_errMessage {
     visibility: hidden;
     background-color: black;
     color: #fff;
@@ -17,11 +17,11 @@
     /* Position the tooltip */
     position: absolute; 
     z-index: 1; 
-  }
+}
 
 
 .sw-invalid_checkForError:hover .sw-invalid_errMessage {
     visibility: visible;
-  }
+}
 
 

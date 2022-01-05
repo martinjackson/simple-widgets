@@ -1,11 +1,11 @@
 /* sw = simple-widgets */
 
-#modalButton {
+#sw-modalButton {
    background: transparent;
    border: none !important;
 }
 
-#modal {
+#sw-modal {
     background-color: rgba(129, 127, 127, 0.5);
     position: fixed;
     left: 0;
@@ -18,11 +18,11 @@
     align-items: center;
 }
 
-#modal:empty {
+#sw-modal:empty {
     display: none;
 }
 
-#modal > div {
+#sw-modal > div {
     background-color: white;
     max-width: 500px;
     padding: 15px;
