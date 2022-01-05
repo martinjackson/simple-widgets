@@ -245,7 +245,7 @@ export const setInvalidDual = (invalidValues, constant1, constant2, index, type,
  *
  ******************************************************************************************/
 export const checkValidityScreen = (invalidValues, constant) => {
-    return (isInvalid(invalidValues[constant], -1) === true) ? <span className="errMessage">{invalidValues[constant].message}</span> : null
+    return (isInvalid(invalidValues[constant], -1) === true) ? <span className="sw_invalid_errMessage">{invalidValues[constant].message}</span> : null
 }
 
 /******************************************************************************************
@@ -259,7 +259,7 @@ export const checkValidityScreen = (invalidValues, constant) => {
  *
  ******************************************************************************************/
 export const checkValidityTable = (invalidValues, constant, index) => {
-    return (isInvalid(invalidValues[constant], index) === true) ? <span className="errMessage">{getInvalidMessage(invalidValues[constant], index)}</span> : null
+    return (isInvalid(invalidValues[constant], index) === true) ? <span className="sw_invalid_errMessage">{getInvalidMessage(invalidValues[constant], index)}</span> : null
 }
 
 /***********************************************************************************************
