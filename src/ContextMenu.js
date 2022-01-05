@@ -33,9 +33,10 @@ const ContextMenu = (propsIn) => {
 
     function buildMenuItem(row, i) {
         let key = 'row_' + props.name + i;
+        let dkey = 'div_' + key
 
         return (
-            <div>
+            <div key={dkey}>
                 <span className="sw-cm_contextMenuHov" key={key} onClick={() => execute(row.funct)}>{row.name}</span><br /><br />
             </div>
         )
