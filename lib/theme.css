@@ -29,7 +29,7 @@
     font: var(--sw-theme_buttonFont);
     font-weight: var(--sw-theme_buttonFontWeight);
     font-size: var(--sw-theme_buttonFontSize);
-  };
+}
 
 .sw-theme_grayButtonBackground {
     background-color: var(--sw-theme_disableButtonColor);
