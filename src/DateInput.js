@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+
+// import Calendar from 'react-calendar';    now only needed for IE
+// import 'react-calendar/dist/Calendar.css';
 
 // import formatDateToStr from 'dateformat';
 import {date2str} from "./date2str"
@@ -35,8 +36,8 @@ const DateInput = (props) => {
 
     //  pattern="(?:19|20)\[0-9\]{2}-(?:(?:0\[1-9\]|1\[0-2\])-(?:0\[1-9\]|1\[0-9\]|2\[0-9\])|(?:(?!02)(?:0\[1-9\]|1\[0-2\])-(?:30))|(?:(?:0\[13578\]|1\[02\])-31))"
     // title="Enter a date in this format YYYY-MM-DD"
-
-    if (isSafari || isIE) {
+/*
+    if (isIE) {                  // isSafari  prior to April 2021
        return  <>
               <input type="text"
                     size={10}
@@ -59,6 +60,7 @@ const DateInput = (props) => {
 
             </>
     } else {
+*/      
     return  <input type="date"
               className="date-field"
               placeholder={f.format}
@@ -67,7 +69,9 @@ const DateInput = (props) => {
               name={f.name}
               value={f.value}
               onChange={f.onChange} />
+/*
     }
+*/    
 }
 
 
