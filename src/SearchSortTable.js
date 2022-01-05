@@ -1041,7 +1041,8 @@ const SearchSortTable = (propsPassed) => {
             // Convert to upper case if ignoring case
             if (typeof item1.data === 'string' &&
                 hasProperty(props,'ignorecase') === true) {
-                item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
+                // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
+                item1.data = item1.data.toUpperCase()
                 item2.data = (item2.data !== null) ? item2.data.toUpperCase() : null;
             }
 
@@ -1188,13 +1189,12 @@ const SearchSortTable = (propsPassed) => {
         if (index > 0) {    // Index is past the start of the data, so enable top and previous
             setPreviousDisabled(false);
             setTopDisabled(false);
-        } else if (endLen - maxItems < 0) {   // Can not go any further up so disable top and previous
+        } else {           
+                  // Can not go any further up so disable top and previous
+                  // Index is before the start of the data, so disable top and previous
             setPreviousDisabled(true);
             setTopDisabled(true);
-        } else {    // Index is before the start of the data, so disable top and previous
-            setPreviousDisabled(true);
-            setTopDisabled(true);
-        }
+        } 
 
         // Cannot go any further down so disable, next and bottom
         if (index + maxItems >= endLen) {
