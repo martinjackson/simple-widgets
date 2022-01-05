@@ -112,7 +112,7 @@ it('right click on 1st item in first column', () => {
   const wrapper = mount(<DLBTest preselected={preSelected} notselected={notSelected} />)
   const dlb = wrapper.find(DoubleListBox)
   const fcol = wrapper.find('#leftBox')
-  fcol.simulate('change', {target { value : 'apple'}});
+  fcol.simulate('change', {target: { value : 'apple'}});
   const ans = wrapper.state('fruitChoice')
   expect(ans).toEqual(preSelected)
 });
