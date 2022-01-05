@@ -115,5 +115,5 @@ export default YourModal;
 ## **Index.html**
 In the index.html add the following line in the body:
 ```html
-    <div id="sw-modal"></div>
+    <div id="modal"></div>
 ```
