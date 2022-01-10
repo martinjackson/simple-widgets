@@ -59,7 +59,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
   margin: 5px;
   padding: 10px;
   background-color: var(--sw-theme_backgroundColor);  /* "#CCCC66" */
-};
+}
 
 .sw-sst_noButtonStyle {
   margin: 10px;
