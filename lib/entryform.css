@@ -183,6 +183,11 @@
     display: table;
 }
     
+.sw-ef_tableCenter {
+    margin: auto;
+    display: table;
+}
+    
 .sw-ef_row {
     display: table-row;
 }
