@@ -13,43 +13,43 @@
 }
 
 table.sw-sst_search_sort_table1 tr:hover td {
-  background-color: var(--hover_back_color1);
+  background-color: var(--sw-sst_hover_back_color1);
 }
 
 table.sw-sst_search_sort_table2 tr:hover td {
-  background-color: var(--hover_back_color2);
+  background-color: var(--sw-sst_hover_back_color2);
 }
 
 table.sw-sst_search_sort_table3 tr:hover td {
-  background-color: var(--hover_back_color3);
+  background-color: var(--sw-sst_hover_back_color3);
 }
 
 table.sw-sst_search_sort_table4 tr:hover td {
-  background-color: var(--hover_back_color4);
+  background-color: var(--sw-sst_hover_back_color4);
 }
 
 table.sw-sst_search_sort_table5 tr:hover td {
-  background-color: var(--hover_back_color5);
+  background-color: var(--sw-sst_hover_back_color5);
 }
 
 table.sw-sst_search_sort_table6 tr:hover td {
-  background-color: var(--hover_back_color6);
+  background-color: var(--sw-sst_hover_back_color6);
 }
 
 table.sw-sst_search_sort_table7 tr:hover td {
-  background-color: var(--hover_back_color7);
+  background-color: var(--sw-sst_hover_back_color7);
 }
 
 table.sw-sst_search_sort_table8 tr:hover td {
-  background-color: var(--hover_back_color8);
+  background-color: var(--sw-sst_hover_back_color8);
 }
 
 table.sw-sst_search_sort_table9 tr:hover td {
-  background-color: var(--hover_back_color9);
+  background-color: var(--sw-sst_hover_back_color9);
 }
 
 table.sw-sst_search_sort_table10 tr:hover td {
-  background-color: var(--hover_back_color10);
+  background-color: var(--sw-sst_hover_back_color10);
 }
 
 .sw-sst_divStyle {
