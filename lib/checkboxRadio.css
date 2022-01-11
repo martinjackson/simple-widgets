@@ -1,7 +1,7 @@
 /* sw = simple widgets */
 
 .sw-checkbox_defaultStyle {
-    background-color: Transparent;
+    background-color: transparent; 
     background-repeat: no-repeat;
     border: none;
     cursor: pointer;
@@ -12,7 +12,7 @@
   
 .sw-radio_defaultStyle {
       border: none;
-      background-color: white;
-      border-radius: 25px;
+      background-color: transparent;
+      color: inherit;
 }
    
