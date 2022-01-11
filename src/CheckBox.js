@@ -18,12 +18,12 @@ const CheckBox = props => {
     props.onChange(e);
   }
 
-  const {selectedValue, text, children, ...rest} = props
+  const {selectedValue, text, children, className, ...rest} = props
 
   const isChecked = props.value === selectedValue
   const symbol = (isChecked) ? checked : unchecked
 
-  return <button type="button" onClick={handle} className="sw-checkbox_defaultStyle" {...rest}>
+  return <button type="button" onClick={handle} className={"sw-checkbox_defaultStyle " + className} {...rest}>
          {symbol}
          {text}
          {children}
