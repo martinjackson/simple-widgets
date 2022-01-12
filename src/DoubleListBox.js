@@ -1,9 +1,7 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { List } from './List.js';
-import '../lib/theme.css';
-import '../lib/doubleListBox.css';
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
@@ -18,7 +16,6 @@ const DoubleListBox = props => {
     const [rightSelections, setRightSelections] = useState([]);
 
     const reset = (props) => {
-
         if (!props.value) {
             console.log("DoubleListBox props 'value' field is missing.");
         }
@@ -37,6 +34,8 @@ const DoubleListBox = props => {
         setLeftSelections([]);
         setRightSelections([]);
     }
+
+    useEffect (() => reset(props), [props.choices]);
 
     const reportChange = (right) => {
         let compName = 'DoubleListBox';
@@ -174,6 +173,7 @@ const DoubleListBox = props => {
         return /^\d*$/.test(num);
     }
 
+/*
     if (props.choices.length === 0) {
         reset(props)
     }
@@ -183,6 +183,7 @@ const DoubleListBox = props => {
             reset(props)
         }
     }
+*/
 
     let defaultSize = 7;
 
