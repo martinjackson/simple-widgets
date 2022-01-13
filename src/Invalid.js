@@ -517,7 +517,6 @@ export const clearInvalidTable = (invalidValues) => {
  *
  ***********************************************************************************************/
 export const processInvalidStyleScreen = (invalidValues, constant, cssClassName = null, backCSSName = null) => {
-console.log('backCSSName :', backCSSName);
     // Set the background color based on whether the value is invalid or not
     if (cssClassName === null) {
         return (invalidValues[constant].validity === true) ?
@@ -582,11 +581,6 @@ export const clearInvalidScreenOnly = (invalidValues, constant) => {
  *
  ***********************************************************************************************/
 export const processInvalidStyleTable = (invalidValues, constant, pos, cssClassName = null, backCSSName = null) => {
-console.log('cssClassName :', cssClassName);
-console.log('pos :', pos);
-console.log('constant :', constant);
-console.log('invalidValues :', invalidValues);
-
     // Spin through the validity array for that item in the invalid values array
     for (let j = 0; j < invalidValues[constant].validity.length; j++) {
         if (pos === invalidValues[constant].index[j]) { // Check to see if it is the correct index
