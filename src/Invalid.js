@@ -516,14 +516,17 @@ export const clearInvalidTable = (invalidValues) => {
  *                          sw-theme_normalBackground or sw-theme_errorBackground.
  *
  ***********************************************************************************************/
-export const processInvalidStyleScreen = (invalidValues, constant, cssClassName = null) => {
+export const processInvalidStyleScreen = (invalidValues, constant, cssClassName = null, backCSSName = null) => {
+console.log('backCSSName :', backCSSName);
     // Set the background color based on whether the value is invalid or not
     if (cssClassName === null) {
         return (invalidValues[constant].validity === true) ?
-             "sw-theme_errorBackground" : "sw-theme_normalBackground";
+             "sw-theme_errorBackground" : (backCSSName === null) ? "sw-theme_normalBackground" : backCSSName;
     } else {
         return (invalidValues[constant].validity === true) ?
-             `${cssClassName} sw-theme_errorBackground` : `${cssClassName} sw-theme_normalBackground`;
+             `${cssClassName} sw-theme_errorBackground` : (backCSSName === null) ? 
+             `${cssClassName} sw-theme_normalBackground` :
+             `${cssClassName} ${backCSSName}`;
     }
 }
 
@@ -578,7 +581,12 @@ export const clearInvalidScreenOnly = (invalidValues, constant) => {
  *                          sw-theme_normalBackground or sw-theme_errorBackground.
  *
  ***********************************************************************************************/
-export const processInvalidStyleTable = (invalidValues, constant, pos, cssClassName = null) => {
+export const processInvalidStyleTable = (invalidValues, constant, pos, cssClassName = null, backCSSName = null) => {
+console.log('cssClassName :', cssClassName);
+console.log('pos :', pos);
+console.log('constant :', constant);
+console.log('invalidValues :', invalidValues);
+
     // Spin through the validity array for that item in the invalid values array
     for (let j = 0; j < invalidValues[constant].validity.length; j++) {
         if (pos === invalidValues[constant].index[j]) { // Check to see if it is the correct index
@@ -590,11 +598,29 @@ export const processInvalidStyleTable = (invalidValues, constant, pos, cssClassN
                 }
             } else {    // Entry is valid
                 if (cssClassName === null) {
-                    return `sw-theme_normalBackground`;
+                    if (backCSSName === null) {
+                        return `sw-theme_normalBackground`;
+                    } else {
+                        return backCSSName;
+                    }
                 } else {
-                    return `${cssClassName} sw-theme_normalBackground`;
+                    if (backCSSName === null) {
+                        return `${cssClassName} sw-theme_normalBackground`;
+                    } else {
+                        return `${cssClassName} ${backCSSName}`;
+                    }
                 }
             }
+        }
+    }
+
+    if (cssClassName === null) {
+        return `sw-theme_normalBackground`;
+    } else {
+        if (backCSSName === null) {
+            return `${cssClassName} sw-theme_normalBackground`;
+        } else {
+            return `${cssClassName} ${backCSSName}`;
         }
     }
 }
