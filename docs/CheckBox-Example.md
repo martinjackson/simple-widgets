@@ -24,13 +24,13 @@ The CheckBox component uses the following props:
 The following CSS file will need to be imported into the file that uses this CheckBox component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/checkboxRadio.css';
+import '../node_modules/simple-widgets/lib/sw-checkboxRadio.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 
-## checkboxRadio.css
+## sw-checkboxRadio.css
 
 ***sw-checkbox_defaultStyle*** = the styling for the checkbox.
 
@@ -49,8 +49,6 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 ### **Example**
 ```javascript
 import { CheckBox } from 'simple-widgets';
-
-import '../node_modules/simple-widgets/lib/checkboxRadio.css';
 
 
 const YourComponent = (props) => {

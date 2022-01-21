@@ -14,13 +14,13 @@ This modal takes three props:
 The following CSS file will need to be imported into the file that uses this modal component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/modal.css';
+import '../node_modules/simple-widgets/lib/sw-modal.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 
-## modal.css
+## sw-modal.css
 
 The CSS class to style the button:
 
@@ -45,7 +45,6 @@ An example of a Modal:
 import React from 'react';
 
 import { Modal }  from 'simple-widgets';
-import '../node_modules/simple-widgets/lib/modal.css';
 
 const YourModal = props => {
     return (
@@ -115,5 +114,5 @@ export default YourModal;
 ## **Index.html**
 In the index.html add the following line in the body:
 ```html
-    <div id="modal"></div>
+    <div id="sw-modal"></div>
 ```

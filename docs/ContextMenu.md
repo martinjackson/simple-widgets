@@ -31,13 +31,13 @@ The ContextMenu component uses the following props:
 The following CSS file will need to be imported into the file that uses this ContextMenu component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/contextMenuHover.css';
+import '../node_modules/simple-widgets/lib/sw-theme.css';
+import '../node_modules/simple-widgets/lib/sw-contextMenuHover.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
-## contextMenuHover.css
+## sw-contextMenuHover.css
 
 The classes in the CSS file are:
 
@@ -75,9 +75,6 @@ span.sw-cm_contextMenuHov:hover {
 ### **Example**
 ```javascript
 import { ContextMenu } from 'simple-widgets';
-
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/contextMenuHover.css';
 
 const YourComponent = (props) => {
 

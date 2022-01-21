@@ -25,13 +25,13 @@ If there are several radio buttons and it is desired that they operate as a grou
 The following CSS file will need to be imported into the file that uses this Radio component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/checkboxRadio.css';
+import '../node_modules/simple-widgets/lib/sw-checkboxRadio.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 
-## checkboxRadio.css
+## sw-checkboxRadio.css
 
 ***sw-radio_defaultStyle*** = the styling for the radio button.
 
@@ -46,8 +46,6 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 ### **Example**
 ```javascript
 import { Radio } from 'simple-widgets';
-
-import '../node_modules/simple-widgets/lib/checkboxRadio.css';
 
 const YourComponent = (props) => {
    const [year, setYear] = useState('');

@@ -213,13 +213,13 @@ the search bar at the top of the screen will contain the search column, search i
 The following CSS file will need to be imported into the file that uses this SearchSortTable component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/table.css';
+import '../node_modules/simple-widgets/lib/sw-theme.css';
+import '../node_modules/simple-widgets/lib/sw-table.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
-## table.css
+## sw-table.css
 
 This is the CSS file that styles the SearchSortTable component.
 
@@ -457,9 +457,6 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 
 Contains a footer for the totals in the table.  The filter and the search are at the bottom of the table:
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/table.css';
-
 const RANGE = 50;
 
 const [error, setError] = useState(false);
@@ -530,9 +527,6 @@ function editRow(index) {
 
 ### **Example 2 (SearchSortTable only)**
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/table.css';
-
 <SearchSortTable data={data}
                     table={table}
                     MAX_ITEMS={MAX_ITEMS}
@@ -553,9 +547,6 @@ The user can also hover over a row and it will be highlighted in cyan.  To detec
 
 ### **Example 3 (SearchSortTable only)**
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/table.css';
-
 <SearchSortTable data={pickData}
                 table={pickTable}
                 MAX_ITEMS="10"
@@ -575,9 +566,6 @@ A title of Pick will be displayed centered at the top of the table.  If a differ
 
 ### **Example 4**
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/table.css';
-
 <SearchSortTable data={data}
                     table={table}
                     MAX_ITEMS={MAX_ITEMS}

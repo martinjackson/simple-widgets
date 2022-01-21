@@ -295,7 +295,13 @@ Assist Functions (functions that will assist in building fields showing up in pi
 
 
 
-### **mousehover.css**
+### **sw-invalid.css**
+
+The following CSS file will need to be imported into the file that uses this DoubleListBox component.  The import would be, if it is not be changed:
+
+```javascript
+import '../node_modules/simple-widgets/lib/sw-invalid.css';
+```
 
 This file contains two important class names:
 
@@ -305,12 +311,12 @@ This file contains two important class names:
 
 ```css
 
-.checkForError {
+.sw-checkForError {
     position: relative;
 /*    display: inline-block; */
   }
   
- .errMessage {
+ .sw-errMessage {
     visibility: hidden;
     background-color: black;
     color: #fff;
@@ -325,7 +331,7 @@ This file contains two important class names:
   }
 
 
-.checkForError:hover .errMessage {
+.sw-checkForError:hover .sw-errMessage {
     visibility: visible;
   }
 ```
@@ -339,8 +345,7 @@ Both classes are required.  See the examples below.
 ```javascript
 import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen, 
          wasClickedScreen, validStyling, invalidStyling,
-         copyStyle, processStyleScreen} from './Invalid';
-import '../node_modules/simple-widgets/lib/mousehover.css'
+         copyStyle, processStyleScreen} from 'simple-widgets';
 ...
 const Test = (props) => {
     const invalidArray = generateInvalid(3, 0);
@@ -394,7 +399,6 @@ import { isInvalid, setInvalidTable,
          wasClickedTable,
          getInvalidMessage,
          copyStyle, processStyleTable, validStyling } from './Invalid';
-import '../node_modules/simple-widgets/lib/mousehover.css'
 
 const Test = (props) => {
     const invalidArray = generateInvalid(0, 3);
