@@ -16,14 +16,14 @@ The show, closeFunct, and message props are required.  The extra style prop is n
 The following CSS file will need to be imported into your code that uses this AlertModal component.  We did this so you can style the AlertModal, any way you desire.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/modal.css';
+import '../node_modules/simple-widgets/lib/sw-theme.css';
+import '../node_modules/simple-widgets/lib/sw-modal.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 
-## modal.css
+## sw-modal.css
 
 The CSS class to style the button:
 
@@ -47,9 +47,6 @@ The CSS class to style the button:
 The following is a code example:
 
 ```javascript
-    import '../node_modules/simple-widgets/lib/theme.css';
-    import '../node_modules/simple-widgets/lib/modal.css';
-
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     ...

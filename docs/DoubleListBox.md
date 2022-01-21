@@ -23,13 +23,13 @@ Other optional props:
 The following CSS file will need to be imported into the file that uses this DoubleListBox component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/doubleListBox.css';
+import '../node_modules/simple-widgets/lib/sw-theme.css';
+import '../node_modules/simple-widgets/lib/sw-doubleListBox.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
-### **doubleListBox.css**
+### **sw-doubleListBox.css**
 
 A css file that contains the title, left list, and right list classes.  The names of the classes for the css file are:
 
@@ -120,9 +120,6 @@ A css file that contains the title, left list, and right list classes.  The name
 ### **Example 1:**
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/doubleListBox.css';
-
 const [leftList, setLeftList] = useState(['Jones', 'Smith', 'Wesson', 'Doe', 'Johnson]);
 const [rightList, setRightList] = useState([]);
 
@@ -142,9 +139,6 @@ The output will be value ['Jones', 'Smith'].
 ### **Example 2:**
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/doubleListBox.css';
-
 const [leftList, setLeftList] = useState(['Jones', 'Smith', 'Wesson', 'Doe', 'Johnson]);
 const [rightList, setRightList] = useState(['Pierce']);
 
@@ -169,9 +163,6 @@ Since size is 5, it will automatically default to 10, since there are left and r
 ### **Example 3:**
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/doubleListBox.css';
-
 const [leftList, setLeftList] = useState(['Jones', 'Smith', 'Wesson', 'Doe', 'Johnson]);
 const [rightList, setRightList] = useState([]);
 

@@ -15,13 +15,13 @@ The bring up the file menu, the user must press the button to the right of the i
 The following CSS file will need to be imported into the file that uses this InputFile component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/inputFile.css';
+import '../node_modules/simple-widgets/lib/sw-theme.css';
+import '../node_modules/simple-widgets/lib/sw-inputFile.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
-## inputFile.css
+## sw-inputFile.css
 
 The classes in the file are:
 
@@ -68,9 +68,6 @@ The classes in the file are:
 
 ## Example
 ```javascript
-    import '../node_modules/simple-widgets/lib/theme.css';
-    import '../node_modules/simple-widgets/lib/inputFile.css';
-    
     const addProcessFile = (value) => {
         setDisable(false);
     }

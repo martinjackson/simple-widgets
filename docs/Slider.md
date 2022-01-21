@@ -15,6 +15,13 @@ The different CSS files allow you to select a slider.  The user can create their
 
 ## CSS File
 
+The following CSS file will need to be imported into the file that uses this modal component.  The import would be, if it is not be changed:
+
+```javascript
+import '../node_modules/simple-widgets/lib/sw-slider1.css';
+```
+
+
 There are five CSS files names slider1.css to slider5.css.  The first file corresponds to the first slider displayed above, and so on.
 
 To use one of the CSS Files, see [UsingCSS Files](./UsingCSS.md).

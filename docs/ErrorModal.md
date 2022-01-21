@@ -16,13 +16,13 @@ The show, closeFunct, and message props are required.
 The following CSS file will need to be imported into the file that uses this ErrorModal component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/modal.css';
+import '../node_modules/simple-widgets/lib/sw-theme.css';
+import '../node_modules/simple-widgets/lib/sw-modal.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
-## modal.css
+## sw-modal.css
 
 The CSS class to style the button:
 
@@ -45,9 +45,6 @@ The CSS class to style the button:
 The following is a code example:
 
 ```javascript
-    import '../node_modules/simple-widgets/lib/theme.css';
-    import '../node_modules/simple-widgets/lib/modal.css';
-
     const [showError, setShowError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     ...

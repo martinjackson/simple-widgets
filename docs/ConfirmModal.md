@@ -18,14 +18,14 @@ The show, yesFunct, and noFunct and / or closeFunct props are required.  The mes
 The following CSS file will need to be imported into the file that uses this AlertModal component.  The import would be, if it is not be changed:
 
 ```javascript
-import '../node_modules/simple-widgets/lib/theme.css';
-import '../node_modules/simple-widgets/lib/modal.css';
+import '../node_modules/simple-widgets/lib/sw-theme.css';
+import '../node_modules/simple-widgets/lib/sw-modal.css';
 ```
 
 For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 
-## modal.css
+## sw-modal.css
 
 The CSS class to style the button:
 

@@ -1,4 +1,4 @@
-# entryform.css
+# sw-entryform.css
       
 This css file is used to align labels and input components so that they line up underneath each at the exact same position using a table grid.  The css file is also used to style regular tables.
    
@@ -25,20 +25,23 @@ The table1 class is used for styling a regular HTML table.
       
 ***Example***
 ```javascript
-<div className="table">
-    <div className="row checkForError">
-        <label htmlFor="id_user" className="tLabel w12">User:</label>
-        <ChoiceText id="id_user" list="listOfNames" choices={nameValues} name="addUser" value={addUser} className="cell w19" onChange={(event) => processName(event.target.value)} onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} style={processInvalidStyleScreen(invalid, NAME)} disabled={error} />
+<div className="sw-ef_table">
+    <div className="sw-ef_row sw-invalid_checkForError">
+        <label htmlFor="id_user" className="sw-ef_tLabel sw-ef_w12">User:</label>
+        <ChoiceText id="id_user" list="listOfNames" choices={nameValues} name="addUser" value={addUser} onChange={(event) => processName(event.target.value)} onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} className={"sw-ef_cell sw-ef_w19 " + processInvalidStyleScreen(invalid, NAME)} 
+        disabled={error} />
         { checkValidityScreen(invalid, NAME) }
     </div>
-    <div className="row checkForError">
-        <label htmlFor="id_role" className="tLabel w12">Role:</label>
-        <Choice id="id_role" choices={roleNames} name="addRole" value={addRole} onChange={(event) => setAddRole(event.target.value)} onClick={() => wasClickedScreen(invalid, ROLE, setInvalid)} className="cell w19"  disabled={error} style={processInvalidStyleScreen(invalid, ROLE)} />
+    <div className="sw-ef_row sw-invalid_checkForError">
+        <label htmlFor="id_role" className="sw-ef_tLabel sw-ef_w12">Role:</label>
+        <Choice id="id_role" choices={roleNames} name="addRole" value={addRole} onChange={(event) => setAddRole(event.target.value)} onClick={() => wasClickedScreen(invalid, ROLE, setInvalid)} 
+        disabled={error} 
+        className={"sw-ef_cell sw-ef_w19 " + processInvalidStyleScreen(invalid, ROLE)} />
         { checkValidityScreen(invalid, ROLE) }
     </div>
-    <div className="row checkForError">
-        <label htmlFor="id_active" className="tLabel w12">Active / Inactive:</label>
-        <Choice choices={activeValues} name="addActive" value={addActive} onChange={(event) => setAddActive(event.target.value)} onClick={() => wasClickedScreen(invalid, AORI, setInvalid)} className="cell w19"  disabled={error} style={processInvalidStyleScreen(invalid, AORI)} />
+    <div className="sw-ef_row sw-invalid_checkForError">
+        <label htmlFor="id_active" className="sw-ef_tLabel sw-ef_w12">Active / Inactive:</label>
+        <Choice choices={activeValues} name="addActive" value={addActive} onChange={(event) => setAddActive(event.target.value)} onClick={() => wasClickedScreen(invalid, AORI, setInvalid)} disabled={error} className={"sw-ef_cell sw-ef_w19 " + processInvalidStyleScreen(invalid, AORI)} />
         { checkValidityScreen(invalid, AORI) }
     </div>
 </div>
