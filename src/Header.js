@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AlertModal } from 'simple-widgets'
+import AlertModal from './AlertModal'
 
 import { getList } from './encrypt.js'
 import HeaderModal from './HeaderModal'
