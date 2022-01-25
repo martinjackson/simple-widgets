@@ -1,4 +1,3 @@
-import { set } from 'js-cookie';
 import React, {useEffect} from 'react'
 import { atom, useRecoilState, useRecoilValue } from 'recoil';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Modal } from 'simple-widgets';
+import Modal  from './Modal';
 
 
 const HeaderModal = (props) => {
@@ -18,7 +18,7 @@ const HeaderModal = (props) => {
                 <Modal>
                     <div>
                         <div>
-                           <input type="text" name="user" value={user} 
+                           <input type="text" name="user" value={user}
                                   onChange={(event) => setUser(event.target.value)} />
                         </div>
                         <button name="close" onClick={closeButton} >Close</button>
