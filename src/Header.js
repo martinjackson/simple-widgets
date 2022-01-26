@@ -54,7 +54,7 @@ const Header = (props) => {
               <h2>{dbType}</h2>
               {logout}
               {login}
-              <HeaderModal show={showModal} username={username} setUser={setUsername} closeFunct={setShowModal}/>
+              <HeaderModal show={showModal} username={username} setUser={props.setUsername} closeFunct={setShowModal}/>
             </div>
             {alert}
           </header>);

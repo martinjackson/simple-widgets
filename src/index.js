@@ -19,8 +19,7 @@ import DoubleListBox from './DoubleListBox.js'
 
 import ErrorModal from './ErrorModal.js'
 
-import  { menuState, useMenuParms, Redirect, Link, FlatMenu
- }  from './FlatMenu.js'
+import  { FlatMenu }  from './FlatMenu.js'
 
 import Header from './Header.js'
 
@@ -78,20 +77,19 @@ import  { register, unregister }  from './serviceWorker.js'
 export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, 
 ConfirmModal, ContextMenu, convertDate, dateTime, addDigit, 
 currentDateTime, currentDate, currentDBDateTime, currentDBDate, dbDate, 
-monthName, DateInput, DoubleListBox, ErrorModal, menuState, 
-useMenuParms, Redirect, Link, FlatMenu, Header, 
-HeaderModal, InputFile, generateInvalid, setInvalidScreen, setInvalidTable, 
-setInvalidDual, checkValidityScreen, checkValidityTable, resetDisplayScreen, resetDisplayTable, 
-wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, 
-validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable, processInvalidStyleScreen, 
-processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, isInvalid, 
-getInvalidMessage, Choice, List, MenuBar, useMenuParms, 
-useMenuState, Redirect, Link, Modal, NavigateBar, 
-Radio, search, binSearch, SearchSortTable, Slider, 
-StatusBox, generateButton, generateDefaultButton, generateCSSButton, generateCSSDefaultButton, 
-isOpera, isFirefox, isSafari, isIE, isEdge, 
-isChrome, isEdgeChromium, isBlink, toCamelCase, date2str, 
-lastOfMonth, todayString, getList, decrypt, encrypt, 
-genStoreItem, useUsername, localStrToDate, makeChangeHandler, register, 
-unregister }
+monthName, DateInput, DoubleListBox, ErrorModal, FlatMenu, 
+Header, HeaderModal, InputFile, generateInvalid, setInvalidScreen, 
+setInvalidTable, setInvalidDual, checkValidityScreen, checkValidityTable, resetDisplayScreen, 
+resetDisplayTable, wasClickedScreen, wasClickedTable, isConstant, validCheckDual, 
+validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable, 
+processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, 
+isInvalid, getInvalidMessage, Choice, List, MenuBar, 
+useMenuParms, useMenuState, Redirect, Link, Modal, 
+NavigateBar, Radio, search, binSearch, SearchSortTable, 
+Slider, StatusBox, generateButton, generateDefaultButton, generateCSSButton, 
+generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, 
+isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, 
+date2str, lastOfMonth, todayString, getList, decrypt, 
+encrypt, genStoreItem, useUsername, localStrToDate, makeChangeHandler, 
+register, unregister }
 

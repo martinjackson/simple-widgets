@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "./FlatMenu";
+import { Link } from "./MenuUtils";
 
 const NavigateBar = (props) => {
     const [dropDown, setDropDown] = useState([]);
@@ -54,7 +54,7 @@ const NavigateBar = (props) => {
             localDD[i] = false;
         }
 
-        setDropDown(localDD);        
+        setDropDown(localDD);
         setClick(value);
 
 //        let localDD = [...dropDown];
@@ -96,7 +96,7 @@ const NavigateBar = (props) => {
                                 <Link className='nav-links'>
                                     {row.title + addition1}
                                 </Link>
-                                { (dropDown[row.index] === true) ? 
+                                { (dropDown[row.index] === true) ?
                                     <ul
                                         onClick={() => handleClickDD(row.index)}
                                         className={click ? 'dropdown-menu2 clicked' : 'dropdown-menu2'}>
@@ -104,7 +104,7 @@ const NavigateBar = (props) => {
                                     </ul> : <></> }
                     </li> )
         } else if (row.hasOwnProperty('title')) {
-            return (<li key={name}> 
+            return (<li key={name}>
                             <Link
                                 className="dropdown-link"
                                 to={row.path}>
@@ -120,7 +120,7 @@ const NavigateBar = (props) => {
             if (row.hasOwnProperty('title')) {
                 name = row.title.replace(' ', '_') + index;
             }
-            
+
             if (row.hasOwnProperty('submenu')) {
                 return ( <li
                                 key={name}
@@ -130,12 +130,12 @@ const NavigateBar = (props) => {
                                 <Link className='nav-links'>
                                     {row.title + addition2}
                                 </Link>
-                                { (dropDown[index] === true) ? 
+                                { (dropDown[index] === true) ?
                                     <ul
                                         onClick={() => handleClick()}
                                         className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
                                         {row.submenu.map(buildDropDowns)}
-                                    </ul> : <></> 
+                                    </ul> : <></>
                                 }
                             </li> )
             } else if (row.hasOwnProperty('title')) {
