@@ -38,6 +38,8 @@ import  { Choice, List }  from './List.js'
 
 import  { MenuBar }  from './MenuBar.js'
 
+import  { useMenuParms, useMenuState, Redirect, Link }  from './MenuUtils.js'
+
 import Modal from './Modal.js'
 
 import NavigateBar from './NavigateBar.js'
@@ -57,11 +59,15 @@ import  { generateButton, generateDefaultButton, generateCSSButton, generateCSSD
 import  { isOpera, isFirefox, isSafari, isIE, isEdge, 
 isChrome, isEdgeChromium, isBlink }  from './browserDetect.js'
 
+import  { toCamelCase }  from './camel.js'
+
 import  { date2str }  from './date2str.js'
 
 import  { lastOfMonth, todayString }  from './dateUtils.js'
 
 import  { getList, decrypt, encrypt }  from './encrypt.js'
+
+import  { genStoreItem, useUsername }  from './generalStore.js'
 
 import  { localStrToDate }  from './localStrToDate.js'
 
@@ -79,11 +85,13 @@ setInvalidDual, checkValidityScreen, checkValidityTable, resetDisplayScreen, res
 wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, 
 validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable, processInvalidStyleScreen, 
 processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, isInvalid, 
-getInvalidMessage, Choice, List, MenuBar, Modal, 
-NavigateBar, Radio, search, binSearch, SearchSortTable, 
-Slider, StatusBox, generateButton, generateDefaultButton, generateCSSButton, 
-generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, 
-isEdge, isChrome, isEdgeChromium, isBlink, date2str, 
+getInvalidMessage, Choice, List, MenuBar, useMenuParms, 
+useMenuState, Redirect, Link, Modal, NavigateBar, 
+Radio, search, binSearch, SearchSortTable, Slider, 
+StatusBox, generateButton, generateDefaultButton, generateCSSButton, generateCSSDefaultButton, 
+isOpera, isFirefox, isSafari, isIE, isEdge, 
+isChrome, isEdgeChromium, isBlink, toCamelCase, date2str, 
 lastOfMonth, todayString, getList, decrypt, encrypt, 
-localStrToDate, makeChangeHandler, register, unregister }
+genStoreItem, useUsername, localStrToDate, makeChangeHandler, register, 
+unregister }
 

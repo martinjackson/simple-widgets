@@ -7,9 +7,9 @@ How to use:
 ### Invalid Values format for the screen:
 ```javascript
 invalidValues = [
- { validity: true or false,  
+ { validity: true or false,
  /* This indicates whether the input item contains an invalid item (true) or not (false).  The initial value will be false, until an invalid item is found for this input item. */
-   display: true or false,   
+   display: true or false,
 /* This indicates whether the message should be displayed or not.  Initially this value will be false, when an invalid value for this input item is found, it will be set to true.  When the mouse is clicked for this input item, the value will be set back to false. */
    message: string
 /* The message that will be displayed whenever the mouse is hovered over the input item and display is true. */
@@ -20,11 +20,11 @@ invalidValues = [
 ### Input Values format for the table:
 ```javascript
 invalidValues = [<br>
- { validity: [],             
+ { validity: [],
 /* Each array position will indicate whether that input item on a row in the table is invalid (true).  Only those items that have invalid values are placed in the array.  Initially the array will be empty. */
-   display: [],              
+   display: [],
 /* Each array position will indicate whether the message should be displayed for that item (true) or not (false) for that row in the table.  The value will be true when initally inserted with the validity value.  When the user click on the mouse on the input item, the value will be changed to false. */
-   index: [],                
+   index: [],
 /* Each array position will contain the row number (starting at 0) in the table for the input item that constains the invalid value.  Initially the array will be empty. */
   message: [],
 /* Each array positon will contain the message that will be displayed whenever the mouse is hovered over the input item and the display is true.  Initially the array will be empty. */
@@ -56,8 +56,8 @@ invalidValues = [<br>
  const ADDR = 2;
 ```
  invalidValues[NAME] contains a valid name, since validity is false.
- invalidValues[SSN] contains an invalid SSN (validity is true) and the message will be 
-     displayed when the mouse is hovered over it, since display is true.  If the user, 
+ invalidValues[SSN] contains an invalid SSN (validity is true) and the message will be
+     displayed when the mouse is hovered over it, since display is true.  If the user,
      clicks on the input item, display will be set to false and the message will not be
      displayed.
  invalidValues[ADDR] contains an invalid addresss (validity is true), but the message will
@@ -65,7 +65,7 @@ invalidValues = [<br>
 
 
 ## **Table Example:**
-```javascript 
+```javascript
  invalidValues = [
      { validity: [true, true], display: [true, false], index: [3, 4], message: ['The name is a duplicate, 'Invalid Name']},
      { validity: [true, true], display: [true, false], index: [8, 14], message: ['The SSN is a duplicate, 'Invalid SSN']},
@@ -75,12 +75,12 @@ invalidValues = [<br>
  const SSN = 1;
 ```
 
- invalidValues[NAME] contains two invalid names (validity is true) in the table at rows 3 and 4 
+ invalidValues[NAME] contains two invalid names (validity is true) in the table at rows 3 and 4
      (actual 4 and 5).  The message 'The name is a duplicate' is being displayed, since display is true
      for that input item on row 3 of the table.   The message 'Invalid name' will not be displayed,
      since display is false for that input item on row 4 of the table.
 
- ivalidValues[SSN] contains two invalid SSNs (validity is true) in the table at rows 8 and 14 
+ ivalidValues[SSN] contains two invalid SSNs (validity is true) in the table at rows 8 and 14
  (actual 9 and 15).  The message 'The SSN is a duplicate' is being displayed, since display is true
      for that input item on row 8 of the table.   The message 'Invalid SSN' will not be displayed,
      since display is false for that input item on row 14 of the table.
@@ -117,7 +117,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
     Parameters:
     - invalidValues = the invalid array that contains what entries are invalid
     - constant = the screen constant that represents the array index to check in the invalid array.
-                            
+
 2. **checkValidityTable**<br>
     This will check to see if there is an invalid table entry, and if there is, it will display an invalid message.
 
@@ -143,7 +143,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
 
 5. **clearInvalidScreenOnly**<br>
     This function is used when there are both screen and table invalid entries.  This will clear the invalid screen entries only.  It will not clear the table entries.
- 
+
     Parameters:
     -  invalidValues = list of invalid inputs for the screen
     -  constant = the constant for the last screen entry
@@ -196,7 +196,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
 
 12. **processStyleScreen**<br>
     This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
- 
+
     Parameters:
     - invalidValues = list of invalid inputs
     - constant = indicates which of the input items is invalid (the index into the array)
@@ -206,7 +206,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
 
 13. **processStyleTable**<br>
     This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
- 
+
     Parameters:
     - invalidValues = list of invalid inputs for the table
     - constant = indicates which of the input items is invalid (the index into the array)
@@ -216,14 +216,14 @@ Assist Functions (functions that will assist in building fields showing up in pi
 
 14. **resetDisplayScreen**<br>
     This will set the display value to false for an invalid input item.
- 
+
     Parameters:
     - invalidValues = list of invalid inputs for the screen
     - constant = indicates which of the input items is invalid (the index into the array)
 
 15. **resetDisplayTable**<br>
     This will set the display value to false for an invalid input item.
- 
+
     Parameters:
     - invalidValues = list of invalid inputs for the screen
     - constant = indicates which of the input items is invalid (the index into the array)
@@ -231,7 +231,7 @@ Assist Functions (functions that will assist in building fields showing up in pi
 
 16. **setInvalidDual**<br>
     This indicates that one of the input items is either on the screen or in a table and contains an invalid value.
- 
+
     Parameters:
     - invalidValues = list of invalid inputs for the screen or table
     - constant1 = index into the screen input items
@@ -254,12 +254,12 @@ Assist Functions (functions that will assist in building fields showing up in pi
     Parameters:
     - invalidValues = list of invalid inputs for the table
     - constant = indicates which of the input items is invalid (the index into the array)
-    - index = row number (from zero) in the table that contains the invalid item 
+    - index = row number (from zero) in the table that contains the invalid item
     - message = message for the invalid value
 
 19. **validCheckDual**<br>
     This will check to see if any of the validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
- 
+
     Parameters:
     - invalidValues = list of invalid inputs for the screen or table
     - constants = list of screen constants to distinguish between screen and table constants
@@ -273,12 +273,12 @@ Assist Functions (functions that will assist in building fields showing up in pi
 21. **validCheckTable**<br>
     This will check to see if any of the table validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
 
-    Parameters: 
+    Parameters:
     - invalidValues = list of invalid inputs for the table
 
 22. **wasClickedScreen**<br>
     Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on the regular screen.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons or check boxes.
- 
+
     Parameters:
     - invalidValues = list of invalid inputs for the screen
     - constant = indicates which item the mouse was clicked on.  Set the contants after the invalid array.
@@ -315,19 +315,19 @@ This file contains two important class names:
     position: relative;
 /*    display: inline-block; */
   }
-  
+
  .sw-errMessage {
     visibility: hidden;
     background-color: black;
     color: #fff;
-    width: 350px; 
+    width: 350px;
     text-align: center;
     border-radius: 6px;
     padding: 10px;
-  
+
     /* Position the tooltip */
-    position: absolute; 
-    z-index: 1; 
+    position: absolute;
+    z-index: 1;
   }
 
 
@@ -343,7 +343,7 @@ Both classes are required.  See the examples below.
 ### **Screen**
 
 ```javascript
-import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen, 
+import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen,
          wasClickedScreen, validStyling, invalidStyling,
          copyStyle, processStyleScreen} from 'simple-widgets';
 ...
@@ -361,12 +361,12 @@ const Test = (props) => {
     return (
         <div className="sw-invalid_checkForError">
             <label htmlFor="id_name" className="tableLabel">Name:</label>
-            <input type="text" 
-                   id="id_name" 
-                   name="name" 
-                   value={name} 
-                   onChange={(event) => setName(event.target.value)} 
-                   onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} 
+            <input type="text"
+                   id="id_name"
+                   name="name"
+                   value={name}
+                   onChange={(event) => setName(event.target.value)}
+                   onClick={() => wasClickedScreen(invalid, NAME, setInvalid)}
                    className={processInvalidStyleScreen(invalid, NAME)} /><br />
             { checkValidityScreen(invalid, NAME) }
             // Need sample and address (same as name)
@@ -394,8 +394,8 @@ const Test = (props) => {
 ## **Table**
 
 ```javascript
-import { isInvalid, setInvalidTable, 
-         validCheckTable, clearInvalidTable, 
+import { isInvalid, setInvalidTable,
+         validCheckTable, clearInvalidTable,
          wasClickedTable,
          getInvalidMessage,
          copyStyle, processStyleTable, validStyling } from './Invalid';
@@ -417,11 +417,11 @@ const Test = (props) => {
         return (  // Build the row in the table
             <tr key={key}>
                 <td className="sw-invalid_checkForError">
-                    <input type="text" 
-                           id="id_name name="name" 
-                           value={row.name} 
-                           onChange={(event) => processName(event, i)} 
-                           onClick={() => wasClickedTable(invalid, NAME, i, setInvalid)} 
+                    <input type="text"
+                           id="id_name name="name"
+                           value={row.name}
+                           onChange={(event) => processName(event, i)}
+                           onClick={() => wasClickedTable(invalid, NAME, i, setInvalid)}
                            className={processInvalidStyleTable(invalid, NAME, i)} />
                     { checkValidityTable(invalid, NAME, i) }
                 </td>
@@ -452,8 +452,8 @@ const Test = (props) => {
 ## **Dual**
 
 ```javascript
-import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen, 
-         wasClickedScreen, validStyling, 
+import { isInvalid, setInvalidScreen, validCheckScreen, clearInvalidScreen,
+         wasClickedScreen, validStyling,
          copyStyle, processStyleScreen} from './Invalid';
 import '../node_modules/simple-widgets/lib/mousehover.css'
 ...
@@ -475,12 +475,12 @@ const Test = (props) => {
     return (
         <div className="sw-invalid_checkForError">
             <label htmlFor="id_name" className="tableLabel">Name:</label>
-            <input type="text" 
-                   id="id_name" 
-                   name="name" 
-                   value={name} 
-                   onChange={(event) => setName(event.target.value)} 
-                   onClick={() => wasClickedScreen(invalid, NAME, setInvalid)} 
+            <input type="text"
+                   id="id_name"
+                   name="name"
+                   value={name}
+                   onChange={(event) => setName(event.target.value)}
+                   onClick={() => wasClickedScreen(invalid, NAME, setInvalid)}
                    className={processInvalidStyleScreen(invalid, NAME)} /><br />
             { checkValidityScreen(invalid, NAME) }
             // Need address and city (same as name)
@@ -494,17 +494,17 @@ const Test = (props) => {
         return (  // Build the row in the table
             <tr key={key}>
                 <td className="sw-invalid_checkForError">
-                    <input type="text" 
+                    <input type="text"
                            id="id_sample"
-                           name="sample" 
-                           value={row.sample} 
-                           onChange={(event) => processSample(event, i)} 
-                           onClick={() => wasClickedTable(invalid, SAMPLE, i, setInvalid)} 
+                           name="sample"
+                           value={row.sample}
+                           onChange={(event) => processSample(event, i)}
+                           onClick={() => wasClickedTable(invalid, SAMPLE, i, setInvalid)}
                            className={processInvalidStyleTable(invalid, SAMPLE, i} />
                     { checkValidityScreen(invalid, SAMPLE, i) }
                 </td>
                 // Description (same as sample)
-                ... 
+                ...
             </tr>
         );
     }
@@ -514,7 +514,7 @@ const Test = (props) => {
 
         localInvalid = clearInvalidDual(localInvalid, [NAME, CITY], [SAMPLE, DESC]);
 
-        if (name === '') { 
+        if (name === '') {
             localInvalid = setInvalidScreen(localInvalid, NAME, 'A Name must be entered');
         }
         // Validation for address and city (same as name)
@@ -527,7 +527,7 @@ const Test = (props) => {
 
         setInvalid(localInvalid);
 
-        return validCheckDual(localInvalid, [NAME, ADDR, CITY]); 
+        return validCheckDual(localInvalid, [NAME, ADDR, CITY]);
     }
 
 ```

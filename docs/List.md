@@ -1,13 +1,13 @@
 # **List**
 
-List is simple [React] component that allows the user to select a value from a list of values in a box.  
+List is simple [React] component that allows the user to select a value from a list of values in a box.
 
 ### **Props**
 The List component uses the following props:
 
-1.  **name**: A unique name for this field with corresponding name in the parent component's state    
+1.  **name**: A unique name for this field with corresponding name in the parent component's state
     _example name="subject"_
-2.  **onChange**: function in the parent component to catch/store state changes 
+2.  **onChange**: function in the parent component to catch/store state changes
     _example onChange={handleChange}_
 3.  **list**: an array of Strings displayed in the list box
 4.  **multiple**: allows multiple items in the list box to be selected.
@@ -28,8 +28,8 @@ import { List } from 'simple-widgets';
 const YourComponent = (props) => {
 
     const [exMode, setExMode] = useState([]);
-    
-    const modes = ["java", "javascript", "jsx", "markdown", "sh"];  
+
+    const modes = ["java", "javascript", "jsx", "markdown", "sh"];
 
     function buildList(value) {
         let selections = [];
@@ -45,9 +45,9 @@ const YourComponent = (props) => {
 
     return (
       <div>
-        <List 
-          list={modes} 
-          name="exMode" 
+        <List
+          list={modes}
+          name="exMode"
           onChange={(event) => buildList(event.target.options)}
           multiple
           size="4"  />

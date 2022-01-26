@@ -81,11 +81,11 @@ export default YourModal;
     justify-content: center;
     align-items: center;
 }
-  
+
 #sw-modal:empty {
     display: none;
 }
-  
+
 #sw-modal > div {
     background-color: white;
     max-width: 500px;
