@@ -1,15 +1,14 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
 
-import { menuState } from './FlatMenu';
+import { useMenuState } from './MenuUtils'
+//     const [curMenuPath, setCurMenuPath] = useMenuState();
+
 
 import NavigateBar from './NavigateBar';
-// import './NavBar.css';
-// import './DropDown.css'
 
 export const MenuBar = (props) => {
 
-    const [curMenuPath, setCurMenuPath] = useRecoilState(menuState);
+    const [curMenuPath, setCurMenuPath] = useMenuState();
 
     const getPaths = (row) => {
         if (row.hasOwnProperty('submenu')) {
@@ -30,7 +29,7 @@ export const MenuBar = (props) => {
     }
 
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
-    const active = items.find(item => item.path === curMenuPath) || items[0]  
+    const active = items.find(item => item.path === curMenuPath) || items[0]
 
     return (
         <div>
