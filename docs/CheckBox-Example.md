@@ -10,11 +10,11 @@ We support all browsers and environments where React runs.
 ### **Props**
 The CheckBox component uses the following props:
 
-1. **name**: A unique name for this field with corresponding name in the parent component's state    
+1. **name**: A unique name for this field with corresponding name in the parent component's state
     _example name="subject"_
-2. **value**: the value of the checkbox if checked  
+2. **value**: the value of the checkbox if checked
     _example value="checked"
-3. **onChange**: function in the parent component to catch/store state changes 
+3. **onChange**: function in the parent component to catch/store state changes
     _example onChange={handleChange}_
 5. **match**: the state variable the holds the 'value' (see 2) that was selected
 6. **text**: a label (String or component) that is displayed after the CheckBox
@@ -57,10 +57,10 @@ const YourComponent = (props) => {
 
   return  (
     <div>
-              <CheckBox value="Preview" 
-                        name="preview" 
-                        text="Preview" 
-                        match={preview} 
+              <CheckBox value="Preview"
+                        name="preview"
+                        text="Preview"
+                        match={preview}
                         onChange={(event) => setPreview(event.target.value)} />
     </div>
   )

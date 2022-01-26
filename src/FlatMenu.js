@@ -1,55 +1,10 @@
 import React, {useEffect} from 'react'
-import { atom, useRecoilState, useRecoilValue } from 'recoil';
 
-export const menuState = atom({
-    key: 'menuState', // unique ID (with respect to other atoms/selectors)
-    default: '', // default value (aka initial value)
-  });
-
-const menuParms = atom({
-    key: 'menuParms', // unique ID (with respect to other atoms/selectors)
-    default: {}, // default value (aka initial value)
-  });
-
-
-export const useMenuParms = () => {
-    return useRecoilValue(menuParms)
-}
-
-export const Redirect = (props) => {
-    const [curMenuPath, setCurMenuPath] = useRecoilState(menuState);
-    const [curMenuParms, setCurMenuParms] = useRecoilState(menuParms);
-
-    useEffect(() => {
-        setCurMenuPath(props.to)
-        setCurMenuParms(props.parms)
-    }, [])
-
-    return <></>
-}
-
-export const Link = (props) => {
-    const [curMenuPath, setCurMenuPath] = useRecoilState(menuState);
-    const [curMenuParms, setCurMenuParms] = useRecoilState(menuParms);
-
-    if (!props.to || props.to === "")
-       return <span className="nav-links">{props.children}</span>
-
-    const click = (e) => {
-        e.preventDefault();
-        console.log(`You clicked ${props.to}`);
-        setCurMenuPath(props.to)
-        setCurMenuParms(props.parms)
-    }
-
-    const cname = props.className || ""
-
-    return <span className={'nav-links '+cname} href={props.to} onClick={click}>{props.children}</span>
-}
+import { useMenuState } from './MenuUtils'
 
 export const FlatMenu = (props) => {
 
-    const [curMenuPath, setCurMenuPath] = useRecoilState(menuState);
+    const [curMenuPath, setCurMenuPath] = useMenuState();
 
     const items = props.menuItems
 

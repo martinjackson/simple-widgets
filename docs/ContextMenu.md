@@ -5,7 +5,7 @@ ContextMenu is a [React] component that allows the user to right click on an ite
 ### **Props**
 The ContextMenu component uses the following props:
 
-1. **name**: A unique name for this field with corresponding name in the parent component's state    
+1. **name**: A unique name for this field with corresponding name in the parent component's state
     _example name="subject"_
 2. **menu**: this is an array that will describe the items in the context menu and the functions to execute when the item is selected.  The array will contain a list of objects that contain a name and funct field.  The name field will be the name of the menu item and funct will be the function that is called when the name is selected.  An example menu might look like:
     let menuList = [
@@ -81,7 +81,7 @@ const YourComponent = (props) => {
     const [menu, setMenu] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
     const [position, setPosition] = useState({ X: 0, Y: 0 });
-        
+
     function rightClick(event) {
         event.preventDefault();
         let menu = [

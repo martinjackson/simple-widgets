@@ -229,7 +229,7 @@ const SearchSortTable = (propsPassed) => {
 
     let heightStyle = {};
     if (hasProperty(props, 'height') === true) {
-        heightStyle = { height: props.height }; 
+        heightStyle = { height: props.height };
     }
 
     let filterBackground = null;
@@ -1189,12 +1189,12 @@ const SearchSortTable = (propsPassed) => {
         if (index > 0) {    // Index is past the start of the data, so enable top and previous
             setPreviousDisabled(false);
             setTopDisabled(false);
-        } else {           
+        } else {
                   // Can not go any further up so disable top and previous
                   // Index is before the start of the data, so disable top and previous
             setPreviousDisabled(true);
             setTopDisabled(true);
-        } 
+        }
 
         // Cannot go any further down so disable, next and bottom
         if (index + maxItems >= endLen) {

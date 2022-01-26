@@ -1,6 +1,6 @@
 # **Theme**
 
-Theme allows the user to standardize their screens to the same background color, button style, font, error color, etc.  
+Theme allows the user to standardize their screens to the same background color, button style, font, error color, etc.
 
 Theme will also allow you to change the theme settings by changing variables or classes.
 
@@ -135,7 +135,7 @@ To generate a button that uses an existing style and will allow the style to eit
 1.  **generateCSSButton**
     This will generate a button and will determine if the button should be
     disabled or not.
-    
+
     Parameters:
     - cssClassName = the CSS class name the defines the style for the button used for the button.  This is a string.
     - error = indicates whether an error occurred and if so, change the color to the disable color for the button.  This is a boolean variable and if true will set the button to the disable color.
@@ -150,11 +150,11 @@ To generate a button that uses an existing style and will allow the style to eit
     let error = false;
     let disableValue = false;
     ...
-    let genButtonStyle1 = generateCSSButton('sw-theme_buttonStyle', 
+    let genButtonStyle1 = generateCSSButton('sw-theme_buttonStyle',
                                     error, disableValue);
     let genButtonStyle2 = generateCSSButton('sw-theme_buttonStyle',
                                     error, true);
-    let genButtonStyle3 = generateCSSButton('sw-theme_buttonStyle', 
+    let genButtonStyle3 = generateCSSButton('sw-theme_buttonStyle',
                                     error);
     ...
     <button className={genButtonStyle1}>Test 1</button>
@@ -166,7 +166,7 @@ To generate a button that uses an existing style and will allow the style to eit
 
     In getButtonStyle2 associated with button Test 2, if error or disableValue is true the button color will be gray; otherwise, the button color will not be set; therefore, it will be the current background color.
 
-    In getButtonStyle3 associated with button Test 3, if error is true the button color will be gray; otherwise, the button color will be blue.  Since no disabled value was given, that value will default to false.  
+    In getButtonStyle3 associated with button Test 3, if error is true the button color will be gray; otherwise, the button color will be blue.  Since no disabled value was given, that value will default to false.
 
 2.  **generateCSSDefaultButton**
     This will generate a button and will determine if the button should be
