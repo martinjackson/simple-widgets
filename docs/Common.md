@@ -39,3 +39,64 @@ Contains common functions that can be useful.
     ```javascript
     let money = formatMoney(1234.56);               Result: $1,234.56
     ```
+
+4.  **localStrToDate**<br>
+        Takes a date as a string and converts to a date object.
+
+        Parameters:
+        - target = the date in any format
+
+
+        Returns = the date in target as a date object
+
+    ### Example
+```js
+    import { localStrToDate } from 'simple-widgets';
+    let recDate = localStrToDate('December 17, 2021 03:24:00');
+```
+
+5.  **date2Str**<br>
+        This converts a date object into a string.
+
+        Parameters:
+        - date = the date as a date object
+        - pattern = the pattern to convert the date into.
+            M = month
+            d = day of the month
+            yyyy = year
+            h = hour
+            m = minute
+            s = second
+
+
+        Returns the date in the date object as a string
+
+    ### Example
+```js
+    import { date2str } from 'simple-widgets';
+    let recDate = date2str(new Date(), 'MM/dd/yyyy');
+```
+    If the date is December 25, 2021, recDate will contain 12/25/2021.
+
+6.  **lastOfMonth**<br>
+
+    Returns the last day of the current month in the following array format: [year, month, day]
+
+    ### Example
+```js
+    import { lastOfMonth } from from 'simple-widgets';
+    let last = lastOfMonth();
+```
+
+    If the current date is 12/10/2021, the array that gets returned is [2021, 12, 31]
+
+7.  **todayString**<br>
+    Return the current date in the mm/dd/yyyy format.
+
+    ### Example
+```js
+    import { todayString } from from 'simple-widgets';
+    let currentDate = todayString();
+```
+
+    The variable currentDate will contain the current date in the mm/dd/yyyy format.

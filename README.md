@@ -41,7 +41,7 @@ __**Component Documents**__
 
 [CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md), [InputFile](docs/InputFile.md), [Slider](docs/Slider.md)
 
-[AlertModal](docs/AlertModal.md), [ErrorModal](docs/ErrorModal.md), [ConfirmModal](docs/ConfirmModal.md), [Modal](docs/Modal.md),
+[AlertModal](docs/AlertModal.md), [ErrorModal](docs/ErrorModal.md), [ConfirmModal](docs/ConfirmModal.md), [Modal](docs/Modal.md), [StatusBox](docs/StatusBox.md)
 
 [Invalid](docs/Invalid.md)
 
@@ -49,7 +49,11 @@ __**Component Documents**__
 
 [Search Functions](docs/SearchFunct.md), [Date Functions](docs/DateFunct.md), [Common Functions](docs/Common.md)
 
-[Entry Form](docs/EntryForm.md) is used to line up components in a form.
+[Entry Form](docs/EntryForm.md) is used to help line up components in a form.
+
+[MenuBar](docs/MenuBar.md), [FlatMenu](docs/FlatMenu.md), [Menu Utils](docs/MenuUtils), [Header](docs/Header.md)
+
+[Browser Detect](docs/BrowserDetect.md)
 
 __**Getting Started**__
 - [Short Tutorial](GettingStarted.md)
