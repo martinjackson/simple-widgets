@@ -2,8 +2,6 @@ import React, {useEffect} from 'react'
 
 import { openGeneralStore } from './generalStore'
 
-export const useMenuParms = genStoreItem('menuParms', {});
-export const useMenuState = genStoreItem('menuState', '');
 
 export const Redirect = (props) => {    
     const gs = openGeneralStore()
