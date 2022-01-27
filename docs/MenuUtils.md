@@ -52,11 +52,13 @@ This will transfer control to the Employee component and pass the ssn and name v
 To read the parameters in the Employee component:
 
 ```js
-    import { useMenuParms } from 'simple-widgets';
+    import { openGeneralStore } from 'simple-widgets';
 
     const Employee = () => {
-        const parms = useMenuParms();   // This must be before the state variables
+        const gs = openGeneralStore();
+        const [parms] = gs.useMenuParms();   // This must be before the state variables
         ...
+        console.log ('name', parms.name);
     }
 
     export default Employee;
@@ -116,11 +118,13 @@ This will transfer control to the Company component and pass the name and street
 To read the parameters in the Company component:
 
 ```js
-    import { useMenuParms } from 'simple-widgets';
+    import { openGeneralStore } from 'simple-widgets';
 
     const Company = () => {
-        const parms = useMenuParms();   // This must be before the state variables
+        const gs = openGeneralStore();
+        const [parms] = gs.useMenuParms();   // This must be before the state variables
         ...
+        console.log ('name', parms.name);
     }
 
     export default Company;
