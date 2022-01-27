@@ -51,7 +51,7 @@ __**Component Documents**__
 
 [Entry Form](docs/EntryForm.md) is used to help line up components in a form.
 
-[MenuBar](docs/MenuBar.md), [FlatMenu](docs/FlatMenu.md), [Menu Utils](docs/MenuUtils), [Header](docs/Header.md)
+[MenuBar](docs/MenuBar.md), [FlatMenu](docs/FlatMenu.md), [Menu Utils](docs/MenuUtils.md), [Header](docs/Header.md)
 
 [Browser Detect](docs/BrowserDetect.md)
 
