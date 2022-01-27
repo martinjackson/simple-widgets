@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 
 import { openGeneralStore } from './generalStore'
 
+import { Link } from './MenuUtils'
+
 export const FlatMenu = (props) => {
 
   const gs = openGeneralStore()     
