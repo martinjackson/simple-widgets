@@ -66,7 +66,7 @@ import  { lastOfMonth, todayString }  from './dateUtils.js'
 
 import  { getList, decrypt, encrypt }  from './encrypt.js'
 
-import  { genStoreItem, useUsername }  from './generalStore.js'
+import  { genStoreItem, openGeneralStore }  from './generalStore.js'
 
 import  { localStrToDate }  from './localStrToDate.js'
 
@@ -90,6 +90,6 @@ Slider, StatusBox, generateButton, generateDefaultButton, generateCSSButton,
 generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, 
 isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, 
 date2str, lastOfMonth, todayString, getList, decrypt, 
-encrypt, genStoreItem, useUsername, localStrToDate, makeChangeHandler, 
+encrypt, genStoreItem, openGeneralStore, localStrToDate, makeChangeHandler, 
 register, unregister }
 
