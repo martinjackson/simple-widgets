@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
 
-import { useMenuState } from './MenuUtils'
+import { openGeneralStore } from './generalStore'
 
 export const FlatMenu = (props) => {
 
-    const [curMenuPath, setCurMenuPath] = useMenuState();
+  const gs = openGeneralStore()     
+  const [curMenuPath, setCurMenuPath] = gs.useMenuState()
 
     const items = props.menuItems
 

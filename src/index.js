@@ -37,7 +37,7 @@ import  { Choice, List }  from './List.js'
 
 import  { MenuBar }  from './MenuBar.js'
 
-import  { useMenuParms, useMenuState, Redirect, Link }  from './MenuUtils.js'
+import  { Redirect, Link }  from './MenuUtils.js'
 
 import Modal from './Modal.js'
 
@@ -84,12 +84,11 @@ resetDisplayTable, wasClickedScreen, wasClickedTable, isConstant, validCheckDual
 validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable, 
 processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, 
 isInvalid, getInvalidMessage, Choice, List, MenuBar, 
-useMenuParms, useMenuState, Redirect, Link, Modal, 
-NavigateBar, Radio, search, binSearch, SearchSortTable, 
-Slider, StatusBox, generateButton, generateDefaultButton, generateCSSButton, 
-generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, 
-isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, 
-date2str, lastOfMonth, todayString, getList, decrypt, 
-encrypt, genStoreItem, openGeneralStore, localStrToDate, makeChangeHandler, 
-register, unregister }
+Redirect, Link, Modal, NavigateBar, Radio, 
+search, binSearch, SearchSortTable, Slider, StatusBox, 
+generateButton, generateDefaultButton, generateCSSButton, generateCSSDefaultButton, isOpera, 
+isFirefox, isSafari, isIE, isEdge, isChrome, 
+isEdgeChromium, isBlink, toCamelCase, date2str, lastOfMonth, 
+todayString, getList, decrypt, encrypt, genStoreItem, 
+openGeneralStore, localStrToDate, makeChangeHandler, register, unregister }
 
