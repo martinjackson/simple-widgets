@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { useMenuState } from './MenuUtils'
-//     const [curMenuPath, setCurMenuPath] = useMenuState();
-
+import { openGeneralStore } from './generalStore'
 
 import NavigateBar from './NavigateBar';
 
 export const MenuBar = (props) => {
 
-    const [curMenuPath, setCurMenuPath] = useMenuState();
+    const gs = openGeneralStore()
+    const [curMenuPath, setCurMenuPath] = gs.useMenuState();
 
     const getPaths = (row) => {
         if (row.hasOwnProperty('submenu')) {
