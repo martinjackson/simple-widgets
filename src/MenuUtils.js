@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react'
 
-import { genStoreItem } from './generalStore'
+import { openGeneralStore } from './generalStore'
 
 export const useMenuParms = genStoreItem('menuParms', {});
 export const useMenuState = genStoreItem('menuState', '');
 
-export const Redirect = (props) => {
-    const [curMenuPath, setCurMenuPath] = useMenuState()
-    const [curMenuParms, setCurMenuParms] = useMenuParms();
+export const Redirect = (props) => {    
+    const gs = openGeneralStore()
+     
+    const [curMenuPath, setCurMenuPath] = gs.useMenuState()
+    const [curMenuParms, setCurMenuParms] = gs.useMenuParms();
 
     useEffect(() => {
         setCurMenuPath(props.to)
@@ -18,8 +20,10 @@ export const Redirect = (props) => {
 }
 
 export const Link = (props) => {
-    const [curMenuPath, setCurMenuPath] = useMenuState();
-    const [curMenuParms, setCurMenuParms] = useMenuParms();
+    const gs = openGeneralStore()
+
+    const [curMenuPath, setCurMenuPath] = gs.useMenuState();
+    const [curMenuParms, setCurMenuParms] = gs.useMenuParms();
 
     if (!props.to || props.to === "")
        return <span className="nav-links">{props.children}</span>
