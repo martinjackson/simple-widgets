@@ -20,7 +20,7 @@ const createField = (fieldStructure, idx, value, handleChange) => {
       } catch (e) {
           const msg = `Error Creating Field type: ${f.type} [${idx}]`
           console.log(msg);
-          console.log(JSON.stringify(fieldStructure, 2, null));
+          console.log(JSON.stringify(fieldStructure, null, 2));
           console.log(e);
           console.log(e.stack());
           field = msg
