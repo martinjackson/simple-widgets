@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactJson from 'react-json-view'
-import {FormFields, applyOptions, Show, useFetch} from ".";
+import {FormFields, applyOptions} from ".";
 
 const Form = (props) => {
 
@@ -16,14 +16,14 @@ const Form = (props) => {
   const [formData, setFormDataInternal] = useState({});
   const [formList, setFormList] = useState( props.form );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (debug) {
        console.log('InitialData setup');
     }
     setFormData(props.data)   // initialData
   }, [])    // only once
 
-  React.useEffect(() => {
+  useEffect(() => {
      if (debug) {
        console.log("   Form: props.form changed");
      }
@@ -31,7 +31,7 @@ const Form = (props) => {
      setFormData(props.data)        // any time the props.data or props.form changes
   }, [props.form])      // formData and formList are recalculated
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (debug) {
       console.log("   Form: props.data changed");
     }
