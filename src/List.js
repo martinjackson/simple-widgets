@@ -35,7 +35,7 @@ const _Choice = (propsIn, ref) => {
 
       const arr = Array.from(e.target.selectedOptions, option => option.value)
       e2.target.name = e.target.name
-      e2.target.value = (props?.multiple) ? arr : e.target.value
+      e2.target.value = (props.multiple) ? arr : e.target.value
 
       // console.log(`listHandleChange calling onChange(e2) ${e2.target.name} ${JSON.stringify(e2.target.value)} `);
 

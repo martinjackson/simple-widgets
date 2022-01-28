@@ -67,7 +67,7 @@ const SearchSortTable = (propsPassed) => {
     const SRCHITEM = 1;
     const SRCHHDR = 2;
 
-    const numCols = props?.data[0]?.length || 10
+    const numCols = props.data[0]?.length || 10
     const initialFilters = Array(numCols).fill('');  // React doesn't like <input value={null}
     const initialBackground = Array(63).fill({backgroundColor: getComputedStyle(document.documentElement)
                     .getPropertyValue('--sw-theme_backgroundColor')});
