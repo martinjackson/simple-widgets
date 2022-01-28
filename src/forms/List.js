@@ -11,12 +11,12 @@ export const Choice = (propsIn) => {
 
     const genOption = (el, k) => {
       if (isKeyed) {
-        return (opt[el] == props.value) ?
-          <option key={k} value={el} selected>{opt[el]}</option> :
+        return (opt[el] == props.value) ?        
+          <option key={k} value={el} selected={true}>{opt[el]}</option> :
           <option key={k} value={el}>{opt[el]}</option>
       } else {
         return (el == props.value) ?
-            <option key={k} value={el} selected>{el}</option> :
+            <option key={k} value={el} selected={true}>{el}</option> :
             <option key={k} value={el}>{el}</option>
       }
     }
