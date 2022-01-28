@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
-const min = (arr) => arr.reduce((acc))
+// const min = (arr) => arr.reduce((acc))
 
 const _Choice = (propsIn, ref) => {
 
