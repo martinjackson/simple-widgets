@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 // import Calendar from 'react-calendar';    now only needed for IE
 // import 'react-calendar/dist/Calendar.css';
@@ -6,7 +6,6 @@ import React, {useState, useEffect} from 'react';
 // import formatDateToStr from 'dateformat';
 import {date2str} from "./date2str"
 import {localStrToDate} from "./localStrToDate";
-import {isSafari, isIE} from './browserDetect'
 
 const DateInput = (props) => {
 
@@ -24,6 +23,9 @@ const DateInput = (props) => {
       f.dateValue = localStrToDate(f.value)
     }
 
+/*
+import {isSafari, isIE} from './browserDetect'
+
     const handleCalendarChange = (value) => {
       const e = {}
       e.target = {}
@@ -36,7 +38,7 @@ const DateInput = (props) => {
 
     //  pattern="(?:19|20)\[0-9\]{2}-(?:(?:0\[1-9\]|1\[0-2\])-(?:0\[1-9\]|1\[0-9\]|2\[0-9\])|(?:(?!02)(?:0\[1-9\]|1\[0-2\])-(?:30))|(?:(?:0\[13578\]|1\[02\])-31))"
     // title="Enter a date in this format YYYY-MM-DD"
-/*
+
     if (isIE) {                  // isSafari  prior to April 2021
        return  <>
               <input type="text"

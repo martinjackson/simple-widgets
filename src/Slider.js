@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const Slider = (props) => {
     const min = (props.hasOwnProperty('start')) ? props.start : 0;
