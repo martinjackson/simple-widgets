@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
