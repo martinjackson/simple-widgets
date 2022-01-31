@@ -23,7 +23,7 @@ export const Link = (props) => {
     const [curMenuPath, setCurMenuPath] = gs.useMenuState();
     const [curMenuParms, setCurMenuParms] = gs.useMenuParms();
 
-    if (!props.to || props.to === "")
+    if (!props.to || props.to.length < 1)    // same as || props.to === "")
        return <span className="nav-links">{props.children}</span>
 
     const click = (e) => {

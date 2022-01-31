@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
-const min = (arr) => arr.reduce((acc))
+// const min = (arr) => arr.reduce((acc))
 
 const _Choice = (propsIn, ref) => {
 
@@ -35,7 +35,7 @@ const _Choice = (propsIn, ref) => {
 
       const arr = Array.from(e.target.selectedOptions, option => option.value)
       e2.target.name = e.target.name
-      e2.target.value = (props?.multiple) ? arr : e.target.value
+      e2.target.value = (props.multiple) ? arr : e.target.value
 
       // console.log(`listHandleChange calling onChange(e2) ${e2.target.name} ${JSON.stringify(e2.target.value)} `);
 

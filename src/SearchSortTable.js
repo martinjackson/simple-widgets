@@ -67,7 +67,7 @@ const SearchSortTable = (propsPassed) => {
     const SRCHITEM = 1;
     const SRCHHDR = 2;
 
-    const numCols = props?.data[0]?.length || 10
+    const numCols = props.data[0]?.length || 10
     const initialFilters = Array(numCols).fill('');  // React doesn't like <input value={null}
     const initialBackground = Array(63).fill({backgroundColor: getComputedStyle(document.documentElement)
                     .getPropertyValue('--sw-theme_backgroundColor')});
@@ -336,12 +336,7 @@ const SearchSortTable = (propsPassed) => {
             title = <h3 className="sw-sst_titleStyle">{props.title}</h3>
         }
     }
-
-    const buttonStyle2 = {
-        border: "none",
-        backgroundColor: "none",
-    }
-
+   
     const filterSection = (hasProperty(props,'nofilter') === true) ? null :
         (<>
             <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />
