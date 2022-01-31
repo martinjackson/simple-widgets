@@ -23,7 +23,7 @@ export const convertDate = (convDate) => {
  * 
  ****************************************************************************/
 export const dateTime = (dateAndTime) => {
-    if (dateTime === null) return null;
+    if (dateAndTime === null) return null;
 
     let splitDT = dateAndTime.split('T');   // Split the date and time
     let date = splitDT[0].split('-');       // Split the date

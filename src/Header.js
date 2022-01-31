@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import AlertModal from './AlertModal'
 
 import { getList } from './encrypt.js'
@@ -40,7 +40,7 @@ const Header = (props) => {
 
   let alert = null
   if (!username) {
-    const img = (img) ? <><img src={alertLogo} /><br/></> : null
+    const img = (alertLogo) ? <><img src={alertLogo} /><br/></> : null
     const msg = <>{img}<span>You are an unauthorized user or your login time has expired</span></>
     alert = <AlertModal show={showAlert} closeFunct={setShowAlert} message={msg} />
   }
