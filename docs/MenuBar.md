@@ -56,27 +56,40 @@ The title field is the title that will be displayed on the menu.  The path is th
                                     https
                                 File
 
-### Setup
+## CSS Files
 
-1. The css file need to be copied to the public directory.  If you used the template to build your project, the files will already be copied; therefore, you can skip this step.
-```js
-cd project-directory
-cp node_modules/@nctr/appclient/src/NavBar.css public/
-cp node_modules/@nctr/appclient/src/DropDown.css public/
-```
-The css files can be modified to change colors or styling.
+The following CSS files will need to be imported into the file that uses the MenuBar component.  The import would be, if it is not be changed:
 
-2. In your index.html file in the public directory, place the following:
-```html
-    <link rel="stylesheet" href="NavBar.css" />
-    <link rel="stylesheet" href="DropDown.css" />
+```javascript
+import '../node_modules/simple-widgets/lib/sw-NavBar.css';
+import '../node_modules/simple-widgets/lib/sw-DropDown.css';
 ```
-These can be placed after the last link in the file.
+
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
+
+
+### NavBar.css
+
+The NavBar.css and DropDown.css files are used by the MenuBar component in the library.  The modal.css is use by the Header component in the library.
+
+The NavBar.css controls the main vertical bar across the top of the screen.  The only items that should be changed are the colors and the box shadow.
+
+Other styling features may also be added.
+
+### DropDown.css
+
+The DropDown.css controls the drop down (horizontal) on the MenuBar component.  The only items that should be changed are the following:
+
+1.  In the dropdown-menu class, the z-index may need to be changed if it is blocked by other css classes.
+2.  The widths in the dropdown-menu classes.
+3.  The colors, the box-shadow, and pointer types.  
+
+The css files can be modified to change colors or styling.  Other styling features may also be added.
 
 ### Example
 
 ```js
-import { Header, getUserInfo, MenuBar } from 'simple-widgets';
+import { MenuBar } from 'simple-widgets';
 
 const App = () => {
     let menuTree = menuTree from above;

@@ -8,26 +8,15 @@ npm install simple-widgets
 
 # There are three ways to use CSS files in your project:
 
-## A. Place the CSS files into the index.html file.
+## A. Import the CSS files into the index.js file
 
-This will allow access to all the CSS files in simple-widget in every file in your project.
+This will allow access to all the CSS files in simple-widgets in every file in your project.
 The advantage is that you will not need to import the CSS files in files that need them.
 The disadvantage is that you can not change them to style them to your needs.
 
-The CSS files should be in the public directory.  The CSS files can be copied from the node_modules/simple-widgets/lib.  ***There might be a postinstall script in your package.json to do this.  If you plan on changing the css you might want to remove this script after you do the initial install.***  See section C (below) for more infomation.
-
-In the <head> section of the HTML, place the following:
-```html
-    <link rel="stylesheet" href="sw-contextMenuHover.css" />
-    <link rel="stylesheet" href="sw-modal.css" />
-    <link rel="stylesheet" href="sw-invalid.css" />
-    <link rel="stylesheet" href="sw-slider(num).css" />
-    <link rel="stylesheet" href="sw-entryform.css" />
-    <link rel="stylesheet" href="sw-table.css" />
-    <link rel="stylesheet" href="sw-checkboxRadio.css" />
-    <link rel="stylesheet" href="sw-theme.css" />
-    <link rel="stylesheet" href="sw-doubleListBox.css" />
-    <link rel="stylesheet" href="sw-inputFile.css" />
+In the index.js, place the following:
+```js
+    import '../node_modules/simple-widgets/lib/index.css'
 ```
 
 ## B. Using the CSS files from the node_modules directory in the file it is used
@@ -41,15 +30,17 @@ import '../node_modules/simple-widgets/lib/sw-theme.css'
 import '../node_modules/simple-widgets/lib/sw-doubleListBox.css'
 ```
 
+If the CSS file is being used in multiple files, the CSS file can be placed in the index.js file instead of each file that uses it.
+
 ## C. Being able to Modify CSS files to meet your styling needs
 
-1. Copy the css files from the library into the public directory of your project.  ***There might be a postinstall script in your package.json to do this.  If you plan on changing the css you might want to remove this script after you do the initial install.***
+1.  Copy the css files from the library into the public directory of your project.  
 ```
     cd your-project-name
     cp ./node_modules/simple-widgets/lib/*.css ./public/
 ```
 
-2.  Make copies of any CSS files you are planning on modifying.
+2.  Make copies of any CSS files you are planning on modifying.  Remove the CSS files that are not needed.
 
 3.  Make the modifications to the CSS file.
 
@@ -59,19 +50,24 @@ In the file, that is going to use the modified file, you will need the following
 import '../public/name-of-the-file.css';
 ```
 
+If the CSS file is being used in multiple files, the CSS file can be placed in the index.js file instead of the files that need it.
+
 ## CSS Files in simple-widgets
 
 The css files in the simple-widgets library are:
 
-1. sw-contextMenuHover.css
-2. sw-modal.css
-3. sw-invalid.css
-4. sw-slider1.css to sw-slider5.css
+1. sw-checkboxRadio.css
+2. sw-contextMenuHover.css
+3. sw-doubleListBox.css
+4. sw-DropDown.css
 5. sw-entryform.css
-6. sw-table.css
-7. sw-theme.css
-8. sw-doubleListBox.css
-9. sw-checkboxRadio.css
-10. sw-inputFile.css
+6. sw-Header.css
+7. sw-inputFile.css
+8. sw-invalid.css
+9. sw-modal.css
+10. sw-NavBar.css
+11. sw-slider1.css to sw-slider5.css
+12. sw-table.css
+13. sw-theme.css
 
 Each of these files are described in the documentation in which they are used.

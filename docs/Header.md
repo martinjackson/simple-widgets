@@ -25,10 +25,68 @@ logoutURL=`https://nlaunch.fda.gov/logout`
 
 The above environment file only has the values for the headers and might contain other values.
 
+## CSS Files
+
+The following CSS file will need to be imported into the file that uses the Header component.  The import would be, if it is not be changed:
+
+```javascript
+import '../node_modules/simple-widgets/lib/sw-Header.css';
+```
+
+For more information on CSS files, see [Using CSS](./UsingCSS.md).
+
+## sw-Header.css
+
+### Classes
+
+1. ***sw-header_div*** = sets up how the entire header is to be displayed.
+
+```css
+.sw-header_div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sw-header_div * {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+```
+
+2. ***sw-header_logo*** = the styling for the logo on the screen
+
+```css
+.sw-header_logo {
+    height: 4.5em;
+    justify-content: center;
+}
+```
+
+3. ***sw-header_title*** = the color for the title
+
+```css
+.sw-header_title {
+    color: #1888ff;
+}
+```
+
+4. ***sw-header_link*** = the styling for the Logout and Login links
+
+```css
+.sw-header_link {
+    text-align: right;
+    font-weight: bold;
+    font-size: large;
+    text-decoration: none;
+}
+```
+
 ### Example
 
 ```js
-import { Header, useUserInfo } from 'simple-widgets';
+import { Header } from 'simple-widgets';
 
 const App = () => {
     const [username, setUsername] = useState('JJONES');
@@ -68,7 +126,7 @@ The above example has not props, so it will use the values in the .env file.  If
 ### Third Example
 
 ```js
-import { Header, useUserInfo } from 'simple-widgets';
+import { Header } from 'simple-widgets';
 
 const App = () => {
     const [username, setUserName] = useState('JJONES');
