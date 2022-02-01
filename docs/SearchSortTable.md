@@ -189,24 +189,26 @@ hoverColor="yellow"
 
 18. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-19. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+19. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
 
-20. **ShowAll** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+20. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+
+21. **ShowAll** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-21. **showTable** = this will show the table and headers even if there is no data to display.
+22. **showTable** = this will show the table and headers even if there is no data to display.
 
-22. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+23. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 
-23. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
+24. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
 
-24. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing (32).  The format of the function is the same as indexing.
+25. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing (32).  The format of the function is the same as indexing.
 
-25. **title** = supplies a title to be displayed centered at the top of the table.
+26. **title** = supplies a title to be displayed centered at the top of the table.
 
-26. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
+27. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
 
-27. **width** = the width of the scroll box only.
+28. **width** = the width of the scroll box only.
 
 ## CSS Files
 
