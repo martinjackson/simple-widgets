@@ -2,10 +2,9 @@ import React from 'react';
 
 import {Choice} from './List'
 import Input from "./Input"
-// import Button from "./Button"
-import {CheckBox} from "./CheckBox"
+import CheckBox from "../CheckBox"
 import CheckBoxGroup from "./CheckBoxGroup"
-import DateInput from "./DateInput"
+import DateInput from "../DateInput"
 
 function isFunction(functionToCheck) {
   return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
