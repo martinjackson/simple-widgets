@@ -1,6 +1,6 @@
 {
   "name": "simple-widgets",
-  "version": "1.24.2",
+  "version": "1.24.3",
   "description": "A Collection of React components to make your React code simpler",
   "main": "./lib/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
     "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
     "release": "release-it --no-git.requireCleanWorkingDir",
-    "buildIndex": "cd src && rm -f index.js && node buildIndex.js"
+    "buildIndex": "cd src && node buildIndex.js"
   },
   "babel": {
     "plugins": [
