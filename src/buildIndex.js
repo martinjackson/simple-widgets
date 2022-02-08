@@ -1,16 +1,10 @@
 const fs = require('fs');
 
-let fileInfo = [];
-const files = fs.readdirSync('.')
-              .filter(fn => fn.endsWith('.js'))
-              .filter(fn => fn !== 'gen_imports.js')
-              .filter(fn => fn !== 'buildIndex.js')
-              .filter(fn => fn !== 'index.js')
-
-const ans = files.map( fname => {
+const getExports = (fname) => {
     const names = fs.readFileSync(fname,{ encoding : 'utf8' })
-        .split('\n')
-        .filter( line => line.includes('export '));
+                    .split('\n')
+                    .filter( line => line.includes('export '));
+
     let exportInfo = [];
     names.map (line => {
         let index = line.indexOf('const');
@@ -64,67 +58,79 @@ const ans = files.map( fname => {
             }
         }
     })
-    fileInfo.push({ filename: fname, exportInfo: exportInfo })
-  })
 
-let exportStmt = 'export { ';
-let count = 1;
-let eCount = 1;
-const NEWLINE = 5;
+    return exportInfo
+}
 
-fileInfo.map (info => {
+const files = fs.readdirSync('.')
+              .filter(fn => fn.endsWith('.js'))
+              .filter(fn => fn !== 'gen_imports.js')
+              .filter(fn => fn !== 'buildIndex.js')
+              .filter(fn => fn !== 'index.js')
+
+const fileInfo = files.map( fname => { return { filename: fname, exportInfo: getExports(fname) } })
+const exportNames = fileInfo.map(info => info.exportInfo.map(i => i.ename)).flat()
+
+const importLines = fileInfo.map (info => {
     let importStmt = 'import ';
     let prevType = '';
     let constant = false;
-    count = 1;
+    let lineLen = 7;
 
     for (let i = 0; i < info.exportInfo.length; i++) {
-        exportStmt += `${info.exportInfo[i].ename}, `;
-        if (eCount % NEWLINE === 0) {
-            exportStmt += '\n';
-        }
-        eCount++;
 
         if (info.exportInfo[i].type === 'D') {
             importStmt += info.exportInfo[i].ename;
+            lineLen += info.exportInfo[i].ename.length
+
             if (prevType === 'C') {
-                importStmt += ' } ';
+                importStmt += ' }';
+                lineLen += 2
             }
             prevType = 'D';
         } else {
             constant = true;
             if (prevType === '' || prevType === 'D') {
-                importStmt += ' { ';
+                importStmt += '{ ';
+                lineLen += 2
             }
+
             importStmt += info.exportInfo[i].ename;
+            lineLen += info.exportInfo[i].ename.length
             prevType = 'C'
         }
 
         if (i < info.exportInfo.length - 1) {
             importStmt += ', ';
+            lineLen += 3
         }
 
-        if (count % NEWLINE === 0) {
-            importStmt += '\n';
+        if (lineLen > 100) {
+            importStmt += '\n         ';
+            lineLen = 9
         }
 
-        count++;
+        lineLen++;
     }
 
     if (constant === true && prevType === 'C') {
-        importStmt += ' } '
+        importStmt += ' }'
+        lineLen += 2
     }
 
-    importStmt += ` from './${info.filename}'\n\n`;
-    fs.appendFileSync('./index.js', importStmt);
+    importStmt += ` from './${info.filename}'`;
+    return importStmt
 })
 
-let length = 2;
-if (exportStmt.endsWith('\n')) {
-    length = 3;
+const prettyList = (arr) => {
+    return arr.join(', ').replace(/([^\n]{1,99})\s/g, '$1\n         ');   // word wrap after line length > 99
 }
 
-exportStmt = exportStmt.substring(0, exportStmt.length - length);
-exportStmt += ` }\n\n`;
+const formFns = ['applyOptions', 'FormFields', 'pretty', 'Show', 'Input', 'Form', 'useFetch', 'setFieldGenerator', 'fieldGeneratorLookup']
+const allNames = exportNames.concat(formFns)       // exportNames[] + formFns[]
 
-fs.appendFileSync('./index.js', exportStmt);
+importLines.push(`import { ${prettyList(formFns)} } from './forms/index.js'\n`)
+importLines.push(`export { ${prettyList(allNames)} }\n`)
+
+fs.writeFileSync('./index.js', importLines.join('\n'));         // wipe out original file, start over
+
