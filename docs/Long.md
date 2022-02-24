@@ -12,48 +12,9 @@ The following are in appClient:
 7.  Status Box (area on main page for errors)
 8.  Date Utilities
 
-## User Information (useUserInfo hook)
-
-This will get the user name from a cookie or it can be set to a default user.
-
-Environment Variables:
-1.  defaultUser = indicates the default user that will be assigned to the user.  This is only used for testing.
-
-### Example:
-```js
-import { useUserInfo } from '@nctr/appclient';
-
-const App = () => {
-    const [username] = useUserInfo;
-
-    ...
-}
-```
-
-***The .env file:***
-```
-defaultUser=JSMITH
-```
-
-Since the default user is JSMITH, username above will be assigned to JSMITH.  If defaultUser is not set (defaultUser=) or does not exist, it will use the value set by the cookie.
-
-### Another Example
-
-```js
-import { useUserInfo } from '@nctr/appclient';
-
-const App = () => {
-    const [username, setUsername] = useUserInfo;
-
-    useEffect (() => setUsername('MJEFFERSON'), []);
-    ...
-}
-```
-const [username] = useUserInfo(); can also be const [username, setUsername] = useUserInfo();  The function setUsername can be user to change the username to another value.  In the above example, username is initially set to JSMITH using the .env file, but is changed to MJEFFERSON by the useEffect.
-
 # Header
 
-This will display the NCTR Logo, a title for the application, the user name that was set with User Information, and the database type (PROD, TEST, DEV) the application is using, and to logout from the application.  The database type can be hidden from the screen if the user wants.
+This will display the Application's Logo, a title for the application, the user name that was set with User Information, and the database type (PROD, TEST, DEV) the application is using, and to logout from the application.  The database type can be hidden from the screen if the user wants.
 
 Props:
 1.  title = the title to display on the header.
@@ -78,10 +39,9 @@ The above environment file only has the values for the headers and might contain
 ### Example
 
 ```js
-import { Header, useUserInfo } from '@nctr/appclient';
+import { Header } from 'simple-widgets';
 
 const App = () => {
-    const [username] = useUserInfo();
 
     return (
         <div>
@@ -100,10 +60,9 @@ The title on the header will be 'Title of the Application'.  The user name on th
 ### Second Example
 
 ```js
-import { Header, useUserInfo } from '@nctr/appclient';
+import { Header } from 'simple-widgets';
 
 const App = () => {
-    const [username] = useUserInfo();
 
     return (
         <div>
@@ -118,10 +77,9 @@ The above example has not props, so it will use the values in the .env file.  If
 ### Third Example
 
 ```js
-import { Header, useUserInfo } from '@nctr/appclient';
+import { Header } from 'simple-widgets';
 
 const App = () => {
-    const [username] = useUserInfo();
 
     return (
         <div>
