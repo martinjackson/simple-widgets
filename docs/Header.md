@@ -1,6 +1,6 @@
 # Header
 
-This will display the NCTR Logo, a title for the application, the user name that was set with User Information, and the database type (PROD, TEST, DEV) the application is using, and to logout from the application.  The database type can be hidden from the screen if the user wants.
+This will display the Logo, a title for the application, the user name that was set with User Information, and the database type (PROD, TEST, DEV) the application is using, and to logout from the application.  The database type can be hidden from the screen if the user wants.
 
 Props:
 1.  title = the title to display on the header.
