@@ -109,7 +109,7 @@ Only one variable will be true, all others will be false.
 ### Example
 
 ```js
-import { isChrome, isEdgeChromium, isIE } from '@nctr/appclient';
+import { isChrome, isEdgeChromium, isIE } from 'simple-widgets';
 ...
 if (isIE) {
     alert ('DO NOT USE THIS BROWSER ANY MORE.')
