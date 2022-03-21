@@ -56,8 +56,8 @@ const SearchSortTable = (propsPassed) => {
 
     const props = Object.assign(defaultProps, propsPassed);
 
-    if (!props.data)
-       props.data = []
+    if (!props?.data)
+       return <><!-- data prop is null ></>
 
     const invalidArray = [  // Used to tell whether the user entered and invalid value or not
         { validity: false, display: false, message: '' },
