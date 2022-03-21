@@ -14,7 +14,7 @@ function isFunction(functionToCheck) {
 
  const createFieldTextArea = (f, handleChange) => {
 
-  const { className, name, rows=4, cols=60, ...whatsleft  } = f
+  const { className, name, rows=1, cols=30, ...whatsleft  } = f
 
   return  <textarea
             {...whatsleft}

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import ReactJson from 'react-json-view'
+// import ReactJson from 'react-json-view'
 import {FormFields, applyOptions} from ".";
 
 const Form = (props) => {
@@ -8,9 +8,9 @@ const Form = (props) => {
     console.log("------- Form:");     // , props);
   }
 
-  const title = (props.title) ? props.title : "Title"
+  const heading = (props.heading) ? props.heading : ""
   const debug = (props.debug || props.show)
-  const doneBtnLabel = (props.doneBtnLabel) ? props.doneBtnLabel : "Finalize"
+  const doneBtnLabel = (props.doneBtnLabel) ? props.doneBtnLabel : null
   const businessLogic = (props.businessLogic) ? props.businessLogic : (old, changed) => changed
 
   const [formData, setFormDataInternal] = useState({});
@@ -47,7 +47,7 @@ const Form = (props) => {
     setFormDataInternal(modState)
   }
 
-  // TODO: need to check which fields are required and disable submit button
+  // TODO: need to check which fields are required and disable submit button (if it is here)
   //       <form onSubmit={props.onSubmit}>
 
   const flexParent = {display: 'flex', flexDirection:'row', }
@@ -59,14 +59,14 @@ const Form = (props) => {
     props.onSubmit(formData)
   };
 
-
+  const doneButton = (doneBtnLabel) ? <input type="button"  onClick={onSubmit} value={doneBtnLabel} /> : null
 
   return (
     <div style={flexParent}>
 
         <div style={flexChild}>
           <div className={props.className}>
-            <div className="heading">{title}</div>
+            <div className="heading">{heading}</div>
             <FormFields
                 formStructure={formList}
                 formData={formData}
@@ -74,7 +74,7 @@ const Form = (props) => {
                 showDebug={debug}
             />
             <div className="footer">
-              <input type="button"  onClick={onSubmit} value={doneBtnLabel} />
+              {doneButton}
             </div>
           </div>
         </div>

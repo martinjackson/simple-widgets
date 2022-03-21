@@ -26,7 +26,7 @@ const createField = (fieldStructure, idx, value, handleChange) => {
           field = msg
       }
   }
-return <label htmlFor={f.name} key={idx} className="form-group"><span>{f.text}{ifRequired}</span>{field}</label>
+return <label htmlFor={f.name} key={idx} className="form-group"><span>{f.label}{ifRequired}</span>{field}</label>
 }
 
 
