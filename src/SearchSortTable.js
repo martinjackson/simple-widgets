@@ -56,8 +56,10 @@ const SearchSortTable = (propsPassed) => {
 
     const props = Object.assign(defaultProps, propsPassed);
 
-    if (!props?.data)
-       return <><!-- data prop is null ></>
+    if (!props?.data) {
+       console.log('SearchSortTable: props.data is missing/null');
+       return <><hr /></>
+    }
 
     const invalidArray = [  // Used to tell whether the user entered and invalid value or not
         { validity: false, display: false, message: '' },
@@ -338,7 +340,7 @@ const SearchSortTable = (propsPassed) => {
             title = <h3 className="sw-sst_titleStyle">{props.title}</h3>
         }
     }
-   
+
     const filterSection = (hasProperty(props,'nofilter') === true) ? null :
         (<>
             <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />

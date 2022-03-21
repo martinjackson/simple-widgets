@@ -17,13 +17,14 @@ const Header = (props) => {
   const envTitle  = window.env.title ? window.env.title : ""
   const envDBType = window.env.DB_TYPE ? window.env.DB_TYPE : ""
 
-  const title     = (props.title)     ? props.title      : envTitle
-  const dbType    = (props.dbType)    ? props.dbType     : envDBType
-  const username  = (props.username)  ? props.username   : window.env.username
-  const titleLogo = (props.titleLogo) ? props.titleLogo  : window.env.titleLogo
-  const alertLogo = (props.alertLogo) ? props.alertLogo  : window.env.alertLogo
-  const logoutURL = (props.logoutURL) ? props.logoutURL  : window.env.logoutURL
-  const loginURL  = (props.loginURL)  ? props.loginURL  : window.env.loginURL
+  const title       = (props.title)       ? props.title       : envTitle
+  const dbType      = (props.dbType)      ? props.dbType      : envDBType
+  const username    = (props.username)    ? props.username    : window.env.username
+  const titleLogo   = (props.titleLogo)   ? props.titleLogo   : window.env.titleLogo
+  const alertLogo   = (props.alertLogo)   ? props.alertLogo   : window.env.alertLogo
+  const logoutURL   = (props.logoutURL)   ? props.logoutURL   : window.env.logoutURL
+  const loginURL    = (props.loginURL)    ? props.loginURL    : window.env.loginURL
+  const setUsername = (props.setUsername) ? props.setUsername : () => {console.log('no setUsername fn() passed to Header.');}
 
   let userMsg  = (username === null) ? "User not Logged in" : 'Welcome: ' + username
 
@@ -50,11 +51,11 @@ const Header = (props) => {
             <div className="sw-header_div">
               {titleImg}
               <h1 className="sw-header_title">{title}</h1>
-              <h2>{userMsg}{modalButton}</h2>
+              <span className="sw-header_link">{userMsg}{modalButton}</span>
               <h2>{dbType}</h2>
               {logout}
               {login}
-              <HeaderModal show={showModal} username={username} setUser={props.setUsername} closeFunct={setShowModal}/>
+              <HeaderModal show={showModal} username={username} setUser={setUsername} closeFunct={setShowModal}/>
             </div>
             {alert}
           </header>);
