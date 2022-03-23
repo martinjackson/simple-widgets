@@ -19,6 +19,9 @@ import React, { Fragment } from 'react';
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------
 const compareString = (a,b) => {
+   a = a.toUpperCase()
+   b = b.toUpperCase()
+
    if (a < b)  return -1
    if (a > b)  return 1
 
