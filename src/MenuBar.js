@@ -45,9 +45,6 @@ export const MenuBar = (props) => {
         }
     }
 
-    console.log ('type', type);
-    console.log ('openType', openType);
-
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
     const active = items.find(item => item.path === curMenuPath) || items[0]
 
