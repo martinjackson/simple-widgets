@@ -27,12 +27,33 @@ export const MenuBar = (props) => {
         symbol = props.symbol;
     }
 
+    let type = 'horizontal';
+    if (props.hasOwnProperty('type')) {
+        type = props.type;
+        if (type !== 'horizontal' && type !== 'vertical') {
+            type = 'horizontal';
+        }
+    }
+
+    let openType = 'none';
+    if (props.hasOwnProperty('openType')) {
+        openType = props.openType;
+        if (openType !== 'none' && 
+            openType !== 'horizontal' && openType !== 'vertical' && 
+            openType !== 'both') {
+            openType = 'none';
+        }
+    }
+
+    console.log ('type', type);
+    console.log ('openType', openType);
+
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
     const active = items.find(item => item.path === curMenuPath) || items[0]
 
     return (
         <div>
-            <NavigateBar menuTree={props.menuTree} symbol={symbol} subsymbol={subSymbol} />
+            <NavigateBar menuTree={props.menuTree} symbol={symbol} subsymbol={subSymbol} type={type} openType={openType} />
             {active.component()}
         </div>
     )

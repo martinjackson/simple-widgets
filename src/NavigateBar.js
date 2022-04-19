@@ -87,10 +87,15 @@ const NavigateBar = (props) => {
             name = row.title.replace(' ', '_') + index;
         }
 
+        let navItem = 'nav-item'
+        if (props.type === 'vertical') {
+            navItem = 'nav-item-vertical';
+        }
+
         if (row.hasOwnProperty('submenu')) {
             return (<li
                             key={name}
-                            className='nav-item'
+                            className={navItem}
                             onMouseEnter={(event) => onMouseEnter(event, row.index)}
                             onMouseLeave={() => onMouseLeave(row.index)}>
                                 <Link className='nav-links'>
@@ -121,10 +126,22 @@ const NavigateBar = (props) => {
                 name = row.title.replace(' ', '_') + index;
             }
 
+            let navItem = 'nav-item'
+            if (props.type === 'vertical') {
+                navItem = 'nav-item-vertical';
+            }
+    
+            let dropDownType = '';
+            if (props.type === 'horizontal') {
+                dropDownType = ' dropdown-menu-horizontal';
+            } else if (props.type === 'vertical') {
+                dropDownType = ' dropdown-menu-vertical';
+            }
+
             if (row.hasOwnProperty('submenu')) {
                 return ( <li
                                 key={name}
-                                className='nav-item'
+                                className={navItem}
                                 onMouseEnter={(event) => onMouseEnter(event, index)}
                                 onMouseLeave={() => onMouseLeave(index)}>
                                 <Link className='nav-links'>
@@ -133,14 +150,14 @@ const NavigateBar = (props) => {
                                 { (dropDown[index] === true) ?
                                     <ul
                                         onClick={() => handleClick()}
-                                        className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+                                        className={click ? 'dropdown-menu clicked' + dropDownType : 'dropdown-menu' + dropDownType}>
                                         {row.submenu.map(buildDropDowns)}
                                     </ul> : <></>
                                 }
                             </li> )
             } else if (row.hasOwnProperty('title')) {
                 return (<li key={name}
-                            className='nav-item'>
+                            className={navItem}>
                                 <Link to={row.path} className='nav-links'>
                                     {row.title}
                                 </Link>
@@ -163,9 +180,33 @@ const NavigateBar = (props) => {
         addition2 = ' ' + props.subsymbol;
     }
 
+    let navType = '';
+    let openType = '';
+    let menuIcon = null;
+    if (props.type === 'horizontal') {
+        navType = ' nav-menu-horizontal';
+        openType = 'navbar'
+    } else if (props.type === 'vertical') {
+        navType = ' nav-menu-vertical';
+        if (props.openType === 'both') {
+            openType = `navbar_vertical nav-open-both nav-vertical`;
+        } else if (props.openType === 'horizontal') {
+            openType = `navbar_vertical nav-open-horizontal nav-vertical`;
+        } else if (props.openType === 'vertical') {
+            openType = `navbar_vertical nav-vertical nav-open-vertical`;
+        } else if (props.openType === 'none') {
+            openType = `navbar_vertical nav-vertical`;
+        }
+
+        if (props.openType !== 'none') {
+            menuIcon = <div className="nav-center">&#x2630;</div>
+        }
+    }
+
     return (
-        <nav className='navbar'>
-            <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+        <nav className={openType}>
+            {menuIcon}
+            <ul className={click ? 'nav-menu active' + navType : 'nav-menu' + navType}>
                 {buildMainMenu(menuTree)}
             </ul>
         </nav>
