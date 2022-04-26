@@ -12,7 +12,9 @@ const _Choice = (propsIn, ref) => {
 
     if ( typeof(value) == 'string' && !opt.includes(value) )
     {
-        console.log(`Adding missing default value: '${value}' to ${JSON.stringify(opt)}`);
+        if (opt.length >0) {
+          console.log(`Adding missing default value: '${value}' to ${JSON.stringify(opt)}`);
+        }
         opt.unshift(value)
     }
 
