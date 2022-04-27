@@ -45,11 +45,20 @@ export const MenuBar = (props) => {
         }
     }
 
+    let noSide = false;
+    if (props.hasOwnProperty('noSide')) {
+        noSide = true;
+    } else if (type === 'horizontal') {
+        noSide = true;
+    }
+
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
     const active = items.find(item => item.path === curMenuPath) || items[0]
 
+    const classStyle = (noSide === true) ? "" : "menuBar";
+
     return (
-        <div>
+        <div className={classStyle}>
             <NavigateBar menuTree={props.menuTree} symbol={symbol} subsymbol={subSymbol} type={type} openType={openType} />
             {active.component()}
         </div>
