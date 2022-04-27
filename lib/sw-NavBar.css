@@ -8,6 +8,10 @@
   --vertical_height: 0px;
 }
 
+.menubar {
+  display: flex;
+}
+
 nav {
   background-color: #a4d3ee;   /* LightSkyBlue2; */
   font-size: x-large;
