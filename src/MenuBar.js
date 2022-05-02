@@ -55,7 +55,7 @@ export const MenuBar = (props) => {
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
     const active = items.find(item => item.path === curMenuPath) || items[0]
 
-    const classStyle = (noSide === true) ? "" : "menuBar";
+    const classStyle = (noSide === true) ? "" : "menubar";
 
     return (
         <div className={classStyle}>
