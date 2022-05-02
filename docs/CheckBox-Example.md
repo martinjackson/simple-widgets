@@ -12,8 +12,8 @@ The CheckBox component uses the following props:
 
 1. **name**: A unique name for this field with corresponding name in the parent component's state
     _example name="subject"_
-2. **value**: the value of the checkbox (the state variable the holds the 'value' that was selected)
-    _example value="checked"
+2. **value**: the value of the checkbox (the state variable that holds the value)
+    _example value={subject}
 3. **onChange**: function in the parent component to catch/store state changes
     _example onChange={handleChange}_
 5. **selectedValue**: the value of state variable when the CheckBox is checked
