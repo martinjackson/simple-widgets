@@ -11,11 +11,11 @@ The Radio component uses the following props:
 
 1. **name**: A unique name for this field with corresponding name in the parent component's state
     _example name="subject"_
-2. **value**: the value of the checkbox if checked
-    _example value="checked"
+2. **value**: the value of the radio button (the state variable that holds the value)
+    _example value={subject}
 3. **onChange**: function in the parent component to catch/store state changes
     _example onChange={handleChange}_
-5. **match**: the state variable the holds the 'value' (see 2) that was selected
+5. **selectedValue**: the value of state variable when the Radio button when selected
 6. **text**: a label (String or component) that is displayed after the CheckBox
 
 If there are several radio buttons and it is desired that they operate as a group (only one radio button can be selected), the name and match props for all radio buttons must have the same value.
