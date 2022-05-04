@@ -100,6 +100,7 @@ The sw-NavBar.css controls the main horizontal or vertical bar across the top of
 11. --both_wh: the initial size of the box for the open both option.  It is both the width and height.
 12. --horizontal_width: the initial horizontal width for the open horizontal option.
 13. --vertical_height: the initial vertical height for the open vertical option.
+14. --slide_time: the time it takes to do the animation for sliding of the menu.
 
 Other styling features may also be added.
 
