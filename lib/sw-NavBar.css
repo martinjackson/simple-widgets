@@ -12,6 +12,7 @@
   --both_wh: 0em;
   --horizontal_width: 0em;
   --vertical_height: 0em;
+  --slide_time: 500ms;
 }
 
 .menubar {
@@ -42,14 +43,14 @@ nav {
 .nav-horiz-open-horizontal {
   width: var(--horizontal_width);
   color: transparent;
-  transition: width 1000ms, color 250ms ease-out;
+  transition: width var(--slide_time), color 250ms ease-out;
 }
 
 .nav-horiz-open-horizontal:hover {
   padding-left: var(--menu_horizontal_pad_left);
   width: var(--horiz_menu_width);
   color: black;
-  transition: width 1000ms, color 500ms 250ms ease-out;
+  transition: width var(--slide_time), color 500ms 250ms ease-out;
 }
 
 
@@ -62,7 +63,7 @@ nav {
   width: var(--both_wh);
   height: var(--both_wh);
   color: transparent;
-  transition: width 500ms ease-in, height 500ms ease-in, color 250ms ease-out;
+  transition: width var(--slide_time) ease-in, height var(--slide_time) ease-in, color 250ms ease-out;
 }
 
 .nav-open-both:hover {
@@ -70,33 +71,33 @@ nav {
   height: var(--menu_height);
   color: black;
   padding-top: var(--menu_vertical_pad_top);
-  transition: width 1000ms ease-out, height 750ms ease-out, color 2000ms ease-out;
+  transition: width var(--slide_time) ease-out, height var(--slide_time) ease-out, color 2000ms ease-out;
 }
 
 .nav-open-horizontal {
   width: var(--horizontal_width);
   color: transparent;
-  transition: width 500ms ease-in, color 250ms ease-out;
+  transition: width var(--slide_time) ease-in, color 250ms ease-out;
 }
 
 .nav-open-horizontal:hover {
   padding-top: var(--menu_vertical_pad_top);
   width: var(--menu_width);
   color: black;
-  transition: width 500ms ease-out, color 500ms 250ms ease-out;
+  transition: width var(--slide_time) ease-out, color 1000ms 250ms ease-out;
 }
 
 .nav-open-vertical {
   height: var(--vertical_height);
   color: transparent;
-  transition: height 1000ms ease-in, color 250ms ease-out;
+  transition: height var(--slide_time) ease-in, color 250ms ease-out;
 }
 
 .nav-open-vertical:hover {
   height: var(--menu_height);
   color: black;
   padding-top: var(--menu_vertical_pad_top);
-  transition: height 2000ms ease-out, color 500ms ease-out;
+  transition: height var(--slide_time) ease-out, color 500ms ease-out;
 }
 
 
