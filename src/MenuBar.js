@@ -35,13 +35,13 @@ export const MenuBar = (props) => {
         }
     }
 
-    let openType = 'none';
-    if (props.hasOwnProperty('openType')) {
-        openType = props.openType;
-        if (openType !== 'none' && 
-            openType !== 'horizontal' && openType !== 'vertical' && 
-            openType !== 'both') {
-            openType = 'none';
+    let open = 'always';
+    if (props.hasOwnProperty('open')) {
+        open = props.open;
+        if (open !== 'always' && open !== 'slide' &&
+            open !== 'horizontal' && open !== 'vertical' && 
+            open !== 'both') {
+            open = 'always';
         }
     }
 
@@ -57,10 +57,19 @@ export const MenuBar = (props) => {
 
     const classStyle = (noSide === true) ? "" : "menubar";
 
+    let componentStyle = '';
+    if (type === 'horizontal' || open === 'always') {
+        componentStyle = active.component();
+    } else {
+        componentStyle = <div className="nav_menu_component">
+                            {active.component()}
+                         </div>;
+    }
+
     return (
         <div className={classStyle}>
-            <NavigateBar menuTree={props.menuTree} symbol={symbol} subsymbol={subSymbol} type={type} openType={openType} />
-            {active.component()}
+            <NavigateBar menuTree={props.menuTree} symbol={symbol} subsymbol={subSymbol} type={type} open={open} />
+            {componentStyle}
         </div>
     )
 }
