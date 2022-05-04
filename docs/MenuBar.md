@@ -49,13 +49,11 @@ The title field is the title that will be displayed on the menu.  The path is th
 
     If type is given an invalid value, it will default to horizontal.
 
-3. openType = indicates how the vertical menu is to open.  The four possible values are:
-    a. none = indicates the vertical menu will be displayed.  This is the default.
-    b. horizontal = indicates that a menu symbol will be displayed, and when the mouse is placed over the menu symbol, it will expand to the right.
-    c. vertical = indicates that a menu symbol will be displayed, and when the mouse is placed over the menu symbol, it will expand downward.
-    d. both = indicates that a menu symbol will be displayed, and when the mouse is placed over the menu symbol, it will expand to the right and downward.
+3. open = indicates how the menu is to open.  The two possible values are:
+    a. always = indicates the menu will be displayed.  This is the default.
+    b. slide = indicates that a menu symbol will be displayed, and when the mouse is placed over the menu symbol, it will expand to the right.
 
-    If openType is given an invalid value, it will default to none.
+    If open is given an invalid value, it will default to always.
 
 4. subsymbol = indicates whether a down arrow should be placed next to the title.  The two possible values are:
     a. arrow = place a down arrow next to the title.
@@ -85,17 +83,23 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 ### NavBar.css
 
-The NavBar.css and DropDown.css files are used by the MenuBar component in the library.  The modal.css is use by the Header component in the library.
+The sw-NavBar.css and sw-DropDown.css files are used by the MenuBar component in the library.  The modal.css is use by the Header component in the library.
 
-The NavBar.css controls the main horizontal or vertical bar across the top of the screen.  The only items that should be changed are the colors and the box shadow, along with the following CSS variables for vertical menus:
+The sw-NavBar.css controls the main horizontal or vertical bar across the top of the screen.  The only items that should be changed are the colors and the box shadow, along with the following CSS variables for vertical menus:
 
-1. --menu_width: the width of the menu.
-2. --menu_height: the height of the menu.
-3. --menu_vertical_padding: the padding for the top of the menu for the openType of vertical and both.
-4. --menu_horizontal_padding: the padding for the top of the menu for the openType of horizontal.
-5. --both_wh: the initial size of the box for the openType both option.  It is both the width and height.
-6. --horizontal_width: the initial horizontal width for the openType horizontal option.
-7. --vertical_height: the initial vertical height for the openType vertical option.
+1. --menu_width: the width of the menu and submenus.
+2. --menu_height: the height of the main menu.
+3. --menu_vertical_margin_left: the left margin spacing where the next vertical submenu begins.  This needs to be less than the menu_width.
+4. --menu_horizontal_margin_left: the left margin spacing where the next submenu is next to the current menu.  This should be the same as the menu_width.
+5. --margin_top: the margin at the top of the main menu.
+6. --menu_vertical_pad_top: the amount of padding at the top of the vertical main menu, so that it is below the three menu bars.
+7. --menu_vertical_pad_top_always: the amount of padding at the top of the main menu.  This is used if the open type is always.
+8. --menu_vertical_pad_left: the padding for the text on the left of vertical menu.
+9. --menu_horizontal_pad_left: the amount of padding at the left of the horizontal main menu, so that it is right of the three menu bars.
+10. --horiz_menu_width: the width of the horizontal menu.
+11. --both_wh: the initial size of the box for the open both option.  It is both the width and height.
+12. --horizontal_width: the initial horizontal width for the open horizontal option.
+13. --vertical_height: the initial vertical height for the open vertical option.
 
 Other styling features may also be added.
 
@@ -126,9 +130,29 @@ const App = () => {
 
 ```
 
-Since there is no type or openType the menu will be a horizontal menu.
+Since there is no type or open the menu will be a horizontal menu that is always open.
 
 ### Example 2
+
+```js
+import { MenuBar } from 'simple-widgets';
+
+const App = () => {
+    let menuTree = menuTree from above;
+
+    return (
+        <div>
+            <MenuBar menuTree={menuTree} open="slide">
+        </div>
+    );
+}
+
+```
+
+There is no type, but there is an open; therefore, the menu symbol will appear and when the mouse is placed on it, it open the horizontal menu from left to right.
+
+
+### Example 3
 
 ```js
 import { MenuBar } from 'simple-widgets';
@@ -145,9 +169,9 @@ const App = () => {
 
 ```
 
-This is a vertical menu, that will automatically be opened, since there is no openType.
+This is a vertical menu, that will automatically be opened, since there is no open.
 
-### Example 3
+### Example 4
 
 ```js
 import { MenuBar } from 'simple-widgets';
@@ -157,7 +181,7 @@ const App = () => {
 
     return (
         <div>
-            <MenuBar menuTree={menuTree} type="vertical" openType="horizontal" >
+            <MenuBar menuTree={menuTree} type="vertical" open="slide" >
         </div>
     );
 }
@@ -166,9 +190,18 @@ const App = () => {
 
 This is a vertical menu, that will display a vertical bar with the menu symbol in it.  When the mouse is placed on the menu symbol, it will open the vertical menu to the right.  Any submenus will appear to the right of the menu.
 
-If openType="vertical", a horizontal bar will be displayed with the menu symbol in it.  When the mouse is placed on the menu symbol, it will open the vertical menu downward.
 
-If openType="both", a box will be displayed with the menu symbol in it.  Wehn the mouse is placed on the menu symbol, it will open the vertical menu to the right and downward.
+If open="always", the vertical menu will appear with no menu symbol.
 
-If openType="none", the vertical menu will appear with no menu symbol.
+### All the possible type and open options
 
+```js
+    <MenuBar menuTree={menuTree} type="vertical" open="slide" >         Vertical menu that slides
+    <MenuBar menuTree={menuTree} type="vertical" open="always" >        Vertical menu always open
+    <MenuBar menuTree={menuTree} type="horizontal" open="slide" >       Horizontal menu that slides
+    <MenuBar menuTree={menuTree} type="horizontal" open="always" >      Horizontal menu always open
+    <MenuBar menuTree={menuTree} open="slide" >                         Horizontal menu that slides
+    <MenuBar menuTree={menuTree} open="always" >                        Horizontal menu always open
+    <MenuBar menuTree={menuTree} >                                      Horizontal menu always open
+
+```

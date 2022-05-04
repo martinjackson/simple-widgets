@@ -1,11 +1,17 @@
 :root {
-  --menu_width: 300px;
-  --menu_height: 550px;
-  --menu_horizontal_padding: 30px;
-  --menu_vertical_padding: 30px;
-  --both_wh: 0px;
-  --horizontal_width: 0px;
-  --vertical_height: 0px;
+  --menu_width: 12.5em;
+  --menu_vertical_margin_left: 11.87em;
+  --menu_horizontal_margin_left: 12.5em;
+  --menu_horizontal_pad_left: 2.75em;
+  --menu_height: vh;
+  --margin_top: 2.5em;
+  --menu_vertical_pad_top: 3.125em;
+  --menu_vertical_pad_top_always: 0.9375em;
+  --menu_vertical_pad_left: 0.625em;
+  --horiz_menu_width: 100%;
+  --both_wh: 0em;
+  --horizontal_width: 0em;
+  --vertical_height: 0em;
 }
 
 .menubar {
@@ -21,12 +27,31 @@ nav {
 }
 
 .nav-center {
+  font-size: xx-large;
   margin-left: 5px;
   color: black;
-  position: absolute;
+/*  position: absolute;
   top: 0%;
-  left: 0%;
+  left: 0%; */
 }
+
+.nav_menu_component {
+  margin-top: var(--margin_top);
+}
+
+.nav-horiz-open-horizontal {
+  width: var(--horizontal_width);
+  color: transparent;
+  transition: width 1000ms, color 250ms ease-out;
+}
+
+.nav-horiz-open-horizontal:hover {
+  padding-left: var(--menu_horizontal_pad_left);
+  width: var(--horiz_menu_width);
+  color: black;
+  transition: width 1000ms, color 500ms 250ms ease-out;
+}
+
 
 .nav-vertical {
   width: var(--menu_width);
@@ -44,8 +69,8 @@ nav {
   width: var(--menu_width);
   height: var(--menu_height);
   color: black;
-  padding-top: var(--menu_vertical_padding);
-  transition: width 1000ms ease-out, height 750ms ease-out, color 2000ms 500ms ease-out;
+  padding-top: var(--menu_vertical_pad_top);
+  transition: width 1000ms ease-out, height 750ms ease-out, color 2000ms ease-out;
 }
 
 .nav-open-horizontal {
@@ -55,7 +80,7 @@ nav {
 }
 
 .nav-open-horizontal:hover {
-  padding-top: var(--menu_horizontalpadding);
+  padding-top: var(--menu_vertical_pad_top);
   width: var(--menu_width);
   color: black;
   transition: width 500ms ease-out, color 500ms 250ms ease-out;
@@ -64,14 +89,14 @@ nav {
 .nav-open-vertical {
   height: var(--vertical_height);
   color: transparent;
-  transition: height 500ms ease-in, color 250ms ease-out;
+  transition: height 1000ms ease-in, color 250ms ease-out;
 }
 
 .nav-open-vertical:hover {
   height: var(--menu_height);
   color: black;
-  padding-top: var(--menu_vertical_padding);
-  transition: height 500ms ease-out, color 500ms 200ms ease-out;
+  padding-top: var(--menu_vertical_pad_top);
+  transition: height 2000ms ease-out, color 500ms ease-out;
 }
 
 
@@ -129,8 +154,17 @@ nav ul li span {
   text-align: center;
 }
 
+.nav_menu_vertical_pad {
+  padding-top: var(--menu_vertical_pad);
+}
+
+.nav_menu_vertical_pad_always {
+  padding-top: var(--menu_vertical_pad_top_always);
+}
+
 .nav-menu-vertical {
   grid-template-rows: repeat(25, auto);
+  width: var(--menu_width);
 }
 
 .nav-menu {
@@ -156,7 +190,7 @@ nav ul li span {
 .nav-item-vertical {
   display: flex;
   flex-direction: row;
-  padding-left: var(--menu_vertical_padding);
+  padding-left: var(--menu_vertical_pad_left);
 }
 
 .nav-item-vertical:hover span {

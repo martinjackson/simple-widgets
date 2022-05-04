@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "./MenuUtils";
+import { Link } from './MenuUtils';
+
+let dropDown = [];
 
 const NavigateBar = (props) => {
-    const [dropDown, setDropDown] = useState([]);
     const [click, setClick] = useState(false);
     const [menuTree, setMenuTree] = useState([]);
+    const [render, setRender] = useState(false);
 
     let count = 0;
     let addition1 = '';
@@ -26,12 +28,10 @@ const NavigateBar = (props) => {
         let menu = props.menuTree;
         count = menu.length;
         setMenuTree(buildTree(menu));
-        let drop = [];
-        for (let i = 0; i < count; i++) {
-            drop.push(false);
-        }
 
-        setDropDown(drop);
+        for (let i = 0; i < count; i++) {
+            dropDown.push(false);
+        }
     }, [props.menuTree]);
 
     const handleClick = () => {
@@ -48,36 +48,36 @@ const NavigateBar = (props) => {
             value = false;
         }
 
-        let localDD = [...dropDown];
-
-        for (let i = 0; i < localDD.length; i++) {
-            localDD[i] = false;
+        for (let i = 0; i < dropDown.length; i++) {
+            dropDown[i] = false;
         }
 
-        setDropDown(localDD);
         setClick(value);
+    }
 
-//        let localDD = [...dropDown];
-//        localDD[index] = false;
-
-//        setDropDown(localDD);
+    const forceRender = () => {
+        if (render === false) {
+            setRender(true);
+        } else {
+            setRender(false);
+        }
     }
 
     const onMouseEnter = (event, index) => {
-        let localDD = [...dropDown];
-
-        localDD[index] = true;
-        setDropDown(localDD);
+        dropDown[index] = true;
+        forceRender();
     };
 
     const onMouseLeave = (index) => {
-        let localDD = [...dropDown];
-
-        for (let i = index; i < localDD.length; i++) {
-            localDD[i] = false;
+        if (index === undefined) {
+            index = 0;
         }
 
-        setDropDown(localDD);
+        for (let i = index; i < dropDown.length; i++) {
+            dropDown[i] = false;
+        }
+
+        forceRender();
         setClick(false);
     };
 
@@ -87,9 +87,11 @@ const NavigateBar = (props) => {
             name = row.title.replace(' ', '_') + index;
         }
 
-        let navItem = 'nav-item'
+        let navItem = 'nav-item';
+        let navMargin = ' dropdown-menu2-horizontal';
         if (props.type === 'vertical') {
             navItem = 'nav-item-vertical';
+            navMargin = ' dropdown-menu2-vertical';
         }
 
         if (row.hasOwnProperty('submenu')) {
@@ -97,14 +99,14 @@ const NavigateBar = (props) => {
                             key={name}
                             className={navItem}
                             onMouseEnter={(event) => onMouseEnter(event, row.index)}
-                            onMouseLeave={() => onMouseLeave(row.index)}>
+                            onMouseLeave={(event) => onMouseLeave(row.index)}>
                                 <Link className='nav-links'>
                                     {row.title + addition1}
                                 </Link>
                                 { (dropDown[row.index] === true) ?
                                     <ul
                                         onClick={() => handleClickDD(row.index)}
-                                        className={click ? 'dropdown-menu2 clicked' : 'dropdown-menu2'}>
+                                        className={click ? 'dropdown-menu2 clicked' + navMargin : 'dropdown-menu2' + navMargin}>
                                         {row.submenu.map(buildDropDowns)}
                                     </ul> : <></> }
                     </li> )
@@ -113,7 +115,7 @@ const NavigateBar = (props) => {
                             <Link
                                 className="dropdown-link"
                                 to={row.path}>
-                                    {row.title}
+                                {row.title}
                             </Link>
                     </li> )
         }
@@ -181,30 +183,34 @@ const NavigateBar = (props) => {
     }
 
     let navType = '';
-    let openType = '';
+    let open = '';
     let menuIcon = null;
     if (props.type === 'horizontal') {
         navType = ' nav-menu-horizontal';
-        openType = 'navbar'
+        if (props.open === 'horizontal' || props.open === 'slide') {
+            open = 'navbar nav-horiz-open-horizontal';
+        } else if (props.open === 'always') {
+            open = 'navbar';
+        }
     } else if (props.type === 'vertical') {
         navType = ' nav-menu-vertical';
-        if (props.openType === 'both') {
-            openType = `navbar_vertical nav-open-both nav-vertical`;
-        } else if (props.openType === 'horizontal') {
-            openType = `navbar_vertical nav-open-horizontal nav-vertical`;
-        } else if (props.openType === 'vertical') {
-            openType = `navbar_vertical nav-vertical nav-open-vertical`;
-        } else if (props.openType === 'none') {
-            openType = `navbar_vertical nav-vertical`;
-        }
-
-        if (props.openType !== 'none') {
-            menuIcon = <div className="nav-center">&#x2630;</div>
+        if (props.open === 'both') {
+            open = `nav-menu-vertical-pad navbar_vertical nav-open-both nav-vertical`;
+        } else if (props.open === 'horizontal' || props.open === 'slide') {
+            open = `nav-menu-vertical-pad navbar_vertical nav-open-horizontal nav-vertical`;
+        } else if (props.open === 'vertical') {
+            open = `nav-menu-vertical-pad navbar_vertical nav-vertical nav-open-vertical`;
+        } else if (props.open === 'always') {
+            open = `navbar_vertical nav-vertical nav_menu_vertical_pad_always`;
         }
     }
 
+    if (props.open !== 'always') {
+        menuIcon = <div className="nav-center">&#x2630;</div>
+    }
+
     return (
-        <nav className={openType}>
+        <nav className={open}>
             {menuIcon}
             <ul className={click ? 'nav-menu active' + navType : 'nav-menu' + navType}>
                 {buildMainMenu(menuTree)}
