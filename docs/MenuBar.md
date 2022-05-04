@@ -97,10 +97,8 @@ The sw-NavBar.css controls the main horizontal or vertical bar across the top of
 8. --menu_vertical_pad_left: the padding for the text on the left of vertical menu.
 9. --menu_horizontal_pad_left: the amount of padding at the left of the horizontal main menu, so that it is right of the three menu bars.
 10. --horiz_menu_width: the width of the horizontal menu.
-11. --both_wh: the initial size of the box for the open both option.  It is both the width and height.
-12. --horizontal_width: the initial horizontal width for the open horizontal option.
-13. --vertical_height: the initial vertical height for the open vertical option.
-14. --slide_time: the time it takes to do the animation for sliding of the menu.
+11. --horizontal_width: the initial horizontal width for the open slide option.
+12. --slide_time: the time it takes to do the animation for sliding of the menu.
 
 Other styling features may also be added.
 
