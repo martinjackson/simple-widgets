@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from './MenuUtils';
 
-const Outline = (props) => {
+export const Outline = (props) => {
     const buttonClick = (path) => {
         setCurPath(path);
     }
@@ -81,5 +81,3 @@ const Outline = (props) => {
         </div>
     )
 }
-
-export default Outline;
