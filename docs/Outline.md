@@ -7,15 +7,15 @@ Props:
 1.  links = contains the tree structure for the outline as an array.  An example of the links array:
 ```js
     const links = [
-        { title: 'Saving',  textStyle: 'bold' },
-        { title: 'Save',    indent: true, path: '/save', component: () => <Save></Save> },
-        { title: 'Save As', indent: true, path: '/saveas', component: () => <SaveAs></SaveAs> },
-        { title: 'Open',    textStyle: 'bold' },
-        { title: 'Internet', indent: true, textStyle: 'italic' },
-        { title: 'http', spacing: '2em', path: '/insecure', component: () => <Http></Http> },
-        { title: 'https', spacing: '2em', path: '/secure', component: () => <Https></Https> },
-        { title: 'File', path: '/file', component: () => <File></File> }
-        { title: 'Exit', path: '/exit', component: () => <Exit></Exit>, type: 'new' },
+        { title: 'Saving',      textStyle: 'bold' },
+        { title: 'Save',                                indent: true,   path: '/save',      component: () => <Save></Save> },
+        { title: 'Save As',                             indent: true,   path: '/saveas',    component: () => <SaveAs></SaveAs> },
+        { title: 'Open',        textStyle: 'bold' },
+        { title: 'Internet',    textStyle: 'italic',    indent: true },
+        { title: 'http',                                spacing: '2em', path: '/insecure',  component: () => <Http></Http> },
+        { title: 'https',                               spacing: '2em', path: '/secure',    component: () => <Https></Https> },
+        { title: 'File',                                                path: '/file',      component: () => <File></File> }
+        { title: 'Exit',        type: 'new',                            path: '/exit',      component: () => <Exit></Exit> },
     ]
 ```
 The title Saving is a title only, since there is not path or component.  The title Saving will be bold, because of the textStyle: 'bold'.
@@ -88,7 +88,7 @@ The sw-NavBar.css the styling of the outline.  The following CSS variables can b
 
 Other styling features may also be added.
 
-### Example 1
+### Example
 
 ```js
 import { Outline } from 'simple-widgets';
