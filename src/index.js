@@ -23,6 +23,7 @@ import { MenuBar } from './MenuBar.js'
 import { Redirect, Link } from './MenuUtils.js'
 import Modal from './Modal.js'
 import NavigateBar from './NavigateBar.js'
+import Outline from './Outline.js'
 import Radio from './Radio.js'
 import { search, binSearch } from './SearchFunct.js'
 import SearchSortTable from './SearchSortTable.js'
@@ -49,7 +50,7 @@ export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, 
          isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual,
          clearInvalidScreen, clearInvalidTable, processInvalidStyleScreen, processStyleScreen,
          clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage,
-         Choice, List, MenuBar, Redirect, Link, Modal, NavigateBar, Radio, search, binSearch,
+         Choice, List, MenuBar, Redirect, Link, Modal, NavigateBar, Outline, Radio, search, binSearch,
          SearchSortTable, Slider, StatusBox, generateButton, generateDefaultButton, generateCSSButton,
          generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium,
          isBlink, toCamelCase, date2str, lastOfMonth, todayString, getList, decrypt, encrypt, genStoreItem,
