@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from './MenuUtils';
+import { Link } from 'simple-widgets';
 
 let dropDown = [];
 
@@ -210,7 +210,7 @@ const NavigateBar = (props) => {
     }
 
     return (
-        <nav className={open}>
+        <nav className={'nav-nav-menu ' + open}>
             {menuIcon}
             <ul className={click ? 'nav-menu active' + navType : 'nav-menu' + navType}>
                 {buildMainMenu(menuTree)}
