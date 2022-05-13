@@ -1,17 +1,5 @@
-/*
-let links = [
-    { title: 'something', textStyle: 'bold', path: '/something', component: () => <Component></Component> },
-    { title: 'something', path: '/something', indent: true, component: () => <Component></Component> },
-    { title: 'something', textStyle: 'bold' },
-    { title: 'something', path: '/something', spacing: 4, component: () => <Component></Component> },
-];
-*/
-// textStyle plain (default) or bold, italic
-// indent: true or false, automatically indents 4em
-// spacing: turns on indent and indents num em
-
 import React, { useState } from 'react';
-import { Link, generateCSSButton } from 'simple-widgets';
+import { Link } from './MenuUtils';
 
 const Outline = (props) => {
     const buttonClick = (path) => {
