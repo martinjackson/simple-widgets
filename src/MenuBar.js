@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { openGeneralStore } from './generalStore'
+import { openGeneralStore } from 'simple-widgets'
 
 import NavigateBar from './NavigateBar';
 
