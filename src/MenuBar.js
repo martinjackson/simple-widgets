@@ -6,8 +6,10 @@ import NavigateBar from './NavigateBar';
 
 export const MenuBar = (props) => {
 
+    const defPath = (props.path) ? props.path : '/'
+
     const gs = openGeneralStore()
-    const [curMenuPath, setCurMenuPath] = gs.useMenuState();
+    const [curMenuPath, setCurMenuPath] = gs.useMenuState(defPath);
 
     const getPaths = (row) => {
         if (row.hasOwnProperty('submenu')) {
