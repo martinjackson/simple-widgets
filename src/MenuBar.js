@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 import NavigateBar from './NavigateBar';
-
+import { TS } from './time'
 
 let setMenuPath = (newPath) => {}
 let setMenuParms = (newParms) => {}
 
-
 let menuParms = {}
-export const getMenuParms = () => { console.log ('menuParms', menuParms); return menuParms }
-
-
+export const getMenuParms = () => { return menuParms }
 
 // ----------------------------------------------------------------------------------
 export const MenuBar = (props) => {
@@ -18,13 +15,11 @@ export const MenuBar = (props) => {
     const [curPath, setCurPath]   = useState(props.path)
     const [curParms, setCurParms] = useState({})
 
-    useEffect(() => {
-      menuParms = {...curParms}
-      console.log ('useEffect menuParms', menuParms);
-    }, [curParms]);
-
     setMenuPath = setCurPath
-    setMenuParms = setCurParms
+    setMenuParms = (val) => { 
+        menuParms = {...val}
+        setCurParms(val);
+    }
 
     const getPaths = (row) => {
         if (row.hasOwnProperty('submenu')) {
@@ -96,8 +91,8 @@ export const MenuBar = (props) => {
 export const Redirect = (props) => {
 
   useEffect(() => {
-      setMenuPath(props.to)
-      setMenuParms(props.parms)
+    setMenuParms(props.parms)
+    setMenuPath(props.to)
   }, [props.to, props.parms])
 
   return <></>
@@ -112,8 +107,8 @@ export const Link = (props) => {
   const click = (e) => {
       e.preventDefault();
       console.log(`You clicked ${props.to}`);
-      setMenuPath(props.to)
       setMenuParms(props.parms)
+      setMenuPath(props.to)
   }
 
   const cname = props.className || ""
