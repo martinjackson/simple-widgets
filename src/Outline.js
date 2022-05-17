@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from './MenuUtils';
+import { Link } from './MenuBar';
 
 export const Outline = (props) => {
     const buttonClick = (path) => {
         setCurPath(path);
     }
-    
+
     const buildMainLink = (links) => {
         let disabled = false;
         let buttonClass = 'sw-outline-button';
@@ -23,18 +23,18 @@ export const Outline = (props) => {
                     fontClass = 'sw-outline-font_italic';
                 }
             }
-    
+
             let indentClass = '';
             if (row.hasOwnProperty('indent') && row.indent === true) {
                 indentClass = 'sw-outline-indent_normal';
             }
-    
+
             if (row.hasOwnProperty('spacing')) {
                 let root = document.documentElement;
                 root.style.setProperty(`--indentation_amount`, row.spacing);
                 indentClass = 'sw-outline-indent_spacing';
             }
-    
+
             if (row.hasOwnProperty('path')) {
                 if (row.hasOwnProperty('type') && row.type === 'new') {
                     return  <li key={i} className={`${fontClass} ${indentClass}`} >
@@ -53,14 +53,14 @@ export const Outline = (props) => {
             }
         })
     }
-    
+
     const getPaths = (row) => {
         if (row.hasOwnProperty('path')) {
             return { title: row.title, path: row.path, component: row.component }
         }
     }
-    
-    
+
+
     const [curPath, setCurPath] = useState('');
 
     const items = props.links.filter(getPaths);
