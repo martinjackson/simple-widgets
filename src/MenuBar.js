@@ -8,7 +8,7 @@ let setMenuParms = (newParms) => {}
 
 
 let menuParms = {}
-export const getMenuParms = () => { return menuParms }
+export const getMenuParms = () => { console.log ('menuParms', menuParms); return menuParms }
 
 
 
@@ -20,6 +20,7 @@ export const MenuBar = (props) => {
 
     useEffect(() => {
       menuParms = {...curParms}
+      console.log ('useEffect menuParms', menuParms);
     }, [curParms]);
 
     setMenuPath = setCurPath

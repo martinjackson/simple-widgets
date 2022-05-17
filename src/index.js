@@ -18,7 +18,7 @@ import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, che
          clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly,
          processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage } from './Invalid.js'
 import { Choice, List } from './List.js'
-import { MenuBar,  Redirect, Link } from './MenuBar.js'
+import { MenuBar,  Redirect, Link, getMenuParms } from './MenuBar.js'
 import Modal from './Modal.js'
 import NavigateBar from './NavigateBar.js'
 import { Outline } from './Outline.js'
@@ -54,4 +54,4 @@ export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, 
          isBlink, toCamelCase, date2str, lastOfMonth, todayString, getList, decrypt, encrypt, genStoreItem,
          openGeneralStore, localStrToDate, makeChangeHandler, register, unregister, applyOptions,
          FormFields, pretty, Show, Input, Form, useFetch, setFieldGenerator,
-         fieldGeneratorLookup }
+         fieldGeneratorLookup, getMenuParms }
