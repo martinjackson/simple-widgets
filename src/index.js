@@ -40,6 +40,8 @@ import { register, unregister } from './serviceWorker.js'
 import { applyOptions, FormFields, pretty, Show, Input, Form, useFetch, setFieldGenerator,
          fieldGeneratorLookup } from './forms/index.js'
 
+import { now, TS } from './time.js'
+
 export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, ContextMenu, convertDate,
          dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime, currentDBDate, dbDate,
          monthName, DateInput, DoubleListBox, ErrorModal, Header, HeaderModal, InputFile,
@@ -54,4 +56,4 @@ export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, 
          isBlink, toCamelCase, date2str, lastOfMonth, todayString, getList, decrypt, encrypt, genStoreItem,
          openGeneralStore, localStrToDate, makeChangeHandler, register, unregister, applyOptions,
          FormFields, pretty, Show, Input, Form, useFetch, setFieldGenerator,
-         fieldGeneratorLookup, getMenuParms }
+         fieldGeneratorLookup, getMenuParms, now, TS }
