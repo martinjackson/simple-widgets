@@ -1,15 +1,29 @@
-import React from 'react';
-
-import { openGeneralStore } from './generalStore'
+import React, { useState, useEffect } from 'react';
 
 import NavigateBar from './NavigateBar';
 
+
+let setMenuPath = (newPath) => {}
+let setMenuParms = (newParms) => {}
+
+
+let menuParms = {}
+export const getMenuParms = () => { return menuParms }
+
+
+
+// ----------------------------------------------------------------------------------
 export const MenuBar = (props) => {
 
-    const defPath = (props.path) ? props.path : '/'
+    const [curPath, setCurPath]   = useState(props.path)
+    const [curParms, setCurParms] = useState({})
 
-    const gs = openGeneralStore()
-    const [curMenuPath, setCurMenuPath] = gs.useMenuState(defPath);
+    useEffect(() => {
+      menuParms = {...curParms}
+    }, [curParms]);
+
+    setMenuPath = setCurPath
+    setMenuParms = setCurParms
 
     const getPaths = (row) => {
         if (row.hasOwnProperty('submenu')) {
@@ -41,7 +55,7 @@ export const MenuBar = (props) => {
     if (props.hasOwnProperty('open')) {
         open = props.open;
         if (open !== 'always' && open !== 'slide' &&
-            open !== 'horizontal' && open !== 'vertical' && 
+            open !== 'horizontal' && open !== 'vertical' &&
             open !== 'both') {
             open = 'always';
         }
@@ -54,8 +68,9 @@ export const MenuBar = (props) => {
         noSide = true;
     }
 
+    const searchPath = curPath || props.path
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
-    const active = items.find(item => item.path === curMenuPath) || items[0]
+    const active = items.find(item => item.path === searchPath) || items[0]
 
     const classStyle = (noSide === true) ? "" : "menubar";
 
@@ -75,3 +90,33 @@ export const MenuBar = (props) => {
         </div>
     )
 }
+
+// ----------------------------------------------------------------------------------
+export const Redirect = (props) => {
+
+  useEffect(() => {
+      setMenuPath(props.to)
+      setMenuParms(props.parms)
+  }, [props.to, props.parms])
+
+  return <></>
+}
+
+// ----------------------------------------------------------------------------------
+export const Link = (props) => {
+
+  if (!props.to || props.to.length < 1)    // same as || props.to === "")
+     return <span className="nav-links">{props.children}</span>
+
+  const click = (e) => {
+      e.preventDefault();
+      console.log(`You clicked ${props.to}`);
+      setMenuPath(props.to)
+      setMenuParms(props.parms)
+  }
+
+  const cname = props.className || ""
+
+  return <span className={'nav-links '+cname} href={props.to} onClick={click}>{props.children}</span>
+}
+

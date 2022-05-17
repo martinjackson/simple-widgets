@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from './MenuUtils';
+import { Link } from './MenuBar';
 
 let dropDown = [];
 
@@ -132,7 +132,7 @@ const NavigateBar = (props) => {
             if (props.type === 'vertical') {
                 navItem = 'nav-item-vertical';
             }
-    
+
             let dropDownType = '';
             if (props.type === 'horizontal') {
                 dropDownType = ' dropdown-menu-horizontal';

@@ -15,22 +15,15 @@ const useStore = create(set => ({
 }
 
 
+const storeInventory = {
+  useUsername:   genStoreItem('username', null)
+}
 
-const storeInventory = {}
-
+// -------------------------------------------------------------------------------------------------
 export const openGeneralStore = () => {       // must be called from inside a react component, usually App() or getUserInfo()
 
-    if (!storeInventory["useMenuParms"])
-        storeInventory.useMenuParms = genStoreItem('menuParms', {});
-    
-    if (!storeInventory["useMenuState"])
-        storeInventory.useMenuState = genStoreItem('menuState', '');
-    
-    if (!storeInventory["useUsername"])
-        storeInventory.useUsername = genStoreItem('username', null);
-    
     return storeInventory
-}    
+}
 
 
 

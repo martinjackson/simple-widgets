@@ -4,23 +4,21 @@ import ChoiceText from './ChoiceText.js'
 import { sanitize, formatMoney } from './Common.js'
 import ConfirmModal from './ConfirmModal.js'
 import ContextMenu from './ContextMenu.js'
-import { convertDate, dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime, 
+import { convertDate, dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime,
          currentDBDate, dbDate, monthName } from './DateFunct.js'
 import DateInput from './DateInput.js'
 import DoubleListBox from './DoubleListBox.js'
 import ErrorModal from './ErrorModal.js'
-import { FlatMenu } from './FlatMenu.js'
 import Header from './Header.js'
 import HeaderModal from './HeaderModal.js'
 import InputFile from './InputFile.js'
-import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
-         checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
-         isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, 
-         clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, 
+import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen,
+         checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable,
+         isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen,
+         clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly,
          processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage } from './Invalid.js'
 import { Choice, List } from './List.js'
-import { MenuBar } from './MenuBar.js'
-import { Redirect, Link } from './MenuUtils.js'
+import { MenuBar,  Redirect, Link } from './MenuBar.js'
 import Modal from './Modal.js'
 import NavigateBar from './NavigateBar.js'
 import { Outline } from './Outline.js'
@@ -44,7 +42,7 @@ import { applyOptions, FormFields, pretty, Show, Input, Form, useFetch, setField
 
 export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, ContextMenu, convertDate,
          dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime, currentDBDate, dbDate,
-         monthName, DateInput, DoubleListBox, ErrorModal, FlatMenu, Header, HeaderModal, InputFile,
+         monthName, DateInput, DoubleListBox, ErrorModal, Header, HeaderModal, InputFile,
          generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen,
          checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable,
          isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual,
