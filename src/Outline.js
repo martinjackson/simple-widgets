@@ -31,7 +31,7 @@ export const Outline = (props) => {
 
             if (row.hasOwnProperty('spacing')) {
                 let root = document.documentElement;
-                root.style.setProperty(`--indentation_amount`, row.spacing);
+                root.style.setProperty(`--sw-outline-indentation_amount`, row.spacing);
                 indentClass = 'sw-outline-indent_spacing';
             }
 
@@ -75,7 +75,7 @@ export const Outline = (props) => {
                     {buildMainLink(props.links)}
                 </ul>
             </div>
-            <div>
+            <div className="sw-outline-selected_item">
                 { active.component() }
             </div>
         </div>

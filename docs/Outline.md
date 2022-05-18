@@ -75,16 +75,17 @@ The sw-outline.css are used by the Outline component in the library.
 
 The sw-NavBar.css the styling of the outline.  The following CSS variables can be changed:
 
-1. --sw-outline_indentation_amount = indicates the amount that should be indented by the spacing field (default: 1em)
-2. --sw-outline_item_width = the width of the outline title (default is 12.5em)
-3. --sw-outline_normal_indent = the amount that is used to indent the standard amount (indent field) (default: 1em)
-4. --sw-outline_margin_right = indicates the margin amount to the right of the titles in the outline (default: 1em)
-5. --sw-outline_font_size = the size of the font for the titles of the items (default: large)
-6. --sw-outline_reg_color = the color of the normal title (default: blue)
-7. --sw_outline_reg_back_color = the background color of the normal title (default: white)
-8. --sw_outline_hover_color = the color of the title when hovered over (default: white)
-9. --sw_outline_hover_back_color = the background color of the title when hovered over (default: gray)
-10. --sw_outline_font_family = the font for all the titles (ddefault: Tahoma)
+1. --sw-outline-indentation_amount = indicates the amount that should be indented by the spacing field (default: 1em)
+2. --sw-outline-item_width = the width of the outline title (default is 12.5em)
+3. --sw-outline-normal_indent = the amount that is used to indent the standard amount (indent field) (default: 1em)
+4. --sw-outline-margin_right = indicates the margin amount to the right of the titles in the outline (default: 1em)
+5. --sw-outline-font_size = the size of the font for the titles of the items (default: large)
+6. --sw-outline-reg_color = the color of the normal title (default: blue)
+7. --sw-outline-reg_back_color = the background color of the normal title (default: white)
+8. --sw-outline-hover_color = the color of the title when hovered over (default: white)
+9. --sw-outline-hover_back_color = the background color of the title when hovered over (default: gray)
+10. --sw-outline-font_family = the font for all the titles (default: Tahoma)
+11. --sw-outline-overall_width = the overall width of the outline (default: 100%)
 
 Other styling features may also be added.
 
