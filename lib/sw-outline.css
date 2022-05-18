@@ -1,50 +1,51 @@
 :root {
-    --sw-outline_indentation_amount: 1em;
-    --sw-outline_item_width: 12.5em;
-    --sw-outline_normal_indent: 1em;
-    --sw-outline_margin_right: 1em;
-    --sw-outline_font_size: large;
-    --sw-outline_reg_color: blue;
-    --sw_outline_reg_back_color: white;
-    --sw_outline_hover_color: white;
-    --sw_outline_hover_back_color: gray;
-    --sw_outline_font_family: Tahoma;
+    --sw-outline-indentation_amount: 1em;
+    --sw-outline-item_width: 12.5em;
+    --sw-outline-normal_indent: 1em;
+    --sw-outline-margin_right: 1em;
+    --sw-outline-font_size: large;
+    --sw-outline-reg_color: blue;
+    --sw-outline-reg_back_color: white;
+    --sw-outline-hover_color: white;
+    --sw-outline-hover_back_color: gray;
+    --sw-outline-font_family: Tahoma;
+    --sw-outline-overall_width: 100%;
 }
 
 .sw-outline-item {
-    width: var(--sw-outline_item_width);
-    color: var(--sw-outline_reg_color);
-    background-color: var(--sw_outline_reg_back_color);
-    font-size: var(--sw-outline_font_size);
-    font-family: var(--sw_outline_font_family);
+    width: var(--sw-outline-item_width);
+    color: var(--sw-outline-reg_color);
+    background-color: var(--sw-outline-reg_back_color);
+    font-size: var(--sw-outline-font_size);
+    font-family: var(--sw_outline-font_family);
 }
 
 .sw-outline-button {
     border: none;
-    width: var(--sw-outline_item_width);
-    color: var(--sw-outline_reg_color);
-    background-color: var(--sw_outline_reg_back_color);
-    font-size: var(--sw-outline_font_size);
+    width: var(--sw-outline-item_width);
+    color: var(--sw-outline-reg_color);
+    background-color: var(--sw_outline-reg_back_color);
+    font-size: var(--sw-outline-font_size);
     text-align: left;
     padding-left: 0px;
-    font-family: var(--sw_outline_font_family);
+    font-family: var(--sw-outline-font_family);
 }
 
 .sw-outline-button:hover {
-    color: var(--sw_outline_hover_color);
-    background-color: var(--sw_outline_hover_back_color);
+    color: var(--sw-outline-hover_color);
+    background-color: var(--sw-outline-hover_back_color);
 }
 
 
 .sw-outline-button_disable {
     background-color: gray;
     border: none;
-    width: var(--sw-outline_item_width);
-    color: var(--sw-outline_reg_color);
-    font-size: var(--sw-outline_font_size);
+    width: var(--sw-outline-item_width);
+    color: var(--sw-outline-reg_color);
+    font-size: var(--sw-outline-font_size);
     text-align: left;
     padding-left: 0px;
-    font-family: var(--sw_outline_font_family);
+    font-family: var(--sw-outline-font_family);
 }
 
 .sw-outline-font_plain {
@@ -60,11 +61,11 @@
 }
 
 .sw-outline-indent_normal {
-    margin-left: var(--sw-outline_normal_indent)
+    margin-left: var(--sw-outline-normal_indent)
 }
 
 .sw-outline-indent_spacing {
-    margin-left: var(--indentation_amount);
+    margin-left: var(--sw-outline-indentation_amount);
 }
 
 .sw-outline-list {
@@ -76,6 +77,10 @@
 }
 
 .sw-outline-margin {
-    margin-right: var(--margin_right);
+    margin-right: var(--sw-outline-margin_right);
     border-right: 1px black solid;
+}
+
+.sw-outline-selected_item {
+    width: var(--sw-outline-overall_width);
 }
