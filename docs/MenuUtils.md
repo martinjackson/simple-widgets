@@ -52,11 +52,10 @@ This will transfer control to the Employee component and pass the ssn and name v
 To read the parameters in the Employee component:
 
 ```js
-    import { openGeneralStore } from 'simple-widgets';
+    import { getMenuParms } from 'simple-widgets';
 
     const Employee = () => {
-        const gs = openGeneralStore();
-        const [parms] = gs.useMenuParms();   // This must be before the state variables
+        const parms = getMenuParms();   // This must be before the state variables
         ...
         console.log ('name', parms.name);
     }
@@ -118,11 +117,10 @@ This will transfer control to the Company component and pass the name and street
 To read the parameters in the Company component:
 
 ```js
-    import { openGeneralStore } from 'simple-widgets';
+    import { getMenuParms } from 'simple-widgets';
 
     const Company = () => {
-        const gs = openGeneralStore();
-        const [parms] = gs.useMenuParms();   // This must be before the state variables
+        const [parms] = getMenuParms();   // This must be before the state variables
         ...
         console.log ('name', parms.name);
     }
@@ -132,4 +130,4 @@ To read the parameters in the Company component:
 
 The values will now be in the object parms.  So parms.name will contain ABC Widget and parms.street will contain 123 Main St..
 
-
+The Link and Redirect have been moved to MenuBar.
