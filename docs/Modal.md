@@ -88,7 +88,7 @@ export default YourModal;
 
 #sw-modal > div {
     background-color: white;
-    max-width: 500px;
+    max-width: fit-content;
     padding: 15px;
     border-radius: 5px;
     text-align: center;
