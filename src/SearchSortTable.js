@@ -32,6 +32,26 @@ function range(start, end) {
   return Array(end - start + 1).fill().map((_, idx) => start + idx)
 }
 
+
+const genHdr = (name) => {
+    const header = name.replace(/_/g, ' ')
+    return {header, name, search:true, sort:true}
+}
+  
+const defaultColHeaders = (rowZero) => {
+    const colNames = Object.keys(rowZero)    // (rows[0])
+    const colHeaders = colNames.map( col => genHdr(col) )
+
+  return colHeaders
+}
+
+const defaultEachRowInTable = (row, i) => {
+    const cellStyle = {backgroundColor: (i%2) ? 'lightgray' : 'inherit'}
+    const cols = (!row) ? null :
+        Object.keys(row).map( (idx, j) => ( <td key={i+'_'+j}>{row[idx]}</td> ) )
+  return (<tr key={i}>{cols}</tr>)
+}
+
 /****************************************************************************
  *
  * This will allow the user to add a filter / search bar to a table in case
@@ -42,16 +62,11 @@ function range(start, end) {
 const SearchSortTable = (propsPassed) => {
   // let iter = Object.keys(row)       // also works when row === ["hello", "there"]
 
-  const defaultEachRowInTable = (row, i) => {
-      const cols = (!row) ? null :
-        Object.keys(row).map( (idx, j) => ( <td key={i+'_'+j}>{row[idx]}</td> ) )
-    return (<tr key={i}>{cols}</tr>)
-  }
-
-  const defaultProps = {
+    const defaultProps = {
     error: false,          // Indicates that an error has occrred
-    MAX_ITEMS: 10,
+    MAX_ITEMS: 100,
     eachRowInTable: defaultEachRowInTable,
+    table: (propsPassed.data && !propsPassed.table) ? defaultColHeaders(propsPassed.data[0]) : null
     }
 
     const props = Object.assign(defaultProps, propsPassed);
