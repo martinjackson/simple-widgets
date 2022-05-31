@@ -68,24 +68,24 @@ If there is an error, the field will have the error color.  If there is not an e
 
 ```css
 .sw-theme_buttonStyle {
-    margin: var(--theme_buttonMargin);
-    border-radius: var(--theme_buttonRadius);
-    color: var(--theme_buttonTextColor);
-    width: var(--theme_buttonWidth);
-    height: var(--theme_buttonHeight);
-    font: var(--theme_buttonFont);
-    font-size: var(--theme_buttonFontSize);
-    font-weight: var(--theme_buttonFontWeight);
+    margin: var(--sw-theme_buttonMargin);
+    border-radius: var(--sw-theme_buttonRadius);
+    color: var(--sw-theme_buttonTextColor);
+    width: var(--sw-theme_buttonWidth);
+    height: var(--sw-theme_buttonHeight);
+    font: var(--sw-theme_buttonFont);
+    font-size: var(--sw-theme_buttonFontSize);
+    font-weight: var(--sw-theme_buttonFontWeight);
   };
 ```
 
-This is the theme for all buttons in a project.  This class can be used to make all the buttons throughout the project.  If you notice there is no background color, since the color can change if disabled or not.  To get the background color, the theme is normally used with either theme_normalButtonBackground or theme_grayButtonBackground classes (see below).  The user can either change the variable or
+This is the theme for all buttons in a project.  This class can be used to make all the buttons throughout the project.  If you notice there is no background color, since the color can change if disabled or not.  To get the background color, the theme is normally used with either sw-theme_normalButtonBackground or sw-theme_grayButtonBackground classes (see below).  The user can either change the variable or
 the theme_buttonStyle class in the CSS.
 
 ### **Example with some of the using some of the above fields:**
 
 ```javascript
-import 'theme.css';
+import 'sw-theme.css';
 
 <button name="save" className="sw-theme_buttonStyle">Save</button>
 ```
@@ -96,7 +96,7 @@ import 'theme.css';
 
 ```css
 .sw-theme_grayButtonBackground {
-    background-color: var(--theme_disableButtonColor);
+    background-color: var(--sw-theme_disableButtonColor);
 }
 ```
 
@@ -104,7 +104,7 @@ import 'theme.css';
 
 ```css
 .sw-theme_normalButtonBackground {
-    background-color: var(--theme_buttonColor);
+    background-color: var(--sw-theme_buttonColor);
 }
 ```
 
@@ -112,7 +112,7 @@ import 'theme.css';
 
 ```css
 .sw-theme_errorBackground {
-    background-color: var(--theme_errorColor);
+    background-color: var(--sw-theme_errorColor);
 }
 ```
 
@@ -120,7 +120,7 @@ import 'theme.css';
 
 ```css
 .sw-theme_normalBackground {
-    background-color: var(--theme_normalColor);
+    background-color: var(--sw-theme_normalColor);
 }
 ```
 
