@@ -1,15 +1,8 @@
 /* eslint react/prop-types: 0 */
 
 import React, { useState, useEffect } from 'react';
-
-/*
-import {CheckBox, Choice, isInvalid, setInvalidScreen, copyStyle,
-    validStyling, processInvalidStyleScreen, wasClickedScreen,
-    AlertModal,
-    defaultThemeSettings, generateButton
-} from 'simple-widgets'
-*/
-
+import { css } from "@emotion/react";
+import FadeLoader from "react-spinners/FadeLoader";
 
 import CheckBox from './CheckBox.js';
 import { Choice } from './List.js';
@@ -26,30 +19,34 @@ const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
 const digit = [...'0123456789'];
 
-const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+const hasProperty = (obj, propName) => {
+    return !!Object.getOwnPropertyDescriptor(obj, propName);
+}
 
 function range(start, end) {
-  return Array(end - start + 1).fill().map((_, idx) => start + idx)
+    return Array(end - start + 1).fill().map((_, idx) => start + idx)
 }
 
 
 const genHdr = (name) => {
     const header = name.replace(/_/g, ' ')
+
     return {header, name, search:true, sort:true}
 }
-  
-const defaultColHeaders = (rowZero) => {
-    const colNames = Object.keys(rowZero)    // (rows[0])
-    const colHeaders = colNames.map( col => genHdr(col) )
 
-  return colHeaders
+const defaultColHeaders = (rowZero) => {
+
+    if (!rowZero)
+       return null
+
+    return Object.keys(rowZero).map( col => genHdr(col) )
 }
 
 const defaultEachRowInTable = (row, i) => {
-    const cellStyle = {backgroundColor: (i%2) ? 'lightgray' : 'inherit'}
-    const cols = (!row) ? null :
-        Object.keys(row).map( (idx, j) => ( <td key={i+'_'+j}>{row[idx]}</td> ) )
-  return (<tr key={i}>{cols}</tr>)
+    const cols = (!row) ? null : Object.keys(row).map( (idx, j) => ( <td key={i+'_'+j}>{row[idx]}</td> ) )
+    const odd = (i%2) ? 'sw-sst_oddRow' : 'sw-sst_evenRow'
+
+    return (<tr className={odd} key={i}>{cols}</tr>)
 }
 
 /****************************************************************************
@@ -62,11 +59,12 @@ const defaultEachRowInTable = (row, i) => {
 const SearchSortTable = (propsPassed) => {
   // let iter = Object.keys(row)       // also works when row === ["hello", "there"]
 
+    // console.log('SearchSortTable Render');
+
     const defaultProps = {
-    error: false,          // Indicates that an error has occrred
-    MAX_ITEMS: 100,
-    eachRowInTable: defaultEachRowInTable,
-    table: (propsPassed.data && !propsPassed.table) ? defaultColHeaders(propsPassed.data[0]) : null
+        error: false,          // Indicates that an error has occrred
+        MAX_ITEMS: 100,
+        eachRowInTable: defaultEachRowInTable
     }
 
     const props = Object.assign(defaultProps, propsPassed);
@@ -117,6 +115,7 @@ const SearchSortTable = (propsPassed) => {
     const [copyIndex, setCopyIndex] = useState([...startIndexes]);
     const [length, setLength] = useState(props.data.length);                            // The length of the data
     const [background, setBackground] = useState(initialBackground);
+    const [table, setTable] = useState(props.table);
 
     // const [indexSet, setIndexSet] = useState([[...startIndexes]]);
     // const [origIndexes, setOrigIndexes] = useState([...startIndexes]);
@@ -128,10 +127,31 @@ const SearchSortTable = (propsPassed) => {
      *
      ******************************************************************************/
 
-    useEffect (populateSearch, []);
-
+    // ---------
     useEffect (() => {
-        if (indexes.length === 0) {
+      // console.log('SearchSortTable useEffect [] ');
+
+      populateSearch(props.table)
+    }, []);
+
+    // ---------
+    useEffect (() => {
+      // console.log('SearchSortTable useEffect [] props.table:', props.table);
+
+      setTable(props.table)
+      populateSearch(props.table)
+    }, [props.table]);
+
+    // ---------
+    useEffect (() => {
+      // console.log('SearchSortTable useEffect [props.data] props.table:', props.table, 'table:', table);
+
+      if (!props.table && !table) {        // no table def passed in as a prop, setup a default
+        const tableDef = defaultColHeaders(props.data[0])
+        setTable(tableDef)
+        populateSearch(tableDef)
+      }
+      if (indexes.length === 0) {
             sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
             setFilterOn(false);
             setStartEnd(0, origIndexes.length, origIndexes);
@@ -145,8 +165,10 @@ const SearchSortTable = (propsPassed) => {
         }
     }, [props.data]);
 
-
+    // ---------
     useEffect (() => {
+        // console.log('SearchSortTable useEffect [props.data.length] ');
+
         setFilterOn(false);
         setStartEnd(0, origIndexes.length, origIndexes);
         setIndexes(origIndexes);
@@ -174,11 +196,10 @@ const SearchSortTable = (propsPassed) => {
       return (<span></span>);
     }
 
-    if (hasProperty(props,'table') === false) {
-      console.error ('Search Sort Table component: A table object prop must be passed');
-      return (<span></span>);
-    }
-
+    // if (hasProperty(props,'table') === false) {
+    //   console.error ('Search Sort Table component: A table object prop must be passed');
+    //   return (<span></span>);
+    // }
 
     if (hasProperty(props,'letters') === true) {
       if (hasProperty(props,'noupper') === true &&
@@ -202,15 +223,19 @@ const SearchSortTable = (propsPassed) => {
      * beginning.
      *
      ****************************************************************************/
-    function populateSearch() {
+    function populateSearch(table) {
         let order = [];         // The next sort order
         let localFilter = [...filter];   // The values in the filter input boxes
         let search = [''];      // The values for the drop down
 
+        if (!table) {
+           return
+        }
+
         // Build the items for the drop down, the sort order, and the filter
-        for (let i = 0; i < props.table.length; i++) {
-            if (props.table[i].search === true) {
-                search.push (props.table[i].header);
+        for (let i = 0; i < table.length; i++) {
+            if (table[i].search === true) {
+                search.push (table[i].header);
             }
             order.push ('N');
             if (hasProperty(props,'nofilter') === false) {
@@ -425,6 +450,20 @@ const SearchSortTable = (propsPassed) => {
         }
     }
 
+    if (!table) {    // Loading (no Table Col Defs yet, no data yet)
+      const override = css`
+        margin: 0 auto;
+        `;
+      const msg = (props.spinner) ?
+          <div style={{height: '6em'}}>
+            <h3>Loading</h3>
+            <FadeLoader css={override} size="30px" color="teal" loading={true} />
+          </div>
+       : <span></span>
+
+      return msg
+    }
+
     return (    // Render the screen
         <div className="sw-sst_divStyle">
             {title}
@@ -445,7 +484,7 @@ const SearchSortTable = (propsPassed) => {
                     <table className={hoverClassName}>
                         <tbody>
                             <tr key="header" className="sw-sst_centerBoldStyle">
-                                {props.table.map(buildHeaders)}
+                                {table.map(buildHeaders)}
                             </tr>
                            { showData.map(props.eachRowInTable) }
                            { (hasProperty(props,'footer') === true) ?
@@ -516,7 +555,7 @@ const SearchSortTable = (propsPassed) => {
         // console.log(`buildHeaders() filter[${filter.length}]:`, JSON.stringify(filter));
 
 
-        if (props.table[i].sort === true && sortOrder[i] !== 'N') {
+        if (table[i].sort === true && sortOrder[i] !== 'N') {
             // After the sort was done, it flips the sort order; therefore, if it is
             // now a D, that means it was sorted in ascending order previously.  If
             // it is now an A, that means it was sorted in descending order previously.
@@ -695,7 +734,7 @@ const SearchSortTable = (propsPassed) => {
         let done = false;       // Indicates that we are done filtering that data element
 
         // Build the indexes in which the user entered data in the filter input box
-        for (let i = 0; i < props.table.length; i++) {
+        for (let i = 0; i < table.length; i++) {
             if (filter[i] !== '') {
                 indexing.push(i);
             }
@@ -711,12 +750,12 @@ const SearchSortTable = (propsPassed) => {
             for (let j = 0; j < indexing.length && done === false; j++) {
                 foundDate = false;
                 // Find if the index is in the date table
-                if (hasProperty(props.table[indexing[j]], 'dataDate') && hasProperty(props.table[indexing[j]], 'filterDate')) {
+                if (hasProperty(table[indexing[j]], 'dataDate') && hasProperty(table[indexing[j]], 'filterDate')) {
                     foundDate = true;
                 }
 
                 // The data field is blank or has no value
-                if (data[indexes[i]][props.table[indexing[j]].name] === null) {
+                if (data[indexes[i]][table[indexing[j]].name] === null) {
                     found.push(false);
                     done = true;
                 } else if (foundDate === true) {    // The field contains a date
@@ -724,22 +763,22 @@ const SearchSortTable = (propsPassed) => {
                     let filterPart = null;
 
                     // Convert the format for the data part
-                    if (props.table[indexing[j]].dataDate === 'MM/DD/YYYY') {
-                        dataPart = convertDate(data[indexes[i]][props.table[indexing[j]].name], '/', 1);
-                    } else if (props.table[indexing[j]].dataDate === 'MM-DD-YYYY') {
-                        dataPart = convertDate(data[indexes[i]][props.table[indexing[j]].name], '-', 1);
-                    } else if (props.table[indexing[j]].dataDate === 'MM/DD/YYYY HH:MM:SS') {
-                        dataPart = convertDateTime(data[indexes[i]][props.table[indexing[j]].name], '/', 1);
-                    } else if (props.table[indexing[j]].dataDate === 'MM-DD-YYYY HH:MM:SS') {
-                        dataPart = convertDateTime (data[indexes[i]][props.table[indexing[j]].name], '-', 1);
-                    } else if (props.table[indexing[j]].dataDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                        dataPart = convertDateTimeReg (data[indexes[i]][props.table[indexing[j]].name]);
+                    if (table[indexing[j]].dataDate === 'MM/DD/YYYY') {
+                        dataPart = convertDate(data[indexes[i]][table[indexing[j]].name], '/', 1);
+                    } else if (table[indexing[j]].dataDate === 'MM-DD-YYYY') {
+                        dataPart = convertDate(data[indexes[i]][table[indexing[j]].name], '-', 1);
+                    } else if (table[indexing[j]].dataDate === 'MM/DD/YYYY HH:MM:SS') {
+                        dataPart = convertDateTime(data[indexes[i]][table[indexing[j]].name], '/', 1);
+                    } else if (table[indexing[j]].dataDate === 'MM-DD-YYYY HH:MM:SS') {
+                        dataPart = convertDateTime (data[indexes[i]][table[indexing[j]].name], '-', 1);
+                    } else if (table[indexing[j]].dataDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                        dataPart = convertDateTimeReg (data[indexes[i]][table[indexing[j]].name]);
                     } else {
-                        dataPart = data[indexes[i]][props.table[indexing[j]].name];
+                        dataPart = data[indexes[i]][table[indexing[j]].name];
                     }
 
                     // Convert the format for the filter part
-                    if (props.table[indexing[j]].filterDate === 'MM/DD/YYYY') {
+                    if (table[indexing[j]].filterDate === 'MM/DD/YYYY') {
                         if (filter[indexing[j]].length === 'MM/DD/YYYY'.length) {
                             filterPart = convertDate(filter[indexing[j]], '/', 1);
                         } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('/') !== -1) {
@@ -747,7 +786,7 @@ const SearchSortTable = (propsPassed) => {
                         } else {
                             filterPart = filter[indexing[j]];
                         }
-                    } else if (props.table[indexing[j]].filterDate === 'MM-DD-YYYY') {
+                    } else if (table[indexing[j]].filterDate === 'MM-DD-YYYY') {
                         if (filter[indexing[j]].length === 'MM-DD-YYYY'.length) {
                             filterPart = convertDate(filter[indexing[j]], '-', 1);
                         } else if (filter[indexing[j]].length === 'MM-YYYY'.length && filter[indexing[j]].indexOf('-') !== -1) {
@@ -755,7 +794,7 @@ const SearchSortTable = (propsPassed) => {
                         } else {
                             filterPart = filter[indexing[j]];
                         }
-                    } else if (props.table[indexing[j]].filterDate === 'MM/DD/YYYY HH:MM:SS') {
+                    } else if (table[indexing[j]].filterDate === 'MM/DD/YYYY HH:MM:SS') {
                         if (filter[indexing[j]].length === 'MM/DD/YYYY HH:MM:SS'.length) {
                             filterPart = convertDateTime(filter[indexing[j]], '/', 1);
                         } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('/') !== -1) {
@@ -763,7 +802,7 @@ const SearchSortTable = (propsPassed) => {
                         } else {
                             filterPart = filter[indexing[j]];
                         }
-                    } else if (props.table[indexing[j]].filterDate === 'MM-DD-YYYY HH:MM:SS') {
+                    } else if (table[indexing[j]].filterDate === 'MM-DD-YYYY HH:MM:SS') {
                         if (filter[indexing[j]].length === 'MM-DD-YYYY HH:MM:SS'.length) {
                             filterPart = convertDateTime (filter[indexing[j]], '-', 1);
                         } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('-') !== -1) {
@@ -771,7 +810,7 @@ const SearchSortTable = (propsPassed) => {
                         } else {
                             filterPart = filter[indexing[j]];
                         }
-                    } else if (props.table[indexing].filterDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                    } else if (table[indexing].filterDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
                         if (filter[indexing[j]].length === 'YYYY-MM-DDTHH:MM:SS.SSS'.length) {
                             filterPart = convertDateTimeReg (filter[indexing[j]]);
                         } else {
@@ -788,7 +827,7 @@ const SearchSortTable = (propsPassed) => {
                         done = true;
                     }
                 // The data element matches one of the filter input boxes
-                } else if (data[indexes[i]][props.table[indexing[j]].name].toString().indexOf(filter[indexing[j]].toString()) !== -1) {
+                } else if (data[indexes[i]][table[indexing[j]].name].toString().indexOf(filter[indexing[j]].toString()) !== -1) {
                     found.push(true);   // Place a true in the found array indicating the filter input box matched
                 } else {    // The data element did not match the filter input box
                     found.push(false);
@@ -927,19 +966,19 @@ const SearchSortTable = (propsPassed) => {
      *
      **********************************************************************************/
     function searchItemButton() {
-        if (validate('B') === true) {  // Make sure a value has been selected in the drop down and text box
+        if (table && validate('B') === true) {  // Make sure a value has been selected in the drop down and text box
             let search = null;
             search = (hasProperty(props,'ignorecase') === true) ?
                 searchItem.toUpperCase() :  // Convert to upper case to ignore case
                 searchItem;
             // Find a match in the correct column of the data
-            let tableIndex = props.table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
+            let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
             if (hasProperty(props,'searchstart') === true) {
-                searchStart (search, props.table[tableIndex].name);
+                searchStart (search, table[tableIndex].name);
             } else {
-                searchAny (search, props.table[tableIndex].name);
+                searchAny (search, table[tableIndex].name);
             }
-//            let index = props.data.findIndex(val => val[props.table[tableIndex].name].toString().startsWith(search));   // Text match
+//            let index = props.data.findIndex(val => val[table[tableIndex].name].toString().startsWith(search));   // Text match
 //            setStartEnd(index); // Set the start and end to show the found text
         }
     }
@@ -998,7 +1037,11 @@ const SearchSortTable = (propsPassed) => {
      *
      *************************************************************************************/
     function sortClicked(name, orderType, indexes) {
-        let index = props.table.map(function(e) { return e.name; }).indexOf(name);   // Column match
+        if (!table) {
+           return []
+        }
+
+        let index = table.map(function(e) { return e.name; }).indexOf(name);   // Column match
         let order = [...sortOrder];
         let ordering = 'A';
 
@@ -1026,8 +1069,8 @@ const SearchSortTable = (propsPassed) => {
         }
 
         let dateFormat = null;
-        if (hasProperty(props.table[index], 'sortDate')) {
-            dateFormat = props.table[index].sortDate;
+        if (hasProperty(table[index], 'sortDate')) {
+            dateFormat = table[index].sortDate;
         }
 
         let sortAry = [];
@@ -1095,7 +1138,7 @@ const SearchSortTable = (propsPassed) => {
     }
 
     function resetSortOrder() {
-        let order = new Array(props.table.length).fill('N');
+        let order = new Array(table.length).fill('N');
         setSortOrder(order);
     }
 
@@ -1125,11 +1168,16 @@ const SearchSortTable = (propsPassed) => {
      *
      *************************************************************************************/
     function letterLink(letter, bIndex) {
+
+        if (!table) {
+          return
+        }
+
         let indexing = [...origIndexes];
 
         if (validate('H') === true) {   // Validate that a search header was entered
             // Used to get the field name of the data item
-            let index = props.table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
+            let index = table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
 
             clearSetBackground(bIndex, true);
 
@@ -1141,7 +1189,7 @@ const SearchSortTable = (propsPassed) => {
                 return;
             }
 
-            const sortIndexes = sortClicked (props.table[index].name, 'A', indexing); // ascending order
+            const sortIndexes = sortClicked (table[index].name, 'A', indexing); // ascending order
 
             let newIndexes = [];
 
@@ -1150,8 +1198,8 @@ const SearchSortTable = (propsPassed) => {
             let found = false;  // Indicates that the letter was found
             for (begin = 0; begin < sortIndexes.length; begin++) {
                 // Letter or digit is found
-                if (props.data[sortIndexes[begin]][props.table[index].name] !== null &&
-                    props.data[sortIndexes[begin]][props.table[index].name].toString().startsWith(letter) === true) {
+                if (props.data[sortIndexes[begin]][table[index].name] !== null &&
+                    props.data[sortIndexes[begin]][table[index].name].toString().startsWith(letter) === true) {
                     found = true;
                     break;
                 }
@@ -1161,8 +1209,8 @@ const SearchSortTable = (propsPassed) => {
             let stop = 0;       // Where the end of the letter is
             for (stop = begin; stop < sortIndexes.length; stop++) {
                 // End of the letter or digit is found
-                if (props.data[sortIndexes[stop]][props.table[index].name] !== null &&
-                    props.data[sortIndexes[stop]][props.table[index].name].toString().startsWith(letter) === false) {
+                if (props.data[sortIndexes[stop]][table[index].name] !== null &&
+                    props.data[sortIndexes[stop]][table[index].name].toString().startsWith(letter) === false) {
                     break;
                 }
                 newIndexes.push(sortIndexes[stop]);
