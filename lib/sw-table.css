@@ -113,7 +113,6 @@ table.sw-sst_search_sort_table10 tr:hover td {
 .sw-sst_scrollStyle {
   display: block;
   overflow: scroll;
-  height: 500px;
   width: auto;
   border: 1px solid black;
   margin-left: auto;
