@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { date2str } from "simple-widgets";
-// import {date2str} from "./date2str"
+// import { date2str } from "simple-widgets";
+import { date2str } from "./date2str"
 
 //--------------------------------------------------------------------------------
 const DateInput = (props) => {
