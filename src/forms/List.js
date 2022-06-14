@@ -63,7 +63,8 @@ export const Choice = (propsIn) => {
 
     if ( !isKeyed && typeof(props.value) == 'string' &&  Array.isArray(opt) && !opt.includes(props.value) )
        {
-         console.log(`Adding missing default value: '${props.value}' to ${opt}`);
+         // console.log(`Adding missing default value: '${props.value}' to ${opt}`);
+         console.log(`Adding missing default value: '${value}' to ${props.name} [${opt.length}]`);
          opt.unshift(props.value)
        }
 
