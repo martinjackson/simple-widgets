@@ -120,7 +120,7 @@ To read the parameters in the Company component:
     import { getMenuParms } from 'simple-widgets';
 
     const Company = () => {
-        const [parms] = getMenuParms();   // This must be before the state variables
+        const parms = getMenuParms();   // This must be before the state variables
         ...
         console.log ('name', parms.name);
     }
