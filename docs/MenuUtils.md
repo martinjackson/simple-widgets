@@ -4,7 +4,7 @@ The MenuUtils contains functions that will take the user to another page within 
 
 # Link
 
-This will allow you transfer to another page component and pass parmeters to another page.  ***The Link component will only transfer control if either the Flat Menu or MenuBar is used.***
+This will allow you transfer to another page component and pass parmeters to another page.  ***The Link component will only transfer control if the MenuBar is used.***
 
 Props:
 
@@ -67,7 +67,7 @@ The values will now be in the object parms.  So parms.ssn will contain 123456768
 
 # Redirect
 
-This will redirect the page from one page component to another without a link name or link on the page.  Parameters can be passed down to the other page component.  ***The Redirect component will only transfer control if either the Flat Menu or MenuBar is used.***
+This will redirect the page from one page component to another without a link name or link on the page.  Parameters can be passed down to the other page component.  ***The Redirect component will only transfer control if the or MenuBar is used.***
 
 Props:
 
