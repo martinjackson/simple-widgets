@@ -919,7 +919,9 @@ const SearchSortTable = (propsPassed) => {
                 searchItem;
             // Find a match in the correct column of the data
             let tableIndex = props.table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
-            if (hasProperty(props,'searchstart') === true) {
+            if (hasProperty(props.table[tableIndex], 'dataDate') && hasProperty(props.table[tableIndex], 'searchDate')) {
+                searchDate (search, props.table[tableIndex].name, tableIndex);
+            } else if (hasProperty(props,'searchstart') === true) {
                 searchStart (search, props.table[tableIndex].name);
             } else {
                 searchAny (search, props.table[tableIndex].name);
@@ -928,6 +930,98 @@ const SearchSortTable = (propsPassed) => {
 //            setStartEnd(index); // Set the start and end to show the found text
         }
     }
+
+    /*********************************************************************************************
+     * 
+     * This is search through the date and compare dates in the correct format to see if they
+     * are equal.  If they are equal, it will move that row in the table to the top.
+     * 
+     * Parameters:
+     * 1.   searchItem - the date to search for
+     * 2.   name - the name in the props.table that indicates the date column
+     * 3.   tableIndex - the index into the props.table
+     * 
+     **********************************************************************************************/
+    function searchDate (searchItem, name, tableIndex) {
+        let data = props.data;  // The data to filter
+        let done = false;
+
+        // Find if the index is in the date table
+
+        for (let i = 0; i < indexes.length && done === false; i++) {
+            // The data field is blank or has no value
+            if (data[indexes[i]][props.table[tableIndex].name] === null) {
+                done = true;
+            } else {    // The field contains a date
+                let dataPart = null;
+                let searchPart = null;
+
+                // Convert the format for the data part
+                if (props.table[tableIndex].dataDate === 'MM/DD/YYYY') {
+                    dataPart = convertDate(data[indexes[i]][props.table[tableIndex].name], '/', 1);
+                } else if (props.table[tableIndex].dataDate === 'MM-DD-YYYY') {
+                    dataPart = convertDate(data[indexes[i]][props.table[tableIndex].name], '-', 1);
+                } else if (props.table[tableIndex].dataDate === 'MM/DD/YYYY HH:MM:SS') {
+                    dataPart = convertDateTime(data[indexes[i]][props.table[tableIndex].name], '/', 1);
+                } else if (props.table[tableIndex].dataDate === 'MM-DD-YYYY HH:MM:SS') {
+                    dataPart = convertDateTime (data[indexes[i]][props.table[tableIndex].name], '-', 1);
+                } else if (props.table[tableIndex].dataDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                    dataPart = convertDateTimeReg (data[indexes[i]][props.table[tableIndex].name]);
+                } else {
+                    dataPart = data[indexes[i]][props.table[tableIndex].name];
+                }
+
+                // Convert the format for the filter part
+                if (props.table[tableIndex].searchDate === 'MM/DD/YYYY') {
+                    if (searchItem.length === 'MM/DD/YYYY'.length) {
+                        searchPart = convertDate(searchItem, '/', 1);
+                    } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('/') !== -1) {
+                        searchPart = convertDate(searchItem, '/', 2);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else if (props.table[indexing[j]].searchDate === 'MM-DD-YYYY') {
+                    if (searchItem.length === 'MM-DD-YYYY'.length) {
+                        searchPart = convertDate(searchItem, '-', 1);
+                    } else if (searchItem.length === 'MM-YYYY'.length && searchItem.indexOf('-') !== -1) {
+                        searchPart = convertDate(searchItem, '-', 2);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else if (props.table[indexing[j]].searchDate === 'MM/DD/YYYY HH:MM:SS') {
+                    if (searchItem.length === 'MM/DD/YYYY HH:MM:SS'.length) {
+                        searchPart = convertDateTime(searchItem, '/', 1);
+                    } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('/') !== -1) {
+                        searchPart = convertDate(searchItem, '/', 2);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else if (props.table[indexing[j]].searchDate === 'MM-DD-YYYY HH:MM:SS') {
+                    if (searchItem.length === 'MM-DD-YYYY HH:MM:SS'.length) {
+                        searchPart = convertDateTime (searchItem, '-', 1);
+                    } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('-') !== -1) {
+                        searchPart = convertDate(searchItem, '-', 2);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else if (props.table[indexing].searchDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                    if (searchItem.length === 'YYYY-MM-DDTHH:MM:SS.SSS'.length) {
+                        searchPart = convertDateTimeReg (searchItem);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else {
+                    searchPart = searchItem;
+                }
+
+                if (dataPart.toString().indexOf(searchPart.toString()) !== -1) {  // Compare the dates
+                    setStartEnd(i, length, indexes); // Set the start and end positions of the data on the screen.
+
+                    done = true;
+                }
+            }
+        }
+}
 
     /********************************************************************************************
      *
