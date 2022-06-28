@@ -229,6 +229,10 @@ the search bar at the top of the screen will contain the search column, search i
 
 29. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
+30. **noheaderborder** = do not put a border around each individual header item.
+
+31. **nofooterborder** = do not put a border around each individual footer item.
+
 ## CSS Files
 
 The following CSS file will need to be imported into the file that uses this SearchSortTable component.  The import would be, if it is not be changed:
