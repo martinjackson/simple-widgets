@@ -12,14 +12,14 @@ In order for the user to use the Search Sort Table, they must pass the following
 1.  **data** = the data to be displayed which is an array of objects that contains a header and name fields.
 2.  **table** = an object that contains the headers for each column in the table, the field name for each item in the data array, whether the column can be searched or not, and whether the column could be sorted or not.
 The header field is the name of the header for that column of the table.  The name is field name in the data object passed as the data prop.  The search field name indicates whether that column can be searched or not.  The sort field indicates whether the column can be sorted or not.  
-Other possible fields for a row in the table are: dataDate, filterDate, and sortDate.  The dataDate field indicates the format of a date field in the data.  The filterDate field indicates the format of the date on the filter field in the display table.  The sort date field is the format of the date field to be sorted.  The possible date formats are:
-  a. MM/DD/YYYY
-  b. MM-DD-YYYY
-  c. YYYY-MM-DD (default)
-  d. MM/DD/YYYY HH:MM:SS
-  e. MM-DD-YYYY HH:MM:SS
-  f. YYYY-MM-DD HH:MM:SS (default for date with time)
-  g. YYYY-MM-DDTHH:MM:SS.SSS
+Other possible fields for a row in the table are: dataDate, filterDate, sortDate, and searchDate.  The dataDate field indicates the format of a date field in the data.  The filterDate field indicates the format of the date on the filter field in the display table.  The sort date field is the format of the date field to be sorted.  The searchDate field indicates the format of the date on the search field in the display table.  The possible date formats are:
+  - MM/DD/YYYY
+  - MM-DD-YYYY
+  - YYYY-MM-DD (default)
+  - MM/DD/YYYY HH:MM:SS
+  - MM-DD-YYYY HH:MM:SS
+  - YYYY-MM-DD HH:MM:SS (default for date with time)
+  - YYYY-MM-DDTHH:MM:SS.SSS
   
    An example row in the table for a date field might look like:
    ```javascript
@@ -155,11 +155,11 @@ hoverColor="yellow"
 ```
 
 5. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
-  a. To use the letters option:
+  - To use the letters option:
     1. Select a column header from the drop down menu.
     2. Select a letter or digit.
     3. The data will be sorted on that column header.  It will then search the data for first letter or digit that matches the one selected.  For letters, this option is the best.  For example, if A is selected, then all items in the column header that begin with A are listed in the table.  However, if digits are used, for example suppose 5 is selected, it sort the table on that column header.  If the data contains 5, 11, 51, 123,and 532.  It will only list the 5.
-  b. Other options with letters:
+  - Other options with letters:
     1. **noupper** = does not display the upper case letters
     2. **nolower** = does not display the lower case letters
     3. **nodigit** = does not display the digits
