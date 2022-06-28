@@ -110,6 +110,12 @@ table.sw-sst_search_sort_table10 tr:hover td {
   border: 1px solid black;
 }
 
+.sw-sst_footerStyle2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .sw-sst_scrollStyle {
   display: block;
   overflow: scroll;
@@ -157,6 +163,15 @@ table.sw-sst_search_sort_table10 tr:hover td {
   border: 1px solid black;
   background-color: var(--sw-theme_backgroundColor);
 }
+
+.sw-sst_headerStyle2 {
+  position: sticky;
+  flex-direction: column;
+  top: 0;
+  z-index: 2;
+  background-color: var(--sw-theme_backgroundColor);
+}
+
 
 .sw-sst_widthStyle {
   margin-bottom: 0px;
