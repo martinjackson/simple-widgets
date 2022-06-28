@@ -89,6 +89,14 @@ table.sw-sst_search_sort_table10 tr:hover td {
   border: 1px solid black;
 }
 
+.sw-sst_oddRow {
+  background-color: lightgray;
+}
+
+.sw-sst_evenRow {
+  background-color: inherit;
+}
+
 .sw-sst_centerBoldStyle {
   text-align: center;
   font-weight: bold;
@@ -105,7 +113,6 @@ table.sw-sst_search_sort_table10 tr:hover td {
 .sw-sst_scrollStyle {
   display: block;
   overflow: scroll;
-  height: 500px;
   width: auto;
   border: 1px solid black;
   margin-left: auto;

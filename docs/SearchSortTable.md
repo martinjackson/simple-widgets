@@ -25,15 +25,32 @@ Other possible fields for a row in the table are: dataDate, filterDate, sortDate
    ```javascript
         { header: 'Date', name: 'DATE', sort: true, search: true, dataDate: 'YYYY-MM-DD', filterDate: 'MM/DD/YYYY', sortDate: 'YYYY-MM-DD' }
    ```
-        
-  In the above example, the header in the display table will be Date.  The name of the field in the data will be DATE.  You can sort and search on the field.  The date in the   data will be in the form of YYYY-MM-DD.  The date in the filter field on the display table will be in the form of MM/DD/YYYY.  If you have the dateField you must also have the filterData field and vice a versa.  The sortDate field indicates how the data is in the data, which is YYYY-MM-DD.  Since this is the default, this field can be left off.  
+
+  In the above example, the header in the display table will be Date.  The name of the field in the data will be DATE.  You can sort and search on the field.  The date in the   data will be in the form of YYYY-MM-DD.  The date in the filter field on the display table will be in the form of MM/DD/YYYY.  If you have the dateField you must also have the filterData field and vice a versa.  The sortDate field indicates how the data is in the data, which is YYYY-MM-DD.  Since this is the default, this field can be left off.
 
   Both the data date and filter date are both converted to either YYYY-MM-DD or YYYY-DD-MMTHH:MM:SS for comparision.  If the data or filter fields do not match one of the above formats, it retains its current format.
-  
+
 3.  **eachRowInTable** = a function that indicates how each cell in a row will be displayed.
 
-### **Example**
-The following is a code example:
+### **Examples**
+The following is a simple code example:
+
+```javascript
+        import '../node_modules/simple-widgets/lib/theme.css';
+        import '../node_modules/simple-widgets/lib/table.css';
+
+        let data = [
+            { Order_Number: 10, Item: 'Hammer',        On_Hand: 20, COST: 15.21 },
+            { Order_Number: 11, Item: 'Screwdriver',   On_Hand: 13, COST: 16.43 },
+            { Order_Number: 22, Item: 'Pliers',        On_Hand: 24, COST: 17.54 },
+            { Order_Number: 23, Item: 'Wrench',        On_Hand: 05, COST: 18.56 },
+            { Order_Number: 24, Item: 'Saw',           On_Hand: 11, COST: 14.78 },
+        ];
+
+        <SearchSortTable data={data}  scroll />
+```
+
+The following is a more involved code example:
 
 ```javascript
         import '../node_modules/simple-widgets/lib/theme.css';
@@ -139,9 +156,9 @@ How to use Letters:
 1. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  A sample footer might be:
 ```javascript
     let footer = [
-        'Totals', 
-        totalStock, 
-        totalRental, 
+        'Totals',
+        totalStock,
+        totalRental,
         totalCAN,
     ];
 ```
@@ -164,7 +181,7 @@ hoverColor="yellow"
     2. **nolower** = does not display the lower case letters
     3. **nodigit** = does not display the digits
 
-6. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.
+6. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100
 
 7. **nobottom** = does not display the bottom button.
 
@@ -174,7 +191,7 @@ hoverColor="yellow"
 
 10. **nofilter** = this will not display the Filter On check box and the filter button
 
-11. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed, 
+11. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 12. **nonext** = does not display the next button.
 
 13. **noprevious** = does not display the previous button.
@@ -209,6 +226,8 @@ the search bar at the top of the screen will contain the search column, search i
 27. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
 
 28. **width** = the width of the scroll box only.
+
+29. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
 ## CSS Files
 
@@ -455,6 +474,26 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
+22. ***sw-sst_oddRow*** = this is the
+    background color for the odd numbered rows.
+    To turn off row striping, redefine this class
+    background-color: inherit;
+
+```css
+.sw-sst_oddRow {
+  background-color: lightgray;
+}
+```
+
+23. ***sw-sst_evenRow*** = this is the
+    background color for the even numbered rows
+
+```css
+.sw-sst_evenRow {
+  background-color: inherit;
+}
+```
+
 ### **Example 1:**
 
 Contains a footer for the totals in the table.  The filter and the search are at the bottom of the table:
@@ -481,9 +520,9 @@ const table = [
 ];
 
 let footer = [
-    'Totals', 
-    totalStock, 
-    totalRental, 
+    'Totals',
+    totalStock,
+    totalRental,
     totalCAN,
 ];
 
@@ -511,7 +550,7 @@ function eachRowInTable (row, i) {
     };
 
     let pos = indexing[i]
-    
+
     return (    // Render the row (action)
         <tr key={key} onClick={() => editRow (pos)}>
             <td style={tableCellStyle}>{row.CAN}</td>
@@ -545,7 +584,7 @@ function editRow(index) {
 
 In this example, uppercase letters and numbers will appear in the search area of the table.  There will be no lower case letters, because of nolower.  The letters will allow you to quickly go to all items that start with that letter in the search column.
 
-The user can also hover over a row and it will be highlighted in cyan.  To detect that the row being hovered on has been clicked, the user should have an onClick event handler on the tr in eachRowInTable.  If another color besides cyan is desired, the hoverColor prop should be used.  An example would be hoverColor="yellow" 
+The user can also hover over a row and it will be highlighted in cyan.  To detect that the row being hovered on has been clicked, the user should have an onClick event handler on the tr in eachRowInTable.  If another color besides cyan is desired, the hoverColor prop should be used.  An example would be hoverColor="yellow"
 
 ### **Example 3 (SearchSortTable only)**
 ```javascript
@@ -575,7 +614,7 @@ A title of Pick will be displayed centered at the top of the table.  If a differ
                     startEnd={startEnd}
                     indexing={getIndexes}
                     dateTable={dateTable}
-                    error = {error} 
+                    error = {error}
                     scroll
                     height="500px"
                     hover />
