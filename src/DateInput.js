@@ -1,80 +1,71 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-// import Calendar from 'react-calendar';    now only needed for IE
-// import 'react-calendar/dist/Calendar.css';
+// import { date2str } from "simple-widgets";
+import { date2str } from "./date2str"
 
-// import formatDateToStr from 'dateformat';
-import {date2str} from "./date2str"
-import {localStrToDate} from "./localStrToDate";
-
+//--------------------------------------------------------------------------------
 const DateInput = (props) => {
 
-    const [showCalender, setShowCalender] = useState(false);
+    let { name, value, format, onChange, ...whatsLeft  } = props
 
-    const f = {...props}
+    if (!value)          // undefined causes React to think
+      value = ""        // A component is changing an uncontrolled input to be controlled.
 
-    if (!f.value)          // undefined causes React to think
-      f.value = ""        // A component is changing an uncontrolled input to be controlled.
-
-    if (f.value instanceof Date) {
-      f.dateValue = f.value
-      f.value = date2str(f.value, f.format)
-    } else {
-      f.dateValue = localStrToDate(f.value)
+    if (value instanceof Date) {
+      value = date2str(value, format)
     }
-
-/*
-import {isSafari, isIE} from './browserDetect'
-
-    const handleCalendarChange = (value) => {
-      const e = {}
-      e.target = {}
-      e.target.name = f.name;
-      e.target.value = date2str(value, f.format)
-      f.onChange(e);
-    }
-
-    const triangle = (showCalender) ? <>&#9650;</> : <>&#9660;</>     // 9650   BLACK UP-POINTING TRIANGLE     9660   BLACK DOWN-POINTING TRIANGLE
-
-    //  pattern="(?:19|20)\[0-9\]{2}-(?:(?:0\[1-9\]|1\[0-2\])-(?:0\[1-9\]|1\[0-9\]|2\[0-9\])|(?:(?!02)(?:0\[1-9\]|1\[0-2\])-(?:30))|(?:(?:0\[13578\]|1\[02\])-31))"
-    // title="Enter a date in this format YYYY-MM-DD"
-
-    if (isIE) {                  // isSafari  prior to April 2021
-       return  <>
-              <input type="text"
-                    size={10}
-                    data-date-format={f.format}
-                    {...f}
-                    />
-               <button onClick={() => setShowCalender(!showCalender)}>{triangle}</button>
-
-               {showCalender &&
-                <>
-                    <br></br>
-                    <div style={{zIndex: 10, position: 'absolute'}}>
-                    <Calendar
-                          autoFocus
-                          name={f.name}
-                          value={f.dateValue}
-                          onChange={handleCalendarChange} />
-                    </div>
-                </>}
-
-            </>
-    } else {
-*/      
     return  <input type="date"
-              className="date-field"
-              placeholder={f.format}
-              data-date-format={f.format}
-              key={f.name}
-              name={f.name}
-              value={f.value}
-              onChange={f.onChange} />
-/*
-    }
-*/    
+              {...whatsLeft}
+              key={name}
+              name={name}
+              value={value}
+              onChange={onChange}
+
+              placeholder={format}
+              data-date-format={format}
+              />
 }
 
+/*
+ see https://stackoverflow.com/questions/7372038/is-there-any-way-to-change-input-type-date-format
+for using data-date-format with CSS and JS to format the date the way
 
-export default DateInput;
+The rest is a bit of CSS and JS: http://jsfiddle.net/g7mvaosL/
+
+$("input").on("change", function() {
+    this.setAttribute(
+        "data-date",
+        moment(this.value, "YYYY-MM-DD")
+        .format( this.getAttribute("data-date-format") )
+    )
+}).trigger("change")
+
+
+input {
+    position: relative;
+    width: 150px; height: 20px;
+    color: white;
+}
+
+input:before {
+    position: absolute;
+    top: 3px; left: 3px;
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+}
+
+input::-webkit-datetime-edit, input::-webkit-inner-spin-button, input::-webkit-clear-button {
+    display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    color: black;
+    opacity: 1;
+}
+*/
+
+export default DateInput
