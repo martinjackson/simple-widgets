@@ -12,9 +12,15 @@ const Modal = ({ children }) => {
 
     useEffect(() => {
         const modalRoot = document.getElementById('sw-modal');
-        modalRoot.appendChild(elRef.current);
+        if (modalRoot) {
+            modalRoot.appendChild(elRef.current);
 
-        return () => modalRoot.removeChild(elRef.current);
+            return () => modalRoot.removeChild(elRef.current);
+        } else {
+            console.log('Can not find DOM element ID: sw-modal, Modal widget will not pop up.');
+            console.log('Please add the following to your index.html');
+            console.log('    <div id="sw-modal"></div>');
+        }
     }, [])
 
     return createPortal(<div>{children}</div>, elRef.current);
