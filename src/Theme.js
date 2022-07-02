@@ -1,5 +1,10 @@
 
-const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+const hasProperty = (obj, propName) => { 
+    if (!obj) {    // obj is null
+       return false
+    }
+    return !!Object.getOwnPropertyDescriptor(obj, propName);
+}
 
 
 /*********************************************************************
@@ -31,7 +36,7 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
         genButtonStyle.backgroundColor = disableColor;
     } else {    // Do not disable the button
         // Make sure the style has a background color, if not use the theme color
-        genButtonStyle.backgroundColor = (style !== null && hasProperty(style, 'backgroundColor') === true) ?
+        genButtonStyle.backgroundColor = (hasProperty(style, 'backgroundColor') ) ?
             style.backgroundColor : 
             Style(document.documentElement).getPropertyValue('--sw-theme_buttonColor');;
     }
