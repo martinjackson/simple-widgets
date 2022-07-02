@@ -38,7 +38,7 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
         // Make sure the style has a background color, if not use the theme color
         genButtonStyle.backgroundColor = (hasProperty(style, 'backgroundColor') ) ?
             style.backgroundColor : 
-            Style(document.documentElement).getPropertyValue('--sw-theme_buttonColor');;
+            getComputedStyle(document.documentElement).getPropertyValue('--sw-theme_buttonColor')
     }
 
     return genButtonStyle;  // Return the button
