@@ -11,6 +11,7 @@ Props:
 6.  login = the action to be done when the user presses the Login link on the right of the screen.
 7.  username = the name of the user who is using the application.
 8.  setUsername = the name of the function that will set the user if header should change the name of the user.
+9.  noModalOnError = indicates that when an error occurs, the modal displaying the error will ***not*** appear.  By default the modal is displayed.
 
 All of the above values are optional.  If they are left off, it will use the values in the environment file.  An example .env file will be:
 
