@@ -207,6 +207,7 @@ nav ul li span {
 
 
 @media screen and (max-width: 960px) {
+  /*
   .nav-menu {
     display: flex;
     flex-direction: column;
@@ -217,6 +218,7 @@ nav ul li span {
     opacity: 1;
     transition: all 0.5s ease;
   }
+  */
 
   .nav-menu.active {
     background: #242222;
@@ -226,12 +228,14 @@ nav ul li span {
     z-index: 1;
   }
 
+  /*
   .nav-links {
     text-align: center;
     padding: 2rem;
     width: 100%;
     display: table;
   }
+  */
 
   .nav-links:hover {
     background-color: #1888ff;
