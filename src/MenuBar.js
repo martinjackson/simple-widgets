@@ -68,7 +68,7 @@ export const MenuBar = (props) => {
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
     const active = items.find(item => item.path === searchPath) || items[0]
 
-    const classStyle = (noSide === true) ? "" : "menubar";
+    const classStyle = (noSide === true) ? "" : " menubar";
 
     let componentStyle = '';
     if (type === 'horizontal' || open === 'always') {
@@ -80,8 +80,14 @@ export const MenuBar = (props) => {
     }
 
     return (
-        <div className={classStyle}>
-            <NavigateBar menuTree={props.menuTree} symbol={symbol} subsymbol={subSymbol} type={type} open={open} />
+        <div className={"sw-menu"+classStyle}>
+            <NavigateBar 
+                 menuTree={props.menuTree} 
+                 symbol={symbol} 
+                 subsymbol={subSymbol} 
+                 type={type} 
+                 open={open} 
+                 disable={props.disable} />
             {componentStyle}
         </div>
     )
