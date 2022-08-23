@@ -4,7 +4,7 @@
   "description": "A Collection of React components to make your React code simpler",
   "main": "./lib/index.js",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
+    "after-npm-i": "npx npm-force-resolutions",
     "setup": "npm install",
     "build": "npm run buildIndex && webpack",
     "dry": "run-s build dry-run",
