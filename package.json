@@ -4,6 +4,7 @@
   "description": "A Collection of React components to make your React code simpler",
   "main": "./lib/index.js",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "setup": "npm install",
     "build": "npm run buildIndex && webpack",
     "dry": "run-s build dry-run",
@@ -15,6 +16,18 @@
     "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
     "release": "release-it --no-git.requireCleanWorkingDir",
     "buildIndex": "cd src && node buildIndex.js"
+  },
+  "resolutions": {
+    "got":  "11.8.5",
+    "terser": "5.14.2",
+    "parse-path": "6.0.5",
+    "parse-url": "8.0.0",
+    "minimist": "1.2.6",
+    "glob-parent": "6.0.2",
+    "yargs-parser": "21.0.1",
+    "braces": "3.0.2",
+    "concat-stream": "2.0.0",
+    "lodash.template": "4.5.0"
   },
   "babel": {
     "plugins": [
