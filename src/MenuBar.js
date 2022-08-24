@@ -14,7 +14,8 @@ export const MenuBar = (props) => {
 
     const [curPath, setCurPath]   = useState(props.path)
     const [curParms, setCurParms] = useState({})
-
+    const [disableMenu, setDisableMenu] = useState(null)
+    
     setMenuPath = setCurPath
     setMenuParms = (val) => { 
         menuParms = {...val}
@@ -70,15 +71,10 @@ export const MenuBar = (props) => {
 
     const classStyle = (noSide === true) ? "" : " menubar";
 
-    let componentStyle = '';
-    if (type === 'horizontal' || open === 'always') {
-        componentStyle = active.component();
-    } else {
-        componentStyle = <div className="nav_menu_component">
-                            {active.component()}
-                         </div>;
-    }
-
+    const ActComp = active.component();
+    
+    let componentClass = (type === 'horizontal' || open === 'always') ? null : "nav_menu_component"
+    
     return (
         <div className={"sw-menu"+classStyle}>
             <NavigateBar 
@@ -87,8 +83,10 @@ export const MenuBar = (props) => {
                  subsymbol={subSymbol} 
                  type={type} 
                  open={open} 
-                 disable={props.disable} />
-            {componentStyle}
+                 disable={disableMenu} />
+            <div className={componentClass}>
+                 <ActComp disableMenu={setDisableMenu} />
+            </div>
         </div>
     )
 }
