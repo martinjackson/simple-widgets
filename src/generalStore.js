@@ -3,7 +3,9 @@ import create from 'zustand'          // zustand 1.73k  vs Recoil 1740k (1.74M)
 
 import { toCamelCase } from './camel'
 
-export const genStoreItem = (name, initialValue) => {
+
+// -------------------------------------------------------------------------------------------------
+export const createStoreItem = (name, initialValue) => {
     const setFn = toCamelCase('set '+name)
 
 const useStore = create(set => ({
@@ -11,12 +13,19 @@ const useStore = create(set => ({
     [setFn]: (newValue) => set(state => ({ [name]: newValue})),
   }))
 
-  return () => useStore(state => [state[name], state[setFn]])
+  return () => useStore(state => [state[name], state[setFn]])    // just the pieces we want out of the store
+}                                                                // to act like a hook
+
+// -------------------------------------------------------------------------------------------------
+export const useStoreItem = (name) => {
+  const setFn = toCamelCase('set '+name)
+
+  return useStore(state => [state[name], state[setFn]])
 }
 
 
 const storeInventory = {
-  useUsername:   genStoreItem('username', null)
+  useUsername:   createStoreItem('username', null)           // useUsername() will be called later
 }
 
 // -------------------------------------------------------------------------------------------------

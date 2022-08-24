@@ -33,7 +33,7 @@ import { toCamelCase } from './camel.js'
 import { date2str } from './date2str.js'
 import { lastOfMonth, todayString } from './dateUtils.js'
 import { getList, decrypt, encrypt } from './encrypt.js'
-import { genStoreItem, openGeneralStore } from './generalStore.js'
+import { createStoreItem, useStoreItem, openGeneralStore } from './generalStore.js'
 import { localStrToDate } from './localStrToDate.js'
 import makeChangeHandler from './makeChangeHandler.js'
 import { register, unregister } from './serviceWorker.js'
@@ -52,7 +52,8 @@ export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, 
          getMenuParms, MenuBar, Redirect, Link, Modal, NavigateBar, Outline, Radio, search, binSearch,
          SearchSortTable, Slider, StatusBox, generateButton, generateDefaultButton, generateCSSButton,
          generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium,
-         isBlink, toCamelCase, date2str, lastOfMonth, todayString, getList, decrypt, encrypt, genStoreItem,
-         openGeneralStore, localStrToDate, makeChangeHandler, register, unregister, now, TS, applyOptions,
-         FormFields, pretty, Show, Input, Form, useFetch, setFieldGenerator,
+         isBlink, toCamelCase, date2str, lastOfMonth, todayString, getList, decrypt, encrypt,
+         createStoreItem, useStoreItem, openGeneralStore, localStrToDate, makeChangeHandler, register,
+         unregister, now, TS, applyOptions, FormFields, pretty, Show, Input, Form, useFetch,
+         setFieldGenerator,
          fieldGeneratorLookup }
