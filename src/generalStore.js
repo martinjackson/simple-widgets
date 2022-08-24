@@ -19,7 +19,7 @@ const useStore = create(set => ({
   return () => useStore(state => [state[name], state[setFn]])    // just the pieces we want out of the store
 }                                                                // to act like a hook
 
-storeInventory[useUsername] = createStoreItem('username', null)           // useUsername() will be called later
+storeInventory["useUsername"] = createStoreItem('username', null)           // useUsername() will be called later
 
 // -------------------------------------------------------------------------------------------------
 export const useStoreItem = (name) => {
