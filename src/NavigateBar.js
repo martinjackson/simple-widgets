@@ -209,8 +209,9 @@ const NavigateBar = (props) => {
         menuIcon = <div className="nav-center">&#x2630;</div>
     }
 
+    const disabled = (props.disabled) ? true : null
     return (
-        <nav className={'nav-nav-menu ' + open}>
+        <nav className={'nav-nav-menu ' + open} disabled={disabled}>
             {menuIcon}
             <ul className={click ? 'nav-menu active' + navType : 'nav-menu' + navType}>
                 {buildMainMenu(menuTree)}
