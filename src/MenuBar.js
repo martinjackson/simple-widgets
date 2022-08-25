@@ -15,9 +15,9 @@ export const MenuBar = (props) => {
     const [curPath, setCurPath]   = useState(props.path)
     const [curParms, setCurParms] = useState({})
     const [disableMenu, setDisableMenu] = useState(null)
-    
+
     setMenuPath = setCurPath
-    setMenuParms = (val) => { 
+    setMenuParms = (val) => {
         menuParms = {...val}
         setCurParms(val);
     }
@@ -71,21 +71,32 @@ export const MenuBar = (props) => {
 
     const classStyle = (noSide === true) ? "" : " menubar";
 
-    const ActComp = active.component();
-    
-    let componentClass = (type === 'horizontal' || open === 'always') ? null : "nav_menu_component"
-    
+    const ActComp = active.component;
+
+    let componentClassName = (type === 'horizontal' || open === 'always') ? null : "nav_menu_component"
+
+    const signalUnsaved = (flag) => {     // null or true,   if true they have unsaved data
+      if (flag) {
+        // console.log('Active Menu Component signals they have unsaved data. ');
+        setDisableMenu(true)
+      } else {
+        // console.log('Active Menu Component clears signal. ');
+        setDisableMenu(null)
+      }
+
+    }
+
     return (
-        <div className={"sw-menu"+classStyle}>
-            <NavigateBar 
-                 menuTree={props.menuTree} 
-                 symbol={symbol} 
-                 subsymbol={subSymbol} 
-                 type={type} 
-                 open={open} 
-                 disable={disableMenu} />
-            <div className={componentClass}>
-                 <ActComp disableMenu={setDisableMenu} />
+        <div className={"sw-menu "+classStyle}>
+            <NavigateBar
+                 menuTree={props.menuTree}
+                 symbol={symbol}
+                 subsymbol={subSymbol}
+                 type={type}
+                 open={open}
+                 disabled={disableMenu} />
+            <div className={componentClassName}>
+                 <ActComp signalUnsaved={signalUnsaved} />
             </div>
         </div>
     )
