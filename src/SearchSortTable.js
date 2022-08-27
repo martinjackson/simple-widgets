@@ -84,12 +84,15 @@ const SearchSortTable = (propsPassed) => {
     const SRCHITEM = 1;
     const SRCHHDR = 2;
 
-    const numCols = props.data[0]?.length || 10
-    const initialFilters = Array(numCols).fill('');  // React doesn't like <input value={null}
+    const numCols = props.table.length || 10             // number of columns displayed
+    const initialFilters = Array(numCols).fill('');      // React doesn't like <input value={null}
+    const initialSortOrder = Array(numCols).fill('N');
+
     const initialBackground = Array(63).fill({backgroundColor: getComputedStyle(document.documentElement)
                     .getPropertyValue('--sw-theme_backgroundColor')});
 
     let startIndexes = range(0, props.data.length-1)
+
 
     // Set the state variables
     const [start, setStart] = useState(0);
@@ -97,7 +100,7 @@ const SearchSortTable = (propsPassed) => {
     const [searchItem, setSearchItem] = useState('');                   // The item to search for
     const [searchHeader, setSearchHeader] = useState('');               // The column to search
     const [searchHeaderValues, setSearchHeaderValues] = useState([searchHeader]); // The value of each header in the table -- intialize array to include default value
-    const [sortOrder, setSortOrder] = useState([]);                     // Indicates whether the sort is ascending (A) or descending (D) (starts of a ascending and then alternates)
+    const [sortOrder, setSortOrder] = useState(initialSortOrder);       // Indicates the sort: (N) none, (A) ascending,  or (D) descending (D)
     const [topDisabled, setTopDisabled] = useState(true);               // Indicates whether the top button is disabled or not
     const [previousDisabled, setPreviousDisabled] = useState(true);     // Indicates whether the previous button is disabled or not
     const [nextDisabled, setNextDisabled] = useState(false);            // Indicates whether the next button is disabled or not
@@ -224,7 +227,7 @@ const SearchSortTable = (propsPassed) => {
      *
      ****************************************************************************/
     function populateSearch(table) {
-        let order = [];         // The next sort order
+        // let order = [];         // The next sort order          mj
         let localFilter = [...filter];   // The values in the filter input boxes
         let search = [''];      // The values for the drop down
 
@@ -237,7 +240,7 @@ const SearchSortTable = (propsPassed) => {
             if (table[i].search === true) {
                 search.push (table[i].header);
             }
-            order.push ('N');
+            // order.push ('N');     // <-- why turn off the sort on every column ??  mj
             if (hasProperty(props,'nofilter') === false) {
                 localFilter[i] = '';
             }
@@ -245,7 +248,12 @@ const SearchSortTable = (propsPassed) => {
 
         setSearchHeaderValues(search);
 
+        /*
+        This turns of the sorting order immediately    mj
+
+        console.log('sortOrder was:', sortOrder, 'changing to:', order, '    <-- why turn off sort if table[i].search === true ??? mj');
         setSortOrder(order);
+        */
 
         setFilter(localFilter);
 
@@ -279,7 +287,7 @@ const SearchSortTable = (propsPassed) => {
     } else if (hasProperty(props, 'height') === true && hasProperty(props, 'width') === true) {
         heightWidthStyle = { height: props.height, width: props.width };
     }
-    
+
     let filterBackground = null;
     if (filterOn !== 'Y') {
         filterBackground = 'sw-sst_imageStyleDisable';
@@ -1000,15 +1008,15 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*********************************************************************************************
-     * 
+     *
      * This is search through the date and compare dates in the correct format to see if they
      * are equal.  If they are equal, it will move that row in the table to the top.
-     * 
+     *
      * Parameters:
      * 1.   searchItem - the date to search for
      * 2.   name - the name in the props.table that indicates the date column
      * 3.   tableIndex - the index into the props.table
-     * 
+     *
      **********************************************************************************************/
     function searchDate (searchItem, name, tableIndex) {
         let data = props.data;  // The data to filter
@@ -1145,6 +1153,9 @@ const SearchSortTable = (propsPassed) => {
      *
      *************************************************************************************/
     function sortClicked(name, orderType, indexes) {
+
+        // console.log('sortClicked(',name, orderType);
+
         if (!table) {
            return []
         }
@@ -1167,6 +1178,7 @@ const SearchSortTable = (propsPassed) => {
                 order[index] = 'N'
             }
 
+            // console.log('sortOrder was:', sortOrder, 'changing to:', order);
             setSortOrder(order);
         }
 
@@ -1247,6 +1259,7 @@ const SearchSortTable = (propsPassed) => {
 
     function resetSortOrder() {
         let order = new Array(table.length).fill('N');
+        console.log('sortOrder was:', sortOrder, 'changing to:', order);
         setSortOrder(order);
     }
 
