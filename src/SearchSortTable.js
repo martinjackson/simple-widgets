@@ -239,7 +239,7 @@ const SearchSortTable = (propsPassed) => {
             if (table[i].search === true) {
                 search.push (table[i].header);
             }
-            if (hasProperty(props,'nofilter') === false) {
+            if (hasProperty(props,'nofilter') === true) {
                 localFilter[i] = '';
             }
         }
@@ -1152,6 +1152,9 @@ const SearchSortTable = (propsPassed) => {
         }
 
         let index = table.map(function(e) { return e.name; }).indexOf(name);   // Column match
+
+        console.log('sortClicked index:', index, 'name:', name);
+
         let order = [...sortOrder];
         let ordering = 'A';
 
@@ -1169,9 +1172,10 @@ const SearchSortTable = (propsPassed) => {
                 order[index] = 'N'
             }
 
-            // console.log('sortOrder was:', sortOrder, 'changing to:', order);
             setSortOrder(order);
         }
+
+        console.log('sortOrder was:', sortOrder, 'changing to:', order, 'ordering:', ordering, 'orderType:', orderType);
 
         if (ordering === 'N') {
             setIndex(copyIndex, false);
