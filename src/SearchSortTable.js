@@ -768,7 +768,8 @@ const SearchSortTable = (propsPassed) => {
                 }
 
                 // The data field is blank or has no value
-                if (data[indexes[i]][table[indexing[j]].name] === null) {
+                if (data[indexes[i]][table[indexing[j]].name] === null ||
+                    data[indexes[i]][table[indexing[j]].name] === undefined) {
                     found.push(false);
                     done = true;
                 } else if (foundDate === true) {    // The field contains a date
