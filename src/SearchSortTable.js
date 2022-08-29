@@ -227,7 +227,6 @@ const SearchSortTable = (propsPassed) => {
      *
      ****************************************************************************/
     function populateSearch(table) {
-        // let order = [];         // The next sort order          mj
         let localFilter = [...filter];   // The values in the filter input boxes
         let search = [''];      // The values for the drop down
 
@@ -240,20 +239,12 @@ const SearchSortTable = (propsPassed) => {
             if (table[i].search === true) {
                 search.push (table[i].header);
             }
-            // order.push ('N');     // <-- why turn off the sort on every column ??  mj
             if (hasProperty(props,'nofilter') === false) {
                 localFilter[i] = '';
             }
         }
 
         setSearchHeaderValues(search);
-
-        /*
-        This turns of the sorting order immediately    mj
-
-        console.log('sortOrder was:', sortOrder, 'changing to:', order, '    <-- why turn off sort if table[i].search === true ??? mj');
-        setSortOrder(order);
-        */
 
         setFilter(localFilter);
 
