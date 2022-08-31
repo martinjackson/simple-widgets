@@ -4,7 +4,7 @@ This will build an outline (vertical) on the screen.  Each items can be either a
 
 Props:
 
-1.  links = contains the tree structure for the outline as an array.  An example of the links array:
+1.  ***links*** = contains the tree structure for the outline as an array.  An example of the links array:
 ```js
     const links = [
         { title: 'Saving',      textStyle: 'bold' },
@@ -32,29 +32,29 @@ The File and Exit titles are title components and will NOT be styled or indented
 
 The selected item for all but exit will appear to the right of the outline component.  Exit will appear on a new page, due to the type: new.  The other possible values are side.
 
-2. disabled = indicates that the entire outline is disabled.  Can be set to disabled={true} or disabled={false}
+2. ***disabled*** = indicates that the entire outline is disabled.  Can be set to disabled={true} or disabled={false}
 
 
 ## Fields in a link object
 
-1. title = the title that will appear on the screen.  A title can either be a title only or a title component.  A title component will have a path and component associated with that title.  A title only will not have a path or component.
+1. ***title*** = the title that will appear on the screen.  A title can either be a title only or a title component.  A title component will have a path and component associated with that title.  A title only will not have a path or component.
 
-2. textStyle = indicates that the style of the text is either bold, italicized, or plain.  The following options are available:
-    a. bold = indicates that the text will be bold
-    b. italic = indicates that the text will be italicized
-    c. plain = indicates that the text will not be styled.  This is the default.
+2. ***textStyle*** = indicates that the style of the text is either bold, italicized, or plain.  The following options are available:
+    - ***bold*** = indicates that the text will be bold
+    - ***italic*** = indicates that the text will be italicized
+    - ***plain*** = indicates that the text will not be styled.  This is the default.
 
-3. indent = indicates that the title should be indented a standard amount (1em).  If indent is true, the title is indented the standard amount.  If indent is false (default), the title is not indented.
+3. ***indent*** = indicates that the title should be indented a standard amount (1em).  If indent is true, the title is indented the standard amount.  If indent is false (default), the title is not indented.
 
-4. spacing = indicates that the title should be indented the given amount.  After the spacing field, the value should be given in px, em, or rem.  The title will be indented that amount.  The default is 1em.
+4. ***spacing*** = indicates that the title should be indented the given amount.  After the spacing field, the value should be given in px, em, or rem.  The title will be indented that amount.  The default is 1em.
 
-5. path = the URL path for the field.
+5. ***path*** = the URL path for the field.
 
-6. component = the component that will be displayed when the mouse selects that item from the outline.
+6. ***component*** = the component that will be displayed when the mouse selects that item from the outline.
 
-7. type = indicates whether the component should be displayed to the right of the outline or as a new page.  If a new page the outline will disappear.  The following are the options:
-    a. side = indicates that the component will be displayed to the right of the outline.  This is the default.
-    b. new = indicates that the component will be displayed on a new page.  The outline will disappear.  If this option is used and a menubar is being used, then the path and component should be listed on the menuTree array.
+7. ***type*** = indicates whether the component should be displayed to the right of the outline or as a new page.  If a new page the outline will disappear.  The following are the options:
+    - ***side*** = indicates that the component will be displayed to the right of the outline.  This is the default.
+    - ***new*** = indicates that the component will be displayed on a new page.  The outline will disappear.  If this option is used and a menubar is being used, then the path and component should be listed on the menuTree array.
 
 
 
