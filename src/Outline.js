@@ -11,7 +11,7 @@ export const Outline = (props) => {
         let buttonClass = 'sw-outline-button';
         if (props.hasOwnProperty('disabled')) {
             disabled = props.disabled;
-            buttonClass = 'sw-outline-button_disable'
+            buttonClass = (disabled === true) ? 'sw-outline-button_disable' : 'sw-outline-button';
         }
 
         return links.map ((row, i) => {
