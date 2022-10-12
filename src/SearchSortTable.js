@@ -24,6 +24,9 @@ const hasProperty = (obj, propName) => {
 }
 
 function range(start, end) {
+    if (end == -1 || end < start) {
+      return []
+    }
     return Array(end - start + 1).fill().map((_, idx) => start + idx)
 }
 
@@ -69,8 +72,8 @@ const SearchSortTable = (propsPassed) => {
 
     const props = Object.assign(defaultProps, propsPassed);
 
-    if (!props?.data) {
-       console.log('SearchSortTable: props.data is missing/null');
+    if (!props?.data || !Array.isArray(props.data)) {
+       console.log('SearchSortTable: props.data is missing/null or not an Array:', props.data);
        return <><hr /></>
     }
 
@@ -84,14 +87,14 @@ const SearchSortTable = (propsPassed) => {
     const SRCHITEM = 1;
     const SRCHHDR = 2;
 
-    const numCols = props.table.length || 10             // number of columns displayed
-    const initialFilters = Array(numCols).fill('');      // React doesn't like <input value={null}
+    const numCols = (props.table) ? props.table.length : 10    // number of columns displayed
+    const initialFilters = Array(numCols).fill('');            // React doesn't like <input value={null}
     const initialSortOrder = Array(numCols).fill('N');
 
     const initialBackground = Array(63).fill({backgroundColor: getComputedStyle(document.documentElement)
                     .getPropertyValue('--sw-theme_backgroundColor')});
 
-    let startIndexes = range(0, props.data.length-1)
+    let startIndexes = (props.data.length > 0) ? range(0, props.data.length-1) : []
 
 
     // Set the state variables
@@ -1154,7 +1157,7 @@ const SearchSortTable = (propsPassed) => {
 
         let index = table.map(function(e) { return e.name; }).indexOf(name);   // Column match
 
-        console.log('sortClicked index:', index, 'name:', name);
+        // console.log('sortClicked index:', index, 'name:', name);
 
         let order = [...sortOrder];
         let ordering = 'A';
@@ -1176,7 +1179,7 @@ const SearchSortTable = (propsPassed) => {
             setSortOrder(order);
         }
 
-        console.log('sortOrder was:', sortOrder, 'changing to:', order, 'ordering:', ordering, 'orderType:', orderType);
+        // console.log('sortOrder was:', sortOrder, 'changing to:', order, 'ordering:', ordering, 'orderType:', orderType);
 
         if (ordering === 'N') {
             setIndex(copyIndex, false);
