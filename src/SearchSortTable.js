@@ -72,7 +72,7 @@ const SearchSortTable = (propsPassed) => {
 
     const props = Object.assign(defaultProps, propsPassed);
 
-    if (!props?.data || !Array.isArray(props.data)) {
+    if (!props.data || !Array.isArray(props.data)) {
        console.log('SearchSortTable: props.data is missing/null or not an Array:', props.data);
        return <><hr /></>
     }
@@ -562,7 +562,7 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} i     the index of the column in the table
      *
      *********************************************************************************/
-    function buildHeaders (row, i) {
+    function buildHeaders(row, i) {
         let key = 'cell_' + i;
         let btnImg = '\u2BC8';
         // let filterKey = 'filter_' + i;
@@ -991,11 +991,11 @@ const SearchSortTable = (propsPassed) => {
             // Find a match in the correct column of the data
             let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
             if (hasProperty(table[tableIndex], 'dataDate') && hasProperty(table[tableIndex], 'searchDate')) {
-                searchDate (search, table[tableIndex].name, tableIndex);
+                searchDate(search, tableIndex);
             } else if (hasProperty(props,'searchstart') === true) {
-                searchStart (search, table[tableIndex].name);
+                searchStart(search, table[tableIndex].name);
             } else {
-                searchAny (search, table[tableIndex].name);
+                searchAny(search, table[tableIndex].name);
             }
 //            let index = props.data.findIndex(val => val[table[tableIndex].name].toString().startsWith(search));   // Text match
 //            setStartEnd(index); // Set the start and end to show the found text
@@ -1013,7 +1013,8 @@ const SearchSortTable = (propsPassed) => {
      * 3.   tableIndex - the index into the props.table
      *
      **********************************************************************************************/
-    function searchDate (searchItem, name, tableIndex) {
+    function searchDate(searchItem, tableIndex) {
+
         let data = props.data;  // The data to filter
         let done = false;
 
@@ -1103,7 +1104,7 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} name      the field name in the data to search for the search item
      *
      *********************************************************************************************/
-    function searchStart (search, name) {
+    function searchStart(search, name) {
         let begin = (hasProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
         let found = false;  // Indicates that the item was found
 
@@ -1124,7 +1125,7 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} name      the field name in the data to search for the search item
      *
      *********************************************************************************************/
-    function searchAny (search, name) {
+    function searchAny(search, name) {
         let begin = (hasProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
         let found = false;  // Indicates that the item was found
 
@@ -1248,7 +1249,7 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} i     the index into the letterDigit array
      *
      ***********************************************************************************/
-    function alphabet (row, i) {
+    function alphabet(row, i) {
         let key = 'anchor_' + i;
 
         return (
@@ -1411,7 +1412,7 @@ const SearchSortTable = (propsPassed) => {
      * @param {*} index the current starting position
      *
      ***********************************************************************************/
-    function setStartEnd (index, dataLen, indexes) {
+    function setStartEnd(index, dataLen, indexes) {
         if (index !== -1) {
             if (index + maxItems >= dataLen) { // End is past the data
                 setStart (index);
