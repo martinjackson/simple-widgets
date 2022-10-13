@@ -628,13 +628,10 @@ A title of Pick will be displayed centered at the top of the table.  If a differ
         { header: 'Description',        name: 'DESCRIPTION',        search: true,   sort: true  },
         { header: 'How Many',           name: 'QUANTITY',           search: true,   sort: true  },
         { header: 'Cost',               name: 'UNIT_COST',          search: true,   sort: true  },
-        { header: 'Due Date',           name: 'DATE_DUE',           search: true,   sort: true  },
-        { header: 'Rcvd Date',          name: 'RCVD_DATE',          search: true,   sort: true  },
-    ];
-
-    let dateTable = [
-        { index: 4, data: 'YYYY-MM-DD', filter: 'MM/DD/YYYY' },
-        { index: 5, data: 'YYYY-MM-DD', filter: 'MM/DD/YYYY'}
+        { header: 'Due Date',           name: 'DATE_DUE',           search: true,   sort: true, 
+              dataDate: 'YYYY-MM-DD', filterDate: 'MM/DD/YYYY', sortDate: 'YYYY-MM-DD'          },
+        { header: 'Rcvd Date',          name: 'RCVD_DATE',          search: true,   sort: true,  },
+              dataDate: 'YYYY-MM-DD', filterDate: 'MM/DD/YYYY', sortDate: 'YYYY-MM-DD'          },
     ];
 ```
 

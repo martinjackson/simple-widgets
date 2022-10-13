@@ -26,6 +26,7 @@ The CSS class to style the button:
 
 ***sw-modal_buttonStyle*** = the style used for the OK button.
 
+```css
 .sw-modal_buttonStyle {
     margin: var(--theme_buttonMargin);
     border-radius: var(--theme_buttonRadius);
@@ -37,7 +38,7 @@ The CSS class to style the button:
     font-size: var(--theme_buttonFontSize);
     background-color: var(--theme_buttonColor);
 }
-
+```
 ### **Example**
 An example of a Modal:
 

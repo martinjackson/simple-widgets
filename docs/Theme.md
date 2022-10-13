@@ -38,7 +38,7 @@ The following CSS variables are available for theming:
 | Disable Button Color | gray | --sw-theme_disableButtonColor |
 | Font | Times New Roman | --sw-theme_font |
 | Font Weight | plain | --sw-theme_fontWeight |
-| Font Size | 12 | --theme_fontSize |
+| Font Size | 12 | --sw-theme_fontSize |
 | Error Color | pink | --sw-theme_errorColor |
 | Normal Background Color | white | --sw-theme_normalColor |
 | Text Color | black | --sw-theme_textColor |
