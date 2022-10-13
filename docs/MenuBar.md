@@ -50,23 +50,23 @@ The title field is the title that will be displayed on the menu.  The path is th
     If type is given an invalid value, it will default to horizontal.
 
 3. open = indicates how the menu is to open.  The two possible values are:
-    a. always = indicates the menu will be displayed.  This is the default.
-    b. slide = indicates that a menu symbol will be displayed, and when the mouse is placed over the menu symbol, it will expand to the right.
+    - always = indicates the menu will be displayed.  This is the default.
+    - slide = indicates that a menu symbol will be displayed, and when the mouse is placed over the menu symbol, it will expand to the right.
 
     If open is given an invalid value, it will default to always.
 
 4.  path = if a certain screen is specified in the url (the path in the menutree), it will automatically take you to that screen when the application is launched.  The path that is on the URL must match a path name in the menutree; otherwise it will default to the first screen.  The path should only contain only the path name.
 
 5. subsymbol = indicates whether a down arrow should be placed next to the title.  The two possible values are:
-    a. arrow = place a down arrow next to the title.
-    b. a unicode symbol in the form of &#xUNICODE_HEXNUM;
-    c. none = no symbol will be placed next to the title.  This is the default.
+    - arrow = place a down arrow next to the title.
+    - a unicode symbol in the form of &#xUNICODE_HEXNUM;
+    - none = no symbol will be placed next to the title.  This is the default.
 
 6. symbol = indicates whether a right arrow or ellipsis should be placed next to the title to indicate that the submenu has a menu.  The three possible values are:
-    a. arrow = place a right arrow next to the title.
-    b. dots = place an ellipsis next to the title.
-    c. a unicode symbol in the form of &#xUNICODE_HEXNUM;
-    d. none = no symbol will be placed next to the title.  This is the default.
+    - arrow = place a right arrow next to the title.
+    - dots = place an ellipsis next to the title.
+    - a unicode symbol in the form of &#xUNICODE_HEXNUM;
+    - none = no symbol will be placed next to the title.  This is the default.
 
 7. noSide = indicates that the selected menu item should be placed underneath the vertical menu instead of beside it.  This option only works with vertical menus.  If this option does not exist, it will place the menu item selected beside the vertical menu.
 
