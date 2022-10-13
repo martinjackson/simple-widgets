@@ -11,7 +11,7 @@ The List component uses the following props:
     _example onChange={handleChange}_
 3.  **list**: an array of Strings displayed in the list box
 4.  **multiple**: allows multiple items in the list box to be selected.
-5            <ContextMenu menu={menu}
+            <ContextMenu menu={menu}
                          show={showMenu}
                          closeFunct={setShowMenu}
                          backColor="cyan"
@@ -19,7 +19,7 @@ The List component uses the following props:
                          radius="none"
                          positionX={position.X}
                          positionY={position.Y} />
-.  **size**: the size of the list box (number of items to display, after that the user must scroll to see the rest of the items).  Default size is 10.
+5.  **size**: the size of the list box (number of items to display, after that the user must scroll to see the rest of the items).  Default size is 10.
 
 ### **Example**
 ```javascript
