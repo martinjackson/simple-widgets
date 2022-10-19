@@ -40,13 +40,13 @@ const Breed2 = (props) => {
     }
 
     let sheet = [        
-        { header: 'Female ID',              name: 'femaleID',           validate: true,  save: false, hidden: false,    type: 'text' },
-        { header: 'Day In',                 name: 'dayIn',              validate: true,  save: true,  hidden: false,    type: 'date' },
-        { header: 'Pregnant',               name: 'pregnantName',       validate: false, save: false, hidden: false,    type: 'Choice', choices: pregValues},
-        { header: 'Expected Sex',           name: 'expectedSexName',    validate: false, save: false, hidden: false,    type: 'ChoiceText', choices: sexValues },
-        { header: 'Breeding Note',          name: 'note',               validate: false, save: true,  hidden: false,    type: 'textarea' },
-        { header: 'Gestation Period',       name: 'gestPeriod',         validate: false, save: true,  hidden: false,    type: 'number' },
-        { header: 'Born Alive',             name: 'bornAlive',          validate: false, save: true,  hidden: false,    type: 'CheckBox', 
+        { header: 'Female ID',              name: 'femaleID',           validate: true,  save: false, hidden: false, disabled: false,    type: 'text' },
+        { header: 'Day In',                 name: 'dayIn',              validate: true,  save: true,  hidden: false, disabled: false,    type: 'date' },
+        { header: 'Pregnant',               name: 'pregnantName',       validate: false, save: false, hidden: false, disabled: false,    type: 'Choice', choices: pregValues},
+        { header: 'Expected Sex',           name: 'expectedSexName',    validate: false, save: false, hidden: false, disabled: false,    type: 'ChoiceText', choices: sexValues },
+        { header: 'Breeding Note',          name: 'note',               validate: false, save: true,  hidden: false, disabled: false,    type: 'textarea' },
+        { header: 'Gestation Period',       name: 'gestPeriod',         validate: false, save: true,  hidden: false, disabled: false,    type: 'number' },
+        { header: 'Born Alive',             name: 'bornAlive',          validate: false, save: true,  hidden: false, disabled: false,    type: 'CheckBox', 
         selectedValue: 'Y' },
     ];
 
@@ -249,7 +249,7 @@ Information and Info
     }
 ```
 
-    The data is the spread sheet data that needs to be saved.  It will only have the field names that are to be saved in the sheet array (see above).
+-    The data is the spread sheet data that needs to be saved.  It will only have the field names that are to be saved in the sheet array (see above).
 
 3.  ***data*** = contains the spread sheet data.  This is only required if a button for a modal is being used or if you want to pre load data.  If used and no pre loaded data is needed, data should be set to an empty array.
 
@@ -263,20 +263,20 @@ The rest of the props are optional:
     }
 ```
 
-    The name of the specialProcessing function is processValue.  The four parameters passed to it are:
+- The name of the specialProcessing function is processValue.  The four parameters passed to it are:
     - data = the data in the spread sheet.
     - name = the name of the field the value is being placed.
     - value = the value that is being placed in the name field.
     - index = the row number in the data array where the data is being placed.
 
-5.  ***specialProcessingSave = this function is called to do any processing before the save function (see the saveFunct prop) is called.
+5.  ***specialProcessingSave*** = this function is called to do any processing before the save function (see the saveFunct prop) is called.
 ```js
     const processSave = (data) => {
         ...
     }
 ```
 
-    The name of the specialProcessingSave function is processSave.  The data parameter is the data in the spread sheet.
+-    The name of the specialProcessingSave function is processSave.  The data parameter is the data for the current row being processed in the spread sheet.
 
 6.  ***maxItems*** = is the maximum number of items that can be displayed in the spreadsheet.  Pagination is used to see the rest of the rows in the spread sheet.  The default is 50.
 
