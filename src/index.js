@@ -26,6 +26,7 @@ import Radio from './Radio.js'
 import { search, binSearch } from './SearchFunct.js'
 import SearchSortTable from './SearchSortTable.js'
 import Slider from './Slider.js'
+import SpreadSheet from './SpreadSheet.js'
 import { StatusBox } from './StatusBox.js'
 import { generateButton, generateDefaultButton, generateCSSButton, generateCSSDefaultButton } from './Theme.js'
 import { isOpera, isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium, isBlink } from './browserDetect.js'
@@ -50,10 +51,10 @@ export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, 
          clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly,
          processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage, Choice, List,
          getMenuParms, MenuBar, Redirect, Link, Modal, NavigateBar, Outline, Radio, search, binSearch,
-         SearchSortTable, Slider, StatusBox, generateButton, generateDefaultButton, generateCSSButton,
-         generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium,
-         isBlink, toCamelCase, date2str, lastOfMonth, todayString, getList, decrypt, encrypt,
-         createStoreItem, useStoreItem, openGeneralStore, localStrToDate, makeChangeHandler, register,
-         unregister, now, TS, applyOptions, FormFields, pretty, Show, Input, Form, useFetch,
+         SearchSortTable, Slider, SpreadSheet, StatusBox, generateButton, generateDefaultButton,
+         generateCSSButton, generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, isEdge, isChrome,
+         isEdgeChromium, isBlink, toCamelCase, date2str, lastOfMonth, todayString, getList, decrypt,
+         encrypt, createStoreItem, useStoreItem, openGeneralStore, localStrToDate, makeChangeHandler,
+         register, unregister, now, TS, applyOptions, FormFields, pretty, Show, Input, Form, useFetch,
          setFieldGenerator,
          fieldGeneratorLookup }
