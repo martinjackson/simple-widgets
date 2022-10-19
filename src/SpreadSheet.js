@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { client } from './client';
-import CheckBox from './CheckBox.js';
-import { Choice } from './List.js';
+import CheckBox        from './CheckBox.js';
+import { Choice }      from './List.js';
+import SearchSortTable from './SearchSortTable.js';
+import ChoiceText      from './ChoiceText.js';
+import Radio           from './Radio.js';
+
 import { isInvalid, setInvalidTable, generateInvalid,
          checkValidityTable, validCheckTable, 
          clearInvalidTable, 
          processInvalidStyleTable, wasClickedTable} from './Invalid.js'
-import AlertModal from './AlertModal.js';
-import ErrorModal from './ErrorModal.js';
-import ConfirmModal from './ConfirmModal.js';
+
+import AlertModal    from './AlertModal.js';
+import ErrorModal    from './ErrorModal.js';
+import ConfirmModal  from './ConfirmModal.js';
+
 import { generateCSSButton } from './Theme.js';
-import SearchSortTable from './SearchSortTable.js';
-import ChoiceText from './ChoiceText.js';
-import Choice from './List.js';
-import CheckBox from './CheckBox.js';
-import Radio from './Radio.js';
 import { sanitize } from './Common.js';
          
 const hasProperty = (obj, propName) => {
