@@ -153,7 +153,11 @@ How to use Letters:
 
 ### **Other props:**
 
-1. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  A sample footer might be:
+1. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing.   The format of the function is the same as indexing.
+
+2.  ***error*** = indicates that an error occurred.  This will disable all buttons in the Search Sort Table.
+
+3. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  A sample footer might be:
 ```javascript
     let footer = [
         'Totals',
@@ -162,16 +166,18 @@ How to use Letters:
         totalCAN,
     ];
 ```
-2. **height** = the height of the scroll box only.
+4. **height** = the height of the scroll box only.
 
-3. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
+5. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
 
-4. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
+6. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
 ```javascript
 hoverColor="yellow"
 ```
 
-5. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
+7. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
+
+8. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
   - To use the letters option:
     1. Select a column header from the drop down menu.
     2. Select a letter or digit.
@@ -181,57 +187,54 @@ hoverColor="yellow"
     2. **nolower** = does not display the lower case letters
     3. **nodigit** = does not display the digits
 
-6. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100
+9. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100
 
-7. **nobottom** = does not display the bottom button.
+10. **nobottom** = does not display the bottom button.
 
-8. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
+11. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
 
-9. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
+12. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-10. **nofilter** = this will not display the Filter On check box and the filter button
+13. **nofilter** = this will not display the Filter On check box and the filter button
 
-11. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
-12. **nonext** = does not display the next button.
+14. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 
-13. **noprevious** = does not display the previous button.
+15. **nofooterborder** = do not put a border around each individual footer item.
 
-14. **nosearch** = does not display the header drop down, text box, and Search button.
+16. **noheaderborder** = do not put a border around each individual header item.
 
-15. **nosort** = does not allow the headers to be sorted.
+17. **nonext** = does not display the next button.
 
-16. **notop** = does not display the top button or the total number of rows.
+18. **noprevious** = does not display the previous button.
 
-17. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+19. **nosearch** = does not display the header drop down, text box, and Search button.
 
-18. **searchstart** = indicates that the search item will only match those data items that start with the search item
+20. **nosort** = does not allow the headers to be sorted.
 
-19. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
+21. **notop** = does not display the top button or the total number of rows.
 
-20. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+22. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-21. **ShowAll** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+23. **searchstart** = indicates that the search item will only match those data items that start with the search item
+
+24. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
+
+25. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+
+26. **ShowAll** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-22. **showTable** = this will show the table and headers even if there is no data to display.
+27. **showTable** = this will show the table and headers even if there is no data to display.
 
-23. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+28. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-24. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
+29. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 
-25. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing (32).  The format of the function is the same as indexing.
+30. **title** = supplies a title to be displayed centered at the top of the table.
 
-26. **title** = supplies a title to be displayed centered at the top of the table.
+31. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
 
-27. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, all other values use an h3 header.
-
-28. **width** = the width of the scroll box only.
-
-29. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
-
-30. **noheaderborder** = do not put a border around each individual header item.
-
-31. **nofooterborder** = do not put a border around each individual footer item.
+32. **width** = the width of the scroll box only.
 
 ## CSS Files
 
