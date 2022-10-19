@@ -3,23 +3,27 @@
 A Collection of components to make your React code simpler.
 
 Breaking Change:
+
 - 2021-09-01   DatePicker, DatePickerStyle, UnstyledDatePicker are now obsolete  please used DateInput instead (same React props)
 - last version (1.11.3) of simple-widgets to have DatePicker, DatePickerStyle, UnstyledDatePicker `npm install --save simple-widgets@1.11.3`
 
 Planned removal:
+
 - dropping makeChangeHandler from library (It assumes React Component style 'this', not React components using React Hooks)
 
-### Installation
+## Installation
 
 Using [npm](https://www.npmjs.com/):
-```
+
+```bash
     $ npm install --save simple-widgets
 ```
+
    or [yarn](https://yarnpkg.com/en/docs/migrating-from-npm):
-```
+
+```bash
     $ yarn add simple-widgets
 ```
-
 
 __**Input Components**__
 
@@ -35,7 +39,6 @@ All of these widgets require the following props:
 - choices: and a array of Strings as pull down choices
 - selectedValue: want the 'value' should change to when the CheckBox or Radio button is selected
 - text: a label (String or component) displayed following the CheckBox or Radio button
-
 
 __**Component Documents**__
 
@@ -58,6 +61,7 @@ __**Component Documents**__
 [Browser Detect](docs/BrowserDetect.md)
 
 __**Getting Started**__
+
 - [Short Tutorial](GettingStarted.md)
 - [Example Project](https://github.com/martinjackson/simple-widgets-sample)
 
