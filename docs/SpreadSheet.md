@@ -284,7 +284,7 @@ The rest of the props are optional:
     maxItems="30"
 ```
 
-    The maximum number of items to display at one time in the spread sheet is 30.  
+-    The maximum number of items to display at one time in the spread sheet is 30.  
 
 7.  ***blankRows*** = the total number of blank rows in the spread sheet.  If all the rows are to be displayed at once, make the maxItems and blankRows the same value.  The default is 100.
 
@@ -292,7 +292,7 @@ The rest of the props are optional:
     blankRows="50"
 ```
 
-    The number of blank rows in the spread sheet will be 50.
+-    The number of blank rows in the spread sheet will be 50.
 
 8.  ***additionRows*** = the number of additional rows to be added when the Add Rows button is pressed.  The default is 20.
 
@@ -300,7 +300,7 @@ The rest of the props are optional:
     additionalRows="10"
 ```
 
-    The number of additional rows added to the spread sheet is 10.
+-    The number of additional rows added to the spread sheet is 10.
 
 9.  ***title*** = the centered title to be displayed above the spread sheet.  No title will be displayed if the prop is not present.
 
@@ -308,7 +308,7 @@ The rest of the props are optional:
     title="Breeding"
 ```
 
-    Breeding will be the title that appears centered before the spread sheet.
+-    Breeding will be the title that appears centered before the spread sheet.
 
 10. ***noSave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
 
@@ -322,7 +322,7 @@ The rest of the props are optional:
     height="700px"
 ```
 
-    The height of the spread sheet is 700px.
+-    The height of the spread sheet is 700px.
 
 14. ***error*** = indicates that an error occurred.  This will disable all buttons and certain fields in the spread sheet.
 
@@ -348,7 +348,7 @@ import '../node_modules/simple-widgets/lib/sw-spreadSheet.css';
 
 For more information on CSS files, see Using CSS.
 
-# ***sw-spreadSheet.css***
+### ***sw-spreadSheet.css***
 This is the CSS file that styles the SpreadSheet component.
 
 # ***Classes***
@@ -518,7 +518,7 @@ export default Breed2;
         data={data} />
  ```
 
-    In the above example the Save, Clear, and Add Rows button will not appear at the bottom of the spread sheet.
+-    In the above example the Save, Clear, and Add Rows button will not appear at the bottom of the spread sheet.
 
 ## ***Example 3***
 
@@ -535,5 +535,5 @@ export default Breed2;
                 data={data} />
 ```
 
-    In the above example, the max rows on the screen match blank rows; therefore, the entire spread sheet will appear on the screen.
-    If the user presses the Add Rows button, 50 more blank rows will be added to the spread sheet.
+-    In the above example, the max rows on the screen match blank rows; therefore, the entire spread sheet will appear on the screen.
+-    If the user presses the Add Rows button, 50 more blank rows will be added to the spread sheet.
