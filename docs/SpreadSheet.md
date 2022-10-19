@@ -1,4 +1,4 @@
-# **Search Sort Table**
+# **Spread Sheet**
 
 This will allow a user to display a spread sheet on the screen.  The user can tab through the items on the spread sheet and enter values.  Buttons may also be placed in the spread sheet that will open a Modal to select an item athat will appear to the item to the left.
 
@@ -121,123 +121,125 @@ Example:
 ```
 
 Female ID and femaleID
-    The header for the first column will contain Female ID.
-    The name for the field that the value will be stored under is femaleID.
-    The field should be validated.
-    The field will ***not*** be saved when the save button is pressed.
-    The field should ***not*** be hidden and will be displayed.
-    The type that will be displayed for the field will be a text box.
+
+-    The header for the first column will contain Female ID.
+-    The name for the field that the value will be stored under is femaleID.
+-    The field should be validated.
+-    The field will ***not*** be saved when the save button is pressed.
+-    The field should ***not*** be hidden and will be displayed.
+-    The type that will be displayed for the field will be a text box.
 
 Female UAI
-    The is no need for a header since the field will be hidden.
-    The name of the field that the value will be stored under is femaleUAI.
-    The field will ***not*** be validated.
-    The field will be saved when the save button is pressed.
-    The field is hidden.
-    There is no need for a type since the field is hidden.
+-    The is no need for a header since the field will be hidden.
+-    The name of the field that the value will be stored under is femaleUAI.
+-    The field will ***not*** be validated.
+-    The field will be saved when the save button is pressed.
+-    The field is hidden.
+-    There is no need for a type since the field is hidden.
 
 Get
-    There is no header since the field is a button to invoke the modal.
-    The name of the button will be Get, since the is the name in the name field.
-    The field will ***not*** be validated.
-    The field will ***not*** be saved when the save button is pressed.
-    The field will be displayed and ***not*** hidden.
-    The type for the field will be a button.  The name of the function that will be called when the Get button is pressed will be getButton.  The parameters array that will be passed to the function will be an 'F'.  The format of the getButton function will be:
+-    There is no header since the field is a button to invoke the modal.
+-    The name of the button will be Get, since the is the name in the name field.
+-    The field will ***not*** be validated.
+-    The field will ***not*** be saved when the save button is pressed.
+-    The field will be displayed and ***not*** hidden.
+-    The type for the field will be a button.  The name of the function that will be called when the Get button is pressed will be getButton.  The parameters array that will be passed to the function will be an 'F'.  The format of the getButton function will be:
 
 ```js
         const getButton (param, index, data) {
-            ...
+            
         }
 ```
 
-        The name of the function is getButton.  The param parameter will be an array that contains the parameters in the sheet array (see above).  
+- The name of the function is getButton.  The param parameter will be an array that contains the parameters in the sheet array (see above).  
         
-        The index parameter is the index of the Get button within the data array.  If the Get button on the first row of the spread sheet was pressed, the index will be 0.
+- The index parameter is the index of the Get button within the data array.  If the Get button on the first row of the spread sheet was pressed, the index will be 0.
 
-        The data is the data that is stored in the spread sheet.  For example, if the Get button on the first row of the spread sheet was pressed, you can access data[index].femaleID.  Each element in the data array is an object with the field names being the names in the field name in the sheet array.
+- The data is the data that is stored in the spread sheet.  For example, if the Get button on the first row of the spread sheet was pressed, you can access data[index].femaleID.  Each element in the data array is an object with the field names being the names in the field name in the sheet array.
 
 Days In and DaysIn
 
-    The header for the first column will contain Days In.
-    The name for the field that the value will be stored under is daysIn.
-    The field will be validated.
-    The field will be saved when the save button is pressed.
-    The field should ***not*** be hidden and will be displayed.
-    The type that will be displayed for the field will be a date box.
+- The header for the first column will contain Days In.
+- The name for the field that the value will be stored under is daysIn.
+- The field will be validated.
+- The field will be saved when the save button is pressed.
+- The field should ***not*** be hidden and will be displayed.
+- The type that will be displayed for the field will be a date box.
 
 Pregnant and Pregnant Name
 
-    The header for the first column will contain Pregnant.
-    The name for the field that the value will be stored under is pregnantName.
-    The field should ***not*** be validated.
-    The field will be ***not*** saved when the save button is pressed.
-    The field should ***not*** be hidden and will be displayed.
-    The type that will be displayed for the field will be a Choice (a drop down).  
-    The values for the drop down are in choices, which are in pregValues.
+- The header for the first column will contain Pregnant.
+- The name for the field that the value will be stored under is pregnantName.
+- The field should ***not*** be validated.
+- The field will be ***not*** saved when the save button is pressed.
+- The field should ***not*** be hidden and will be displayed.
+- The type that will be displayed for the field will be a Choice (a drop down).  
+- The values for the drop down are in choices, which are in pregValues.
 
 Pregnant
 
-    The is no need for a header since the field will be hidden.
-    The name for the field that the value will be stored under is pregnant.
-    The field should ***not*** be validated.
-    The field will be saved when the save button is pressed.
-    The field should be hidden and will ***not*** be displayed.
-    There is no need for a type since the field is hidden.
+- The is no need for a header since the field will be hidden.
+- The name for the field that the value will be stored under is pregnant.
+- The field should ***not*** be validated.
+- The field will be saved when the save button is pressed.
+- The field should be hidden and will ***not*** be displayed.
+- There is no need for a type since the field is hidden.
     
 Expected Sex and Expected Sex Name
 
-    The header for the first column will contain Expected Sex.
-    The name for the field that the value will be stored under is expectedSexName.
-    The field should ***not*** be validated.
-    The field will be ***not*** saved when the save button is pressed.
-    The field should ***not*** be hidden and will be displayed.
-    The type that will be displayed for the field will be a ChoiceText (a drop down).  
-    The values for the drop down are in choices, which are in sexValues.
+- The header for the first column will contain Expected Sex.
+- The name for the field that the value will be stored under is expectedSexName.
+- The field should ***not*** be validated.
+- The field will be ***not*** saved when the save button is pressed.
+- The field should ***not*** be hidden and will be displayed.
+- The type that will be displayed for the field will be a ChoiceText (a drop down).  
+- The values for the drop down are in choices, which are in sexValues.
 
 Expected Sex
 
-    The is no need for a header since the field will be hidden.
-    The name for the field that the value will be stored under is expectedSex.
-    The field should ***not*** be validated.
-    The field will be saved when the save button is pressed.
-    The field should be hidden and will ***not*** be displayed.
-    There is no need for a type since the field is hidden.
+- The is no need for a header since the field will be hidden.
+- The name for the field that the value will be stored under is expectedSex.
+- The field should ***not*** be validated.
+- The field will be saved when the save button is pressed.
+- The field should be hidden and will ***not*** be displayed.
+- There is no need for a type since the field is hidden.
     
 Breeding Note and Note
-    The header for the first column will contain Breeding Note.
-    The name for the field that the value will be stored under is note.
-    The field should be ***not*** be validated.
-    The field will be saved when the save button is pressed.
-    The field should ***not*** be hidden and will be displayed.
-    The type that will be displayed for the field will be a textarea.
+
+- The header for the first column will contain Breeding Note.
+- The name for the field that the value will be stored under is note.
+- The field should be ***not*** be validated.
+- The field will be saved when the save button is pressed.
+- The field should ***not*** be hidden and will be displayed.
+- The type that will be displayed for the field will be a textarea.
 
 Gestation Period and Gest Period
 
-    The header for the first column will contain Gestation Period.
-    The name for the field that the value will be stored under is gestPeriod.
-    The field should be ***not*** be validated.
-    The field will be saved when the save button is pressed.
-    The field should ***not*** be hidden and will be displayed.
-    The type that will be displayed for the field will be a numeric field.
+- The header for the first column will contain Gestation Period.
+- The name for the field that the value will be stored under is gestPeriod.
+- The field should be ***not*** be validated.
+- The field will be saved when the save button is pressed.
+- The field should ***not*** be hidden and will be displayed.
+- The type that will be displayed for the field will be a numeric field.
 
 Born Alive and bornAlive
 
-    The header for the first column will contain Born Alive.
-    The name for the field that the value will be stored under is bornAlive.
-    The field should be ***not*** be validated.
-    The field will be saved when the save button is pressed.
-    The field should ***not*** be hidden and will be displayed.
-    The type that will be displayed for the field will be a CheckBox.
+- The header for the first column will contain Born Alive.
+- The name for the field that the value will be stored under is bornAlive.
+- The field should be ***not*** be validated.
+- The field will be saved when the save button is pressed.
+- The field should ***not*** be hidden and will be displayed.
+- The type that will be displayed for the field will be a CheckBox.
 
 Information and Info
 
-    The header for the first column will contain Information.
-    The name for the field that the value will be stored under is info.
-    The field should be ***not*** be validated.
-    The field will ***not*** be saved when the save button is pressed.
-    The field should ***not*** be hidden and will be displayed.
-    The type that will be displayed for the field will be a html.
-    The html field contains a span that will display the word Information.
+- The header for the first column will contain Information.
+- The name for the field that the value will be stored under is info.
+- The field should be ***not*** be validated.
+- The field will ***not*** be saved when the save button is pressed.
+- The field should ***not*** be hidden and will be displayed.
+- The type that will be displayed for the field will be a html.
+- The html field contains a span that will display the word Information.
 
 2.  ***saveFunct*** = the name of the save function that will save the data.  This is not required if the noSave attribute is used.
 
@@ -328,7 +330,7 @@ The rest of the props are optional:
     error={error}
 ```
 
-    The variable error will be passed into the spread Sheet.
+-    The variable error will be passed into the spread Sheet.
 
 15. ***indexing*** = is a function that returns the indexes into the current data being displayed.  This will rarely be used.  The user will need to add the indexing as a state variable.  See indexing in the Search Sort Table.
 
