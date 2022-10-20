@@ -44,8 +44,8 @@ The title field is the title that will be displayed on the menu.  The path is th
     Exit
 
 2. type = indicates the type of menu, either horizontal or vertical.  The two possible values are:
-    a. horizontal = indicates a horizontal menu.  This is the default; therefore, if this prop is missing, it will default to horizontal.
-    b. vertical = indicates a vertical menu.  All submenus will appear to the right of the menu.
+    - horizontal = indicates a horizontal menu.  This is the default; therefore, if this prop is missing, it will default to horizontal.
+    - vertical = indicates a vertical menu.  All submenus will appear to the right of the menu.
 
     If type is given an invalid value, it will default to horizontal.
 
@@ -55,7 +55,7 @@ The title field is the title that will be displayed on the menu.  The path is th
 
     If open is given an invalid value, it will default to always.
 
-4.  path = if a certain screen is specified in the url (the path in the menutree), it will automatically take you to that screen when the application is launched.  The path that is on the URL must match a path name in the menutree; otherwise it will default to the first screen.  The path should only contain only the path name.
+4.  path = if a certain screen is specified in the url (the path in the menutree), it will automatically take you to that screen when the application is launched.  The path that is on the URL must match a path name in the menutree; otherwise it will default to the first screen.  The path should only contain the path name.
 
 5. subsymbol = indicates whether a down arrow should be placed next to the title.  The two possible values are:
     - arrow = place a down arrow next to the title.

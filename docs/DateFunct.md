@@ -29,7 +29,7 @@ This set of functions will convert from one date format to another or will retur
  
     Parameters:
     -  value = the value to determine whether a 0 should be placed in front of the single digit
-
+<br>
 4.  **currentDateTime**<br>
     This will return the current date and time in the MM/DD/YYYY HH:MM:SS format.
 
@@ -78,3 +78,8 @@ This set of functions will convert from one date format to another or will retur
 
     Parameters:
     -  month = the month as a number between 0 and 11
+
+    **Example:**
+    ```javascript
+        let month = monthName(2);                       Result: MAR
+    ```

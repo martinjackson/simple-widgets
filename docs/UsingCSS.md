@@ -66,7 +66,9 @@ The css files in the simple-widgets library are:
 8. sw-invalid.css
 9. sw-modal.css
 10. sw-NavBar.css
+11. sw-outline.css
 11. sw-slider1.css to sw-slider5.css
+12. sw-spreadSheet.css
 12. sw-table.css
 13. sw-theme.css
 

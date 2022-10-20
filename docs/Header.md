@@ -3,15 +3,15 @@
 This will display the Logo, a title for the application, the user name that was set with User Information, and the database type (PROD, TEST, DEV) the application is using, and to logout from the application.  The database type can be hidden from the screen if the user wants.
 
 Props:
-1.  title = the title to display on the header.
-2.  titleLogo = the logo to be displayed on the right hand side of the header.  This needs to be an image file.
-3.  alertLogo = the logo to be displayed when an error message is displayed.  This needs to be an image file.
-4.  dbType = indicates where database for the application is set.  Common values are PROD, TEST, DEV.
-5.  logout = the action to be done when the user presses the Logout link on the right of the screen.
-6.  login = the action to be done when the user presses the Login link on the right of the screen.
-7.  username = the name of the user who is using the application.
-8.  setUsername = the name of the function that will set the user if header should change the name of the user.
-9.  noModalOnError = indicates that when an error occurs, the modal displaying the error will ***not*** appear.  By default the modal is displayed.
+1.  ***title*** = the title to display on the header.
+2.  ***titleLogo*** = the logo to be displayed on the right hand side of the header.  This needs to be an image file.
+3.  ***alertLogo*** = the logo to be displayed when an error message is displayed.  This needs to be an image file.
+4.  ***dbType*** = indicates where database for the application is set.  Common values are PROD, TEST, DEV.
+5.  ***logout*** = the action to be done when the user presses the Logout link on the right of the screen.
+6.  ***login*** = the action to be done when the user presses the Login link on the right of the screen.
+7.  ***username*** = the name of the user who is using the application.
+8.  ***setUsername*** = the name of the function that will set the user if header should change the name of the user.
+9.  ***noModalOnError*** = indicates that when an error occurs, the modal displaying the error will ***not*** appear.  By default the modal is displayed.
 
 All of the above values are optional.  If they are left off, it will use the values in the environment file.  An example .env file will be:
 

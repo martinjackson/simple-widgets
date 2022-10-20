@@ -175,9 +175,11 @@ How to use Letters:
 hoverColor="yellow"
 ```
 
-7. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
+7. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
 
-8. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
+8. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See examples.
+
+9. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
   - To use the letters option:
     1. Select a column header from the drop down menu.
     2. Select a letter or digit.
@@ -187,37 +189,35 @@ hoverColor="yellow"
     2. **nolower** = does not display the lower case letters
     3. **nodigit** = does not display the digits
 
-9. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100
+10. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100
 
-10. **nobottom** = does not display the bottom button.
+11. **nobottom** = does not display the bottom button.
 
-11. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
+12. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
 
-12. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
+13. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-13. **nofilter** = this will not display the Filter On check box and the filter button
+14. **nofilter** = this will not display the Filter On check box and the filter button
 
-14. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
+15. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 
-15. **nofooterborder** = do not put a border around each individual footer item.
+16. **nofooterborder** = do not put a border around each individual footer item.
 
-16. **noheaderborder** = do not put a border around each individual header item.
+17. **noheaderborder** = do not put a border around each individual header item.
 
-17. **nonext** = does not display the next button.
+18. **nonext** = does not display the next button.
 
-18. **noprevious** = does not display the previous button.
+19. **noprevious** = does not display the previous button.
 
-19. **nosearch** = does not display the header drop down, text box, and Search button.
+20. **nosearch** = does not display the header drop down, text box, and Search button.
 
-20. **nosort** = does not allow the headers to be sorted.
+21. **nosort** = does not allow the headers to be sorted.
 
-21. **notop** = does not display the top button or the total number of rows.
+22. **notop** = does not display the top button or the total number of rows.
 
-22. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+23. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-23. **searchstart** = indicates that the search item will only match those data items that start with the search item
-
-24. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
+24. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
 25. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 

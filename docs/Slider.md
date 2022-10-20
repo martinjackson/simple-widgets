@@ -8,10 +8,10 @@ The different CSS files allow you to select a slider.  The user can create their
 
 ## Props
 
-1. start = the first value the slider can have.  The default is 0.
-2. end = the last value the slider can have.  The default is 100.
-3. startValue = the starting value for the slider.  The default is 0.
-4. noshow = if the prop is present, the value that is displayed to the right of the slider will not be displayed.
+1. **start** = the first value the slider can have.  The default is 0.
+2. **end** = the last value the slider can have.  The default is 100.
+3. **startValue** = the starting value for the slider.  The default is 0.
+4. **noshow** = if the prop is present, the value that is displayed to the right of the slider will not be displayed.
 
 ## CSS File
 

@@ -105,6 +105,7 @@ const YourComponent = (props) => {
 
     return (
         <div>
+            <p onContextMenu={(event) => rightClick(event)}>Text for context menu</p>
             <ContextMenu menu={menu}
                          show={showMenu}
                          closeFunct={setShowMenu}

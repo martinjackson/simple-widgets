@@ -31,9 +31,8 @@ The two functions in this file are a sequential search and a binary search.
     Result:<br>
         found1: {id: 3, name: 'Mary'}<br>
         found2: null
-
-
-2.  **binSearch**<br>
+<br>
+2.  **binSearch**
     This will binary search a table until the key is found and returns the table entry associated with this key.
 
     Parameters:
