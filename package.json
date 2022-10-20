@@ -4,7 +4,7 @@
   "description": "A Collection of React components to make your React code simpler",
   "main": "./lib/index.js",
   "scripts": {
-    "postinstall": "echo 'manually run <npm audit> afterward.' ; npx npm-force-resolutions",
+    "post-install": "echo 'manually run <npm audit> afterward.' ; npx npm-force-resolutions",
     "setup": "npm install  --legacy-peer-deps",
     "lint": "eslint src/",
     "lint-fix": "eslint src/ --fix",
