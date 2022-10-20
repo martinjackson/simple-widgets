@@ -4,11 +4,11 @@ This will allow a user to select a file from a file menu and the file name will 
 The bring up the file menu, the user must press the button to the right of the input box.  By default it will be Browse.  The user can not enter a file name in the input box, it can only be selected from the file menu.
 
 ## Props
-1.  title is the title that goes before the input box.
-2.  getFileName is a function that returns the file name.
-3.  additionalProcessing is a function that does any additional processing after the file name has been selected.
-4.  accept is a list of file extensions seperated by commas that are displayed in the file menu.
-5.  buttonname is the name of the button to the right of the input box.  If no prop is given, the name of the button will be Browse.
+1.  ***title*** is the title that goes before the input box.
+2.  ***getFileName*** is a function that returns the file name.
+3.  ***additionalProcessing*** is a function that does any additional processing after the file name has been selected.
+4.  ***accept*** is a list of file extensions seperated by commas that are displayed in the file menu.
+5.  ***buttonname*** is the name of the button to the right of the input box.  If no prop is given, the name of the button will be Browse.
 
 ## CSS File
 

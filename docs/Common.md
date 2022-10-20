@@ -22,8 +22,8 @@ Contains common functions that can be useful.
         san1: { valid: false, message: "Record can not start with the word SELECT" }<br>
         san2: { valid: false, message: "Record can not start with a colon (:)" }<br>
         san3: { valid: true, message: "" }
-
-2.  **formatMoney**<br>
+<br>
+2.  **formatMoney**
     This function will take a floating point value and format it as a dollar amount.  It will contain a $ at the front of the number, commas in the appropriate places (every three decimal places from right to left), a decimal point, and two digits right of the decimal.
 
     For example: 12345.6789, will transformed to $12,345.68.

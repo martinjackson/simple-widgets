@@ -111,14 +111,14 @@ invalidValues = [<br>
 ## **Functions**
 Assist Functions (functions that will assist in building fields showing up in pink and hovering over the pink fields to show errors):
 
-1. **checkValidityScreen**<br>
+1. **checkValidityScreen**
     This will check to see if there is an invalid screen entry, and if there is, it will display an invalid message.
 
     Parameters:
     - invalidValues = the invalid array that contains what entries are invalid
     - constant = the screen constant that represents the array index to check in the invalid array.
-
-2. **checkValidityTable**<br>
+<br>
+2. **checkValidityTable**
     This will check to see if there is an invalid table entry, and if there is, it will display an invalid message.
 
     Parameters:
@@ -126,56 +126,56 @@ Assist Functions (functions that will assist in building fields showing up in pi
     - constant = the table constant that represents the array index to check in the invalid array.
     - index = the index into the table that contains the value being validated.
                             This is not the invalid array.
-
-3. **clearInvalidDual**<br>
+<br>
+3. **clearInvalidDual**
     This will clear the invalid values array, and reset the array to its original settings.  It will do this for the screen and table parts.
 
     Parameters:
     - invalidValues = list of invalid inputs for the screen and table
     - screen = array holding the starting and ending indexes (contants) for the screen part of the array
     - table = array holding the starting and ending indexes (contants) for the screen part of the array
-
-4. **clearInvalidScreen**<br>
+<br>
+4. **clearInvalidScreen**
     This will clear the invalid values array, and reset the array to its original settings.  It will do this for the screen.
 
     Parameters:
     - invalidValues = list of invalid inputs for the screen
-
-5. **clearInvalidScreenOnly**<br>
+<br>
+5. **clearInvalidScreenOnly**
     This function is used when there are both screen and table invalid entries.  This will clear the invalid screen entries only.  It will not clear the table entries.
 
     Parameters:
     -  invalidValues = list of invalid inputs for the screen
     -  constant = the constant for the last screen entry
-
-6. **clearInvalidTable**<br>
+<br>
+6. **clearInvalidTable**
     This will clear the invalid values array, and reset the array to its original settings.  It will do this for the table.
 
     Parameters:
     - invalidValues = list of invalid inputs for the table
-
-7. **generateInvalid**<br>
+<br>
+7. **generateInvalid**
     This will generate the invalid array mentioned above for both screen and table.  It will then return the invalid array.  If there are no screen entries set the number of screen constants parameter to 0.  If there are not table entries set the number of table constants parameter to 0.
 
     Parameters:
     - numScreenConstants = the number of entries for the screen.  If there are no screen entries then the value should be zero.
     - numTableConstants = the number of entries for the table.  If there are no table entries then the value should be zero.
-
-8. **getInvalidMessage**<br>
+<br>
+8. **getInvalidMessage**
     This will retrieve the message from the entry invalid value array for a table entry.
 
     Parameters:
     - invalid = a specific input item in the invalid value array (specific index)
     - pos = row number in the table if looking up a table entry or -1 for a screen entry
-
-9. **isInvalid** <br>
+<br>
+9. **isInvalid** 
     This will determine if the input item contains an invalid value and the message should be displayed or not based on the validity and display values for that item in the invalid value array.  This will work for screen or table entry.  If a screen entry, pos should be -1.
 
     Parameters:
     - invalid = a specific input item in the invalid value array (specific index)
     - pos = row number in the table if looking up a table entry or -1 for a screen entry
-
-10. **processInvalidStyleScreen**<br>
+<br>
+10. **processInvalidStyleScreen**
     This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.  This will return the style for the component.
 
     Parameters:
@@ -183,8 +183,8 @@ Assist Functions (functions that will assist in building fields showing up in pi
     - constant = indicates which of the input items is invalid (the index into the array)
     - cssClassName = the name of a cssClassName that will be concatenated with either
     theme_normalBackground or theme_errorBackground.  This parameter is optional and is only there if a CSS class name is to be included.
-
-11. **processInvalidStyleTable**<br>
+<br>
+11. **processInvalidStyleTable**
     This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.  This will return the style for the component.
 
     Parameters:
@@ -193,8 +193,8 @@ Assist Functions (functions that will assist in building fields showing up in pi
     - pos = row number in the table
     - cssClassName = the name of a cssClassName that will be concatenated with either
     theme_normalBackground or theme_errorBackground.  This parameter is optional and is only there if a CSS class name is to be included.
-
-12. **processStyleScreen**<br>
+<br>
+12. **processStyleScreen**
     This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
 
     Parameters:
@@ -202,9 +202,8 @@ Assist Functions (functions that will assist in building fields showing up in pi
     - constant = indicates which of the input items is invalid (the index into the array)
     - cssClassName = the name of a cssClassName that will be concatenated with either
     theme_normalBackground or theme_errorBackground.  This parameter is optional and is only there if a CSS class name is to be included.
-
-
-13. **processStyleTable**<br>
+<br>
+13. **processStyleTable**
     This will determine if the style should change to the background color to the invalid color because the input table item has an invalid value.
 
     Parameters:
@@ -213,23 +212,23 @@ Assist Functions (functions that will assist in building fields showing up in pi
     - pos = row number in the table
     - cssClassName = the name of a cssClassName that will be concatenated with either
     theme_normalBackground or theme_errorBackground.  This parameter is optional and is only there if a CSS class name is to be included.
-
-14. **resetDisplayScreen**<br>
+<br>
+14. **resetDisplayScreen**
     This will set the display value to false for an invalid input item.
 
     Parameters:
     - invalidValues = list of invalid inputs for the screen
     - constant = indicates which of the input items is invalid (the index into the array)
-
-15. **resetDisplayTable**<br>
+<br>
+15. **resetDisplayTable**
     This will set the display value to false for an invalid input item.
 
     Parameters:
     - invalidValues = list of invalid inputs for the screen
     - constant = indicates which of the input items is invalid (the index into the array)
     - index = row number in the table from zero
-
-16. **setInvalidDual**<br>
+<br>
+16. **setInvalidDual**
     This indicates that one of the input items is either on the screen or in a table and contains an invalid value.
 
     Parameters:
@@ -239,16 +238,16 @@ Assist Functions (functions that will assist in building fields showing up in pi
     - index = row number in the table from zero
     - type = indicates whether it is a screen entry (S) or table entry (T)
     - message = message for the invalid value
-
-17. **setInvalidScreen**<br>
+<br>
+17. **setInvalidScreen**
     This indicates that one of the input items on the screen contains an invalid value.
 
     Parameters:
     - invalidValues = list of valid and invalid inputs for the screen
     - constant = indicates which of the input items that is in invalid (the index into the array)
     - message = message for the invalid value (will be displayed when the user hovers over the field)
-
-18. **setInvalidTable**<br>
+<br>
+18. **setInvalidTable**
     This indicates that one of the input items in a table contains an invalid value.
 
     Parameters:
@@ -256,35 +255,35 @@ Assist Functions (functions that will assist in building fields showing up in pi
     - constant = indicates which of the input items is invalid (the index into the array)
     - index = row number (from zero) in the table that contains the invalid item
     - message = message for the invalid value
-
-19. **validCheckDual**<br>
+<br>
+19. **validCheckDual**
     This will check to see if any of the validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
 
     Parameters:
     - invalidValues = list of invalid inputs for the screen or table
     - constants = list of screen constants to distinguish between screen and table constants
-
-20. **validCheckScreen**<br>
+<br>
+20. **validCheckScreen**
     This will check to see if any of the screen validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally  called at the end of the validation function.
 
     Parameters:
     - invalidValues = list of invalid inputs for the screen
-
-21. **validCheckTable**<br>
+<br>
+21. **validCheckTable**
     This will check to see if any of the table validity values is true in the invalid values array.  If one of the values is true, this function returns false.  If all the values are false, it returns true to indicate that there are not invalid values.  This is genearally called at the end of the validation function.
 
     Parameters:
     - invalidValues = list of invalid inputs for the table
-
-22. **wasClickedScreen**<br>
+<br>
+22. **wasClickedScreen**
     Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on the regular screen.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons or check boxes.
 
     Parameters:
     - invalidValues = list of invalid inputs for the screen
     - constant = indicates which item the mouse was clicked on.  Set the contants after the invalid array.
     - setInvalid = a state variable function that will place the invalidValues in the corresponding state variable.
-
-23. **wasClickedTable**<br>
+<br>
+23. **wasClickedTable**
     Indicates that the mouse was clicked on a input, Choice, ChoiceText, Radio, or textarea HTML tag on a table.  If the field was invalid and clicked on, it will remove the error message from being displayed when the mouse is hovered over the HTML item.  Do not use on radio buttons or check boxes.
 
     Parameters:

@@ -351,7 +351,7 @@ For more information on CSS files, see Using CSS.
 ### ***sw-spreadSheet.css***
 This is the CSS file that styles the SpreadSheet component.
 
-# ***Classes***
+## ***Classes***
 1.  ***.sw-ss_button*** = the style for all the buttons in the Spread Sheet.
 
 ```css

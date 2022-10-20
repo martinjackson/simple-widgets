@@ -18,19 +18,19 @@ Props:
         { title: 'Exit',        type: 'new',                            path: '/exit',      component: () => <Exit></Exit> },
     ]
 ```
-The title Saving is a title only, since there is not path or component.  The title Saving will be bold, because of the textStyle: 'bold'.
+- The title Saving is a title only, since there is not path or component.  The title Saving will be bold, because of the textStyle: 'bold'.
 
-The title Save and Save As are both title components, since they have a path and component.  They will both be indented a standard amount, because of the indent: true.  If indent: false was present, then no indenting will take place.
+- The title Save and Save As are both title components, since they have a path and component.  They will both be indented a standard amount, because of the indent: true.  If indent: false was present, then no indenting will take place.
 
-The tile Open is a title only, and will be bold.
+- The tile Open is a title only, and will be bold.
 
-The title Internet is a title only, and will be italicized and indent the standard amount.
+- The title Internet is a title only, and will be italicized and indent the standard amount.
 
-The http and https are both title components, and will be indented 2em.  The spacing is due to the spacing: '2em' field.
+- The http and https are both title components, and will be indented 2em.  The spacing is due to the spacing: '2em' field.
 
-The File and Exit titles are title components and will NOT be styled or indented.
+- The File and Exit titles are title components and will NOT be styled or indented.
 
-The selected item for all but exit will appear to the right of the outline component.  Exit will appear on a new page, due to the type: new.  The other possible values are side.
+- The selected item for all but exit will appear to the right of the outline component.  Exit will appear on a new page, due to the type: new.  The other possible values are side.
 
 2. ***disabled*** = indicates that the entire outline is disabled.  Can be set to disabled={true} or disabled={false}
 
