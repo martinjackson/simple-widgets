@@ -58,16 +58,6 @@ The following is a more involved code example:
 
         const MAX_ITEMS = 2;
 
-        const [start, setStart] = useState(0);
-        const [indexing, setIndexing] = useState([]);
-
-        const startEnd (start, end) {
-            setStart(start);
-        }
-        const getIndexes (indexing) {
-            setIndexing(indexing);
-        }
-
         let data = [
             { ORDER_NUM: 10, ITEM: 'Hammer',        ON_HAND: 20, COST: 15.21 },
             { ORDER_NUM: 11, ITEM: 'Screwdriver',   ON_HAND: 13, COST: 16.43 },
@@ -76,34 +66,46 @@ The following is a more involved code example:
             { ORDER_NUM: 24, ITEM: 'Saw',           ON_HAND: 11, COST: 14.78 },
         ];
 
-        let table = [
-            { header: 'Order Number',   name: 'ORDER_NUM',  search: true,   sort: true  },
-            { header: 'Description',    name: 'ITEM',       search: true,   sort: true  },
-            { header: 'On Hand Count',  name: 'ON_HAND',    search: true,   sort: true  },
-            { header: 'Cost',           name: 'COST',       search: false,  sort: false },
-        ];
+        const sortExample = (props) => {
+          const [start, setStart] = useState(0);
+          const [indexing, setIndexing] = useState([]);
 
-        function eachRowInTable(row, i) {
-            let key = 'row_' + i + start;
+          const startEnd (start, end) {
+              setStart(start);
+          }
+          const getIndexes (indexing) {
+              setIndexing(indexing);
+          }
 
-            pos = indexing[i];
+          let table = [
+              { header: 'Order Number',   name: 'ORDER_NUM',  search: true,   sort: true  },
+              { header: 'Description',    name: 'ITEM',       search: true,   sort: true  },
+              { header: 'On Hand Count',  name: 'ON_HAND',    search: true,   sort: true  },
+              { header: 'Cost',           name: 'COST',       search: false,  sort: false },
+          ];
 
-            return (
-                <tr key={key} onClick={(event) => functName(pos)}>
-                    <td>{row.ORDER_NUM}</td>
-                    <td>{row.ITEM}</td>
-                    <td>{row.ON_HAND}</td>
-                    <td>{row.COST}</td>
-                </tr>
-            )
+          function eachRowInTable(row, i) {
+              let key = 'row_' + i + start;
+
+              pos = indexing[i];
+
+              return (
+                  <tr key={key} onClick={(event) => functName(pos)}>
+                      <td>{row.ORDER_NUM}</td>
+                      <td>{row.ITEM}</td>
+                      <td>{row.ON_HAND}</td>
+                      <td>{row.COST}</td>
+                  </tr>
+              )
+          }
+
+          <SearchSortTable data={data}
+                          table={table}
+                          MAX_ITEMS={MAX_ITEMS}
+                          eachRowInTable={eachRowInTable}
+                          startEnd={startEnd}
+                          indexing={getIndexes} />
         }
-
-        <SearchSortTable data={data}
-                         table={table}
-                         MAX_ITEMS={MAX_ITEMS}
-                         eachRowInTable={eachRowInTable}
-                         startEnd={startEnd}
-                         indexing={getIndexes} />
 ```
 
 ### **Searching**
@@ -507,69 +509,75 @@ Contains a footer for the totals in the table.  The filter and the search are at
 ```javascript
 const RANGE = 50;
 
-const [error, setError] = useState(false);
-const [start, setStart] = useState(0);
-const [indexing, setIndexing] = useState([]);
-
-function startEnd (start, end) {
-    setStart(start);
-}
-
-function getIndexes(indexing) {
-    setIndexing(indexing);
-}
-
-const table = [
-    { header: 'CAN',            name: 'CAN',           search: true,  sort: true },
-    { header: 'Stock Total',    name: 'STOCK_TOTAL',   search: true,  sort: true },
-    { header: 'Gas Cylinder',   name: 'GAS_CYLINDER',  search: true,  sort: true },
-    { header: 'Total for CAN',  name: 'TOTAL',         search: true,  sort: true },
+let data = [
+  ...
 ];
 
-let footer = [
-    'Totals',
-    totalStock,
-    totalRental,
-    totalCAN,
-];
+const sortExample = (props) => {
+  const [error, setError] = useState(false);
+  const [start, setStart] = useState(0);
+  const [indexing, setIndexing] = useState([]);
 
-<SearchSortTable data={data}
-                    table={table}
-                    MAX_ITEMS={RANGE}
-                    eachRowInTable={eachRowInTable}
-                    startEnd={startEnd}
-                    indexing={getIndexes}
-                    error={error}
-                    title="Finance CSV"
-                    footer={footer}
-                    sfbottom
-                    scroll
-                    height="675px"
-                    hover />
+  function startEnd (start, end) {
+      setStart(start);
+  }
 
-function eachRowInTable (row, i) {
-    const key = 'row_' + i + start; // The key for the row
+  function getIndexes(indexing) {
+      setIndexing(indexing);
+  }
 
-    const tableCellStyle2 = {  // The style for each cell in the table
-        padding: "5px",
-        textAlign: "left",
-        border: "1px solid black",
-    };
+  const table = [
+      { header: 'CAN',            name: 'CAN',           search: true,  sort: true },
+      { header: 'Stock Total',    name: 'STOCK_TOTAL',   search: true,  sort: true },
+      { header: 'Gas Cylinder',   name: 'GAS_CYLINDER',  search: true,  sort: true },
+      { header: 'Total for CAN',  name: 'TOTAL',         search: true,  sort: true },
+  ];
 
-    let pos = indexing[i]
+  let footer = [
+      'Totals',
+      totalStock,
+      totalRental,
+      totalCAN,
+  ];
 
-    return (    // Render the row (action)
-        <tr key={key} onClick={() => editRow (pos)}>
-            <td style={tableCellStyle}>{row.CAN}</td>
-            <td style={tableCellStyle}>{row.STOCK_TOTAL}</td>
-            <td style={tableCellStyle}>{row.GAS_CYLINDER_RENTAL_TOTAL}</td>
-            <td style={tableCellStyle}>{row.TOTAL}</td>
-        </tr>
-    )
-}
+  <SearchSortTable data={data}
+                      table={table}
+                      MAX_ITEMS={RANGE}
+                      eachRowInTable={eachRowInTable}
+                      startEnd={startEnd}
+                      indexing={getIndexes}
+                      error={error}
+                      title="Finance CSV"
+                      footer={footer}
+                      sfbottom
+                      scroll
+                      height="675px"
+                      hover />
 
-function editRow(index) {
-    ...
+  function eachRowInTable (row, i) {
+      const key = 'row_' + i + start; // The key for the row
+
+      const tableCellStyle2 = {  // The style for each cell in the table
+          padding: "5px",
+          textAlign: "left",
+          border: "1px solid black",
+      };
+
+      let pos = indexing[i]
+
+      return (    // Render the row (action)
+          <tr key={key} onClick={() => editRow (pos)}>
+              <td style={tableCellStyle}>{row.CAN}</td>
+              <td style={tableCellStyle}>{row.STOCK_TOTAL}</td>
+              <td style={tableCellStyle}>{row.GAS_CYLINDER_RENTAL_TOTAL}</td>
+              <td style={tableCellStyle}>{row.TOTAL}</td>
+          </tr>
+      )
+  }
+
+  function editRow(index) {
+      ...
+  }
 }
 ```
 
