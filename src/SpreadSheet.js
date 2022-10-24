@@ -179,7 +179,6 @@ const SpreadSheet = (props) => {
 
         for (let i = 0; i < sheet.length; i++) {
             let rowSheet = sheet[i];
-            console.log('rowSheet :', rowSheet);
 
             if (rowSheet.hidden === false) {
                 if (rowSheet.type === 'text' || rowSheet.type === 'date' || rowSheet.type === 'number') {
@@ -304,7 +303,6 @@ const SpreadSheet = (props) => {
     const saveButton = async() => {
         if (validate() === true) {
             let localData = [...data];
-            console.log('localData save :', localData);
             let newData = [];
             for (let i = 0; i < localData.length; i++) {
                 if (localData[i].count > 0) {
