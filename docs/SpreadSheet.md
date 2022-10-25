@@ -70,7 +70,7 @@ export default Breed2;
 
 In order for the user to use the Spread Sheet, they must pass the following props:
 
-1.  ***sheet*** = is an object that defines how the spread sheet should look.  The object must contain the following:
+1.  ***sheet*** = is an object that defines how the spread sheet should look.  This prop is required.  The object must contain the following:
     - ***header*** = the name of the header for that column in the spread sheet.
     - ***name*** = the name of the variable that the value should be stored in.
     - ***validate*** = contains true if the field is to be validated or false if it is not to be validated.  This field is optional if validate is to be false.

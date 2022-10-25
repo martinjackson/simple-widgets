@@ -24,6 +24,11 @@ const hasProperty = (obj, propName) => {
 let functYes = null;
 
 const SpreadSheet = (props) => {
+    if (hasProperty(props, 'sheet') === false) {
+        console.error ('SpreadSheet: The sheet prop is missing');
+        return <div></div>;
+    }
+
     const invalidArray = generateInvalid(0, props.sheet.length);
 
     const ADDITIONAL = (hasProperty(props, 'additionalRows') === true) ? props.additionalRows : 20;
@@ -326,7 +331,9 @@ const SpreadSheet = (props) => {
             }
 
             if (newData.length !== 0) {
-                props.saveFunct(newData);
+                if (hasProperty(props, 'saveFunct') === true) {
+                    props.saveFunct(newData);
+                }
             }
         }
     }
