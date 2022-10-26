@@ -135,14 +135,14 @@ const SearchSortTable = (propsPassed) => {
 
     // ---------
     useEffect (() => {
-      // console.log('SearchSortTable useEffect [] ');
+//      console.log('SearchSortTable useEffect [] ');
 
       populateSearch(props.table)
     }, []);
 
     // ---------
     useEffect (() => {
-      // console.log('SearchSortTable useEffect [] props.table:', props.table);
+//      console.log('SearchSortTable useEffect [] props.table:', props.table);
 
       setTable(props.table)
       populateSearch(props.table)
@@ -150,7 +150,7 @@ const SearchSortTable = (propsPassed) => {
 
     // ---------
     useEffect (() => {
-      // console.log('SearchSortTable useEffect [props.data] props.table:', props.table, 'table:', table);
+//       console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
 
       if (!props.table && !table) {        // no table def passed in as a prop, setup a default
         const tableDef = defaultColHeaders(props.data[0])
@@ -1109,7 +1109,9 @@ const SearchSortTable = (propsPassed) => {
         let found = false;  // Indicates that the item was found
 
         for (let i = begin; i < length && found === false; i++) {
-            if (props.data[indexes[i]][name].toString().startsWith(search)) {    // Item was found
+            let compareStr = (hasProperty(props, 'ignorecase')) ? props.data[indexes[i]][name].toString().toUpperCase() :
+                                                                  props.data[indexes[i]][name].toString();
+            if (compareStr.startsWith(search)) {    // Item was found
                 found = true;
                 setStartEnd(i, length, indexes); // Set the start and end positions of the data on the screen.
             }
@@ -1131,8 +1133,9 @@ const SearchSortTable = (propsPassed) => {
 
         for (let i = begin; i < props.data.length && found === false; i++) {
             const str = (props.data[indexes[i]][name]) ? props.data[indexes[i]][name].toString() : ''
+            const compareStr = (hasProperty(props, 'ignorecase')) ? str.toUpperCase() : str;
 
-            if (str.indexOf(search) !== -1) {    // Item was found
+            if (compareStr.indexOf(search) !== -1) {    // Item was found
                 found = true;
                 setStartEnd(i, length, indexes);  // Set the start and end positions of the data on the screen.
             }
