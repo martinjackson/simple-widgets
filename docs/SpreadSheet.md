@@ -251,7 +251,7 @@ Information and Info
 
 -    The data is the spread sheet data that needs to be saved.  It will only have the field names that are to be saved in the sheet array (see above).
 
-3.  ***data*** = contains the spread sheet data.  This is only required if a button for a modal is being used or if you want to pre load data.  If used and no pre loaded data is needed, data should be set to an empty array.
+3.  ***data*** = contains the spread sheet data.  This is only required if a button for a modal is being used.  If used, data should be set to an empty array.
 
 The rest of the props are optional:
 
@@ -260,6 +260,8 @@ The rest of the props are optional:
 ```js
     const processValue = (data, name, value, index) {
         ...
+
+        return data;
     }
 ```
 
@@ -268,15 +270,19 @@ The rest of the props are optional:
     - name = the name of the field the value is being placed.
     - value = the value that is being placed in the name field.
     - index = the row number in the data array where the data is being placed.
+-   The data needs to be returned so that it can be incorporated into the spread sheet.
 
 5.  ***specialProcessingSave*** = this function is called to do any processing before the save function (see the saveFunct prop) is called.
 ```js
     const processSave = (data) => {
         ...
+
+        return data;
     }
 ```
 
 -    The name of the specialProcessingSave function is processSave.  The data parameter is the data for the current row being processed in the spread sheet.
+-   The data needs to be returned so that it can be incorporated into the spread sheet.
 
 6.  ***maxItems*** = is the maximum number of items that can be displayed in the spreadsheet.  Pagination is used to see the rest of the rows in the spread sheet.  The default is 50.
 
@@ -302,7 +308,22 @@ The rest of the props are optional:
 
 -    The number of additional rows added to the spread sheet is 10.
 
-9.  ***title*** = the centered title to be displayed above the spread sheet.  No title will be displayed if the prop is not present.
+9.  ***preload*** = this a function that is called to pre load data into the spreadsheet. The function is called when the spread sheet is initially rendered, when the data is cleared, and when rows are added (it will only do it to the added rows).  The format for the
+function is:
+
+```js
+    const preLoadData = (data) => {
+        ...
+
+        return data;
+    }
+```
+
+- The name of the pre Load function is preLoadData.
+- data = the data in the spread sheet.
+- The data needs to be returned so that it can be incorporated into the spread sheet.
+
+10.  ***title*** = the centered title to be displayed above the spread sheet.  No title will be displayed if the prop is not present.
 
 ```js
     title="Breeding"
@@ -310,13 +331,13 @@ The rest of the props are optional:
 
 -    Breeding will be the title that appears centered before the spread sheet.
 
-10. ***noSave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
+11. ***noSave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
 
-11. ***noClear*** = indicates that the Clear button should not appear on the screen.
+12. ***noClear*** = indicates that the Clear button should not appear on the screen.
 
-12. ***noAdditionRows*** = indicates that the Add Rows button should not appear on the screen.  If this prop is used, there is no need for the additionalRows prop.
+13. ***noAdditionRows*** = indicates that the Add Rows button should not appear on the screen.  If this prop is used, there is no need for the additionalRows prop.
 
-13. ***height*** = the height of the spread sheet.  The default is 675px.
+14. ***height*** = the height of the spread sheet.  The default is 675px.
 
 ```js
     height="700px"
@@ -324,7 +345,7 @@ The rest of the props are optional:
 
 -    The height of the spread sheet is 700px.
 
-14. ***error*** = indicates that an error occurred.  This will disable all buttons and certain fields in the spread sheet.
+15. ***error*** = indicates that an error occurred.  This will disable all buttons and certain fields in the spread sheet.
 
 ```js
     error={error}
@@ -332,9 +353,9 @@ The rest of the props are optional:
 
 -    The variable error will be passed into the spread Sheet.
 
-15. ***indexing*** = is a function that returns the indexes into the current data being displayed.  This will rarely be used.  The user will need to add the indexing as a state variable.  See indexing in the Search Sort Table.
+16. ***indexing*** = is a function that returns the indexes into the current data being displayed.  This will rarely be used.  The user will need to add the indexing as a state variable.  See indexing in the Search Sort Table.
 
-16. ***startEnd*** = is a function that returns the current starting and ending positions in the data being displayed.  This will rarely be used.  See startEnd in the Search Sort Table.
+17. ***startEnd*** = is a function that returns the current starting and ending positions in the data being displayed.  This will rarely be used.  See startEnd in the Search Sort Table.
 
 
 ### ***CSS Files***
@@ -537,3 +558,37 @@ export default Breed2;
 
 -    In the above example, the max rows on the screen match blank rows; therefore, the entire spread sheet will appear on the screen.
 -    If the user presses the Add Rows button, 50 more blank rows will be added to the spread sheet.
+
+## ***Example 3***
+
+```js
+  const sheet = [
+    { header: 'Name',     name: 'name',   validate: true, hidden: false, save: false, disabled: false, type: 'text' },
+    { header: 'City',     name: 'city',   validate: true, hidden: false, save: false, disabled: false, type: 'text' },
+    { header: 'State',    name: 'state',  validate: true, hidden: false, save: false, disabled: false, type: 'Choice', choices: stateValues },
+    { header: 'Zip Code', name: 'zip',    validate: true, hidden: false, save: false, disabled: false, type: 'number' },
+    { header: 'Date',     name: 'date',   validate: true, hidden: false, save: false, disabled: false, type: 'date' },
+  ];
+
+  const populateSS = (localData) => {
+    for (let i = 0; i < localData.length; i++) {
+      localData[i].date = currentDBDate();
+    }
+
+    console.log('localData :', localData);
+
+    return localData;
+  }
+
+  return    <SpreadSheet 
+                sheet={sheet}
+                maxItems="100"
+                blankRows="100"
+                additionalRows="50"
+                preload={populateSS}
+                saveFunct={saveData}
+                error={error}
+                data={data} />
+```
+
+-    In the above example, it will call the pre load function called populateSS.  The populateSS function will pre-load all of the date fields, with the current date.
