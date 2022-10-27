@@ -100,6 +100,10 @@ const SpreadSheet = (props) => {
             blank.push(obj);
         }
 
+        if (hasProperty(props, 'preload') === true) {
+            props.preload(blank);
+        }
+
         if (clear === true) {
             setData(blank);
         } else {
