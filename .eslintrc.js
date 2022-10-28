@@ -23,7 +23,7 @@ module.exports = {
     'react/jsx-uses-vars': 'on',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    'import/no-unresolved': [2, {commonjs: true, amd: true}]
+    'import/no-unresolved': [2, {commonjs: true, amd: true}],
     "no-unused-vars": "off",                     // or "@typescript-eslint/no-unused-vars": "off",
 		"unused-imports/no-unused-imports": "error",
 		"unused-imports/no-unused-vars": [
