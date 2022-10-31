@@ -37,15 +37,15 @@ export const Outline = (props) => {
 
             if (row.hasOwnProperty('path')) {
                 if (row.hasOwnProperty('type') && row.type === 'new') {
-                    return  <li key={i} className={`${fontClass} ${indentClass}`} >
-                                <div className={buttonClass}>
+                    return  <li key={i} className={`${indentClass}`} >
+                                <div className={`${buttonClass} ${fontClass}`} >
                                     <Link to={row.path}>{row.title}</Link>
                                 </div>
                             </li>
 
                 } else {  // type defaults to side
-                    return  <li key={i} className={`${fontClass} ${indentClass}`}>
-                                <button className={buttonClass} disabled={disabled} onClick={() => buttonClick(row.path)}>{row.title}</button>
+                    return  <li key={i} className={`${indentClass}`}>
+                                <button className={`${fontClass} ${buttonClass}`} disabled={disabled} onClick={() => buttonClick(row.path)}>{row.title}</button>
                             </li>
                 }
             } else {
