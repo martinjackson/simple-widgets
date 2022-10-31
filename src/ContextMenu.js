@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ContextMenu = (propsIn) => {
-    console.log ('props', propsIn);
     const { positionX, positionY, noLeave, noCancel, menu, ...props } = propsIn;
 
     const propsPositionX = positionX || 10;
@@ -25,7 +24,6 @@ const ContextMenu = (propsIn) => {
     }
 
     function mouseLeave() {
-        console.log ('mouseLeave');
         if (propsNoLeave === false) {
             props.closeFunct(false);
         }
