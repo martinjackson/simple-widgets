@@ -57,7 +57,7 @@ The title field is the title that will be displayed on the menu.  The path is th
 
 4.  path = if a certain screen is specified in the url (the path in the menutree), it will automatically take you to that screen when the application is launched.  The path that is on the URL must match a path name in the menutree; otherwise it will default to the first screen.  The path should only contain the path name.
 
-5. subsymbol = indicates whether a down arrow should be placed next to the title.  The two possible values are:
+5. subsymbol = indicates whether a down arrow should be placed next to the title that has submenus.  The two possible values are:
     - arrow = place a down arrow next to the title.
     - a unicode symbol in the form of &#xUNICODE_HEXNUM;
     - none = no symbol will be placed next to the title.  This is the default.
