@@ -17,14 +17,14 @@ const Header = (props) => {
   const envTitle  = window.env.title ? window.env.title : ""
   const envDBType = window.env.DB_TYPE ? window.env.DB_TYPE : ""
 
-  const title       = (props.title)       ? props.title       : envTitle
-  const dbType      = (props.dbType)      ? props.dbType      : envDBType
-  const username    = (props.username)    ? props.username    : window.env.username
-  const titleLogo   = (props.titleLogo)   ? props.titleLogo   : window.env.titleLogo
-  const alertLogo   = (props.alertLogo)   ? props.alertLogo   : window.env.alertLogo
-  const logoutURL   = (props.logoutURL)   ? props.logoutURL   : window.env.logoutURL
-  const loginURL    = (props.loginURL)    ? props.loginURL    : window.env.loginURL
-  const setUsername = (props.setUsername) ? props.setUsername : () => {console.log('no setUsername fn() passed to Header.');}
+  const title       = (props.title)                   ? props.title       : envTitle
+  const dbType      = (props.dbType)                  ? props.dbType      : envDBType
+  const username    = (props.username)                ? props.username    : window.env.username
+  const titleLogo   = (props.titleLogo !== undefined) ? props.titleLogo   : window.env.titleLogo
+  const alertLogo   = (props.alertLogo !== undefined) ? props.alertLogo   : window.env.alertLogo
+  const logoutURL   = (props.logoutURL)               ? props.logoutURL   : window.env.logoutURL
+  const loginURL    = (props.loginURL)                ? props.loginURL    : window.env.loginURL
+  const setUsername = (props.setUsername)             ? props.setUsername : () => {console.log('no setUsername fn() passed to Header.');}
 
   let userMsg  = (username === null) ? "User not Logged in" : 'Welcome: ' + username
 
@@ -46,7 +46,7 @@ const Header = (props) => {
     alert = <AlertModal show={showAlert} closeFunct={setShowAlert} message={msg} />
   }
 
-  const titleImg = (titleLogo) ? <img src={titleLogo} alt="Logo" className="sw-header_logo" /> : null
+  const titleImg = (titleLogo !== null) ? <img src={titleLogo} alt="Logo" className="sw-header_logo" /> : null
   return (<header>
             <div className="sw-header_div">
               {titleImg}
