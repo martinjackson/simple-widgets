@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
 const InputFile = (props) => {
-    const [inputFile, setInputFile] = useState('');
     const [displayFile, setDisplayFile] = useState('');
 
     let buttonName = 'Browse';
@@ -11,14 +10,11 @@ const InputFile = (props) => {
         buttonName = props.buttonname;
     }
 
-    const processFile = (value) => {
-        setInputFile(value);
-        let index = value.lastIndexOf('\\');
-        let file = value.substring(index + 1);
-        setDisplayFile(file);
+    const processFile = (file) => {
+        setDisplayFile(file.name);
 
         if (hasProperty(props, 'getFileName')) {
-            props.getFileName(file);
+            props.getFileName(file.name, file);
         }
 
         if (hasProperty(props, 'additionalProcessing')) {
@@ -40,7 +36,7 @@ const InputFile = (props) => {
             <label htmlFor={props.id} className="sw-infile_marginStyle">{props.title}</label>
             <input file="text" id="pfile" name="displayFile" value={displayFile} className="sw-infile_textStyle" onChange={(event) => processDisplay(event.target.value)} />
             <label htmlFor={props.id} className="sw-infile_buttonStyle  sw-theme_normalButtonBackground" >
-                <input type="file" name={props.name} value={inputFile} id={props.id} accept={(props.hasOwnProperty('accept')) ? props.accept : '' } className="sw-infile_fileStyle" onChange={(event) => processFile(event.target.value)} />
+                <input type="file" id={props.id} accept={(props.hasOwnProperty('accept')) ? props.accept : '' } className="sw-infile_fileStyle" onChange={(event) => processFile(event.target.files[0])} />
                 {buttonName}
             </label>
         </span>

@@ -5,7 +5,7 @@ The bring up the file menu, the user must press the button to the right of the i
 
 ## Props
 1.  ***title*** is the title that goes before the input box.
-2.  ***getFileName*** is a function that returns the file name.
+2.  ***getFileName*** is a function that returns the file name and the file object.  If you need to have the file returned as a File object for reading a blob, then both parameters should be preent.  If you just need the file name only, just place the filename parameter in the function name.
 3.  ***additionalProcessing*** is a function that does any additional processing after the file name has been selected.
 4.  ***accept*** is a list of file extensions seperated by commas that are displayed in the file menu.
 5.  ***buttonname*** is the name of the button to the right of the input box.  If no prop is given, the name of the button will be Browse.
@@ -66,14 +66,15 @@ The classes in the file are:
 }
 ```
 
-## Example
+## Example 1
 ```javascript
     const addProcessFile = (value) => {
         setDisable(false);
     }
 
-    const processFileName = (file) => {
-        console.log ('filename', file);
+    const processFileName = (filename, file) => {
+        console.log ('filename', filename);
+        console.log ('file', file.name);
     }
     
     return ( 
@@ -87,4 +88,27 @@ The classes in the file are:
         </div>
     )
 ```
-The title that goes before the input box is Payroll File.  The file menu will only display files with extensions of .xlsx, because of the accept prop.  After the file has been selected the addProcessFile and processFileName functions will be executed because of the additionalProcessing and getFileName props respectively.
+The title that goes before the input box is Payroll File.  The file menu will only display files with extensions of .xlsx, because of the accept prop.  After the file has been selected the addProcessFile and processFileName functions will be executed because of the additionalProcessing and getFileName props respectively.  The processFileName function will return both the file name and the file object.
+
+## Example 2
+```javascript
+    const addProcessFile = (value) => {
+        setDisable(false);
+    }
+
+    const processFileName = (filename) => {
+        console.log ('filename', filename);
+    }
+    
+    return ( 
+        <div>
+                <InputFile title="Payroll File:" 
+                           name="payrollfile" 
+                           id="id_payroll_file" 
+                           accept=".xlsx" 
+                           additionalProcessing={addProcessFile}
+                           getFileName={processFileName} />
+        </div>
+    )
+```
+The title that goes before the input box is Payroll File.  The file menu will only display files with extensions of .xlsx, because of the accept prop.  After the file has been selected the addProcessFile and processFileName functions will be executed because of the additionalProcessing and getFileName props respectively.  The processFileName function will only return file name and ***not*** the file object.
