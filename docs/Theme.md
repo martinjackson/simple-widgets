@@ -167,7 +167,7 @@ To generate a button that uses an existing style and will allow the style to eit
     In getButtonStyle2 associated with button Test 2, if error or disableValue is true the button color will be gray; otherwise, the button color will not be set; therefore, it will be the current background color.
 
     In getButtonStyle3 associated with button Test 3, if error is true the button color will be gray; otherwise, the button color will be blue.  Since no disabled value was given, that value will default to false.
-<br>
+
 2.  **generateCSSDefaultButton**
     This will generate a button and will determine if the button should be
     disabled or not.  It will use the theme button style (see above for the theme button style) and the disable color of gray.
