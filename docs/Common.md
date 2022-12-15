@@ -41,12 +41,12 @@ Contains common functions that can be useful.
     ```
 
 4.  **localStrToDate**<br>
-        Takes a date as a string and converts to a date object.
+    Takes a date as a string and converts to a date object.
 
-        Parameters:
-        - target = the date in any format
+    Parameters:
+    - target = the date in any format
 
-        Returns = the date in target as a date object
+    Returns = the date in target as a date object
 
     ### Example
 ```js
@@ -55,11 +55,11 @@ Contains common functions that can be useful.
 ```
 
 5.  **date2Str**<br>
-        This converts a date object into a string.
+    This converts a date object into a string.
 
-        Parameters:
-        - date = the date as a date object
-        - pattern = the pattern to convert the date into.
+    Parameters:
+    - date = the date as a date object
+    - pattern = the pattern to convert the date into.
             M = month
             d = day of the month
             yyyy = year
@@ -67,7 +67,7 @@ Contains common functions that can be useful.
             m = minute
             s = second
 
-        Returns the date in the date object as a string
+    Returns the date in the date object as a string
 
     ### Example
 ```js
