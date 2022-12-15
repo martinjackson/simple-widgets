@@ -46,7 +46,6 @@ Contains common functions that can be useful.
         Parameters:
         - target = the date in any format
 
-
         Returns = the date in target as a date object
 
     ### Example
@@ -67,7 +66,6 @@ Contains common functions that can be useful.
             h = hour
             m = minute
             s = second
-
 
         Returns the date in the date object as a string
 
