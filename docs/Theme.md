@@ -132,7 +132,7 @@ Theme will also allow you to generate button styles that will allow the button c
 
 To generate a button that uses an existing style and will allow the style to either set the button style to its standard color or to the disable color if the the disable value is true.  These functions must be called everytime the screen is rendered.
 
-1.  **generateCSSButton**
+1.  **generateCSSButton**<br>
     This will generate a button and will determine if the button should be
     disabled or not.
 
@@ -168,7 +168,7 @@ To generate a button that uses an existing style and will allow the style to eit
 
     In getButtonStyle3 associated with button Test 3, if error is true the button color will be gray; otherwise, the button color will be blue.  Since no disabled value was given, that value will default to false.
 
-2.  **generateCSSDefaultButton**
+2.  **generateCSSDefaultButton**<br>
     This will generate a button and will determine if the button should be
     disabled or not.  It will use the theme button style (see above for the theme button style) and the disable color of gray.
 
