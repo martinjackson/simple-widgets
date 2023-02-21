@@ -130,12 +130,17 @@ table.sw-sst_search_sort_table10 tr:hover td {
 }
 
 .sw-sst_footStyle {
+  width: 100%;
   margin: 10px;
   text-align: right;
 /*        position: sticky; */
   bottom: 0;
   z-index: 2;
   background-color: var(--sw-theme_backgroundColor);
+}
+
+.sw-sst_footStyle2 {
+  text-align: left;
 }
 
 .sw-sst_imageStyleFilter {
@@ -157,7 +162,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
 
 .sw-sst_headerStyle {
   position: sticky;
-  flex-direction: column;
+/*  flex-direction: column; */
   top: 0;
   z-index: 2;
   border: 1px solid black;
@@ -166,7 +171,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
 
 .sw-sst_headerStyle2 {
   position: sticky;
-  flex-direction: column;
+  /*flex-direction: column; */
   top: 0;
   z-index: 2;
   background-color: var(--sw-theme_backgroundColor);
@@ -210,4 +215,134 @@ table.sw-sst_search_sort_table10 tr:hover td {
 
 .sw-sst_regBackground {
   background-color: var(--sw-theme_backgroundColor);
+}
+
+.sw-sst_headerButton {
+  background-color: var(--theme_backgroundColor); 
+  border: none;
+  font-weight: bold;
+  font: var(--sw-theme_buttonFont);
+/*  font-weight: var(--sw-theme_buttonFontWeight); */
+  font-size: 1em;
+}
+
+.sw-sst_dropDownDiv {
+   background-color: navy;
+   color: white;
+}
+
+.sw-sst_dropDownButton {
+  background-color: navy;
+  color: white;
+  border: none;
+  margin: 10px;
+  font-size: 1.5em;
+}
+
+.sw-sst_tableBold {
+  font-weight: bold;
+  margin-top: 15px;
+  font-size: 1.5em;
+}
+
+.sw-sst_headerColor {
+  color: #0096FF;
+}
+
+.sw-sst-dropDown_choice {
+  margin-bottom: 10px;
+}
+
+.sw-sst_dropButton {
+  border-radius: 5px;
+  color: black;
+  background-color: gainsboro;
+  margin-bottom: 10px;
+}
+
+.sw-sst_toolTip {
+  visibility: hidden;
+  background-color: transparent;
+  color: gainsboro;
+  font-size: 0.75em;
+
+  /* Position the tooltip */
+  position: absolute; 
+  z-index: 1; 
+}
+
+
+.sw-sst_showToolTip:hover .sw-sst_toolTip {
+  visibility: visible;
+  animation: tooltipAnim 1s 1;
+  opacity: 1;
+}
+
+.sw-sst_top {
+  top: 0;
+  left: 0;
+}
+
+.sw-sst_right {
+  text-align: right;
+  float: right;
+}
+
+.sw-sst_body_full {
+  border: 1px solid black;
+}
+
+.sw-sst_table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.sw-sst_body_col {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: none;
+  border-bottom: none;
+}
+
+.sw-sst_body_row {
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.sw-sst_stripe:nth-child(even) {
+  background-color: gainsboro;
+}
+
+.sw-sst_bottom {
+  vertical-align: bottom;
+}
+
+.sw-sst_excelButtonStyle {
+  margin: 20px;
+  border-radius: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: var(--sw-theme_buttonTextColor);
+  background-color: var(--sw-theme_buttonColor);
+  width: 270px;
+  height: var(--sw-theme_buttonHeight);
+  font: var(--sw-theme_buttonFont);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+@keyframes tooltipAnim {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
