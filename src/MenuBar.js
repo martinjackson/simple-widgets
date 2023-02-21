@@ -83,17 +83,17 @@ export const MenuBar = (props) => {
         // console.log('Active Menu Component clears signal. ');
         setDisableMenu(null)
       }
-
     }
 
     return (
-        <div className={"sw-menu "+classStyle}>
+        <div className={"sw-menu " + classStyle}>
             <NavigateBar
                  menuTree={props.menuTree}
                  symbol={symbol}
                  subsymbol={subSymbol}
                  type={type}
                  open={open}
+                 page={(props.hasOwnProperty('page')) ? true : false}
                  disabled={disableMenu} />
             <div className={componentClassName}>
                  <ActComp signalUnsaved={signalUnsaved} />
@@ -128,6 +128,6 @@ export const Link = (props) => {
 
   const cname = props.className || ""
 
-  return <span className={'nav-links '+cname} href={props.to} onClick={click}>{props.children}</span>
+  return <span className={'nav-links ' + cname} href={props.to} onClick={click}>{props.children}</span>
 }
 

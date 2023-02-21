@@ -68,7 +68,9 @@ The title field is the title that will be displayed on the menu.  The path is th
     - a unicode symbol in the form of &#xUNICODE_HEXNUM;
     - none = no symbol will be placed next to the title.  This is the default.
 
-7. noSide = indicates that the selected menu item should be placed underneath the vertical menu instead of beside it.  This option only works with vertical menus.  If this option does not exist, it will place the menu item selected beside the vertical menu.
+7. page = places a page symbol to the left of the menu item.
+
+8. noSide = indicates that the selected menu item should be placed underneath the vertical menu instead of beside it.  This option only works with vertical menus.  If this option does not exist, it will place the menu item selected beside the vertical menu.
 
 
 ## CSS Files
