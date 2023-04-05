@@ -1,3 +1,6 @@
+
+This is out of date
+
 $ cost-of-modules
 
 Making sure dependencies are installed
@@ -18,8 +21,6 @@ Calculating...
 │ react-day-picker │ 5          │ 0.94M │
 ├──────────────────┼────────────┼───────┤
 │ date-fns         │ 0          │ 0.70M │
-├──────────────────┼────────────┼───────┤
-│ react-autobind   │ 0          │ 0.02M │
 ├──────────────────┼────────────┼───────┤
 │ 3 modules        │ 5 children │ 1.66M │
 └──────────────────┴────────────┴───────┘
