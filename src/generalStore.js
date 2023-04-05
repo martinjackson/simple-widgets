@@ -1,5 +1,6 @@
 
-import create from 'zustand'          // zustand 1.73k  vs Recoil 1740k (1.74M)
+
+import { create } from 'zustand'        // zustand 1.4k  vs Recoil 1740k (1.74M)
 
 import { toCamelCase } from './camel'
 

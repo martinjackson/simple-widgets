@@ -1,0 +1,20 @@
+/* sw = simple-widgets */
+
+div.sw-cm_contextMenuHov {
+    position: absolute;
+    display: block;
+    padding: 10px;
+    z-index: 1;
+}
+
+span.sw-cm_contextMenuHov:hover {
+    visibility: visible;
+    background-color: lightgray;
+}
+
+.sw-cm_menuStyle {
+    width: 15em;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: var(--sw-theme_backgroundColor);  /* "#CCCC66", */
+}

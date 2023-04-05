@@ -1,0 +1,27 @@
+/* sw = simple-widgets */
+
+.sw-slider_rangeValue {
+  text-align: center;
+  font-size: 2em;
+  color: #999;
+  font-weight: 400;
+  margin-left: 20px;
+}
+
+.sw-slider_range {
+  -webkit-appearance: none;
+	background-color: lightgray;
+  height: 4px;
+	width: 400px;
+  outline: none;
+}
+
+.sw-slider_range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border:solid black 2px;
+  background: blue;
+  border-radius:6px;  
+  width: 12px;
+  height: 30px;
+  cursor: pointer;
+}

@@ -1,0 +1,47 @@
+/* sw = simple-widgets */
+
+#sw-modalButton {
+   background: transparent;
+   border: none !important;
+}
+
+#sw-modal {
+    background-color: rgba(129, 127, 127, 0.5);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sw-modal:empty {
+    display: none;
+}
+
+#sw-modal > div {
+    background-color: white;
+    max-width: fit-content;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.sw-modal_marginStyle {
+    margin-bottom: 10px;
+}
+
+.sw-modal_abuttonStyle, .sw-modal_ebuttonStyle, .sw-modal_cbuttonStyle, .sw-modal_buttonStyle {
+    margin: var(--sw-theme_buttonMargin);
+    border-radius: var(--sw-theme_buttonRadius);
+    color: var(--sw-theme_buttonTextColor);
+    width: var(--sw-theme_buttonWidth);
+    height: var(--sw-theme_buttonHeight);
+    font: var(--sw-theme_buttonFont);
+    font-weight: var(--sw-theme_buttonFontWeight);
+    font-size: var(--sw-theme_buttonFontSize);
+    background-color: var(--sw-theme_buttonColor);
+}

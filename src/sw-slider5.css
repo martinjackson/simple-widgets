@@ -1,0 +1,14 @@
+/* sw = simple-widgets */
+
+.sw-slider_rangeValue {
+    text-align: center;
+    font-size: 2em;
+    color: #999;
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+.sw-slider_range {
+    width: 400px;
+}
+
