@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint react/prop-types: 0 */
 
 import React, { useState, useEffect } from 'react';
@@ -28,10 +29,12 @@ const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
 const digit = [...'0123456789'];
 
+// ----------------------------------------------------------------------------
 const hasProperty = (obj, propName) => {
     return !!Object.getOwnPropertyDescriptor(obj, propName);
 }
 
+// ----------------------------------------------------------------------------
 function range(start, end) {
     if (end == -1 || end < start) {
       return []
@@ -40,12 +43,14 @@ function range(start, end) {
 }
 
 
+// ----------------------------------------------------------------------------
 const genHdr = (name) => {
     const header = name.replace(/_/g, ' ')
 
     return {header, name, search: true, sort: true, dropDown: false, pdfCol: 'left' }
 }
 
+// ----------------------------------------------------------------------------
 const defaultColHeaders = (rowZero) => {
 
     if (!rowZero)
@@ -54,6 +59,7 @@ const defaultColHeaders = (rowZero) => {
     return Object.keys(rowZero).map( col => genHdr(col) )
 }
 
+// ----------------------------------------------------------------------------
 const defaultEachRowInTable = (row, i) => {
     const cols = (!row) ? null : Object.keys(row).map( (idx, j) => ( <td key={i + '_' + j}>{row[idx]}</td> ) )
     const odd = (i % 2) ? 'sw-sst_oddRow' : 'sw-sst_evenRow'
@@ -66,25 +72,57 @@ const defaultEachRowInTable = (row, i) => {
  * This will allow the user to add a filter / search bar to a table in case
  * not all the data is displayed at once.  It will also allow a column to be
  * sorted by clicking on it.
- * 
+ *
  * @param   propsPassed the props passed in form the calling component
  *
  ****************************************************************************/
 const SearchSortTable = (propsPassed) => {
-//console.log('propsPassed :', propsPassed);
 
-    const defaultProps = {  // Default props if non are given
-        error: false,       // Indicates that an error has occrred
-        MAX_ITEMS: 100,     // Maximum items on a page
-        eachRowInTable: defaultEachRowInTable   // The default each row in table function
+    const defaultProps = {                           // Default props if non are given
+      error: false,                                  // Indicates that an error has occrred
+      MAX_ITEMS: 100,                                // Maximum items on a page
+      eachRowInTable: defaultEachRowInTable,         // The default each row in table function
+      table: defaultColHeaders(propsPassed.data[0])        // No table def passed in as a prop, setup a default
     }
 
     const props = Object.assign(defaultProps, propsPassed);
 
     if (!props.data || !Array.isArray(props.data)) {
-       console.log('SearchSortTable: props.data is missing/null or not an Array:', props.data);
-       return <><hr /></>
+      console.error('Search Sort Table component: props.data is missing/null or not an Array:', props.data);
+      return <><hr /></>
     }
+
+    if (hasProperty(props,'data') === false) {
+      console.error('Search Sort Table component: A data prop must be passed');
+      return (<span></span>);
+    }
+
+    if (hasProperty(props,'table') === false) {
+        console.error('Search Sort Table component: A table object prop must be passed');
+        return (<span></span>);
+    }
+
+    if (hasProperty(props,'letters') === true) {
+      if (hasProperty(props,'noupper') === true &&
+          hasProperty(props,'nolower') === true &&
+          hasProperty(props,'nodigit') === true) {
+            console.error('Search Sort Table component: If using letters prop, can not have all three: noupper, nolower, and nodigit');
+            return (<span></span>);
+        }
+    } else {
+    if (hasProperty(props,'noupper') === true ||
+        hasProperty(props,'nolower') === true ||
+        hasProperty(props,'nodigit') === true) {
+          console.error('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop');
+          return (<span></span>);
+        }
+    }
+
+    return <_InnerSearchSortTable {...props} />
+}
+
+// ----------------------------------------------------------------------------
+const _InnerSearchSortTable = (props) => {
 
     const invalidArray = generateInvalid(5, 0);  // Used to tell whether the user entered and invalid value or not
 
@@ -94,8 +132,8 @@ const SearchSortTable = (propsPassed) => {
     const PDFORIENT = 3;
     const AGGREGATE = 4;
 
-    let colAry = Array(props.table.length);
     const numCols = (props.table) ? props.table.length : 10     // Number of columns displayed
+    let colAry = Array(numCols);
     const initialFilters = Array(numCols).fill('');             // React doesn't like <input value={null}
     const initialSortOrder = Array(numCols).fill('N');          // Initial sort order, which is neither
 
@@ -104,7 +142,7 @@ const SearchSortTable = (propsPassed) => {
 
     let startIndexes = (props.data.length > 0) ? range(0, props.data.length-1) : [];    // Initial set of indexes
 
-    let initFooters = new Array(props.table.length);    // Allocate the footer array
+    let initFooters = new Array(numCols);    // Allocate the footer array
 
     for (let i = 0; i < initFooters.length; i++) {  // Blank out the footers
         initFooters[i] = [];
@@ -137,7 +175,7 @@ const SearchSortTable = (propsPassed) => {
     const [length, setLength] = useState(props.data.length);            // The length of the data
     const [background, setBackground] = useState(initialBackground);    // Background color for the letters prop
     const [table, setTable] = useState(props.table);                    // Contains information about how to display the table
-    const [columns, setColumns] = useState(colAry);                     // Column values for the drop down in each filter item                  
+    const [columns, setColumns] = useState(colAry);                     // Column values for the drop down in each filter item
     const [htmlDropDown, setHtmlDropDown] = useState(false);            // Contains the dropdown for each column in the table
     const [dropDownIndex, setDropDownIndex] = useState(-1);             // Indicates in which column the dropdown will appear
     const [controlBreakInfo, setControlBreakInfo] = useState([]);       // Contains which columns in the table are hidden and have control breaks
@@ -150,18 +188,19 @@ const SearchSortTable = (propsPassed) => {
     const [showExcel, setShowExcel] = useState(false);                  // Indicates whether the Excel Display button can be displayed or not
     const [hideCols, setHideCols] = useState([]);                         // Indicates which columns are hide and which are displayed
 
+    // TODO: Ask Jim  hideCols is never used
 
     // const [indexSet, setIndexSet] = useState([[...startIndexes]]);
     // const [origIndexes, setOrigIndexes] = useState([...startIndexes]);
     const origIndexes = [...startIndexes];  // The original set of indexes that is used when the sort order is neither or control breaks are removed
 
     /*************************************************************************************************************
-     * 
+     *
      * This will set up controlBreakInfo array, which contains whether the column in the table is hidden or is a
      * control break
-     * 
+     *
      **************************************************************************************************************/
-    function populateDropDown () {
+    function populateDropDown (table) {
         let ctrlBreakAry = [];  // The control break info array
         for (let i = 0; i < table.length; i++) {
             ctrlBreakAry.push ({hidden: false, ctrlBreak: 0 });
@@ -170,15 +209,15 @@ const SearchSortTable = (propsPassed) => {
         setControlBreakInfo(ctrlBreakAry);
     }
 
-    let localCols = new Array(props.table.length);  // The value of each column in the table for the filter process
+    let localCols = new Array(numCols);  // The value of each column in the table for the filter process
 
     /*****************************************************************************************************************
-     * 
+     *
      * This will do a sequential search on an array.
-     * 
+     *
      * @param table the table to be searched
      * @param key   the key to search for in the table
-     * 
+     *
      ******************************************************************************************************************/
     function search(table, key) {
         for (let i = 0; i < table.length; i++) {
@@ -191,13 +230,13 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /******************************************************************************************************************
-     * 
+     *
      * This builds the values for the choice boxes for each column in the filtering process.  It will place each value
      * for that column in the choice box, with duplicates being removed.  The values will then be sorted.
-     * 
-     * @param row   a row in the props.table or default table
-     * @param i     current index into the props.table or default table
-     * 
+     *
+     * @param row   a row in the table or default table
+     * @param i     current index into the table or default table
+     *
      ********************************************************************************************************************/
     function buildChoices (row, i) {
         let data = props.data;  // The data to be searched
@@ -242,7 +281,7 @@ const SearchSortTable = (propsPassed) => {
     // ---------
     useEffect (() => {
 //      console.log('SearchSortTable useEffect [] ');
-      populateDropDown();
+      populateDropDown(props.table);
       populateSearch(props.table)
       props.table.map(buildChoices);
       setColumns(localCols);
@@ -309,31 +348,6 @@ const SearchSortTable = (propsPassed) => {
     console.log ('startIndexes :', startIndexes);
 */
 
-    if (hasProperty(props,'data') === false) {
-      console.error ('Search Sort Table component: A data prop must be passed');
-      return (<span></span>);
-    }
-
-    if (hasProperty(props,'table') === false) {
-        console.error ('Search Sort Table component: A table object prop must be passed');
-        return (<span></span>);
-    }
-
-    if (hasProperty(props,'letters') === true) {
-      if (hasProperty(props,'noupper') === true &&
-          hasProperty(props,'nolower') === true &&
-          hasProperty(props,'nodigit') === true) {
-            console.error ('Search Sort Table component: If using letters prop, can not have all three: noupper, nolower, and nodigit');
-            return (<span></span>);
-        }
-    } else {
-    if (hasProperty(props,'noupper') === true ||
-        hasProperty(props,'nolower') === true ||
-        hasProperty(props,'nodigit') === true) {
-          console.error ('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop');
-          return (<span></span>);
-        }
-    }
 
     let number = 0;
     if (hasProperty(props, 'number') === true) {
@@ -354,7 +368,7 @@ const SearchSortTable = (propsPassed) => {
      *
      * This will populate the header drop down and place a blank at the
      * beginning.
-     * 
+     *
      * @param table the table props to populate the search drop down
      *
      ****************************************************************************/
@@ -526,7 +540,7 @@ const SearchSortTable = (propsPassed) => {
                 title = <h5 className="sw-sst_titleStyle">{props.title}</h5>
             } else if (props.titleSize === '6') {
                 title = <h6 className="sw-sst_titleStyle">{props.title}</h6>
-            } 
+            }
         } else {
             title = <h3 className="sw-sst_titleStyle">{props.title}</h3>
         }
@@ -558,9 +572,9 @@ const SearchSortTable = (propsPassed) => {
         </>)
 
     /*****************************************************************************************************************
-     * 
+     *
      * This will display the PDF with the regular data that is in the search sort table.
-     * 
+     *
      ******************************************************************************************************************/
     function pdfRegButton() {
         let title = 'PDF Report';
@@ -599,7 +613,7 @@ const SearchSortTable = (propsPassed) => {
                 }
             }
         };
-       
+
         docDefinition.header = {    // Build the header and footer
             stack: [
                 {columns: [
@@ -705,9 +719,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*****************************************************************************************************************
-     * 
+     *
      * This will display the PDF with the control break data that is in the search sort table.
-     * 
+     *
      ******************************************************************************************************************/
     function pdfCBButton() {
         let title = 'PDF Report';
@@ -751,7 +765,7 @@ const SearchSortTable = (propsPassed) => {
                 }
             }
         };
-       
+
         docDefinition.header = {    // Build the header and footer
             stack: [
                 {columns: [
@@ -776,7 +790,7 @@ const SearchSortTable = (propsPassed) => {
                     }
                 docDefinition.content.push ({ text: controlBreakData[k].title, style: 'cellCenterBoldBig' });
                 index++;
-      
+
                 let widths = [];    // The width of each of the field, will be auto
                 let headers = [];   // The header for each row of the table
                 for (let i = 0; i < table.length; i++) {
@@ -869,9 +883,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*****************************************************************************************************************
-     * 
+     *
      * This will determine which PDF function to call based on whether there are control breaks or not.
-     * 
+     *
      *****************************************************************************************************************/
     function pdfButton() {
         let localInvalid = [...invalid];    // Makes sure a page orientation for the PDF was selected
@@ -889,9 +903,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /********************************************************************************************************************
-     * 
+     *
      * This will process the data into a CSV file to be imported into excel for a regular search sort table.
-     * 
+     *
      *********************************************************************************************************************/
     function excelRegButton() {
         let title = 'Excel Report';
@@ -908,7 +922,7 @@ const SearchSortTable = (propsPassed) => {
         exData.push([' ']);
         exData.push([title]);
         exData.push([' ']);
-    
+
         let header = [];    // Header for the excel spreadsheet
         for (let i = 0; i < table.length; i++) {
             header.push(table[i].header);
@@ -935,10 +949,10 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /********************************************************************************************************************
-     * 
+     *
      * This will process the data into a CSV file to be imported into excel for a search sort table that has control
      * breaks.
-     * 
+     *
      *********************************************************************************************************************/
     function excelCBButton() {
         let title = 'Excel Report';
@@ -955,7 +969,7 @@ const SearchSortTable = (propsPassed) => {
         exData.push([' ']);
         exData.push([title]);
         exData.push([' ']);
-    
+
         // Header for the excel spreadsheet
         let header = [];
         for (let i = 0; i < table.length; i++) {
@@ -978,7 +992,7 @@ const SearchSortTable = (propsPassed) => {
                 exData.push(text);
             }
         }
-        
+
         // Footer at the bottom of the spreadsheet
         exData.push([' ']);
         exData.push[['For Offical Use Only']];
@@ -988,9 +1002,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*****************************************************************************************************************
-     * 
+     *
      * This will determine which excel spreadsheet function to call based on whether there are control breaks or not.
-     * 
+     *
      *****************************************************************************************************************/
     function excelBuildButton() {
         if (isControlBreak(controlBreakInfo) === true) {    // There is a control break in the search sort table
@@ -1001,9 +1015,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /******************************************************************************************************************
-     * 
+     *
      * This will hide the Excel Display button
-     * 
+     *
      ******************************************************************************************************************/
     function closeExDisplay() {
         setShowExcel(false);
@@ -1015,8 +1029,8 @@ const SearchSortTable = (propsPassed) => {
             <button name="pdf" className={genButtonStyle} onClick={pdfButton}>PDF</button>
             <span className="sw-invalid_checkForError">
                 <label htmlFor="pdfOrientation">Orientation: </label>
-                <Choice choices={pdfOrientValues} name="pdfOrientation" value={pdfOrientation} 
-                    onChange={(event) => setPdfOrientation(event.target.value)} 
+                <Choice choices={pdfOrientValues} name="pdfOrientation" value={pdfOrientation}
+                    onChange={(event) => setPdfOrientation(event.target.value)}
                     onClick={() => wasClickedScreen(invalid, PDFORIENT, setInvalid)}
                     className={processInvalidStyleScreen(invalid, PDFORIENT)} />
                 {(isInvalid(invalid[PDFORIENT], -1) === true) ? <span className="sw-invalid_errMessage">{invalid[PDFORIENT].message}</span> : null }
@@ -1027,7 +1041,7 @@ const SearchSortTable = (propsPassed) => {
     const excelDisplay = (hasProperty(props, 'noexcel') === true) ? null :
         <span>
             <button name="excelBuild" className={genButtonStyle} onClick={excelBuildButton} >Excel Build</button>
-            {(showExcel === false) ? null : 
+            {(showExcel === false) ? null :
                 <CSVLink data={excelData} target="_blank" onClick={closeExDisplay} className="sw-sst_excelButtonStyle">Excel Display</CSVLink> }
         </span>;
 
@@ -1082,7 +1096,7 @@ const SearchSortTable = (propsPassed) => {
             }
         }
 
-        if (found === false) {  // 
+        if (found === false) {  //
             console.error ('You can have at most 10 different hover colors for tables.')
         }
     }
@@ -1129,7 +1143,7 @@ const SearchSortTable = (propsPassed) => {
                                 <tr key={header} className="sw-sst_centerBoldStyle">
                                     {table.map(buildHeaders(true, 0))}
                                 </tr>
-                                { showData.map((row, i) => {
+                                { showData.map((row) => {
                                     count++;
                                     return props.eachRowInTable(row, count);
                                 }) }
@@ -1143,9 +1157,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /************************************************************************************************************************
-     * 
+     *
      * Checks to see if the dropDown field exists and is set to true in the table props.
-     * 
+     *
      *************************************************************************************************************************/
     function areDropDowns() {
         for (let i = 0; i < table.length; i++) {    // Spin through the table to check for the dropDown field and its value
@@ -1158,9 +1172,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /**************************************************************************************************************************
-     * 
+     *
      * Render the screen
-     * 
+     *
      **************************************************************************************************************************/
     return (
         <div className="sw-sst_divStyle">
@@ -1231,10 +1245,10 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /******************************************************************************************************************
-     * 
+     *
      * This will set the search sort table back to its initial state.  It will remove hidden columns, control breaks,
      * and aggregate footers.
-     * 
+     *
      *******************************************************************************************************************/
     function resetButton() {
         let ctrlBreakInfo = [...controlBreakInfo];
@@ -1267,11 +1281,11 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /************************************************************************************************************
-     * 
+     *
      * Indicates whether a control break has been set or not for a column
-     * 
+     *
      * @param controlBreakInfo  information about hidden columns and control breaks
-     * 
+     *
      ************************************************************************************************************/
     function isControlBreak (controlBreakInfo) {
         for (let i = 0; i < controlBreakInfo.length; i++) {
@@ -1283,24 +1297,30 @@ const SearchSortTable = (propsPassed) => {
         return false;   // No control breaks found
     }
 
-    /************************************************************************************************************
-     * 
-     * This will hide the column in the regular table or the control break tables
-     * 
-     * @param hideShow  indicates that the column should be displayed (false) or not (true)
-     * @param row       row in the control break info array
-     * @param i         current index into the control break info array   
-     * 
-     ************************************************************************************************************/
-    function findHiddenColumns(hideShow) {
+
+    // /************************************************************************************************************
+    //  *
+    //  * This will hide the column in the regular table or the control break tables
+    //  *
+    //  * @param hideShow  indicates that the column should be displayed (false) or not (true)
+    //  * @param row       row in the control break info array
+    //  * @param i         current index into the control break info array
+    //  *
+    //  ************************************************************************************************************/
+
+/*
+    function _findHiddenColumns(hideShow) {
+
+      // TODO ask Jim   hideTheColumn() is not defined
+
         return function (row, i) {
             let name = `table${number}`;    // Determine the name of the table
-    
+
             if (row.hidden === hideShow) {  // Make sure the column is to be hidden or shown
                 if (isControlBreak(controlBreakInfo) === true) {    // There is a control break
                     for (let j = 0; j < controlBreakData.length; j++) {
                         name = `table${number}_${j}`    // Determine the control break table name
-                        hideTheColumn (row, i, name, true, hideShow);   // Hide the column in the control break table
+                        hideTheColumn(row, i, name, true, hideShow);   // Hide the column in the control break table
                     }
                 } else {    // Regular table
                     hideTheColumn(row, i, name, false, hideShow);   // Hide the column in the table
@@ -1308,26 +1328,27 @@ const SearchSortTable = (propsPassed) => {
             }
         }
     }
+*/
 
     /**********************************************************************************************************
-     * 
+     *
      * This will hide the column by setting the attribute hidden if hideShow is true or removing the attribute
      * hidden if hideShow is false.
-     * 
+     *
      * @param row           the row containing the current control break info for that column in the table
      * @param i             current index into the control break info array
      * @param name          the name of the table in which the column is to be hidden
      * @param isCtrlBreak   indicates that there is a control break
      * @param hideShow  indicates that the column should be displayed (false) or not (true)
-     * 
+     *
      ************************************************************************************************************/
-    function hideTheColumnxx (row, i, name, isCtrlBreak, hideShow) {
+    function _hideTheColumnxx (row, i, name, isCtrlBreak, hideShow) {
         let tableElement = document.getElementsByName(name)[0]; // Find the table in the DOM
         console.log('tableElement :', tableElement);
         if (tableElement === undefined) {
             return;
         }
-        let tbodyElement = tableElement.children;               // Find the tbody in the DOM         
+        let tbodyElement = tableElement.children;               // Find the tbody in the DOM
         console.log('tbodyElement :', tbodyElement);
         let trElement = tbodyElement[(isCtrlBreak === false) ? 0 : 1].children; // Find the tr children in the DOM
         console.log('trElement :', trElement);
@@ -1338,7 +1359,7 @@ const SearchSortTable = (propsPassed) => {
 //                console.log('tdChild :', tdChild);
                 if (count === i) {  // Is it the correct tr child being sought
                     if (hideShow === true) {    // Hiding the column
-                        tdChild.setAttribute("hidden", row.hidden); // Add the hidden attribute    
+                        tdChild.setAttribute("hidden", row.hidden); // Add the hidden attribute
                     } else {    // Not hiding the column
                         tdChild.removeAttribute("hidden");  // Remove the hidden atttribute
                     }
@@ -1349,12 +1370,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /********************************************************************************************************************
-     * 
+     *
      * The will place whether the column is hidden or shown in the table.  This information is passed back to the calling
      * component via a hidden function.  The hidden values (true or false) for each column is returned in an array.
-     * 
+     *
      * @param ctrlBreakInfo contains whether the column should be hidden or shown along with the control break information
-     * 
+     *
      *********************************************************************************************************************/
     function hideTheColumns(ctrlBreakInfo) {
         let hide = [];  // Indicates whether the column is hidden (true) or shown (false)
@@ -1369,31 +1390,31 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /***********************************************************************************************************************
-     * 
-     * This will hide a column in the search sort table.  This is selected by the drop down with blue headers for each 
+     *
+     * This will hide a column in the search sort table.  This is selected by the drop down with blue headers for each
      * column.
-     * 
+     *
      * @param row   the row being processed in the table props
      * @param i     current row in the table being processed
-     * 
+     *
      ***********************************************************************************************************************/
     function hideColumn(row, i) {
         let ctrlBreakInfo = [...controlBreakInfo];
         ctrlBreakInfo[i].hidden = true;                 // Hide that particular column in the search sort table
         hideTheColumns(ctrlBreakInfo);
 //        ctrlBreakInfo.map(findHiddenColumns(true));     // Find the column that is to be hidden in the DOM and add the hidden attribute
-        setControlBreakInfo(controlBreakInfo)           
+        setControlBreakInfo(controlBreakInfo)
         setHtmlDropDown(false);                         // Hide the dropdown in the column
     }
 
     /***********************************************************************************************************************
-     * 
-     * This will show a column in the search sort table.  This is selected by the drop down with blue headers for each 
+     *
+     * This will show a column in the search sort table.  This is selected by the drop down with blue headers for each
      * column.
-     * 
+     *
      * @param row   the row being processed in the table props
      * @param i     current row in the table being processed
-     * 
+     *
      ***********************************************************************************************************************/
     function showColumn(row, i) {
         let ctrlBreakInfo = [...controlBreakInfo];
@@ -1405,12 +1426,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*************************************************************************************************************************
-     * 
+     *
      * This will find the next order number for the next control break.
-     * 
+     *
      * @param {*} controlBreakInfo  contains the control break sort order
      * @returns                     returns the next sort order number
-     * 
+     *
      *************************************************************************************************************************/
     function maxPlusOne(controlBreakInfo) {
         let max = -1;   // The next sort order number
@@ -1424,13 +1445,13 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /**************************************************************************************************************************
-     * 
+     *
      * This determines the data type of the data to be sorted.  If field is a date, its format is format is converted to the
      * correct format.
-     * 
+     *
      * @param   breakOrder  contains the control break sort order for the control breaks
      * @param   row         indexes for the control break
-     * 
+     *
      **************************************************************************************************************************/
     function buildSortData (breakOrder, row) {
         let data = [];  // The data for the control break
@@ -1439,7 +1460,7 @@ const SearchSortTable = (propsPassed) => {
             if (hasProperty(table[breakOrder[i].col], 'sortDate')) {    // There is a sort data in the table props
                 dateFormat = table[breakOrder[i].col].sortDate;
             }
-    
+
             if (dateFormat !== null) {  // Convert the date to its sort date format
                 if (dateFormat === 'MM/DD/YYYY') {
                     data.push(convertDate2(props.data[row][table[breakOrder[i].col].name], '/', 1));
@@ -1463,14 +1484,14 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*********************************************************************************************************************
-     * 
+     *
      * The will sort multiple columns for the control breaks.  It will also sort the control break numbers to get the
      * columns in the right order.
-     * 
+     *
      * @param {*} ctrlBreakInfo information about the ordering of the control breaks
      * @param {*} indexes       indexes into the data
      * @returns                 the indexes and the data for the control break
-     * 
+     *
      *********************************************************************************************************************/
     function sortMultipleCols(ctrlBreakInfo, indexes) {
         let breakOrder = [];    // The sort order for the control breaks
@@ -1485,7 +1506,7 @@ const SearchSortTable = (propsPassed) => {
             }
         }
 
-        // Sort the control break order 
+        // Sort the control break order
         breakOrder.sort(function (item1, item2) {
             return item1.order - item2.order;
         });
@@ -1505,7 +1526,7 @@ const SearchSortTable = (propsPassed) => {
                     item1.data[i] = item1.data[i].toUpperCase()
                     item2.data = (item2.data[i] !== null) ? item2.data.toUpperCase() : null;
                 }
-    
+
                 // Make the comparison
                 if (item1.data[i] < item2.data[i]) {
                     return -1;
@@ -1513,10 +1534,10 @@ const SearchSortTable = (propsPassed) => {
                     return 1;
                 }
             }
-    
+
             return 0;
         });
-    
+
         // Build the new indexes for the control break
         let newIndexes = [];
         sortAry.map((row) => newIndexes.push(row.index));
@@ -1527,13 +1548,13 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /***********************************************************************************************************************
-     * 
+     *
      * This will calculate the pagination for the control breaks in the search sort table.  The starting or ending point
      * will be passed down and either the starting table and index within the table or the ending table and index within the
      * table.
-     * 
+     *
      * @param   point   the starting or ending point for a control break
-     * 
+     *
      ************************************************************************************************************************/
     function calcStartEndCB (point) {
         let tablePos = 0;   // The control break table in which the point is located
@@ -1557,9 +1578,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*************************************************************************************************************************
-     * 
+     *
      * This will calculate the starting and ending position for the data to be displayed on the screen (pagination).
-     * 
+     *
      **************************************************************************************************************************/
     function calcPagination() {
         let starting = calcStartEndCB(start);   // Calculate the starting position
@@ -1567,18 +1588,18 @@ const SearchSortTable = (propsPassed) => {
 
         let infoObj = { tableStart: starting.table, // Place the starting and ending position in an object
                         startIndex: starting.index, // and return the object
-                        tableEnd: ending.table, 
+                        tableEnd: ending.table,
                         endIndex: ending.index };
         return infoObj;
     }
 
     /*************************************************************************************************************************
-     * 
+     *
      * This will render the control break table and take care of the pagination.
-     * 
+     *
      * @param   row the name of the table being rendered
      * @param   i   current index into the controlBreakData
-     * 
+     *
      **************************************************************************************************************************/
     function renderCtrlBreak (row, i) {
         let name = `table${number}_${i}`;   // The name of the table
@@ -1632,7 +1653,7 @@ const SearchSortTable = (propsPassed) => {
                     <tr key={keyHeader}>
                         {table.map(buildHeaders(false, i))}
                     </tr>
-                    {data.map((row, i) => {
+                    {data.map((row) => {
                         cbCount++;
                         return props.eachRowInTable(row, cbCount);
                     })}
@@ -1645,14 +1666,14 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /******************************************************************************************************************
-     * 
+     *
      * This compares two values to see if they are equal or unequal and returns true if they are equal and false if
      * they are unequal.  This used to determine the control break data.
-     * 
+     *
      * @param k     index into the control break data array
      * @param info  contains the indexes and sort order info into the data for the comparision
      * @param temp  the temporary value to compare to see if the control breaks have changed
-     * 
+     *
      ******************************************************************************************************************/
     function compare(k, info, temp) {
         let found = true;   // Assume to be equal until proven otherwise
@@ -1666,12 +1687,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /********************************************************************************************************************
-     * 
+     *
      * This will build the temporary value that is used to see if control breaks have changed.
-     * 
+     *
      * @param k     index into the control break data array
      * @param info  contains the indexes and sort order info into the data for the comparision
-     * 
+     *
      ******************************************************************************************************************/
     function processTemp(k, info) {
         let temp = {};  // Contains the temporary values
@@ -1683,26 +1704,26 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*******************************************************************************************************************
-     * 
+     *
      * This will build the title for each control break table.
-     * 
+     *
      * @param k     index into the control break data array
      * @param info  contains the indexes and sort order info into the data for the comparision
-     * 
+     *
      ******************************************************************************************************************/
     function processTitle(k, info) {
         let title = '';
         for (let i = 0; i < info.srtOrder.length; i++) {
-            title += `${table[info.srtOrder[i].col].header} ${props.data[info.indexes[k]][table[info.srtOrder[i].col].name]}; `                
+            title += `${table[info.srtOrder[i].col].header} ${props.data[info.indexes[k]][table[info.srtOrder[i].col].name]}; `
         }
 
         return title;
     }
 
     /*******************************************************************************************************************
-     * 
+     *
      * This will set up a blenk footer for each control break table.
-     * 
+     *
      ******************************************************************************************************************/
     function processFooter() {
         let footer = new  Array(table.length);      // Allocate an array for the number of columns in the control break table
@@ -1714,16 +1735,16 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*******************************************************************************************************************
-     * 
+     *
      * This will find the control breaks based on the data and build the control break tables.
-     * 
+     *
      * @param controlBreakInfo  contains whether the column in the table is to be hidden or is a control break
      * @param indexes           indexes into the data
-     * 
+     *
      ******************************************************************************************************************/
     function findCtrlBreak(controlBreakInfo, indexes) {
         let info = sortMultipleCols(controlBreakInfo, indexes); // Sort the columns based on the control break data
-        let ctrlBreakData = [];                                 // Contains the control break title, data, and footer    
+        let ctrlBreakData = [];                                 // Contains the control break title, data, and footer
         let startingPos = [0];                                  // Contains where each control break starts in the data
         let pos = 0;                                            // Used to get the title out of the control break data
         let data = [];                                          // The data for the control break;
@@ -1744,7 +1765,7 @@ const SearchSortTable = (propsPassed) => {
 
                 let title = processTitle(pos, info);    // Get the control break title and footer
                 let footer = processFooter();
-    
+
                 // Build a control break table
                 ctrlBreakData.push ({ title: title, data: [...data], footer: footer });
 
@@ -1767,12 +1788,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /**************************************************************************************************************************
-     * 
+     *
      * This will turn a control break on in the control break info by assigning the next number in the ctrlBreak field.
-     * 
+     *
      * @param row   row in the control break info array
      * @param i     current index in the control break info array
-     * 
+     *
      **************************************************************************************************************************/
     function controlBreakOn(row, i) {
         let ctrlBreakInfo = [...controlBreakInfo];
@@ -1784,12 +1805,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /**************************************************************************************************************************
-     * 
+     *
      * This will turn a control break off in the control break info by assigning the next number in the ctrlBreak field.
-     * 
+     *
      * @param row   row in the control break info array
      * @param i     current index in the control break info array
-     * 
+     *
      **************************************************************************************************************************/
     function controlBreakOff(row, i) {
         let ctrlBreakInfo = [...controlBreakInfo];
@@ -1801,21 +1822,21 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /**************************************************************************************************************************
-     * 
+     *
      * This will hide the drop down in the column header.
-     * 
+     *
      **************************************************************************************************************************/
     function cancel() {
         setHtmlDropDown(false); // Hide the dropdown for the column
     }
 
     /**************************************************************************************************************************
-     * 
+     *
      * This will sum a numeric column in the table and place the sum at the bottom of the table.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function summationFunct(row, i) {
         let sum = 0;    // The sum of the column
@@ -1842,12 +1863,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /**************************************************************************************************************************
-     * 
+     *
      * This will calculate the average of a numeric column in the table and place the average at the bottom of the table.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function averageFunct(row, i) {
         let sum = 0;    // The sum of the column
@@ -1876,14 +1897,14 @@ const SearchSortTable = (propsPassed) => {
             setFooters(locFooters);
         }
     }
-    
+
     /**************************************************************************************************************************
-     * 
+     *
      * This will count the number of rows in the table and place the count in this column at the bottom of the table.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function countFunct(row, i) {
         let count = 0;  // Counts the number of rows
@@ -1908,15 +1929,15 @@ const SearchSortTable = (propsPassed) => {
             setFooters(locFooters);
         }
     }
-    
+
     /**************************************************************************************************************************
-     * 
-     * This will count the distinct number of rows for that column in the table and place the count in this column at the 
+     *
+     * This will count the distinct number of rows for that column in the table and place the count in this column at the
      * bottom of the table.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function countDistinctFunct(row, i) {
         let count = 0;  // The distinct (unique) count for the column
@@ -1971,15 +1992,15 @@ const SearchSortTable = (propsPassed) => {
             setFooters(locFooters);
         }
     }
-    
+
     /**************************************************************************************************************************
-     * 
-     * This will minimum column value in a column in the table and place the minimum value in this column at the 
+     *
+     * This will minimum column value in a column in the table and place the minimum value in this column at the
      * bottom of the table.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function minimumFunct(row, i) {
         let minimum = null; // The minimum value for the column
@@ -2021,15 +2042,15 @@ const SearchSortTable = (propsPassed) => {
             setFooters(locFooters);
         }
     }
-    
+
     /**************************************************************************************************************************
-     * 
-     * This will maximum column value in a column in the table and place the maximum value in this column at the 
+     *
+     * This will maximum column value in a column in the table and place the maximum value in this column at the
      * bottom of the table.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function maximumFunct(row, i) {
         let maximum = null; // The maximum value for the column
@@ -2071,15 +2092,15 @@ const SearchSortTable = (propsPassed) => {
             setFooters(locFooters);
         }
     }
-    
+
     /**************************************************************************************************************************
-     * 
-     * This will find the median value for a column in the table and place the median value in this column at the 
+     *
+     * This will find the median value for a column in the table and place the median value in this column at the
      * bottom of the table.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function medianFunct(row, i) {
         let median = null;  // Median value
@@ -2101,13 +2122,13 @@ const SearchSortTable = (propsPassed) => {
 
                 if (data.length % 2 === 0) {    // There is an even amount of numbers in the column
                     middle = parseInt(data.length / 2); // Find the middle of the data array
-                    // Calculate the median by taking the average of the two numbers 
+                    // Calculate the median by taking the average of the two numbers
                     median = ((data[middle - 1][row.name] + data[middle][row.name]) / 2).toFixed(mathDecimal);
                 } else {    // There are an odd amount of numbers in the column
                     middle = parseInt(data.length / 2); // Find the middle of the data array and grab that number
                     median = data[middle][row.name];    // for the median
                 }
-                
+
                 controlBreakData[j].footer[i].push(`Median: ${median}`);    // Place the median value into the footer
             }
         } else {    // Regular search sort table
@@ -2128,7 +2149,7 @@ const SearchSortTable = (propsPassed) => {
 
             if (data.length % 2 === 0) {    // There is an even amount of numbers in the column
                 middle = parseInt(data.length / 2); // Find the middle of the data array
-                // Calculate the median by taking the average of the two numbers 
+                // Calculate the median by taking the average of the two numbers
                 median = ((data[middle - 1][row.name] + data[middle][row.name]) / 2).toFixed(mathDecimal);
             } else {    // There are an odd amount of numbers in the column
                 middle = parseInt(data.length / 2); // Find the middle of the data array and grab that number
@@ -2139,15 +2160,15 @@ const SearchSortTable = (propsPassed) => {
             setFooters(locFooters);
         }
     }
-    
+
     /**************************************************************************************************************************
-     * 
+     *
      * This is called when the user presses the Apply button to apply the aggregation to the column from the
      * dropDown over the column.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function applyFunction(row, i) {
         // Make sure an aggregation was selected from the pull down choice box
@@ -2177,16 +2198,16 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*************************************************************************************************************************
-     * 
+     *
      * This will display the dropDown above the column header.  The single page with a circle X will hide the column.
      * The single page by itself will show the column.  The multiple pages will do a control break on that column.  The
      * multiple pages with a circle X will undo the control break for that column.  The circle X will cancel the drop down.
      * The choice box will allow the user to select from a list of aggregations base on the type of data in the column.  The
      * apply button will do the aggregation operation selected and place the result a the bottom of the column.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function showDropDown(row, i) {
         let functionList = null;
@@ -2206,7 +2227,7 @@ const SearchSortTable = (propsPassed) => {
         // Render the drop down
         return (
             <div className="sw-sst_dropDownDiv">
-                {(controlBreakInfo[i].hidden === false) ? 
+                {(controlBreakInfo[i].hidden === false) ?
                     <span className="sw-sst_showToolTip">
                         <button name="hidden" onClick={() => hideColumn(row, i)} className="sw-sst_dropDownButton" >🗏⊗</button>
                         <span className="sw-sst_toolTip sw-sst_top">Hide Column</span>
@@ -2215,7 +2236,7 @@ const SearchSortTable = (propsPassed) => {
                         <button name="show" onClick={() => showColumn(row, i)} className="sw-sst_dropDownButton" >🗏</button>
                         <span className="sw-sst_toolTip sw-sst_top">Show Column</span>
                     </span>}
-                {(controlBreakInfo[i].ctrlBreak === 0) ? 
+                {(controlBreakInfo[i].ctrlBreak === 0) ?
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOn" onClick={() => controlBreakOn(row, i)} className="sw-sst_dropDownButton" >🗐</button>
                         <span className="sw-sst_toolTip sw-sst_top">Control Break</span>
@@ -2229,7 +2250,7 @@ const SearchSortTable = (propsPassed) => {
                     <span className="sw-sst_toolTip sw-sst_top">Cancel</span>
                 </span>
                 <span className="sw-invalid_checkForError">
-                    <Choice choices={functionList} name="functSelect" value={functSelect} 
+                    <Choice choices={functionList} name="functSelect" value={functSelect}
                         onChange={(event) => setFunctSelect(event.target.value)}
                         onClick={() => wasClickedScreen(invalid, AGGREGATE, setInvalid)}
                         className={"sw-sst-dropDown_choice" + processInvalidStyleScreen(invalid, AGGREGATE)} />
@@ -2241,12 +2262,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /****************************************************************************************************************************
-     * 
+     *
      * This determines which column the drop down menu is displayed over.
-     * 
+     *
      * @param   row the column information from the table props
      * @param   i   current index into the table props
-     * 
+     *
      ***************************************************************************************************************************/
     function displayDropDown(row, i) {
         setDropDownIndex(i);    // Indicates which column in the table the drop down should appear above
@@ -2266,7 +2287,7 @@ const SearchSortTable = (propsPassed) => {
      *
      *********************************************************************************************************************/
     function buildHeaders(main, tableIndex) {
-        return function (row, i) {
+        const f = (row, i) => {
             let key = 'cell_' + i;
             let btnImg = '\u2BC8';
             // let filterKey = 'filter_' + i;
@@ -2325,7 +2346,7 @@ const SearchSortTable = (propsPassed) => {
                         return (
                             <th key={key} className={headerStyle + ' sw-sst_bottom'}>
                                 {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
-                                {(row.dropDown === true && main === true) ? 
+                                {(row.dropDown === true && main === true) ?
                                     <button className={"sw-sst_headerButton" + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                     <div className={fontColor}>{row.header}</div>}
                                 <span className="sw-invalid_checkForError">
@@ -2382,6 +2403,8 @@ const SearchSortTable = (propsPassed) => {
                 );
             }
         }
+
+        return f
     }
 
     /****************************************************************************************************
@@ -2401,12 +2424,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /******************************************************************************************************
-     * 
+     *
      * This will place the aggregate footers at the bottom of each column if there are any.
-     * 
+     *
      * @param row   row in the control break data array that contains the footer
      * @param i     current index into the control break data array
-     * 
+     *
      ******************************************************************************************************/
     function buildMathFooters(row, i) {
         if (row === undefined || row === null) {    // No footer for this column, so return a blank cell
@@ -2657,13 +2680,13 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /********************************************************************************************************************
-     * 
+     *
      * This will set the indexes, and possibly a copy of the index, the length of the indexes, and the start and end of
      * the indexes.
-     * 
+     *
      * @param indexing  the indexes to be set
      * @param doCopy    indicates whether a copy of the indexes should be made (true) or not (false)
-     * 
+     *
      *********************************************************************************************************************/
     function setIndex(indexing, doCopy) {
         setIndexes(indexing);
@@ -2743,7 +2766,7 @@ const SearchSortTable = (propsPassed) => {
      *                  should be validated or only the header (H)
      *
      *******************************************************************************/
-    function validate(which) {
+    function validate(_which) {
         let localInvalid = [...invalid];
 
         localInvalid[SRCHHDR].validity = false;
@@ -2796,7 +2819,7 @@ const SearchSortTable = (propsPassed) => {
      *
      * Parameters:
      * @param   searchItem the date to search for
-     * @param   tableIndex the index into the props.table
+     * @param   tableIndex the index into the table
      *
      **********************************************************************************************/
     function searchDate(searchItem, tableIndex) {
@@ -2838,7 +2861,7 @@ const SearchSortTable = (propsPassed) => {
                     } else {
                         searchPart = searchItem;
                     }
-                } else if (table[indexing[j]].searchDate === 'MM-DD-YYYY') {
+                } else if (table[tableIndex].searchDate === 'MM-DD-YYYY') {
                     if (searchItem.length === 'MM-DD-YYYY'.length) {
                         searchPart = convertDate2(searchItem, '-', 1);
                     } else if (searchItem.length === 'MM-YYYY'.length && searchItem.indexOf('-') !== -1) {
@@ -2846,7 +2869,7 @@ const SearchSortTable = (propsPassed) => {
                     } else {
                         searchPart = searchItem;
                     }
-                } else if (table[indexing[j]].searchDate === 'MM/DD/YYYY HH:MM:SS') {
+                } else if (table[tableIndex].searchDate === 'MM/DD/YYYY HH:MM:SS') {
                     if (searchItem.length === 'MM/DD/YYYY HH:MM:SS'.length) {
                         searchPart = convertDateTime(searchItem, '/', 1);
                     } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('/') !== -1) {
@@ -2854,7 +2877,7 @@ const SearchSortTable = (propsPassed) => {
                     } else {
                         searchPart = searchItem;
                     }
-                } else if (table[indexing[j]].searchDate === 'MM-DD-YYYY HH:MM:SS') {
+                } else if (table[tableIndex].searchDate === 'MM-DD-YYYY HH:MM:SS') {
                     if (searchItem.length === 'MM-DD-YYYY HH:MM:SS'.length) {
                         searchPart = convertDateTime (searchItem, '-', 1);
                     } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('-') !== -1) {
@@ -2862,7 +2885,7 @@ const SearchSortTable = (propsPassed) => {
                     } else {
                         searchPart = searchItem;
                     }
-                } else if (table[indexing].searchDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                } else if (table[tableIndex].searchDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
                     if (searchItem.length === 'YYYY-MM-DDTHH:MM:SS.SSS'.length) {
                         searchPart = convertDateTimeReg (searchItem);
                     } else {
@@ -3097,9 +3120,9 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*************************************************************************************************************************
-     * 
+     *
      * This will reset the sort order back to neither (not ascending or descending).
-     * 
+     *
      *************************************************************************************************************************/
     function resetSortOrder() {
         let order = new Array(table.length).fill('N');
@@ -3108,12 +3131,12 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /*************************************************************************************************************************
-     * 
+     *
      * This will set the background if the letters prop option is used.
-     * 
+     *
      * @param index the index for the letter that was pressed
      * @param set   indicates to make that letter a special background color
-     * 
+     *
      **************************************************************************************************************************/
     function clearSetBackground(index, set) {
         let backgrd = [...background];  // Array of for each letter displayed for the background color
@@ -3245,14 +3268,14 @@ const SearchSortTable = (propsPassed) => {
     }
 
     /********************************************************************************************************************
-     * 
+     *
      * This will send the indexes being displayed (pagination) back to the calling component
-     * 
+     *
      * @param   start   the start of the indexes to be returned
      * @param   end     the end of the indexes to be returned
      * @param   length  the length of the indexes array
      * @param   indexes the complete set of indexes
-     * 
+     *
      ******************************************************************************************************************************/
     function sendIndexes(start, end, length, indexes) {
         let sentIndexes = [];   // The indexes to be returned (pagination) to the calling component

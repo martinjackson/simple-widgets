@@ -1,0 +1,18 @@
+/* sw = simple widgets */
+
+.sw-checkbox_defaultStyle {
+    background-color: transparent; 
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color: inherit;            /* dont default to color: buttontext, wont match the current theme */
+}
+  
+.sw-radio_defaultStyle {
+      border: none;
+      background-color: transparent;
+      color: inherit;
+}
+   
