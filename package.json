@@ -31,7 +31,8 @@
     "braces": "3.0.2",
     "concat-stream": "2.0.0",
     "lodash.template": "4.5.0",
-    "vm2": "3.9.11"
+    "vm2": "3.9.11",
+    "ajv": "6.12.6"
   },
   "babel": {
     "plugins": [
@@ -111,7 +112,7 @@
     "acorn-dynamic-import": "^4.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^29.2.2",
-    "babel-loader": "^9.0.0",
+    "babel-loader": "9.0.0",
     "core-js": "^3.26.0",
     "css-loader": "^6.7.1",
     "eslint": "^8.26.0",
