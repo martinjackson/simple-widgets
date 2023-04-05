@@ -13,17 +13,6 @@ Props:
 8.  ***setUsername*** = the name of the function that will set the user if header should change the name of the user.
 9.  ***noModalOnError*** = indicates that when an error occurs, the modal displaying the error will ***not*** appear.  By default the modal is displayed.
 
-All of the above values are optional.  If they are left off, it will use the values in the environment file.  An example .env file will be:
-
-```
-defaultUser=JSMITH
-title=Title of Application
-titleLogo=logo.png
-alertLogo=./logo192.png
-DB_TYPE=DEV
-logoutURL=`https://nlaunch.fda.gov/logout`
-```
-
 The above environment file only has the values for the headers and might contain other values.
 
 ## CSS Files
@@ -94,11 +83,11 @@ const App = () => {
 
     return (
         <div>
-            <Header title={process.env.title}
-                    dbType={process.env.DB_TYPE}
-                    titleLogo={process.env.titleLogo}
-                    alertLogo={process.env.alertLogo}
-                    logoutURL={process.env.logoutURL}
+            <Header title="Your Title"
+                    dbType="PROD"
+                    titleLogo='Logo.svg',
+                    alertLogo='./logo192.png',
+                    logoutURL='https://your-auth-server/logout',
                     username={username}
                     setUsername={setUserName} />
         </div>
@@ -122,8 +111,6 @@ const App = () => {
 }
 ```
 
-The above example has not props, so it will use the values in the .env file.  If a prop is supplied like in the first example, it will use that prop instead of the environment variable value.
-
 ### Third Example
 
 ```js
@@ -140,6 +127,5 @@ const App = () => {
 }
 ```
 
-In the above example, the header will be displayed without the dbType.  Since the only prop being used is the dbType, all the other values will use the values in the .env file.
 
 
