@@ -2435,11 +2435,12 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************/
     function buildMathFooters(row, i) {
+        let key = 'mathfooter_' + i;
+
         if (row === undefined || row === null) {    // No footer for this column, so return a blank cell
-            return <td></td>;
+            return <td key={key}></td>;
         }
 
-        let key = 'mathfooter_' + i;
 
         let foot = [];  // Contains all the information in the footer with <br /> between each aggregate footer
         for (let j = 0; j < row.length; j++) {
