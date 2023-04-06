@@ -1519,18 +1519,21 @@ const _InnerSearchSortTable = (props) => {
         // Sort the indexes based on the control break sort order
         sortAry.sort(function (item1, item2) {
             for (let i = 0; i < breakOrder.length; i++) {
+
+                let a = item1.data[i]
+                let b = item2.data[i]
+
                 // Convert to upper case if ignoring case
-                if (typeof item1.data[i] === 'string' &&
+                if (typeof a === 'string' &&
                     hasProperty(props,'ignorecase') === true) {
-                    // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
-                    item1.data[i] = item1.data[i].toUpperCase()
-                    item2.data = (item2.data[i] !== null) ? item2.data.toUpperCase() : null;
+                    b = a.toUpperCase()
+                    b = b.toUpperCase() 
                 }
 
                 // Make the comparison
-                if (item1.data[i] < item2.data[i]) {
+                if (a < b) {
                     return -1;
-                } else if (item1.data[i] > item2.data[i]) {
+                } else if (a > b) {
                     return 1;
                 }
             }
