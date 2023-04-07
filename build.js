@@ -25,7 +25,6 @@ const shared = {
   entryPoints: ['src/index.js'],
   bundle: true,
   sourcemap: true,
-  target: 'es2020',
   loader: {
     ".js": "jsx",
   },
@@ -41,11 +40,13 @@ build({
   format: "cjs",
 })
 
+/*
 build({
   ...shared,
   outfile: 'lib/index.mjs',
   format: 'esm',
 })
+*/
 
 /*
 const { Generator } = require('npm-dts')
