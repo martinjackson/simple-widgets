@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "update": "npm install --legacy-peer-deps ; npx npm-force-resolutions ; npm audit",
+    "update": "npm install --legacy-peer-deps --quiet; npx npm-force-resolutions ; npm audit",
     "setup": "npm install  --legacy-peer-deps",
     "lint": "eslint src/",
     "lint-fix": "eslint src/ --fix",
