@@ -1,43 +1,5 @@
 import React, { Fragment } from 'react';
 
-/*
-
-  TODO:  Handle values other than Strings or something that converts to strings
-
-  currently supports:
-
-  const userList = {0: 'Vacancy, null', 2: 'Hernandez, April', 128: 'Lemon, Brian', 901: 'NCTR, Demo', 1500: 'Rice, Antonie', 1501: 'Woody, Jameca' …}
-
-     <Choice name="NCTR_ID" choices={userList} value=2/>
-
-  OR:
-
-  const userList = ['Vacancy, null','Hernandez, April','Lemon, Brian','NCTR, Demo','Rice, Antonie','Woody, Jameca','Smith, Sherry','Brooks, Roben','Monk, Mary', ... ]
-
-     <Choice name="NCTR_ID" choices={userList} value="Hernandez, April"/>
-*/
-
-// --------------------------------------------------------------------------------------------------------------------------------------------------
-const compareString = (a,b) => {
-   a = a.toUpperCase()
-   b = b.toUpperCase()
-
-   if (a < b)  return -1
-   if (a > b)  return 1
-
-   return 0
-}
-
-// --------------------------------------------------------------------------------------------------------------------------------------------------
-const sortKeysByValue = (obj) => {
-  const keys = Object.keys(obj)
-
-  const list = keys.map(k => { return {id: k, value: obj[k]} })
-                   .sort( (a,b) => compareString(a.value, b.value))
-
-  return list.map(item => item.id)
-}
-
 // --------------------------------------------------------------------------------------------------------------------------------------------------
 export const Choice = (propsIn) => {
 
@@ -46,7 +8,7 @@ export const Choice = (propsIn) => {
     const opt = list || choices || []
 
     const isKeyed = ( !Array.isArray(opt) )
-    const keys = (isKeyed) ? sortKeysByValue(opt) : opt     // origianlly       const keys = (isKeyed) ? Object.keys(opt) : opt
+    const keys = (isKeyed) ? Object.keys(opt) : opt
 
     const genOption = (el, k) => {
       if (isKeyed) {
@@ -63,8 +25,9 @@ export const Choice = (propsIn) => {
 
     if ( !isKeyed && typeof(props.value) == 'string' &&  Array.isArray(opt) && !opt.includes(props.value) )
        {
-         // console.log(`Adding missing default value: '${props.value}' to ${opt}`);
-         console.log(`Adding missing default value: '${value}' to ${props.name} [${opt.length}]`);
+         if (opt.length > 0) {
+           console.log(`Adding missing default value: '${props.value}' to ${opt}`);
+         }
          opt.unshift(props.value)
        }
 

@@ -1,5 +1,4 @@
 
-// TODO remove the 2 from    text: "Start Date2"
 
 // import {pretty} from "./Show";
 
@@ -44,5 +43,5 @@ export const applyOptions = (formFieldList, missing) => {
     }
   });
 
-  return formFieldList     // TODO: Need return a Deep Copy ?
+  return formFieldList    
 }

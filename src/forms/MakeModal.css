@@ -1,0 +1,28 @@
+
+/* take from
+    .sw-sst_normalButtonBackground .sw-sst_buttonStyle
+*/
+
+.modal_buttonStyle {
+    background-color: var(--sw-theme_buttonColor);
+
+    margin-left: var(--sw-theme_buttonMargin);
+    margin-right: var(--sw-theme_buttonMargin);
+    padding-left: var(--sw-theme_buttonPadding);   /* undefined */
+    padding-right: var(--sw-theme_buttonPadding);  /* undefined */
+    border-radius: var(--sw-theme_buttonRadius);
+    color: var(--sw-theme_buttonTextColor);
+    width: var(--sw-theme_buttonWidth);
+/*    height: var(--sw-theme_buttonHeight); */
+    font: var(--sw-theme_buttonFont);
+    font-weight: var(--sw-theme_buttonFontWeight);
+    font-size: var(--sw-theme_buttonFontSize);
+}
+
+/* Override the default setting */
+#sw-modal > div {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 8px;
+    border-radius: 15px;
+}
