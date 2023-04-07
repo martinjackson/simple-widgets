@@ -5,29 +5,31 @@ import React from "react";
 
 const Input = (props) => {
 
-  // optional:     maxLength, size,
-  //         maxLength={maxLength}
- //          size={size}
+    // optional:     maxLength, size,  maxLength={maxLength},  size={size}
 
+    const { className, type, name, text, onChange,
+            id = name,
+            value,
+            placeholder = text,
+            required = false,
+            readOnly = false,
+            ...whatsleft             } = props
 
-  const { className, type, name, text, handleChange,
-          id = name,
-          value = "",
-          placeholder = text,
-          required = false,
-          ...whatsleft             } = props
+    const missingOnChange = () => {}
+    const missingVal = (type === 'number') ? 0 : ''
 
   return (
       <input
-        className={className}
-        key={id}
         type={type}
         name={name}
-        value={value}
+        className={className}
+        key={id}
         id={id}
         placeholder={placeholder}
         required={required}
-        onChange={handleChange}
+        readOnly={readOnly}
+        value={value ? value : missingVal}
+        onChange={onChange ? onChange : missingOnChange }
         {...whatsleft}
       />
   );

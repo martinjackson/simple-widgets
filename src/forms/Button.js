@@ -1,16 +1,10 @@
 import React from "react";
 
-// import classes from "./Button.module.css";
-//       <button  onClick={clicked} className={`${classes.button} ${classes[buttonType]}`}>
+//     <input key={'key-'+props.text} type="button" onClick={props.clicked} value={props.text} />
 
-const Button = ({ text, clicked, buttonType }) => {
+export const Button = (props) => {
   return (
-    <>
-      <button  onClick={clicked}>
-        {text}
-      </button>
-    </>
-  );
-};
+    <button onClick={props.onClick}>{props.text}</button>
+  )
+}
 
-export default Button;

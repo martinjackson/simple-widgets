@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import CheckBox from '../CheckBox';
+import { CheckBox } from '../simple-widgets.js'
 
 const CheckBoxGroup = ({
   choices,

@@ -1,93 +1,212 @@
-import React, {useState, useEffect} from 'react';
-// import ReactJson from 'react-json-view'
-import {FormFields, applyOptions} from ".";
 
-const Form = (props) => {
+import React, {useState} from 'react'
 
-  if (props.debug) {
-    console.log("------- Form:");     // , props);
+import { FormFields } from './FormFields.js'
+import { Button } from './Button.js'
+import {AddRecordIcon, CloneRecordIcon} from './img/FormImages.js'
+import { arrLen } from './arrLen.js'
+import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+function getLabels(formName) {
+  const { formDictionary } = getAppSpecificInfo()
+
+  let labels = []
+  const formStructure = formDictionary({ formName: formName })
+  if (formStructure) {
+    labels = formStructure.fieldList.map(f => f.label)
+  } else {
+    console.log('getting form labels for unknown:', formName)
+  }
+  return labels
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+export const FormHeader = (props) => {
+
+  const numRecs = props.numRecs
+  const defaults = {
+    addRecFn:  () => { props.onChange("add record "+props.parentRecName+" "+props.name) },
+    cloneRecFn:  () => { props.onChange("clone record "+props.parentRecName+" "+props.name) }
+  }
+  const addRecFn   = (props.addRecFn)   ? props.addRecFn   : defaults.addRecFn
+  const cloneRecFn = (props.cloneRecFn) ? props.cloneRecFn : defaults.cloneRecFn
+  const AddRecButton   = (props.noAdd)   ? null : <button onClick={addRecFn}><AddRecordIcon/></button>
+  const CloneRecButton = (props.noClone) ? null :  <button onClick={cloneRecFn}><CloneRecordIcon/></button>
+
+  let recMsg = ''
+  let cntMsg = ''
+  if (numRecs) {   // not null
+    recMsg = (numRecs != 1) ? `${numRecs} records ` : 'one record '
+    cntMsg = (numRecs != 1) ? props.dataRowStart+1 : ''
+    if (!props.parentRecName) {
+      recMsg = ''
+    }
   }
 
-  const heading = (props.heading) ? props.heading : ""
-  const debug = (props.debug || props.show)
-  const doneBtnLabel = (props.doneBtnLabel) ? props.doneBtnLabel : null
-  const businessLogic = (props.businessLogic) ? props.businessLogic : (old, changed) => changed
+  const noLeft = <span>&nbsp;&nbsp;&nbsp;</span>   // same width as left arrow ??
+  const LeftArrow  = (props.dataRowStart > 0) ? <Button text={"\u25C0"} onClick={props.recPrevFn} /> : noLeft
+  const RightArrow = (props.dataRowStart < numRecs-1) ? <Button text={"\u25B6"} onClick={props.recNextFn} /> : <></>
 
-  const [formData, setFormDataInternal] = useState({});
-  const [formList, setFormList] = useState( props.form );
 
-  useEffect(() => {
-    if (debug) {
-       console.log('InitialData setup');
-    }
-    setFormData(props.data)   // initialData
-  }, [])    // only once
-
-  useEffect(() => {
-     if (debug) {
-       console.log("   Form: props.form changed");
-     }
-
-     setFormData(props.data)        // any time the props.data or props.form changes
-  }, [props.form])      // formData and formList are recalculated
-
-  useEffect(() => {
-    if (debug) {
-      console.log("   Form: props.data changed");
-    }
-
-    setFormData(props.data)        // any time the props.data or props.form changes
-  }, [props.data])      // formData and formList are recalculated
-
- const setFormData = (newData) => {
-    // console.log('setFormData(newData) given: ', newData);
-
-    const [modState, formOpts] = businessLogic(formData, newData)
-    setFormList( applyOptions(props.form, formOpts) )    // TODO: unneeded re-render if
-    setFormDataInternal(modState)
-  }
-
-  // TODO: need to check which fields are required and disable submit button (if it is here)
-  //       <form onSubmit={props.onSubmit}>
-
-  const flexParent = {display: 'flex', flexDirection:'row', }
-  const flexChild = (props.show) ? {flex:"50%"} : {}
-  const rightChild = { ...flexChild, borderLeft: 'solid gray', borderWidth: 'thin' }
-
-  const onSubmit = e => {
-    e.preventDefault();
-    props.onSubmit(formData)
-  };
-
-  const doneButton = (doneBtnLabel) ? <input type="button"  onClick={onSubmit} value={doneBtnLabel} /> : null
-
-  return (
-    <div style={flexParent}>
-
-        <div style={flexChild}>
-          <div className={props.className}>
-            <div className="heading">{heading}</div>
-            <FormFields
-                formStructure={formList}
-                formData={formData}
-                setFormData={setFormData}
-                showDebug={debug}
-            />
-            <div className="footer">
-              {doneButton}
-            </div>
+  return  <div className="heading">
+          <div className="flex justify-between">
+              <div>{props.header} {AddRecButton} {CloneRecButton}   {LeftArrow} {cntMsg} {RightArrow} </div>
+              <div>{recMsg}</div>
           </div>
         </div>
 
-      {props.show &&
-        <div style={rightChild}>
-          <ReactJson name="data" src={formData} />
-          <hr/>
-          <ReactJson name="formList" src={formList} />
-        </div>
-      }
-
-    </div>)
 }
 
-export default Form;
+ // TODO: formTable needs a carrot beside the currentl selected record
+ // so you know which record is being keyed for any sub tables
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+export const FormTable = (props) => {
+
+    // console.log('FormTable name:',props.name,'value:', props.value);
+
+    const [dataRowStart, setDataRowStart] = useState(0)
+    const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
+    const recNextFn = () => {setDataRowStart(dataRowStart+1)}
+
+    const {parentRecName, name, value, debug, isLoading} = props
+
+    if (isLoading) {
+      return <span>Loading...</span>
+    }
+
+    let {data} = props
+
+    if (debug && (data || value)) {
+        console.log(' FormTable props:', {parentRecName, name, data, value});
+    }
+
+    if (!data) {
+      data = value               // this should always be the case, especially sub-tables, data is a legacy prop
+    }
+
+    const rows = (data) ? data.length : 0
+    // const [rowIndexes, setRowIndexes] = useState( [...Array(rows).keys()] )
+    const rowIndexes = [...Array(rows).keys()]
+
+    let labels = getLabels(props.name)
+
+    const tableFixHead = {
+      overflow: 'auto',
+      height: (props.visRows+0.5) + 'rem'
+    }
+
+    const headStyle = {   // thead th
+      position: 'sticky',
+      top: 0,
+      zIndex: 1,
+      // important, otherwise background is transparent and data row is seen
+      backgroundColor: 'var(--background-color)'
+    }
+
+    const headerWrap = (k,f) => <th style={headStyle} key={k}>{f}</th>
+    const fieldWrap = (k,f) => <td key={k}>{f}</td>
+
+return (
+    <div className={props.className}>
+      <div className={"form"}>
+         <FormHeader
+               header={props.header}
+               dataRowStart={dataRowStart}
+               parentRecName={parentRecName}
+               addRecFn={props.addRecFn}
+               cloneRecFn={props.cloneRecFn}
+               numRecs={arrLen(data)}
+               recPrevFn={recPrevFn}
+               recNextFn={recNextFn}
+               noAdd={props.noAdd}
+               noClone={props.noClone}
+               />
+        <div style={{display:"inline-block"}}>
+          <div style={tableFixHead}>
+            <table className="table-auto">
+              <thead style={headStyle}>
+                <tr>
+                  <th></th>
+                  {labels.map((f, j) => headerWrap(j, f))}
+                </tr>
+              </thead>
+              <tbody>
+                  {rowIndexes.map((i) => (
+                    <tr key={i}>
+                      { (i === dataRowStart) ? <td>▶</td> : <td></td> }
+                      <FormFields
+                        parentRecName={props.parentRecName}
+                        name={props.name}
+                        businessLogic={props.businessLogic}
+                        dataIndex={i}
+                        formData={ (data && data[i]) ? data[i] : null }
+                        showDebug={props.debug}
+                        onChange={props.onChange}
+                        withLabels={false}
+                        wrapWith={fieldWrap}
+                      />
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+export const Form = (props) => {
+
+  const [dataRowStart, setDataRowStart] = useState(0)
+  const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
+  const recNextFn = () => {setDataRowStart(dataRowStart+1)}
+
+  const {parentRecName, name, value} = props
+  let {debug, data} = props
+
+  if (debug) {
+    console.log(' Form:', {parentRecName, name, data, value});
+  }
+
+  if (!data) {
+    data = value               // this should always be the case, especially sub-tables, data is a legacy prop
+  }
+
+
+    return (
+      <div className='flex flex-row'>
+
+        <div className={props.className}>
+          <div className={'form'}>
+          <FormHeader
+               header={props.header}
+               dataRowStart={dataRowStart}
+               parentRecName={parentRecName}
+               addRecFn={props.addRecFn}
+               cloneRecFn={props.cloneRecFn}
+               numRecs={arrLen(data)}
+               recPrevFn={recPrevFn}
+               recNextFn={recNextFn}
+               noAdd={props.noAdd}
+               noClone={props.noClone}
+               />
+          <FormFields
+              parentRecName={props.parentRecName}
+              name={props.name}
+              businessLogic={props.businessLogic}
+              dataIndex={dataRowStart}
+              formData={(data && data[dataRowStart]) ? data[dataRowStart] : null}
+              showDebug={debug}
+              onChange={props.onChange}
+              withLabels={true}
+          />
+        </div>
+        </div>
+      </div>)
+
+}
+

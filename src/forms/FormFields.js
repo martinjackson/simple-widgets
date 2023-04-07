@@ -1,78 +1,284 @@
-import React, {useState, useEffect} from 'react';
 
-import {fieldGeneratorLookup} from './FieldGenerator'
+// import { selectHttpOptionsAndBodyInternal } from '@apollo/client'
+import React, {useState, useEffect} from 'react'
 
-const createFields = (formStructure, formData, handleChange) => {
-  return formStructure.map((f,idx) => createField(f, idx, formData[f.name], handleChange) )
+import { applyOptions } from './DefaultFormElements.js'
+import {fieldGeneratorLookup} from './FieldGenerator.js'
+import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
+
+import { TS } from './time.js'
+
+// -------------------------------------------------------------------------------------------------------------------------
+const labelWrap = (f, idx, children) => {
+
+    const ifRequired = (f.required) ? <span className="required">*</span> : null
+
+  return <label htmlFor={f.name} key={idx} className="form-group"><span>{f.label}{ifRequired}</span>{children}</label>
 }
 
+// -------------------------------------------------------------------------------------------------------------------------
+const createField = (fieldStructure, idx, value, onChange, withLabels=true, formInfo=null) => {
 
-const createField = (fieldStructure, idx, value, handleChange) => {
+      // fieldStructure is a type, create an instance w/ field data
+      const f = {...fieldStructure, value}
 
-  const f = {...fieldStructure, value}            // fieldStructure is a type, create an instance w/ field data
-
-  const gen = fieldGeneratorLookup(f.type)
-  let field = `unkknown field type: ${f.type}`
-  const ifRequired = (f.required) ? <span className="required">*</span> : null
-  if (gen) {
-      try {
-          field = gen(f, handleChange)
-      } catch (e) {
-          const msg = `Error Creating Field type: ${f.type} [${idx}]`
-          console.log(msg);
-          console.log(JSON.stringify(fieldStructure, null, 2));
-          console.log(e);
-          console.log(e.stack());
-          field = msg
+      const gen = fieldGeneratorLookup(f.type)
+      let field = `unknown field type: ${f.type}`
+      // TODO: where should ifRequired go?
+      // const ifRequired = (f.required) ? <span className="required">*</span> : null
+      if (gen) {
+          try {
+              // TODO: right now only 'form' and 'formTable' knows how to handle an array of data, other types need code
+              if ( formInfo && (f.type === 'form' || f.type === 'formTable')) {
+                f.businessLogic = formInfo.businessLogic
+                f.parentRecName = formInfo.parentRecName
+              }
+              field = gen(f, onChange)
+          } catch (e) {
+              const msg = `Error Creating Field type: ${f.type} [${idx}]`
+              console.log(msg);
+              console.log(JSON.stringify(fieldStructure, null, 2));
+              console.log(e);
+              console.log(e.stack());
+              field = msg
+          }
       }
-  }
-return <label htmlFor={f.name} key={idx} className="form-group"><span>{f.label}{ifRequired}</span>{field}</label>
+
+  return (withLabels) ? labelWrap(fieldStructure, idx, field) : field
 }
 
+// -------------------------------------------------------------------------------------------------------------------------
+export const getFieldRecName = (fieldName, fieldType) => {
 
-const FormFields = ({formStructure,formData,setFormData,showDebug}) => {
+  // on simple fields, assume the field name is also the data element name
+  let dataName = fieldName
 
-  if (!formStructure) {
-     console.log('missing formStructure');
-     formStructure = []
+  // multiple named forms can tie back to one gqlName
+  if (fieldType == 'form' || fieldType == 'formTable') {
+    dataName = getGqlName(fieldName)
   }
 
-  // The following does not change, yet gets redefined every time, sigh... wastefull
-  // do not use useCallback
-  const handleChange = (e => {
-    if (showDebug) {
-      console.log(`FormFields.handleChange [${e.target.name}] = ${e.target.value};`);
-    }
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  })
+ return dataName
+}
 
-  const [fields, setFields] = useState( createFields(formStructure, formData, handleChange) );
+// -------------------------------------------------------------------------------------------------------------------------
+export const getGqlName = (formName) => {
+
+    const {formDictionary} = getAppSpecificInfo()
+    const gqlName = formDictionary({formName: formName})?.gqlName
+
+ return gqlName
+}
+
+// -------------------------------------------------------------------------------------------------------------------------
+const createFields = (formName, formData, onChange, withLabels=true, formInfo) => {
+
+    // console.log('   creating fields for', formName, formInfo.parentRecName, formData);
+
+    if (onChange === null) {
+      throw `  createFields () onChange is null parentRecName: ${formInfo.parentRecName}, formName: ${formName}  `
+    }
+    const {formDictionary} = getAppSpecificInfo()
+
+    const formStructure = formDictionary({formName: formName})
+    if (!formStructure) {
+      console.log(`  createFields (${formName}) unknown.`);
+      return []
+    }
+
+  return formStructure.fieldList.map((f,idx) => {
+
+    // if is field is a Form, formName is not the gqlName
+    let dataName = getFieldRecName(f.name, f.type)
+    const data = (formData && formData[dataName]) ? formData[dataName] : null
+
+    // formInfo only needed for 'form', 'formTable'
+    return  createField(f, idx, data, onChange, withLabels, formInfo)
+  })
+}
+// -------------------------------------------------------------------------------------------------------------------------
+const genFields = (fieldList, formData, onChange) => {
+
+    const defaultOnChange = (change) => {
+      formData[change.target.name] = change.target.value
+    }
+
+    const change = (onChange != null) ? onChange : defaultOnChange
+
+    const fields = fieldList.map((f,idx) => {
+      let field
+      if (f.type != 'form' && f.type != 'formTable') {
+          const data = (formData && formData[f.name]) ? formData[f.name] : null
+          // console.log(`createField [${idx}] type:`, f.type, ' name:', f.name, ' value:', data);
+          field = createField(f, idx, data, change)
+      } else {
+          field = <span>createFieldsFromList does not support {f.type}</span>
+      }
+
+    return field
+    })
+
+    return fields
+}
+
+// -------------------------------------------------------------------------------------------------------------------------
+export const FieldsFromList = (props) => {
+
+  // console.log('FieldsFromList render');
+
+  return genFields(props.fieldList, props.formData, props.onChange)
+}
+
+// -------------------------------------------------------------------------------------------------------------------------
+export const FieldsFromListWorks = (props) => {
+
+  const [fields, setFields] = useState(genFields(props.fieldList, props.formData, props.onChange));
 
   useEffect(() => {
-     // console.log('   FormField useEffect formStructure:', formStructure.length);
 
-     setFields( createFields(formStructure, formData, handleChange) )
-  }, [formData])      // TODO:   research why this must be formData and not formStructure
-      // only @ creation and when the data changes becuase the structure might change,
-      // selection of one field might change the choices on another field.
+    console.log('FieldsFromList useEffect changes detected with props.fieldList, props.formData, props.onChange');
 
-if (!fields) {
-    return "<FormFields />   Somthing horrible: createFields() returned null"
+    const fields = genFields(props.fieldList, props.formData, props.onChange)
+
+    setFields(fields)
+  }, [props.fieldList, props.formData, props.onChange]);              // because changing props wont re-render children
+
+  console.log('FieldsFromList render');
+
+  return fields
+
 }
 
-const badEntry = fields.findIndex( element => element === null)
-if (badEntry !== -1) {
-    console.log({formStructure});
-    return `<FormFields />   Somthing horrible: createFields() returned [${badEntry}] as null`
+// -------------------------------------------------------------------------------------------------------------------------
+export const ifDefined = (variable) => {
+  if (typeof variable === 'undefined' || variable === null) {
+     return false
+  }
+
+  return true
 }
 
+// -------------------------------------------------------------------------------------------------------------------------
+export const FormFields = (props) => {
 
-return (
-  <>
-    {fields}
-  </>
-);
-};
+      const {name, parentRecName, dataIndex, showDebug, withLabels=true} = props
 
-export default FormFields;
+      const gqlName = getGqlName(name)
+      const dataIdx = (ifDefined(dataIndex)) ? dataIndex : 0
+      const dataName = gqlName + '['+dataIdx+']'
+      const recFullName = (parentRecName) ? parentRecName+'.'+dataName : dataName
+
+      // console.log(' FormFields :', {gqlName, dataName, parentRecName, recFullName, formData:props.formData});
+
+      const businessLogic = (props.businessLogic) ? props.businessLogic : (old, changed) => [changed, {}]
+      //  businessLogic returns [modState, dynOptions];
+      //  dynOptions has keyed arrays of options for fields whos options changed based on the values of other fields
+      //  const dynOptions = {
+      //    slideID: slides,
+      //    slideObs: obs
+      // };
+
+      // only needed for 'form', 'formTable'
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      const formInfo = {parentRecName: recFullName, businessLogic}
+
+      const onChangeFormFields = (e => {
+        if (!e.target) {                // coming from a sub-form, echo up to the top
+          if (typeof e === 'string') {
+            // console.log('>>> FormFields up message:',{e})   // expect e to be a string
+            return props.onChange(e)
+            } else {
+              throw '>>> UNKNOWN TYPE: FormFields up message:'+e
+            }
+        }
+
+
+        if (!e.target.name.includes('.')) {   // bubble all non-local values
+          // console.log(TS(), `   ${recFullName} ${e.target.name} <= ${e.target.value};`);
+
+          const tmp = {...data}
+          tmp[e.target.name] = e.target.value
+          setData(tmp)                             // changes local to this sub-form, affects if the field can be modified
+
+          }
+
+        // Pass it up so the top parent can change the data
+        // DO NOT REUSE e
+        let e2 = {target: {
+            name: dataName+'.'+e.target.name,  // fully qualified field path
+            value: e.target.value
+          }}
+
+        // console.log(`   onChangeFormFields(${dataName}) target`, {name: e2.target.name, val: e2.target.value});
+        props.onChange(e2)
+
+      })
+
+      // ------------------------------------
+      const [data, setData] = useState( props.formData );     // This is the single source of truth for this form/sub-form, expect the  props.onChange () to notify the parent
+      const [fields, setFields] = useState( null );
+
+      useEffect(() => {
+
+        if (showDebug) {
+          console.log('')
+          console.log(`   FormFields useEffect [data, ${props.name}] has changed.`, {data, formInfo, props_name: props.name, showDebug, withLabels});
+        }
+
+        const f = createFields(props.name, data, onChangeFormFields, withLabels, formInfo)
+        setFields( f )
+        if (!f) {
+          console.log("<FormFields />   Somthing horrible: createFields () returned null");
+      }
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [data, props.name])
+          // only @ creation and when the data changes because the structure might change,
+          // selection of one field might change the choices on another field.
+
+      useEffect(() => {
+
+          if (fields && props.formData) {
+
+            if (showDebug) {             // what else is needed in showDebug ??
+              console.log(`   FormFields useEffect [props.formData, ${props.name}, fields] changes:`,
+                  {props_formData : props.formData, props_name: props.name, fields, showDebug, recFullName, data, dataName} )
+            }
+
+            const setFormData = (incomingChange_PropsData) => {
+              if (data && !incomingChange_PropsData) {
+                console.log('clear data for formFields ?? ', {dataName, data, incomingChange_PropsData});
+                console.log(new Error().stack);
+              }
+              if (!data && !incomingChange_PropsData) {
+                 return
+              }
+
+              const [modState, formOpts] = businessLogic(data, incomingChange_PropsData)
+              setFields( applyOptions(fields, formOpts) )
+
+              setData(modState)
+            }
+
+            setFormData(props.formData)
+          }
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [props.formData, props.name, fields])
+
+
+      if (!fields) {
+          return null;     // not initialized yet
+      }
+
+      const badEntry = fields.findIndex( element => element === null)
+      if (badEntry !== -1) {
+          return `<FormFields />   Somthing horrible: createFields () returned [${badEntry}] as null`
+      }
+
+      const jsx = (props.wrapWith) ? fields.map((f,k) => props.wrapWith(k,f)) : fields   // support <td key={k}>{f}</td> or something else
+
+      return (<>{jsx}</>)
+}
+
 
