@@ -4,7 +4,7 @@
 
 const { build } = require('esbuild')
 const inlineImage = require("esbuild-plugin-inline-image")
-const { externalGlobalPlugin } = require("esbuild-plugin-external-global");
+// const { externalGlobalPlugin } = require("esbuild-plugin-external-global");
 
 const { dependencies, peerDependencies } = require('./package.json')
 
@@ -18,28 +18,32 @@ const { dependencies, peerDependencies } = require('./package.json')
     })
 */
 
+const peerDeps = Object.keys(peerDependencies)
+console.log('peerDeps:', peerDeps)
+
 const shared = {
   entryPoints: ['src/index.js'],
   bundle: true,
   sourcemap: true,
+  target: 'es2020',
   loader: {
     ".js": "jsx",
   },
   plugins: [
     inlineImage(),
   ],
-  external: Object.keys(dependencies).concat(Object.keys(peerDependencies)),
+  external: peerDeps,
 }
 
 build({
   ...shared,
-  outfile: 'lib/index.cjs.js',
+  outfile: 'lib/index.js',
   format: "cjs",
 })
 
 build({
   ...shared,
-  outfile: 'lib/index.esm.js',
+  outfile: 'lib/index.mjs',
   format: 'esm',
 })
 
