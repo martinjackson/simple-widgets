@@ -1,5 +1,13 @@
 const fs = require('fs');
 
+// ----------------------------------------------------------------------------
+const fileNameOnly = (fullName) => {
+  // remove leading directory path
+  const idx = fullName.lastIndexOf("/")
+  return (idx != -1) ? fullName.substring(idx+1) : fullName
+}
+
+// ----------------------------------------------------------------------------
 const getExports = (fname) => {
     const names = fs.readFileSync(fname,{ encoding : 'utf8' })
                     .split('\n')
@@ -15,7 +23,7 @@ const getExports = (fname) => {
             if (exportName === 'function') {
                 exportName = fname.substring(0, fname.length - 3);
             }
-            exportInfo.push({ type: 'C', ename: exportName });
+            exportInfo.push({ type: 'C', ename: fileNameOnly(exportName) });
         } else {
             index = line.indexOf('default');
             if (index != -1) {
@@ -42,7 +50,7 @@ const getExports = (fname) => {
                     exportName = fname.substring(0, fname.length - 3);
                 }
 
-                exportInfo.push({ type: 'D', ename: exportName });
+                exportInfo.push({ type: 'D', ename: fileNameOnly(exportName) });
             } else {
                 index = line.indexOf('function');
                 if (index !== -1) {
@@ -53,7 +61,7 @@ const getExports = (fname) => {
                     if (index !== -1) {
                         exportName = exportName.substring(0, index);
                     }
-                    exportInfo.push({ type: 'F', ename: exportName });
+                    exportInfo.push({ type: 'F', ename: fileNameOnly(exportName) });
                 }
             }
         }
@@ -62,75 +70,93 @@ const getExports = (fname) => {
     return exportInfo
 }
 
-const files = fs.readdirSync('.')
+// ----------------------------------------------------------------------------
+const genImports = (info) => {
+  let importStmt = 'import ';
+  let prevType = '';
+  let constant = false;
+  let lineLen = 7;
+
+  for (let i = 0; i < info.exportInfo.length; i++) {
+
+      if (info.exportInfo[i].type === 'D') {
+          importStmt += info.exportInfo[i].ename;
+          lineLen += info.exportInfo[i].ename.length
+
+          if (prevType === 'C') {
+              importStmt += ' }';
+              lineLen += 2
+          }
+          prevType = 'D';
+      } else {
+          constant = true;
+          if (prevType === '' || prevType === 'D') {
+              importStmt += '{ ';
+              lineLen += 2
+          }
+
+          importStmt += info.exportInfo[i].ename;
+          lineLen += info.exportInfo[i].ename.length
+          prevType = 'C'
+      }
+
+      if (i < info.exportInfo.length - 1) {
+          importStmt += ', ';
+          lineLen += 3
+      }
+
+      if (lineLen > 100) {
+          importStmt += '\n         ';
+          lineLen = 9
+      }
+
+      lineLen++;
+  }
+
+  if (constant === true && prevType === 'C') {
+      importStmt += ' }'
+      lineLen += 2
+  }
+
+  importStmt += ` from '${info.filename}'`;
+  return importStmt
+}
+
+// ----------------------------------------------------------------------------
+const readDir = (dir) => {
+  const list = fs.readdirSync(dir)
+
+  return list.map(name => dir+name)
+}
+// ============================================================================
+
+const dirs = [ './', './forms/', './forms/model/', './forms/img/', ]
+
+const fullList =  dirs.map(dir => readDir(dir)).flat()
+// console.log('fullList :', fullList);
+
+const skip = ['./gen_imports.js', './buildIndex.js', './index.js', './forms/index.js']
+
+const files = fullList
               .filter(fn => fn.endsWith('.js'))
-              .filter(fn => fn !== 'gen_imports.js')
-              .filter(fn => fn !== 'buildIndex.js')
-              .filter(fn => fn !== 'index.js')
+              .filter(fn => !skip.includes(fn))
 
 const fileInfo = files.map( fname => { return { filename: fname, exportInfo: getExports(fname) } })
 const exportNames = fileInfo.map(info => info.exportInfo.map(i => i.ename)).flat()
-
-const importLines = fileInfo.map (info => {
-    let importStmt = 'import ';
-    let prevType = '';
-    let constant = false;
-    let lineLen = 7;
-
-    for (let i = 0; i < info.exportInfo.length; i++) {
-
-        if (info.exportInfo[i].type === 'D') {
-            importStmt += info.exportInfo[i].ename;
-            lineLen += info.exportInfo[i].ename.length
-
-            if (prevType === 'C') {
-                importStmt += ' }';
-                lineLen += 2
-            }
-            prevType = 'D';
-        } else {
-            constant = true;
-            if (prevType === '' || prevType === 'D') {
-                importStmt += '{ ';
-                lineLen += 2
-            }
-
-            importStmt += info.exportInfo[i].ename;
-            lineLen += info.exportInfo[i].ename.length
-            prevType = 'C'
-        }
-
-        if (i < info.exportInfo.length - 1) {
-            importStmt += ', ';
-            lineLen += 3
-        }
-
-        if (lineLen > 100) {
-            importStmt += '\n         ';
-            lineLen = 9
-        }
-
-        lineLen++;
-    }
-
-    if (constant === true && prevType === 'C') {
-        importStmt += ' }'
-        lineLen += 2
-    }
-
-    importStmt += ` from './${info.filename}'`;
-    return importStmt
-})
+const importLines = fileInfo.map (info => genImports(info)  )
 
 const prettyList = (arr) => {
     return arr.join(', ').replace(/([^\n]{1,99})\s/g, '$1\n         ');   // word wrap after line length > 99
 }
 
-const formFns = ['applyOptions', 'FormFields', 'pretty', 'Show', 'Input', 'Form', 'useFetch', 'setFieldGenerator', 'fieldGeneratorLookup']
-const allNames = exportNames.concat(formFns)       // exportNames[] + formFns[]
+// const formFns = ['applyOptions', 'FormFields', 'pretty', 'Show', 'Input', 'Form', 'useFetch', 'setFieldGenerator', 'fieldGeneratorLookup']
+// const allNames = exportNames.concat(formFns)       // exportNames[] + formFns[]
+// importLines.push(`import { ${prettyList(formFns)} } from './forms/index.js'\n`)
+// importLines.push(`export { ${prettyList(allNames)} }\n`)
 
-importLines.push(`import { ${prettyList(formFns)} } from './forms/index.js'\n`)
-importLines.push(`export { ${prettyList(allNames)} }\n`)
+importLines.push(`\nexport { ${prettyList(exportNames)} }\n`)
 
 fs.writeFileSync('./index.js', importLines.join('\n'));         // wipe out original file, start over
 
+const test = getExports('./makeChangeHandler.js')
+console.log('test on makeChangeHandler.js :', test);
