@@ -308,7 +308,7 @@ export const getLookupSummary = () => {
 not in use  2022-08-23
 
 // -----------------------------------------------------------------------------------------------------
-export const useLookup = (lookupName) => {
+exp ort const useLookup = (lookupName) => {
 
     const [data, setData] = createStoreItem('Lookup-data-'+lookupName, null)
     const [err, setErr]   = createStoreItem('Lookup-err-'+lookupName, null)

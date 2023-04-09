@@ -16,7 +16,7 @@ import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 // --------------------------------------------------------------------------
 export function EntryScreen(props) {
 
-  const {dbStruct, formDictionary, namedQueries} = getAppSpecificInfo()
+  const { namedQueries } = getAppSpecificInfo()
   const queryStr = namedQueries(props.queryName)
 
   if (!queryStr) {      // null or undefined
