@@ -80,7 +80,7 @@ function EntryScreenKeyed(props) {
 
   // console.log(`  EntryScreen.js:77  makeGqlAST  ${props.queryName} str:`, props.queryStr)
 
-  const _rec = useQuery(makeGqlAST(props.queryStr), {
+  useQuery(makeGqlAST(props.queryStr), {
     skip: !needsLoading,
     variables: { where: where },    // TODO: assumes only one key
     client,
