@@ -26,7 +26,7 @@ function lookupDisplayableValue(props, pairList) {
   let isSelectable = true
 
   if (pairList) {
-    const idxSelected = pairList?.findIndex((f) => f.value == value)
+    const idxSelected = pairList.findIndex((f) => f.value == value)
     if (idxSelected >= 0) {
       return [true, pairList[idxSelected]]    // setting a {value, label} pair  used by react-select
     } else {
