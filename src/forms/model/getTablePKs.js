@@ -1,5 +1,5 @@
 
-import { TS } from '../time.js'
+import { TS } from '../../time.js'
 import { getAppSpecificInfo } from './appSpecificInfo.js';
 
 // -----------------------------------------------------------------------------------------------------

@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import CheckBox        from './CheckBox.js';
-import { Choice }      from './List.js';
-import SearchSortTable from './SearchSortTable.js';
-import ChoiceText      from './ChoiceText.js';
-import Radio           from './Radio.js';
+import { CheckBox }        from './CheckBox.js';
+import { Choice }          from './Choice.js';
+import { SearchSortTable } from './SearchSortTable.js';
+import { ChoiceText }      from './ChoiceText.js';
+import { Radio }           from './Radio.js';
 
 // import { isInvalid, 
 import { setInvalidTable, generateInvalid,
@@ -12,9 +12,9 @@ import { setInvalidTable, generateInvalid,
          clearInvalidTable, 
          processInvalidStyleTable, wasClickedTable} from './Invalid.js'
 
-// import AlertModal    from './AlertModal.js';
-// import ErrorModal    from './ErrorModal.js';
-import ConfirmModal  from './ConfirmModal.js';
+// import { AlertModal }    from './AlertModal.js';
+// import { ErrorModal }    from './ErrorModal.js';
+import { ConfirmModal }  from './ConfirmModal.js';
 
 import { generateCSSButton } from './Theme.js';
 import { sanitize } from './Common.js';
@@ -25,7 +25,7 @@ const hasProperty = (obj, propName) => {
 
 let functYes = null;
 
-const SpreadSheet = (props) => {
+export const SpreadSheet = (props) => {
     if (hasProperty(props, 'sheet') === false) {
         console.error ('SpreadSheet: The sheet prop is missing');
         return <div></div>;
@@ -389,4 +389,3 @@ const SpreadSheet = (props) => {
     )
 }
 
-export default SpreadSheet;

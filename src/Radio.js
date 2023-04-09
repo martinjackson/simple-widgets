@@ -17,7 +17,7 @@ const unchecked = String.fromCharCode(9898)
 
 const Frag = React.Fragment
 
-const Radio = props => {
+export const Radio = props => {
   const handle = (e) => {
     if (typeof e.preventDefault === 'function')
         e.preventDefault();
@@ -42,4 +42,3 @@ const Radio = props => {
 
 // 2018-10-10 {text} {children} moved to inside button clickable area
 
-export default Radio;

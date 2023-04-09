@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 
+import { SimpleTable }       from '../SimpleTable.js'
+import { TS }                from '../time.js'
+
 import { client }            from './client.js'
 import { genEmptyRecord }    from './genEmptyRecord.js'
 import { MakeModal }         from './MakeModal.js'
-import { SimpleTable }       from './SimpleTable.js'
-import { TS }                from './time.js'
 import { makeGqlAST }        from './makeGqlAST.js'
 import { ErrorList }         from './ErrorList.js'
 import { useErrorList }      from './useErrorList.js'

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Modal from './Modal.js';
+import { Modal } from './Modal.js';
 
 const defProps = {
     show: true,
@@ -8,7 +8,7 @@ const defProps = {
     message: 'No Error message given',
 }
 
-const ErrorModal = inProps => {
+export const ErrorModal = inProps => {
     const props = {...defProps, ...inProps};
 
     if (('show' in inProps) === false) {
@@ -36,4 +36,3 @@ const ErrorModal = inProps => {
     );
 }
 
-export default ErrorModal;

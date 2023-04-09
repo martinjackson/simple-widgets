@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Form from "./Form";
+import { Form } from "./Form.js"
 
 const NarrowForm = props => {
   const [formData, setFormData] = useState({});

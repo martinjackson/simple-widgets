@@ -1,6 +1,8 @@
 
 const path = require("path");
 
+const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
+
 const pkg = require("./package.json");
 const libraryName = pkg.name;
 
@@ -21,15 +23,35 @@ module.exports = {
 
   resolve: {
     alias: {
-      "react":     path.resolve(__dirname, "./node_modules/react"),
-      "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
+      "react":          path.resolve(__dirname, "./node_modules/react"),
+      "react-dom":      path.resolve(__dirname, "./node_modules/react-dom"),
     },
     modules: [path.join(__dirname, "src"), "node_modules"],
   },
 
   externals: {
-    // Don't bundle react or react-dom
-    react: {
+    // Don't bundle Peer Dependancies
+    "object-sizeof" : {
+      commonjs: "object-sizeof",
+      commonjs2: "object-sizeof",
+    },
+    "deep-object-diff": {
+      commonjs: "deep-object-diff",
+      commonjs2: "deep-object-diff",
+    },
+    "@apollo/client": {
+        commonjs: "@apollo/client",
+        commonjs2: "@apollo/client",
+    },
+    "graphql-tag":    {
+        commonjs: "graphql-tag",
+        commonjs2: "graphql-tag",
+    },
+    "axios":          {
+        commonjs: "axios",
+        commonjs2: "axios",
+    },
+    "react": {
         commonjs: "react",
         commonjs2: "react",
         amd: "React",
@@ -55,6 +77,7 @@ module.exports = {
         options: {
           presets: ["@babel/preset-env", "@babel/preset-react"],
           plugins: [
+              new PeerDepsExternalsPlugin(),
               "@babel/plugin-proposal-object-rest-spread",
               "@babel/plugin-proposal-optional-chaining",
               ["@babel/plugin-proposal-class-properties", {"loose": true} ],

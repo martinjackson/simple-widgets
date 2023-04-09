@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ContextMenu = (propsIn) => {
+export const ContextMenu = (propsIn) => {
     const { positionX, positionY, noLeave, noCancel, menu, ...props } = propsIn;
 
     const propsPositionX = positionX || 10;
@@ -52,4 +52,3 @@ const ContextMenu = (propsIn) => {
     }
 }
 
-export default ContextMenu;

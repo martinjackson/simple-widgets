@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { CheckBox, DateInput } from '../simple-widgets.js'
+import { CheckBox }      from '../CheckBox.js'
+import { CheckBoxGroup } from '../CheckBoxGroup.js'
+import { DateInput }     from '../DateInput.js'
 
-import CheckBoxGroup from './CheckBoxGroup.js'
 import Input from './Input.js'
 import { Form, FormTable } from './Form.js'
 import { LocalChoice } from './LocalChoice.js'

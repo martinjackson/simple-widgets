@@ -4,7 +4,7 @@ import React from 'react';
 import { date2str } from "./date2str"
 
 //--------------------------------------------------------------------------------
-const DateInput = (props) => {
+export const DateInput = (props) => {
 
     let { name, value, format, onChange, ...whatsLeft  } = props
 
@@ -67,5 +67,3 @@ input::-webkit-calendar-picker-indicator {
     opacity: 1;
 }
 */
-
-export default DateInput

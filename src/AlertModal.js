@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Modal from './Modal.js';
+import { Modal } from './Modal.js';
 
 const defProps = {
     show: true,
@@ -8,7 +8,7 @@ const defProps = {
     message: 'No Alert message given',
 }
 
-const AlertModal = inProps => {
+export const AlertModal = inProps => {
 
     const props = {...defProps, ...inProps};
 
@@ -36,4 +36,3 @@ const AlertModal = inProps => {
     );
 }
 
-export default AlertModal;
