@@ -39,8 +39,66 @@ import { localStrToDate } from './localStrToDate.js'
 import makeChangeHandler from './makeChangeHandler.js'
 import { register, unregister } from './serviceWorker.js'
 import { now, TS } from './time.js'
-import { applyOptions, FormFields, pretty, Show, Input, Form, useFetch, setFieldGenerator,
-         fieldGeneratorLookup } from './forms/index.js'
+import { Button } from './forms/Button.js'
+import CheckBoxGroup from './forms/CheckBoxGroup.js'
+import { ChoiceTextSearchable } from './forms/ChoiceTextSearchable.js'
+import { fields, applyOptions } from './forms/DefaultFormElements.js'
+import { EntryScreen } from './forms/EntryScreen.js'
+import { ErrorList } from './forms/ErrorList.js'
+import { setFieldGenerator, fieldGeneratorLookup } from './forms/FieldGenerator.js'
+import { FormHeader, FormTable, Form } from './forms/Form.js'
+import { getFieldRecName, getGqlName, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields
+          } from './forms/FormFields.js'
+import { Gears } from './forms/Gears.js'
+import Input from './forms/Input.js'
+import { Choice, List } from './forms/List.js'
+import { LocalChoice } from './forms/LocalChoice.js'
+import { MakeModal } from './forms/MakeModal.js'
+import NarrowForm from './forms/NarrowForm.js'
+import { pretty, Show } from './forms/Show.js'
+import { SimpleDataTable } from './forms/SimpleDataTable.js'
+import { SimpleEntryScreen } from './forms/SimpleEntryScreen.js'
+import { SimpleTable } from './forms/SimpleTable.js'
+import { arrLen } from './forms/arrLen.js'
+import { capWords } from './forms/capWords.js'
+import { client } from './forms/client.js'
+import { applyDeepValueChange } from './forms/dataRecordUtil.js'
+import { dispAsString } from './forms/dispAsString.js'
+import { flattenJSON, dumbFlattenJSON } from './forms/flattenJSON.js'
+import { genEmptyRecord } from './forms/genEmptyRecord.js'
+import { genColHeaders, genRowBuilder } from './forms/genRowBuilder.js'
+import { getGqlName, getKeyValues } from './forms/getKeyValues.js'
+import { ignoreCase } from './forms/ignoreCase.js'
+import { isFunction } from './forms/isFunction.js'
+import { isNotEmpty } from './forms/isNotEmpty.js'
+import { isPromise } from './forms/isPromise.js'
+import { createJobStatus, updateJobStatus, watchJobStatus } from './forms/jobs.js'
+import { label2value, value2label } from './forms/label2value.js'
+import { logDiff } from './forms/logDiff.js'
+import { notifyLookupsDone, serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, 
+         changeLookupAlias, addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog, 
+         getLookupLogs, getLookupSummary, useLookup } from './forms/lookupUtil.js'
+import { makeGqlAST } from './forms/makeGqlAST.js'
+import { removeIllegalAttributes } from './forms/removeIllegalAttributes.js'
+import { removeTypeName } from './forms/removeTypeName.js'
+import { sendEmail } from './forms/sendMail.js'
+import { stackTrace } from './forms/stackTrace.js'
+import { now, TS } from './forms/time.js'
+import { toCamelCaseVar, toEnglishPhrase } from './forms/toCamelCase.js'
+import { useErrorList } from './forms/useErrorList.js'
+import useFetch from './forms/useFetch.js'
+import { valueCompare } from './forms/valueCompare.js'
+import { setAppSpecificInfo, getAppSpecificInfo } from './forms/model/appSpecificInfo.js'
+import { formDictionary, formDictionary } from './forms/model/bootstrapDictionary.js'
+import { createRec } from './forms/model/createRec.js'
+import { deleteRec } from './forms/model/deleteRec.js'
+import { formFromTableInfo, tableField2FormField } from './forms/model/formFromTableInfo.js'
+import { genDictionaryEntry } from './forms/model/genDictionaryEntry.js'
+import { getTableColumns } from './forms/model/getTableColumns.js'
+import { getTablePKs, findTableByGqlName, getGqlPKs } from './forms/model/getTablePKs.js'
+import { listNotKeyedTables } from './forms/model/list-non-keyed-tables.js'
+import { updateRecord } from './forms/model/updateRec.js'
+import { AddRecordIcon, CloneRecordIcon } from './forms/img/FormImages.js'
 
 export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, ContextMenu, convertDate,
          dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime, currentDBDate, dbDate,
@@ -55,6 +113,19 @@ export { AlertModal, CheckBox, ChoiceText, sanitize, formatMoney, ConfirmModal, 
          generateCSSButton, generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE, isEdge, isChrome,
          isEdgeChromium, isBlink, toCamelCase, date2str, lastOfMonth, todayString, getList, decrypt,
          encrypt, createStoreItem, useStoreItem, openGeneralStore, localStrToDate, makeChangeHandler,
-         register, unregister, now, TS, applyOptions, FormFields, pretty, Show, Input, Form, useFetch,
-         setFieldGenerator,
-         fieldGeneratorLookup }
+         register, unregister, now, TS, Button, CheckBoxGroup, ChoiceTextSearchable, fields, applyOptions,
+         EntryScreen, ErrorList, setFieldGenerator, fieldGeneratorLookup, FormHeader, FormTable, Form,
+         getFieldRecName, getGqlName, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, Gears,
+         Input, Choice, List, LocalChoice, MakeModal, NarrowForm, pretty, Show, SimpleDataTable,
+         SimpleEntryScreen, SimpleTable, arrLen, capWords, client, applyDeepValueChange, dispAsString,
+         flattenJSON, dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName,
+         getKeyValues, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus,
+         watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone, serializeLookups,
+         loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias, addLookup,
+         fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary,
+         useLookup, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace, now, TS,
+         toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo,
+         getAppSpecificInfo, formDictionary, formDictionary, createRec, deleteRec, formFromTableInfo,
+         tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
+         getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
+         CloneRecordIcon }
