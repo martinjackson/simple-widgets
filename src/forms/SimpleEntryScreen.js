@@ -7,15 +7,12 @@ import { Form }                 from './Form.js'
 import { applyDeepValueChange } from './dataRecordUtil.js'
 
 import { TS }                   from '../time.js'
-import { useUserInfo }          from '../getUserInfo.js'
 
 const UPDATE_RECORD = gql`mutation($gqlTable: String, $input: JSON, $where: JSON, $who: String) {
   updateRecord(gqlTable: $gqlTable, input: $input, where: $where, who: $who) }`
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 export function SimpleEntryScreen(props) {
-
-  const [username, _setUsername] = useUserInfo()
 
   const [pendingUpdates, setPendingUpdates] = useState({});
   const [pendingRecordCount, setPendingRecordCount] = useState(0);
@@ -36,7 +33,7 @@ export function SimpleEntryScreen(props) {
     const pendingKeys = Object.keys(pendingUpdates);
     pendingKeys.map(k => {
       const r = pendingUpdates[k];
-      updateRecord({ variables: { gqlTable: r.gqlTable, input: r.fields, where: r.where, who: username } })
+      updateRecord({ variables: { gqlTable: r.gqlTable, input: r.fields, where: r.where, who: props.who } })
         .then(rec => {
           const status = rec.data.updateRecord;
           if (status) {

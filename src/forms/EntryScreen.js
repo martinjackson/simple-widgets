@@ -11,14 +11,13 @@ import { makeGqlAST }        from './makeGqlAST.js'
 import { ErrorList }         from './ErrorList.js'
 import { useErrorList }      from './useErrorList.js'
 import { SimpleEntryScreen } from './SimpleEntryScreen.js'
-import { namedQueries }      from '../models/queries.js'
+import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 
 // --------------------------------------------------------------------------
 export function EntryScreen(props) {
 
-  // console.log('EntryScreen props.queryName:', props.queryName);
+  const {dbStruct, formDictionary, namedQueries} = getAppSpecificInfo()
   const queryStr = namedQueries(props.queryName)
-  // console.log('EntryScreen queryStr:', queryStr);
 
   if (!queryStr) {      // null or undefined
     const ErrorMsg = `Error query named: ${props.queryName}, has no definitiion.`
@@ -175,6 +174,7 @@ function EntryScreenKeyed(props) {
     <SimpleEntryScreen
       header={props.header}
       formName={props.formName}
+      who={props.who}
       recordName={recordName}
       styleSelected={styleSelected}
 
