@@ -41,9 +41,7 @@ function lookupDisplayableValue(props, pairList) {
 
   if (transformFn) {
       dispVal = transformFn(name, value)     // setting a string
-  } else {
-      dispVal = value                        // no way to transform ID into a displable
-  }
+  } 
 
   if (!dispVal || (isObject(dispVal) && isEmpty(dispVal))) {
     dispVal = ''    // react does not like null values, or js empty objects

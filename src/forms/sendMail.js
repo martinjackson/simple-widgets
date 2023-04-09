@@ -8,6 +8,7 @@ export function sendEmail (emailAddress, message, subject) {
 
       if (emailAddress == null) {
         reject(`Error: sendMail emailAddress can not be NULL.`)
+        return
       }
 
       let request = {
