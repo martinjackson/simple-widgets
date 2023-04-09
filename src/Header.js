@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import AlertModal from './AlertModal'
+import { AlertModal } from './AlertModal'
 
 import { getList } from './encrypt.js'
-import HeaderModal from './HeaderModal'
+import { HeaderModal } from './HeaderModal'
 
-const Header = (props) => {
+export const Header = (props) => {
 
   const [showModal, setShowModal] = useState(false)
   const [showAlert, setShowAlert] = useState( true )
@@ -58,4 +58,3 @@ const Header = (props) => {
           </header>);
 }
 
-export default Header;

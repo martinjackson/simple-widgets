@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Slider = (props) => {
+export const Slider = (props) => {
     const min = (props.hasOwnProperty('start')) ? props.start : 0;
     const max = (props.hasOwnProperty('end')) ? props.end : 100;
     const startValue = (props.hasOwnProperty('startValue')) ? props.startValue : 0;
@@ -20,4 +20,3 @@ const Slider = (props) => {
     )
 }
 
-export default Slider;

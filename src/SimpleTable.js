@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SearchSortTable } from '../simple-widgets.js'
+import { SearchSortTable } from './SearchSortTable.js'
 
 // ---------------------------------------------------------------------------------------------------------------
 export const SimpleTable = (props) => {

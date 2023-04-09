@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
-const InputFile = (props) => {
+export const InputFile = (props) => {
     const [displayFile, setDisplayFile] = useState('');
 
     let buttonName = 'Browse';
@@ -42,5 +42,3 @@ const InputFile = (props) => {
         </span>
     )
 }
-
-export default InputFile;

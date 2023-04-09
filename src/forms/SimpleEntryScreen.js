@@ -4,8 +4,9 @@ import gql from 'graphql-tag';
 
 import { client }               from './client.js'
 import { Form }                 from './Form.js'
-import { TS }                   from './time.js'
 import { applyDeepValueChange } from './dataRecordUtil.js'
+
+import { TS }                   from '../time.js'
 import { useUserInfo }          from '../getUserInfo.js'
 
 const UPDATE_RECORD = gql`mutation($gqlTable: String, $input: JSON, $where: JSON, $who: String) {

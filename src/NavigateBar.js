@@ -3,7 +3,7 @@ import { Link } from './MenuBar';
 
 let dropDown = [];
 
-const NavigateBar = (props) => {
+export const NavigateBar = (props) => {
     const [click, setClick] = useState(false);
     const [menuTree, setMenuTree] = useState([]);
     const [render, setRender] = useState(false);
@@ -220,4 +220,3 @@ const NavigateBar = (props) => {
     )
 }
 
-export default NavigateBar;

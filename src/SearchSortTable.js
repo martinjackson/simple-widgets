@@ -8,12 +8,12 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
-import CheckBox from './CheckBox.js';
-import { Choice } from './List.js';
-import ChoiceText from './ChoiceText.js';
+import { CheckBox } from './CheckBox.js';
+import { Choice } from './Choice.js';
+import { ChoiceText } from './ChoiceText.js';
 import { isInvalid, setInvalidScreen, generateInvalid,
          processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-import AlertModal from './AlertModal.js';
+import { AlertModal } from './AlertModal.js';
 import { generateCSSButton } from './Theme.js';
 import { currentDate, convertDate } from './DateFunct.js';
 import { formatMoney } from './Common.js'
@@ -76,7 +76,7 @@ const defaultEachRowInTable = (row, i) => {
  * @param   propsPassed the props passed in form the calling component
  *
  ****************************************************************************/
-const SearchSortTable = (propsPassed) => {
+export const SearchSortTable = (propsPassed) => {
 
     const defaultProps = {                           // Default props if non are given
       error: false,                                  // Indicates that an error has occrred
@@ -3423,4 +3423,3 @@ const _InnerSearchSortTable = (props) => {
     }
 }
 
-export default SearchSortTable;

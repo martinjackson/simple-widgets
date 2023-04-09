@@ -2,7 +2,7 @@ import React from 'react';
 
 // currently only accepts property choices as ['one','two']
 
-const ChoiceText = inProps => {
+export const ChoiceText = inProps => {
 
     let props = {...inProps};
     const pref = (props.hasOwnProperty('name')) ? props.name + '_' : '';
@@ -16,5 +16,3 @@ const ChoiceText = inProps => {
                </datalist>
           </span>;
 }
-
-export default ChoiceText;

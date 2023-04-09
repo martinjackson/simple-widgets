@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import Modal  from './Modal';
+import { Modal }  from './Modal';
 
 
-const HeaderModal = (props) => {
+export const HeaderModal = (props) => {
 
     const [user, setUser] = useState(props.username)
 
@@ -29,4 +29,3 @@ const HeaderModal = (props) => {
     )
 }
 
-export default HeaderModal;

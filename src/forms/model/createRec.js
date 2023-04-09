@@ -2,7 +2,7 @@
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag';
 
-import { client } from '../forms/client.js'
+import { client } from '../client.js'
 
 const INSERT_RECORD = gql`mutation(
         $gqlTable: String,

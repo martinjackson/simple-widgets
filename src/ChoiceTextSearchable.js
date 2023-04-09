@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { ChoiceText } from '../simple-widgets.js'
+import { ChoiceText } from './ChoiceText.js'
 
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------

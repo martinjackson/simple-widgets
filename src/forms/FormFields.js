@@ -6,7 +6,7 @@ import { applyOptions } from './DefaultFormElements.js'
 import {fieldGeneratorLookup} from './FieldGenerator.js'
 import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
 
-import { TS } from './time.js'
+import { TS } from '../time.js'
 
 // -------------------------------------------------------------------------------------------------------------------------
 const labelWrap = (f, idx, children) => {

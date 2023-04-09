@@ -1,5 +1,5 @@
 
-import { TS } from '../time.js'
+import { TS } from '../../time.js'
 import { toCamelCaseVar, toEnglishPhrase } from '../toCamelCase.js'
 
 import { getTableColumns }   from './getTableColumns.js'

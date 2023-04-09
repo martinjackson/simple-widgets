@@ -5,7 +5,7 @@ import { List } from './List.js';
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
-const DoubleListBox = props => {
+export const DoubleListBox = props => {
     const leftRef = useRef();
     const rightRef = useRef();
 
@@ -235,4 +235,3 @@ const DoubleListBox = props => {
     )
 }
 
-export default DoubleListBox;

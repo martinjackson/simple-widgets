@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import NavigateBar from './NavigateBar';
+import { NavigateBar } from './NavigateBar';
 // import { TS } from './time'
 
 let setMenuPath = (newPath) => {}

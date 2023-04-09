@@ -1,9 +1,9 @@
 
 import sizeof from 'object-sizeof'
 
+import { now, TS }    from '../time.js'
 import { client }     from './client.js'
 import { isNotEmpty } from './isNotEmpty.js'
-import { now, TS }    from './time.js'
 import { makeGqlAST } from './makeGqlAST.js'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 

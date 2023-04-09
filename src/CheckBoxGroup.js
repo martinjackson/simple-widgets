@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import { CheckBox } from '../simple-widgets.js'
+import { CheckBox } from './CheckBox.js'
 
-const CheckBoxGroup = ({
+export const CheckBoxGroup = ({
   choices,
   name,
   values,
@@ -53,4 +53,3 @@ const CheckBoxGroup = ({
   );
 };
 
-export default CheckBoxGroup;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Modal from './Modal.js';
+import { Modal } from './Modal.js';
 
 const defProps = {
     show: true,
@@ -10,7 +10,7 @@ const defProps = {
     message: 'No Confirm message given',
 }
 
-const ConfirmModal = inProps => {
+export const ConfirmModal = inProps => {
     const props = {...defProps, ...inProps};
 
     if (('show' in inProps) === false) {
@@ -67,4 +67,3 @@ const ConfirmModal = inProps => {
     }
 }
 
-export default ConfirmModal;

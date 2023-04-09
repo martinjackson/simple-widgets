@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 
+import { SimpleTable }  from '../SimpleTable.js'
+import { TS }           from '../time.js'
+
 import { client }       from './client.js'
 import { useErrorList } from './useErrorList.js'
-import { SimpleTable }  from './SimpleTable.js'
 import { Gears }        from './Gears.js'
 import { ErrorList }    from './ErrorList.js'
 import { makeGqlAST }   from './makeGqlAST.js'
-import { TS }           from './time.js'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 
 // ------------------------------------------------------------------------

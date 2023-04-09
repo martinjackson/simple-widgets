@@ -9,7 +9,7 @@ import React from 'react';
  const checked = String.fromCharCode(9745) 
  const unchecked = String.fromCharCode(9744) 
 
-const CheckBox = props => {
+export const CheckBox = props => {
   const handle = (e) => {
     if (typeof e.preventDefault === 'function')
         e.preventDefault();
@@ -30,4 +30,3 @@ const CheckBox = props => {
          </button>
 }
 
-export default CheckBox
