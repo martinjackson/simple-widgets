@@ -77,7 +77,7 @@ import { label2value, value2label } from './forms/label2value.js'
 import { logDiff } from './forms/logDiff.js'
 import { notifyLookupsDone, serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, 
          changeLookupAlias, addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog, 
-         getLookupLogs, getLookupSummary, useLookup } from './forms/lookupUtil.js'
+         getLookupLogs, getLookupSummary } from './forms/lookupUtil.js'
 import { makeGqlAST } from './forms/makeGqlAST.js'
 import { removeIllegalAttributes } from './forms/removeIllegalAttributes.js'
 import { removeTypeName } from './forms/removeTypeName.js'
@@ -120,8 +120,8 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          isPromise, createJobStatus, updateJobStatus, watchJobStatus, label2value, value2label, logDiff,
          notifyLookupsDone, serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias,
          changeLookupAlias, addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog,
-         getLookupLogs, getLookupSummary, useLookup, makeGqlAST, removeIllegalAttributes, removeTypeName,
-         sendEmail, stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
+         getLookupLogs, getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail,
+         stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
          setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec, formFromTableInfo,
          tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
          getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
