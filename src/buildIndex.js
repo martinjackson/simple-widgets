@@ -135,7 +135,7 @@ const dirs = [ './', './forms/', './forms/model/', './forms/img/', ]
 const fullList =  dirs.map(dir => readDir(dir)).flat()
 // console.log('fullList :', fullList);
 
-const skip = ['./gen_imports.js', './buildIndex.js', './index.js', './forms/index.js']
+const skip = ['./gen_imports.js', './buildIndex.js', './index.js', './forms/index.js', './forms/model/bootstrapDictionary.js']
 
 const files = fullList
               .filter(fn => fn.endsWith('.js'))
@@ -158,5 +158,5 @@ importLines.push(`\nexport { ${prettyList(exportNames)} }\n`)
 
 fs.writeFileSync('./index.js', importLines.join('\n'));         // wipe out original file, start over
 
-const test = getExports('./makeChangeHandler.js')
-console.log('test on makeChangeHandler.js :', test);
+// const test = getExports('./makeChangeHandler.js')
+// console.log('test on makeChangeHandler.js :', test);

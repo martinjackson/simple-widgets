@@ -55,14 +55,14 @@ export const getFieldRecName = (fieldName, fieldType) => {
 
   // multiple named forms can tie back to one gqlName
   if (fieldType == 'form' || fieldType == 'formTable') {
-    dataName = getGqlName(fieldName)
+    dataName = getGqlNameFromForm(fieldName)
   }
 
  return dataName
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
-export const getGqlName = (formName) => {
+export const getGqlNameFromForm = (formName) => {
 
     const {formDictionary} = getAppSpecificInfo()
     const gqlName = formDictionary({formName: formName})?.gqlName
@@ -163,7 +163,7 @@ export const FormFields = (props) => {
 
       const {name, parentRecName, dataIndex, showDebug, withLabels=true} = props
 
-      const gqlName = getGqlName(name)
+      const gqlName = getGqlNameFromForm(name)
       const dataIdx = (ifDefined(dataIndex)) ? dataIndex : 0
       const dataName = gqlName + '['+dataIdx+']'
       const recFullName = (parentRecName) ? parentRecName+'.'+dataName : dataName
