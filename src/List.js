@@ -1,61 +1,50 @@
 import React, { Fragment } from 'react';
 
-const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
-// const min = (arr) => arr.reduce((acc))
+// --------------------------------------------------------------------------------------------------------------------------------------------------
+export const Choice = (propsIn) => {
 
-const _Choice = (propsIn, ref) => {
-
-    const {list, choices, size, value, onChange, ...props} = propsIn
+    const {list, choices, size, ...props} = propsIn
+    const siz = size || 10;
     const opt = list || choices || []
-    const keyPart = (hasProperty(props,'keyName')) ? props.keyName + '_' : ''
-    const pref = (hasProperty(props,'name')) ? props.name + '_' + keyPart : ''
 
-    if ( typeof(value) == 'string' && !opt.includes(value) )
-    {
-        if (opt.length >0) {
-          // console.log(`Adding missing default value: '${value}' to ${JSON.stringify(opt)}`);  can be too long in the console
-          console.log(`Adding missing default value: '${value}' to ${pref} [${opt.length}]`);
-        }
-        opt.unshift(value)
+    const isKeyed = ( !Array.isArray(opt) )
+    const keys = (isKeyed) ? Object.keys(opt) : opt
+
+    const genOption = (el, k) => {
+      if (isKeyed) {
+        return (opt[el] == props.value) ?
+          <option key={k} value={el} selected={true}>{opt[el]}</option> :                 // <option key="1" value="2" selected={true}>'Hernandez, April'</option>
+          <option key={k} value={el}>{opt[el]}</option>
+      } else {
+        return (el == props.value) ?
+            <option key={k} value={el} selected={true}>{el}</option> :
+            <option key={k} value={el}>{el}</option>
+      }
     }
 
 
-    const listHandleChange = (e) => {
+    if ( !isKeyed && typeof(props.value) == 'string' &&  Array.isArray(opt) && !opt.includes(props.value) )
+       {
+         if (opt.length > 0) {
+           console.log(`Adding missing default value: '${props.value}' to ${opt}`);
+         }
+         opt.unshift(props.value)
+       }
 
-      if (typeof e.preventDefault === "function") {
-        e.preventDefault();
-      }
-
-      // if multiple is true the returning value should be an array of selected values,
-      //     not just the value on the last clicked/unclicked element
-      // if multiple is false, e.target.value will be a string of the choice selected
-      // See React SyntheticEvent   https://reactjs.org/docs/events.html
-
-      const e2 = {
-        preventDefault: e.preventDefault,
-        target: { ...e.target}
-      }
-
-      const arr = Array.from(e.target.selectedOptions, option => option.value)
-      e2.target.name = e.target.name
-      e2.target.value = (props.multiple) ? arr : e.target.value
-
-      // console.log(`listHandleChange calling onChange(e2) ${e2.target.name} ${JSON.stringify(e2.target.value)} `);
-
-      onChange(e2)
+    if (props.multiple) {
+      return <Fragment>
+                <select multiple size={siz} {...props} >
+                  {keys.map( (el,k) => genOption(el,k) )}
+                </select>
+            </Fragment>;
     }
-
-    return <Fragment>
-              <select ref={ref} multiple={props.multiple} size={size} value={value} onChange={listHandleChange} {...props} >
-                  {opt.map( (el,key) => <option key={pref + key} value={el}>{el}</option>)}
-              </select>
-           </Fragment>;
-
+    else {
+      return <Fragment>
+                <select {...props} >
+                  {keys.map( (el,k) => genOption(el,k) )}
+                </select>
+            </Fragment>;
+    }
 }
 
-const _List = (props, ref) => (
-  <Choice className="ChoiceClass" ref={ref} multiple={true} {...props} />
-  )
-
-export const Choice = React.forwardRef(_Choice);
-export const List = React.forwardRef(_List);
+export const List = (props) => <Choice multiple={true} {...props} />
