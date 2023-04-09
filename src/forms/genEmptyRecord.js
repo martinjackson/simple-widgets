@@ -22,6 +22,7 @@ export function genEmptyRecord(typeName, children=false, whereTraveled=[]) {
   const item = nouns.find(noun => noun.name == typeName)
   if (item == null) {
     console.log('can not find record type', typeName, 'in list', nouns);
+    return emptyObj
   }
 
   item.fields.map(f => {

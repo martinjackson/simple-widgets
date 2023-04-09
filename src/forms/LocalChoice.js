@@ -168,7 +168,7 @@ export function LocalChoice(props) {
         return <span></span>               // it is ok, sometime the lookup is an alias and empty list to disable this field
       }
 
-      if (choicesLocal?.length < 50) {
+      if (choicesLocal.length < 50) {
         return (
           <Choice
             {...otherProps}
