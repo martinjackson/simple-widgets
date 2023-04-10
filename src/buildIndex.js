@@ -149,14 +149,10 @@ const prettyList = (arr) => {
     return arr.join(', ').replace(/([^\n]{1,99})\s/g, '$1\n         ');   // word wrap after line length > 99
 }
 
-// const formFns = ['applyOptions', 'FormFields', 'pretty', 'Show', 'Input', 'Form', 'useFetch', 'setFieldGenerator', 'fieldGeneratorLookup']
-// const allNames = exportNames.concat(formFns)       // exportNames[] + formFns[]
-// importLines.push(`import { ${prettyList(formFns)} } from './forms/index.js'\n`)
-// importLines.push(`export { ${prettyList(allNames)} }\n`)
+const lines = ['\nimport \'./index.css\'\n'].concat(importLines)
+lines.push(`\nexport { ${prettyList(exportNames)} }\n`)
 
-importLines.push(`\nexport { ${prettyList(exportNames)} }\n`)
-
-fs.writeFileSync('./index.js', importLines.join('\n'));         // wipe out original file, start over
+fs.writeFileSync('./index.js', lines.join('\n'));         // wipe out original file, start over
 
 // const test = getExports('./makeChangeHandler.js')
 // console.log('test on makeChangeHandler.js :', test);
