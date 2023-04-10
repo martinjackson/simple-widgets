@@ -88,11 +88,11 @@ module.exports = {
         },
       },
 
-      // style-loader css-loader ar mangling the css
+      // style-loader css-loader are mangling the css
       // CSS
       {
         test: /\.css$/,
-        type: "asset/resource",
+        use: ["style-loader", "css-loader"],
       },
 
       // Images

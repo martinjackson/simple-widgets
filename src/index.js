@@ -1,3 +1,6 @@
+
+import './index.css'
+
 import { AlertModal } from './AlertModal.js'
 import { CheckBox } from './CheckBox.js'
 import { CheckBoxGroup } from './CheckBoxGroup.js'
