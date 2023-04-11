@@ -31,7 +31,7 @@ export function SimpleEntryScreen(props) {
     console.log(TS(), "*** Save Changes on Form:");
 
     const pendingKeys = Object.keys(pendingUpdates);
-    pendingKeys.map(k => {
+    pendingKeys.forEach(k => {
       const r = pendingUpdates[k];
       updateRecord({ variables: { gqlTable: r.gqlTable, input: r.fields, where: r.where, who: props.who } })
         .then(rec => {

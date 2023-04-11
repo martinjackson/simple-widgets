@@ -1128,9 +1128,11 @@ const _InnerSearchSortTable = (props) => {
         // each control break table following
         tableBuild =    <span>
                             <table className="sw-sst_table" key={cbTable}>
+                              <tbody>
                                 <tr key={cbHeader}>
                                     {table.map(buildHeaders(true, 0))}
                                 </tr>
+                              </tbody>
                             </table>
                             {controlBreakData.map(renderCtrlBreak) }
                         </span>
