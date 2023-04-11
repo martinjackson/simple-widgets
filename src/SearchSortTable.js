@@ -1400,7 +1400,7 @@ const _InnerSearchSortTable = (props) => {
      * @param i     current row in the table being processed
      *
      ***********************************************************************************************************************/
-    function hideColumn(row, i) {
+    function hideColumn(_row, i) {
         let ctrlBreakInfo = [...controlBreakInfo];
         ctrlBreakInfo[i].hidden = true;                 // Hide that particular column in the search sort table
         hideTheColumns(ctrlBreakInfo);
@@ -1817,7 +1817,7 @@ const _InnerSearchSortTable = (props) => {
      * @param i     current index in the control break info array
      *
      **************************************************************************************************************************/
-    function controlBreakOff(row, i) {
+    function controlBreakOff(_row, i) {
         let ctrlBreakInfo = [...controlBreakInfo];
 
         ctrlBreakInfo[i].ctrlBreak = 0;         // Turn off the control break
@@ -1911,7 +1911,7 @@ const _InnerSearchSortTable = (props) => {
      * @param   i   current index into the table props
      *
      ***************************************************************************************************************************/
-    function countFunct(row, i) {
+    function countFunct(_row, i) {
         let count = 0;  // Counts the number of rows
         if (isControlBreak(controlBreakInfo) === true) {    // There are control breaks
             for (let j = 0; j < controlBreakData.length; j++) { // Spin through the control break tables
@@ -2274,7 +2274,7 @@ const _InnerSearchSortTable = (props) => {
      * @param   i   current index into the table props
      *
      ***************************************************************************************************************************/
-    function displayDropDown(row, i) {
+    function displayDropDown(_row, i) {
         setDropDownIndex(i);    // Indicates which column in the table the drop down should appear above
         setFunctSelect('');     // No aggregate function has been selected
         setHtmlDropDown(true);  // Display the drop down over the appropriate column
