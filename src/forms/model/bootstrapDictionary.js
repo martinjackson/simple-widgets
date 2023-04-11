@@ -158,7 +158,7 @@ const fields = {
 // ---------------------------------------------------------------------------------------------------------------------
 const populateDictionary = () => {
 
-  tables.map((entry,i) => {
+  tables.forEach((entry,i) => {
     const fieldList = formFromTableInfo(entry.table, entry.dbFields, entry.labels)
     tables[i]["fieldList"] = fieldList
   })

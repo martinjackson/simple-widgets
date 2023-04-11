@@ -1418,7 +1418,7 @@ const _InnerSearchSortTable = (props) => {
      * @param i     current row in the table being processed
      *
      ***********************************************************************************************************************/
-    function showColumn(row, i) {
+    function showColumn(_row, i) {
         let ctrlBreakInfo = [...controlBreakInfo];
         ctrlBreakInfo[i].hidden = false;                // Show that particular column in the search sort table
         hideTheColumns(ctrlBreakInfo);
@@ -1800,7 +1800,7 @@ const _InnerSearchSortTable = (props) => {
      * @param i     current index in the control break info array
      *
      **************************************************************************************************************************/
-    function controlBreakOn(row, i) {
+    function controlBreakOn(_row, i) {
         let ctrlBreakInfo = [...controlBreakInfo];
 
         ctrlBreakInfo[i].ctrlBreak = maxPlusOne(ctrlBreakInfo); // Assign a control break number to the column
