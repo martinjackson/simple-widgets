@@ -40,6 +40,9 @@ All of these widgets require the following props:
 - selectedValue: want the 'value' should change to when the CheckBox or Radio button is selected
 - text: a label (String or component) displayed following the CheckBox or Radio button
 
+__**Release Notes**__
+[1.32.0](docs/releases/release1.32.0.md)
+
 __**Component Documents**__
 
 [CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md), [InputFile](docs/InputFile.md), [Slider](docs/Slider.md)

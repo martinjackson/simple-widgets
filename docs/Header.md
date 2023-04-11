@@ -13,8 +13,6 @@ Props:
 8.  ***setUsername*** = the name of the function that will set the user if header should change the name of the user.
 9.  ***noModalOnError*** = indicates that when an error occurs, the modal displaying the error will ***not*** appear.  By default the modal is displayed.
 
-The above environment file only has the values for the headers and might contain other values.
-
 ## CSS Files
 
 The following CSS file will need to be imported into the file that uses the Header component.  The import would be, if it is not be changed:
