@@ -305,7 +305,7 @@ const _InnerSearchSortTable = (props) => {
         let tableDef = defaultColHeaders(props.data[0])
         setTable(tableDef)
         populateSearch(tableDef)
-        tableDef.map(buildChoices);
+        tableDef.forEach(buildChoices);
         setColumns(localCols);
     }
       if (indexes.length === 0) {   // There are no indexes
@@ -1402,7 +1402,7 @@ const _InnerSearchSortTable = (props) => {
         let ctrlBreakInfo = [...controlBreakInfo];
         ctrlBreakInfo[i].hidden = true;                 // Hide that particular column in the search sort table
         hideTheColumns(ctrlBreakInfo);
-//        ctrlBreakInfo.map(findHiddenColumns(true));     // Find the column that is to be hidden in the DOM and add the hidden attribute
+//        ctrlBreakInfo.forEach(findHiddenColumns(true));     // Find the column that is to be hidden in the DOM and add the hidden attribute
         setControlBreakInfo(controlBreakInfo)
         setHtmlDropDown(false);                         // Hide the dropdown in the column
     }
@@ -1420,7 +1420,7 @@ const _InnerSearchSortTable = (props) => {
         let ctrlBreakInfo = [...controlBreakInfo];
         ctrlBreakInfo[i].hidden = false;                // Show that particular column in the search sort table
         hideTheColumns(ctrlBreakInfo);
-//        ctrlBreakInfo.map(findHiddenColumns(false));    // Find the column that is to be shown in the DOM and add the hidden attribute
+//        ctrlBreakInfo.forEach(findHiddenColumns(false));    // Find the column that is to be shown in the DOM and add the hidden attribute
         setControlBreakInfo(controlBreakInfo)
         setHtmlDropDown(false);                         // Hide the dropdown in the column
     }
@@ -1512,7 +1512,7 @@ const _InnerSearchSortTable = (props) => {
         });
 
         // Build the indexes for each control break
-        indexes.map ((row) => {
+        indexes.forEach ((row) => {
             sortAry.push ({ index: row, data: buildSortData(breakOrder, row) });
         });
 
@@ -1527,7 +1527,7 @@ const _InnerSearchSortTable = (props) => {
                 if (typeof a === 'string' &&
                     hasProperty(props,'ignorecase') === true) {
                     b = a.toUpperCase()
-                    b = b.toUpperCase() 
+                    b = b.toUpperCase()
                 }
 
                 // Make the comparison
@@ -1543,7 +1543,7 @@ const _InnerSearchSortTable = (props) => {
 
         // Build the new indexes for the control break
         let newIndexes = [];
-        sortAry.map((row) => newIndexes.push(row.index));
+        sortAry.forEach((row) => newIndexes.push(row.index));
 
         setIndex(newIndexes, false);
 
@@ -3037,7 +3037,7 @@ const _InnerSearchSortTable = (props) => {
         }
 
         let sortAry = [];
-        localIndexes.map ((row) => {
+        localIndexes.forEach ((row) => {
             if (dateFormat !== null) {
                 if (dateFormat === 'MM/DD/YYYY') {
                     sortAry.push({index: row, data: convertDate2(props.data[row][name], '/', 1)});
@@ -3099,7 +3099,7 @@ const _InnerSearchSortTable = (props) => {
             return newIndexes;
         } else {    // Regular search sort table
             let newIndexes = [];    // Indexes for the search sort table
-            sortAry.map((row) => newIndexes.push(row.index));
+            sortAry.forEach((row) => newIndexes.push(row.index));
 
             setIndex(newIndexes, false);
 
