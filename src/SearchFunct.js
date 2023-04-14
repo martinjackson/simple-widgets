@@ -36,20 +36,20 @@ export const search = (table, key, field) => {
  *
  ****************************************************************************/
 export const binSearch = (table, key, field) => {
-    let top = 0;                // Index to the top of the table
-    let bottom = table.length;  // Index to the bottom of the table
-    let middle = 0;             // Index to the calculated middle of the table
-    let found = false;          // Indicates the key was found
-    let neverFound = false;     // Indicates the key will never be found
+    let top = 0;                    // Index to the top of the table
+    let bottom = table.length - 1;  // Index to the bottom of the table
+    let middle = 0;                 // Index to the calculated middle of the table
+    let found = false;              // Indicates the key was found
+    let neverFound = false;         // Indicates the key will never be found
 
     // Loop until the key is found or it never can be found
     while (found === false && neverFound === false) {
         middle = parseInt ((top + bottom) / 2);
 
-        if (top >= bottom) {
-            neverFound = true;
-        } else if (table[middle][field] === key) {
+        if (table[middle][field] === key) {
             found = true;
+        } else if (top >= bottom) {
+            neverFound = true;
         } else if (table[middle][field] > key) {
             bottom = middle - 1;
         } else if (table[middle][field] < key) {

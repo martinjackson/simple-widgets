@@ -26,11 +26,11 @@
     For more information see the MenuBar documentation to apply these changes.
 
 
-##Maintainer Changes (These are changes only for the Maintainers of the project)
+##Simple Widgets Maintainers (These are changes only for the Maintainers of this project)
 
 1.  All export defaults have been removed.  There for all local imports must look like the following:
 ```js
     import { value } from './file'
 ```
 
-2.  There is an _InnerSearch component in the SearchSortTable.
+2.  There is an _InnerSearchSortTable component in the SearchSortTable.  The useEffect has to be in front of any if statements; therefore, the _InnerSearchSort table was introduced.  The if statements promoted to the upper component.

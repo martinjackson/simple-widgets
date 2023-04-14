@@ -11,6 +11,7 @@ export const NavigateBar = (props) => {
     let count = 0;
     let addition1 = '';
     let addition2 = '';
+    let page = '';
 
     const buildTree = (menuTree) => {
         for (let i = 0; i < menuTree.length; i++) {
@@ -101,7 +102,7 @@ export const NavigateBar = (props) => {
                             onMouseEnter={(event) => onMouseEnter(event, row.index)}
                             onMouseLeave={(event) => onMouseLeave(row.index)}>
                                 <Link className='nav-links'>
-                                    {row.title + addition1}
+                                    {page + row.title + addition1}
                                 </Link>
                                 { (dropDown[row.index] === true) ?
                                     <ul
@@ -115,7 +116,7 @@ export const NavigateBar = (props) => {
                             <Link
                                 className="dropdown-link"
                                 to={row.path}>
-                                {row.title}
+                                {page + row.title}
                             </Link>
                     </li> )
         }
@@ -147,7 +148,7 @@ export const NavigateBar = (props) => {
                                 onMouseEnter={(event) => onMouseEnter(event, index)}
                                 onMouseLeave={() => onMouseLeave(index)}>
                                 <Link className='nav-links'>
-                                    {row.title + addition2}
+                                    {page + row.title + addition2}
                                 </Link>
                                 { (dropDown[index] === true) ?
                                     <ul
@@ -161,11 +162,15 @@ export const NavigateBar = (props) => {
                 return (<li key={name}
                             className={navItem}>
                                 <Link to={row.path} className='nav-links'>
-                                    {row.title}
+                                    {page + row.title}
                                 </Link>
                         </li> )
             }
         })
+    }
+
+    if (props.page === true) {
+        page = '📄';
     }
 
     if (props.symbol === 'arrow') {
