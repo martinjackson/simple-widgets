@@ -415,58 +415,64 @@ function indexing(value) {
 
 14. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
 
-15. **nobottom** = does not display the bottom button.
+15. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
 
-16. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
+16. **nobottom** = does not display the bottom button.
 
-17. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
+17. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
 
-18. **noexcel** = does not display the Excel Build or Excel Display buttons.
+18. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
 
-19. **nofilter** = this will not display the Filter On check box and the filter button
+19. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-20. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
+20. **noexcel** = does not display the Excel Build or Excel Display buttons.
 
-21. **nofooterborder** = do not put a border around each individual footer item.
+21. **nofilter** = this will not display the Filter On check box and the filter button
 
-22. **noheaderborder** = do not put a border around each individual header item.
+22. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 
-23. **nonext** = does not display the next button.
+23. **nofooterborder** = do not put a border around each individual footer item.
 
-24. **nopdf** = does not display the PDF button or the Orientation choice box.
+24. **noheaderborder** = do not put a border around each individual header item.
 
-25. **noprevious** = does not display the previous button.
+25. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
 
-26. **norows** = does not display how maximum number of rows or the choice box for changing it.
+26. **nonext** = does not display the next button.
 
-27. **nosearch** = does not display the header drop down, text box, and Search button.
+27. **nopdf** = does not display the PDF button or the Orientation choice box.
 
-28. **nosort** = does not allow the headers to be sorted.
+28. **noprevious** = does not display the previous button.
 
-29. **notop** = does not display the top button or the total number of rows.
+29. **norows** = does not display how maximum number of rows or the choice box for changing it.
 
-30. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
+30. **nosearch** = does not display the header drop down, text box, and Search button.
 
-31. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
+31. **nosort** = does not allow the headers to be sorted.
+
+32. **notop** = does not display the top button or the total number of rows.
+
+33. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
+
+34. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
 An example would be:
 ```javascript
 report="The PDF Report"
 ```
 
-32. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+35. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-33. **searchstart** = indicates that the search item will only match those data items that start with the search item
+36. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-34. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+37. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
-35. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+38. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-36. **showtable** = this will show the table and headers even if there is no data to display.
+39. **showtable** = this will show the table and headers even if there is no data to display.
 
-37. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+40. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-38. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+41. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -478,7 +484,7 @@ function startEnd (start, end) {
 <SearchSortTable startEnd={startEnd} />
 ```
 
-39. startingPos = is a function that will return an array that contains the start of each control break table in the indexes.
+42. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -490,11 +496,11 @@ function startingPosition(value) {
 <SearchSortTable startingPos={startingPosition} />
 ```
 
-40. **title** = supplies a title to be displayed centered at the top of the table.
+43. **title** = supplies a title to be displayed centered at the top of the table.
 
-41. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+44. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-42. **width** = the width of the scroll box only.
+45. **width** = the width of the scroll box only.
 
 ## CSS Files
 

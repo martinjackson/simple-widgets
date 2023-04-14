@@ -1,6 +1,6 @@
 /* sw = simple-widgets */
 
-.sw-slider_rangeValue {
+.sw-slider5_rangeValue {
     text-align: center;
     font-size: 2em;
     color: #999;
@@ -8,7 +8,7 @@
     margin-left: 20px;
 }
 
-.sw-slider_range {
+.sw-slider5_range {
     width: 400px;
 }
 

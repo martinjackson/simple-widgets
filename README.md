@@ -41,19 +41,23 @@ All of these widgets require the following props:
 - text: a label (String or component) displayed following the CheckBox or Radio button
 
 __**Release Notes**__
-[1.32.0](docs/releases/release1.32.0.md)
+[1.32.0](docs/releases/release_1.32.0.md)
 
 __**Component Documents**__
 
-[CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md), [InputFile](docs/InputFile.md), [Slider](docs/Slider.md)
+[CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md), [InputFile](docs/InputFile.md), [Slider](docs/Slider.md), [CheckBoxGroup](docs/CheckBoxGroup.md), [ChoiceTextSearchable](docs/ChoiceTextSearchable.md)
 
 [AlertModal](docs/AlertModal.md), [ErrorModal](docs/ErrorModal.md), [ConfirmModal](docs/ConfirmModal.md), [Modal](docs/Modal.md), [StatusBox](docs/StatusBox.md)
 
 [Invalid](docs/Invalid.md)
 
-[SearchSortTable](docs/SearchSortTable.md), [ContextMenu](docs/ContextMenu.md), [Theme](docs/Theme.md)
+[SearchSortTable](docs/SearchSortTable.md), [SimpleTable](docs/SimpleTable.md)
+
+[ContextMenu](docs/ContextMenu.md),
 
 [SpreadSheet](docs/SpreadSheet.md)
+
+[Theme](docs/Theme.md)
 
 [Search Functions](docs/SearchFunct.md), [Date Functions](docs/DateFunct.md), [Common Functions](docs/Common.md)
 

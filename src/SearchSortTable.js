@@ -1650,7 +1650,6 @@ const _InnerSearchSortTable = (props) => {
         let keyHeader = `cbrow_${number}`;          // Key for the header using the control break table number
         let key = `cbfoot_${number}_${i}`;          // Key for the footer using the control break table name
 
-        console.log ('render');
         return (    // Render the control break
             <table name={name} className={hoverClassName + " sw-sst_table"} key={keyTable}>
                 <caption className="sw-sst_tableBold">{row.title}</caption>
@@ -1836,6 +1835,29 @@ const _InnerSearchSortTable = (props) => {
     }
 
     /**************************************************************************************************************************
+     * 
+     * This will determine which column the aggregation is to be placed under.  This is needed because if a column is hidden
+     * it will place the aggregation under the correct footer.  For, example if column before the aggregation column is hidden,
+     * it will subtract one because of the hidden column to get the correct column.  This is because the column is still in the
+     * table it is just hidden.
+     * 
+     * @param index = the index of the aggregation column in the table without considering hidden columns
+     * 
+     * @returns the correct index of the aggregation column wiht condsidering hidden columns
+     * 
+     **************************************************************************************************************************/
+    function determineCol (index) {
+        let pos = index;    // Current index of the aggregation column
+        for (let i = 0; i < controlBreakInfo.length && i < index; i++) {  // Loop until the end of the columns or the hidden column is reached
+            if (controlBreakInfo[i].hidden === true) {  // Check to see if the column is hidden
+                pos--;
+            }
+        }
+
+        return pos;
+    }
+
+    /**************************************************************************************************************************
      *
      * This will sum a numeric column in the table and place the sum at the bottom of the table.
      *
@@ -1852,7 +1874,7 @@ const _InnerSearchSortTable = (props) => {
                 for (let k = 0; k < controlBreakData[j].data.length; k++) {
                     sum += controlBreakData[j].data[k][row.name];
                 }
-                controlBreakData[j].footer[i].push(`Sum: ${sum}`);  // Place the sum into the footer
+                controlBreakData[j].footer[determineCol(i)].push(`Sum: ${sum}`);  // Place the sum into the footer
             }
         } else {    // Regular search sort table to sum
             let locFooters = [...footers];  // Current footers
@@ -1862,7 +1884,7 @@ const _InnerSearchSortTable = (props) => {
                 sum += props.data[j][row.name];
             }
 
-            locFooters[i].push(`Sum: ${sum}`);    // Place the sum into the footer
+            locFooters[determineCol(i)].push(`Sum: ${sum}`);    // Place the sum into the footer
             setFooters(locFooters);
         }
     }
@@ -1887,7 +1909,7 @@ const _InnerSearchSortTable = (props) => {
                     sum += controlBreakData[j].data[k][row.name];
                     count++;
                 }
-                controlBreakData[j].footer[i].push(`Average: ${(sum / count).toFixed(mathDecimal)}`);   // Place the average into the footer
+                controlBreakData[j].footer[determineCol(i)].push(`Average: ${(sum / count).toFixed(mathDecimal)}`);   // Place the average into the footer
             }
         } else {    // Regular search sort table to calculate the average
             let locFooters = [...footers];  // Current footers
@@ -1898,7 +1920,7 @@ const _InnerSearchSortTable = (props) => {
                 count++;
             }
 
-            locFooters[i].push(`Average: ${(sum / count).toFixed(mathDecimal)}`);   // Place the sum into the footer
+            locFooters[determineCol(i)].push(`Average: ${(sum / count).toFixed(mathDecimal)}`);   // Place the sum into the footer
             setFooters(locFooters);
         }
     }
@@ -1920,7 +1942,7 @@ const _InnerSearchSortTable = (props) => {
                 for (let k = 0; k < controlBreakData[j].data.length; k++) {
                     count++;
                 }
-                controlBreakData[j].footer[i].push(`Count: ${count}`);  // Place the counter into the footer
+                controlBreakData[j].footer[determineCol(i)].push(`Count: ${count}`);  // Place the counter into the footer
             }
         } else {    // Regular search sort table
             let locFooters = [...footers];  // Current footers
@@ -1930,7 +1952,7 @@ const _InnerSearchSortTable = (props) => {
                 count++;
             }
 
-            locFooters[i].push(`Count: ${count}`);  // Place the counter into the footer
+            locFooters[determineCol(i)].push(`Count: ${count}`);  // Place the counter into the footer
             setFooters(locFooters);
         }
     }
@@ -1968,7 +1990,7 @@ const _InnerSearchSortTable = (props) => {
                         count++;
                     }
                 }
-                controlBreakData[j].footer[i].push(`Distinct Count: ${count}`); // Place the distinct count into the footer
+                controlBreakData[j].footer[determineCol(i)].push(`Distinct Count: ${count}`); // Place the distinct count into the footer
             }
         } else {    // Regular search sort table
             let locFooters = [...footers];  // Current footers
@@ -1993,7 +2015,7 @@ const _InnerSearchSortTable = (props) => {
                 }
             }
 
-            locFooters[i].push(`Distinct Count: ${count}`); // Place the distinct count into the footer
+            locFooters[determineCol(i)].push(`Distinct Count: ${count}`); // Place the distinct count into the footer
             setFooters(locFooters);
         }
     }
@@ -2024,7 +2046,7 @@ const _InnerSearchSortTable = (props) => {
                         }
                     }
                 }
-                controlBreakData[j].footer[i].push(`Minimum: ${minimum}`);  // Place the minimum value into the footer
+                controlBreakData[j].footer[determineCol(i)].push(`Minimum: ${minimum}`);  // Place the minimum value into the footer
             }
         } else {    // Regular search sort table
             let locFooters = [...footers];  // Current footers
@@ -2043,7 +2065,7 @@ const _InnerSearchSortTable = (props) => {
                 }
             }
 
-            locFooters[i].push(`Minimum: ${minimum}`);  // Place the minimum value into the footer
+            locFooters[determineCol(i)].push(`Minimum: ${minimum}`);  // Place the minimum value into the footer
             setFooters(locFooters);
         }
     }
@@ -2074,7 +2096,7 @@ const _InnerSearchSortTable = (props) => {
                         }
                     }
                 }
-                controlBreakData[j].footer[i].push(`Maximum: ${maximum}`);  // Place the maximum value into the footer
+                controlBreakData[j].footer[determineCol(i)].push(`Maximum: ${maximum}`);  // Place the maximum value into the footer
             }
         } else {
             let locFooters = [...footers];  // Current footers
@@ -2093,7 +2115,7 @@ const _InnerSearchSortTable = (props) => {
                 }
             }
 
-            locFooters[i].push(`Maximum: ${maximum}`);  // Place the minimum value into the footer
+            locFooters[determineCol(i)].push(`Maximum: ${maximum}`);  // Place the minimum value into the footer
             setFooters(locFooters);
         }
     }
@@ -2134,7 +2156,7 @@ const _InnerSearchSortTable = (props) => {
                     median = data[middle][row.name];    // for the median
                 }
 
-                controlBreakData[j].footer[i].push(`Median: ${median}`);    // Place the median value into the footer
+                controlBreakData[j].footer[determineCol(i)].push(`Median: ${median}`);    // Place the median value into the footer
             }
         } else {    // Regular search sort table
             let locFooters = [...footers];  // Current footers
@@ -2161,7 +2183,7 @@ const _InnerSearchSortTable = (props) => {
                 median = data[middle][row.name];    // for the median
             }
 
-            locFooters[i].push(`Median: ${median}`);    // Place the median value into the footer
+            locFooters[determineCol(i)].push(`Median: ${median}`);    // Place the median value into the footer
             setFooters(locFooters);
         }
     }
@@ -2229,39 +2251,63 @@ const _InnerSearchSortTable = (props) => {
             functionList = ['', 'Summation', 'Average', 'Count', 'Count Distinct', 'Minimum', 'Maximum', 'Median'];
         }
 
-        // Render the drop down
-        return (
-            <div className="sw-sst_dropDownDiv">
-                {(controlBreakInfo[i].hidden === false) ?
+        let hiddenRender = null;
+        if (hasProperty(props, 'nohidden') === false) {
+            if (controlBreakInfo[i].hidden === false) {
+                hiddenRender = 
                     <span className="sw-sst_showToolTip">
                         <button name="hidden" onClick={() => hideColumn(row, i)} className="sw-sst_dropDownButton" >🗏⊗</button>
                         <span className="sw-sst_toolTip sw-sst_top">Hide Column</span>
-                    </span> :
-                     <span className="sw-sst_showToolTip">
+                    </span>;
+
+            } else {
+                hiddenRender =  
+                    <span className="sw-sst_showToolTip">
                         <button name="show" onClick={() => showColumn(row, i)} className="sw-sst_dropDownButton" >🗏</button>
                         <span className="sw-sst_toolTip sw-sst_top">Show Column</span>
-                    </span>}
-                {(controlBreakInfo[i].ctrlBreak === 0) ?
+                    </span>
+            } 
+        }
+
+        let controlBreakRender = null;
+        if (hasProperty(props, 'nocontrolbreak') === false) {
+            if (controlBreakInfo[i].ctrlBreak === 0) {
+                controlBreakRender = 
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOn" onClick={() => controlBreakOn(row, i)} className="sw-sst_dropDownButton" >🗐</button>
                         <span className="sw-sst_toolTip sw-sst_top">Control Break</span>
-                    </span> :
+                    </span>;
+            } else {
+                controlBreakRender = 
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOff" onClick={() => controlBreakOff(row, i)} className="sw-sst_dropDownButton" >🗐⊗</button>
                         <span className="sw-sst_toolTip sw-sst_top">Undo Control Break</span>
-                    </span>}
+                    </span>;
+            }
+        }
+
+
+        // Render the drop down
+        return (
+            <div className="sw-sst_dropDownDiv">
+                { hiddenRender }
+                { controlBreakRender }
                 <span className="sw-sst_showToolTip">
                     <button name="cancel" onClick={cancel} className="sw-sst_dropDownButton">⊗</button><br />
                     <span className="sw-sst_toolTip sw-sst_top">Cancel</span>
                 </span>
-                <span className="sw-invalid_checkForError">
-                    <Choice choices={functionList} name="functSelect" value={functSelect}
-                        onChange={(event) => setFunctSelect(event.target.value)}
-                        onClick={() => wasClickedScreen(invalid, AGGREGATE, setInvalid)}
-                        className={"sw-sst-dropDown_choice" + processInvalidStyleScreen(invalid, AGGREGATE)} />
-                    {(isInvalid(invalid[AGGREGATE], -1) === true) ? <span className="sw-invalid_errMessage">{invalid[AGGREGATE].message}</span> : null }
-                </span>
-                <button name="apply" onClick={() => applyFunction(row, i)} className="sw-sst_dropButton">Apply</button>
+                { (hasProperty(props, 'noaggregation') === true) ? null :
+                    <span>
+                        <span className="sw-invalid_checkForError">
+                            <Choice choices={functionList} name="functSelect" value={functSelect}
+                                onChange={(event) => setFunctSelect(event.target.value)}
+                                onClick={() => wasClickedScreen(invalid, AGGREGATE, setInvalid)}
+                                className={"sw-sst-dropDown_choice" + processInvalidStyleScreen(invalid, AGGREGATE)} />
+                            {(isInvalid(invalid[AGGREGATE], -1) === true) ? <span className="sw-invalid_errMessage">{invalid[AGGREGATE].message}</span> : null }
+                        </span>
+                        <button name="apply" onClick={() => applyFunction(row, i)} className="sw-sst_dropButton">Apply</button>
+                    </span>
+                }
             </div>
         );
     }
@@ -2510,9 +2556,12 @@ const _InnerSearchSortTable = (props) => {
      *
      * This will make sure that the user entered at least one value in one of the filter
      * input boxes.  This is called when the user presses the Filter button.
+     * 
+     * @param {*}   which indicates whether both (B) the search header and item
+     *                  should be validated or only the header (H)
      *
      ******************************************************************************************/
-    function filterValidate() {
+    function filterValidate(_which) {
         let localInvalid = [...invalid];
 
         localInvalid[FILTER].validity = false;
@@ -2768,11 +2817,8 @@ const _InnerSearchSortTable = (props) => {
      * This will validate that data was entered in the header drop down and text
      * box for searching.  This is called when the Search button is pressed.
      *
-     * @param {*} which indicates whether both (B) the search header and item
-     *                  should be validated or only the header (H)
-     *
      *******************************************************************************/
-    function validate(_which) {
+    function validate() {
         let localInvalid = [...invalid];
 
         localInvalid[SRCHHDR].validity = false;

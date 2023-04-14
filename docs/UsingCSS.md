@@ -16,7 +16,7 @@ The disadvantage is that you can not change them to style them to your needs.
 
 In the index.js, place the following:
 ```js
-    import '../node_modules/simple-widgets/lib/index.css'
+    import '../node_modules/simple-widgets/src/index.css'
 ```
 
 ## B. Using the CSS files from the node_modules directory in the file it is used
@@ -37,7 +37,7 @@ If the CSS file is being used in multiple files, the CSS file can be placed in t
 1.  Copy the css files from the library into the public directory of your project.  
 ```
     cd your-project-name
-    cp ./node_modules/simple-widgets/lib/*.css ./public/
+    cp ./node_modules/simple-widgets/src/*.css ./public/
 ```
 
 2.  Make copies of any CSS files you are planning on modifying.  Remove the CSS files that are not needed.
@@ -54,7 +54,7 @@ If the CSS file is being used in multiple files, the CSS file can be placed in t
 
 ## CSS Files in simple-widgets
 
-The css files in the simple-widgets library are:
+The css files in the simple-widgets source directory (src) are:
 
 1. sw-checkboxRadio.css
 2. sw-contextMenuHover.css
