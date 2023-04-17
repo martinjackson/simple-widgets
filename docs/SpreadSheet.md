@@ -308,8 +308,7 @@ The rest of the props are optional:
 
 -    The number of additional rows added to the spread sheet is 10.
 
-9.  ***preload*** = this a function that is called to pre load data into the spreadsheet. The function is called when the spread sheet is initially rendered, when the data is cleared, and when rows are added (it will only do it to the added rows).  The format for the
-function is:
+9.  ***preload*** = this a function that is called to pre load data into the spreadsheet. The function is called when the spread sheet is initially rendered, when the data is cleared, and when rows are added (it will only do it to the added rows).  The format for the function is:
 
 ```js
     const preLoadData = (data) => {
@@ -331,11 +330,15 @@ function is:
 
 -    Breeding will be the title that appears centered before the spread sheet.
 
-11. ***noSave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
+11. ***nosave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
 
-12. ***noClear*** = indicates that the Clear button should not appear on the screen.
+12. ***noclear*** = indicates that the Clear button should not appear on the screen.
 
-13. ***noAdditionRows*** = indicates that the Add Rows button should not appear on the screen.  If this prop is used, there is no need for the additionalRows prop.
+13. ***noaddrows*** = indicates that the Add Rows button should not appear on the screen.  If this prop is used, there is no need for the additionalRows prop.
+
+14. ***nopdf*** = indicates that the PDF button and Orientation drop down should not appear on the screen.
+
+15. ***noexcel*** = indicates that the Excel button should not appear on the screen.
 
 14. ***height*** = the height of the spread sheet.  The default is 675px.
 

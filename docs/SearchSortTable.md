@@ -425,7 +425,7 @@ function indexing(value) {
 
 19. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-20. **noexcel** = does not display the Excel Build or Excel Display buttons.
+20. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
 
 21. **nofilter** = this will not display the Filter On check box and the filter button
 
@@ -439,7 +439,8 @@ function indexing(value) {
 
 26. **nonext** = does not display the next button.
 
-27. **nopdf** = does not display the PDF button or the Orientation choice box.
+27. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
+
 
 28. **noprevious** = does not display the previous button.
 
