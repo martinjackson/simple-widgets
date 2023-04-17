@@ -20,8 +20,6 @@ import { formatMoney } from './Common.js'
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
-import { data } from 'autoprefixer';
-//import { data } from 'autoprefixer';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -77,7 +75,6 @@ const defaultEachRowInTable = (row, i) => {
  *
  ****************************************************************************/
 export const SearchSortTable = (propsPassed) => {
-
     const defaultProps = {                           // Default props if non are given
       error: false,                                  // Indicates that an error has occrred
       MAX_ITEMS: 100,                                // Maximum items on a page
@@ -1024,7 +1021,7 @@ const _InnerSearchSortTable = (props) => {
     }
 
     // This will display the PDF button and the Orientation choice box on the screen
-    const pdfDisplay = (hasProperty(props, 'nopdf') === true) ? null :
+    const pdfDisplay = (props.nopdf === true) ? null :
         <span>
             <button name="pdf" className={genButtonStyle} onClick={pdfButton}>PDF</button>
             <span className="sw-invalid_checkForError">
@@ -1038,7 +1035,7 @@ const _InnerSearchSortTable = (props) => {
         </span>;
 
     // This will display the Excel Build and Excel Display button on the screen
-    const excelDisplay = (hasProperty(props, 'noexcel') === true) ? null :
+    const excelDisplay = (props.noexcel === true) ? null :
         <span>
             <button name="excelBuild" className={genButtonStyle} onClick={excelBuildButton} >Excel Build</button>
             {(showExcel === false) ? null :
@@ -1046,7 +1043,7 @@ const _InnerSearchSortTable = (props) => {
         </span>;
 
     // This will determine if both the PDF and Excel buttons and choice box should be displayed or not
-    const pdfExcel = (hasProperty(props, 'nopdf') === true && hasProperty(props, 'noexcel') === true) ? null :
+    const pdfExcel = (props.nopdf === true && props.noexcel === true) ? null :
         <div className="sw-sst_footStyle2">
             {pdfDisplay}
             {excelDisplay}
@@ -3127,7 +3124,7 @@ const _InnerSearchSortTable = (props) => {
         if (ctrlBreak === true) {   // There is a control break
             let cbData = [];    // The data for the control break
             // Create the indexes for each individual control break
-            console.log('sortAry :', sortAry);
+            //console.log('sortAry :', sortAry);
             for (let i = 0; i < sortAry.length; i++) {
                 localIndexes[i] = sortAry[i].index;
                 cbData.push (props.data[sortAry[i].index]);

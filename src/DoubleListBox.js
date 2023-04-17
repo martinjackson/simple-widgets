@@ -1,19 +1,18 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { List } from './List.js';
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
 export const DoubleListBox = props => {
-    const leftRef = useRef();
-    const rightRef = useRef();
-
     const [choices, setChoices] = useState([...props.choices || []]);
     const [leftValues, setLeftValues] = useState(choices.filter( item => ![...props.value || []].find(r => r === item)));
     const [rightValues, setRightValues] = useState([...props.value || []]);
     const [leftSelections, setLeftSelections] = useState([]);
     const [rightSelections, setRightSelections] = useState([]);
+    const [leftEvent, setLeftEvent] = useState([]);
+    const [rightEvent, setRightEvent] = useState([]);
 
     const reset = (props) => {
         if (!props.value) {
@@ -35,9 +34,10 @@ export const DoubleListBox = props => {
         setRightSelections([]);
     }
 
-    useEffect (() => reset(props), [props.choices]);
+    useEffect (() => reset(props), [/*props.choices*/]);
 
     const reportChange = (right) => {
+        let value = [...right];
         let compName = 'DoubleListBox';
         if (hasProperty(props, 'name') === true) {
             compName = props.name;
@@ -65,11 +65,11 @@ export const DoubleListBox = props => {
     }
 
     const moveRightSelectButton = (e) => {
-        let right = add(rightValues, leftSelections)
-        let left =  sub(leftValues, right)
+        let right = add(rightValues, leftSelections);
+        let left =  sub(leftValues, right);
 
         setLeftValues(left);
-        setRightValues(right),
+        setRightValues(right);
         setLeftSelections([]);
         reportChange(right);
 
@@ -77,15 +77,12 @@ export const DoubleListBox = props => {
     }
 
     const clearSelections = () => {
-        const leftBox = leftRef.current;
-        const rightBox = rightRef.current;
-
-        for (let i = 0; i < leftBox.length; i++) {
-            leftBox[i].selected = false;
+        for (let i = 0; i < leftEvent.length; i++) {
+            leftEvent[i].selected = false;
         }
 
-        for (let i = 0; i < rightBox.length; i++) {
-            rightBox[i].selected = false;
+        for (let i = 0; i < rightEvent.length; i++) {
+            rightEvent[i].selected = false;
         }
     }
 
@@ -134,39 +131,36 @@ export const DoubleListBox = props => {
           return;   // Passed in by Radio, can be ignored, next event has target.name
 
         if (typeof e.preventDefault === 'function') {
-          e.preventDefault();
+            e.preventDefault();
         }
 
-        const leftBox = leftRef.current;
-
         let values = [];
-        for (let i = 0; i < leftBox.length; i++) {
-            if (leftBox[i].selected === true) {
-                values.push (leftBox[i].value);
+        for (let i = 0; i < e.target.length; i++) {
+            if (e.target[i].selected === true) {
+                values.push (e.target[i].value);
             }
         }
-
         setLeftSelections(values);
+        setLeftEvent(e.target);
     }
 
-    const rightHandleChange = (e) => {
-        if (typeof e === 'string')
+    const rightHandleChange = (event) => {
+        if (typeof event === 'string')
           return;   // Passed in by Radio, can be ignored, next event has target.name
 
-        if (typeof e.preventDefault === 'function') {
-          e.preventDefault();
+        if (typeof event.preventDefault === 'function') {
+          event.preventDefault();
         }
 
-        const rightBox = rightRef.current;
-
         let values = [];
-        for (let i = 0; i < rightBox.length; i++) {
-            if (rightBox[i].selected === true) {
-                values.push (rightBox[i].value);
+        for (let i = 0; i < event.target.length; i++) {
+            if (event.target[i].selected === true) {
+                values.push (event.target[i].value);
             }
         }
 
         setRightSelections(values);
+        setRightEvent(event.target);
     }
 
     const isPosInt = (num) => {
@@ -218,7 +212,7 @@ export const DoubleListBox = props => {
             <div className="sw-dlb_topSt">
                 <div className="sw-dlb_display">
                     <p className="sw-dlb_leftClass">{props.leftTitle}</p>
-                    <List list={leftValues} ref={leftRef} size={size} onChange={leftHandleChange} keyname="left" className="sw-dlb_listSt" />
+                    <List list={leftValues} size={size} onChange={leftHandleChange} keyname="left" className="sw-dlb_listSt" />
                 </div>
                 <div className="sw-dlb_colSt">
                     <button name="moveRightSelect"   className="sw-dlb_buttonSt" onClick={moveRightSelectButton}>&gt;</button>
@@ -228,7 +222,7 @@ export const DoubleListBox = props => {
                 </div>
                 <div className="sw-dlb_display">
                     <p className="sw-dlb_rightClass"> {props.rightTitle}</p>
-                    <List list={rightValues} ref={rightRef} size={size} onChange={rightHandleChange} keyname="right" className="sw-dlb_listSt" />
+                    <List list={rightValues} size={size} onChange={rightHandleChange} keyname="right" className="sw-dlb_listSt" />
                 </div>
             </div>
         </div>
