@@ -107,11 +107,11 @@ export const SearchSortTable = (propsPassed) => {
             return (<span></span>);
         }
     } else {
-    if (hasProperty(props,'noupper') === true ||
-        hasProperty(props,'nolower') === true ||
-        hasProperty(props,'nodigit') === true) {
-          console.error('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop');
-          return (<span></span>);
+      if (hasProperty(props,'noupper') === true ||
+          hasProperty(props,'nolower') === true ||
+          hasProperty(props,'nodigit') === true) {
+            console.error('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop');
+            return (<span></span>);
         }
     }
 
@@ -198,12 +198,43 @@ const _InnerSearchSortTable = (props) => {
      *
      **************************************************************************************************************/
     function populateDropDown (table) {
-        let ctrlBreakAry = [];  // The control break info array
-        for (let i = 0; i < table.length; i++) {
-            ctrlBreakAry.push ({hidden: false, ctrlBreak: 0 });
+        let isUserCtrlBreak = false;
+        if (hasProperty(props, 'controlBreak') === true) {
+            isUserCtrlBreak = true;
+            if (props.controlBreak.length !== table.length) {
+                console.log ('SearchSortTable: controlBreak array must be the same size as the table array');
+                console.log ('SearchSortTable: User controlBreak array will not be used');
+                isUserCtrlBreak = false;
+            }
+
+            for (let i = 0; i < props.controlBreak.length; i++) {
+                if (hasProperty(props.controlBreak[i], 'hidden') === false) {
+                    console.log ('SearchSortTable: The hidden field is missing')
+                    console.log ('SearchSortTable: User controlBreak array will not be used');
+                    isUserCtrlBreak = false;
+                }
+
+                if (hasProperty(props.controlBreak[i], 'ctrlBreak') === false) {
+                    console.log ('SearchSortTable: The ctrlBreak field is missing')
+                    console.log ('SearchSortTable: User controlBreak array will not be used');
+                    isUserCtrlBreak = false;
+                }
+            }
         }
 
-        setControlBreakInfo(ctrlBreakAry);
+        console.log('isUserCtrlBreak :', isUserCtrlBreak);
+        if (isUserCtrlBreak === true) {
+            setControlBreakInfo (props.controlBreak);
+            findCtrlBreak(props.controlBreak, indexes);
+            hideTheColumns(props.controlBreak);
+        } else {
+            let ctrlBreakAry = [];  // The control break info array
+            for (let i = 0; i < table.length; i++) {
+                ctrlBreakAry.push ({hidden: false, ctrlBreak: 0 });
+            }
+
+            setControlBreakInfo(ctrlBreakAry);
+        }
     }
 
     let localCols = new Array(numCols);  // The value of each column in the table for the filter process
@@ -1800,6 +1831,7 @@ const _InnerSearchSortTable = (props) => {
         let ctrlBreakInfo = [...controlBreakInfo];
 
         ctrlBreakInfo[i].ctrlBreak = maxPlusOne(ctrlBreakInfo); // Assign a control break number to the column
+        console.log('ctrlBreakInfo :', ctrlBreakInfo);
         findCtrlBreak(ctrlBreakInfo, indexes);                  // Find the control break title, data, and footer for the contorl break table
         setControlBreakInfo(ctrlBreakInfo);
         setHtmlDropDown(false);                                 // Hide the dropdown for the column
