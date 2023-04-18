@@ -42,6 +42,8 @@ All of these widgets require the following props:
 
 __**Release Notes**__
 [1.32.0](docs/releases/release_1.32.0.md)
+[1.33.0](docs/releases/release_1.33.0.md)
+[1.33.1](docs/releases/release_1.33.1.md)
 
 __**Component Documents**__
 
