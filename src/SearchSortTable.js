@@ -1098,7 +1098,6 @@ const _InnerSearchSortTable = (props) => {
                 {nextButtonHTML}
                 {bottomButtonHTML}
             </div>
-            {pdfExcel}
         </div>
 
     let hoverClassName = `sw-sst_tableStyle `;
@@ -1234,11 +1233,15 @@ const _InnerSearchSortTable = (props) => {
                         (<>
                             {filterSection}
                             {searchSection}
+                            <span className="sw-sst_right">
+                            {(areDropDowns() === false) ? null : <button name="reset" className={genButtonStyle} onClick={() => resetButton()} disabled={props.error}>Reset</button>}
+                        </span>
                             {allButtonHTML}
                             {letters}
                         </>) : null
                     }
                 </div>
+                {pdfExcel}
             </div>
             }
             <AlertModal show={showAlert} closeFunct={setShowAlert} message={alertMessage} />
