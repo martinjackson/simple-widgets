@@ -43,22 +43,21 @@ function genRecordTypeFromName(recordName) {
 function EntryScreenKeyed(props) {
   // console.log(TS(), '== EntryScreenKeyed render ==', props)
 
-  const keyNames = Object.keys(props.keys)        // TODO: add code for support of multiple keys
-  const keyName = keyNames[0]                     // TODO: assumes only one key
+  const keyNames = Object.keys(props.keys)
 
   const [showModal, setShowModal]   = useState(false)
   const [cloneRec, setCloneRec]     = useState(false)
   const [newRecList, setNewRecList] = useState([])
 
-  const [keyId, setKeyId] = useState(props.keys[keyName])              // TODO: assumes only one key
-  const [data, setData]   = useState(null)
+  const [keys, setKeys] = useState(props.keys)       
+  const [data, setData] = useState(null)
 
   const [errors, logErrors] = useErrorList()
 
   const [needsLoading, setNeedsLoading] = useState(true)
 
   const recordName = props.recordName
-  const where = { ...props.keys, [keyName]: keyId }
+  const where = { ...props.keys, ...keys }
 
   const onCompleted = (data) => {
     setNeedsLoading(false)
@@ -73,7 +72,7 @@ function EntryScreenKeyed(props) {
   }
 
   const onError = (error) => {
-    console.log(`  EntryScreen useQuery error ${props.queryName} keys:`, props.keys)
+    console.log(`  EntryScreen useQuery error ${props.queryName} Keys:`, props.keys)
     logErrors(error.message)
   }
 
@@ -81,7 +80,7 @@ function EntryScreenKeyed(props) {
 
   useQuery(makeGqlAST(props.queryStr), {
     skip: !needsLoading,
-    variables: { where: where },    // TODO: assumes only one key
+    variables: { where: where },    
     client,
     fetchPolicy: 'network-only',
     onCompleted: onCompleted,
@@ -90,40 +89,58 @@ function EntryScreenKeyed(props) {
 
 
   if (needsLoading) {
-    console.log(TS(), `  needs loading query ${props.queryName}, keys:`, props.keys)
+    console.log(TS(), `  needs loading query ${props.queryName}, Keys:`, props.keys)
   }
 
   const pickNewTopRecord = (cloneFlag) => {
     setCloneRec(cloneFlag)
-    const newRecList = props.genPickListOfNew()
-    // console.log('newRecList:', newRecList)
-    if (newRecList.length <= 0) {
-      console.log('newRecList selection is broken.')
+
+    if (props.genPickListOfNew) {
+      const newRecList = props.genPickListOfNew()
+      if (newRecList.length <= 0) {
+        console.log('newRecList selection is broken.')
+      } else {
+        setNewRecList(newRecList)
+        setShowModal(true)
+      }
     } else {
-      setNewRecList(newRecList)
-      setShowModal(true)
+      setShowModal(true) 
     }
   }
 
   const newRecRowSelected = (rowSelected) => {
     console.log('rowSelected:', rowSelected);
-    const newId = rowSelected.id          // TODO: is this always {id,value} pair  -- and where the single key comes from (need to get field name and use with keyId for multiple keys)
+
+    const recordType = genRecordTypeFromName(props.recordName)
+    const empty = genEmptyRecord(recordType, true)
+    const legalFields = Object.keys(empty)
+    const incomingFields = Object.keys(rowSelected)
+    const goodFields = incomingFields.filter(f => legalFields.includes(f))
+    const goodKeys = incomingFields.filter(f => keyNames.includes(f))
+    
     if (cloneRec) {
       if (data) { // clone from previous data
-        data[recordName][0][keyName] = newId
+        goodFields.forEach(f => {
+          data[recordName][0][f] = rowSelected[f]
+        })
       }
     } else { // empty record
-      const recordType = genRecordTypeFromName(props.recordName)
-      const empty = genEmptyRecord(recordType, true)
       console.log('Creating Empty Record[',recordType,']', empty);
 
-      empty[keyName] = newId                    // TODO: coded for simple key --- what if there aare multiple keys ??
+      goodFields.forEach(f => {
+        empty[f] = rowSelected[f]
+      })
       setData({ [recordName]: [empty] })
 
       // TODO: comes from  genPickListOfNew() and is not the normal lookup for the first field
 
     }
-    setKeyId(newId)
+
+    const newKeys = {}
+    goodKeys.forEach(f => {
+      newKeys[f] = rowSelected[f]
+    })
+    setKeys(newKeys)  
     setShowModal(false)
   }
 
@@ -139,20 +156,21 @@ function EntryScreenKeyed(props) {
     }
 
     if (change.target) {
-      const topRecordKeyName = recordName + '[0].' + keyName
-      if (change.target.name === topRecordKeyName) {
-         // TODO: need to get field name (change.target.value ??) and use with multiple keyNames
-         // const keys = getAllCurrentKeyValues()
-         // keys[change.target.name]= change.target.value
-         // const emptyRecWithKey = { [recordName]: [keys] }   // empty record + keys
-         const emptyRecWithKey = { [recordName]: [{ [keyName]: change.target.value }] }   // empty record + key
+
+      const matchKeyNames = keyNames.filter(name => (recordName + '[0].' + name === change.target.name) )
+      if (matchKeyNames.length > 0) {
+        const matchKey = matchKeyNames[0]
+        const emptyRecWithKey = { [recordName]: [{ [matchKey]: change.target.value }] }   // empty record + key
         setData(emptyRecWithKey)
-        setKeyId(change.target.value)
+        setKeys(prev => {
+          prev[matchKey] = change.target.value
+          return prev
+        })
         setNeedsLoading(true)
         return true; // signal it is handled
       }
     } else {
-      console.log(TS(), 'Employee rec msg: ', change)
+      console.log(TS(), '*** Unexpected', recordName, 'rec msg: ', change)
 
       pickNewTopRecord(false); // TODO: verify this is not a clone
 
@@ -163,11 +181,11 @@ function EntryScreenKeyed(props) {
   }
 
   const styleSelected = (props.styleSelected) ? props.styleSelected : 'form-style-11'
+  const PopUpWidget = (props.genNewRecord) ? props.genNewRecord : SimpleTable
 
   return <>
     <MakeModal show={showModal} closeFunct={setShowModal} >
-      <SimpleTable data={newRecList} height='30em'
-        dataSelected={newRecRowSelected} />
+      <PopUpWidget data={newRecList} height='30em' dataSelected={newRecRowSelected} />
     </MakeModal>
 
     <ErrorList list={errors} />

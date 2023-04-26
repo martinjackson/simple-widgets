@@ -58,9 +58,7 @@ export const FormHeader = (props) => {
 
 }
 
- // TODO: formTable needs a carrot beside the currentl selected record
- // so you know which record is being keyed for any sub tables
-
+ 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {
 
