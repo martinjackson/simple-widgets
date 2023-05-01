@@ -41,7 +41,7 @@ function lookupDisplayableValue(props, pairList) {
 
   if (transformFn) {
       dispVal = transformFn(name, value)     // setting a string
-  } 
+  }
 
   if (!dispVal || (isObject(dispVal) && isEmpty(dispVal))) {
     dispVal = ''    // react does not like null values, or js empty objects
@@ -120,10 +120,10 @@ export function LocalChoice(props) {
 
   // -----------------------------------------------------
   const onChange = (e) => {
-    if (e.target) {
-      const val = label2value(choicesLocal, e.target.value)
-      if (val) {              // if not an exact match dont propigate
-        e.target.value = val
+    if (e.target && choicesLocal) {                             // if choicesLocal is null, the lookup has no data yet
+      const r = choicesLocal.find((op) => op.label === label)
+      if (!r) {                                                // if not found in the choices dont propigate the change
+        e.target.value = r.label
         props.onChange(e)
       }
     }
