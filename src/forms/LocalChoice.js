@@ -123,7 +123,7 @@ export function LocalChoice(props) {
     if (e.target && choicesLocal) {
       const label = e.target.value                       // if choicesLocal is null, the lookup has no data yet
       const r = choicesLocal.find((op) => op.label === label)
-      if (!r) {                                                // if not found in the choices dont propigate the change
+      if (r != null) {                                                // if not found in the choices dont propigate the change
         e.target.value = r.value
         props.onChange(e)
       }
