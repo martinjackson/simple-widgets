@@ -31,8 +31,8 @@ export const FormHeader = (props) => {
   }
   const addRecFn   = (props.addRecFn)   ? props.addRecFn   : defaults.addRecFn
   const cloneRecFn = (props.cloneRecFn) ? props.cloneRecFn : defaults.cloneRecFn
-  const AddRecButton   = (props.noAdd)   ? null : <button onClick={addRecFn}><AddRecordIcon/></button>
-  const CloneRecButton = (props.noClone) ? null :  <button onClick={cloneRecFn}><CloneRecordIcon/></button>
+  const AddRecButton   = (props.noAdd)   ? null : <button title="New" onClick={addRecFn}><AddRecordIcon/></button>
+  const CloneRecButton = (props.noClone) ? null :  <button title="New cloned data" onClick={cloneRecFn}><CloneRecordIcon/></button>
 
   let recMsg = ''
   let cntMsg = ''
@@ -45,8 +45,8 @@ export const FormHeader = (props) => {
   }
 
   const noLeft = <span>&nbsp;&nbsp;&nbsp;</span>   // same width as left arrow ??
-  const LeftArrow  = (props.dataRowStart > 0) ? <Button text={"\u25C0"} onClick={props.recPrevFn} /> : noLeft
-  const RightArrow = (props.dataRowStart < numRecs-1) ? <Button text={"\u25B6"} onClick={props.recNextFn} /> : <></>
+  const LeftArrow  = (props.dataRowStart > 0) ?         <Button title="Previous"  text={"\u25C0"} onClick={props.recPrevFn} /> : noLeft
+  const RightArrow = (props.dataRowStart < numRecs-1) ? <Button title="Next"      text={"\u25B6"} onClick={props.recNextFn} /> : <></>
 
 
   return  <div className="heading">
@@ -58,7 +58,7 @@ export const FormHeader = (props) => {
 
 }
 
- 
+
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {
 

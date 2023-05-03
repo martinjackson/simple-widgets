@@ -3,7 +3,7 @@
     .sw-sst_normalButtonBackground .sw-sst_buttonStyle
 */
 
-.modal_buttonStyle {
+.sw-make-modal_buttonStyle {
     background-color: var(--sw-theme_buttonColor);
 
     margin-left: var(--sw-theme_buttonMargin);
