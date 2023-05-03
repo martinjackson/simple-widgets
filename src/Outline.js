@@ -1,42 +1,44 @@
-import React, { useState } from 'react';
-import { Link } from './MenuBar';
+import React, { useState } from 'react'
+
+import { hasOwnProperty } from './hasOwnProperty.js'
+import { Link } from './MenuBar.js'
 
 export const Outline = (props) => {
     const buttonClick = (path) => {
-        setCurPath(path);
+        setCurPath(path)
     }
 
     const buildMainLink = (links) => {
-        let disabled = false;
-        let buttonClass = 'sw-outline-button';
-        if (props.hasOwnProperty('disabled')) {
-            disabled = props.disabled;
-            buttonClass = (disabled === true) ? 'sw-outline-button_disable' : 'sw-outline-button';
+        let disabled = false
+        let buttonClass = 'sw-outline-button'
+        if (hasOwnProperty(props, 'disabled')) {
+            disabled = props.disabled
+            buttonClass = (disabled === true) ? 'sw-outline-button_disable' : 'sw-outline-button'
         }
 
         return links.map ((row, i) => {
-            let fontClass = 'sw-outline-font_plain';
-            if (row.hasOwnProperty('textStyle')) {
+            let fontClass = 'sw-outline-font_plain'
+            if (hasOwnProperty(row,'textStyle')) {
                 if (row.textStyle === 'bold') {
-                    fontClass = 'sw-outline-font_bold';
+                    fontClass = 'sw-outline-font_bold'
                 } else if (row.textStyle === 'italic') {
-                    fontClass = 'sw-outline-font_italic';
+                    fontClass = 'sw-outline-font_italic'
                 }
             }
 
-            let indentClass = '';
-            if (row.hasOwnProperty('indent') && row.indent === true) {
-                indentClass = 'sw-outline-indent_normal';
+            let indentClass = ''
+            if (hasOwnProperty(row,'indent') && row.indent === true) {
+                indentClass = 'sw-outline-indent_normal'
             }
 
-            if (row.hasOwnProperty('spacing')) {
-                let root = document.documentElement;
-                root.style.setProperty(`--sw-outline-indentation_amount`, row.spacing);
-                indentClass = 'sw-outline-indent_spacing';
+            if (hasOwnProperty(row,'spacing')) {
+                let root = document.documentElement
+                root.style.setProperty(`--sw-outline-indentation_amount`, row.spacing)
+                indentClass = 'sw-outline-indent_spacing'
             }
 
-            if (row.hasOwnProperty('path')) {
-                if (row.hasOwnProperty('type') && row.type === 'new') {
+            if (hasOwnProperty(row,'path')) {
+                if (hasOwnProperty(row,'type') && row.type === 'new') {
                     return  <li key={i} className={`${indentClass}`} >
                                 <div className={`${buttonClass} ${fontClass}`} >
                                     <Link to={row.path}>{row.title}</Link>
@@ -55,15 +57,15 @@ export const Outline = (props) => {
     }
 
     const getPaths = (row) => {
-        if (row.hasOwnProperty('path')) {
+        if (hasOwnProperty(row,'path')) {
             return { title: row.title, path: row.path, component: row.component }
         }
     }
 
 
-    const [curPath, setCurPath] = useState('');
+    const [curPath, setCurPath] = useState('')
 
-    const items = props.links.filter(getPaths);
+    const items = props.links.filter(getPaths)
 
     // default to first if no path has been selected (first time in)
     const active = items.find(item => item.path === curPath) || items[0]

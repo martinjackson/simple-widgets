@@ -1,4 +1,7 @@
+/* eslint-disable react/no-unknown-property */
 import React, { useState } from 'react';
+
+import { hasOwnProperty } from './hasOwnProperty.js'
 
 const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
@@ -36,7 +39,7 @@ export const InputFile = (props) => {
             <label htmlFor={props.id} className="sw-infile_marginStyle">{props.title}</label>
             <input file="text" id="pfile" name="displayFile" value={displayFile} className="sw-infile_textStyle" onChange={(event) => processDisplay(event.target.value)} />
             <label htmlFor={props.id} className="sw-infile_buttonStyle  sw-theme_normalButtonBackground" >
-                <input type="file" id={props.id} accept={(props.hasOwnProperty('accept')) ? props.accept : '' } className="sw-infile_fileStyle" onChange={(event) => processFile(event.target.files[0])} />
+                <input type="file" id={props.id} accept={(hasOwnProperty(props, 'accept')) ? props.accept : '' } className="sw-infile_fileStyle" onChange={(event) => processFile(event.target.files[0])} />
                 {buttonName}
             </label>
         </span>

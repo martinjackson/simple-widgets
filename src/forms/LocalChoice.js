@@ -1,12 +1,13 @@
 /*eslint no-unused-vars: ["warn", { "varsIgnorePattern": "^_" }]*/
 
 import React, { useState } from "react"
-import { Choice }                   from '../Choice.js'
-import { ChoiceTextSearchable }     from '../ChoiceTextSearchable.js'
 
-import { fetchLookupData }          from './lookupUtil.js'
-import { isFunction }               from './isFunction.js'
-import { label2value, value2label } from './label2value.js'
+import { Choice }                from '../Choice.js'
+import { ChoiceTextSearchable }  from '../ChoiceTextSearchable.js'
+import { fetchLookupData }       from './lookupUtil.js'
+import { isFunction }            from './isFunction.js'
+import { value2label }           from './label2value.js'
+
 // import { isPromise } from './isPromise.js'
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -80,6 +81,8 @@ const getChoices = (lookup, options, cb) => {
 // ---------------------------------------------------------------------------------------------------------------------
 export function LocalChoice(props) {
 
+      // console.log('>>> LocalChoice(',props,')')
+
       // the cb() is for when the lookup changes -- ALSO when a lookup alias definition changes
       const cb = () => {
           const opt = getChoices(props.lookup, props.options, cb)
@@ -102,10 +105,13 @@ export function LocalChoice(props) {
         whatsLeft.placeholder = " " // default if missing
       }
 
+      /*
+      no longer using react-choice
+
       if (!whatsLeft.value) {
         whatsLeft.value = "" // default if missing, react-choice does not like null
       }
-
+      */
 
       /*
       is this necesary ???
@@ -123,9 +129,11 @@ export function LocalChoice(props) {
     if (e.target && choicesLocal) {
       const label = e.target.value                       // if choicesLocal is null, the lookup has no data yet
       const r = choicesLocal.find((op) => op.label === label)
-      if (r != null) {                                                // if not found in the choices dont propigate the change
-        e.target.value = r.value
-        props.onChange(e)
+
+      if (r != null) {                                         // if not found in the choices dont propigate the change
+        const e2 = {target:{name: e.target.name, value:r.value}}
+        // e.target.value = r.value                            // this nolonger works to reuse react synthetic event
+        props.onChange(e2)
       }
     }
 

@@ -25,6 +25,25 @@ export function EntryScreen(props) {
     return ErrorMsg
   }
 
+  if (!props['recordName']) {      // null or undefined
+    const ErrorMsg = `Error <EntryScreen props 'recordName' is missing.`
+    console.log(ErrorMsg);
+    console.log('TODO: Someday props.recordName can be derived from the GraphQL query and no longer need to be passed to <EntryScreen />.');
+    return ErrorMsg
+  }
+
+  if (!props['keys']) {      // null or undefined
+    const ErrorMsg = `Error <EntryScreen props 'keys' is missing.`
+    console.log(ErrorMsg);
+    return ErrorMsg
+  }
+
+  if (!props['formName']) {      // null or undefined
+    const ErrorMsg = `Error <EntryScreen props 'formName' is missing.`
+    console.log(ErrorMsg);
+    return ErrorMsg
+  }
+
   return <EntryScreenKeyed {...props} queryStr={queryStr} />
 }
 
@@ -49,7 +68,7 @@ function EntryScreenKeyed(props) {
   const [cloneRec, setCloneRec]     = useState(false)
   const [newRecList, setNewRecList] = useState([])
 
-  const [keys, setKeys] = useState(props.keys)       
+  const [keys, setKeys] = useState(props.keys)
   const [data, setData] = useState(null)
 
   const [errors, logErrors] = useErrorList()
@@ -68,6 +87,13 @@ function EntryScreenKeyed(props) {
     } else {
       console.log(TS(), 'loaded record for:', where, data)
       setData(data)
+
+      // TODO call businessLogic after record has arrived -- allow lookup fields that are based on other fields
+      if (props.businessLogic) {
+        const change = {target:{name:recordName+'[0]'}}   // signal wholre record was loaded
+        props.businessLogic(change, data)                 // props.businessLogic()  can change multiple fields in currentRec via moreChanges
+      }
+
     }
   }
 
@@ -80,7 +106,7 @@ function EntryScreenKeyed(props) {
 
   useQuery(makeGqlAST(props.queryStr), {
     skip: !needsLoading,
-    variables: { where: where },    
+    variables: { where: where },
     client,
     fetchPolicy: 'network-only',
     onCompleted: onCompleted,
@@ -104,7 +130,7 @@ function EntryScreenKeyed(props) {
         setShowModal(true)
       }
     } else {
-      setShowModal(true) 
+      setShowModal(true)
     }
   }
 
@@ -117,7 +143,7 @@ function EntryScreenKeyed(props) {
     const incomingFields = Object.keys(rowSelected)
     const goodFields = incomingFields.filter(f => legalFields.includes(f))
     const goodKeys = incomingFields.filter(f => keyNames.includes(f))
-    
+
     if (cloneRec) {
       if (data) { // clone from previous data
         goodFields.forEach(f => {
@@ -140,7 +166,7 @@ function EntryScreenKeyed(props) {
     goodKeys.forEach(f => {
       newKeys[f] = rowSelected[f]
     })
-    setKeys(newKeys)  
+    setKeys(newKeys)
     setShowModal(false)
   }
 
@@ -181,7 +207,7 @@ function EntryScreenKeyed(props) {
   }
 
   const styleSelected = (props.styleSelected) ? props.styleSelected : 'form-style-11'
-  const PopUpWidget = (props.genNewRecord) ? props.genNewRecord : SimpleTable
+  const PopUpWidget = (props.NewRecordGui) ? props.NewRecordGui : SimpleTable
 
   return <>
     <MakeModal show={showModal} closeFunct={setShowModal} >
