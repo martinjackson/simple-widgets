@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { NavigateBar } from './NavigateBar';
 // import { TS } from './time'
 
-let setMenuPath = (newPath) => {}
-let setMenuParms = (newParms) => {}
+import { hasOwnProperty } from './hasOwnProperty.js'
+
+let setMenuPath = (_newPath) => {}
+let setMenuParms = (_newParms) => {}
 
 let menuParms = {}
 export const getMenuParms = () => { return menuParms }
@@ -13,17 +15,17 @@ export const getMenuParms = () => { return menuParms }
 export const MenuBar = (props) => {
 
     const [curPath, setCurPath]   = useState(props.path)
-    const [curParms, setCurParms] = useState({})
+    // const [curParms, setCurParms] = useState({})                   // TODO: curParms, it is never used
     const [disableMenu, setDisableMenu] = useState(null)
 
     setMenuPath = setCurPath
     setMenuParms = (val) => {
         menuParms = {...val}
-        setCurParms(val);
+        // setCurParms(val);                           // TODO: why set curParms, it is never used
     }
 
     const getPaths = (row) => {
-        if (row.hasOwnProperty('submenu')) {
+        if (hasOwnProperty(row, 'submenu')) {
             return row.submenu.map(getPaths).flat();
         } else {
             return { path: row.path, component: row.component }
@@ -31,17 +33,17 @@ export const MenuBar = (props) => {
     }
 
     let subSymbol = 'none';
-    if (props.hasOwnProperty('subsymbol')) {
+    if (hasOwnProperty(props, 'subsymbol')) {
         subSymbol = props.subsymbol;
     }
 
     let symbol = 'none';
-    if (props.hasOwnProperty('symbol')) {
+    if (hasOwnProperty(props, 'symbol')) {
         symbol = props.symbol;
     }
 
     let type = 'horizontal';
-    if (props.hasOwnProperty('type')) {
+    if (hasOwnProperty(props, 'type')) {
         type = props.type;
         if (type !== 'horizontal' && type !== 'vertical') {
             type = 'horizontal';
@@ -49,7 +51,7 @@ export const MenuBar = (props) => {
     }
 
     let open = 'always';
-    if (props.hasOwnProperty('open')) {
+    if (hasOwnProperty(props, 'open')) {
         open = props.open;
         if (open !== 'always' && open !== 'slide' &&
             open !== 'horizontal' && open !== 'vertical' &&
@@ -59,7 +61,7 @@ export const MenuBar = (props) => {
     }
 
     let noSide = false;
-    if (props.hasOwnProperty('noSide')) {
+    if (hasOwnProperty(props, 'noSide')) {
         noSide = true;
     } else if (type === 'horizontal') {
         noSide = true;
@@ -93,7 +95,7 @@ export const MenuBar = (props) => {
                  subsymbol={subSymbol}
                  type={type}
                  open={open}
-                 page={(props.hasOwnProperty('page')) ? true : false}
+                 page={(hasOwnProperty(props, 'page')) ? true : false}
                  disabled={disableMenu} />
             <div className={componentClassName}>
                  <ActComp signalUnsaved={signalUnsaved} />

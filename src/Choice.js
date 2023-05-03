@@ -3,6 +3,8 @@ import React, { Fragment } from 'react';
 // --------------------------------------------------------------------------------------------------------------------------------------------------
 export const Choice = (propsIn) => {
 
+    // console.log('>>> Choice(', propsIn, ')')
+
     const {list, choices, size, ...props} = propsIn
     const siz = size || 10;
     const opt = list || choices || []
