@@ -3,7 +3,7 @@ body, html {
   height: 100%;
   background-color: #ffffff; }
 
-.gears-container {
+.sw-gears-container {
 
   background-color: #ffffff;
 
@@ -21,14 +21,14 @@ body, html {
       -ms-flex-align: center;
           align-items: center; }
 
-.machine {
+.sw-gears-machine {
   width: 60vmin;
   fill: #3eb049; }
 
-.small-shadow, .medium-shadow, .large-shadow {
+.sw-gears-small-shadow, .sw-gears-medium-shadow, .sw-gears-large-shadow {
   fill: rgba(0, 0, 0, 0.05); }
 
-.small {
+.sw-gears-small {
   -webkit-animation: counter-rotation 2.5s infinite linear;
 	   -moz-animation: counter-rotation 2.5s infinite linear;
 	     -o-animation: counter-rotation 2.5s infinite linear;
@@ -37,7 +37,7 @@ body, html {
       -ms-transform-origin: 100.136px 225.345px;
           transform-origin: 100.136px 225.345px; }
 
-.small-shadow {
+.sw-gears-small-shadow {
   -webkit-animation: counter-rotation 2.5s infinite linear;
 	   -moz-animation: counter-rotation 2.5s infinite linear;
 	     -o-animation: counter-rotation 2.5s infinite linear;
@@ -46,7 +46,7 @@ body, html {
       -ms-transform-origin: 110.136px 235.345px;
           transform-origin: 110.136px 235.345px; }
 
-.medium {
+.sw-gears-medium {
   -webkit-animation: rotation 3.75s infinite linear;
 	   -moz-animation: rotation 3.75s infinite linear;
 	     -o-animation: rotation 3.75s infinite linear;
@@ -55,7 +55,7 @@ body, html {
       -ms-transform-origin: 254.675px 379.447px;
           transform-origin: 254.675px 379.447px; }
 
-.medium-shadow {
+.sw-gears-medium-shadow {
   -webkit-animation: rotation 3.75s infinite linear;
 	   -moz-animation: rotation 3.75s infinite linear;
 	     -o-animation: rotation 3.75s infinite linear;
@@ -64,7 +64,7 @@ body, html {
       -ms-transform-origin: 264.675px 389.447px;
           transform-origin: 264.675px 389.447px; }
 
-.large {
+.sw-gears-large {
   -webkit-animation: counter-rotation 5s infinite linear;
      -moz-animation: counter-rotation 5s infinite linear;
 	     -o-animation: counter-rotation 5s infinite linear;
@@ -73,7 +73,7 @@ body, html {
       -ms-transform-origin: 461.37px 173.694px;
           transform-origin: 461.37px 173.694px; }
 
-.large-shadow {
+.sw-gears-large-shadow {
   -webkit-animation: counter-rotation 5s infinite linear;
 	   -moz-animation: counter-rotation 5s infinite linear;
 	     -o-animation: counter-rotation 5s infinite linear;

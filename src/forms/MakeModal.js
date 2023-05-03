@@ -5,7 +5,7 @@ import { Modal }  from '../Modal.js';
 // import '../node_modules/simple-widgets/lib/sw-modal.css';
 // see ./simple-widgets.js
 
-import "./MakeModal.css"
+import "./sw-MakeModal.css"
 
 export const MakeModal = props => {
 
@@ -15,9 +15,9 @@ export const MakeModal = props => {
       }
     }
 
-    const defClickable = <button name="ok" onClick={close} className="modal_buttonStyle">OK</button>
+    const defClickable = <button name="ok" onClick={close} className="sw-make-modal_buttonStyle">OK</button>
     const kids = (props.children) ? props.children : defClickable
-    const CancelButton = (props.closeFunct) ? <button name="Cancel" onClick={close} className="modal_buttonStyle">Cancel</button> : null
+    const CancelButton = (props.closeFunct) ? <button name="Cancel" onClick={close} className="sw-make-modal_buttonStyle">Cancel</button> : null
 
     return (
         <div>
