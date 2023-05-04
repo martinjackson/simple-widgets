@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Modal } from './Modal.js';
 
+import { hasOwnProperty } from './hasOwnProperty.js'
+
 const defProps = {
     show: true,
     yesFunct: () => {},
@@ -13,15 +15,15 @@ const defProps = {
 export const ConfirmModal = inProps => {
     const props = {...defProps, ...inProps};
 
-    if (('show' in inProps) === false) {
+    if (hasOwnProperty(inProps, 'show') === false) {
         console.error ('ConfirmModal: The show property is not present');
     }
 
-    if (('yesFunct' in inProps) === false) {
+    if (hasOwnProperty(inProps, 'yesFunct') === false) {
         console.error ('ConfirmModal: The yesFunct property is not present');
     }
 
-    if (('noFunct' in inProps) === false && ('closeFunct' in inProps) === false) {
+    if (hasOwnProperty(inProps, 'noFunct') === false && hasOwnProperty(inProps, 'closeFunct') === false) {
         console.error ('ConfirmModal: The closeFunct property is not present');
     }
 
@@ -42,7 +44,7 @@ export const ConfirmModal = inProps => {
     );
 
     function processYesFunct() {
-        if (('noFunct' in inProps) === true && ('closeFunct' in inProps) === false) {
+        if (hasOwnProperty(inProps, 'noFunct') === true && hasOwnProperty(inProps, 'closeFunct') === false) {
             props.noFunct(false);
         } else {
             props.closeFunct(false);
@@ -54,7 +56,7 @@ export const ConfirmModal = inProps => {
     }
 
     function processNoFunct() {
-        if (('noFunct' in inProps) === true && ('closeFunct' in inProps) === false) {
+        if (hasOwnProperty(inProps, 'noFunct') === true && hasOwnProperty(inProps, 'closeFunct') === false) {
             props.noFunct(false);
         } else {
             props.closeFunct(false);

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import { List } from './List.js';
 
-const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+import { hasOwnProperty } from './hasOwnProperty.js'
 
 export const DoubleListBox = props => {
     const [choices, setChoices] = useState([...props.choices || []]);
@@ -39,7 +39,7 @@ export const DoubleListBox = props => {
     const reportChange = (right) => {
         let value = [...right];
         let compName = 'DoubleListBox';
-        if (hasProperty(props, 'name') === true) {
+        if (hasOwnProperty(props, 'name') === true) {
             compName = props.name;
         }
         
@@ -190,7 +190,7 @@ export const DoubleListBox = props => {
     }
 
     let size = 0;
-    if (hasProperty(props, 'size') === true) {
+    if (hasOwnProperty(props, 'size') === true) {
         if (props.size === 'all') {
             size = Math.max(defaultSize, props.choices.length);
         } else if (isPosInt(props.size)) {

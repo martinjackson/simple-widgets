@@ -23,14 +23,12 @@ import funnel from './funnel-filter-svgrepo-com.svg';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+import { hasOwnProperty } from './hasOwnProperty.js'
+
 const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
 const digit = [...'0123456789'];
 
-// ----------------------------------------------------------------------------
-const hasProperty = (obj, propName) => {
-    return !!Object.getOwnPropertyDescriptor(obj, propName);
-}
 
 // ----------------------------------------------------------------------------
 function range(start, end) {
@@ -89,27 +87,27 @@ export const SearchSortTable = (propsPassed) => {
       return <><hr /></>
     }
 
-    if (hasProperty(props,'data') === false) {
+    if (hasOwnProperty(props,'data') === false) {
       console.error('Search Sort Table component: A data prop must be passed');
       return (<span></span>);
     }
 
-    if (hasProperty(props,'table') === false) {
+    if (hasOwnProperty(props,'table') === false) {
         console.error('Search Sort Table component: A table object prop must be passed');
         return (<span></span>);
     }
 
-    if (hasProperty(props,'letters') === true) {
-      if (hasProperty(props,'noupper') === true &&
-          hasProperty(props,'nolower') === true &&
-          hasProperty(props,'nodigit') === true) {
+    if (hasOwnProperty(props,'letters') === true) {
+      if (hasOwnProperty(props,'noupper') === true &&
+          hasOwnProperty(props,'nolower') === true &&
+          hasOwnProperty(props,'nodigit') === true) {
             console.error('Search Sort Table component: If using letters prop, can not have all three: noupper, nolower, and nodigit');
             return (<span></span>);
         }
     } else {
-      if (hasProperty(props,'noupper') === true ||
-          hasProperty(props,'nolower') === true ||
-          hasProperty(props,'nodigit') === true) {
+      if (hasOwnProperty(props,'noupper') === true ||
+          hasOwnProperty (props,'nolower') === true ||
+          hasOwnProperty(props,'nodigit') === true) {
             console.error('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop');
             return (<span></span>);
         }
@@ -149,7 +147,7 @@ const _InnerSearchSortTable = (props) => {
 
     // Set the state variables
     const [start, setStart] = useState(0);                              // The start of the pagination
-    const [end, setEnd] = useState((hasProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));    // The end of the pagination
+    const [end, setEnd] = useState((hasOwnProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));    // The end of the pagination
     const [searchItem, setSearchItem] = useState('');                   // The item to search for
     const [searchHeader, setSearchHeader] = useState('');               // The column to search
     const [searchHeaderValues, setSearchHeaderValues] = useState([searchHeader]); // The value of each header in the table -- intialize array to include default value
@@ -159,8 +157,8 @@ const _InnerSearchSortTable = (props) => {
     const [nextDisabled, setNextDisabled] = useState(false);            // Indicates whether the next button is disabled or not
     const [bottomDisabled, setBottomDisabled] = useState(false);        // Indicates whether the bottom button is disabled or not
     const [rowValues, setRowValues] = useState([]);                     // Indicates how many rows in the table should be displayed
-    const [maxItems, setMaxItems] = useState((hasProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));   // Maximum number of rows to display in the table
-    const [maximum, setMaximum] = useState((hasProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));     // Maximum number of rows selected by the user to display in the table
+    const [maxItems, setMaxItems] = useState((hasOwnProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));   // Maximum number of rows to display in the table
+    const [maximum, setMaximum] = useState((hasOwnProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));     // Maximum number of rows selected by the user to display in the table
     const [filter, setFilter] = useState(initialFilters);               // The values for each column to be filtered
     const [filterOn, setFilterOn] = useState('');                       // Indicates whether the user has checked the Filter On check box or not
     const [filterPressed, setFilterPressed] = useState(false);          // Indicates whether the filtering is enabled or disabled (Filter button)
@@ -199,7 +197,7 @@ const _InnerSearchSortTable = (props) => {
      **************************************************************************************************************/
     function populateDropDown (table) {
         let isUserCtrlBreak = false;
-        if (hasProperty(props, 'controlBreak') === true) {
+        if (hasOwnProperty(props, 'controlBreak') === true) {
             isUserCtrlBreak = true;
             if (props.controlBreak.length !== table.length) {
                 console.log ('SearchSortTable: controlBreak array must be the same size as the table array');
@@ -208,13 +206,13 @@ const _InnerSearchSortTable = (props) => {
             }
 
             for (let i = 0; i < props.controlBreak.length; i++) {
-                if (hasProperty(props.controlBreak[i], 'hidden') === false) {
+                if (hasOwnProperty(props.controlBreak[i], 'hidden') === false) {
                     console.log ('SearchSortTable: The hidden field is missing')
                     console.log ('SearchSortTable: User controlBreak array will not be used');
                     isUserCtrlBreak = false;
                 }
 
-                if (hasProperty(props.controlBreak[i], 'ctrlBreak') === false) {
+                if (hasOwnProperty(props.controlBreak[i], 'ctrlBreak') === false) {
                     console.log ('SearchSortTable: The ctrlBreak field is missing')
                     console.log ('SearchSortTable: User controlBreak array will not be used');
                     isUserCtrlBreak = false;
@@ -280,7 +278,7 @@ const _InnerSearchSortTable = (props) => {
         values.sort(function (item1, item2) {
             // Convert to upper case if ignoring case
             if (typeof item1 === 'string' &&
-                hasProperty(props,'ignorecase') === true) {
+                hasOwnProperty(props,'ignorecase') === true) {
                 // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
                 item1 = item1.toUpperCase()
                 item2 = (item2 !== null) ? item2.toUpperCase() : null;
@@ -377,17 +375,17 @@ const _InnerSearchSortTable = (props) => {
 
 
     let number = 0;
-    if (hasProperty(props, 'number') === true) {
+    if (hasOwnProperty(props, 'number') === true) {
         number = props.number;
     }
 
     let mathDecimal = 2;
-    if (hasProperty(props, 'mathDecimal') === true) {
+    if (hasOwnProperty(props, 'mathDecimal') === true) {
         mathDecimal = parseInt(props.mathDecimal);
     }
 
     let mathIgnoreCase = false;
-    if (hasProperty(props, 'mathIgnoreCase') === true) {
+    if (hasOwnProperty(props, 'mathIgnoreCase') === true) {
         mathIgnoreCase = props.mathIgnoreCase;
     }
 
@@ -412,7 +410,7 @@ const _InnerSearchSortTable = (props) => {
             if (table[i].search === true) {
                 search.push (table[i].header);
             }
-            if (hasProperty(props,'nofilter') === true) {
+            if (hasOwnProperty(props,'nofilter') === true) {
                 localFilter[i] = '';
             }
         }
@@ -439,16 +437,16 @@ const _InnerSearchSortTable = (props) => {
      *
      **************************************************************************************************/
     let tableDivStyle = '';
-    if (hasProperty(props,'scroll') === true) {
+    if (hasOwnProperty(props,'scroll') === true) {
         tableDivStyle = 'sw-sst_scrollStyle';
     }
 
     let heightWidthStyle = {};
-    if (hasProperty(props, 'height') === true && hasProperty(props, 'width') === false) {
+    if (hasOwnProperty(props, 'height') === true && hasOwnProperty(props, 'width') === false) {
         heightWidthStyle = { height: props.height };
-    } else if (hasProperty(props, 'height') === false && hasProperty(props, 'width') === true) {
+    } else if (hasOwnProperty(props, 'height') === false && hasOwnProperty(props, 'width') === true) {
         heightWidthStyle = { width: props.width };
-    } else if (hasProperty(props, 'height') === true && hasProperty(props, 'width') === true) {
+    } else if (hasOwnProperty(props, 'height') === true && hasOwnProperty(props, 'width') === true) {
         heightWidthStyle = { height: props.height, width: props.width };
     }
 
@@ -462,12 +460,12 @@ const _InnerSearchSortTable = (props) => {
     }
 
     let headerStyle = 'sw-sst_headerStyle';
-    if (hasProperty(props, 'noheaderborder') === true) {
+    if (hasOwnProperty(props, 'noheaderborder') === true) {
         headerStyle = 'sw-sst_headerStyle2';
     }
 
     let footerStyle = 'sw-sst_footerStyle';
-    if (hasProperty(props, 'nofooterborder') === true) {
+    if (hasOwnProperty(props, 'nofooterborder') === true) {
         footerStyle = 'sw-sst_footerStyle2';
     }
 
@@ -496,26 +494,26 @@ const _InnerSearchSortTable = (props) => {
 
     let letterDigit = [];   // The letters and digits to be displayed at the top of the table
     let letters = null;     // The HTML to display the letters on the screen
-    if (hasProperty(props,'letters') === true) {
-        if (hasProperty(props,'noupper') === true) {
-            if (hasProperty(props,'nolower') === true) {
+    if (hasOwnProperty(props,'letters') === true) {
+        if (hasOwnProperty(props,'noupper') === true) {
+            if (hasOwnProperty(props,'nolower') === true) {
                 letterDigit = [...digit];
             } else {    // Lower
-                if (hasProperty(props,'nodigit') === true) {
+                if (hasOwnProperty(props,'nodigit') === true) {
                     letterDigit = [...lower];
                 } else {    // Digit
                     letterDigit = [...lower, ...digit];
                 }
             }
         } else {    // Upper
-            if (hasProperty(props,'nolower') === true) {
-                if (hasProperty(props,'nodigit') === true) {
+            if (hasOwnProperty(props,'nolower') === true) {
+                if (hasOwnProperty(props,'nodigit') === true) {
                     letterDigit = [...upper];
                 } else {    // Digit
                     letterDigit = [...upper, ...digit];
                 }
             } else {    // Lower
-                if (hasProperty(props,'nodigit') === true) {
+                if (hasOwnProperty(props,'nodigit') === true) {
                     letterDigit = [...upper, ...lower];
                 } else {    // Digit
                     letterDigit = [...upper, ...lower, ...digit];
@@ -528,33 +526,33 @@ const _InnerSearchSortTable = (props) => {
     }
 
     let topButtonHTML = <span></span>;
-    if (hasProperty(props,'notop') === false && hasProperty(props,'showall') === false) {
+    if (hasOwnProperty(props,'notop') === false && hasOwnProperty(props,'showall') === false) {
         topButtonHTML = <button name="top" className={genTopButtonStyle} onClick={() => topButton()} disabled={props.error || topDisabled}>{topSymbol}</button>;
     }
 
     let previousButtonHTML = <span></span>;
-    if (hasProperty(props,'noprevious') === false && hasProperty(props,'showall') === false) {
+    if (hasOwnProperty(props,'noprevious') === false && hasOwnProperty(props,'showall') === false) {
         previousButtonHTML = <button name="previous" className={genPreviousButtonStyle} onClick={() => previousButton()} disabled={props.error || previousDisabled}>{previousSymbol}</button>;
     }
 
     let nextButtonHTML = <span></span>;
-    if (hasProperty(props,'nonext') === false && hasProperty(props,'showall') === false) {
+    if (hasOwnProperty(props,'nonext') === false && hasOwnProperty(props,'showall') === false) {
         nextButtonHTML = <button name="next" className={genNextButtonStyle} onClick={() => nextButton()} disabled={props.error || nextDisabled}>{nextSymbol}</button>;
     }
 
     let bottomButtonHTML = <span></span>;
-    if (hasProperty(props,'nobottom') === false && hasProperty(props,'showall') === false) {
+    if (hasOwnProperty(props,'nobottom') === false && hasOwnProperty(props,'showall') === false) {
         bottomButtonHTML = <button name="bottom" className={genBottomButtonStyle} onClick={() => bottomButton()} disabled={props.error || bottomDisabled}>{bottomSymbol}</button>;
     }
 
     let allButtonHTML = <span></span>;
-    if (hasProperty(props,'showall') === true) {
+    if (hasOwnProperty(props,'showall') === true) {
         allButtonHTML = <button name="all" className={genBottomButtonStyle} onClick={() => allButton()} disabled={props.error}>All</button>;
     }
 
     let title = null;
-    if (hasProperty(props,'title') === true) {
-        if (hasProperty(props,'titleSize') === true) {
+    if (hasOwnProperty(props,'title') === true) {
+        if (hasOwnProperty(props,'titleSize') === true) {
             if (props.titleSize === '1') {
                 title = <h1 className="sw-sst_titleStyle">{props.title}</h1>
             } else if (props.titleSize === '2') {
@@ -573,7 +571,7 @@ const _InnerSearchSortTable = (props) => {
         }
     }
 
-    const filterSection = (hasProperty(props,'nofilter') === true) ? null :
+    const filterSection = (hasOwnProperty(props,'nofilter') === true) ? null :
         (<>
             <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />
             <button onClick={filterButton} className="sw-sst_buttonStyle2" disabled={props.error || filterOn !== 'Y'}>
@@ -585,8 +583,9 @@ const _InnerSearchSortTable = (props) => {
 
     const itemStyle = processInvalidStyleScreen(invalid, SRCHITEM);
 
-    const searchSection = (hasProperty(props,'nosearch') === true) ? null :
+    const searchSection = (hasOwnProperty(props,'nosearch') === true) ? null :
         (<>
+            <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <span className="sw-invalid_checkForError">
                 <Choice choices={searchHeaderValues}  name="searchHeader" value={searchHeader} onChange={(event) => setSearchHeader(event.target.value)} onClick={() => wasClickedScreen(invalid, SRCHHDR, setInvalid)} className={searchStyle} disabled={props.error} />
                 {(isInvalid(invalid[SRCHHDR], -1) === true) ? <span className="sw-invalid_errMessage">{invalid[SRCHHDR].message}</span> : null }
@@ -605,9 +604,9 @@ const _InnerSearchSortTable = (props) => {
      ******************************************************************************************************************/
     function pdfRegButton() {
         let title = 'PDF Report';
-        if (hasProperty(props, 'title') === true) {
+        if (hasOwnProperty(props, 'title') === true) {
             title = props.title;
-        } else if (hasProperty(props, 'report') === true) {
+        } else if (hasOwnProperty(props, 'report') === true) {
             title = props.report;
         }
 
@@ -687,7 +686,7 @@ const _InnerSearchSortTable = (props) => {
                 for (let j = 0; j < table.length; j++) {    // Process a column in the table
                     if (controlBreakInfo[j].hidden === false) {
                         // Determine the format of the cell
-                        if (hasProperty(table[j], 'pdfCol') === true) {
+                        if (hasOwnProperty(table[j], 'pdfCol') === true) {
                             if (table[j].pdfCol === 'left') {
                                 text.push({ text: props.data[indexes[i]][table[j].name] });
                             } else if (table[j].pdfCol === 'right') {
@@ -707,10 +706,10 @@ const _InnerSearchSortTable = (props) => {
                             }
                         } else if (typeof props.data[indexes[i]][table[j].name] === 'number') {
                             text.push({ text: props.data[indexes[i]][table[j].name], style: 'cellRight' });
-                        } else if (hasProperty(table[j], 'dataDate') === true ||
-                                   hasProperty(table[j], 'filterDate') === true ||
-                                   hasProperty(table[j], 'searchDate') === true ||
-                                   hasProperty(table[j], 'sortDate') === true) {
+                        } else if (hasOwnProperty(table[j], 'dataDate') === true ||
+                                   hasOwnProperty(table[j], 'filterDate') === true ||
+                                   hasOwnProperty(table[j], 'searchDate') === true ||
+                                   hasOwnProperty(table[j], 'sortDate') === true) {
                             text.push({ text: convertDate(props.data[indexes[i]][table[j].name]), style: 'cellCenter' });
                         } else {
                             text.push({ text: props.data[indexes[i]][table[j].name] });
@@ -752,9 +751,9 @@ const _InnerSearchSortTable = (props) => {
      ******************************************************************************************************************/
     function pdfCBButton() {
         let title = 'PDF Report';
-        if (hasProperty(props, 'title') === true) {
+        if (hasOwnProperty(props, 'title') === true) {
             title = props.title;
-        } else if (hasProperty(props, 'report') === true) {
+        } else if (hasOwnProperty(props, 'report') === true) {
             title = props.report;
         }
 
@@ -849,7 +848,7 @@ const _InnerSearchSortTable = (props) => {
                     for (let j = 0; j < table.length; j++) {
                         if (controlBreakInfo[j].hidden === false) { // Column is not hidden
                             // Determine the format for the column
-                            if (hasProperty(table[j], 'pdfCol') === true) {
+                            if (hasOwnProperty(table[j], 'pdfCol') === true) {
                                 if (table[j].pdfCol === 'left') {
                                     text.push({ text: controlBreakData[k].data[i][table[j].name] });
                                 } else if (table[j].pdfCol === 'right') {
@@ -869,10 +868,10 @@ const _InnerSearchSortTable = (props) => {
                                 }
                             } else if (typeof controlBreakData[k].data[i][table[j].name] === 'number') {
                                 text.push({ text: controlBreakData[k].data[i][table[j].name], style: 'cellRight' });
-                            } else if (hasProperty(table[j], 'dataDate') === true ||
-                                       hasProperty(table[j], 'filterDate') === true ||
-                                       hasProperty(table[j], 'searchDate') === true ||
-                                       hasProperty(table[j], 'sortDate') === true) {
+                            } else if (hasOwnProperty(table[j], 'dataDate') === true ||
+                                       hasOwnProperty(table[j], 'filterDate') === true ||
+                                       hasOwnProperty(table[j], 'searchDate') === true ||
+                                       hasOwnProperty(table[j], 'sortDate') === true) {
                                 text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]), style: 'cellCenter' });
                             } else {
                                 text.push({ text: controlBreakData[k].data[i][table[j].name] });
@@ -936,9 +935,9 @@ const _InnerSearchSortTable = (props) => {
      *********************************************************************************************************************/
     function excelRegButton() {
         let title = 'Excel Report';
-        if (hasProperty(props, 'title') === true) {
+        if (hasOwnProperty(props, 'title') === true) {
             title = props.title;
-        } else if (hasProperty(props, 'report') === true) {
+        } else if (hasOwnProperty(props, 'report') === true) {
             title = props.report;
         }
 
@@ -983,9 +982,9 @@ const _InnerSearchSortTable = (props) => {
      *********************************************************************************************************************/
     function excelCBButton() {
         let title = 'Excel Report';
-        if (hasProperty(props, 'title') === true) {
+        if (hasOwnProperty(props, 'title') === true) {
             title = props.title;
-        } else if (hasProperty(props, 'report') === true) {
+        } else if (hasOwnProperty(props, 'report') === true) {
             title = props.report;
         }
 
@@ -1080,10 +1079,10 @@ const _InnerSearchSortTable = (props) => {
         </div>;
 
     // Indicates whether the footer displaying the pagination on the bottom right corner of the search sort table should be displayed
-    const footer = (hasProperty(props,'nofooter') === true) ? null :
+    const footer = (hasOwnProperty(props,'nofooter') === true) ? null :
         <div>
             <div className="sw-sst_footStyle">
-                { (hasProperty(props,'norows') === true) ? null :
+                { (hasOwnProperty(props,'norows') === true) ? null :
                     <span className="sw-sst_marginStyle">
                         <Choice choices={rowValues} name="rows" value={maximum} onChange={(event) => processMaxItems(event.target.value)} className="sw-sst_noBorderStyle" disabled={props.error} />
                         rows
@@ -1091,7 +1090,7 @@ const _InnerSearchSortTable = (props) => {
                 }
                 {topButtonHTML}
                 {previousButtonHTML}
-                { (hasProperty(props,'nodisplay') === true) ? null :
+                { (hasOwnProperty(props,'nodisplay') === true) ? null :
                     <span>{start + ' - ' + end + ' of ' + length}</span>
                 }
                 {nextButtonHTML}
@@ -1100,12 +1099,12 @@ const _InnerSearchSortTable = (props) => {
         </div>
 
     let hoverClassName = `sw-sst_tableStyle `;
-    if (hasProperty(props,'hover') === true) {  // A row can be hovered over
+    if (hasOwnProperty(props,'hover') === true) {  // A row can be hovered over
         let root = document.documentElement;    // The root of the DOM
         let hoverBackColor = 'cyan';            // The default hover color
         let found = false;                      // Indicates whether more than 10 colors have been placed in the CSS
 
-        if (hasProperty(props,'hoverColor') === true) { // The default hover color is to be changed
+        if (hasOwnProperty(props,'hoverColor') === true) { // The default hover color is to be changed
             hoverBackColor = props.hoverColor;
         }
 
@@ -1175,7 +1174,7 @@ const _InnerSearchSortTable = (props) => {
                                     count++;
                                     return props.eachRowInTable(row, count);
                                 }) }
-                                { (hasProperty(props,'footer') === true) ?
+                                { (hasOwnProperty(props,'footer') === true) ?
                                     <tr className="footerStyle">{ props.footer.map(buildFooter) }</tr> : null }
                                 <tr>
                                     {footers.map(buildMathFooters)}
@@ -1191,7 +1190,7 @@ const _InnerSearchSortTable = (props) => {
      *************************************************************************************************************************/
     function areDropDowns() {
         for (let i = 0; i < table.length; i++) {    // Spin through the table to check for the dropDown field and its value
-            if (hasProperty(table[i], 'dropDown') === true && table[i].dropDown === true) {
+            if (hasOwnProperty(table[i], 'dropDown') === true && table[i].dropDown === true) {
                 return true;    // There are dropDowns in the table
             }
         }
@@ -1208,7 +1207,7 @@ const _InnerSearchSortTable = (props) => {
         <div className="sw-sst_divStyle">
             {title}
             <div>
-                { (hasProperty(props,'sfbottom') === false) ?
+                { (hasOwnProperty(props,'sfbottom') === false) ?
                     (<>
                         {filterSection}
                         {searchSection}
@@ -1220,7 +1219,7 @@ const _InnerSearchSortTable = (props) => {
                     </>) : null
                 }
             </div>
-            { (props.data.length === 0 && hasProperty(props,'showtable') === false) ?
+            { (props.data.length === 0 && hasOwnProperty(props,'showtable') === false) ?
             <div>No Data to Display</div> :
             <div>
                 <div className={tableDivStyle} style={heightWidthStyle}>
@@ -1228,7 +1227,7 @@ const _InnerSearchSortTable = (props) => {
                 </div>
                 {footer}
                 <div>
-                    { (hasProperty(props,'sfbottom') === true) ?
+                    { (hasOwnProperty(props,'sfbottom') === true) ?
                         (<>
                             {filterSection}
                             {searchSection}
@@ -1343,7 +1342,7 @@ const _InnerSearchSortTable = (props) => {
             hide.push(ctrlBreakInfo[i].hidden);             // is hidden or shown
         }
 
-        if (hasProperty(props, 'hidden') === true) {
+        if (hasOwnProperty(props, 'hidden') === true) {
             props.hidden(hide); // Call the hidden function in the calling component
         }
         setHideCols(hide);
@@ -1417,7 +1416,7 @@ const _InnerSearchSortTable = (props) => {
         let data = [];  // The data for the control break
         for (let i = 0; i < breakOrder.length; i++) {   // Spin through the control break sort order
             let dateFormat = null;
-            if (hasProperty(table[breakOrder[i].col], 'sortDate')) {    // There is a sort data in the table props
+            if (hasOwnProperty(table[breakOrder[i].col], 'sortDate')) {    // There is a sort data in the table props
                 dateFormat = table[breakOrder[i].col].sortDate;
             }
 
@@ -1485,7 +1484,7 @@ const _InnerSearchSortTable = (props) => {
 
                 // Convert to upper case if ignoring case
                 if (typeof a === 'string' &&
-                    hasProperty(props,'ignorecase') === true) {
+                    hasOwnProperty(props,'ignorecase') === true) {
                     b = a.toUpperCase()
                     b = b.toUpperCase()
                 }
@@ -1742,7 +1741,7 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        if (hasProperty(props, 'startingpos') === true) {
+        if (hasOwnProperty(props, 'startingpos') === true) {
             props.startingPos(startingPos); // Pass the starting positions of the control break tables back to the calling program
         }
         setStartPos(startingPos);
@@ -2197,7 +2196,7 @@ const _InnerSearchSortTable = (props) => {
     function showDropDown(row, i) {
         let functionList = null;
 
-        if (hasProperty(row, 'type') === true) {    // The type of data for the column is table props
+        if (hasOwnProperty(row, 'type') === true) {    // The type of data for the column is table props
             if (row.type === 'string') {
                 functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
             } else {
@@ -2210,7 +2209,7 @@ const _InnerSearchSortTable = (props) => {
         }
 
         let hiddenRender = null;
-        if (hasProperty(props, 'nohidden') === false) {
+        if (hasOwnProperty(props, 'nohidden') === false) {
             if (controlBreakInfo[i].hidden === false) {
                 hiddenRender = 
                     <span className="sw-sst_showToolTip">
@@ -2228,7 +2227,7 @@ const _InnerSearchSortTable = (props) => {
         }
 
         let controlBreakRender = null;
-        if (hasProperty(props, 'nocontrolbreak') === false) {
+        if (hasOwnProperty(props, 'nocontrolbreak') === false) {
             if (controlBreakInfo[i].ctrlBreak === 0) {
                 controlBreakRender = 
                     <span className="sw-sst_showToolTip">
@@ -2254,7 +2253,7 @@ const _InnerSearchSortTable = (props) => {
                     <button name="cancel" onClick={cancel} className="sw-sst_dropDownButton">⊗</button><br />
                     <span className="sw-sst_toolTip sw-sst_top">Cancel</span>
                 </span>
-                { (hasProperty(props, 'noaggregation') === true) ? null :
+                { (hasOwnProperty(props, 'noaggregation') === true) ? null :
                     <span>
                         <span className="sw-invalid_checkForError">
                             <Choice choices={functionList} name="functSelect" value={functSelect}
@@ -2336,10 +2335,10 @@ const _InnerSearchSortTable = (props) => {
                 }
             }
             // Filter is turned on
-            if (filterOn === 'Y' && hasProperty(props,'nofilter') === false && main === true) {
+            if (filterOn === 'Y' && hasOwnProperty(props,'nofilter') === false && main === true) {
                 let filterStyle = processInvalidStyleScreen(invalid, FILTER, 'sw-sst_widthStyle');
 
-                if (row.sort === false || hasProperty(props,'nosort') === true) { // No sorting, so no onClick handler
+                if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler
                     if (row.search === false) { // No searching on this field, so no filtering on it also
                         if (row.dropDown === true && main === true) {
                             return (<th key={key} className={headerStyle}>
@@ -2359,7 +2358,7 @@ const _InnerSearchSortTable = (props) => {
                                     <button className={"sw-sst_headerButton" + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                     <div className={fontColor}>{row.header}</div>}
                                 <span className="sw-invalid_checkForError">
-                                    {(hasProperty(props, 'choice') === false) ?
+                                    {(hasOwnProperty(props, 'choice') === false) ?
                                         <input type="text" name={filterName} className={filterStyle} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} /> :
                                         <ChoiceText list={"dropDown_" + i} choices={columns[i]} name={filterName} className={filterStyle} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} />}
                                 </span>
@@ -2386,7 +2385,7 @@ const _InnerSearchSortTable = (props) => {
                                     {(doSort === true) ? <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes, tableIndex)} className="sw-sst_buttonStyle2">{btnImg}</button> : null }
                                 </div>
                                 <span className="sw-invalid_checkForError">
-                                    {(hasProperty(props, 'choice') === false) ?
+                                    {(hasOwnProperty(props, 'choice') === false) ?
                                         <input type="text" name={filterName} className={filterStyle} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} /> :
                                         <ChoiceText list={"dropDown" + i} choices={columns[i]} name={filterName} className={filterStyle} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} /> }
                                 </span>
@@ -2395,7 +2394,7 @@ const _InnerSearchSortTable = (props) => {
                     }
                 }
             // Filtering is off or not allowed
-            } else if (row.sort === false || hasProperty(props,'nosort') === true) { // No sorting, so no onClick handler
+            } else if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler
                 return (<th key={key} className={headerStyle}>
                                 {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
                                 {(row.dropDown === true && main === true) ? <button className={fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
@@ -2579,7 +2578,7 @@ const _InnerSearchSortTable = (props) => {
             for (let j = 0; j < indexing.length && done === false; j++) {
                 foundDate = false;
                 // Find if the index is in the date table
-                if (hasProperty(table[indexing[j]], 'dataDate') && hasProperty(table[indexing[j]], 'filterDate')) {
+                if (hasOwnProperty(table[indexing[j]], 'dataDate') && hasOwnProperty(table[indexing[j]], 'filterDate')) {
                     foundDate = true;
                 }
 
@@ -2805,14 +2804,14 @@ const _InnerSearchSortTable = (props) => {
     function searchItemButton() {
         if (table && validate('B') === true) {  // Make sure a value has been selected in the drop down and text box
             let search = null;
-            search = (hasProperty(props,'ignorecase') === true) ?
+            search = (hasOwnProperty(props,'ignorecase') === true) ?
                 searchItem.toUpperCase() :  // Convert to upper case to ignore case
                 searchItem;
             // Find a match in the correct column of the data
             let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
-            if (hasProperty(table[tableIndex], 'dataDate') && hasProperty(table[tableIndex], 'searchDate')) {
+            if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
                 searchDate(search, tableIndex);
-            } else if (hasProperty(props,'searchstart') === true) {
+            } else if (hasOwnProperty(props,'searchstart') === true) {
                 searchStart(search, table[tableIndex].name);
             } else {
                 searchAny(search, table[tableIndex].name);
@@ -2924,11 +2923,11 @@ const _InnerSearchSortTable = (props) => {
      *
      *********************************************************************************************/
     function searchStart(search, name) {
-        let begin = (hasProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
+        let begin = (hasOwnProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
         let found = false;  // Indicates that the item was found
 
         for (let i = begin; i < length && found === false; i++) {
-            let compareStr = (hasProperty(props, 'ignorecase')) ? props.data[indexes[i]][name].toString().toUpperCase() :
+            let compareStr = (hasOwnProperty(props, 'ignorecase')) ? props.data[indexes[i]][name].toString().toUpperCase() :
                                                                   props.data[indexes[i]][name].toString();
             if (compareStr.startsWith(search)) {    // Item was found
                 found = true;
@@ -2947,12 +2946,12 @@ const _InnerSearchSortTable = (props) => {
      *
      *********************************************************************************************/
     function searchAny(search, name) {
-        let begin = (hasProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
+        let begin = (hasOwnProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
         let found = false;  // Indicates that the item was found
 
         for (let i = begin; i < props.data.length && found === false; i++) {
             const str = (props.data[indexes[i]][name]) ? props.data[indexes[i]][name].toString() : ''
-            const compareStr = (hasProperty(props, 'ignorecase')) ? str.toUpperCase() : str;
+            const compareStr = (hasOwnProperty(props, 'ignorecase')) ? str.toUpperCase() : str;
 
             if (compareStr.indexOf(search) !== -1) {    // Item was found
                 found = true;
@@ -3038,7 +3037,7 @@ const _InnerSearchSortTable = (props) => {
         }
 
         let dateFormat = null;
-        if (hasProperty(table[index], 'sortDate')) {
+        if (hasOwnProperty(table[index], 'sortDate')) {
             dateFormat = table[index].sortDate;
         }
 
@@ -3066,7 +3065,7 @@ const _InnerSearchSortTable = (props) => {
         sortAry.sort(function (item1, item2) {
             // Convert to upper case if ignoring case
             if (typeof item1.data === 'string' &&
-                hasProperty(props,'ignorecase') === true) {
+                hasOwnProperty(props,'ignorecase') === true) {
                 // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
                 item1.data = item1.data.toUpperCase()
                 item2.data = (item2.data !== null) ? item2.data.toUpperCase() : null;
@@ -3293,11 +3292,11 @@ const _InnerSearchSortTable = (props) => {
             sentIndexes.push(indexes[i]);
         }
 
-        if (hasProperty(props, 'indexing')) {
+        if (hasOwnProperty(props, 'indexing')) {
             props.indexing(sentIndexes);    // Send back the pagination indexes back to the calling component
         }
 
-        if (hasProperty(props, 'allIndexes') === true) {
+        if (hasOwnProperty(props, 'allIndexes') === true) {
             props.allIndexes(indexes);  // Send all the indexes back to the calling component
         }
     }
@@ -3317,14 +3316,14 @@ const _InnerSearchSortTable = (props) => {
             if (index + maxItems >= dataLen) { // End is past the data
                 setStart (index);
                 setEnd (dataLen);
-                (hasProperty(props,'startEnd') === true) ? props.startEnd (index, dataLen) : null;
+                (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (index, dataLen) : null;
                 sendIndexes(index, dataLen, dataLen, indexes);
                 setDisable(index, dataLen);
             } else {    // End is not past the data
                 setStart (index);
                 setEnd (index + maxItems);
                 setDisable(index, dataLen);
-                (hasProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;
+                (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;
                 sendIndexes(index, index + maxItems, dataLen, indexes);
             }
         }
@@ -3340,12 +3339,12 @@ const _InnerSearchSortTable = (props) => {
         if (maxItems < length) {  // Not at the end of the data
             setStart (0);
             setEnd (maxItems);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
             sendIndexes(0, maxItems, length, indexes);
         } else {    // At the end of the data
             setStart (0);
             setEnd (length);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
             sendIndexes(0, length, length, indexes);
         }
 
@@ -3363,12 +3362,12 @@ const _InnerSearchSortTable = (props) => {
         if (index <= 0) {   // Past the beginning of the data
             setStart (0);
             setEnd (maxItems);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
             sendIndexes(0, maxItems, length, indexes);
         } else {    // Not past the beginning of the data
             setStart (index);
             setEnd (index + maxItems);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;    // Add max items to get the new current end
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;    // Add max items to get the new current end
             sendIndexes(index, index + maxItems, length, indexes);
         }
 
@@ -3394,12 +3393,12 @@ const _InnerSearchSortTable = (props) => {
         if (index + maxItems >= length) { // At the end of the data
             setStart (begin);
             setEnd (length);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, length) : null;
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (begin, length) : null;
             sendIndexes(begin, length, length, indexes);
         } else {    // Not at the end of the data
             setStart (begin);
             setEnd (index + maxItems);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (begin, index + maxItems) : null;    // Increment to the next max items
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (begin, index + maxItems) : null;    // Increment to the next max items
             sendIndexes(begin, index + maxItems, length, indexes);
         }
 
@@ -3416,12 +3415,12 @@ const _InnerSearchSortTable = (props) => {
         if (length - maxItems < 0) {  // At the end of the data
             setStart (0);
             setEnd (length);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
             sendIndexes(0, length, length, indexes);
         } else {    // Not at the end of the data
             setStart (length - maxItems);
             setEnd (length);
-            (hasProperty(props,'startEnd') === true) ? props.startEnd(length - maxItems, length) : null;
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd(length - maxItems, length) : null;
             sendIndexes(length - maxItems, length, length, indexes);
         }
 
