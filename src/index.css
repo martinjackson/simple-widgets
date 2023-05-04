@@ -1,5 +1,4 @@
 
-
 @import "./forms/sw-Gears.css";
 @import "./forms/sw-MakeModal.css";
 @import "./sw-DropDown.css";
@@ -13,6 +12,7 @@
 @import "./sw-invalid.css";
 @import "./sw-modal.css";
 @import "./sw-outline.css";
+@import "./sw-pageTitle.css";
 @import "./sw-slider1.css";
 @import "./sw-slider2.css";
 @import "./sw-slider3.css";

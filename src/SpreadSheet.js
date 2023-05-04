@@ -52,7 +52,6 @@ export const SpreadSheet = (props) => {
     }
 
     const populateDirty = (data) => {
-        console.log('data :', data);
         let localData = [...data];
 
         for (let i = 0; i < localData.length; i++) {
@@ -108,7 +107,6 @@ export const SpreadSheet = (props) => {
             props.preload(blank);
         }
 
-        console.log ('data', data);
         if (clear === true || data.length === 0) {
             setData(blank);
         } else {

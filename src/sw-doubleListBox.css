@@ -6,6 +6,8 @@
     justify-content: center;
     background-color: var(--sw-theme_buttonColor);
     color: var(--sw-theme_buttonTextColor);
+    border: var(--sw-theme_buttonBorder);
+    border-radius: var(--sw-theme_buttonRadius);
 }
 
 .sw-dlb_topSt { 

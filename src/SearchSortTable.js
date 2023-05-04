@@ -222,7 +222,6 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        console.log('isUserCtrlBreak :', isUserCtrlBreak);
         if (isUserCtrlBreak === true) {
             setControlBreakInfo (props.controlBreak);
             findCtrlBreak(props.controlBreak, indexes);
@@ -1330,78 +1329,6 @@ const _InnerSearchSortTable = (props) => {
         return false;   // No control breaks found
     }
 
-
-    // /************************************************************************************************************
-    //  *
-    //  * This will hide the column in the regular table or the control break tables
-    //  *
-    //  * @param hideShow  indicates that the column should be displayed (false) or not (true)
-    //  * @param row       row in the control break info array
-    //  * @param i         current index into the control break info array
-    //  *
-    //  ************************************************************************************************************/
-
-/*
-    function _findHiddenColumns(hideShow) {
-
-      // TODO ask Jim   hideTheColumn() is not defined
-
-        return function (row, i) {
-            let name = `table${number}`;    // Determine the name of the table
-
-            if (row.hidden === hideShow) {  // Make sure the column is to be hidden or shown
-                if (isControlBreak(controlBreakInfo) === true) {    // There is a control break
-                    for (let j = 0; j < controlBreakData.length; j++) {
-                        name = `table${number}_${j}`    // Determine the control break table name
-                        hideTheColumn(row, i, name, true, hideShow);   // Hide the column in the control break table
-                    }
-                } else {    // Regular table
-                    hideTheColumn(row, i, name, false, hideShow);   // Hide the column in the table
-                }
-            }
-        }
-    }
-*/
-
-    /**********************************************************************************************************
-     *
-     * This will hide the column by setting the attribute hidden if hideShow is true or removing the attribute
-     * hidden if hideShow is false.
-     *
-     * @param row           the row containing the current control break info for that column in the table
-     * @param i             current index into the control break info array
-     * @param name          the name of the table in which the column is to be hidden
-     * @param isCtrlBreak   indicates that there is a control break
-     * @param hideShow  indicates that the column should be displayed (false) or not (true)
-     *
-     ************************************************************************************************************/
-    function _hideTheColumnxx (row, i, name, isCtrlBreak, hideShow) {
-        let tableElement = document.getElementsByName(name)[0]; // Find the table in the DOM
-        console.log('tableElement :', tableElement);
-        if (tableElement === undefined) {
-            return;
-        }
-        let tbodyElement = tableElement.children;               // Find the tbody in the DOM
-        console.log('tbodyElement :', tbodyElement);
-        let trElement = tbodyElement[(isCtrlBreak === false) ? 0 : 1].children; // Find the tr children in the DOM
-        console.log('trElement :', trElement);
-        for (const trChild of trElement) {  // Spin through the tr children in the tbody section of the table in the DOM
-            console.log('trChild :', trChild);
-            let count = 0;  // Counts the number of tr children
-            for (const tdChild of trChild.children) {   // Spin through the td children in the tr
-//                console.log('tdChild :', tdChild);
-                if (count === i) {  // Is it the correct tr child being sought
-                    if (hideShow === true) {    // Hiding the column
-                        tdChild.setAttribute("hidden", row.hidden); // Add the hidden attribute
-                    } else {    // Not hiding the column
-                        tdChild.removeAttribute("hidden");  // Remove the hidden atttribute
-                    }
-                }
-                count++;
-            }
-        }
-    }
-
     /********************************************************************************************************************
      *
      * The will place whether the column is hidden or shown in the table.  This information is passed back to the calling
@@ -1834,7 +1761,6 @@ const _InnerSearchSortTable = (props) => {
         let ctrlBreakInfo = [...controlBreakInfo];
 
         ctrlBreakInfo[i].ctrlBreak = maxPlusOne(ctrlBreakInfo); // Assign a control break number to the column
-        console.log('ctrlBreakInfo :', ctrlBreakInfo);
         findCtrlBreak(ctrlBreakInfo, indexes);                  // Find the control break title, data, and footer for the contorl break table
         setControlBreakInfo(ctrlBreakInfo);
         setHtmlDropDown(false);                                 // Hide the dropdown for the column

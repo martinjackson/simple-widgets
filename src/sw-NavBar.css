@@ -13,6 +13,7 @@
   --sw-horizontal_width: 0%;
   --sw-vertical_height: 0%;
   --sw-slide_time: 500ms;
+  --sw-menu_additional: 3.5em;
 }
 
 .menubar {
@@ -25,6 +26,92 @@
   font-weight: 450;
   position: relative;
   box-shadow: 0 35px 35px -35px rgba(0, 0, 0, 0.3);
+}
+
+.nav-nav-menu_header_fixed {
+  background-color: #a4d3ee;   /* LightSkyBlue2; */
+  font-size: x-large;
+  font-weight: 450;
+  position: absolute;
+  top: 12%;
+  box-shadow: 0 35px 35px -35px rgba(0, 0, 0, 0.3);
+}
+
+.nav-nav-menu_fixed_horiz {
+  background-color: #a4d3ee;   /* LightSkyBlue2; */
+  font-size: x-large;
+  font-weight: 450;
+  position: fixed;
+  top: 12%;
+  box-shadow: 0 35px 35px -35px rgba(0, 0, 0, 0.3);
+  z-index: 70;
+}
+
+.nav-nav-no_header_menu_fixed_horiz {
+  background-color: #a4d3ee;   /* LightSkyBlue2; */
+  font-size: x-large;
+  font-weight: 450;
+  position: fixed;
+  top: 0%;
+  box-shadow: 0 35px 35px -35px rgba(0, 0, 0, 0.3);
+  z-index: 70;
+}
+
+.nav-nav-menu_float_vert {
+  background-color: #a4d3ee;   /* LightSkyBlue2; */
+  font-size: x-large;
+  font-weight: 450;
+  position: absolute;
+  top: 12%;
+  box-shadow: 0 35px 35px -35px rgba(0, 0, 0, 0.3);
+  z-index: 70;
+}
+
+.nav-nav-menu_fixed_vert {
+  background-color: #a4d3ee;   /* LightSkyBlue2; */
+  font-size: x-large;
+  font-weight: 450;
+  position: fixed;
+  top: 12%;
+  box-shadow: 0 35px 35px -35px rgba(0, 0, 0, 0.3);
+  z-index: 70;
+}
+
+.nav-nav-no_header_menu_fixed_vert {
+  background-color: #a4d3ee;   /* LightSkyBlue2; */
+  font-size: x-large;
+  font-weight: 450;
+  position: fixed;
+  top: 0%;
+  box-shadow: 0 35px 35px -35px rgba(0, 0, 0, 0.3);
+  z-index: 70;
+}
+
+.nav-menu_horiz_22 {
+  position: absolute;
+  top: 22%;
+}
+
+.nav-menu_horiz_12 {
+  position: absolute;
+  top: 12%;
+}
+
+.nav-menu_horiz_10 {
+  position: absolute;
+  top: 10%;
+}
+
+.nav-menu_vert_250_12 {
+  position: absolute;
+  top: 12%;
+  left: calc(var(--sw-menu_width) + var(--sw-menu_additional));
+}
+
+.nav-menu_vert_250_0 {
+  position: absolute;
+  top: 0%;
+  left: calc(var(--sw-menu_width) + var(--sw-menu_additional));
 }
 
 .nav-center {

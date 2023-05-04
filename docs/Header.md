@@ -12,16 +12,9 @@ Props:
 7.  ***username*** = the name of the user who is using the application.
 8.  ***setUsername*** = the name of the function that will set the user if header should change the name of the user.
 9.  ***noModalOnError*** = indicates that when an error occurs, the modal displaying the error will ***not*** appear.  By default the modal is displayed.
+10. ***format*** = indicates whether the header will scroll off the screen or not.  The two values can be float (default) or fixed.  Float indicates that the header will scroll of the screen.  Fixed indicates that the header will not scroll of the screen, it remains in place.
 
 ## CSS Files
-
-The following CSS file will need to be imported into the file that uses the Header component.  The import would be, if it is not be changed:
-
-```javascript
-import '../node_modules/simple-widgets/lib/sw-Header.css';
-```
-
-For more information on CSS files, see [Using CSS](./UsingCSS.md).
 
 ## sw-Header.css
 
@@ -71,7 +64,7 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 }
 ```
 
-### Example
+### Example 1
 
 ```js
 import { Header } from 'simple-widgets';
@@ -95,7 +88,7 @@ const App = () => {
 
 The title on the header will be 'Title of the Application'.  The user name on the header will be JJONES.  The database type will be PROD.  If you do not want to display the database type, the prop should be dbType=" " (see below).  The logo on the left hand side of the header will be the image in titleLogo.  If the Logout Link on the right of the header is pressed, the link will go to the logout URL.  If there is an error, the image in the alertLogo will be displayed along with alert message.
 
-### Second Example
+### Example 2
 
 ```js
 import { Header } from 'simple-widgets';
@@ -109,7 +102,7 @@ const App = () => {
 }
 ```
 
-### Third Example
+### Example 3
 
 ```js
 import { Header } from 'simple-widgets';
@@ -125,5 +118,34 @@ const App = () => {
 }
 ```
 
+### Example 4
+```js
+import { Header } from 'simple-widgets';
 
+const App = () => {
+    const [username, setUserName] = useState('JJONES');
 
+    return (
+        <Header username={user} setUsername={setUser} 
+                title="This is a test" dbType="Test" 
+                titleLogo="Logo.svg" format="float" />
+    );
+```
+
+The format is float, which means the header will scroll of the screen.  The format="float" can be left off, since that is the default.
+
+### Example 5
+```js
+import { Header } from 'simple-widgets';
+
+const App = () => {
+    const [username, setUserName] = useState('JJONES');
+
+    return (
+        <Header username={user} setUsername={setUser} 
+                title="This is a test" dbType="Test" 
+                titleLogo="Logo.svg" format="fixed" />
+    );
+```
+
+The format is float, which means the header will ***not*** scroll of the screen.  
