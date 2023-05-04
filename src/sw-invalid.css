@@ -24,4 +24,8 @@
     visibility: visible;
 }
 
+.sw-invalid_error {
+    font-weight: bolder;
+    color: red;
+}
 

@@ -4,7 +4,7 @@ This will build a horizontal or vertical menu below the header on the screen.  E
 
 Props:
 
-1.  menuTree = contains the tree structure of the menu as an array.  An example of the menuTree:
+1.  ***menuTree*** = contains the tree structure of the menu as an array.  An example of the menuTree:
 ```js
     const menuTree = [
         { title: 'Save', path: '/save', component: () => <Save></Save> },
@@ -43,47 +43,167 @@ The title field is the title that will be displayed on the menu.  The path is th
                 File
     Exit
 
-2. type = indicates the type of menu, either horizontal or vertical.  The two possible values are:
+2. ***type*** = indicates the type of menu, either horizontal or vertical.  The two possible values are:
     - horizontal = indicates a horizontal menu.  This is the default; therefore, if this prop is missing, it will default to horizontal.
     - vertical = indicates a vertical menu.  All submenus will appear to the right of the menu.
 
     If type is given an invalid value, it will default to horizontal.
 
-3. open = indicates how the menu is to open.  The two possible values are:
+3. ***open*** = indicates how the menu is to open.  The two possible values are:
     - always = indicates the menu will be displayed.  This is the default.
     - slide = indicates that a menu symbol will be displayed, and when the mouse is placed over the menu symbol, it will expand to the right.
 
     If open is given an invalid value, it will default to always.
 
-4.  path = if a certain screen is specified in the url (the path in the menutree), it will automatically take you to that screen when the application is launched.  The path that is on the URL must match a path name in the menutree; otherwise it will default to the first screen.  The path should only contain the path name.
+4.  ***format*** = indicates whether the value is fixed, which means the menu will not move, or float which means that the menu will scroll.  The two possible values are float (default) or fixed.
 
-5. subsymbol = indicates whether a down arrow should be placed next to the title that has submenus.  The two possible values are:
+5.  ***headerfixed*** = indicates that the Header component ([Header](docs/Header.md)) is also fixed and does not move when scrolling.
+
+6.  ***noheader*** = indicates that there is no Header component.
+
+7.  ***path*** = if a certain screen is specified in the url (the path in the menutree), it will automatically take you to that screen when the application is launched.  The path that is on the URL must match a path name in the menutree; otherwise it will default to the first screen.  The path should only contain the path name.
+
+8. ***subsymbol*** = indicates whether a down arrow should be placed next to the title that has submenus.  The two possible values are:
     - arrow = place a down arrow next to the title.
     - a unicode symbol in the form of &#xUNICODE_HEXNUM;
     - none = no symbol will be placed next to the title.  This is the default.
 
-6. symbol = indicates whether a right arrow or ellipsis should be placed next to the title to indicate that the submenu has a menu.  The three possible values are:
+9. ***symbol*** = indicates whether a right arrow or ellipsis should be placed next to the title to indicate that the submenu has a menu.  The three possible values are:
     - arrow = place a right arrow next to the title.
     - dots = place an ellipsis next to the title.
     - a unicode symbol in the form of &#xUNICODE_HEXNUM;
     - none = no symbol will be placed next to the title.  This is the default.
 
-7. page = places a page symbol to the left of the menu item.
+10. ***page*** = places a page symbol to the left of the menu item.
 
-8. noSide = indicates that the selected menu item should be placed underneath the vertical menu instead of beside it.  This option only works with vertical menus.  If this option does not exist, it will place the menu item selected beside the vertical menu.
+11. ***noSide*** = indicates that the selected menu item should be placed underneath the vertical menu instead of beside it.  This option only works with vertical menus.  If this option does not exist, it will place the menu item selected beside the vertical menu.
 
+
+### Format Prop
+
+The format prop will allow the menu to be fixed (the menu will not scroll) or to be float (the menu will scroll).  The only option that is guaranteed to work is the header as float and menu as float.
+
+The following must be done in order to fix the header or the menu (in all the examples listed below it will work for both horizontal or vertical):
+
+1.  ***header is float and menu is float***
+        Both the header and menu will scroll of the screen.
+        nothing needs to be done
+        ***Example***
+        ```javascript
+            <div>
+              <Header username={user} setUsername={setUser} 
+                      title="This is a test" dbType="Test" 
+                      titleLogo="Logo.svg" />
+              <MenuBar menuTree={mtree} type="vertical" open="always"  />
+            </div>
+        ```
+
+2.  ***header is float and menu is fixed***
+        The header will scroll of the screen, but the menu will not.
+        MenuBar must have format="fixed"
+        Each component in the menuTree must have as it's first component:
+            ```javascript
+            <div className="nav-menu_horiz_22"> For horizontal menus
+            ...
+            </div>
+            <div className="nav-menu_vert_250_12"> For vertical menus
+            ...
+            </div>
+            ```
+        ***Example***
+        ```javascript
+        <div>
+            <Header username={user} setUsername={setUser} 
+                    title="This is a test" dbType="Test" 
+                    titleLogo="Logo.svg" format="float" />
+            <MenuBar menuTree={mtree} type="vertical" open="always" format="fixed" />
+        </div>
+        ```
+
+        This is one option that is not recommended, because it just does not look right.
+
+3.  ***header is fixed and menu is float***
+        The header not scroll of the screen, but the menu will scroll off the screen.
+        MenuBar must have format="float"
+        Each component in the menuTree must have as it's first component:
+            ```javascript
+            <div className="nav-menu_horiz_22"> For horizontal menus
+            ...
+            </div>
+            <div className="nav-menu_vert_250_12"> For vertical menus
+            ...
+            </div>
+            ```
+        ***Example***
+        ```javascript
+        <div>
+            <Header username={user} setUsername={setUser} 
+                    title="This is a test" dbType="Test" 
+                    titleLogo="Logo.svg" format="float" />
+            <MenuBar menuTree={mtree} type="vertical" open="always" format="float" headerfixed />
+        </div>
+        ```
+
+        The headerfixed prop indicates to the MenuBar that the header is fixed.
+
+4.  ***header is fixed and menu is fixed***
+        The header and the menu will not scroll off the screen.
+        MenuBar must have format="float"
+        Each component in the menuTree must have as the first component:
+            ```javascript
+            <div className="nav-menu_horiz_22"> For horizontal menus
+            ...
+            </div>
+            <div className="nav-menu_vert_250_12"> For vertical menus
+            ...
+            </div>
+            ```
+        ***Example***
+        ```javascript
+        <div>
+            <Header username={user} setUsername={setUser} 
+                    title="This is a test" dbType="Test" 
+                    titleLogo="Logo.svg" format="fixed" />
+            <MenuBar menuTree={mtree} type="horizontal" open="always" format="fixed" headerfixed />
+        </div>
+        ```
+
+        The headerfixed prop indicates to the MenuBar that the header is fixed.
+
+5.  ***no header and the menu is float***
+        There is no header at all and the menu will scroll off the screen.
+        MenuBar must have format="float"
+        ***Example***
+        ```javascript
+        <div>
+            <MenuBar menuTree={mtree} type="horizontal" open="always" format="float" noheader />
+        </div>
+        ```
+
+        The noheader prop indicates to the MenuBar that there is no header.
+
+6.  ***no header and the menu is fixed***
+        There is no header and the menu will not scroll off the screen.
+        MenuBar must have format="float"
+        Each component in the menuTree must have as the first component:
+            ```javascript
+            <div className="nav-menu_horiz_10"> For horizontal menus
+            ...
+            </div>
+            <div className="nav-menu_vert_250_0"> For vertical menus
+            ...
+            </div>
+            ```
+        ***Example***
+        ```javascript
+        <div>
+            <MenuBar menuTree={mtree} type="horizontal" open="always" format="fixed" noheader />
+        </div>
+        ```
+
+        The noheader prop indicates to the MenuBar that there is no header.
 
 ## CSS Files
-
-The following CSS files will need to be imported into the file that uses the MenuBar component.  The import would be, if it is not be changed:
-
-```javascript
-import '../node_modules/simple-widgets/lib/sw-NavBar.css';
-import '../node_modules/simple-widgets/lib/sw-DropDown.css';
-```
-
-For more information on CSS files, see [Using CSS](./UsingCSS.md).
-
 
 ### NavBar.css
 
@@ -91,18 +211,33 @@ The sw-NavBar.css and sw-DropDown.css files are used by the MenuBar component in
 
 The sw-NavBar.css controls the main horizontal or vertical bar across the top of the screen.  The only items that should be changed are the colors and the box shadow, along with the following CSS variables for vertical menus:
 
-1. --menu_width: the width of the menu and submenus.
-2. --menu_height: the height of the main menu.
-3. --menu_vertical_margin_left: the left margin spacing where the next vertical submenu begins.  This needs to be less than the menu_width.
-4. --menu_horizontal_margin_left: the left margin spacing where the next submenu is next to the current menu.  This should be the same as the menu_width.
-5. --margin_top: the margin at the top of the main menu.
-6. --menu_vertical_pad_top: the amount of padding at the top of the vertical main menu, so that it is below the three menu bars.
-7. --menu_vertical_pad_top_always: the amount of padding at the top of the main menu.  This is used if the open type is always.
-8. --menu_vertical_pad_left: the padding for the text on the left of vertical menu.
-9. --menu_horizontal_pad_left: the amount of padding at the left of the horizontal main menu, so that it is right of the three menu bars.
-10. --horiz_menu_width: the width of the horizontal menu.
-11. --horizontal_width: the initial horizontal width for the open slide option.
-12. --slide_time: the time it takes to do the animation for sliding of the menu.
+1. --sw-menu_width: the width of the menu and submenus.
+2. --sw-menu_height: the height of the main menu.
+3. --sw-menu_vertical_margin_left: the left margin spacing where the next vertical submenu begins.  This needs to be less than the menu_width.
+4. --sw-menu_horizontal_margin_left: the left margin spacing where the next submenu is next to the current menu.  This should be the same as the menu_width.
+5. --sw-margin_top: the margin at the top of the main menu.
+6. --sw-menu_vertical_pad_top: the amount of padding at the top of the vertical main menu, so that it is below the three menu bars.
+7. --sw-menu_vertical_pad_top_always: the amount of padding at the top of the main menu.  This is used if the open type is always.
+8. --sw-menu_vertical_pad_left: the padding for the text on the left of vertical menu.
+9. --sw-menu_horizontal_pad_left: the amount of padding at the left of the horizontal main menu, so that it is right of the three menu bars.
+10. --sw-horiz_menu_width: the width of the horizontal menu.
+11. --sw-horizontal_width: the initial horizontal width for the open slide option.
+12. --sw-slide_time: the time it takes to do the animation for sliding of the menu.
+13. --sw-menu_additional: used to add extra spacing so that the page will clear the vertical menu.
+
+**CSS Classes needed to make the format to work:**
+
+1.  ***nav-menu_horiz_22*** = this is for horizontal menus.  This indicates that the position is absolute and top is 22% (combination of the header (12%) and the menu (10%)).  This is need in the horizontal menus, ***except*** for:
+        - header is float and menu is float
+        - no header and menu is float
+
+2.  **nav-menu_horiz_10** = this is for horizontal menus without a header.  This indicates that the position is absolute and top is 10% (menu is 10%)).  This is need in the horizontal menus, for no header with a menu of fixed.
+
+3.  **nav-menu_vert_250_12** = this is for vertical menus.  This indicates that the position is absolute, left is 16em (250px) (for the vertical menu), and top is 12% (for the header (12%)).  This is need in the verical menus, ***except*** for:
+        - header is float and menu is float
+        - no header and menu is float
+
+4.  **nav-menu_vert_250_0** = this is for vertical menus without a header.  This indicates that the position is absolute, left is left is 16em (250px) (for the vertical menu) and top is 0% (since there is no header)).  This is need in the horizontal menus, for no header with a menu of fixed. 
 
 Other styling features may also be added.
 
@@ -227,3 +362,194 @@ const App = () => {
     <MenuBar menuTree={menuTree} >                                      Horizontal menu always open
 
 ```
+
+6.  ### Example 6
+```js
+import { MenuBar, Header } from 'simple-widgets';
+
+const App = () => {
+    const menuTree = [
+        { title: 'Save', path: '/save', component: () => <Save></Save> },
+        { title: 'Save As', path: '/saveas', component: () => <SaveAs></SaveAs> },
+    ]
+    
+    return (
+        <div>
+            <Header username={user} setUsername={setUser} 
+                    title="This is a test" dbType="Test" 
+                    titleLogo="Logo.svg" format="fixed" />
+            <MenuBar menuTree={menuTree} type="horizontal" format="fixed" headerfixed >
+        </div>
+    );
+}
+```
+
+There are two menu elements Save and SaveAs.  There is a header that is fixed and a vertical menu that is fixed.  The headerfixed indicates that the header is fixed.
+
+Save.js
+```js
+const Save = (props) => {
+    ...
+    return (
+        <div className="nav-menu_horiz_22" >
+        ...
+        </div>
+    )
+}
+```
+
+SaveAs.js
+```js
+const SaveAs = (props) => {
+    ...
+    return (
+        <div className="nav-menu_horiz_22" >
+        ...
+        </div>
+    )
+}
+```
+
+Both Save.js and SaveAs.js have a className of nav-menu_horiz_22.  Both are required in order for MenuBar to work correctly.
+
+7.  ### Example 7
+```js
+import { MenuBar, Header } from 'simple-widgets';
+
+const App = () => {
+    const menuTree = [
+        { title: 'Save', path: '/save', component: () => <Save></Save> },
+        { title: 'Save As', path: '/saveas', component: () => <SaveAs></SaveAs> },
+    ]
+    
+    return (
+        <div>
+            <Header username={user} setUsername={setUser} 
+                    title="This is a test" dbType="Test" 
+                    titleLogo="Logo.svg" format="fixed" />
+            <MenuBar menuTree={menuTree} type="vertical" format="fixed" headerfixed >
+        </div>
+    );
+}
+```
+
+There are two menu elements Save and SaveAs.  There is a header that is fixed and a vertical menu that is fixed.  The headerfixed indicates that the header is fixed.
+
+Save.js
+```js
+const Save = (props) => {
+    ...
+    return (
+        <div className="nav-menu_vert_250_12" >
+        ...
+        </div>
+    )
+}
+```
+
+SaveAs.js
+```js
+const SaveAs = (props) => {
+    ...
+    return (
+        <div className="nav-menu_vert_250_12" >
+        ...
+        </div>
+    )
+}
+```
+
+Both Save.js and SaveAs.js have a className of nav-menu_vert_250_12.  Both are required in order for MenuBar to work correctly.
+
+8.  ### Example 8
+```js
+import { MenuBar } from 'simple-widgets';
+
+const App = () => {
+    const menuTree = [
+        { title: 'Save', path: '/save', component: () => <Save></Save> },
+        { title: 'Save As', path: '/saveas', component: () => <SaveAs></SaveAs> },
+    ]
+    
+    return (
+        <div>
+            <MenuBar menuTree={menuTree} type="horizontal" format="fixed" noheader >
+        </div>
+    );
+}
+```
+
+There are two menu elements Save and SaveAs.  There is no header and a horizontal menu that is fixed.  The noheader indicates that there is not a header.
+
+Save.js
+```js
+const Save = (props) => {
+    ...
+    return (
+        <div className="nav-menu_horiz_10" >
+        ...
+        </div>
+    )
+}
+```
+
+SaveAs.js
+```js
+const SaveAs = (props) => {
+    ...
+    return (
+        <div className="nav-menu_horiz_10" >
+        ...
+        </div>
+    )
+}
+```
+
+Both Save.js and SaveAs.js have a className of nav-menu_horiz_10.  Both are required in order for MenuBar to work correctly.
+
+9.  ### Example 9
+```js
+import { MenuBar } from 'simple-widgets';
+
+const App = () => {
+    const menuTree = [
+        { title: 'Save', path: '/save', component: () => <Save></Save> },
+        { title: 'Save As', path: '/saveas', component: () => <SaveAs></SaveAs> },
+    ]
+    
+    return (
+        <div>
+            <MenuBar menuTree={menuTree} type="vertical" format="fixed" noheader >
+        </div>
+    );
+}
+```
+
+There are two menu elements Save and SaveAs.  There is no header and a vertical menu that is fixed.  The noheader indicates that there is not a header.
+
+Save.js
+```js
+const Save = (props) => {
+    ...
+    return (
+        <div className="nav-menu_vert_250_0" >
+        ...
+        </div>
+    )
+}
+```
+
+SaveAs.js
+```js
+const SaveAs = (props) => {
+    ...
+    return (
+        <div className="nav-menu_vert_250_0" >
+        ...
+        </div>
+    )
+}
+```
+
+Both Save.js and SaveAs.js have a className of nav-menu_vert_250_0.  Both are required in order for MenuBar to work correctly.
+

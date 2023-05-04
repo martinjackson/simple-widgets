@@ -5,8 +5,9 @@ import { NavigateBar } from './NavigateBar';
 
 import { hasOwnProperty } from './hasOwnProperty.js'
 
-let setMenuPath = (_newPath) => {}
-let setMenuParms = (_newParms) => {}
+
+let setMenuPath = (newPath) => {}
+let setMenuParms = (newParms) => {}
 
 let menuParms = {}
 export const getMenuParms = () => { return menuParms }
@@ -67,6 +68,21 @@ export const MenuBar = (props) => {
         noSide = true;
     }
 
+    let format = 'float';
+    if (hasOwnProperty(props, 'format') === true) {
+        format = props.format;
+    }
+
+    let noHeader = false;
+    if (hasOwnProperty(props, 'noheader') === true) {
+        noHeader = props.noheader;
+    }
+
+    let headerFixed = false;
+    if (hasOwnProperty(props, 'headerfixed') === true) {
+        headerFixed = props.headerfixed;
+    }
+
     const searchPath = curPath || props.path
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
     const active = items.find(item => item.path === searchPath) || items[0]
@@ -87,12 +103,48 @@ export const MenuBar = (props) => {
       }
     }
 
+    let formatClass = 'nav-nav-menu';
+    if (type === 'horizontal' && format === 'float') {
+        if (noHeader === false) {
+            if (headerFixed === false) {
+                formatClass = 'nav-nav-menu';
+            } else {
+                formatClass = 'nav-nav-menu_header_fixed';
+            }
+        } else {
+            formatClass = 'nav-nav-menu';
+        }
+    } else if (type === 'horizontal' && format === 'fixed') {
+        if (noHeader === false) {
+            formatClass = 'nav-nav-menu_fixed_horiz';
+        } else {
+            formatClass = 'nav-nav-no_header_menu_fixed_horiz';
+        }
+    } else if (type === 'vertical' && format === 'float') {
+        if (noHeader === false) {
+            if (headerFixed === false) {
+                formatClass = 'nav-nav-menu';
+            } else {
+                formatClass = 'nav-nav-menu_float_vert';
+            }
+        } else {
+            formatClass = 'nav-nav-menu'
+        }
+    } else if (type === 'vertical' && format === 'fixed') {
+        if (noHeader === false) {
+            formatClass = 'nav-nav-menu_fixed_vert';
+        } else {
+            formatClass = 'nav-nav-no_header_menu_fixed_vert';
+        }
+    }
+
     return (
         <div className={"sw-menu " + classStyle}>
             <NavigateBar
                  menuTree={props.menuTree}
                  symbol={symbol}
                  subsymbol={subSymbol}
+                 formatClass={formatClass}
                  type={type}
                  open={open}
                  page={(hasOwnProperty(props, 'page')) ? true : false}

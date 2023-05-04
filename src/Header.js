@@ -22,6 +22,7 @@ export const Header = (props) => {
   const logoutURL   = (props.logoutURL)               ? props.logoutURL   : ''
   const loginURL    = (props.loginURL)                ? props.loginURL    : ''
   const setUsername = (props.setUsername)             ? props.setUsername : () => {console.log('no setUsername fn() passed to Header.');}
+  const format      = (props.format)                  ? props.format      : 'float';
 
   let userMsg  = (username === null) ? "User not Logged in" : 'Welcome: ' + username
 
@@ -36,6 +37,13 @@ export const Header = (props) => {
         modalButton = <button id="sw-modalButton" onClick={() => setShowModal(true)}>.</button>
   }
 
+  let formatClass = '';
+  if (format === 'float') {
+    formatClass = 'sw-header_main_float';
+  } else if (format === 'fixed') {
+    formatClass = 'sw-header_main_fixed';
+  }
+
   let alert = null
   if (!username && !props.noModalOnError) {
     const img = (alertLogo) ? <><img src={alertLogo} /><br/></> : null
@@ -44,12 +52,12 @@ export const Header = (props) => {
   }
 
   const titleImg = (titleLogo !== null) ? <img src={titleLogo} alt="Logo" className="sw-header_logo" /> : null
-  return (<header>
+  return (<header className={formatClass} id="header">
             <div className="sw-header_div">
               {titleImg}
               <h1 className="sw-header_title">{title}</h1>
-              <span className="sw-header_link">{userMsg}{modalButton}</span>
-              <h2>{dbType}</h2>
+              <span className="sw-header_msg">{userMsg}{modalButton}</span>
+              <h2 className="sw-header_database">{dbType}</h2>
               {logout}
               {login}
               <HeaderModal show={showModal} username={username} setUser={setUsername} closeFunct={setShowModal}/>

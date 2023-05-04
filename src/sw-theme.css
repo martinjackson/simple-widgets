@@ -1,34 +1,40 @@
 /* sw = simple-widgets */
 
 :root {
-    --sw-theme_backgroundColor: aliceblue;
+    --sw-theme_backgroundColor: inherit;
+    --sw-theme_buttonPadding: 8px;
     --sw-theme_buttonMargin: 10px;
     --sw-theme_buttonRadius: 10px;
     --sw-theme_buttonWidth: 100px;
     --sw-theme_buttonHeight: 30px;
-    --sw-theme_buttonColor: blue;
-    --sw-theme_buttonTextColor: white;
-    --sw-theme_buttonFont: Times New Roman;
-    --sw-theme_buttonFontWeight: bold;
+    --sw-theme_buttonBorder: 2px solid #bcdff3;
+    --sw-theme_buttonColor: #a4d3ee;
+    --sw-theme_buttonTextColor: rgb(46, 41, 37);;
+    --sw-theme_buttonFont: "Open Sans", sans-serif;;
+    --sw-theme_buttonFontWeight: 600;
     --sw-theme_buttonFontSize: 12;
-    --sw-theme_disableButtonColor: gray;
-    --sw-theme_font: Times New Roman;
-    --sw-theme_fontWeight: plain;
+    --sw-theme_buttonStyle: normal;
+    --sw-theme_disableButtonColor: lightgray;
+    --sw-theme_font: "Open Sans", sans-serif;;
+    --sw-theme_fontWeight: bold;
     --sw-theme_fontSize: 12;
     --sw-theme_errorColor: pink;
     --sw-theme_normalColor: white;
     --sw-theme_textColor: black;
-}
+   }
 
 .sw-theme_buttonStyle {
-    margin: var(--sw-theme_buttonMargin);
-    border-radius: var(--sw-theme_buttonRadius);
-    color: var(--sw-theme_buttonTextColor);
-    width: var(--sw-theme_buttonWidth);
-    height: var(--sw-theme_buttonHeight);
-    font: var(--sw-theme_buttonFont);
-    font-weight: var(--sw-theme_buttonFontWeight);
+    font-family: var(--sw-theme_buttonFont);
     font-size: var(--sw-theme_buttonFontSize);
+    font-weight: var(--sw-theme_buttonFontWeight);
+    font-style: var(--sw-theme_buttonStyle);
+    color: var(--sw-theme_buttonTextColor);
+    border: var(--sw-theme_buttonBorder);
+    border-radius: var(--sw-theme_buttonRadius);
+    margin: var(--sw-theme_buttonMargin);
+    padding: var(--sw-theme_buttonPadding);
+/*    width: var(--sw-theme_buttonWidth);
+    height: var(--sw-theme_buttonHeight); */
 }
 
 .sw-theme_grayButtonBackground {

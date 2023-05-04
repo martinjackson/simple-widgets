@@ -89,12 +89,12 @@ export const generateCSSButton = (cssClassName,
                                   cssNormalName = 'sw-theme_normalButtonBackground',
                                   cssDisableName = 'sw-theme_grayButtonBackground') => {
     if (error === true || disabled === true) {
-        return `${cssClassName} ${cssDisableName}`;
+        return `${cssDisableName} ${cssClassName}`;
     } else {    // No error or disable
         if (noBackground === true) {
             return cssClassName;
         } else {
-            return `${cssClassName} ${cssNormalName}`;
+            return ` ${cssNormalName} ${cssClassName}`;
         }
     }
 }

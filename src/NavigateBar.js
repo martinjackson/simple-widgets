@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from './MenuBar';
 
+import { hasOwnProperty } from './hasOwnProperty.js'
+
+
 let dropDown = [];
 
 export const NavigateBar = (props) => {
@@ -15,7 +18,7 @@ export const NavigateBar = (props) => {
 
     const buildTree = (menuTree) => {
         for (let i = 0; i < menuTree.length; i++) {
-            if (menuTree[i].hasOwnProperty('submenu')) {
+            if (hasOwnProperty(menuTree[i], 'submenu')) {
                 menuTree[i]['index'] = count;
                 count++;
                 buildTree(menuTree[i].submenu);
@@ -84,7 +87,7 @@ export const NavigateBar = (props) => {
 
     const buildDropDowns = (row, index) => {
         let name = null;
-        if (row.hasOwnProperty('title')) {
+        if (hasOwnProperty(row, 'title')) {
             name = row.title.replace(' ', '_') + index;
         }
 
@@ -95,7 +98,7 @@ export const NavigateBar = (props) => {
             navMargin = ' dropdown-menu2-vertical';
         }
 
-        if (row.hasOwnProperty('submenu')) {
+        if (hasOwnProperty(row, 'submenu')) {
             return (<li
                             key={name}
                             className={navItem}
@@ -111,7 +114,7 @@ export const NavigateBar = (props) => {
                                         {row.submenu.map(buildDropDowns)}
                                     </ul> : <></> }
                     </li> )
-        } else if (row.hasOwnProperty('title')) {
+        } else if (hasOwnProperty(row, 'title')) {
             return (<li key={name}>
                             <Link
                                 className="dropdown-link"
@@ -125,7 +128,7 @@ export const NavigateBar = (props) => {
     const buildMainMenu = (menuTree) => {
         return menuTree.map((row, index) => {
             let name = '';
-            if (row.hasOwnProperty('title')) {
+            if (hasOwnProperty(row, 'title')) {
                 name = row.title.replace(' ', '_') + index;
             }
 
@@ -141,7 +144,7 @@ export const NavigateBar = (props) => {
                 dropDownType = ' dropdown-menu-vertical';
             }
 
-            if (row.hasOwnProperty('submenu')) {
+            if (hasOwnProperty(row, 'submenu')) {
                 return ( <li
                                 key={name}
                                 className={navItem}
@@ -158,7 +161,7 @@ export const NavigateBar = (props) => {
                                     </ul> : <></>
                                 }
                             </li> )
-            } else if (row.hasOwnProperty('title')) {
+            } else if (hasOwnProperty(row, 'title')) {
                 return (<li key={name}
                             className={navItem}>
                                 <Link to={row.path} className='nav-links'>
@@ -214,9 +217,10 @@ export const NavigateBar = (props) => {
         menuIcon = <div className="nav-center">&#x2630;</div>
     }
 
-    const disabled = (props.disabled) ? true : null
+    const disabled = (props.disabled) ? true : null;
+
     return (
-        <nav className={'nav-nav-menu ' + open} disabled={disabled}>
+        <nav className={`${props.formatClass} ${open}`} disabled={disabled}>
             {menuIcon}
             <ul className={click ? 'nav-menu active' + navType : 'nav-menu' + navType}>
                 {buildMainMenu(menuTree)}

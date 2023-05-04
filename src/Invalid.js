@@ -245,7 +245,17 @@ export const setInvalidDual = (invalidValues, constant1, constant2, index, type,
  *
  ******************************************************************************************/
 export const checkValidityScreen = (invalidValues, constant) => {
-    return (isInvalid(invalidValues[constant], -1) === true) ? <span className="sw-invalid_errMessage">{invalidValues[constant].message}</span> : null
+    if (isInvalid(invalidValues[constant], -1) === true) {
+        return (
+            <span>
+                <span className="sw-invalid_error">ERR</span>
+                <span className="sw-invalid_errMessage">{invalidValues[constant].message}</span>
+            </span>
+        )
+    } else {
+        return null;
+    }
+//    return (isInvalid(invalidValues[constant], -1) === true) ? <span className="sw-invalid_errMessage">{invalidValues[constant].message}</span> : null
 }
 
 /******************************************************************************************
