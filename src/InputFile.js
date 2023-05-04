@@ -3,24 +3,22 @@ import React, { useState } from 'react';
 
 import { hasOwnProperty } from './hasOwnProperty.js'
 
-const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
-
 export const InputFile = (props) => {
     const [displayFile, setDisplayFile] = useState('');
 
     let buttonName = 'Browse';
-    if (hasProperty(props, 'buttonname')) {
+    if (hasOwnProperty(props, 'buttonname')) {
         buttonName = props.buttonname;
     }
 
     const processFile = (file) => {
         setDisplayFile(file.name);
 
-        if (hasProperty(props, 'getFileName')) {
+        if (hasOwnProperty(props, 'getFileName')) {
             props.getFileName(file.name, file);
         }
 
-        if (hasProperty(props, 'additionalProcessing')) {
+        if (hasOwnProperty(props, 'additionalProcessing')) {
             props.additionalProcessing();
         }
     }
@@ -30,7 +28,7 @@ export const InputFile = (props) => {
     }
 
     let processDisplay = processDisplayDefault;
-    if (hasProperty(props, 'processDisplay')) {
+    if (hasOwnProperty(props, 'processDisplay')) {
         processDisplay = props.processDisplay;
     }
 

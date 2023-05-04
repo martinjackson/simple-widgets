@@ -19,24 +19,22 @@ import { ConfirmModal }  from './ConfirmModal.js';
 import { generateCSSButton } from './Theme.js';
 import { sanitize } from './Common.js';
          
-const hasProperty = (obj, propName) => {
-    return !!Object.getOwnPropertyDescriptor(obj, propName);
-}
+import { hasOwnProperty } from './hasOwnProperty.js';
 
 let functYes = null;
 
 export const SpreadSheet = (props) => {
-    if (hasProperty(props, 'sheet') === false) {
+    if (hasOwnProperty(props, 'sheet') === false) {
         console.error ('SpreadSheet: The sheet prop is missing');
         return <div></div>;
     }
 
     const invalidArray = generateInvalid(0, props.sheet.length);
 
-    const ADDITIONAL = (hasProperty(props, 'additionalRows') === true) ? props.additionalRows : 20;
-    const ADD = (hasProperty(props, 'blankRows') === true) ? props.blankRows : 100;
+    const ADDITIONAL = (hasOwnProperty(props, 'additionalRows') === true) ? props.additionalRows : 20;
+    const ADD = (hasOwnProperty(props, 'blankRows') === true) ? props.blankRows : 100;
 
-    const [data, setData] = useState((hasProperty(props, 'data') === true) ? props.data : []);
+    const [data, setData] = useState((hasOwnProperty(props, 'data') === true) ? props.data : []);
     const [start, setStart] = useState('');
     const [indexes, setIndexes] = useState([]);
     const [invalid, setInvalid] = useState(invalidArray);
@@ -45,10 +43,10 @@ export const SpreadSheet = (props) => {
 
     let sheet = [...props.sheet];
     for (let i = 0; i < sheet.length; i++) {
-        if (hasProperty(sheet[i], 'validate') === false) sheet[i]['validate'] = false;
-        if (hasProperty(sheet[i], 'save') === false) sheet[i]['save'] = true;
-        if (hasProperty(sheet[i], 'hidden') === false) sheet[i]['hidden'] = false;
-        if (hasProperty(sheet[i], 'disabled') === false) sheet[i]['disabled'] = false;
+        if (hasOwnProperty(sheet[i], 'validate') === false) sheet[i]['validate'] = false;
+        if (hasOwnProperty(sheet[i], 'save') === false) sheet[i]['save'] = true;
+        if (hasOwnProperty(sheet[i], 'hidden') === false) sheet[i]['hidden'] = false;
+        if (hasOwnProperty(sheet[i], 'disabled') === false) sheet[i]['disabled'] = false;
     }
 
     const populateDirty = (data) => {
@@ -69,21 +67,21 @@ export const SpreadSheet = (props) => {
     }
 
     useEffect(() => {
-        let data = (hasProperty(props, 'data') === true) ? props.data : []
+        let data = (hasOwnProperty(props, 'data') === true) ? props.data : []
         populateDirty(data);
         setData(props.data)
     }, [props.data]);
 
     const startEnd = (start, end) => {
         setStart(start);
-        if (hasProperty(props, 'startEnd') === true) {
+        if (hasOwnProperty(props, 'startEnd') === true) {
             props.startEnd(start, end);
         }
     }
 
     const indexing = (indexes) => {
         setIndexes(indexes);
-        if (hasProperty(props, 'indexing') === true) {
+        if (hasOwnProperty(props, 'indexing') === true) {
             props.indexing(indexes);
         }
     }
@@ -103,7 +101,7 @@ export const SpreadSheet = (props) => {
             blank.push(obj);
         }
 
-        if (hasProperty(props, 'preload') === true) {
+        if (hasOwnProperty(props, 'preload') === true) {
             props.preload(blank);
         }
 
@@ -146,7 +144,7 @@ export const SpreadSheet = (props) => {
 
         localData = processCount(localData, value, index, posNum);
 
-        if (hasProperty(props, 'specialProcessing') === true) {
+        if (hasOwnProperty(props, 'specialProcessing') === true) {
             localData = props.specialProcessing(localData, name, value, index);
         }
 
@@ -323,7 +321,7 @@ export const SpreadSheet = (props) => {
             }
 
             for (let i = 0; i < newData.length; i++) {
-                if (hasProperty(props, 'specialProcessingSave') === true) {
+                if (hasOwnProperty(props, 'specialProcessingSave') === true) {
                     newData[i] = props.specialProcessingSave (newData[i]);
                 }
 
@@ -338,7 +336,7 @@ export const SpreadSheet = (props) => {
             }
 
             if (newData.length !== 0) {
-                if (hasProperty(props, 'saveFunct') === true) {
+                if (hasOwnProperty(props, 'saveFunct') === true) {
                     props.saveFunct(newData);
                 }
             }
@@ -359,7 +357,7 @@ export const SpreadSheet = (props) => {
 
     let title = null;
 
-    if (hasProperty(props, 'title') === true) {
+    if (hasOwnProperty(props, 'title') === true) {
         title = <h1 className="sw-ss_center">{props.title}</h1>;
     }
 
@@ -369,7 +367,7 @@ export const SpreadSheet = (props) => {
             <SearchSortTable
                 data={data}
                 table={table}
-                MAX_ITEMS={(hasProperty(props, 'maxItems') === true) ? props.maxItems : 50}
+                MAX_ITEMS={(hasOwnProperty(props, 'maxItems') === true) ? props.maxItems : 50}
                 eachRowInTable={eachRowInTable}
                 startEnd={startEnd}
                 indexing={indexing}
@@ -377,15 +375,15 @@ export const SpreadSheet = (props) => {
                 scroll
                 nosearch
                 nofilter
-                nopdf={hasProperty(props, 'nopdf')}
-                noexcel={hasProperty(props, 'noexcel')}
+                nopdf={hasOwnProperty(props, 'nopdf')}
+                noexcel={hasOwnProperty(props, 'noexcel')}
                 noheaderborder
-                height={(hasProperty(props, 'height') === true) ? props.height : "675px"}>
+                height={(hasOwnProperty(props, 'height') === true) ? props.height : "675px"}>
             </SearchSortTable>
             <div className="sw-ss_center">
-                {(hasProperty(props, 'nosave') === true) ? null : <button name="save" className={genButtonStyle} onClick={saveButton }>Save</button> }
-                {(hasProperty(props, 'noclear') === true) ? null : <button name="clear" className={genButtonStyle} onClick={clearButton}>Clear</button> }
-                {(hasProperty(props, 'noaddrows') === true) ? null : <button name="addrows" className={genButtonStyle} onClick={() => populate(ADDITIONAL)}>Add Rows</button> }
+                {(hasOwnProperty(props, 'nosave') === true) ? null : <button name="save" className={genButtonStyle} onClick={saveButton }>Save</button> }
+                {(hasOwnProperty(props, 'noclear') === true) ? null : <button name="clear" className={genButtonStyle} onClick={clearButton}>Clear</button> }
+                {(hasOwnProperty(props, 'noaddrows') === true) ? null : <button name="addrows" className={genButtonStyle} onClick={() => populate(ADDITIONAL)}>Add Rows</button> }
             </div>
             <ConfirmModal show={showConfirm} yesFunct={functYes} closeFunct={setShowConfirm} message={confirmMessage} />
         </div>

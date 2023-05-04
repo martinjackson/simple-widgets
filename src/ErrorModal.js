@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Modal } from './Modal.js';
 
+import { hasOwnProperty } from './hasOwnProperty.js';
+
 const defProps = {
     show: true,
     closeFunct: () => {},
@@ -11,11 +13,11 @@ const defProps = {
 export const ErrorModal = inProps => {
     const props = {...defProps, ...inProps};
 
-    if (('show' in inProps) === false) {
+    if (hasOwnProperty(inProps, 'show') === false) {
         console.error ('ErrorModal: The show property is not present');
     }
 
-    if (('closeFunct' in inProps) === false) {
+    if (hasOwnProperty(inProps, 'closeFunct') === false) {
         console.error ('ErrorModal: The closeFunct property is not present');
     }
 

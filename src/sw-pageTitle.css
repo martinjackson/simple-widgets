@@ -1,0 +1,34 @@
+:root {
+    --sw-pt_bannerBackground: rgb(0, 124, 186);
+    --sw-pt_bannerTextColor: rgb(255, 255, 255);
+    --sw-pt_bannerBorderStyle: solid;
+    --sw-pt_bannerBorderWidth: 30px;
+    --sw-pt_bannerMargin: 0px;
+    --sw-pt_bannerFontSize: 24pt;
+    --sw-pt_bannerFontWeight: normal;
+    --sw-pt_bannerStyle: normal;
+    --sw-pt_bannerTextAlign: left;
+    --sw-pt_bannerPadding: 5px;
+    --sw-pt_bannerLineHeight: 1.2;
+    --sw-pt_bannerOverFlowY: hidden;
+ }
+
+.sw-pt_banner {
+    background-color: var(--sw-pt_bannerBackground);
+    border-style: var(--sw-pt_bannerBorderStyle);
+    border-width: var(--sw-pt_bannerBorderWidth);
+    border-color: var(--sw-pt_bannerBackground);
+    margin: var(--sw-pt_bannerMargin);
+}
+
+.sw-pt_bannerFont {
+    font-family: var(--sw-pt_font);
+    font-size: var(--sw-pt_bannerFontSize);
+    color: var(--sw-pt_bannerTextColor);
+    font-weight: var(--sw-pt_bannerFontWeight);
+    font-style: var(--sw-pt_bannerStyle);
+    text-align: var(--sw-pt_bannerTextAlign);
+    padding: var(--sw-pt_bannerPadding);
+    line-height: var(--sw-pt_bannerLineHeight);
+    overflow-y: var(--sw-pt_bannerOverFlowY);
+}
