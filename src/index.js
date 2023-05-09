@@ -28,6 +28,7 @@ import { getMenuParms, MenuBar, Redirect, Link } from './MenuBar.js'
 import { Modal } from './Modal.js'
 import { NavigateBar } from './NavigateBar.js'
 import { Outline } from './Outline.js'
+import { PageTitle } from './PageTitle.js'
 import { Radio } from './Radio.js'
 import { search, binSearch } from './SearchFunct.js'
 import { SearchSortTable } from './SearchSortTable.js'
@@ -42,6 +43,7 @@ import { date2str } from './date2str.js'
 import { lastOfMonth, todayString } from './dateUtils.js'
 import { getList, decrypt, encrypt } from './encrypt.js'
 import { createStoreItem, useStoreItem, openGeneralStore } from './generalStore.js'
+import { hasOwnProperty } from './hasOwnProperty.js'
 import { localStrToDate } from './localStrToDate.js'
 import { makeChangeHandler } from './makeChangeHandler.js'
 import { register, unregister } from './serviceWorker.js'
@@ -109,23 +111,24 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, validCheckTable,
          clearInvalidDual, clearInvalidScreen, clearInvalidTable, processInvalidStyleScreen,
          processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, isInvalid,
-         getInvalidMessage, List, getMenuParms, MenuBar, Redirect, Link, Modal, NavigateBar, Outline, Radio,
-         search, binSearch, SearchSortTable, SimpleTable, Slider, SpreadSheet, StatusBox, generateButton,
-         generateDefaultButton, generateCSSButton, generateCSSDefaultButton, isOpera, isFirefox, isSafari,
-         isIE, isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, date2str, lastOfMonth, todayString,
-         getList, decrypt, encrypt, createStoreItem, useStoreItem, openGeneralStore, localStrToDate,
-         makeChangeHandler, register, unregister, now, TS, Button, fields, applyOptions, EntryScreen,
-         ErrorList, setFieldGenerator, fieldGeneratorLookup, FormHeader, FormTable, Form, getFieldRecName,
-         getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, Gears, Input,
-         LocalChoice, MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen,
-         capWords, client, applyDeepValueChange, dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord,
-         genColHeaders, genRowBuilder, getGqlName, getKeyValues, ignoreCase, isFunction, isNotEmpty,
-         isPromise, createJobStatus, updateJobStatus, watchJobStatus, label2value, value2label, logDiff,
-         notifyLookupsDone, serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias,
-         changeLookupAlias, addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog,
-         getLookupLogs, getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail,
-         stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
-         setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec, formFromTableInfo,
-         tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
-         getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
+         getInvalidMessage, List, getMenuParms, MenuBar, Redirect, Link, Modal, NavigateBar, Outline,
+         PageTitle, Radio, search, binSearch, SearchSortTable, SimpleTable, Slider, SpreadSheet, StatusBox,
+         generateButton, generateDefaultButton, generateCSSButton, generateCSSDefaultButton, isOpera,
+         isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, date2str,
+         lastOfMonth, todayString, getList, decrypt, encrypt, createStoreItem, useStoreItem,
+         openGeneralStore, hasOwnProperty, localStrToDate, makeChangeHandler, register, unregister, now, TS,
+         Button, fields, applyOptions, EntryScreen, ErrorList, setFieldGenerator, fieldGeneratorLookup,
+         FormHeader, FormTable, Form, getFieldRecName, getGqlNameFromForm, FieldsFromList,
+         FieldsFromListWorks, ifDefined, FormFields, Gears, Input, LocalChoice, MakeModal, NarrowForm,
+         pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen, capWords, client, applyDeepValueChange,
+         dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder,
+         getGqlName, getKeyValues, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus,
+         updateJobStatus, watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone,
+         serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias,
+         addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog, getLookupLogs,
+         getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace,
+         toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo,
+         getAppSpecificInfo, createRec, deleteRec, formFromTableInfo, tableField2FormField,
+         genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName, getGqlPKs,
+         listNotKeyedTables, updateRecord, AddRecordIcon,
          CloneRecordIcon }
