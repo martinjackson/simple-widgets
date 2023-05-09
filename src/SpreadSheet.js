@@ -189,11 +189,12 @@ export const SpreadSheet = (props) => {
 
         for (let i = 0; i < sheet.length; i++) {
             let rowSheet = sheet[i];
+            const key = `spsht_${pos}${i}`;
 
             if (rowSheet.hidden === false) {
                 if (rowSheet.type === 'text' || rowSheet.type === 'date' || rowSheet.type === 'number') {
                     if (rowSheet.validate === true) {
-                        html.push(<td className="sw-invalid_checkForError">
+                        html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
                                     <input type={rowSheet.type} name={rowSheet.name} value={row[rowSheet.name]} 
                                         onChange={(event) => processValue(event, pos, i)} 
                                         onClick={() => wasClickedTable(invalid, i, pos, setInvalid)} 
@@ -202,7 +203,7 @@ export const SpreadSheet = (props) => {
                                     { checkValidityTable(invalid, i, pos) }
                                 </td>);
                     } else {
-                        html.push(<td>
+                        html.push(<td key={key} className="sw-ss_center">
                                     <input type={rowSheet.type} name={rowSheet.name} value={row[rowSheet.name]} 
                                         onChange={(event) => processValue(event, pos, i)} 
                                         className={rowSheet.className} disabled={props.error || rowSheet.disabled} />
@@ -210,7 +211,7 @@ export const SpreadSheet = (props) => {
                     }
                 } else if (rowSheet.type === 'textarea') {
                     if (rowSheet.validate === true) {
-                        html.push(<td className="sw-invalid_checkForError">
+                        html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
                                     <textarea name={rowSheet.name} value={row[rowSheet.name]} 
                                         onChange={(event) => processValue(event, pos, i)} 
                                         onClick={() => wasClickedTable(invalid, i, pos, setInvalid)} 
@@ -219,7 +220,7 @@ export const SpreadSheet = (props) => {
                                     { checkValidityTable(invalid, i, pos) }
                                 </td>);
                     } else {
-                        html.push(<td>
+                        html.push(<td key={key} className="sw-ss_center">
                                     <textarea name={rowSheet.name} value={row[rowSheet.name]} 
                                         onChange={(event) => processValue(event, pos, i)} 
                                         className={rowSheet.className} 
@@ -228,7 +229,7 @@ export const SpreadSheet = (props) => {
                     }
                 } else if (rowSheet.type === 'Choice') {
                     if (rowSheet.validate === true) {
-                        html.push(<td className="sw-invalid_checkForError">
+                        html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
                                     <Choice choices={rowSheet.choices} 
                                         name={rowSheet.name} value={row[rowSheet.name]} 
                                         onChange={(event) => processValue(event, pos, i)} 
@@ -238,7 +239,7 @@ export const SpreadSheet = (props) => {
                                     { checkValidityTable(invalid, i, pos) }
                                 </td>);
                     } else {
-                        html.push(<td>
+                        html.push(<td key={key} className="sw-ss_center">
                                     <Choice choices={rowSheet.choices} name={rowSheet.name} value={row[rowSheet.name]} 
                                         onChange={(event) => processValue(event, pos, i)} 
                                         className={rowSheet.className} disabled={props.error || rowSheet.disabled} />
@@ -246,7 +247,7 @@ export const SpreadSheet = (props) => {
                     }
                 } else if (rowSheet.type === 'ChoiceText') {
                     if (rowSheet.validate === true) {
-                        html.push(<td className="sw-invalid_checkForError">
+                        html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
                                     <ChoiceText list={`sheetList_${i}_${pos}`} choices={rowSheet.choices}
                                         name={rowSheet.name} value={row[rowSheet.name]} 
                                         onChange={(event) => processValue(event, pos, i)} 
@@ -256,7 +257,7 @@ export const SpreadSheet = (props) => {
                                     { checkValidityTable(invalid, i, pos) }
                                 </td>);
                     } else {
-                        html.push(<td>
+                        html.push(<td key={key} className="sw-ss_center">
                                     <ChoiceText list={`sheetList_${i}_${pos}`} choices={rowSheet.choices}
                                         name={rowSheet.name} value={row[rowSheet.name]} 
                                         onChange={(event) => processValue(event, pos, i)} 
@@ -264,21 +265,21 @@ export const SpreadSheet = (props) => {
                                 </td>);
                     }
                 } else if (rowSheet.type === 'CheckBox') {
-                    html.push(<td>
+                    html.push(<td key={key} className="sw-ss_center">
                                 <CheckBox selectedValue={rowSheet.selectedValue}
                                     name={rowSheet.name} value={row[rowSheet.name]} text={rowSheet.header}
                                     onChange={(event) => processValue(event, pos, i)} 
                                     className={rowSheet.className} disabled={props.error || rowSheet.disabled} />                          
                             </td>);
                 } else if (rowSheet.type === 'Radio') {
-                    html.push(<td>
+                    html.push(<td key={key} className="sw-ss_center">
                                 <Radio selectedValue={rowSheet.selectedValue}
                                     name={rowSheet.name} value={row[rowSheet.name]} text={rowSheet.header}
                                     onChange={(event) => processValue(event, pos, i)} 
                                     className={rowSheet.className} disabled={props.error || rowSheet.disabled} />                          
                                 </td>);
                 } else if (rowSheet.type === 'button') {
-                    html.push(<td>
+                    html.push(<td key={key} className="sw-ss_center">
                                 <button name={rowSheet.name} 
                                         onClick={() => rowSheet.buttonOnClick(rowSheet.parameters, pos, data)} 
                                         className={genButtonStyle + ' ' + rowSheet.className} 
@@ -287,7 +288,7 @@ export const SpreadSheet = (props) => {
                                 </button>
                             </td>)
                 } else if (rowSheet.type === 'html') {
-                    html.push(<td>
+                    html.push(<td key={key} className="sw-ss_center">
                                 { rowSheet.html }
                             </td>);
                 }
