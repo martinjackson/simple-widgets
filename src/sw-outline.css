@@ -4,10 +4,10 @@
     --sw-outline-normal_indent: 1em;
     --sw-outline-margin_right: 1em;
     --sw-outline-font_size: large;
-    --sw-outline-reg_color: blue;
+    --sw-outline-reg_color: rgb(0, 124, 186);
     --sw-outline-reg_back_color: white;
     --sw-outline-hover_color: white;
-    --sw-outline-hover_back_color: gray;
+    --sw-outline-hover_back_color: rgb(0, 124, 186);
     --sw-outline-font_family: Tahoma;
     --sw-outline-overall_width: 100%;
 }
