@@ -3,6 +3,9 @@
   "version": "1.33.11",
   "description": "A Collection of React components to make your React code simpler",
   "main": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "dont-use-build2": "rm -f lib/index.*js* && node build.js && ls -l lib/ ",
     "update": "npm install --legacy-peer-deps --silent; npx npm-force-resolutions ; npm audit",
@@ -12,6 +15,7 @@
     "build": "./build-prep.sh && webpack",
     "dry": "run-s build dry-run",
     "pub": "run-s build release",
+    "test-lib": "echo '// Install the local package \n   npm install '../location/of/your/local/project' ",
     "test": "jest --colors",
     "watch": "jest --watch",
     "coverage": "jest --coverage && cat ./tests/coverage/lcov.info ",
