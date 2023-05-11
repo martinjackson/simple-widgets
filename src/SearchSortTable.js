@@ -1707,14 +1707,14 @@ const _InnerSearchSortTable = (props) => {
         let info = sortMultipleCols(controlBreakInfo, indexes); // Sort the columns based on the control break data
         let ctrlBreakData = [];                                 // Contains the control break title, data, and footer
         let startingPos = [0];                                  // Contains where each control break starts in the data
-        let pos = 0;                                            // Used to get the title out of the control break data
+//        let pos = 0;                                            // Used to get the title out of the control break data
         let data = [];                                          // The data for the control break;
 
         let temp = processTemp (0, info);
 
         for (let k = 0; k < info.indexes.length; k++) {
             if (compare(k, info, temp) === true) {  // Check to see if the temporary value and data value are equal
-                pos = k;
+//                pos = k;
                 data.push(props.data[info.indexes[k]]); // Place the data into the control break data array
                 if ((k + 1) === info.indexes.length) {  // At the end of the control break
                     let title = processTitle(k, info);  // Get the control break title and footer
@@ -1724,7 +1724,7 @@ const _InnerSearchSortTable = (props) => {
             } else {    // Temporary value and dat values are unequal (new control break)
                 startingPos.push(k);    // Place the starting position of the new table
 
-                let title = processTitle(pos, info);    // Get the control break title and footer
+                let title = processTitle(k - 1, info);    // Get the control break title and footer
                 let footer = processFooter();
 
                 // Build a control break table
