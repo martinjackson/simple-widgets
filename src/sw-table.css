@@ -195,11 +195,12 @@ table.sw-sst_search_sort_table10 tr:hover td {
 
 .sw-sst_buttonStyle {
   margin: var(--sw-theme_buttonMargin);
+  padding: var(--sw-theme_buttonPadding);
   border: var(--sw-theme_buttonBorder);
   border-radius: var(--sw-theme_buttonRadius);
   color: var(--sw-theme_buttonTextColor);
-  width: var(--sw-theme_buttonWidth);
-  height: var(--sw-theme_buttonHeight);
+/*  width: var(--sw-theme_buttonWidth);
+  height: var(--sw-theme_buttonHeight); */
   font: var(--sw-theme_buttonFont);
   font-weight: var(--sw-theme_buttonFontWeight);
   font-size: var(--sw-theme_buttonFontSize);
