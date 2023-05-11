@@ -90,11 +90,6 @@ export const FormTable = (props) => {
 
     let labels = getLabels(props.name)
 
-    const tableFixHead = {
-      overflow: 'auto',
-      height: (props.visRows+0.5) + 'rem'
-    }
-
     const headStyle = {   // thead th
       position: 'sticky',
       top: 0,
@@ -121,9 +116,9 @@ return (
                noAdd={props.noAdd}
                noClone={props.noClone}
                />
-        <div style={{display:"inline-block"}}>
-          <div style={tableFixHead}>
-            <table className="table-auto">
+        <div>                                {/* style={{display:"inline-block"}}>  does not allow cells to resize  */}
+          <div style={{overflow: 'auto'}}>   {/* height: (props.visRows+0.5) + 'rem'   does not allow cells to resize (textArea, etc) */}
+            <table>
               <thead style={headStyle}>
                 <tr>
                   <th></th>
