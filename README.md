@@ -16,16 +16,28 @@ Planned removal:
 Using [npm](https://www.npmjs.com/):
 
 ```bash
-    $ npm install --save simple-widgets
+    npm install --save simple-widgets
 ```
 
    or [yarn](https://yarnpkg.com/en/docs/migrating-from-npm):
 
 ```bash
-    $ yarn add simple-widgets
+    yarn add simple-widgets
 ```
 
-__**Input Components**__
+## How to test the library locally (before publishing to npm)
+
+```bash
+cd ~/projects/simple-widgets
+npm run build
+npm pack
+
+cd ~/projects/testProject
+npm install  ~/projects/simple-widgets/simple-widgets-1.33.11.tgz
+
+```
+
+## Input Components
 
 CheckBox, Choice, ChoiceText, List, Radio, DatePicker, DoubleListBox
 
@@ -40,12 +52,13 @@ All of these widgets require the following props:
 - selectedValue: want the 'value' should change to when the CheckBox or Radio button is selected
 - text: a label (String or component) displayed following the CheckBox or Radio button
 
-__**Release Notes**__
+## Release Notes
+
 [1.32.0](docs/releases/release_1.32.0.md)
 [1.33.0](docs/releases/release_1.33.0.md)
 [1.33.1](docs/releases/release_1.33.1.md)
 
-__**Component Documents**__
+## Component Documents
 
 [CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md), [InputFile](docs/InputFile.md), [Slider](docs/Slider.md), [CheckBoxGroup](docs/CheckBoxGroup.md), [ChoiceTextSearchable](docs/ChoiceTextSearchable.md)
 
@@ -69,12 +82,12 @@ __**Component Documents**__
 
 [Browser Detect](docs/BrowserDetect.md)
 
-__**Getting Started**__
+## Getting Started_
 
 - [Short Tutorial](GettingStarted.md)
 - [Example Project](https://github.com/martinjackson/simple-widgets-sample)
 
-__**CSS File Information**__
+## CSS File Information
 
 [Using CSS Files](docs/UsingCSS.md)
 
