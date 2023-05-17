@@ -51,14 +51,18 @@ export const Header = (props) => {
     alert = <AlertModal show={showAlert} closeFunct={setShowAlert} message={msg} />
   }
 
+  const userSection = (props.hideUserSection) ? <></> : <span className="sw-header_link">{userMsg}{modalButton}</span>
+
   const titleImg = (titleLogo !== null) ? <img src={titleLogo} alt="Logo" className="sw-header_logo" /> : null
   return (<header className={formatClass} id="header">
             <div className="sw-header_div">
               {titleImg}
               <h1 className="sw-header_title">{title}</h1>
-              <span className="sw-header_msg">{userMsg}{modalButton}</span>
-              <h2 className="sw-header_database">{dbType}</h2>
+              {userSection}
+              <div className="sw-header_column">
               {logout}
+                {dbType} DB
+              </div>
               {login}
               <HeaderModal show={showModal} username={username} setUser={setUsername} closeFunct={setShowModal}/>
             </div>

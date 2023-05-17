@@ -217,8 +217,7 @@ export const NavigateBar = (props) => {
         menuIcon = <div className="nav-center">&#x2630;</div>
     }
 
-    const disabled = (props.disabled) ? true : null;
-
+    const disabled = (props.disabled) ? true : null
     return (
         <nav className={`${props.formatClass} ${open}`} disabled={disabled}>
             {menuIcon}

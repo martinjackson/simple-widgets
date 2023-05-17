@@ -1,6 +1,8 @@
 
 import React from 'react';
 
+import './FormImages.css'
+
 // was purchased
 // import addRecordBlue from './add-record-blue.svg'  // 339,295 bytes
 

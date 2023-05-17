@@ -1,6 +1,6 @@
 {
   "name": "simple-widgets",
-  "version": "1.33.12",
+  "version": "1.33.13",
   "description": "A Collection of React components to make your React code simpler",
   "main": "./lib/index.js",
   "files": [
@@ -12,7 +12,7 @@
     "setup": "npm install  --legacy-peer-deps",
     "lint": "eslint src/",
     "lint-fix": "eslint src/ --fix",
-    "build": "./build-prep.sh && webpack",
+    "build": "./build-prep.sh && webpack && npm pack",
     "dry": "run-s build dry-run",
     "pub": "run-s build release",
     "test-lib": "echo '// Install the local package \n   npm install '../location/of/your/local/project' ",
