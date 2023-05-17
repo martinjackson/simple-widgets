@@ -10,3 +10,25 @@
 .sw-ss_center {
     text-align: center;
 }
+
+.sw-ss_left {
+    text-align: left;
+}
+
+.sw-ss_right {
+    text-align: right;
+}
+
+.sw-ss_check {
+    font-size: x-large;
+}
+
+.sw-ss_checked_background {
+    background-color: var(--sw-theme_checkedBackground);
+}
+
+.sw-ss_background {
+    background-color: var(--sw-theme_backgroundColor);
+}
+
+

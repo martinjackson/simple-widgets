@@ -65,13 +65,24 @@ The dataDate field indicates the format of a date field in the data.  The filter
     - money       this will convert the number into a dollar amount with the format of $DD,DDD.DD
 
    If the date is already in the correct format, use left, right, or center.  If you do not supply a pdfCol, it will left justify the value for that column.
+
    An example set of row in the table for a pdfCol field might look like:
+
    ```javascript
         { header: 'Name',   name: 'NAME',   sort: true, search: true, dropDown: true, type: 'string' },
         { header: 'Salary', name: 'SALARY', sort: true, search: true, dropDown: true, type: 'number', pdfCol: 'money' }
    ```
 
    In the above example, the Name field in the PDF report will be left justified in the PDF column, since there is no pdfCol.  The Salary field in the PDF report will be right justified and will be placed in the dollar format ($D,DDD.DD).
+
+   If a checkbox is needed in the header of a column, here is an example of how to do this:
+
+   ```javascript
+        { header: '',       name: '',       checked: true },
+        { header: 'Name',   name: 'NAME',   sort: true, search: true, dropDown: true, type: 'string' },
+        { header: 'Salary', name: 'SALARY', sort: true, search: true, dropDown: true, type: 'number', pdfCol: 'money' }
+   ```
+  In the above example, the first entry has header and name blank.  The checked: true option indicates that the header for that column should be a checkbox.  This could be used with the rest rows in that column, to delete the rows that are checked.  The checkbox in the header should be used to check some or all the checkboxes in that row.  The checkedFunct is used to determine the behavoir of the checkbox in the header.
 
 3.  **eachRowInTable** = a function that indicates how each cell in a row will be displayed.  The function will build a row in the search sort table.  The function is passed a row in the table that needs to be put into the HTML table row format.  If hover props is used, the indexing table and onClick on the tr will need to be added.  The following example is with out the hover props being used:
 
@@ -351,9 +362,16 @@ To generate an excel spread sheet containing the table with control breaks and h
 
 1. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing.   The format of the function is the same as indexing.
 
-2.  ***choice*** = this indicates whether there will be choice boxes or input boxes for the filter input.  If choice prop appears, then the box to place the filter information will contain a choice box with all the possible data for that column.  Select or type the value and press the filter button.  If there is no choice prop, the filter information will be entered into an input text box.
+2.  ***checkedFunction*** = is a function that determines the behavior of the checkbox in the header.  The checkbox is placed in the header by using checked: true as an entry in the table for a column.  See the table section above.  The format of the function is as follows:
+```javascript
+const processAllChecks = (data) => {
+  ...
+}
+```
 
-3.  ***controlBreak*** = is an array that allows to set up hidden columns and control breaks before the table is displayed.  The control break array should have the same number of elements as the table array.  Each element is an object that contains a hidden and a control break field.  For example,
+3.  ***choice*** = this indicates whether there will be choice boxes or input boxes for the filter input.  If choice prop appears, then the box to place the filter information will contain a choice box with all the possible data for that column.  Select or type the value and press the filter button.  If there is no choice prop, the filter information will be entered into an input text box.
+
+4.  ***controlBreak*** = is an array that allows to set up hidden columns and control breaks before the table is displayed.  The control break array should have the same number of elements as the table array.  Each element is an object that contains a hidden and a control break field.  For example,
 ```javascript
   let controlBreak = [
     { hidden: false, ctrlBreak: 0 },
@@ -386,9 +404,9 @@ The first element in the table corresponds to the first item in the control brea
 The above control break array indicates the first column should be hidden, which is the Name column.  The ctrlBreak field in element 2 has a value of 1, which indicates that a control break will first occur on the State.  The ctrlBreak field in element 1 has a value 2, which indicates a control break will happen on City after the control break on State has happened.
 
 
-4.  ***error*** = indicates that an error occurred.  This will disable all buttons in the Search Sort Table.
+5.  ***error*** = indicates that an error occurred.  This will disable all buttons in the Search Sort Table.
 
-5. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  A sample footer might be:
+6. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  A sample footer might be:
 ```javascript
     let footer = [
         'Totals',
@@ -397,9 +415,9 @@ The above control break array indicates the first column should be hidden, which
         totalCAN,
     ];
 ```
-6. **height** = the height of the scroll box only.
+7. **height** = the height of the scroll box only.
 
-7. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.
+8. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.
 An example would be:
 ```javascript
 const [hideCol, setHideCol] = useState([]);
@@ -411,16 +429,16 @@ function hideTheCols (value) {
 <SearchSortTable hidden={hideTheCols}/>
 ```
 
-8. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
+9. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
 
-9. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
+10. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
 ```javascript
 hoverColor="yellow"
 ```
 
-10. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
+11. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
 
-11. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See other examples.
+12. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See other examples.
 An example would be:
 ```javascript
 const [indexes, setIndexes] = useState([]);
@@ -432,7 +450,7 @@ function indexing(value) {
 <SearchSortTable indexing={indexing} />
 ```
 
-12. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
+13. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
   - To use the letters option:
     1. Select a column header from the drop down menu.
     2. Select a letter or digit.
@@ -442,71 +460,71 @@ function indexing(value) {
     2. **nolower** = does not display the lower case letters
     3. **nodigit** = does not display the digits
 
-13. **mathdecimal** = the number of digits right of the decimal for an average or median aggregation
+14. **mathdecimal** = the number of digits right of the decimal for an average or median aggregation
 
-14. **mathignorecase** = ignore the case of the data for all the string aggregations.
+15. **mathignorecase** = ignore the case of the data for all the string aggregations.
 
-15. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
+16. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
 
-16. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
+17. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
 
-17. **nobottom** = does not display the bottom button.
+18. **nobottom** = does not display the bottom button.
 
-18. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
+19. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
 
-19. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
+20. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
 
-20. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
+21. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-21. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
+22. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
 
-22. **nofilter** = this will not display the Filter On check box and the filter button
+23. **nofilter** = this will not display the Filter On check box and the filter button
 
-23. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
+24. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 
-24. **nofooterborder** = do not put a border around each individual footer item.
+25. **nofooterborder** = do not put a border around each individual footer item.
 
-25. **noheaderborder** = do not put a border around each individual header item.
+26. **noheaderborder** = do not put a border around each individual header item.
 
-26. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
+27. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
 
-27. **nonext** = does not display the next button.
+28. **nonext** = does not display the next button.
 
-28. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
+29. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
 
 
-29. **noprevious** = does not display the previous button.
+30. **noprevious** = does not display the previous button.
 
-30. **norows** = does not display how maximum number of rows or the choice box for changing it.
+31. **norows** = does not display how maximum number of rows or the choice box for changing it.
 
-31. **nosearch** = does not display the header drop down, text box, and Search button.
+32. **nosearch** = does not display the header drop down, text box, and Search button.
 
-32. **nosort** = does not allow the headers to be sorted.
+33. **nosort** = does not allow the headers to be sorted.
 
-33. **notop** = does not display the top button or the total number of rows.
+34. **notop** = does not display the top button or the total number of rows.
 
-34. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
+35. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
 
-35. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
+36. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
 An example would be:
 ```javascript
 report="The PDF Report"
 ```
 
-36. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+37. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-37. **searchstart** = indicates that the search item will only match those data items that start with the search item
+38. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-38. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+39. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
-39. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+40. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-40. **showtable** = this will show the table and headers even if there is no data to display.
+41. **showtable** = this will show the table and headers even if there is no data to display.
 
-41. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+42. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-42. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+43. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -518,7 +536,7 @@ function startEnd (start, end) {
 <SearchSortTable startEnd={startEnd} />
 ```
 
-43. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+44. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -530,11 +548,11 @@ function startingPosition(value) {
 <SearchSortTable startingPos={startingPosition} />
 ```
 
-44. **title** = supplies a title to be displayed centered at the top of the table.
+45. **title** = supplies a title to be displayed centered at the top of the table.
 
-45. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+46. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-46. **width** = the width of the scroll box only.
+47. **width** = the width of the scroll box only.
 
 ## CSS Files
 

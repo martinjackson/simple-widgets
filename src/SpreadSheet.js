@@ -47,6 +47,9 @@ export const SpreadSheet = (props) => {
         if (hasOwnProperty(sheet[i], 'save') === false) sheet[i]['save'] = true;
         if (hasOwnProperty(sheet[i], 'hidden') === false) sheet[i]['hidden'] = false;
         if (hasOwnProperty(sheet[i], 'disabled') === false) sheet[i]['disabled'] = false;
+        if (hasOwnProperty(sheet[i], 'checked') === false) sheet[i]['checked'] = false;
+        if (hasOwnProperty(sheet[i], 'search') === false) sheet[i]['searched'] = false;
+        if (hasOwnProperty(sheet[i], 'sort') === false) sheet[i]['sort'] = false;
     }
 
     const populateDirty = (data) => {
@@ -67,10 +70,11 @@ export const SpreadSheet = (props) => {
     }
 
     useEffect(() => {
-        let data = (hasOwnProperty(props, 'data') === true) ? props.data : []
+        let data = (hasOwnProperty(props, 'data') === true) ? props.data : [];
         populateDirty(data);
-        setData(props.data)
+        setData(props.data);
     }, [props.data]);
+
 
     const startEnd = (start, end) => {
         setStart(start);
@@ -88,10 +92,16 @@ export const SpreadSheet = (props) => {
 
     const populate = (numRows = ADD, clear = false) => {
         let blank = [];
+
+        if (hasOwnProperty(props, 'data') && numRows < data.length) {
+            numRows = data.length;
+        }
+
         for (let i = 0; i < numRows; i++) {
             let obj = {
                 count: 0,
                 dirty: new Array(sheet.length).fill(false),
+                checked: 'N',
             };
 
             for (let j = 0; j < sheet.length; j++) {
@@ -117,11 +127,12 @@ export const SpreadSheet = (props) => {
     }, [])
 
 
-
     const table = [];
     for (let i = 0; i < sheet.length; i++) {
         if (sheet[i].hidden === false) {
-            table.push({ header: sheet[i].header, name: sheet[i].name, search: false, sort: false });
+            table.push({ header: sheet[i].header, name: sheet[i].name, 
+                search: sheet[i].search, sort: sheet[i].sort,
+                checked: (hasOwnProperty(sheet[i], 'checked') === true) ? sheet[i].checked : false });
         }
     }
 
@@ -192,7 +203,14 @@ export const SpreadSheet = (props) => {
             const key = `spsht_${pos}${i}`;
 
             if (rowSheet.hidden === false) {
-                if (rowSheet.type === 'text' || rowSheet.type === 'date' || rowSheet.type === 'number') {
+                if (rowSheet.checked === true) {
+                    html.push (<td key={key} className="sw-ss_center">
+                                <CheckBox selectedValue="Y"
+                                    name={`data[${pos}].checked`} value={data[pos].checked}
+                                    onChange={(event) => processChecked(event.target.value, pos)} 
+                                    className={" sw-ss_check " + rowSheet.className} disabled={props.error || rowSheet.disabled} />                          
+                                </td>)
+                } else if (rowSheet.type === 'text' || rowSheet.type === 'date' || rowSheet.type === 'number') {
                     if (rowSheet.validate === true) {
                         html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
                                     <input type={rowSheet.type} name={rowSheet.name} value={row[rowSheet.name]} 
@@ -298,6 +316,29 @@ export const SpreadSheet = (props) => {
         return html;
     }
 
+    const processAllChecks = (value) => {
+        if (value !== 'Y') {
+            value = 'N';
+        }
+
+        data.map(row => Object.keys(row).forEach (fieldName => {
+            if (fieldName !== 'count' && fieldName !== 'dirty' && fieldName !== 'checked') {
+                if (row[fieldName] !== '' && row[fieldName] !== null && row[fieldName] !== undefined) {
+                    row.checked = value;
+                }
+            }
+        }))
+    }
+
+    const processChecked = (value, i) => {
+        console.log('value :', value);
+        console.log('i :', i);
+
+        let localData = [...data];
+        localData[i].checked = (value === 'Y') ? 'Y' : 'N';
+        setData(localData);
+    }
+
     const eachRowInTable = (row, i) => {
         let key = 'row_' + (start + i);
         let pos = indexes[i];
@@ -305,7 +346,7 @@ export const SpreadSheet = (props) => {
         let html = buildHTML(row, pos);
 
         return (
-            <tr key={key}>
+            <tr key={key} className={(data[pos].checked === 'Y') ? 'sw-ss_checked_background' : 'sw-ss_background'}>
                 { html.map(row => row) }
             </tr>
         )
@@ -354,6 +395,22 @@ export const SpreadSheet = (props) => {
         populate(ADD, true);
     }
 
+    const removeFunct = (data) => {
+        functYes = () => removeFunctYes(data);
+        setConfirmMessage('Remove the checked rows?')
+        setShowConfirm(true);
+    }
+
+    const removeFunctYes = (data) => {
+        let count = 0;
+        let localData = [...data];
+
+        let filterData = localData.filter(row => { count++; return row.checked !== 'Y'});
+        setData(filterData);
+
+        populate(count);
+    }
+
     const genButtonStyle = generateCSSButton('sw-theme_buttonStyle', props.error);
 
     let title = null;
@@ -362,9 +419,45 @@ export const SpreadSheet = (props) => {
         title = <h1 className="sw-ss_center">{props.title}</h1>;
     }
 
+    const alignmentClass = (hasOwnProperty(props, 'alignment') === true) ? `sw-ss_${props.alignment}` : 'sw-ss_center';
+    const placement = (hasOwnProperty(props, 'placement') === true) ? props.placement : 'top';
+
+    let checkFound = false;
+    for (let i = 0; i < sheet.length; i++) {
+        if (sheet[i].checked === true) {
+            checkFound = true;
+        }
+    }
+
+    let specialButton = null;
+    if (checkFound === true && 
+        hasOwnProperty(props, 'buttonName') === true && 
+        hasOwnProperty(props, 'buttonFunct') === true) {
+        specialButton = <button name={props.buttonName} 
+                            className={genButtonStyle} onClick={() => props.buttonFunct(data)} >
+                                {props.buttonName}
+                        </button>
+    } else if (checkFound === true) {
+        const buttonName = (hasOwnProperty(props, 'buttonName') === true) ? props.buttonName : 'Remove';
+
+        specialButton = <button name={buttonName} 
+                            className={genButtonStyle} onClick={() => removeFunct(data)} >
+                                {buttonName}
+                        </button>
+    }
+
+    let buttonGroup = 
+        <div className={alignmentClass}>
+            {(hasOwnProperty(props, 'nosave') === true) ? null : <button name="save" className={genButtonStyle} onClick={saveButton }>Save</button> }
+            {(hasOwnProperty(props, 'noclear') === true) ? null : <button name="clear" className={genButtonStyle} onClick={clearButton}>Clear</button> }
+            {(hasOwnProperty(props, 'noaddrows') === true) ? null : <button name="addrows" className={genButtonStyle} onClick={() => populate(ADDITIONAL)}>Add Rows</button> }
+            { specialButton }
+        </div>
+
     return (
         <div>
             {title}
+            {(placement === 'top') ? buttonGroup : null}
             <SearchSortTable
                 data={data}
                 table={table}
@@ -372,20 +465,17 @@ export const SpreadSheet = (props) => {
                 eachRowInTable={eachRowInTable}
                 startEnd={startEnd}
                 indexing={indexing}
+                checkedFunct={processAllChecks}
                 error={props.error}
                 scroll
-                nosearch
                 nofilter
                 nopdf={hasOwnProperty(props, 'nopdf')}
                 noexcel={hasOwnProperty(props, 'noexcel')}
                 noheaderborder
+                sfbottom
                 height={(hasOwnProperty(props, 'height') === true) ? props.height : "675px"}>
             </SearchSortTable>
-            <div className="sw-ss_center">
-                {(hasOwnProperty(props, 'nosave') === true) ? null : <button name="save" className={genButtonStyle} onClick={saveButton }>Save</button> }
-                {(hasOwnProperty(props, 'noclear') === true) ? null : <button name="clear" className={genButtonStyle} onClick={clearButton}>Clear</button> }
-                {(hasOwnProperty(props, 'noaddrows') === true) ? null : <button name="addrows" className={genButtonStyle} onClick={() => populate(ADDITIONAL)}>Add Rows</button> }
-            </div>
+            {(placement === 'bottom') ? buttonGroup : null}
             <ConfirmModal show={showConfirm} yesFunct={functYes} closeFunct={setShowConfirm} message={confirmMessage} />
         </div>
     )
