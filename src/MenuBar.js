@@ -5,9 +5,8 @@ import { NavigateBar } from './NavigateBar';
 
 import { hasOwnProperty } from './hasOwnProperty.js'
 
-
-let setMenuPath = (newPath) => {}
-let setMenuParms = (newParms) => {}
+let setMenuPath = (_newPath) => {}
+let setMenuParms = (_newParms) => {}
 
 let menuParms = {}
 export const getMenuParms = () => { return menuParms }

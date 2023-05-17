@@ -59,6 +59,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
   text-align: center;
   margin: 5px;
   padding: 10px;
+  width: fit-content;
   background-color: var(--sw-theme_backgroundColor);  /* "#CCCC66" */
 }
 
@@ -223,7 +224,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
 }
 
 .sw-sst_headerButton {
-  background-color: var(--theme_backgroundColor); 
+  background-color: var(--theme_backgroundColor);
   border: none;
   font-weight: bold;
   font: var(--sw-theme_buttonFont);
@@ -272,8 +273,8 @@ table.sw-sst_search_sort_table10 tr:hover td {
   font-size: 0.75em;
 
   /* Position the tooltip */
-  position: absolute; 
-  z-index: 1; 
+  position: absolute;
+  z-index: 1;
 }
 
 

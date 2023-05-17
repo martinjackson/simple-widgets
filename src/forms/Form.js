@@ -7,6 +7,8 @@ import {AddRecordIcon, CloneRecordIcon} from './img/FormImages.js'
 import { arrLen } from './arrLen.js'
 import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
 
+import './Form.css'
+
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 function getLabels(formName) {
   const { formDictionary } = getAppSpecificInfo()
@@ -103,7 +105,7 @@ export const FormTable = (props) => {
 
 return (
     <div className={props.className}>
-      <div className={"form"}>
+      <div className={"form sw-form"}>
          <FormHeader
                header={props.header}
                dataRowStart={dataRowStart}
@@ -120,14 +122,14 @@ return (
           <div style={{overflow: 'auto'}}>   {/* height: (props.visRows+0.5) + 'rem'   does not allow cells to resize (textArea, etc) */}
             <table>
               <thead style={headStyle}>
-                <tr>
+                <tr className={"sw-form-tr"}>
                   <th></th>
                   {labels.map((f, j) => headerWrap(j, f))}
                 </tr>
               </thead>
               <tbody>
                   {rowIndexes.map((i) => (
-                    <tr key={i}>
+                    <tr key={i} className={"sw-form-tr"}>
                       { (i === dataRowStart) ? <td>▶</td> : <td></td> }
                       <FormFields
                         parentRecName={props.parentRecName}
@@ -174,7 +176,7 @@ export const Form = (props) => {
       <div className='flex flex-row'>
 
         <div className={props.className}>
-          <div className={'form'}>
+          <div className={'form sw-form'}>
           <FormHeader
                header={props.header}
                dataRowStart={dataRowStart}
