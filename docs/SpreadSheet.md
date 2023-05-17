@@ -73,28 +73,30 @@ In order for the user to use the Spread Sheet, they must pass the following prop
 1.  ***sheet*** = is an object that defines how the spread sheet should look.  This prop is required.  The object must contain the following:
     - ***header*** = the name of the header for that column in the spread sheet.
     - ***name*** = the name of the variable that the value should be stored in.
-    - ***validate*** = contains true if the field is to be validated or false if it is not to be validated.  This field is optional if validate is to be false.
-    - ***save*** = contains true if the field is to be saved when the Save button is pressed and false if it is not to be saved.  This field is optional if save is to be true.
-    - ***hidden*** = contains true if the field is not to be displayed in the spread sheet and false if is to be displayed.  If hidden is true, the header field can be a blank (' ').  This field is optional if hidden is to be false.
+    - ***checked*** = contains true if the column and the column header is to contain checkboxes.  If the buttonName and buttonFunct re used, which indicates that the developer will give name of the button and its behavior when items are checked in this column.  If no buttonName and buttonFunct are given, the default button Remove will be used, which will remove the row(s) that are checked.
     - ***disabled*** = contains true if the field is to be disabled and false if it is not.  This field is optional if disabled is to be false.
+    - ***hidden*** = contains true if the field is not to be displayed in the spread sheet and false if is to be displayed.  If hidden is true, the header field can be a blank (' ').  This field is optional if hidden is to be false.
+    - ***save*** = contains true if the field is to be saved when the Save button is pressed and false if it is not to be saved.  This field is optional if save is to be true.
+    - ***search*** = contains true if the field is to be searched on.  The search will appear at the bottom of the spreadsheet.
+    - ***sort*** = contains true if the field is to be sorted on.
+    - ***validate*** = contains true if the field is to be validated or false if it is not to be validated.  This field is optional if validate is to be false.
     - ***type*** = indicates the type of field that will be displayed.  This field is optional if hidden is true.  The following are the different types of field to display.
-        - ***text*** = indicates a text field should be displayed.
-        - ***date*** = indicates a date field should be displayed.
-        - ***number*** = indicates a numeric text field should be displayed.
-        - ***textarea*** = indicates a textarea for the field should be displayed.
-        - ***Choice*** = indicates that a drop down field should be displayed.  See the Choice documentation for more details.
-            - ***choices*** = an array that contains the values for the drop down
-        - ***ChoiceText*** = indicates that a drop down field that can be typed in and searched should be displayed.  See the ChoiceText documentation for more details.
-            - ***choices*** = an array that contains the values for the drop down
-        - ***CheckBox*** = indicates that a check box field should be displayed.  See the CheckBox documentation for more details
-            - ***selectedValue*** = the value to be placed in the check box when it is selected (checked).
-        - ***Radio*** = indicates that a radio button field should be displayed.  See the Radio documentation for more details.
-            - ***selectedValue*** = the value to be placed in the check box when it is selected (checked).
         - ***button*** = indicates that a button field should be displayed to invoke a modal.  The name of the onClick function and parameters must be supplied.  The name of the button will be what is in the name field on the sheet.
             - ***buttonOnClick*** = the name of the onClick function for the button.  This should display the Modal.
             - ***parameters*** = an array that contains any parameters that need to be sent to the onClick function.
         - ***html*** = any other HTML that should be displayed in the field.
-        - ***className*** = a css class name that will be applied to the type of component.  This will only apply if a type is present and is not html.
+        - ***CheckBox*** = indicates that a check box field should be displayed.  See the CheckBox documentation for more details
+            - ***selectedValue*** = the value to be placed in the check box when it is selected (checked).
+        - ***Choice*** = indicates that a drop down field should be displayed.  See the Choice documentation for more details.
+            - ***choices*** = an array that contains the values for the drop down
+        - ***ChoiceText*** = indicates that a drop down field that can be typed in and searched should be displayed.  See the ChoiceText documentation for more details.
+            - ***choices*** = an array that contains the values for the drop down
+        - ***date*** = indicates a date field should be displayed.
+        - ***number*** = indicates a numeric text field should be displayed.
+        - ***Radio*** = indicates that a radio button field should be displayed.  See the Radio documentation for more details.
+            - ***selectedValue*** = the value to be placed in the check box when it is selected (checked).
+        - ***text*** = indicates a text field should be displayed.
+        - ***textarea*** = indicates a textarea for the field should be displayed.
 
 Example:
 ```js
@@ -116,7 +118,9 @@ Example:
         { header: 'Gestation Period',       name: 'gestPeriod',         validate: false, save: true,  hidden: false,    type: 'number' },
         { header: 'Born Alive',             name: 'bornAlive',          validate: false, save: true,  hidden: false,    type: 'CheckBox', 
         selectedValue: 'Y' },
-        { header: 'Information',            name: 'info',               validate: false, save: false, hidden: false,    type: 'html', html: theSpan },
+        { header: 'Information',            name: 'info',               validate: false, save: false, hidden: false,    type: 'html', html: theSpan, search: cp },
+        { header: 'Name',                   name: 'name',               validate: true,  save: false, hidden: false,    type: 'text', search: true, sort: true },
+        { header: '', name: '', checked: true }
     ];
 ```
 
@@ -241,6 +245,26 @@ Information and Info
 - The type that will be displayed for the field will be a html.
 - The html field contains a span that will display the word Information.
 
+Name and name
+
+-    The header for the first column will contain Name.
+-    The name for the field that the value will be stored under is name.
+-    The field should be validated.
+-    The field will ***not*** be saved when the save button is pressed.
+-    The field should ***not*** be hidden and will be displayed.
+-    The type that will be displayed for the field will be a text box.
+-    The field can be sorted and searched on.
+
+last entry and checked: true
+
+-   There is no header or name.
+-   The checked: true indicates that the entire column will contain checkboxes.
+-   The checkbox in the table header indicates whether all the rows should be checked or not.
+-   When checked is true, another button will appear by default.  The name of the button is Remove, which will remove the checked row from the table.
+-   The default button can have it name change and its default behavior overrridden with the buttonName and buttonFunct props.
+
+
+
 2.  ***saveFunct*** = the name of the save function that will save the data.  This is not required if the noSave attribute is used.
 
 ```js
@@ -322,7 +346,19 @@ The rest of the props are optional:
 - data = the data in the spread sheet.
 - The data needs to be returned so that it can be incorporated into the spread sheet.
 
-10.  ***title*** = the centered title to be displayed above the spread sheet.  No title will be displayed if the prop is not present.
+10.  ***buttonName*** = the name of the button that is used in conjunction with checked: true (generates a column of checkboxes).  If checked is true, and there is no buttonName, the name of the button will be Remove.  If the name does not match what button is actually doing, then it can be changed.  The behavoir of the button is defined with ***buttonFunct***.
+
+11.  ***buttonFunct*** = this is a function that defines the behavior of the name button with ***buttonName***.  This function is called when the user clicks on the button.  The format of the function is:
+
+```js
+    const buttonBehavior = (data) => {
+        ...
+
+        return data;
+    }
+```
+
+12.  ***title*** = the centered title to be displayed above the spread sheet.  No title will be displayed if the prop is not present.
 
 ```js
     title="Breeding"
@@ -330,17 +366,21 @@ The rest of the props are optional:
 
 -    Breeding will be the title that appears centered before the spread sheet.
 
-11. ***nosave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
+13. ***nosave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
 
-12. ***noclear*** = indicates that the Clear button should not appear on the screen.
+14. ***noclear*** = indicates that the Clear button should not appear on the screen.
 
-13. ***noaddrows*** = indicates that the Add Rows button should not appear on the screen.  If this prop is used, there is no need for the additionalRows prop.
+15. ***noaddrows*** = indicates that the Add Rows button should not appear on the screen.  If this prop is used, there is no need for the additionalRows prop.
 
-14. ***nopdf*** = indicates that the PDF button and Orientation drop down should not appear on the screen.
+16. ***nopdf*** = indicates that the PDF button and Orientation drop down should not appear on the screen.
 
-15. ***noexcel*** = indicates that the Excel button should not appear on the screen.
+17. ***noexcel*** = indicates that the Excel button should not appear on the screen.
 
-14. ***height*** = the height of the spread sheet.  The default is 675px.
+18. ***alignment*** = this will determine if the Clear, Save, and Remove buttons are on the left, center, or right on the spreadsheet.  The possible values are: left, center (default), and right. 
+
+19. ***placement*** = indicates whether the Clear, Save, and Remove buttons are on the top or bottom of the spreadsheet.  The possible values are top and bottom (default).
+
+20. ***height*** = the height of the spread sheet.  The default is 675px.
 
 ```js
     height="700px"
@@ -348,7 +388,7 @@ The rest of the props are optional:
 
 -    The height of the spread sheet is 700px.
 
-15. ***error*** = indicates that an error occurred.  This will disable all buttons and certain fields in the spread sheet.
+17. ***error*** = indicates that an error occurred.  This will disable all buttons and certain fields in the spread sheet.
 
 ```js
     error={error}
@@ -356,21 +396,12 @@ The rest of the props are optional:
 
 -    The variable error will be passed into the spread Sheet.
 
-16. ***indexing*** = is a function that returns the indexes into the current data being displayed.  This will rarely be used.  The user will need to add the indexing as a state variable.  See indexing in the Search Sort Table.
+18. ***indexing*** = is a function that returns the indexes into the current data being displayed.  This will rarely be used.  The user will need to add the indexing as a state variable.  See indexing in the Search Sort Table.
 
-17. ***startEnd*** = is a function that returns the current starting and ending positions in the data being displayed.  This will rarely be used.  See startEnd in the Search Sort Table.
+19. ***startEnd*** = is a function that returns the current starting and ending positions in the data being displayed.  This will rarely be used.  See startEnd in the Search Sort Table.
 
 
 ### ***CSS Files***
-
-The following CSS file will need to be imported into the file that uses this SearchSortTable component. The import would be, if it is not be changed:
-
-```js
-import '../node_modules/simple-widgets/lib/sw-theme.css';
-import '../node_modules/simple-widgets/lib/sw-spreadSheet.css';
-```
-
-For more information on CSS files, see Using CSS.
 
 ### ***sw-spreadSheet.css***
 This is the CSS file that styles the SpreadSheet component.
@@ -389,7 +420,7 @@ This is the CSS file that styles the SpreadSheet component.
 }
 ```
 
-2.  ***sw-ss_center*** = used to center the title of the Spread Sheet.
+2.  ***sw-ss_center*** = used to center the title of the Spread Sheet and buttons on the spreadsheet.
 
 ```css
 .sw-ss_center {
@@ -397,16 +428,55 @@ This is the CSS file that styles the SpreadSheet component.
 }
 ```
 
+3.  ***sw-ss_left*** = used to align the spreadsheet buttons to the left.
+
+```css
+.sw-ss_left {
+    text-align: left;
+}
+
+```
+
+4.  ***sw-ss_right*** = used to align the spreadsheet buttons to the right.
+
+```css
+.sw-ss_right {
+    text-align: right;
+}
+```
+
+5.  ***sw-ss_check*** = the size of the checkbox.
+
+```css
+.sw-ss_check {
+    font-size: x-large;
+}
+```
+
+6.  ***sw-ss_checked_background*** = the background color of the row when the checkbox is checked.
+
+```css
+.sw-ss_checked_background {
+    background-color: var(--sw-theme_checkedBackground);
+}
+```
+
+7.  ***sw-ss_background*** = the normal background color of the row when the checkbox is unchecked.
+
+```css
+.sw-ss_background {
+    background-color: var(--sw-theme_backgroundColor);
+}
+```
 
 ## ***More Examples:***
 
 ### ***Example 1***
 ```js
 import React, { useState, useEffect } from 'react';
-import { AlertModal, ErrorModal } from 'simple-widgets';
+import { AlertModal, ErrorModal, SpreadSheet } from 'simple-widgets';
 import AnimalModal from './AnimalModal';
 import { getUAI } from './Common';
-import SpreadSheet from './SpreadSheet';
 
 const Breed2 = (props) => {
     const [error, setError] = useState(false);
@@ -562,7 +632,7 @@ export default Breed2;
 -    In the above example, the max rows on the screen match blank rows; therefore, the entire spread sheet will appear on the screen.
 -    If the user presses the Add Rows button, 50 more blank rows will be added to the spread sheet.
 
-## ***Example 3***
+## ***Example 4***
 
 ```js
   const sheet = [
@@ -595,3 +665,41 @@ export default Breed2;
 ```
 
 -    In the above example, it will call the pre load function called populateSS.  The populateSS function will pre-load all of the date fields, with the current date.
+
+### ***Example 5***
+
+```js
+    let sheet = [        
+        { header: '',           name: '',           checked: true },
+        { header: 'Last Name',  name: 'lastName',   validate: false, save: true,  hidden: true },
+        { header: 'First Name', name: 'firstName',  validate: false, save: false, hidden: false,    type: 'text' },
+        { header: 'City',       name: 'city',       validate: true,  save: false, hidden: false,    type: 'text' },
+        { header: 'State',      name: 'state',      validate: false, save: true,  hidden: true,     type: 'text' },
+        { header: 'Zip Code',   name: 'zip',        validate: false, save: false, hidden: false,    type: 'text' },
+    ];
+
+    const displayFunct = (data) => {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].checked === 'Y') {
+                console.log ('Name', data[i].lastName + ' ' + data[i].firstName);
+            }
+        }
+    }
+
+    return (
+        <div>
+            <SpreadSheet 
+                sheet={sheet}
+                maxItems="50"
+                specialProcessing={processValue}
+                specialProcessingSave={processSave}
+                saveFunct={saveData}
+                buttonName="Display"
+                buttonFunct={displayFunct}
+                error={error}
+                data={data} />
+        </div>
+    )
+```
+
+- In the above example, the Display button will appear next to the Save button.  When the user clicks on the Display button, it will execute the displayFunct (buttonFunct={displayFunct}), which will print out the names of all the people who are checked.

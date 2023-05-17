@@ -181,7 +181,8 @@ const _InnerSearchSortTable = (props) => {
     const [pdfOrientation, setPdfOrientation] = useState('');           // Indicates whether Portrait or Landscape is to selected for the page orientation of the PDF
     const [excelData, setExcelData] = useState([]);                     // Contains the data to be placed in the excel spreadsheet
     const [showExcel, setShowExcel] = useState(false);                  // Indicates whether the Excel Display button can be displayed or not
-    const [hideCols, setHideCols] = useState([]);                         // Indicates which columns are hide and which are displayed
+    const [hideCols, setHideCols] = useState([]);                       // Indicates which columns are hide and which are displayed
+    const [checked, setChecked] = useState('N');                        // Indicates whether the checkbox in the header is checked (Y) or not
 
     // TODO: Ask Jim  hideCols is never used
 
@@ -2283,6 +2284,19 @@ const _InnerSearchSortTable = (props) => {
         setHtmlDropDown(true);  // Display the drop down over the appropriate column
     }
 
+    /***********************************************************************************************************************
+     * 
+     * This function will called when the user presses the checkbox in the header if there is one.  The function 
+     * will indicate the checkbox changed values and it will call the checkedFunct passed in through the props.
+     * 
+     * @param {*} value indicates whether the checkbox is checked (Y) or unchecked
+     * 
+     ***********************************************************************************************************************/
+    function processChecked(value) {
+        setChecked(value);
+        props.checkedFunct(value);
+    }
+
 
     /*********************************************************************************************************************
      *
@@ -2334,8 +2348,16 @@ const _InnerSearchSortTable = (props) => {
                     btnImg = '\u2BC8';    // Right arrow
                 }
             }
-            // Filter is turned on
-            if (filterOn === 'Y' && hasOwnProperty(props,'nofilter') === false && main === true) {
+
+            if (row.checked === true) {
+                return (<th key={key} className={headerStyle}>
+                            <CheckBox selectedValue="Y" className="sw-ss_check"
+                                name="checked" value={checked}
+                                onChange={(event) => processChecked(event.target.value)} />
+                        </th>
+                )
+            } else if (filterOn === 'Y' && hasOwnProperty(props,'nofilter') === false && main === true) {
+                // Filter is turned on
                 let filterStyle = processInvalidStyleScreen(invalid, FILTER, 'sw-sst_widthStyle');
 
                 if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler

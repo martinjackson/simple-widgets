@@ -15,6 +15,7 @@
     --sw-theme_buttonFontSize: 12;
     --sw-theme_buttonStyle: normal;
     --sw-theme_disableButtonColor: lightgray;
+    --sw-theme_checkedBackground: lightgray;
     --sw-theme_font: "Open Sans", sans-serif;;
     --sw-theme_fontWeight: bold;
     --sw-theme_fontSize: 12pt;
