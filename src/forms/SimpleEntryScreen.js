@@ -119,6 +119,7 @@ export function SimpleEntryScreen(props) {
       <Form className={props.styleSelected}
         name={props.formName}
         header={props.header}
+        loadInProgress={props.loadInProgress}
         data={data}
         onChange={onChange}
         addRecFn={addRecFn}

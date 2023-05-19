@@ -98,7 +98,8 @@ module.exports = {
       // Images
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: "asset/resource",
+        // type: "asset/resource",                     // for a npm library all images, fonts, etc need to be inlined
+        type: "asset/inline",
       },
 
       // Fonts and SVGs

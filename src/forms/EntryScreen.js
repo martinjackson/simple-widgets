@@ -64,8 +64,6 @@ function genRecordTypeFromName(recordName) {
 function EntryScreenKeyed(props) {
   // console.log(TS(), '== EntryScreenKeyed render ==', props)
 
-  const keyNames = Object.keys(props.keys)
-
   const [showModal, setShowModal]   = useState(false)
   const [cloneRec, setCloneRec]     = useState(false)
   const [newRecList, setNewRecList] = useState([])
@@ -75,7 +73,9 @@ function EntryScreenKeyed(props) {
 
   const [errors, logErrors] = useErrorList()
 
-  const [needsLoading, setNeedsLoading] = useState(true)
+  const keyNames = Object.keys(keys)
+  const hasNonNullKeys = keyNames.find(name => keys[name] != null) != null
+  const [needsLoading, setNeedsLoading] = useState(hasNonNullKeys)
 
   const recordName = props.recordName
   const where = { ...props.keys, ...keys }
@@ -194,7 +194,14 @@ function EntryScreenKeyed(props) {
           prev[matchKey] = change.target.value
           return prev
         })
-        setNeedsLoading(true)
+
+        console.log('   EntryScreen: Does the record need loading? name:', change.target.name, 'value:', change.target.value);
+        if (change.target.value === '' || change.target.value === null) {      // cleared for search, but no answer selected
+
+        } else {
+          console.log('   EntryScreen: thinking it needs loading ...');
+          setNeedsLoading(true)
+        }
         return true; // signal it is handled
       }
     } else {
@@ -211,9 +218,10 @@ function EntryScreenKeyed(props) {
   const styleSelected = (props.styleSelected) ? props.styleSelected : 'form-style-11'
   const PopUpWidget = (props.NewRecordGui) ? props.NewRecordGui : SimpleTable
 
+
   return <>
     <MakeModal show={showModal} closeFunct={setShowModal} >
-      <PopUpWidget data={newRecList} height='30em' dataSelected={newRecRowSelected} hiddenLookupColumns={hiddenLookupColumns} />
+      <PopUpWidget data={newRecList} height='30em' dataSelected={newRecRowSelected} hiddenLookupColumns={props.hiddenLookupColumns} />
     </MakeModal>
 
     <ErrorList list={errors} />
@@ -223,6 +231,8 @@ function EntryScreenKeyed(props) {
       who={props.who}
       recordName={recordName}
       styleSelected={styleSelected}
+
+      loadInProgress={needsLoading}
 
       data={data}
       setData={setData}
