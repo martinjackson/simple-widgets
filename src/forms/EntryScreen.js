@@ -211,7 +211,7 @@ function EntryScreenKeyed(props) {
 
   return <>
     <MakeModal show={showModal} closeFunct={setShowModal} >
-      <PopUpWidget data={newRecList} height='30em' dataSelected={newRecRowSelected} />
+      <PopUpWidget data={newRecList} height='30em' dataSelected={newRecRowSelected} hiddenLookupColumns={hiddenLookupColumns} />
     </MakeModal>
 
     <ErrorList list={errors} />
@@ -224,6 +224,9 @@ function EntryScreenKeyed(props) {
 
       data={data}
       setData={setData}
+
+      noAdd={props.noAdd}
+      noClone={props.noClone}
 
       pickNewTopRecord={pickNewTopRecord}
       logErrors={logErrors}
