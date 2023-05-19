@@ -109,7 +109,7 @@ export const SearchSortTable = (propsPassed) => {
       return (<span></span>);
     }
 
-    if (hasOwnProperty(props,'table') === false) {                         // CAN NOT HAPPEN
+    if (hasOwnProperty(props,'table') === false) {                         // CAN NOT HAPPEN, see defaultProps
         console.error('Search Sort Table component: A table object prop must be passed');
         return (<span></span>);
     }
