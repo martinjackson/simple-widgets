@@ -9,6 +9,17 @@ import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
 
 import './Form.css'
 
+  // <a target="_blank" href="https://icons8.com/icon/gxuEDgFteZdP/database">Database</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+  import databaseLoading from './icons8-database.gif'
+
+  // --------------------------------------------------------------------------
+  export const DatabaseLoadingIcon = (props) => {
+    const cn = (props.className) ? props.className+' ' : ''
+    return (<img style={props.style} className={cn+'sw-DatabaseLoadingIcon'} src={databaseLoading}></img>)
+  }
+
+
+
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 function getLabels(formName) {
   const { formDictionary } = getAppSpecificInfo()
@@ -23,6 +34,7 @@ function getLabels(formName) {
   return labels
 }
 
+
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormHeader = (props) => {
 
@@ -35,6 +47,7 @@ export const FormHeader = (props) => {
   const cloneRecFn = (props.cloneRecFn) ? props.cloneRecFn : defaults.cloneRecFn
   const AddRecButton   = (props.noAdd)   ? null : <button title="New" onClick={addRecFn}><AddRecordIcon/></button>
   const CloneRecButton = (props.noClone) ? null :  <button title="New cloned data" onClick={cloneRecFn}><CloneRecordIcon/></button>
+  const isLoading = (props.loadInProgress) ? <DatabaseLoadingIcon /> : null
 
   let recMsg = ''
   let cntMsg = ''
@@ -53,7 +66,7 @@ export const FormHeader = (props) => {
 
   return  <div className="heading">
           <div className="flex justify-between">
-              <div>{props.header} {AddRecButton} {CloneRecButton}   {LeftArrow} {cntMsg} {RightArrow} </div>
+              <div>{props.header} {isLoading} {AddRecButton} {CloneRecButton}   {LeftArrow} {cntMsg} {RightArrow} </div>
               <div>{recMsg}</div>
           </div>
         </div>
@@ -117,6 +130,7 @@ return (
                recNextFn={recNextFn}
                noAdd={props.noAdd}
                noClone={props.noClone}
+               loadInProgress={props.loadInProgress}
                />
         <div>                                {/* style={{display:"inline-block"}}>  does not allow cells to resize  */}
           <div style={{overflow: 'auto'}}>   {/* height: (props.visRows+0.5) + 'rem'   does not allow cells to resize (textArea, etc) */}
@@ -135,6 +149,8 @@ return (
                         parentRecName={props.parentRecName}
                         name={props.name}
                         businessLogic={props.businessLogic}
+                        noAdd={props.noAdd}
+                        noClone={props.noClone}
                         dataIndex={i}
                         formData={ (data && data[i]) ? data[i] : null }
                         showDebug={props.debug}
@@ -188,11 +204,14 @@ export const Form = (props) => {
                recNextFn={recNextFn}
                noAdd={props.noAdd}
                noClone={props.noClone}
+               loadInProgress={props.loadInProgress}
                />
           <FormFields
               parentRecName={props.parentRecName}
               name={props.name}
               businessLogic={props.businessLogic}
+              noAdd={props.noAdd}
+              noClone={props.noClone}
               dataIndex={dataRowStart}
               formData={(data && data[dataRowStart]) ? data[dataRowStart] : null}
               showDebug={debug}

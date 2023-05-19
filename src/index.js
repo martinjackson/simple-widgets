@@ -53,7 +53,7 @@ import { fields, applyOptions } from './forms/DefaultFormElements.js'
 import { EntryScreen } from './forms/EntryScreen.js'
 import { ErrorList } from './forms/ErrorList.js'
 import { setFieldGenerator, fieldGeneratorLookup } from './forms/FieldGenerator.js'
-import { FormHeader, FormTable, Form } from './forms/Form.js'
+import { DatabaseLoadingIcon, FormHeader, FormTable, Form } from './forms/Form.js'
 import { getFieldRecName, getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, 
          FormFields } from './forms/FormFields.js'
 import { Gears } from './forms/Gears.js'
@@ -118,17 +118,17 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          lastOfMonth, todayString, getList, decrypt, encrypt, createStoreItem, useStoreItem,
          openGeneralStore, hasOwnProperty, localStrToDate, makeChangeHandler, register, unregister, now, TS,
          Button, fields, applyOptions, EntryScreen, ErrorList, setFieldGenerator, fieldGeneratorLookup,
-         FormHeader, FormTable, Form, getFieldRecName, getGqlNameFromForm, FieldsFromList,
-         FieldsFromListWorks, ifDefined, FormFields, Gears, Input, LocalChoice, MakeModal, NarrowForm,
-         pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen, capWords, client, applyDeepValueChange,
-         dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder,
-         getGqlName, getKeyValues, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus,
-         updateJobStatus, watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone,
-         serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias,
-         addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog, getLookupLogs,
-         getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace,
-         toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo,
-         getAppSpecificInfo, createRec, deleteRec, formFromTableInfo, tableField2FormField,
-         genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName, getGqlPKs,
-         listNotKeyedTables, updateRecord, AddRecordIcon,
+         DatabaseLoadingIcon, FormHeader, FormTable, Form, getFieldRecName, getGqlNameFromForm,
+         FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, Gears, Input, LocalChoice, MakeModal,
+         NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen, capWords, client,
+         applyDeepValueChange, dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord, genColHeaders,
+         genRowBuilder, getGqlName, getKeyValues, ignoreCase, isFunction, isNotEmpty, isPromise,
+         createJobStatus, updateJobStatus, watchJobStatus, label2value, value2label, logDiff,
+         notifyLookupsDone, serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias,
+         changeLookupAlias, addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog,
+         getLookupLogs, getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail,
+         stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
+         setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec, formFromTableInfo,
+         tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
+         getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
          CloneRecordIcon }

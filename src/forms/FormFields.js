@@ -9,11 +9,17 @@ import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
 // import { TS } from '../time.js'
 
 // -------------------------------------------------------------------------------------------------------------------------
-const labelWrap = (f, idx, children) => {
+const labelWrap = (f, idx, children, fType) => {
 
     const ifRequired = (f.required) ? <span className="required">*</span> : null
 
-  return <label htmlFor={f.name} key={idx} className="form-group"><span>{f.label}{ifRequired}</span>{children}</label>
+    // dont <label for="form name" Chrome complains there is no field with that name
+    // const name = (fType === 'form' || f.type === 'formTable') ? null : f.name
+
+    // return <label htmlFor={name} key={idx} className="form-group"><span>{f.label}{ifRequired}</span>{children}</label>
+    // try without <label for
+
+  return <label key={idx} className="form-group"><span>{f.label}{ifRequired}</span>{children}</label>
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
@@ -29,9 +35,12 @@ const createField = (fieldStructure, idx, value, onChange, withLabels=true, form
       if (gen) {
           try {
               // TODO: right now only 'form' and 'formTable' knows how to handle an array of data, other types need code
+
               if ( formInfo && (f.type === 'form' || f.type === 'formTable')) {
                 f.businessLogic = formInfo.businessLogic
                 f.parentRecName = formInfo.parentRecName
+                f.noAdd = formInfo.noAdd
+                f.noClone = formInfo.noClone
               }
               field = gen(f, onChange)
           } catch (e) {
@@ -44,7 +53,7 @@ const createField = (fieldStructure, idx, value, onChange, withLabels=true, form
           }
       }
 
-  return (withLabels) ? labelWrap(fieldStructure, idx, field) : field
+  return (withLabels) ? labelWrap(fieldStructure, idx, field, f.type) : field
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
@@ -180,7 +189,12 @@ export const FormFields = (props) => {
 
       // only needed for 'form', 'formTable'
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      const formInfo = {parentRecName: recFullName, businessLogic}
+      const formInfo = {                    // must match the same createField()'s formInfo items: lines 40-43
+        parentRecName: recFullName,
+        businessLogic,
+        noAdd: props.noAdd,
+        noClone: props.noClone
+      }
 
       const onChangeFormFields = (e => {
         if (!e.target) {                // coming from a sub-form, echo up to the top
