@@ -25,6 +25,8 @@ export function EntryScreen(props) {
     return ErrorMsg
   }
 
+  // TODO: redo the code to detect the only key in the data returned from the query -- to derive the recordName and not need it passed as a prop
+
   if (!props['recordName']) {      // null or undefined
     const ErrorMsg = `Error <EntryScreen props 'recordName' is missing.`
     console.log(ErrorMsg);
