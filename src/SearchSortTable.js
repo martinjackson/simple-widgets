@@ -47,20 +47,16 @@ const genHdr = (name) => {
 }
 
 // ----------------------------------------------------------------------------
-const defaultColHeaders = (rowZero) => {
+const genDefaultColHeaders = (rowZero, hiddenLookupColumns) => {
 
     if (!rowZero)
        return null
 
-    return Object.keys(rowZero).map( col => genHdr(col) )
-}
+    let hdrs = Object.keys(rowZero).map( col => genHdr(col) )
 
-// ----------------------------------------------------------------------------
-const defaultEachRowInTable = (row, i) => {
-    const cols = (!row) ? null : Object.keys(row).map( (idx, j) => ( <td key={i + '_' + j}>{row[idx]}</td> ) )
-    const odd = (i % 2) ? 'sw-sst_oddRow' : 'sw-sst_evenRow'
+    hiddenLookupColumns.forEach(index => hdrs.splice(index, 1))    // mutates hdrs
 
-    return (<tr className={odd} key={i}>{cols}</tr>)
+    return hdrs
 }
 
 /****************************************************************************
@@ -73,11 +69,32 @@ const defaultEachRowInTable = (row, i) => {
  *
  ****************************************************************************/
 export const SearchSortTable = (propsPassed) => {
+
+    const hiddenLookupColumns = (propsPassed.hiddenLookupColumns) ? propsPassed.hiddenLookupColumns : []
+
+    const defaultEachRowInTable = (row, i) => {
+
+        let cols = null      // if no data yet
+        if (row) {
+          const keys = Object.keys(row)
+          const hideCols = new Array(keys.length).fill(null);
+          hiddenLookupColumns.forEach(i => hideCols[i] = true)
+
+          cols = keys.map( (idx, j) => ( <td hidden={hideCols[idx]} key={i + '_' + j}>{row[idx]}</td> ) )
+        }
+
+        const odd = (i % 2) ? 'sw-sst_oddRow' : 'sw-sst_evenRow'
+
+        return (<tr className={odd} key={i}>{cols}</tr>)
+    }
+
+    const defaultColHeaders = () => { return genDefaultColHeaders(propsPassed.data[0], hiddenLookupColumns) }
+
     const defaultProps = {                           // Default props if non are given
       error: false,                                  // Indicates that an error has occrred
       MAX_ITEMS: 100,                                // Maximum items on a page
       eachRowInTable: defaultEachRowInTable,         // The default each row in table function
-      table: defaultColHeaders(propsPassed.data[0])        // No table def passed in as a prop, setup a default
+      table: defaultColHeaders                       // if no table def passed in as a prop, setup a default
     }
 
     const props = Object.assign(defaultProps, propsPassed);
@@ -92,7 +109,7 @@ export const SearchSortTable = (propsPassed) => {
       return (<span></span>);
     }
 
-    if (hasOwnProperty(props,'table') === false) {
+    if (hasOwnProperty(props,'table') === false) {                         // CAN NOT HAPPEN
         console.error('Search Sort Table component: A table object prop must be passed');
         return (<span></span>);
     }
@@ -113,7 +130,7 @@ export const SearchSortTable = (propsPassed) => {
         }
     }
 
-    return <_InnerSearchSortTable {...props} />
+    return <_InnerSearchSortTable {...props} defaultColHeaders={defaultColHeaders} />
 }
 
 // ----------------------------------------------------------------------------
@@ -328,12 +345,13 @@ const _InnerSearchSortTable = (props) => {
 //       console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
 
       if (!props.table && !table) {        // No table def passed in as a prop, setup a default
-        let tableDef = defaultColHeaders(props.data[0])
+        let tableDef = props.defaultColHeaders()
         setTable(tableDef)
         populateSearch(tableDef)
         tableDef.forEach(buildChoices);
         setColumns(localCols);
-    }
+      }
+
       if (indexes.length === 0) {   // There are no indexes
             sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
             setFilterOn(false);
@@ -1793,16 +1811,16 @@ const _InnerSearchSortTable = (props) => {
     }
 
     /**************************************************************************************************************************
-     * 
+     *
      * This will determine which column the aggregation is to be placed under.  This is needed because if a column is hidden
      * it will place the aggregation under the correct footer.  For, example if column before the aggregation column is hidden,
      * it will subtract one because of the hidden column to get the correct column.  This is because the column is still in the
      * table it is just hidden.
-     * 
+     *
      * @param index = the index of the aggregation column in the table without considering hidden columns
-     * 
+     *
      * @returns the correct index of the aggregation column wiht condsidering hidden columns
-     * 
+     *
      **************************************************************************************************************************/
     function determineCol (index) {
         let pos = index;    // Current index of the aggregation column
@@ -2212,31 +2230,31 @@ const _InnerSearchSortTable = (props) => {
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
             if (controlBreakInfo[i].hidden === false) {
-                hiddenRender = 
+                hiddenRender =
                     <span className="sw-sst_showToolTip">
                         <button name="hidden" onClick={() => hideColumn(row, i)} className="sw-sst_dropDownButton" >🗏⊗</button>
                         <span className="sw-sst_toolTip sw-sst_top">Hide Column</span>
                     </span>;
 
             } else {
-                hiddenRender =  
+                hiddenRender =
                     <span className="sw-sst_showToolTip">
                         <button name="show" onClick={() => showColumn(row, i)} className="sw-sst_dropDownButton" >🗏</button>
                         <span className="sw-sst_toolTip sw-sst_top">Show Column</span>
                     </span>
-            } 
+            }
         }
 
         let controlBreakRender = null;
         if (hasOwnProperty(props, 'nocontrolbreak') === false) {
             if (controlBreakInfo[i].ctrlBreak === 0) {
-                controlBreakRender = 
+                controlBreakRender =
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOn" onClick={() => controlBreakOn(row, i)} className="sw-sst_dropDownButton" >🗐</button>
                         <span className="sw-sst_toolTip sw-sst_top">Control Break</span>
                     </span>;
             } else {
-                controlBreakRender = 
+                controlBreakRender =
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOff" onClick={() => controlBreakOff(row, i)} className="sw-sst_dropDownButton" >🗐⊗</button>
                         <span className="sw-sst_toolTip sw-sst_top">Undo Control Break</span>
@@ -2285,12 +2303,12 @@ const _InnerSearchSortTable = (props) => {
     }
 
     /***********************************************************************************************************************
-     * 
-     * This function will called when the user presses the checkbox in the header if there is one.  The function 
+     *
+     * This function will called when the user presses the checkbox in the header if there is one.  The function
      * will indicate the checkbox changed values and it will call the checkedFunct passed in through the props.
-     * 
+     *
      * @param {*} value indicates whether the checkbox is checked (Y) or unchecked
-     * 
+     *
      ***********************************************************************************************************************/
     function processChecked(value) {
         setChecked(value);
@@ -2535,7 +2553,7 @@ const _InnerSearchSortTable = (props) => {
      *
      * This will make sure that the user entered at least one value in one of the filter
      * input boxes.  This is called when the user presses the Filter button.
-     * 
+     *
      * @param {*}   which indicates whether both (B) the search header and item
      *                  should be validated or only the header (H)
      *

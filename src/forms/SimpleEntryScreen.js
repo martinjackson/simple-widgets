@@ -123,6 +123,9 @@ export function SimpleEntryScreen(props) {
         onChange={onChange}
         addRecFn={addRecFn}
         cloneRecFn={cloneRecFn}
+        cloneFeature={props.cloneFeature}
+        noAdd={props.noAdd}
+        noClone={props.noClone}
         isLoading={!props.rec || props.rec.loading}
         debug={props.debug} />
     </div>
