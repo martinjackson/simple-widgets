@@ -32,7 +32,7 @@ export const SimpleTable = (props) => {
   return (<SearchSortTable data={data}
            scroll spinner hover nofooter nofilter  showall searchstart nopdf noexcel
           height={height} eachRowInTable={eachRowInTable}
-          hiddenLookupColumns={hiddenLookupColumns}
+          hiddenLookupColumns={props.hiddenLookupColumns}
           />)
 
 }

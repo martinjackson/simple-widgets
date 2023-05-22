@@ -94,7 +94,7 @@ export const SearchSortTable = (propsPassed) => {
       error: false,                                  // Indicates that an error has occrred
       MAX_ITEMS: 100,                                // Maximum items on a page
       eachRowInTable: defaultEachRowInTable,         // The default each row in table function
-      table: defaultColHeaders                       // if no table def passed in as a prop, setup a default
+      table: defaultColHeaders()                     // if no table def passed in as a prop, setup a default
     }
 
     const props = Object.assign(defaultProps, propsPassed);
