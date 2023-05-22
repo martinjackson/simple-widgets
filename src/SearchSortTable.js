@@ -1130,7 +1130,7 @@ const _InnerSearchSortTable = (props) => {
         // Set the hover color in the CSS
         for (let i = 1; i <= 10 && found === false; i++) {
             let colorValue = getComputedStyle(root).getPropertyValue(`--sw-sst_hover_back_color${i}`);
-            if (colorValue === ' none') {
+            if (colorValue === 'none') {
                 root.style.setProperty(`--sw-sst_hover_back_color${i}`, hoverBackColor);
                 hoverClassName += `sw-sst_search_sort_table${i}`;
                 found = true;
