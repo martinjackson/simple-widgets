@@ -57,6 +57,7 @@ All of these widgets require the following props:
 [1.32.0](docs/releases/release_1.32.0.md)
 [1.33.0](docs/releases/release_1.33.0.md)
 [1.33.1](docs/releases/release_1.33.1.md)
+[1.34.0](docs/releases/release_1.34.0.md)
 
 ## Component Documents
 
@@ -74,7 +75,7 @@ All of these widgets require the following props:
 
 [Theme](docs/Theme.md)
 
-[Search Functions](docs/SearchFunct.md), [Date Functions](docs/DateFunct.md), [Common Functions](docs/Common.md)
+[Search Functions](docs/SearchFunct.md), [Date Functions](docs/DateFunct.md), [Common Functions](docs/Common.md), [CSS Rule Functions](docs/CssRuleFunct.md)
 
 [Entry Form](docs/EntryForm.md) is used to help line up components in a form.
 

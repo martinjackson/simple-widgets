@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { NavigateBar } from './NavigateBar';
+import { deleteCssRule } from './cssRulesFunct';
 // import { TS } from './time'
 
 import { hasOwnProperty } from './hasOwnProperty.js'
@@ -13,7 +14,6 @@ export const getMenuParms = () => { return menuParms }
 
 // ----------------------------------------------------------------------------------
 export const MenuBar = (props) => {
-
     const [curPath, setCurPath]   = useState(props.path)
     // const [curParms, setCurParms] = useState({})                   // TODO: curParms, it is never used
     const [disableMenu, setDisableMenu] = useState(null)
@@ -31,6 +31,7 @@ export const MenuBar = (props) => {
             return { path: row.path, component: row.component }
         }
     }
+
 
     let subSymbol = 'none';
     if (hasOwnProperty(props, 'subsymbol')) {
@@ -72,16 +73,6 @@ export const MenuBar = (props) => {
         format = props.format;
     }
 
-    let noHeader = false;
-    if (hasOwnProperty(props, 'noheader') === true) {
-        noHeader = props.noheader;
-    }
-
-    let headerFixed = false;
-    if (hasOwnProperty(props, 'headerfixed') === true) {
-        headerFixed = props.headerfixed;
-    }
-
     const searchPath = curPath || props.path
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
     const active = items.find(item => item.path === searchPath) || items[0]
@@ -102,53 +93,27 @@ export const MenuBar = (props) => {
       }
     }
 
-    let formatClass = 'nav-nav-menu';
-    if (type === 'horizontal' && format === 'float') {
-        if (noHeader === false) {
-            if (headerFixed === false) {
-                formatClass = 'nav-nav-menu';
-            } else {
-                formatClass = 'nav-nav-menu_header_fixed';
-            }
-        } else {
-            formatClass = 'nav-nav-menu';
-        }
-    } else if (type === 'horizontal' && format === 'fixed') {
-        if (noHeader === false) {
-            formatClass = 'nav-nav-menu_fixed_horiz';
-        } else {
-            formatClass = 'nav-nav-no_header_menu_fixed_horiz';
-        }
-    } else if (type === 'vertical' && format === 'float') {
-        if (noHeader === false) {
-            if (headerFixed === false) {
-                formatClass = 'nav-nav-menu';
-            } else {
-                formatClass = 'nav-nav-menu_float_vert';
-            }
-        } else {
-            formatClass = 'nav-nav-menu'
-        }
-    } else if (type === 'vertical' && format === 'fixed') {
-        if (noHeader === false) {
-            formatClass = 'nav-nav-menu_fixed_vert';
-        } else {
-            formatClass = 'nav-nav-no_header_menu_fixed_vert';
-        }
+    if (componentClassName === null) componentClassName = '';
+    let typeClass = (type === 'horizontal') ? 'nav-menu_horizontal' : 'nav-menu_vertical';
+    if (format === 'float') {
+        typeClass = 'nav-menu_float';
+
+        deleteCssRule ('body::-webkit-scrollbar');
     }
 
+
     return (
-        <div className={"sw-menu " + classStyle}>
+        <div className={classStyle}>
             <NavigateBar
                  menuTree={props.menuTree}
                  symbol={symbol}
                  subsymbol={subSymbol}
-                 formatClass={formatClass}
+                 formatClass='nav-nav-menu'
                  type={type}
                  open={open}
                  page={(hasOwnProperty(props, 'page')) ? true : false}
                  disabled={disableMenu} />
-            <div className={componentClassName}>
+            <div className={`${typeClass} ${componentClassName}`}>
                  <ActComp signalUnsaved={signalUnsaved} />
             </div>
         </div>
