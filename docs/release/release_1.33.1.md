@@ -5,6 +5,6 @@
 set up in advance of displaying the table.
 
 
-##Simple Widgets Maintainers (These are changes only for the Maintainers of this project)
-1. Added the props.controlBreak to the SearchSortTable props.
+## Simple Widgets Maintainers (These are changes only for the Maintainers of this project)
+1. Added the props.controlBreak to the SearchSortTable component.
 2. Modified the populateDropDown function.

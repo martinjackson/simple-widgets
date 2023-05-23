@@ -12,7 +12,8 @@ Props:
 7.  ***username*** = the name of the user who is using the application.
 8.  ***setUsername*** = the name of the function that will set the user if header should change the name of the user.
 9.  ***noModalOnError*** = indicates that when an error occurs, the modal displaying the error will ***not*** appear.  By default the modal is displayed.
-10. ***format*** = indicates whether the header will scroll off the screen or not.  The two values can be float (default) or fixed.  Float indicates that the header will scroll of the screen.  Fixed indicates that the header will not scroll of the screen, it remains in place.
+10. ***hideUserSection*** = this will hide the user section of the header (Welcome: username).
+
 
 ## CSS Files
 
@@ -118,34 +119,3 @@ const App = () => {
 }
 ```
 
-### Example 4
-```js
-import { Header } from 'simple-widgets';
-
-const App = () => {
-    const [username, setUserName] = useState('JJONES');
-
-    return (
-        <Header username={user} setUsername={setUser} 
-                title="This is a test" dbType="Test" 
-                titleLogo="Logo.svg" format="float" />
-    );
-```
-
-The format is float, which means the header will scroll of the screen.  The format="float" can be left off, since that is the default.
-
-### Example 5
-```js
-import { Header } from 'simple-widgets';
-
-const App = () => {
-    const [username, setUserName] = useState('JJONES');
-
-    return (
-        <Header username={user} setUsername={setUser} 
-                title="This is a test" dbType="Test" 
-                titleLogo="Logo.svg" format="fixed" />
-    );
-```
-
-The format is float, which means the header will ***not*** scroll of the screen.  
