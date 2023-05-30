@@ -25,3 +25,4 @@ example/dist/*
 coverage
 
 simple-widgets-*.tgz
+wipe-modules.sh
