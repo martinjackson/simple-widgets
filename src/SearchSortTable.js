@@ -8,25 +8,19 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
-//import { CheckBox } from './CheckBox.js';
-//import { Choice } from './Choice.js';
-//import { ChoiceText } from './ChoiceText.js';
-//import { isInvalid, setInvalidScreen, generateInvalid,
-//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-//import { AlertModal } from './AlertModal.js';
-//import { generateCSSButton } from './Theme.js';
-//import { currentDate, convertDate } from './DateFunct.js';
-//import { formatMoney } from './Common.js'
-//import { hasOwnProperty } from './hasOwnProperty.js'
+import { CheckBox } from './CheckBox.js';
+import { Choice } from './Choice.js';
+import { ChoiceText } from './ChoiceText.js';
+import { isInvalid, setInvalidScreen, generateInvalid,
+         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
+import { AlertModal } from './AlertModal.js';
+import { generateCSSButton } from './Theme.js';
+import { currentDate, convertDate } from './DateFunct.js';
+import { formatMoney } from './Common.js'
+import { hasOwnProperty } from './hasOwnProperty.js'
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
-
-import { CheckBox, Choice, ChoiceText,
-    isInvalid, setInvalidScreen, generateInvalid,
-    processInvalidStyleScreen, wasClickedScreen,
-    AlertModal, generateCSSButton, currentDate, convertDate,
-    formatMoney, hasOwnProperty } from 'simple-widgets';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
