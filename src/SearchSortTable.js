@@ -8,22 +8,27 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
-import { CheckBox } from './CheckBox.js';
-import { Choice } from './Choice.js';
-import { ChoiceText } from './ChoiceText.js';
-import { isInvalid, setInvalidScreen, generateInvalid,
-         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-import { AlertModal } from './AlertModal.js';
-import { generateCSSButton } from './Theme.js';
-import { currentDate, convertDate } from './DateFunct.js';
-import { formatMoney } from './Common.js'
+//import { CheckBox } from './CheckBox.js';
+//import { Choice } from './Choice.js';
+//import { ChoiceText } from './ChoiceText.js';
+//import { isInvalid, setInvalidScreen, generateInvalid,
+//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
+//import { AlertModal } from './AlertModal.js';
+//import { generateCSSButton } from './Theme.js';
+//import { currentDate, convertDate } from './DateFunct.js';
+//import { formatMoney } from './Common.js'
+//import { hasOwnProperty } from './hasOwnProperty.js'
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { CheckBox, Choice, ChoiceText,
+    isInvalid, setInvalidScreen, generateInvalid,
+    processInvalidStyleScreen, wasClickedScreen,
+    AlertModal, generateCSSButton, currentDate, convertDate,
+    formatMoney, hasOwnProperty } from 'simple-widgets';
 
-import { hasOwnProperty } from './hasOwnProperty.js'
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
@@ -135,7 +140,6 @@ export const SearchSortTable = (propsPassed) => {
 
 // ----------------------------------------------------------------------------
 const _InnerSearchSortTable = (props) => {
-
     const invalidArray = generateInvalid(5, 0);  // Used to tell whether the user entered and invalid value or not
 
     const FILTER = 0;
@@ -161,6 +165,7 @@ const _InnerSearchSortTable = (props) => {
     }
 
     const pdfOrientValues = ['', 'Portrait', 'Landscape'];  // How the page is oriented for the PDF
+
 
     // Set the state variables
     const [start, setStart] = useState(0);                              // The start of the pagination
@@ -315,6 +320,16 @@ const _InnerSearchSortTable = (props) => {
         localCols[i] = values;  // Place each choice box value in the localCols array
     }
 
+    const resetTheIndexes = () => {
+        setFilterOn(false);
+        setStartEnd(0, origIndexes.length, origIndexes);
+        setIndexes(origIndexes);
+        setCopyIndex(origIndexes);
+        setLength(origIndexes.length);
+        sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
+        setDisable(0, origIndexes.length);
+    }
+
     /******************************************************************************
      *
      * Called to populate the header drop down
@@ -342,7 +357,7 @@ const _InnerSearchSortTable = (props) => {
 
     // ---------
     useEffect (() => {
-//       console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
+//      console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
 
       if (!props.table && !table) {        // No table def passed in as a prop, setup a default
         let tableDef = props.defaultColHeaders()
@@ -352,14 +367,8 @@ const _InnerSearchSortTable = (props) => {
         setColumns(localCols);
       }
 
-      if (indexes.length === 0) {   // There are no indexes
-            sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
-            setFilterOn(false);
-            setStartEnd(0, origIndexes.length, origIndexes);
-            setIndexes(origIndexes);
-            setCopyIndex(origIndexes);
-            setLength(origIndexes.length);
-            setDisable(0, origIndexes.length);
+      if (indexes.length === 0 || props.data.length !== length) {   // There are no indexes
+            resetTheIndexes();
         } else {    // There are indexes
             setDisable(start, length);
             sendIndexes(start, end, length, indexes);
@@ -369,19 +378,11 @@ const _InnerSearchSortTable = (props) => {
     // ---------
     useEffect (() => {
 //        console.log('SearchSortTable useEffect [props.data.length] ');
-
-        setFilterOn(false);
-        setStartEnd(0, origIndexes.length, origIndexes);
-        setIndexes(origIndexes);
-        setCopyIndex(origIndexes);
-        setLength(origIndexes.length);
-        sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
-        setDisable(0, origIndexes.length);
-    }, [props.data.length])
+        resetTheIndexes();
+    }, [props.data.length, props.resetIndexes])
 
 
-/*
-    console.log('props.data.length :', props.data.length);
+/*    console.log('props.data.length :', props.data.length);
     console.log ('start', start);
     console.log ('end', end);
     console.log ('length', length);
@@ -429,7 +430,7 @@ const _InnerSearchSortTable = (props) => {
             if (table[i].search === true) {
                 search.push (table[i].header);
             }
-            if (hasOwnProperty(props,'nofilter') === true) {
+            if (hasOwnProperty(props,'nofilter') === true && props.nofilter === true) {
                 localFilter[i] = '';
             }
         }
@@ -590,7 +591,7 @@ const _InnerSearchSortTable = (props) => {
         }
     }
 
-    const filterSection = (hasOwnProperty(props,'nofilter') === true) ? null :
+    const filterSection = (hasOwnProperty(props,'nofilter') === true && props.nofilter === true) ? null :
         (<>
             <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />
             <button onClick={filterButton} className="sw-sst_buttonStyle2" disabled={props.error || filterOn !== 'Y'}>
@@ -2312,7 +2313,7 @@ const _InnerSearchSortTable = (props) => {
      ***********************************************************************************************************************/
     function processChecked(value) {
         setChecked(value);
-        props.checkedFunct(value);
+        props.checkedFunct(value, filterOn);
     }
 
 
@@ -2374,7 +2375,7 @@ const _InnerSearchSortTable = (props) => {
                                 onChange={(event) => processChecked(event.target.value)} />
                         </th>
                 )
-            } else if (filterOn === 'Y' && hasOwnProperty(props,'nofilter') === false && main === true) {
+            } else if (filterOn === 'Y' && hasOwnProperty(props,'nofilter') === false && props.nofilter === true && main === true) {
                 // Filter is turned on
                 let filterStyle = processInvalidStyleScreen(invalid, FILTER, 'sw-sst_widthStyle');
 
