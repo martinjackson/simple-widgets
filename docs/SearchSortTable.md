@@ -478,7 +478,7 @@ function indexing(value) {
 
 22. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
 
-23. **nofilter** = this will not display the Filter On check box and the filter button
+23. **nofilter** = this will not display the Filter On check box and the filter button.  Can also set the value to true of false.
 
 24. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 
@@ -511,20 +511,22 @@ An example would be:
 report="The PDF Report"
 ```
 
-37. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+37. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
 
-38. **searchstart** = indicates that the search item will only match those data items that start with the search item
+38. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-39. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+39. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-40. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+40. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+
+41. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-41. **showtable** = this will show the table and headers even if there is no data to display.
+42. **showtable** = this will show the table and headers even if there is no data to display.
 
-42. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+43. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-43. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+44. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -536,7 +538,7 @@ function startEnd (start, end) {
 <SearchSortTable startEnd={startEnd} />
 ```
 
-44. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+45. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -548,11 +550,11 @@ function startingPosition(value) {
 <SearchSortTable startingPos={startingPosition} />
 ```
 
-45. **title** = supplies a title to be displayed centered at the top of the table.
+46. **title** = supplies a title to be displayed centered at the top of the table.
 
-46. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+47. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-47. **width** = the width of the scroll box only.
+48. **width** = the width of the scroll box only.
 
 ## CSS Files
 

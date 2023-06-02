@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+
 import { CheckBox }        from './CheckBox.js';
 import { Choice }          from './Choice.js';
 import { SearchSortTable } from './SearchSortTable.js';
@@ -12,8 +13,6 @@ import { setInvalidTable, generateInvalid,
          clearInvalidTable, 
          processInvalidStyleTable, wasClickedTable} from './Invalid.js'
 
-// import { AlertModal }    from './AlertModal.js';
-// import { ErrorModal }    from './ErrorModal.js';
 import { ConfirmModal }  from './ConfirmModal.js';
 
 import { generateCSSButton } from './Theme.js';
@@ -34,12 +33,15 @@ export const SpreadSheet = (props) => {
     const ADDITIONAL = (hasOwnProperty(props, 'additionalRows') === true) ? props.additionalRows : 20;
     const ADD = (hasOwnProperty(props, 'blankRows') === true) ? props.blankRows : 100;
 
-    const [data, setData] = useState((hasOwnProperty(props, 'data') === true) ? props.data : []);
+    const [data, setData] = useState([]);
+    const [table, setTable] = useState([]);
     const [start, setStart] = useState('');
+    const [end, setEnd] = useState('');
     const [indexes, setIndexes] = useState([]);
     const [invalid, setInvalid] = useState(invalidArray);
     const [showConfirm, setShowConfirm] = useState(false);
     const [confirmMessage, setConfirmMessage] = useState('');
+    const [count, setCount] = useState(0);
 
     let sheet = [...props.sheet];
     for (let i = 0; i < sheet.length; i++) {
@@ -53,31 +55,45 @@ export const SpreadSheet = (props) => {
     }
 
     const populateDirty = (data) => {
-        let localData = [...data];
+        let localData = [];
 
-        for (let i = 0; i < localData.length; i++) {
-            if (localData[i].count === 0) {
-                for (let j = 0; j < localData[i].dirty.length; j++) {
-                    if (localData[i][sheet[j].name] !== '' && localData[i][sheet[j].name] !== null && localData[i][sheet[j].name] !== undefined) {
-                        localData[i].dirty[j] = true;
-                        localData[i].count++;
-                    }
-                }
-            }
+        for (let i = 0; i < data.length; i++) {
+            let obj = {};
+            obj['count'] = 0;
+            obj['dirty'] = new Array(sheet.length).fill(false);
+            obj['checked'] = 'N';
+            Object.keys(data[i]).forEach (fieldName => {
+                obj[fieldName] = data[i][fieldName];
+            })
+            localData.push(obj);
         }
+
+        if (hasOwnProperty(props, 'preload') === true) {
+            props.preload(data);
+        }
+
+//        for (let i = 0; i < localData.length; i++) {
+//            if (localData[i].count === 0) {
+//                for (let j = 0; j < localData[i].dirty.length; j++) {
+//                    if (localData[i][sheet[j].name] !== '' && localData[i][sheet[j].name] !== null && localData[i][sheet[j].name] !== undefined) {
+//                        localData[i].dirty[j] = true;
+//                        localData[i].count++;
+//                    }
+//                }
+//            }
+//        }
 
         setData(localData);
     }
 
     useEffect(() => {
-        let data = (hasOwnProperty(props, 'data') === true) ? props.data : [];
-        populateDirty(data);
-        setData(props.data);
+        populateDirty(props.data);
     }, [props.data]);
 
-
+ 
     const startEnd = (start, end) => {
         setStart(start);
+        setEnd(end);
         if (hasOwnProperty(props, 'startEnd') === true) {
             props.startEnd(start, end);
         }
@@ -92,10 +108,6 @@ export const SpreadSheet = (props) => {
 
     const populate = (numRows = ADD, clear = false) => {
         let blank = [];
-
-        if (hasOwnProperty(props, 'data') && numRows < data.length) {
-            numRows = data.length;
-        }
 
         for (let i = 0; i < numRows; i++) {
             let obj = {
@@ -123,17 +135,22 @@ export const SpreadSheet = (props) => {
     }
 
     useEffect(() => {
-        populate();
+        if (hasOwnProperty(props, 'data') === false) {
+            populate();
+        }
     }, [])
 
 
-    const table = [];
-    for (let i = 0; i < sheet.length; i++) {
-        if (sheet[i].hidden === false) {
-            table.push({ header: sheet[i].header, name: sheet[i].name, 
-                search: sheet[i].search, sort: sheet[i].sort,
-                checked: (hasOwnProperty(sheet[i], 'checked') === true) ? sheet[i].checked : false });
+    if (table.length === 0) {
+        let table = [];
+        for (let i = 0; i < sheet.length; i++) {
+            if (sheet[i].hidden === false) {
+                table.push({ header: sheet[i].header, name: sheet[i].name, 
+                    search: sheet[i].search, sort: sheet[i].sort,
+                    checked: (hasOwnProperty(sheet[i], 'checked') === true) ? sheet[i].checked : false });
+            }
         }
+        setTable(table);
     }
 
     const processCount = (localData, value, index, posNum) => {
@@ -176,7 +193,7 @@ export const SpreadSheet = (props) => {
                             data[i][sheet[j].name] === null ||
                             data[i][sheet[j].name] === undefined) {
                                 localInvalid = setInvalidTable(localInvalid, j, i, `A ${sheet[j].header} must be given or selected`);
-                        } else if (sheet[j].type === 'text' || sheet[j].type === 'textarea') {
+                        } else if ((sheet[j].type === 'text' && typeof (data[i][sheet[j].name]) === 'string') || sheet[j].type === 'textarea') {
                             let answer = sanitize (data[i][sheet[j].name], sheet[j].header);
                             if (answer.valid === false) {
                                 localInvalid = setInvalidTable(localInvalid, j, i, answer.message);
@@ -205,10 +222,10 @@ export const SpreadSheet = (props) => {
             if (rowSheet.hidden === false) {
                 if (rowSheet.checked === true) {
                     html.push (<td key={key} className="sw-ss_center">
-                                <CheckBox selectedValue="Y"
-                                    name={`data[${pos}].checked`} value={data[pos].checked}
-                                    onChange={(event) => processChecked(event.target.value, pos)} 
-                                    className={" sw-ss_check " + rowSheet.className} disabled={props.error || rowSheet.disabled} />                          
+                                    <CheckBox selectedValue="Y"
+                                        name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processChecked(event.target.value, pos)} 
+                                        className={" sw-ss_check " + rowSheet.className} disabled={props.error || rowSheet.disabled} />                          
                                 </td>)
                 } else if (rowSheet.type === 'text' || rowSheet.type === 'date' || rowSheet.type === 'number') {
                     if (rowSheet.validate === true) {
@@ -226,7 +243,7 @@ export const SpreadSheet = (props) => {
                                         onChange={(event) => processValue(event, pos, i)} 
                                         className={rowSheet.className} disabled={props.error || rowSheet.disabled} />
                                 </td>);
-                    }
+                   }
                 } else if (rowSheet.type === 'textarea') {
                     if (rowSheet.validate === true) {
                         html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
@@ -313,27 +330,38 @@ export const SpreadSheet = (props) => {
             }
         }
 
+
         return html;
     }
 
-    const processAllChecks = (value) => {
+    const processAllChecks = (value, filter) => {
         if (value !== 'Y') {
             value = 'N';
         }
 
-        data.map(row => Object.keys(row).forEach (fieldName => {
-            if (fieldName !== 'count' && fieldName !== 'dirty' && fieldName !== 'checked') {
-                if (row[fieldName] !== '' && row[fieldName] !== null && row[fieldName] !== undefined) {
-                    row.checked = value;
-                }
+        if (filter === 'Y') {
+            for (let i = start; i < end; i++) {
+                pos = indexes[i];
+                Object.keys(data[pos]).forEach (fieldName => {
+                    if (fieldName !== 'count' && fieldName !== 'dirty' && fieldName !== 'checked') {
+                        if (data[pos][fieldName] !== '' && data[pos][fieldName] !== null && data[pos][fieldName] !== undefined) {
+                            data[pos].checked = value;
+                        }
+                    }
+                })
             }
-        }))
+        } else {
+            data.map(row => Object.keys(row).forEach (fieldName => {
+                if (fieldName !== 'count' && fieldName !== 'dirty' && fieldName !== 'checked') {
+                    if (row[fieldName] !== '' && row[fieldName] !== null && row[fieldName] !== undefined) {
+                        row.checked = value;
+                    }
+                }
+            }))
+        }
     }
 
     const processChecked = (value, i) => {
-        console.log('value :', value);
-        console.log('i :', i);
-
         let localData = [...data];
         localData[i].checked = (value === 'Y') ? 'Y' : 'N';
         setData(localData);
@@ -354,6 +382,7 @@ export const SpreadSheet = (props) => {
 
     const saveButton = async() => {
         if (validate() === true) {
+
             let localData = [...data];
             let newData = [];
             for (let i = 0; i < localData.length; i++) {
@@ -367,8 +396,11 @@ export const SpreadSheet = (props) => {
                     newData[i] = props.specialProcessingSave (newData[i]);
                 }
 
-                delete newData[i].dirty;
-                delete newData[i].count;
+                if (hasOwnProperty(props, 'showmetadata') === false) {
+                    delete newData[i].dirty;
+                    delete newData[i].count;
+                    delete newData[i].checked;
+                }
                 
                 for (let j = 0; j < sheet.length; j++) {
                     if (props.sheet[j].save === false) {
@@ -411,6 +443,13 @@ export const SpreadSheet = (props) => {
         populate(count);
     }
 
+    const buttonFunct = (data) => {
+        let counter = count;
+        counter++;
+        setCount(counter);
+        props.buttonFunct(data);
+    }
+
     const genButtonStyle = generateCSSButton('sw-theme_buttonStyle', props.error);
 
     let title = null;
@@ -433,8 +472,10 @@ export const SpreadSheet = (props) => {
     if (checkFound === true && 
         hasOwnProperty(props, 'buttonName') === true && 
         hasOwnProperty(props, 'buttonFunct') === true) {
+        let newData = data.filter (row => row.checked === 'Y' );
+
         specialButton = <button name={props.buttonName} 
-                            className={genButtonStyle} onClick={() => props.buttonFunct(data)} >
+                            className={genButtonStyle} onClick={() => buttonFunct(newData)} >
                                 {props.buttonName}
                         </button>
     } else if (checkFound === true) {
@@ -467,10 +508,12 @@ export const SpreadSheet = (props) => {
                 indexing={indexing}
                 checkedFunct={processAllChecks}
                 error={props.error}
+                number={1}
                 scroll
-                nofilter
+                nofilter={hasOwnProperty(props, 'nofilter')}
                 nopdf={hasOwnProperty(props, 'nopdf')}
                 noexcel={hasOwnProperty(props, 'noexcel')}
+                resetIndexes={count}
                 noheaderborder
                 sfbottom
                 height={(hasOwnProperty(props, 'height') === true) ? props.height : "675px"}>
