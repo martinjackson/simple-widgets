@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-/*
+
 import { CheckBox }        from './CheckBox.js';
 import { Choice }          from './Choice.js';
 import { SearchSortTable } from './SearchSortTable.js';
@@ -19,15 +19,6 @@ import { generateCSSButton } from './Theme.js';
 import { sanitize } from './Common.js';
          
 import { hasOwnProperty } from './hasOwnProperty.js';
-*/
-import { CheckBox, Choice, /*SearchSortTable, */ ChoiceText, Radio, 
-    setInvalidTable, generateInvalid,
-    checkValidityTable, validCheckTable, 
-    clearInvalidTable, 
-    processInvalidStyleTable, wasClickedTable,
-    ConfirmModal, generateCSSButton, sanitize, hasOwnProperty } from 'simple-widgets';
-
-import { SearchSortTable } from './SearchSortTable.js';
 
 let functYes = null;
 
@@ -338,8 +329,6 @@ export const SpreadSheet = (props) => {
                 }
             }
         }
-
-        html.map (row => delete row.ref);
 
 
         return html;
