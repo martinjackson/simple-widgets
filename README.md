@@ -2,7 +2,27 @@
 
 A Collection of components to make your React code simpler.
 
-Breaking Change:
+Breaking Changes:
+
+- 2023-06-05 Simple-Widgets version 1.35.0  \<Form> and \<FormFields> now calls the App supplied formDictionary() passing a string
+    instead of the previous argument {formName: string}. Below is the code change needed to be compatable with previous versions of simple-widgets. Moving forward, the App supplied formDictionary() can expest a single string.
+
+    ```js
+    // in src/App.js
+            setAppSpecificInfo({dbStruct, formDictionary, namedQueries})
+
+    // in src/entry/formDictionary.js
+    const formDictionary = (search) => {
+
+        const formName = (typeof search === 'object') ? search.formName : formName
+         // old version of simple-widgets did a structure
+         // simple-widgets v1.35.0 it is now a string
+    ```
+
+    *Why the breaking change?*
+
+    Origial idea was the ability to search by different elements in each entry in the dictionary (gqlName, db table name, etc.)  This was before introducing the concept of named forms (to support forms refereenced within other forms, records and child records).
+    Since forms are uniquely named and the primary form name is provided to \<Form> and \<FormFields> this change cleans up the design.
 
 - 2021-09-01   DatePicker, DatePickerStyle, UnstyledDatePicker are now obsolete  please used DateInput instead (same React props)
 - last version (1.11.3) of simple-widgets to have DatePicker, DatePickerStyle, UnstyledDatePicker `npm install --save simple-widgets@1.11.3`

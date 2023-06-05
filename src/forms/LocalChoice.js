@@ -201,33 +201,3 @@ export function LocalChoice(props) {
 }
 
 
-/*
-import Select from "react-select"
-
-// -----------------------------------------------------
-  const onChangeLocal = (what, how) => {
-    if (how.action === "select-option") {
-      const e = { target: { name: how.name, value: what.value } } // not label
-      console.log(
-        `LocalChoice -> onChangeLocal()  ${what.value} -> [${how.name}]`
-      )
-      props.onChange(e) // change from react-select
-    } else {
-      console.log("missed   LocalChoice() -> onChange (", what, how, ")")
-    }
-  }
-
-          <Select
-            className={className}
-            classNamePrefix="select"
-            defaultValue={displayableValue}
-            isDisabled={false}
-            isLoading={false}
-            isClearable={true}
-            isRtl={false}
-            isSearchable={true}
-            name={whatsLeft.name}
-            options={choicesLocal}
-            onChange={onChangeLocal}
-          />
-*/
