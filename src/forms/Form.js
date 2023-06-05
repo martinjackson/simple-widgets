@@ -196,7 +196,7 @@ export const Form = (props) => {
           <FormHeader
                header={props.header}
                dataRowStart={dataRowStart}
-               parentRecName={parentRecName}
+               parentRecName={props.parentRecName}
                addRecFn={props.addRecFn}
                cloneRecFn={props.cloneRecFn}
                numRecs={arrLen(data)}
