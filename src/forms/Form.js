@@ -25,7 +25,7 @@ function getLabels(formName) {
   const { formDictionary } = getAppSpecificInfo()
 
   let labels = []
-  const formStructure = formDictionary({ formName: formName })
+  const formStructure = formDictionary(formName)
   if (formStructure) {
     labels = formStructure.fieldList.map(f => f.label)
   } else {

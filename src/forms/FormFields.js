@@ -74,7 +74,7 @@ export const getFieldRecName = (fieldName, fieldType) => {
 export const getGqlNameFromForm = (formName) => {
 
     const {formDictionary} = getAppSpecificInfo()
-    const gqlName = formDictionary({formName: formName})?.gqlName
+    const gqlName = formDictionary(formName)?.gqlName
 
  return gqlName
 }
@@ -89,7 +89,7 @@ const createFields = (formName, formData, onChange, withLabels=true, formInfo) =
     }
     const {formDictionary} = getAppSpecificInfo()
 
-    const formStructure = formDictionary({formName: formName})
+    const formStructure = formDictionary(formName)
     if (!formStructure) {
       console.log(`  createFields (${formName}) unknown.`);
       return []
