@@ -424,7 +424,7 @@ const _InnerSearchSortTable = (props) => {
             if (table[i].search === true) {
                 search.push (table[i].header);
             }
-            if (hasOwnProperty(props,'nofilter') === true && props.nofilter === true) {
+            if (hasOwnProperty(props,'nofilter') === true || props.nofilter === true) {
                 localFilter[i] = '';
             }
         }
@@ -585,7 +585,7 @@ const _InnerSearchSortTable = (props) => {
         }
     }
 
-    const filterSection = (hasOwnProperty(props,'nofilter') === true && props.nofilter === true) ? null :
+    const filterSection = (hasOwnProperty(props,'nofilter') === true || props.nofilter === true) ? null :
         (<>
             <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />
             <button onClick={filterButton} className="sw-sst_buttonStyle2" disabled={props.error || filterOn !== 'Y'}>
@@ -2369,7 +2369,7 @@ const _InnerSearchSortTable = (props) => {
                                 onChange={(event) => processChecked(event.target.value)} />
                         </th>
                 )
-            } else if (filterOn === 'Y' && hasOwnProperty(props,'nofilter') === false && props.nofilter === true && main === true) {
+            } else if (filterOn === 'Y' && (hasOwnProperty(props,'nofilter') === false  || props.nofilter === true) && main === true) {
                 // Filter is turned on
                 let filterStyle = processInvalidStyleScreen(invalid, FILTER, 'sw-sst_widthStyle');
 
