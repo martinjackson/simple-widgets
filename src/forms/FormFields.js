@@ -80,6 +80,11 @@ export const getGqlNameFromForm = (formName) => {
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
+const nonHiddenFields = (fieldList) => {
+  return fieldList.filter( f => !('hidden' in f))
+}
+
+// -------------------------------------------------------------------------------------------------------------------------
 const createFields = (formName, formData, onChange, withLabels=true, formInfo) => {
 
     // console.log('   creating fields for', formName, formInfo.parentRecName, formData);
@@ -95,7 +100,7 @@ const createFields = (formName, formData, onChange, withLabels=true, formInfo) =
       return []
     }
 
-  return formStructure.fieldList.map((f,idx) => {
+  return nonHiddenFields(formStructure.fieldList).map((f,idx) => {
 
     // if is field is a Form, formName is not the gqlName
     let dataName = getFieldRecName(f.name, f.type)
@@ -104,7 +109,9 @@ const createFields = (formName, formData, onChange, withLabels=true, formInfo) =
     // formInfo only needed for 'form', 'formTable'
     return  createField(f, idx, data, onChange, withLabels, formInfo)
   })
+
 }
+
 // -------------------------------------------------------------------------------------------------------------------------
 const genFields = (fieldList, formData, onChange) => {
 
@@ -114,7 +121,7 @@ const genFields = (fieldList, formData, onChange) => {
 
     const change = (onChange != null) ? onChange : defaultOnChange
 
-    const fields = fieldList.map((f,idx) => {
+    const fields = nonHiddenFields(fieldList).map((f,idx) => {
       let field
       if (f.type != 'form' && f.type != 'formTable') {
           const data = (formData && formData[f.name]) ? formData[f.name] : null
