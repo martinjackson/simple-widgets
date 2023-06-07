@@ -18,6 +18,14 @@ The CheckBox component uses the following props:
     _example onChange={handleChange}_
 5. **selectedValue**: the value of state variable when the CheckBox is checked
 6. **text**: a label (String or component) that is displayed after the CheckBox
+7. **checkedsymbol**: the symbol you want when the checkbox is checked.  Possible values are:
+    - **normal** = a normal check mark shows up inside tghe box.  This is the default.  Unicode: 9745.
+    - **blue** = a white check mark with a blue background.  Unicode: 9745 and 65039.
+    - **green** = a white check mark with a green background.  Unicode: 9989.
+    - **cross** = a X will appear in the box.  Unicode: 9746.
+    - **greenx** = a white X with a green background.  Unicode: 10062.
+    - **redx** = a red X with no box around it.  Unicode: 10060.
+8. **unichar**: the user can provide there own unicode character in decimal.  For example unichar="8855" is a X inside of a circle.  The unichar will supercede the checkedsymbol.  Therefore, if you have a unichar prop and a checkedsymbol prop, the unichar will be used and not the checkedsymbol.  Not all the unicode characters will work.
 
 ## CSS File
 
@@ -46,7 +54,7 @@ For more information on CSS files, see [Using CSS](./UsingCSS.md).
 }
 ```
 
-### **Example**
+### **Example 1**
 ```javascript
 import { CheckBox } from 'simple-widgets';
 
@@ -71,6 +79,59 @@ export default YourComponent;
 
 The value Preview will be placed in the state variable when the check box with the label Preview is checked and blank when unchecked.
 
+
+### **Example 2**
+```javascript
+import { CheckBox } from 'simple-widgets';
+
+
+const YourComponent = (props) => {
+
+  const [preview, setPreview] = useState('');
+
+  return  (
+    <div>
+              <CheckBox value={preview}
+                        name="preview"
+                        text="Preview"
+                        selectedValue="Preview"
+                        checkedsymbol="blue"
+                        onChange={(event) => setPreview(event.target.value)} />
+    </div>
+  )
+}
+
+export default YourComponent;
+```
+
+The value Preview will be placed in the state variable when the check box with the label Preview is checked and blank when unchecked.  The checked box will be a white checkbox with a blue background.
+
+
+### **Example 3**
+```javascript
+import { CheckBox } from 'simple-widgets';
+
+
+const YourComponent = (props) => {
+
+  const [preview, setPreview] = useState('');
+
+  return  (
+    <div>
+              <CheckBox value={preview}
+                        name="preview"
+                        text="Preview"
+                        selectedValue="Preview"
+                        unichar="8855"
+                        onChange={(event) => setPreview(event.target.value)} />
+    </div>
+  )
+}
+
+export default YourComponent;
+```
+
+The value Preview will be placed in the state variable when the check box with the label Preview is checked and blank when unchecked.  The checked box will be what is defined in the unichar.  The character that will be displayed is an X with a circle around it.
 
 ### **Versioning and Stability**
 
