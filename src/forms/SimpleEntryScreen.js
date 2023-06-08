@@ -111,7 +111,9 @@ export function SimpleEntryScreen(props) {
         noClone={props.noClone}
         pendingUpdates={pendingUpdatesFn}
         isLoading={!props.rec || props.rec.loading}
-        debug={props.debug} />
+        debug={props.debug}
+        onChangeSpecial={props.onChangeSpecial}
+        />
     </div>
     <div className={props.styleSelected}>
       <div className="footer">

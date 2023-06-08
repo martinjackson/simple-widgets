@@ -175,7 +175,7 @@ function EntryScreenKeyed(props) {
 
   const onChangeSpecial = (change, moreChanges) => {
 
-    // special business logic only applied to Employee screen
+    // special business logic
     if (props.businessLogic) {
       const ok = props.businessLogic(change, data, moreChanges)     // props.businessLogic()  can change multiple fields in currentRec via moreChanges
       if (!ok) {
@@ -242,6 +242,7 @@ function EntryScreenKeyed(props) {
 
       pickNewTopRecord={pickNewTopRecord}
       logErrors={logErrors}
-      onChangeSpecial={onChangeSpecial} />
+      onChangeSpecial={onChangeSpecial}
+      />
   </>
 }

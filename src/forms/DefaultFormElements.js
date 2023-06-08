@@ -5,7 +5,7 @@
 const dowList = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
 const MIStyle = {width: '2em', paddingRight: '0', paddingLeft: '0', textAlign: 'center'}
 
-export const fields = {
+export const exampleFields = {
   firstName:    { type: "text",      name: "firstName",    text: "First Name",    placeholder: 'Jack',          required: true },
   lastName:     { type: "text",      name: "lastName",     text: "Last Name",     placeholder: 'Doe',           required: true },
   midItial:     { type: "text",      name: "midItial",     text: "M.I.",          placeholder: 'E',             required: false,  size:1, maxLength: 1, style: MIStyle},
@@ -43,5 +43,5 @@ export const applyOptions = (formFieldList, missing) => {
     }
   });
 
-  return formFieldList    
+  return formFieldList
 }
