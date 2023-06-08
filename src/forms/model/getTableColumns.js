@@ -8,6 +8,12 @@ export const getTableColumns = (tableName) => {
 
   const {dbStruct} = getAppSpecificInfo()
 
+  if (!dbStruct) {
+    console.log(TS(), `no dbStructure defined. no place to look up: ${tableName} `)
+    console.log(TS(), `read about having the line setAppSpecificInfo({dbStruct, formDictionary, namedQueries}) in your App.js `)
+    return []
+  }
+
   if (!dbStruct[tableName]) {
     console.log(TS(), `${tableName} not found. try the following:`);
     console.log(TS(), Object.keys(dbStruct));

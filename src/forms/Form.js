@@ -207,17 +207,29 @@ export const Form = (props) => {
 
       try {
         const changes = applyDeepValueChange(data, targetName, targetValue)
-        props.pendingUpdates(changes.update)
+        if (props.pendingUpdates)
+           props.pendingUpdates(changes.update)
+
+        if (props.setData)
         props.setData(changes.newData); // reg field value changes
+
       } catch (e) {
-        props.logErrors(e.message);
+        if (props.logErrors) {
+          props.logErrors(e.message)
+        } else {
+          console.log('<Forms onChange() error:', e.message)
+        }
       }
 
     }
 
-    const handled = props.onChangeSpecial(change, moreChanges);
+    let handled = false
+    if (props.onChangeSpecial) {
+      handled = props.onChangeSpecial(change, moreChanges);
+    }
+
     if (change.target && !handled) {
-      // console.log(`   ${change.target.name} <== ${change.target.value}`);
+      console.log(`  <Form>   ${change.target.name} <== ${change.target.value}`);
       moreChanges(props.data, change.target.name, change.target.value)
     }
 

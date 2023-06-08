@@ -1,4 +1,4 @@
-// import { TS } from '../time.js'
+import { TS } from '../time.js'
 
 import { getKeyValues, getGqlName } from './getKeyValues.js'
 import { getGqlPKs } from './model/getTablePKs.js'
@@ -18,7 +18,7 @@ const stringify = (val) => {
 
 // ------------------------------------------------------------------------------
 export const applyDeepValueChange = (data, name, value) => {
-            // console.log(TS(), 'data change: ', name, value);
+            // console.log(TS(), 'applyDeepValueChange() data change: ', data, name, value)
 
             let fqVarName = name
             let valExpression = stringify(value)
@@ -46,7 +46,8 @@ export const applyDeepValueChange = (data, name, value) => {
                 const getDataFn = new Function(getFnStr)();
                 rec = getDataFn(data)
             } catch(e) {
-                console.log('applyDeepValueChange() in dataRecordUtil.js:46 and', e.fileName+':'+e.lineNumber, e.message, );
+                const where = (e.fileName && e.lineNumber) ? e.fileName+':'+e.lineNumber : ''
+                console.log('applyDeepValueChange() in dataRecordUtil.js:50', where, e.message, );
             }
 
             let tmp
@@ -54,18 +55,12 @@ export const applyDeepValueChange = (data, name, value) => {
               const changeDataFn = new Function(setFnStr)();
               tmp = changeDataFn(data)
             } catch(e) {
-              console.log('applyDeepValueChange() in dataRecordUtil.js:54', e);
+              console.log('applyDeepValueChange() in dataRecordUtil.js:58', e);
             }
 
             const gqlName = getGqlName(recName)
             const pkNames = getGqlPKs(gqlName)
-            if (!pkNames) {
-              // Should never see this db Structure as ROWID as PK on tables w/o keys
-              const msg = 'BIG PROBLEM: '+gqlName+' has no keys.'
-              throw new Error(msg)
-            }
-
-            const keyValues = getKeyValues(pkNames, rec, gqlName)
+            const keyValues = (pkNames) ? getKeyValues(pkNames, rec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
             const update = {
               gqlTable: gqlName,
               gqlField: fieldName,
