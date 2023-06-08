@@ -2375,7 +2375,8 @@ const _InnerSearchSortTable = (props) => {
 
                 if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler
                     if (row.search === false) { // No searching on this field, so no filtering on it also
-                        if (row.dropDown === true && main === true) {
+                        /* at this point main is always true    && main === true */
+                        if (row.dropDown === true) {
                             return (<th key={key} className={headerStyle}>
                                         {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
                                         <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button>
@@ -2389,7 +2390,8 @@ const _InnerSearchSortTable = (props) => {
                         return (
                             <th key={key} className={headerStyle + ' sw-sst_bottom'}>
                                 {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
-                                {(row.dropDown === true && main === true) ?
+                                {/* at this point main is always true    && main === true */}
+                                {(row.dropDown === true) ?
                                     <button className={"sw-sst_headerButton" + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                     <div className={fontColor}>{row.header}</div>}
                                 <span className="sw-invalid_checkForError">
@@ -2404,7 +2406,8 @@ const _InnerSearchSortTable = (props) => {
                     if (row.search === false) { // No searching or filtering on the column, so display header only
                         return (
                             <th key={key} className={headerStyle}>
-                                {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
+                              {/* at this point main is always true    && main === true */}
+                                {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
                                 {(row.dropDown === true && main === true) ? <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                     <div className={fontColor}>{row.header}</div>}
                                 {(doSort === true) ? <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes, tableIndex)} className="sw-sst_buttonStyle2">{btnImg}</button> : null }
@@ -2413,7 +2416,8 @@ const _InnerSearchSortTable = (props) => {
                     } else {    // Searching and filtering is allowed
                         return (    // Display header and input field for filtering
                             <th key={key} className={headerStyle + ' sw-sst_bottom'}>
-                                {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
+                                {/* at this point main is always true    && main === true */}
+                                {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
                                 <div>
                                     {(row.dropDown === true && main === true) ? <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                         <div className={fontColor}>{row.header}</div>}
