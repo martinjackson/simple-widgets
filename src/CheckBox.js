@@ -8,13 +8,13 @@ import { hasOwnProperty } from './hasOwnProperty.js'
     ☒  U+2612 &#9746;  Ballot Box with X
   */
 
-const checked = String.fromCharCode(9745) 
-const addOn = String.fromCharCode(65039) 
-const green = String.fromCharCode(9989) 
-const cross = String.fromCharCode(9746) 
-const greenx = String.fromCharCode(10062) 
+const checked = String.fromCharCode(9745)
+const addOn = String.fromCharCode(65039)
+const green = String.fromCharCode(9989)
+const cross = String.fromCharCode(9746)
+const greenx = String.fromCharCode(10062)
 const redx = String.fromCharCode(10060)
-const unchecked = String.fromCharCode(9744) 
+const unchecked = String.fromCharCode(9744)
 
 export const CheckBox = props => {
 if (hasOwnProperty(props, 'backcolor') === true) console.log('props :', props);
@@ -37,7 +37,7 @@ if (hasOwnProperty(props, 'backcolor') === true) console.log('props :', props);
 
   let checkedSymbol = checked;
   if (hasOwnProperty(props, 'checkedsymbol') === true) {
-      if (props.checkedsymbol === 'normal') checkedSymbol =  checked;
+      // if (props.checkedsymbol === 'normal') checkedSymbol =  checked;     value already assigned
       if (props.checkedsymbol === 'blue') checkedSymbol = checked + addOn ;
       if (props.checkedsymbol === 'green') checkedSymbol = green;
       if (props.checkedsymbol === 'cross') checkedSymbol = cross;
