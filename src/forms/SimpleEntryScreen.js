@@ -77,7 +77,7 @@ export function SimpleEntryScreen(props) {
     return prev;
   }
 
-  const pendingUpdates = (update) => {
+  const pendingUpdatesFn = (update) => {
     setPendingUpdates(prev => addUpdate(prev, update))
   }
 
@@ -109,7 +109,7 @@ export function SimpleEntryScreen(props) {
         cloneFeature={props.cloneFeature}
         noAdd={props.noAdd}
         noClone={props.noClone}
-        pendingUpdates={pendingUpdates}
+        pendingUpdates={pendingUpdatesFn}
         isLoading={!props.rec || props.rec.loading}
         debug={props.debug} />
     </div>

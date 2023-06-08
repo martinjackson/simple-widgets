@@ -91,7 +91,7 @@ export const FormTable = (props) => {
     let data = (props.data) ? props.data : props.value   // props.value should always be the case, especially sub-tables, props.data is legacy
 
     if (props.debug && (props.data || props.value)) {
-        console.log(' FormTable props:', {props.parentRecName, props.name, props.data, props.value});
+        console.log(' FormTable props:', props.parentRecName, props.name, props.data, props.value);
     }
 
     const onChange = (change) => {
@@ -100,7 +100,7 @@ export const FormTable = (props) => {
 
         try {
           const changes = applyDeepValueChange(data, targetName, targetValue)
-          props.pendingUpdates(changes.update))
+          props.pendingUpdates(changes.update)
           props.setData(changes.newData); // reg field value changes
         } catch (e) {
           props.logErrors(e.message);
@@ -194,7 +194,7 @@ export const Form = (props) => {
   const recNextFn = () => {setDataRowStart(dataRowStart+1)}
 
   if (props.debug) {
-    console.log(' Form:', {props.parentRecName, props.name, props.data, props.value});
+    console.log(' Form:', props.parentRecName, props.name, props.data, props.value);
   }
 
   let dataRow = (props.data) ? props.data : props.value   // props.value should always be the case, especially sub-tables, props.data is legacy
@@ -207,7 +207,7 @@ export const Form = (props) => {
 
       try {
         const changes = applyDeepValueChange(data, targetName, targetValue)
-        props.pendingUpdates(changes.update))
+        props.pendingUpdates(changes.update)
         props.setData(changes.newData); // reg field value changes
       } catch (e) {
         props.logErrors(e.message);
