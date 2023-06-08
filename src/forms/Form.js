@@ -214,7 +214,7 @@ export const Form = (props) => {
            props.pendingUpdates(changes.update)
 
         if (props.setData)
-        props.setData(changes.newData); // reg field value changes
+           props.setData(changes.newData); // reg field value changes
 
       } catch (e) {
         if (props.logErrors) {

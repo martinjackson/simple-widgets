@@ -26,3 +26,25 @@
 ### Call
 
 - 278:  const [modState, formOpts] = businessLogic(data, incomingChange_PropsData)
+
+----------------------------------------------------------------------------------------------------------
+
+# Where onChangeSpecial is referenced in simple-widgets
+
+## src/forms/EntryScreen.js
+
+176:  const onChangeSpecial = (change, moreChanges) => {
+
+245:      onChangeSpecial={onChangeSpecial}
+
+## src/forms/SimpleEntryScreen.js
+
+115:        onChangeSpecial={props.onChangeSpecial}
+
+## src/forms/Form.js
+
+111:      const handled = props.onChangeSpecial(change, moreChanges);
+
+230:    if (props.onChangeSpecial) {
+
+231:      handled = props.onChangeSpecial(change, moreChanges);
