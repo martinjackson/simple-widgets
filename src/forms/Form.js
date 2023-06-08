@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react'
 
-import { FormFields } from './FormFields.js'
+import { FormFields, getGqlNameFromForm } from './FormFields.js'
 import { Button } from './Button.js'
 import {AddRecordIcon, CloneRecordIcon} from './img/FormImages.js'
 import { arrLen } from './arrLen.js'
@@ -189,6 +189,8 @@ return (
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const Form = (props) => {
 
+  const gqlName = getGqlNameFromForm(props.name)
+
   const [dataRowStart, setDataRowStart] = useState(0)
   const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
   const recNextFn = () => {setDataRowStart(dataRowStart+1)}
@@ -197,7 +199,8 @@ export const Form = (props) => {
     console.log(' Form:', props.parentRecName, props.name, props.data, props.value);
   }
 
-  let dataRow = (props.data) ? props.data : props.value   // props.value should always be the case, especially sub-tables, props.data is legacy
+  let incomingData = (props.data) ? props.data : props.value
+  const dataRow = Array.isArray(incomingData) ? incomingData : incomingData[gqlName]
   let data = (dataRow && dataRow[dataRowStart]) ? dataRow[dataRowStart] : dataRow
 
 
