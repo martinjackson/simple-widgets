@@ -2389,7 +2389,8 @@ const _InnerSearchSortTable = (props) => {
                     } else {    // Can filter; therefore, display the input field
                         return (
                             <th key={key} className={headerStyle + ' sw-sst_bottom'}>
-                                {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
+                                {/* at this point main is always true    && main === true */}
+                                {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
                                 {/* at this point main is always true    && main === true */}
                                 {(row.dropDown === true) ?
                                     <button className={"sw-sst_headerButton" + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
@@ -2408,7 +2409,9 @@ const _InnerSearchSortTable = (props) => {
                             <th key={key} className={headerStyle}>
                               {/* at this point main is always true    && main === true */}
                                 {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
-                                {(row.dropDown === true && main === true) ? <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
+
+                                {/* at this point main is always true    && main === true */}
+                                {(row.dropDown === true) ? <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                     <div className={fontColor}>{row.header}</div>}
                                 {(doSort === true) ? <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes, tableIndex)} className="sw-sst_buttonStyle2">{btnImg}</button> : null }
                             </th>
@@ -2419,7 +2422,8 @@ const _InnerSearchSortTable = (props) => {
                                 {/* at this point main is always true    && main === true */}
                                 {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
                                 <div>
-                                    {(row.dropDown === true && main === true) ? <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
+                                    {/* at this point main is always true    && main === true */}
+                                    {(row.dropDown === true) ? <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                         <div className={fontColor}>{row.header}</div>}
                                     {(doSort === true) ? <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes, tableIndex)} className="sw-sst_buttonStyle2">{btnImg}</button> : null }
                                 </div>
@@ -2841,7 +2845,7 @@ const _InnerSearchSortTable = (props) => {
      *
      **********************************************************************************/
     function searchItemButton() {
-        if (table && validate('B') === true) {  // Make sure a value has been selected in the drop down and text box
+        if (table && validate() === true) {  // Make sure a value has been selected in the drop down and text box
             let search = null;
             search = (hasOwnProperty(props,'ignorecase') === true) ?
                 searchItem.toUpperCase() :  // Convert to upper case to ignore case
@@ -3221,7 +3225,7 @@ const _InnerSearchSortTable = (props) => {
 
         let indexing = [...origIndexes];
 
-        if (validate('H') === true) {   // Validate that a search header was entered
+        if (validate() === true) {   // Validate that a search header was entered
             // Used to get the field name of the data item
             let index = table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
 
