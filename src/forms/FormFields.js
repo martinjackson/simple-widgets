@@ -9,10 +9,11 @@ import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
 // import { TS } from '../time.js'
 
 // -------------------------------------------------------------------------------------------------------------------------
-const labelWrap = (f, idx, children, fType) => {
+const labelWrap = (f, idx, children) => {
 
     const ifRequired = (f.required) ? <span className="required">*</span> : null
 
+    // fType is no loonger passed as 4th argument (f, idx, children, fType)
     // dont <label for="form name" Chrome complains there is no field with that name
     // const name = (fType === 'form' || f.type === 'formTable') ? null : f.name
 
@@ -53,7 +54,9 @@ const createField = (fieldStructure, idx, value, onChange, withLabels=true, form
           }
       }
 
-  return (withLabels) ? labelWrap(fieldStructure, idx, field, f.type) : field
+  // return (withLabels) ? labelWrap(fieldStructure, idx, field, f.type) : field           f.type no longer needed as 4th argument
+
+  return (withLabels) ? labelWrap(fieldStructure, idx, field) : field
 }
 
 // -------------------------------------------------------------------------------------------------------------------------

@@ -18,15 +18,15 @@ export const DoubleListBox = props => {
         if (!props.value) {
             console.log("DoubleListBox props 'value' field is missing.");
         }
-    
+
         if (!props.choices) {
             console.log("DoubleListBox props 'choices' field is missing.");
         }
-    
+
         const choices = [...props.choices || []]
         const right = [...props.value || []]
         const left = choices.filter( item => !right.find(r => r === item))  // not in the right
-        
+
         setChoices(choices);
         setLeftValues(left);
         setRightValues(right);
@@ -37,12 +37,11 @@ export const DoubleListBox = props => {
     useEffect (() => reset(props), [/*props.choices*/]);
 
     const reportChange = (right) => {
-        let value = [...right];
         let compName = 'DoubleListBox';
         if (hasOwnProperty(props, 'name') === true) {
             compName = props.name;
         }
-        
+
         // dont modify 'e', a Synthetic Event
         props.onChange({target: {name: compName, value: right}});
     }
