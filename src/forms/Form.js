@@ -6,6 +6,7 @@ import { Button } from './Button.js'
 import {AddRecordIcon, CloneRecordIcon} from './img/FormImages.js'
 import { arrLen } from './arrLen.js'
 import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
+import { applyDeepValueChange } from './dataRecordUtil.js'
 
 import './Form.css'
 
@@ -83,20 +84,36 @@ export const FormTable = (props) => {
     const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
     const recNextFn = () => {setDataRowStart(dataRowStart+1)}
 
-    const {parentRecName, name, value, debug, isLoading} = props
-
-    if (isLoading) {
+    if (props.isLoading) {
       return <span>Loading...</span>
     }
 
-    let {data} = props
+    let data = (props.data) ? props.data : props.value   // props.value should always be the case, especially sub-tables, props.data is legacy
 
-    if (debug && (data || value)) {
-        console.log(' FormTable props:', {parentRecName, name, data, value});
+    if (props.debug && (props.data || props.value)) {
+        console.log(' FormTable props:', {props.parentRecName, props.name, props.data, props.value});
     }
 
-    if (!data) {
-      data = value               // this should always be the case, especially sub-tables, data is a legacy prop
+    const onChange = (change) => {
+
+      const moreChanges = (data, targetName, targetValue) => {
+
+        try {
+          const changes = applyDeepValueChange(data, targetName, targetValue)
+          props.pendingUpdates(changes.update))
+          props.setData(changes.newData); // reg field value changes
+        } catch (e) {
+          props.logErrors(e.message);
+        }
+
+      }
+
+      const handled = props.onChangeSpecial(change, moreChanges);
+      if (change.target && !handled) {
+        // console.log(`   ${change.target.name} <== ${change.target.value}`);
+        moreChanges(props.data, change.target.name, change.target.value)
+      }
+
     }
 
     const rows = (data) ? data.length : 0
@@ -122,7 +139,7 @@ return (
          <FormHeader
                header={props.header}
                dataRowStart={dataRowStart}
-               parentRecName={parentRecName}
+               parentRecName={props.parentRecName}
                addRecFn={props.addRecFn}
                cloneRecFn={props.cloneRecFn}
                numRecs={arrLen(data)}
@@ -154,7 +171,7 @@ return (
                         dataIndex={i}
                         formData={ (data && data[i]) ? data[i] : null }
                         showDebug={props.debug}
-                        onChange={props.onChange}
+                        onChange={onChange}
                         withLabels={false}
                         wrapWith={fieldWrap}
                       />
@@ -176,17 +193,35 @@ export const Form = (props) => {
   const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
   const recNextFn = () => {setDataRowStart(dataRowStart+1)}
 
-  const {parentRecName, name, value} = props
-  let {debug, data} = props
-
-  if (debug) {
-    console.log(' Form:', {parentRecName, name, data, value});
+  if (props.debug) {
+    console.log(' Form:', {props.parentRecName, props.name, props.data, props.value});
   }
 
-  if (!data) {
-    data = value               // this should always be the case, especially sub-tables, data is a legacy prop
-  }
+  let dataRow = (props.data) ? props.data : props.value   // props.value should always be the case, especially sub-tables, props.data is legacy
+  let data = (dataRow && dataRow[dataRowStart]) ? dataRow[dataRowStart] : dataRow
 
+
+  const onChange = (change) => {
+
+    const moreChanges = (data, targetName, targetValue) => {
+
+      try {
+        const changes = applyDeepValueChange(data, targetName, targetValue)
+        props.pendingUpdates(changes.update))
+        props.setData(changes.newData); // reg field value changes
+      } catch (e) {
+        props.logErrors(e.message);
+      }
+
+    }
+
+    const handled = props.onChangeSpecial(change, moreChanges);
+    if (change.target && !handled) {
+      // console.log(`   ${change.target.name} <== ${change.target.value}`);
+      moreChanges(props.data, change.target.name, change.target.value)
+    }
+
+  }
 
     return (
       <div className='flex flex-row'>
@@ -199,7 +234,7 @@ export const Form = (props) => {
                parentRecName={props.parentRecName}
                addRecFn={props.addRecFn}
                cloneRecFn={props.cloneRecFn}
-               numRecs={arrLen(data)}
+               numRecs={arrLen(dataRow)}
                recPrevFn={recPrevFn}
                recNextFn={recNextFn}
                noAdd={props.noAdd}
@@ -213,9 +248,9 @@ export const Form = (props) => {
               noAdd={props.noAdd}
               noClone={props.noClone}
               dataIndex={dataRowStart}
-              formData={(data && data[dataRowStart]) ? data[dataRowStart] : null}
-              showDebug={debug}
-              onChange={props.onChange}
+              formData={data}
+              showDebug={props.debug}
+              onChange={onChange}
               withLabels={true}
           />
         </div>

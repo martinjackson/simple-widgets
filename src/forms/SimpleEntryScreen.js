@@ -75,28 +75,10 @@ export function SimpleEntryScreen(props) {
     }
     prev[id].fields[u.gqlField] = u.value;
     return prev;
-  };
-
-  const moreChanges = (data, targetName, targetValue) => {
-
-      try {
-        const changes = applyDeepValueChange(data, targetName, targetValue)
-        setPendingUpdates(prev => addUpdate(prev, changes.update))
-        props.setData(changes.newData); // reg field value changes
-      } catch (e) {
-        props.logErrors(e.message);
-      }
-
   }
 
-  const onChange = (change) => {
-
-    const handled = props.onChangeSpecial(change, moreChanges);
-    if (change.target && !handled) {
-      // console.log(`   ${change.target.name} <== ${change.target.value}`);
-      moreChanges(props.data, change.target.name, change.target.value)
-    }
-
+  const pendingUpdates = (update) => {
+    setPendingUpdates(prev => addUpdate(prev, update))
   }
 
   const addRecFn = () => {
@@ -121,12 +103,13 @@ export function SimpleEntryScreen(props) {
         header={props.header}
         loadInProgress={props.loadInProgress}
         data={data}
-        onChange={onChange}
+        setData={props.setData}
         addRecFn={addRecFn}
         cloneRecFn={cloneRecFn}
         cloneFeature={props.cloneFeature}
         noAdd={props.noAdd}
         noClone={props.noClone}
+        pendingUpdates={pendingUpdates}
         isLoading={!props.rec || props.rec.loading}
         debug={props.debug} />
     </div>
