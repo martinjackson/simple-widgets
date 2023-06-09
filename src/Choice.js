@@ -26,12 +26,11 @@ export const Choice = (propsIn) => {
        }
 
     const {value, placeholder, ...options} = props          // dont use var value from here, that is less descriptive -- this is a substraction
-    const placeholderJSX = (placeholder) ? <option value="" disabled selected>{placeholder}</option> : null
+    const placeholderJSX = (placeholder) ? <option value="" disabled>{placeholder}</option> : null
 
     if (props.multiple) {
       return <Fragment>
                 <select multiple size={siz} {...options} value={props.value || ""}>
-                <option value="" disabled selected>Select something...</option>
                   {placeholderJSX}
                   {keys.map( (el,k) => genOption(el,k) )}
                 </select>
