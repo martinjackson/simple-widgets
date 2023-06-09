@@ -13,15 +13,7 @@ export const Choice = (propsIn) => {
     const keys = (isKeyed) ? Object.keys(opt) : opt
 
     const genOption = (el, k) => {
-      if (isKeyed) {
-        return (opt[el] == props.value) ?
-          <option key={k} value={el} selected={true}>{opt[el]}</option> :                 // <option key="1" value="2" selected={true}>'Hernandez, April'</option>
-          <option key={k} value={el}>{opt[el]}</option>
-      } else {
-        return (el == props.value) ?
-            <option key={k} value={el} selected={true}>{el}</option> :
-            <option key={k} value={el}>{el}</option>
-      }
+      return (isKeyed) ? <option key={k} value={el}>{opt[el]}</option> : <option key={k} value={el}>{el}</option>
     }
 
 
@@ -33,16 +25,22 @@ export const Choice = (propsIn) => {
          opt.unshift(props.value)
        }
 
+    const {value, placeholder, ...options} = props          // dont use var value from here, that is less descriptive -- this is a substraction
+    const placeholderJSX = (placeholder) ? <option value="" disabled selected>{placeholder}</option> : null
+
     if (props.multiple) {
       return <Fragment>
-                <select multiple size={siz} {...props} >
+                <select multiple size={siz} {...options} value={props.value || ""}>
+                <option value="" disabled selected>Select something...</option>
+                  {placeholderJSX}
                   {keys.map( (el,k) => genOption(el,k) )}
                 </select>
             </Fragment>;
     }
     else {
       return <Fragment>
-                <select {...props} >
+                <select {...options} value={props.value || ""}>
+                  {placeholderJSX}
                   {keys.map( (el,k) => genOption(el,k) )}
                 </select>
             </Fragment>;
