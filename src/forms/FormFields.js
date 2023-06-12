@@ -26,6 +26,11 @@ const labelWrap = (f, idx, children) => {
 // -------------------------------------------------------------------------------------------------------------------------
 const createField = (fieldStructure, idx, value, onChange, withLabels=true, formInfo=null) => {
 
+      if (value === null) {
+        // console.log(`createField() [${idx}]  type:${fieldStructure.type}  name:${fieldStructure.name} value=null`)  // , fieldStructure, value, withLabels, formInfo)
+        // console.trace()
+      }
+
       // fieldStructure is a type, create an instance w/ field data
       const f = {...fieldStructure, value}
 
@@ -107,7 +112,13 @@ const createFields = (formName, formData, onChange, withLabels=true, formInfo) =
 
     // if is field is a Form, formName is not the gqlName
     let dataName = getFieldRecName(f.name, f.type)
-    const data = (formData && formData[dataName]) ? formData[dataName] : null
+    const data = (formData != null && formData[dataName] != undefined) ? formData[dataName] : null
+    if (data === null) {
+      console.log(`Form '${formName}' 's formData['${dataName}'] is null.`, formData)
+    }
+    if (formData && formData[dataName] === undefined) {
+      console.log(`Form '${formName}' 's formData['${dataName}'] is missing.`, formData)
+    }
 
     // formInfo only needed for 'form', 'formTable'
     return  createField(f, idx, data, onChange, withLabels, formInfo)
@@ -178,6 +189,28 @@ export const ifDefined = (variable) => {
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
+const typeSafeAssignment = (targetName, prevVal, newVal) => {
+
+  const originalType = typeof prevVal
+  const incomingType = typeof newVal
+  let val = newVal
+
+  if (originalType.localeCompare(incomingType) != 0) {           // string, number, bigint, boolean, undefined, symbol, null
+
+    if (originalType === 'boolean' && incomingType === 'string') {
+      val = (newVal == 'true')
+    } else if (originalType === 'number' && incomingType === 'string') {
+      val = (+newVal)    // MDN says works for floats and ints, better than parseInt and parseFloat ??
+    } else {
+      console.log('change in field', targetName, 'has the wrong incoming type:', incomingType, 'was', originalType, '(no code to handle combo)');
+    }
+
+  }
+
+  return val
+}
+
+// -------------------------------------------------------------------------------------------------------------------------
 export const FormFields = (props) => {
 
       const {name, parentRecName, dataIndex, showDebug, withLabels=true} = props
@@ -217,20 +250,22 @@ export const FormFields = (props) => {
         }
 
 
+        // TODO: recFullName or e.target.name ??
+        const val = typeSafeAssignment(e.target.name, data[e.target.name], e.target.value)
+
         if (!e.target.name.includes('.')) {   // bubble all non-local values
           // console.log(TS(), `   ${recFullName} ${e.target.name} <= ${e.target.value};`);
 
           const tmp = {...data}
-          tmp[e.target.name] = e.target.value
+          tmp[e.target.name] = val
           setData(tmp)                             // changes local to this sub-form, affects if the field can be modified
-
           }
 
         // Pass it up so the top parent can change the data
         // DO NOT REUSE e
         let e2 = {target: {
             name: dataName+'.'+e.target.name,  // fully qualified field path
-            value: e.target.value
+            value: val
           }}
 
         // console.log(`   onChangeFormFields(${dataName}) target`, {name: e2.target.name, val: e2.target.value});

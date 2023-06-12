@@ -5,13 +5,21 @@ import { getGqlPKs } from './model/getTablePKs.js'
 
 // ------------------------------------------------------------------------------
 const stringify = (val) => {
-      let s = ' "'+val+'"'
-      if (typeof val == 'number' ) {
+
+       // possible typeof: string, number, bigint, boolean, undefined, symbol, null
+
+      let s = ' "'+val+'"'          // default is string type
+                                    // TODO: What if there are quotes in the string ???
+                                    // TOMORROW: THIS NEEDS WORK, try typing " in a text field
+
+      if (typeof val == 'number' || typeof val == 'bigint' || typeof val == 'boolean' ) {  // TODO is this correct for bigint ???
           s = ''+val
       }
-      if (typeof val == 'object' ) {
+
+      if (typeof val == 'object' || typeof val == 'symbol') {     // TODO is this correct for symbol ???
           s = JSON.stringify(val)
       }
+
       return s
 }
 
