@@ -25,7 +25,14 @@ export const Choice = (propsIn) => {
          opt.unshift(props.value)
        }
 
-    const {value, placeholder, ...options} = props          // dont use var value from here, that is less descriptive -- this is a substraction
+    let {value, placeholder, ...options} = props          // dont use var value from here, that is less descriptive -- this is a substraction
+
+    if (placeholder) {
+      placeholder = placeholder.trim()
+      if (placeholder.length === 0)
+         placeholder = null
+    }
+
     const placeholderJSX = (placeholder) ? <option value="" disabled>{placeholder}</option> : null
 
     if (props.multiple) {

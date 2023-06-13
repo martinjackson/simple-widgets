@@ -46,7 +46,7 @@ export const CheckBox = props => {
   if (hasOwnProperty(props, 'backcolor') === true)
      console.log('props :', props);
 
-  console.log(`  <CheckBox>   ${props.name}: ${props.value} (${typeof props.value})`);
+  // console.log(`  <CheckBox>   ${props.name}: ${props.value} (${typeof props.value})`);
 
 
   const [selectedVal, notSelected] = deriveChoices(props)
@@ -58,7 +58,7 @@ export const CheckBox = props => {
 
     // toggle value do to click action
     const newValue = (props.value === selectedVal) ? notSelected : selectedVal;
-    console.log(`  <CheckBox>   newValue: ${newValue} (${typeof newValue})`);
+    // console.log(`  <CheckBox>   newValue: ${newValue} (${typeof newValue})`);
 
     e.target.name = props.name
     e.target.value = newValue
@@ -93,7 +93,7 @@ export const CheckBox = props => {
   const isChecked = props.value === selectedVal
   const symbol = (isChecked) ? checkedSymbol : unchecked
 
-  console.log('CheckBox isChecked:',isChecked, props.value, selectedVal, symbol);
+  // console.log('CheckBox isChecked:',isChecked, props.value, selectedVal, symbol);
 
   return <button type="button" onClick={handle} className={"sw-checkbox_defaultStyle " + className} {...rest}>
             {symbol}

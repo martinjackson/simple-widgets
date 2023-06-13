@@ -201,8 +201,9 @@ const typeSafeAssignment = (targetName, prevVal, newVal) => {
       val = (newVal == 'true')
     } else if (originalType === 'number' && incomingType === 'string') {
       val = (+newVal)    // MDN says works for floats and ints, better than parseInt and parseFloat ??
-    } else {
-      console.log('change in field', targetName, 'has the wrong incoming type:', incomingType, 'was', originalType, '(no code to handle combo)');
+    } else if (prevVal != null) {
+      console.log(`change in field '${targetName}' has the wrong incoming type: ${incomingType} was ${originalType} (no code to handle combo)`)
+      console.log(`change in field '${targetName}'     ===> new value: '${newVal}'   prev value: '${prevVal}'   `)
     }
 
   }

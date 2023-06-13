@@ -206,8 +206,9 @@ export const Form = (props) => {
 
   const onChange = (change) => {
 
-    console.log('<Forms onChange() change:', change)
-
+    if (props.debug) {
+      console.log('<Forms onChange() change:', change)
+    }
 
     const moreChanges = (data, targetName, targetValue) => {
 
@@ -237,7 +238,9 @@ export const Form = (props) => {
     }
 
     if (change.target && !handled) {
-      console.log(`  <Form>   ${change.target.name} <== ${change.target.value} (${typeof change.target.value})`);
+      if (props.debug) {
+         console.log(`  <Form>   ${change.target.name} <== ${change.target.value} (${typeof change.target.value})`);
+      }
       moreChanges(props.data, change.target.name, change.target.value)
     }
 

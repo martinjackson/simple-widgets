@@ -7,18 +7,20 @@ import { getGqlPKs } from './model/getTablePKs.js'
 const stringify = (val) => {
 
        // possible typeof: string, number, bigint, boolean, undefined, symbol, null
+       // TODO how to handle symbol ???
 
-      let s = ' "'+val+'"'          // default is string type
-                                    // TODO: What if there are quotes in the string ???
-                                    // TOMORROW: THIS NEEDS WORK, try typing " in a text field
+      const valType = typeof val
+      let s = val
 
-      if (typeof val == 'number' || typeof val == 'bigint' || typeof val == 'boolean' ) {  // TODO is this correct for bigint ???
+      if (['number', 'bigint','boolean'].indexOf(valType) != -1 ) {
           s = ''+val
       }
 
-      if (typeof val == 'object' || typeof val == 'symbol') {     // TODO is this correct for symbol ???
-          s = JSON.stringify(val)
+      if (valType === 'object' || valType === 'string') {
+        s = JSON.stringify(val)
       }
+
+      // console.log(`${s} is a ${valType}.`);
 
       return s
 }
@@ -54,8 +56,10 @@ export const applyDeepValueChange = (data, name, value) => {
                 const getDataFn = new Function(getFnStr)();
                 rec = getDataFn(data)
             } catch(e) {
+                console.log('getFnStr:', getFnStr)
+
                 const where = (e.fileName && e.lineNumber) ? e.fileName+':'+e.lineNumber : ''
-                console.log('applyDeepValueChange() in dataRecordUtil.js:50', where, e.message, );
+                console.log('applyDeepValueChange() in dataRecordUtil.js:64', where, e.message, );
             }
 
             let tmp
@@ -63,7 +67,8 @@ export const applyDeepValueChange = (data, name, value) => {
               const changeDataFn = new Function(setFnStr)();
               tmp = changeDataFn(data)
             } catch(e) {
-              console.log('applyDeepValueChange() in dataRecordUtil.js:58', e);
+              console.log('setFnStr:', setFnStr)
+              console.log('applyDeepValueChange() in dataRecordUtil.js:73', e);
             }
 
             const gqlName = getGqlName(recName)
