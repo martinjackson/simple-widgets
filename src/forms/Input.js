@@ -3,6 +3,8 @@ import React from "react";
 // import classes from "./Input.module.css";
 //         className={classes.input}
 
+import ControlledInput from "./ControlledInput.js"      // drop in replacement for <input  but preserves cursor position
+
 const Input = (props) => {
 
     // optional:     maxLength, size,  maxLength={maxLength},  size={size}
@@ -19,7 +21,7 @@ const Input = (props) => {
     const missingVal = (type === 'number') ? 0 : ''
 
   return (
-      <input
+      <ControlledInput
         type={type}
         name={name}
         className={className}

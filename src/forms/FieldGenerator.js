@@ -9,6 +9,8 @@ import { Form, FormTable } from './Form.js'
 import { LocalChoice } from './LocalChoice.js'
 import { isFunction } from './isFunction.js'
 
+import ControlledTextarea from './ControlledTextarea.js'
+
 // ---------------------------------------------------------------------------------------------------------------------
 const createFieldTextArea = (f, onChange) => {
 
@@ -27,7 +29,7 @@ const createFieldTextArea = (f, onChange) => {
         whatsLeft.value = undefined       // default if missing
       }
 
-      return  <textarea
+      return  <ControlledTextarea
                 {...whatsLeft}
                 className={`input-field form-control ${className||""}`}
                 name={name}

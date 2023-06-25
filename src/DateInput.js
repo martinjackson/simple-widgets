@@ -3,6 +3,8 @@ import React from 'react';
 // import { date2str } from "simple-widgets";
 import { date2str } from "./date2str"
 
+import Input from './forms/Input'
+
 //--------------------------------------------------------------------------------
 export const DateInput = (props) => {
 
@@ -14,7 +16,7 @@ export const DateInput = (props) => {
     if (value instanceof Date) {
       value = date2str(value, format)
     }
-    return  <input type="date"
+    return  <Input type="date"
               {...whatsLeft}
               key={name}
               name={name}

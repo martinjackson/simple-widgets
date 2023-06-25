@@ -1,6 +1,8 @@
 import React from 'react'
 import { hasOwnProperty } from './hasOwnProperty.js'
 
+import Input from './forms/Input.js'
+
 export const ChoiceText = inProps => {
 
     let props = {...inProps};
@@ -9,7 +11,7 @@ export const ChoiceText = inProps => {
     delete props.choices;
 
     return <span>
-               <input type="text" {...props} />
+               <Input type="text" {...props} />
                <datalist id={props.list} >
                  {choices.map( (el, k) => <option key={pref + k} value={el}>{el}</option>)}
                </datalist>

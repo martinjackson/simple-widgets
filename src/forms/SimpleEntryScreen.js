@@ -92,7 +92,7 @@ export function SimpleEntryScreen(props) {
   const data = (props.data && props.recordName in props.data) ? props.data[props.recordName] : null
   const disabled = (pendingRecordCount == 0);
 
-  // TODO: 2023-03-16 set debug={false}
+  // TODO: should I be using <Button insteadof <input type="button" ???
 
   return <>
     {pendingRecordCount > 0 && <h1 className="text-white   bg-green-700 text-center">You have Pending Changes</h1>}
