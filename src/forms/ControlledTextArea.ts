@@ -1,10 +1,10 @@
-
-import React, {useState, useRef, useEffect} from 'react'
-
 /* 
 DEEP SCAN DETECTED SYNTAX ERROR
 Unexpected token, expected "</>/<=/>=".
 This file is not in use
+
+import React, {useState, useRef, useEffect} from 'react'
+
 
 // Taken from
 //              https://stackoverflow.com/questions/46000544/react-controlled-input-cursor-jumps/70549192#70549192
