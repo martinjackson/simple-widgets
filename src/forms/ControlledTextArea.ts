@@ -1,3 +1,7 @@
+/* 
+DEEP SCAN DETECTED SYNTAX ERROR
+Unexpected token, expected "</>/<=/>=".
+This file is not in use
 
 import React, {useState, useRef, useEffect} from 'react'
 
@@ -32,6 +36,8 @@ const ControlledTextArea = ({ value, onChange, ...rest }: IControlledTextArea) =
 
     return <textarea ref={ref} value={value} onChange={handleChange} {...rest} />
 }
+
+*/
 
 // answered Jan 1, 2022 at 13:32
 // [deadcoder0904's user avatar](https://i.stack.imgur.com/GAMZ3.jpg?s=64&g=1)
