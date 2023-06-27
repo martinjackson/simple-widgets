@@ -14,14 +14,14 @@ export const Header = (props) => {
      return null
   }
 
-  const title       = (props.title)                   ? props.title       : ''
-  const dbType      = (props.dbType)                  ? props.dbType      : ''
-  const username    = (props.username)                ? props.username    : ''
-  const titleLogo   = (props.titleLogo !== undefined) ? props.titleLogo   : ''
-  const alertLogo   = (props.alertLogo !== undefined) ? props.alertLogo   : ''
-  const logoutURL   = (props.logoutURL)               ? props.logoutURL   : ''
-  const loginURL    = (props.loginURL)                ? props.loginURL    : ''
-  const setUsername = (props.setUsername)             ? props.setUsername : () => {console.log('no setUsername fn() passed to Header.');}
+  const title       = (props.title)                   ? props.title           : ''
+  const dbType      = (props.dbType && props.dbType.length > 0) ? props.dbType + ' DB'  : ''
+  const username    = (props.username)                ? props.username        : ''
+  const titleLogo   = (props.titleLogo !== undefined) ? props.titleLogo       : ''
+  const alertLogo   = (props.alertLogo !== undefined) ? props.alertLogo       : ''
+  const logoutURL   = (props.logoutURL)               ? props.logoutURL       : ''
+  const loginURL    = (props.loginURL)                ? props.loginURL        : ''
+  const setUsername = (props.setUsername)             ? props.setUsername     : () => {console.log('no setUsername fn() passed to Header.');}
 
   let userMsg  = (username === null) ? "User not Logged in" : 'Welcome: ' + username
 
@@ -53,7 +53,7 @@ export const Header = (props) => {
               {userSection}
               <div className="sw-header_column">
               {logout}
-                {dbType} DB
+                {dbType}
               </div>
               {login}
               <HeaderModal show={showModal} username={username} setUser={setUsername} closeFunct={setShowModal}/>
