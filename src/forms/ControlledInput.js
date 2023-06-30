@@ -8,6 +8,19 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 
+/*
+// https://stackoverflow.com/questions/33406169/failed-to-execute-setselectionrange-on-htmlinputelement-the-input-elements
+
+// --------------------------------------------------------------------------------------------------------------------
+function onInputFocus(event) {
+  const target = event.currentTarget;
+
+  target.type = 'text';
+  target.setSelectionRange(0, target.value.length);
+  target.type = 'number';
+}
+*/
+
 // --------------------------------------------------------------------------------------------------------------------
 const ControlledInput = (props) => {
    const { value, onChange, ...rest } = props
@@ -15,8 +28,12 @@ const ControlledInput = (props) => {
    const ref = useRef(null)
 
    useEffect(() => {
-      const input = ref.current
-      if (input) input.setSelectionRange(cursor, cursor)
+      const target = ref.current
+      if (target) {
+        target.type = 'text';
+        input.setSelectionRange(cursor, cursor)
+        target.type = props.type    // set it back to number or date
+      }
    }, [ref, cursor, value])
 
    const handleChange = (e) => {
