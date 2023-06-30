@@ -200,7 +200,11 @@ export const Form = (props) => {
   }
 
   let incomingData = (props.data) ? props.data : props.value
-  const dataRow = Array.isArray(incomingData) ? incomingData : incomingData[gqlName]
+
+  let dataRow = incomingData
+  if (incomingData && incomingData[gqlName])   // if it is an object, ie. result from graphQL query and the graphQL noun is there
+     dataRow = incomingData[gqlName]
+
   let data = (dataRow && dataRow[dataRowStart]) ? dataRow[dataRowStart] : dataRow
 
 
