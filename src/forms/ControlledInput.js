@@ -30,9 +30,10 @@ const ControlledInput = (props) => {
    useEffect(() => {
       const target = ref.current
       if (target) {
+        const prev = (target.type) ? target.type : 'text'
         target.type = 'text';
-        input.setSelectionRange(cursor, cursor)
-        target.type = props.type    // set it back to number or date
+        target.setSelectionRange(cursor, cursor)
+        target.type = prev    // set it back to number or date, should be same as props.type
       }
    }, [ref, cursor, value])
 

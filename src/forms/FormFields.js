@@ -250,9 +250,9 @@ export const FormFields = (props) => {
             }
         }
 
-
+        const prevVal = (data) ? data[e.target.name] : null
         // TODO: recFullName or e.target.name ??
-        const val = typeSafeAssignment(e.target.name, data[e.target.name], e.target.value)
+        const val = typeSafeAssignment(e.target.name, prevVal, e.target.value)
 
         if (!e.target.name.includes('.')) {   // bubble all non-local values
           // console.log(TS(), `   ${recFullName} ${e.target.name} <= ${e.target.value};`);
