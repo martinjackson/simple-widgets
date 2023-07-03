@@ -41,8 +41,16 @@ export const FormHeader = (props) => {
 
   const numRecs = props.numRecs
   const defaults = {
-    addRecFn:  () => { props.onChange("add record "+props.parentRecName+" "+props.name) },
-    cloneRecFn:  () => { props.onChange("clone record "+props.parentRecName+" "+props.name) }
+    addRecFn:  () => {
+        if (props.onChange) {
+          props.onChange("add record "+props.parentRecName+" "+props.name)
+      }
+    },
+    cloneRecFn:  () => {
+        if (props.onChange) {
+          props.onChange("clone record "+props.parentRecName+" "+props.name)
+      }
+    }
   }
   const addRecFn   = (props.addRecFn)   ? props.addRecFn   : defaults.addRecFn
   const cloneRecFn = (props.cloneRecFn) ? props.cloneRecFn : defaults.cloneRecFn
