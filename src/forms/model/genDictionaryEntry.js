@@ -1,5 +1,5 @@
 
-import { TS } from '../../time.js'
+import { dTS } from '../../time.js'
 import { toCamelCaseVar, toEnglishPhrase } from '../toCamelCase.js'
 
 import { getTableColumns }   from './getTableColumns.js'
@@ -10,7 +10,7 @@ import { formFromTableInfo } from './formFromTableInfo.js'
 // ---------------------------------------------------------------------------------------------------------------------
 export const genDictionaryEntry = (nameArgs) => {
 
-  // console.log(TS(), 'genDictionaryEntry()', nameArgs);
+  // console.log(dTS(), 'genDictionaryEntry()', nameArgs);
 
   const tableNames = (Array.isArray(nameArgs)) ? nameArgs : nameArgs.split(',')
 
@@ -34,7 +34,7 @@ export const genDictionaryEntry = (nameArgs) => {
     tables.push(newEntry)
   })
 
-  console.log(TS(), `const tables = [
+  console.log(dTS(), `const tables = [
     ${ tables.map(entry => genOneTableEntryForm(entry)).join(',\n') }
   ]`)
 

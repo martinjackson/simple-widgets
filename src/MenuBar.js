@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { NavigateBar } from './NavigateBar';
 import { deleteCssRule } from './cssRulesFunct';
-// import { TS } from './time'
 
 import { hasOwnProperty } from './hasOwnProperty.js'
 

@@ -1,4 +1,3 @@
-// import { TS } from '../time.js'
 
 import { getKeyValues, getGqlName } from './getKeyValues.js'
 import { getGqlPKs } from './model/getTablePKs.js'
@@ -30,8 +29,9 @@ const stringify = (val) => {
 export const applyDeepValueChange = (data, name, value) => {
             // console.log(TS(), 'applyDeepValueChange() data change: ', data, name, value)
 
+            const howCalled = `applyDeepValueChange(${data}, ${name}, ${value})`
             if (data === undefined || data === null) {
-              throw new Error(`applyDeepValueChange(${data}, ${name}, ${value})`)
+              throw new Error(howCalled)
             }
 
             let fqVarName = name
@@ -63,7 +63,8 @@ export const applyDeepValueChange = (data, name, value) => {
                 console.log('getFnStr:', getFnStr)
 
                 const where = (e.fileName && e.lineNumber) ? e.fileName+':'+e.lineNumber : ''
-                console.log('applyDeepValueChange() in dataRecordUtil.js:62', where, e.message, );
+                console.log(howCalled);
+                console.log('applyDeepValueChange() in dataRecordUtil.js:68', where, e.message, );
             }
 
             let tmp
@@ -72,7 +73,8 @@ export const applyDeepValueChange = (data, name, value) => {
               tmp = changeDataFn(data)
             } catch(e) {
               console.log('setFnStr:', setFnStr)
-              console.log('applyDeepValueChange() in dataRecordUtil.js:71', e);
+              console.log(howCalled);
+              console.log('applyDeepValueChange() in dataRecordUtil.js:78', e);
             }
 
             const gqlName = getGqlName(recName)

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 
 import { SimpleTable }  from '../SimpleTable.js'
-import { TS }           from '../time.js'
+import { dTS }           from '../time.js'
 
 import { client }       from './client.js'
 import { useErrorList } from './useErrorList.js'
@@ -61,11 +61,11 @@ function InnerSimpleDataTable(props) {
         return
       }
 
-      console.log(TS(), 'loaded record where:', rec.variables.where, rec.data)
+      console.log(dTS(), 'loaded record where:', rec.variables.where, rec.data)
 
       if (!rec.data[props.recordName]) {      // || rec.data[props.recordName].length == 0) {
-        console.log('No "' + props.recordName + '" records retrieved for:', rec.variables.where)
-        console.log('using (new record):', rec.data[props.recordName])
+        console.log(dTS(), 'No "' + props.recordName + '" records retrieved for:', rec.variables.where)
+        console.log(dTS(), 'using (new record):', rec.data[props.recordName])
       } else {
         const reformated = rec.data[props.recordName].map(r => recSimplify(r))
         const data = reformated.filter(r => r != null)   // allow recSimplify to eliminat records
@@ -80,7 +80,7 @@ function InnerSimpleDataTable(props) {
   }, [props, rec.data, rec.loading, rec.variables.where, recSimplify])
 
   if (needsLoading) {
-    console.log(TS(), 'loading QUERY:', props.queryName)
+    console.log(dTS(), 'loading QUERY:', props.queryName)
   }
 
 

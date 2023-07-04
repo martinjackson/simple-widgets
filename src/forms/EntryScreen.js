@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 
 import { SimpleTable }       from '../SimpleTable.js'
-import { TS }                from '../time.js'
+import { dTS }                from '../time.js'
 
 import { client }            from './client.js'
 import { genEmptyRecord }    from './genEmptyRecord.js'
@@ -62,7 +62,7 @@ function genRecordTypeFromName(recordName) {
 
 // --------------------------------------------------------------------------
 function EntryScreenKeyed(props) {
-  // console.log(TS(), '== EntryScreenKeyed render ==', props)
+  // console.log(dTS(), '== EntryScreenKeyed render ==', props)
 
   const [showModal, setShowModal]   = useState(false)
   const [cloneRec, setCloneRec]     = useState(false)
@@ -83,11 +83,11 @@ function EntryScreenKeyed(props) {
   const onCompleted = (data) => {
     setNeedsLoading(false)
     if (data[recordName].length == 0) {
-      console.log('No ' + recordName + ' records retrieved for:', where)
+      console.log(dTS(), 'No ' + recordName + ' records retrieved for:', where)
 
-      console.log('using (new record):', data[recordName])
+      console.log(dTS(), 'using (new record):', data[recordName])
     } else {
-      console.log(TS(), 'loaded record for:', where, data)
+      console.log(dTS(), 'loaded record for:', where, data)
       setData(data)
 
       // TODO call businessLogic after record has arrived -- allow lookup fields that are based on other fields
@@ -117,7 +117,7 @@ function EntryScreenKeyed(props) {
 
 
   if (needsLoading) {
-    console.log(TS(), `  needs loading query ${props.queryName}, Keys:`, props.keys)
+    console.log(dTS(), `  needs loading query ${props.queryName}, Keys:`, props.keys)
   }
 
   const pickNewTopRecord = (cloneFlag) => {
@@ -205,7 +205,7 @@ function EntryScreenKeyed(props) {
         return true; // signal it is handled
       }
     } else {
-      console.log(TS(), '*** Unexpected', recordName, 'rec msg: ', change)
+      console.log(dTS(), '*** Unexpected', recordName, 'rec msg: ', change)
 
       pickNewTopRecord(false); // TODO: verify this is not a clone
 

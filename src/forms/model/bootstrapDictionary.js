@@ -5,7 +5,7 @@ const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 
 
-import { TS } from '../time.js'
+import { dTS } from '../time.js'
 
 import { genDictionaryEntry } from './genDictionaryEntry.js'
 import { formFromTableInfo } from './formFromTableInfo.js'
@@ -51,7 +51,7 @@ export const formDictionary = (search) => {
     return tables.find(item => item.gqlName == search.gqlName)
   }
 
-  console.log(TS(), 'missing formStructure:', search);
+  console.log(dTS(), 'missing formStructure:', search);
 
   return [];
 
@@ -163,11 +163,11 @@ const populateDictionary = () => {
     tables[i]["fieldList"] = fieldList
   })
 
-  console.log(TS(), 'const tables =', JSON.stringify(tables, null, 2));
+  console.log(dTS(), 'const tables =', JSON.stringify(tables, null, 2));
 
   console.log(`
 
-import { TS } from './time.js'
+import { dTS } from './time.js'
 
 export const formDictionary = (search) => {
 
@@ -179,7 +179,7 @@ export const formDictionary = (search) => {
     return tables.find(item => item.gqlName == search.gqlName)
   }
 
-  console.log(TS(), 'missing formStructure:', search);
+  console.log(dTS(), 'missing formStructure:', search);
   return [];
 
 }

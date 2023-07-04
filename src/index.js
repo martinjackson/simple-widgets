@@ -48,7 +48,7 @@ import { hasOwnProperty } from './hasOwnProperty.js'
 import { localStrToDate } from './localStrToDate.js'
 import { makeChangeHandler } from './makeChangeHandler.js'
 import { register, unregister } from './serviceWorker.js'
-import { now, TS } from './time.js'
+import { now, TS, dTS } from './time.js'
 import { Button } from './forms/Button.js'
 import ControlledInput from './forms/ControlledInput.js'
 import ControlledTextarea from './forms/ControlledTextarea.js'
@@ -70,6 +70,7 @@ import { SimpleEntryScreen } from './forms/SimpleEntryScreen.js'
 import { arrLen } from './forms/arrLen.js'
 import { capWords } from './forms/capWords.js'
 import { client } from './forms/client.js'
+import { dataLog, getDataLog } from './forms/dataLog.js'
 import { applyDeepValueChange } from './forms/dataRecordUtil.js'
 import { dispAsString } from './forms/dispAsString.js'
 import { flattenJSON, dumbFlattenJSON } from './forms/flattenJSON.js'
@@ -120,19 +121,19 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, findCssRule,
          deleteCssRule, findStyleSheet, insertCssRule, printCssRules, date2str, lastOfMonth, todayString,
          getList, decrypt, encrypt, createStoreItem, useStoreItem, openGeneralStore, hasOwnProperty,
-         localStrToDate, makeChangeHandler, register, unregister, now, TS, Button, ControlledInput,
+         localStrToDate, makeChangeHandler, register, unregister, now, TS, dTS, Button, ControlledInput,
          ControlledTextarea, exampleFields, applyOptions, EntryScreen, ErrorList, setFieldGenerator,
          fieldGeneratorLookup, DatabaseLoadingIcon, FormHeader, FormTable, Form, getFieldRecName,
          getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, Gears, Input,
          LocalChoice, MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen,
-         capWords, client, applyDeepValueChange, dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord,
-         genColHeaders, genRowBuilder, getGqlName, getKeyValues, ignoreCase, isFunction, isNotEmpty,
-         isPromise, createJobStatus, updateJobStatus, watchJobStatus, label2value, value2label, logDiff,
-         notifyLookupsDone, serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias,
-         changeLookupAlias, addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog,
-         getLookupLogs, getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail,
-         stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
-         setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec, formFromTableInfo,
-         tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
-         getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
+         capWords, client, dataLog, getDataLog, applyDeepValueChange, dispAsString, flattenJSON,
+         dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues,
+         ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus, watchJobStatus,
+         label2value, value2label, logDiff, notifyLookupsDone, serializeLookups, loadSerializedLookups,
+         setLookupData, addLookupAlias, changeLookupAlias, addLookup, fetchLookupData, startLookup,
+         calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary, makeGqlAST,
+         removeIllegalAttributes, removeTypeName, sendEmail, stackTrace, toCamelCaseVar, toEnglishPhrase,
+         useErrorList, useFetch, valueCompare, setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec,
+         formFromTableInfo, tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs,
+         findTableByGqlName, getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
          CloneRecordIcon }

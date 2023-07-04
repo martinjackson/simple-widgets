@@ -2,11 +2,10 @@
 // import { selectHttpOptionsAndBodyInternal } from '@apollo/client'
 import React, {useState, useEffect} from 'react'
 
-import { applyOptions } from './DefaultFormElements.js'
-import {fieldGeneratorLookup} from './FieldGenerator.js'
+import { applyOptions }         from './DefaultFormElements.js'
+import { fieldGeneratorLookup } from './FieldGenerator.js'
 import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
-
-// import { TS } from '../time.js'
+import { dataLog }              from './dataLog.js'
 
 // -------------------------------------------------------------------------------------------------------------------------
 const labelWrap = (f, idx, children) => {
@@ -114,10 +113,10 @@ const createFields = (formName, formData, onChange, withLabels=true, formInfo) =
     let dataName = getFieldRecName(f.name, f.type)
     const data = (formData != null && formData[dataName] != undefined) ? formData[dataName] : null
     if (data === null) {
-      console.log(`Form '${formName}' 's formData['${dataName}'] is null.`, formData)
+      dataLog(`Form '${formName}' 's formData['${dataName}'] is null.`, formData)
     }
     if (formData && formData[dataName] === undefined) {
-      console.log(`Form '${formName}' 's formData['${dataName}'] is missing.`, formData)
+      dataLog(`Form '${formName}' 's formData['${dataName}'] is missing.`, formData)
     }
 
     // formInfo only needed for 'form', 'formTable'

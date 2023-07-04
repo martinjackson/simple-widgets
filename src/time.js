@@ -2,7 +2,13 @@
 export function now() { return new Date(); }
 
 const twoDigit = (n) => {
-  return (n < 10) ? '0'+n : ''+n
+  const pad = (n < 10) ? '0' : ''
+  return pad+n
+}
+
+const threeDigit = (n) => {
+  const pad = (n < 10) ? '00' : (n < 100) ? '0' : ''
+  return pad+n
 }
 
 export const TS = () => {
@@ -15,6 +21,19 @@ export const TS = () => {
          twoDigit(d.getHours())+':'+
          twoDigit(d.getMinutes())+':'+
          twoDigit(d.getSeconds())+'.'+
-         d.getMilliseconds()+
+         twoDigit(d.getMilliseconds())+
          ']'
+}
+
+let dtsStart = null
+export const dTS = () => {
+
+  const d = new Date()
+
+  if (dtsStart == null)
+    dtsStart = d
+
+  const delta = d - dtsStart
+
+  return '['+delta+']'
 }

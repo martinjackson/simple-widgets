@@ -6,7 +6,7 @@ import { client }               from './client.js'
 import { Form }                 from './Form.js'
 
 
-import { TS }                   from '../time.js'
+import { dTS }                   from '../time.js'
 
 const UPDATE_RECORD = gql`mutation($gqlTable: String, $input: JSON, $where: JSON, $who: String) {
   updateRecord(gqlTable: $gqlTable, input: $input, where: $where, who: $who) }`
@@ -28,7 +28,7 @@ export function SimpleEntryScreen(props) {
   };
 
   const saveData = () => {
-    console.log(TS(), "*** Save Changes on Form:");
+    console.log(dTS(), "*** Save Changes on Form:");
 
     const pendingKeys = Object.keys(pendingUpdates);
     pendingKeys.forEach(k => {

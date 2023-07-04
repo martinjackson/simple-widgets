@@ -1,22 +1,22 @@
 
-import { TS } from '../../time.js'
+import { dTS } from '../../time.js'
 import { getAppSpecificInfo } from './appSpecificInfo.js';
 
 // -----------------------------------------------------------------------------------------------------
 export const getTableColumns = (tableName) => {
-  // console.log(TS(), 'getTableColumns(', tableName, ') => ', dbStruct[tableName]);
+  // console.log(dTS(), 'getTableColumns(', tableName, ') => ', dbStruct[tableName]);
 
   const {dbStruct} = getAppSpecificInfo()
 
   if (!dbStruct) {
-    console.log(TS(), `no dbStructure defined. no place to look up: ${tableName} `)
-    console.log(TS(), `read about having the line setAppSpecificInfo({dbStruct, formDictionary, namedQueries}) in your App.js `)
+    console.log(dTS(), `no dbStructure defined. no place to look up: ${tableName} `)
+    console.log(dTS(), `read about having the line setAppSpecificInfo({dbStruct, formDictionary, namedQueries}) in your App.js `)
     return []
   }
 
   if (!dbStruct[tableName]) {
-    console.log(TS(), `${tableName} not found. try the following:`);
-    console.log(TS(), Object.keys(dbStruct));
+    console.log(dTS(), `${tableName} not found. try the following:`);
+    console.log(dTS(), Object.keys(dbStruct));
     return []
   }
 
