@@ -96,11 +96,25 @@ export const FormTable = (props) => {
       return <span>Loading...</span>
     }
 
-    let data = (props.data) ? props.data : props.value   // props.value should always be the case, especially sub-tables, props.data is legacy
+    const logErrors = (msg, help) => {
+      if (props.logErrors) {
+        props.logErrors(e.message)
+      }
+      console.log(help, msg);
+    }
 
+    let activeData = (props.data) ? props.data : props.value   // props.value should always be the case, especially sub-tables, props.data is legacy
+
+    console.log(' FormTable props.parentRecName props.name:', props.parentRecName, props.name)
+    console.log(' FormTable props.data :', props.data);
+    console.log(' FormTable props.value :', props.value);
+    console.log(' FormTable data :', activeData);
+
+    /*
     if (props.debug && (props.data || props.value)) {
         console.log(' FormTable props:', props.parentRecName, props.name, props.data, props.value);
     }
+    */
 
     const onChange = (change) => {
 
@@ -111,7 +125,7 @@ export const FormTable = (props) => {
           props.pendingUpdates(changes.update)
           props.setData(changes.newData); // reg field value changes
         } catch (e) {
-          props.logErrors(e.message);
+            logErrors(e.message, '<FormTable onChange() error:')
         }
 
       }
@@ -119,12 +133,12 @@ export const FormTable = (props) => {
       const handled = (props.onChangeSpecial) ? props.onChangeSpecial(change, moreChanges) : false
       if (change.target && !handled) {
         // console.log(`   ${change.target.name} <== ${change.target.value}`);
-        moreChanges(props.data, change.target.name, change.target.value)
+        moreChanges(activeData, change.target.name, change.target.value)
       }
 
     }
 
-    const rows = (data) ? data.length : 0
+    const rows = (activeData) ? activeData.length : 0
     // const [rowIndexes, setRowIndexes] = useState( [...Array(rows).keys()] )
     const rowIndexes = [...Array(rows).keys()]
 
@@ -150,7 +164,7 @@ return (
                parentRecName={props.parentRecName}
                addRecFn={props.addRecFn}
                cloneRecFn={props.cloneRecFn}
-               numRecs={arrLen(data)}
+               numRecs={arrLen(activeData)}
                recPrevFn={recPrevFn}
                recNextFn={recNextFn}
                noAdd={props.noAdd}
@@ -177,7 +191,7 @@ return (
                         noAdd={props.noAdd}
                         noClone={props.noClone}
                         dataIndex={i}
-                        formData={ (data && data[i]) ? data[i] : null }
+                        formData={ (activeData && activeData[i]) ? activeData[i] : null }
                         showDebug={props.debug}
                         onChange={onChange}
                         withLabels={false}
@@ -203,6 +217,13 @@ export const Form = (props) => {
   const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
   const recNextFn = () => {setDataRowStart(dataRowStart+1)}
 
+  const logErrors = (msg, help) => {
+    if (props.logErrors) {
+      props.logErrors(e.message)
+    }
+    console.log(help, msg);
+  }
+
   if (props.debug) {
     console.log(' Form:', props.parentRecName, props.name, props.data, props.value);
   }
@@ -213,7 +234,12 @@ export const Form = (props) => {
   if (incomingData && incomingData[gqlName])   // if it is an object, ie. result from graphQL query and the graphQL noun is there
      dataRow = incomingData[gqlName]
 
-  let data = (dataRow && dataRow[dataRowStart]) ? dataRow[dataRowStart] : dataRow
+  let activeData = (dataRow && dataRow[dataRowStart]) ? dataRow[dataRowStart] : dataRow
+
+  console.log(' Form props.parentRecName props.name:', props.parentRecName, props.name)
+  console.log(' Form props.data:', props.data);
+  console.log(' Form props.value:', props.value);
+  console.log(' Form data:', activeData);
 
 
   const onChange = (change) => {
@@ -235,11 +261,7 @@ export const Form = (props) => {
         }
 
       } catch (e) {
-        if (props.logErrors) {
-          props.logErrors(e.message)
-        } else {
-          console.log('<Forms onChange() error:', e.message)
-        }
+          logErrors(e.message, '<Form onChange() error:')
       }
 
     }
@@ -253,7 +275,7 @@ export const Form = (props) => {
       if (props.debug) {
          console.log(`  <Form>   ${change.target.name} <== ${change.target.value} (${typeof change.target.value})`);
       }
-      moreChanges(props.data, change.target.name, change.target.value)
+      moreChanges(activeData, change.target.name, change.target.value)
     }
 
   }
@@ -283,7 +305,7 @@ export const Form = (props) => {
               noAdd={props.noAdd}
               noClone={props.noClone}
               dataIndex={dataRowStart}
-              formData={data}
+              formData={activeData}
               showDebug={props.debug}
               onChange={onChange}
               withLabels={true}

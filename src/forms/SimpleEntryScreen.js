@@ -89,7 +89,9 @@ export function SimpleEntryScreen(props) {
     props.pickNewTopRecord(true);
   };
 
-  const data = (props.data && props.recordName in props.data) ? props.data[props.recordName] : null
+  // const data = (props.data && props.recordName in props.data) ? props.data[props.recordName] : null     ---- can not strip off the recordName
+
+  // const data = (props.data && props.recordName in props.data) ? props.data : null   ---- not sure why to do this
   const disabled = (pendingRecordCount == 0);
 
   // TODO: should I be using <Button insteadof <input type="button" ???
@@ -102,7 +104,7 @@ export function SimpleEntryScreen(props) {
         name={props.formName}
         header={props.header}
         loadInProgress={props.loadInProgress}
-        data={data}
+        data={props.data}
         setData={props.setData}
         addRecFn={addRecFn}
         cloneRecFn={cloneRecFn}

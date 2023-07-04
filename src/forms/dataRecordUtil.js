@@ -24,12 +24,14 @@ const stringify = (val) => {
       return s
 }
 
+// ------------------------------------------------------------------------------
+const O2s = (obj) => JSON.stringify(obj, null, 2)
 
 // ------------------------------------------------------------------------------
 export const applyDeepValueChange = (data, name, value) => {
             // console.log(TS(), 'applyDeepValueChange() data change: ', data, name, value)
 
-            const howCalled = `applyDeepValueChange(${data}, ${name}, ${value})`
+            const howCalled = `applyDeepValueChange(${O2s(data)}, ${name}, '${value}')`
             if (data === undefined || data === null) {
               throw new Error(howCalled)
             }
