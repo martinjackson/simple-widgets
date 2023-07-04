@@ -30,6 +30,10 @@ const stringify = (val) => {
 export const applyDeepValueChange = (data, name, value) => {
             // console.log(TS(), 'applyDeepValueChange() data change: ', data, name, value)
 
+            if (data === undefined || data === null) {
+              throw new Error(`applyDeepValueChange(${data}, ${name}, ${value})`)
+            }
+
             let fqVarName = name
             let valExpression = stringify(value)
 
@@ -59,7 +63,7 @@ export const applyDeepValueChange = (data, name, value) => {
                 console.log('getFnStr:', getFnStr)
 
                 const where = (e.fileName && e.lineNumber) ? e.fileName+':'+e.lineNumber : ''
-                console.log('applyDeepValueChange() in dataRecordUtil.js:64', where, e.message, );
+                console.log('applyDeepValueChange() in dataRecordUtil.js:62', where, e.message, );
             }
 
             let tmp
@@ -68,7 +72,7 @@ export const applyDeepValueChange = (data, name, value) => {
               tmp = changeDataFn(data)
             } catch(e) {
               console.log('setFnStr:', setFnStr)
-              console.log('applyDeepValueChange() in dataRecordUtil.js:73', e);
+              console.log('applyDeepValueChange() in dataRecordUtil.js:71', e);
             }
 
             const gqlName = getGqlName(recName)
