@@ -116,7 +116,7 @@ export const FormTable = (props) => {
 
       }
 
-      const handled = props.onChangeSpecial(change, moreChanges);
+      const handled = (props.onChangeSpecial) ? props.onChangeSpecial(change, moreChanges) : false
       if (change.target && !handled) {
         // console.log(`   ${change.target.name} <== ${change.target.value}`);
         moreChanges(props.data, change.target.name, change.target.value)

@@ -33,7 +33,7 @@ export const dTS = () => {
   if (dtsStart == null)
     dtsStart = d
 
-  const delta = d - dtsStart
+  const delta = (d - dtsStart) / 1000.0
 
   return '['+delta+']'
 }
