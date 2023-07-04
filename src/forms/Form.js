@@ -86,7 +86,7 @@ export const FormHeader = (props) => {
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {
 
-    // console.log('FormTable name:',props.name,'value:', props.value);
+    console.log('--- FormTable name:',props.name,'data:', props.data, 'value:', props.value);
 
     const [dataRowStart, setDataRowStart] = useState(0)
     const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
@@ -121,6 +121,7 @@ export const FormTable = (props) => {
       const moreChanges = (data, targetName, targetValue) => {
 
         try {
+          // BUG: what if data is an array, not object
           const changes = applyDeepValueChange(data, targetName, targetValue)
           props.pendingUpdates(changes.update)
           props.setData(changes.newData); // reg field value changes
@@ -211,6 +212,8 @@ return (
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const Form = (props) => {
 
+  console.log('--- Form name:',props.name,'data:', props.data, 'value:', props.value);
+
   const gqlName = getGqlNameFromForm(props.name)
 
   const [dataRowStart, setDataRowStart] = useState(0)
@@ -236,11 +239,12 @@ export const Form = (props) => {
 
   let activeData = (dataRow && dataRow[dataRowStart]) ? dataRow[dataRowStart] : dataRow
 
+  /*
   console.log(' Form props.parentRecName props.name:', props.parentRecName, props.name)
   console.log(' Form props.data:', props.data);
   console.log(' Form props.value:', props.value);
   console.log(' Form data:', activeData);
-
+  */
 
   const onChange = (change) => {
 
@@ -251,6 +255,7 @@ export const Form = (props) => {
     const moreChanges = (data, targetName, targetValue) => {
 
       try {
+        // BUG: what if data is an array, not object
         const changes = applyDeepValueChange(data, targetName, targetValue)
         if (props.pendingUpdates) {
            props.pendingUpdates(changes.update)

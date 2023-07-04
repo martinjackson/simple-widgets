@@ -65,7 +65,8 @@ module.exports = {
     },
   },
 
-  stats: "normal",
+  // stats: "normal",
+  stats: 'errors-only',
 
   module: {
     rules: [

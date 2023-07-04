@@ -77,22 +77,21 @@ function EntryScreenKeyed(props) {
   const hasNonNullKeys = keyNames.find(name => keys[name] != null) != null
   const [needsLoading, setNeedsLoading] = useState(hasNonNullKeys)
 
-  const recordName = props.recordName
   const where = { ...props.keys, ...keys }
 
   const onCompleted = (data) => {
     setNeedsLoading(false)
-    if (data[recordName].length == 0) {
-      console.log(dTS(), 'No ' + recordName + ' records retrieved for:', where)
+    if (data[props.recordName].length == 0) {
+      console.log(dTS(), 'No ' + props.recordName + ' records retrieved for:', where)
 
-      console.log(dTS(), 'using (new record):', data[recordName])
+      console.log(dTS(), 'using (new record):', data[props.recordName])
     } else {
       console.log(dTS(), 'loaded record for:', where, data)
       setData(data)
 
       // TODO call businessLogic after record has arrived -- allow lookup fields that are based on other fields
       if (props.businessLogic) {
-        const change = {target:{name:recordName+'[0]'}}   // signal wholre record was loaded
+        const change = {target:{name:props.recordName+'[0]'}}   // signal wholre record was loaded
         props.businessLogic(change, data)                 // props.businessLogic()  can change multiple fields in currentRec via moreChanges
       }
 
@@ -149,7 +148,7 @@ function EntryScreenKeyed(props) {
     if (cloneRec) {
       if (data) { // clone from previous data
         goodFields.forEach(f => {
-          data[recordName][0][f] = rowSelected[f]
+          data[props.recordName][0][f] = rowSelected[f]
         })
       }
     } else { // empty record
@@ -158,7 +157,7 @@ function EntryScreenKeyed(props) {
       goodFields.forEach(f => {
         empty[f] = rowSelected[f]
       })
-      setData({ [recordName]: [empty] })
+      setData({ [props.recordName]: [empty] })
 
       // TODO: comes from  genPickListOfNew() and is not the normal lookup for the first field
 
@@ -185,10 +184,10 @@ function EntryScreenKeyed(props) {
 
     if (change.target) {
 
-      const matchKeyNames = keyNames.filter(name => (recordName + '[0].' + name === change.target.name) )
+      const matchKeyNames = keyNames.filter(name => (props.recordName + '[0].' + name === change.target.name) )
       if (matchKeyNames.length > 0) {
         const matchKey = matchKeyNames[0]
-        const emptyRecWithKey = { [recordName]: [{ [matchKey]: change.target.value }] }   // empty record + key
+        const emptyRecWithKey = { [props.recordName]: [{ [matchKey]: change.target.value }] }   // empty record + key
         setData(emptyRecWithKey)
         setKeys(prev => {
           prev[matchKey] = change.target.value
@@ -205,7 +204,7 @@ function EntryScreenKeyed(props) {
         return true; // signal it is handled
       }
     } else {
-      console.log(dTS(), '*** Unexpected', recordName, 'rec msg: ', change)
+      console.log(dTS(), '*** Unexpected', props.recordName, 'rec msg: ', change)
 
       pickNewTopRecord(false); // TODO: verify this is not a clone
 
@@ -229,7 +228,7 @@ function EntryScreenKeyed(props) {
       header={props.header}
       formName={props.formName}
       who={props.who}
-      recordName={recordName}
+      recordName={props.recordName}
       styleSelected={styleSelected}
 
       loadInProgress={needsLoading}

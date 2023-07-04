@@ -89,9 +89,6 @@ export function SimpleEntryScreen(props) {
     props.pickNewTopRecord(true);
   };
 
-  // const data = (props.data && props.recordName in props.data) ? props.data[props.recordName] : null     ---- can not strip off the recordName
-
-  // const data = (props.data && props.recordName in props.data) ? props.data : null   ---- not sure why to do this
   const disabled = (pendingRecordCount == 0);
 
   // TODO: should I be using <Button insteadof <input type="button" ???
