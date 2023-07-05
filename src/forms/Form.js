@@ -122,9 +122,13 @@ export const FormTable = (props) => {
           if (props.pendingUpdates) {
             props.pendingUpdates(changes.update)
           } else {
-            console.log('** missing props pendingUpdates --- FormTable parent:', props.parentRecName, 'form name:',props.name)
+            console.log('** missing props fn pendingUpdates --- FormTable parent:', props.parentRecName, 'form name:',props.name)
           }
-          props.setData(changes.newData) // reg field value changes
+          if (props.setData) {
+            props.setData(changes.newData) // reg field value changes
+          } else {
+            console.log('** missing props fn setData --- FormTable parent:', props.parentRecName, 'form name:',props.name)
+          }
         } catch (e) {
             logErrors(e, '<FormTable onChange() error:')
         }
@@ -264,11 +268,13 @@ export const Form = (props) => {
         if (props.pendingUpdates) {
           props.pendingUpdates(changes.update)
         } else {
-          console.log('** missing prop pendingUpdates --- Form parent:', props.parentRecName, 'form name:',props.name)
+          console.log('** missing prop fn pendingUpdates --- Form parent:', props.parentRecName, 'form name:',props.name)
         }
 
         if (props.setData) {
-           props.setData(changes.newData); // reg field value changes
+          props.setData(changes.newData); // reg field value changes
+        } else {
+          console.log('** missing prop fn setData --- Form parent:', props.parentRecName, 'form name:',props.name)
         }
 
       } catch (e) {

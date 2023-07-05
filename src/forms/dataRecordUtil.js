@@ -69,11 +69,13 @@ export const applyDeepValueChange = (data, targetName, value, info) => {        
 
       if (isArray) {
         let varAssignment = removeName(targetName)
-        const fields = varAssignment.split(/[\[\]\.]+/);
-        if (fields.length === 2) {
-          const i = Number(fields[0])
-          console.log(` [PUNT]  applyDeepValueChange    doing              tmp[${i}][${fields[1]}] = ${value}`);
-          tmp[i][fields[1]] = value
+        const fields = varAssignment.split(/[\[\]\.]+/)
+        console.log('varAssignment:', varAssignment, 'split -->', fields)
+        if (fields.length === 3) {
+          const i = Number(fields[1])
+          const fieldName = fields[2]
+          console.log(` [PUNT]  applyDeepValueChange    doing              tmp[${i}][${fieldName}] = ${value}`);
+          tmp[i][fieldName] = value
         } else {
           console.log(` [PUNT]  applyDeepValueChange    would have...      tmp${varAssignment} = ${value}`);
         }
