@@ -86,7 +86,11 @@ export const FormHeader = (props) => {
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {
 
-    console.log('--- FormTable name:',props.name,'data:', props.data, 'value:', props.value);
+    if (props.data) {
+      console.log('--- FormTable name:',props.name, 'data:', props.data, 'value:', props.value);
+    } else {
+      console.log('--- FormTable name:',props.name, 'value:', props.value);
+    }
 
     const [dataRowStart, setDataRowStart] = useState(0)
     const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
@@ -105,16 +109,7 @@ export const FormTable = (props) => {
 
     let activeData = (props.data) ? props.data : props.value   // props.value should always be the case, especially sub-tables, props.data is legacy
 
-    console.log(' FormTable props.parentRecName props.name:', props.parentRecName, props.name)
-    console.log(' FormTable props.data :', props.data);
-    console.log(' FormTable props.value :', props.value);
-    console.log(' FormTable data :', activeData);
-
-    /*
-    if (props.debug && (props.data || props.value)) {
-        console.log(' FormTable props:', props.parentRecName, props.name, props.data, props.value);
-    }
-    */
+    console.log(' FormTable props.parentRecName props.name activeData:', props.parentRecName, props.name, activeData)
 
     const onChange = (change) => {
 
@@ -122,7 +117,8 @@ export const FormTable = (props) => {
 
         try {
           // BUG: what if data is an array, not object
-          const changes = applyDeepValueChange(data, targetName, targetValue)
+          const info = {parentRecName: props.parentRecName, formName: props.name}
+          const changes = applyDeepValueChange(data, targetName, targetValue, info)
           props.pendingUpdates(changes.update)
           props.setData(changes.newData); // reg field value changes
         } catch (e) {
@@ -212,7 +208,11 @@ return (
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const Form = (props) => {
 
-  console.log('--- Form name:',props.name,'data:', props.data, 'value:', props.value);
+  if (props.data) {
+    console.log('--- Form name:',props.name,'data:', props.data, 'value:', props.value);
+  } else {
+    console.log('--- Form name:',props.name, 'value:', props.value);
+  }
 
   const gqlName = getGqlNameFromForm(props.name)
 
@@ -256,7 +256,8 @@ export const Form = (props) => {
 
       try {
         // BUG: what if data is an array, not object
-        const changes = applyDeepValueChange(data, targetName, targetValue)
+        const info = {parentRecName: props.parentRecName, formName: props.name}
+        const changes = applyDeepValueChange(data, targetName, targetValue, info)
         if (props.pendingUpdates) {
            props.pendingUpdates(changes.update)
         }
