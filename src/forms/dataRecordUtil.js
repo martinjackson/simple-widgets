@@ -4,29 +4,7 @@ import { getGqlPKs } from './model/getTablePKs.js'
 import { dTS }  from '../time.js'
 
 // ------------------------------------------------------------------------------
-const stringify = (val) => {
-
-       // possible typeof: string, number, bigint, boolean, undefined, symbol, null
-       // TODO how to handle symbol ???
-
-      const valType = typeof val
-      let s = val
-
-      if (['number', 'bigint','boolean'].indexOf(valType) != -1 ) {
-          s = ''+val
-      }
-
-      if (valType === 'object' || valType === 'string') {
-        s = JSON.stringify(val)
-      }
-
-      // console.log(`${s} is a ${valType}.`);
-
-      return s
-}
-
-// ------------------------------------------------------------------------------
-const O2s = (obj) => JSON.stringify(obj, null, 2)
+// const O2s = (obj) => JSON.stringify(obj, null, 2)
 
 // ------------------------------------------------------------------------------
 const arrTypeOf = (obj) => {
@@ -102,6 +80,30 @@ export const applyDeepValueChange = (data, targetName, value, info) => {        
 }
 
 /*
+
+// ------------------------------------------------------------------------------
+const stringify = (val) => {
+
+       // possible typeof: string, number, bigint, boolean, undefined, symbol, null
+       // TODO how to handle symbol ???
+
+      const valType = typeof val
+      let s = val
+
+      if (['number', 'bigint','boolean'].indexOf(valType) != -1 ) {
+          s = ''+val
+      }
+
+      if (valType === 'object' || valType === 'string') {
+        s = JSON.stringify(val)
+      }
+
+      // console.log(`${s} is a ${valType}.`);
+
+      return s
+}
+
+
         // https://stackoverflow.com/questions/7650071/is-there-a-way-to-create-a-function-from-a-string-with-javascript
         // var func = new Function("return " + "function (a, b) { return a + b; }")();
 

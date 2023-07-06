@@ -21,7 +21,7 @@ export const TS = () => {
          twoDigit(d.getHours())+':'+
          twoDigit(d.getMinutes())+':'+
          twoDigit(d.getSeconds())+'.'+
-         twoDigit(d.getMilliseconds())+
+         threeDigit(d.getMilliseconds())+
          ']'
 }
 

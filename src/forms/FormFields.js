@@ -113,10 +113,10 @@ const createFields = (formName, formData, onChange, withLabels=true, formInfo) =
     let dataName = getFieldRecName(f.name, f.type)
     const data = (formData != null && formData[dataName] != undefined) ? formData[dataName] : null
     if (data === null) {
-      dataLog(`Form '${formName}' 's formData['${dataName}'] is null.`, formData)
+      dataLog(`Form '${formName}' 's formData['${dataName}'] is null. formData:`+JSON.stringify(formData, null, 2))
     }
     if (formData && formData[dataName] === undefined) {
-      dataLog(`Form '${formName}' 's formData['${dataName}'] is missing.`, formData)
+      dataLog(`Form '${formName}' 's formData['${dataName}'] is missing. formData:`+JSON.stringify(formData, null, 2))
     }
 
     // formInfo only needed for 'form', 'formTable'
