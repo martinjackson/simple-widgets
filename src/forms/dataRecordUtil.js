@@ -42,28 +42,9 @@ export const applyDeepValueChange = (data, targetName, value, info) => {        
       let recName = (lastDot != -1) ? targetName.substr(0, lastDot) : targetName
       let fieldName = (lastDot != -1) ? targetName.substr(lastDot+1) : targetName
 
-      let tmp = structuredClone(data)
-      let rec = (isArray) ? data[0] : data     // TODO: is it always data[0] ???
-
-      if (isArray) {
-        let varAssignment = removeName(targetName)
-        const fields = varAssignment.split(/[\[\]\.]+/)
-        console.log('varAssignment:', varAssignment, 'split -->', fields)
-        if (fields.length === 3) {
-          const i = Number(fields[1])
-          const fieldName = fields[2]
-          console.log(` [PUNT]  applyDeepValueChange    doing              tmp[${i}][${fieldName}] = ${value}`);
-          tmp[i][fieldName] = value
-        } else {
-          console.log(` [PUNT]  applyDeepValueChange    would have...      tmp${varAssignment} = ${value}`);
-        }
-      } else {
-        console.log(` [PUNT]  applyDeepValueChange    doing              tmp[${fieldName}] = ${value}`);
-        tmp[fieldName] = value         // TODO: Is this right even when deep ???
-      }
-
       const gqlName = getGqlName(recName)
       const pkNames = getGqlPKs(gqlName)
+      let rec = (isArray) ? data[0] : data     // TODO: is it always data[0] ???
       const keyValues = (pkNames) ? getKeyValues(pkNames, rec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
       const update = {
         gqlTable: gqlName,
@@ -73,8 +54,36 @@ export const applyDeepValueChange = (data, targetName, value, info) => {        
       }
       // console.log(TS(), 'Transactions:', update);
 
-      const returning = {newData: tmp, update: update}
-      console.log(' [PUNT]  applyDeepValueChange    returning:', returning);
+      // The following code modifies data directly not doing comething like        const tmp = structuredClone(data)
+      // so this function does apply the change as the function name states
+
+      if (isArray) {
+        let varAssignment = removeName(targetName)
+        const fields = varAssignment.split(/[\[\]\.]+/)
+        console.log('varAssignment:', varAssignment, 'split -->', fields)
+        if (fields.length === 3) {
+          const i = Number(fields[1])
+          const fieldName = fields[2]
+
+          // untested
+          console.log(` [applyDeepValueChange] doing              data[${i}][${fieldName}] = ${value}`);
+          data[i][fieldName] = value
+
+        } else {
+
+          // TODO: if seen (applyDeepValueChange    would have...), this is a problem
+          console.log(` [PUNT]  applyDeepValueChange    would have...      data${varAssignment} = ${value}, this is a problem`);
+        }
+      } else {
+
+        // tested
+        console.log(` [applyDeepValueChange] doing              data[${fieldName}] = ${value}`);
+        data[fieldName] = value
+      }
+
+
+      const returning = {newData: data, update: update}
+      console.log(' [applyDeepValueChange]    returning:', returning);
 
     return (returning)
 }

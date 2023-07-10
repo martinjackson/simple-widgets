@@ -86,13 +86,22 @@ export const FormHeader = (props) => {
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {
 
-    if (props.data) {
-      console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'data:', props.data)     // The top most Form will have data
+    if (props.debug) {
+      if (props.data) {
+        console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'data:', props.data)     // The top most Form will have data
+      }
+
+      if (props.value) {
+        console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'value:', props.value)  // all sub-forms will have info in props.value
+      }
     }
 
-    if (props.value) {
-      console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'value:', props.value)  // all sub-forms will have info in props.value
+    if (!props.pendingUpdates) {
+      console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
     }
+
+    console.log('--- FormTable props:', props);
+    // chase down why no (props.pendingUpdates) or (props.setData)
 
     let activeData = (props.data) ? props.data : props.value
 
@@ -193,6 +202,7 @@ return (
                         parentRecName={props.parentRecName}
                         name={props.name}
                         businessLogic={props.businessLogic}
+                        pendingUpdates={props.pendingUpdates}
                         noAdd={props.noAdd}
                         noClone={props.noClone}
                         dataIndex={i}
@@ -216,12 +226,18 @@ return (
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const Form = (props) => {
 
-  if (props.data) {
-    console.log('--- Form parent:', props.parentRecName, 'name:',props.name, 'data:', props.data)     // The top most Form will have data
+  if (props.debug) {
+      if (props.data) {
+        console.log('--- Form parent:', props.parentRecName, 'name:',props.name, 'data:', props.data)     // The top most Form will have data
+      }
+
+      if (props.value) {
+        console.log('--- Form parent:', props.parentRecName, 'name:',props.name, 'value:', props.value)  // all sub-forms will have info in props.value
+      }
   }
 
-  if (props.value) {
-    console.log('--- Form parent:', props.parentRecName, 'name:',props.name, 'value:', props.value)  // all sub-forms will have info in props.value
+  if (!props.pendingUpdates) {
+    console.log('--- Form parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
   }
 
   console.log('--- Form props:', props);
@@ -258,9 +274,7 @@ export const Form = (props) => {
 
   const onChange = (change) => {
 
-    if (props.debug) {
-      console.log('<Forms onChange() change:', change)
-    }
+    console.log('<Forms form name:', props.name, 'onChange() change:', change)
 
     const moreChanges = (data, targetName, targetValue) => {
 
@@ -268,16 +282,16 @@ export const Form = (props) => {
         // BUG: what if data is an array, not object
         const info = {parentRecName: props.parentRecName, formName: props.name}
         const changes = applyDeepValueChange(data, targetName, targetValue, info)
+
+        // echo back up the chain if requested
         if (props.pendingUpdates) {
           props.pendingUpdates(changes.update)
         } else {
-          console.log('** missing prop fn pendingUpdates --- Form parent:', props.parentRecName, 'form name:',props.name)
+          console.log('props.pendingUpdates is not defined in form:',props.name ,'record update info will be lost:',changes.update);
         }
 
         if (props.setData) {
           props.setData(changes.newData); // reg field value changes
-        } else {
-          console.log('** missing prop fn setData --- Form parent:', props.parentRecName, 'form name:',props.name)
         }
 
       } catch (e) {
@@ -292,9 +306,7 @@ export const Form = (props) => {
     }
 
     if (change.target && !handled) {
-      if (props.debug) {
-         console.log(`  <Form>   ${change.target.name} <== ${change.target.value} (${typeof change.target.value})`);
-      }
+      console.log(`  <Form name='${props.name}'>   ${change.target.name} <== ${change.target.value} (${typeof change.target.value})`);
       moreChanges(activeData, change.target.name, change.target.value)
     }
 
@@ -322,6 +334,7 @@ export const Form = (props) => {
               parentRecName={props.parentRecName}
               name={props.name}
               businessLogic={props.businessLogic}
+              pendingUpdates={props.pendingUpdates}
               noAdd={props.noAdd}
               noClone={props.noClone}
               dataIndex={dataRowStart}

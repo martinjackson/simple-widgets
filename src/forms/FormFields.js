@@ -31,7 +31,7 @@ const createField = (fieldStructure, idx, value, onChange, withLabels=true, form
       }
 
       // fieldStructure is a type, create an instance w/ field data
-      const f = {...fieldStructure, value}
+      let f = {...fieldStructure, value}
 
       const gen = fieldGeneratorLookup(f.type)
       let field = `unknown field type: ${f.type}`
@@ -42,10 +42,7 @@ const createField = (fieldStructure, idx, value, onChange, withLabels=true, form
               // TODO: right now only 'form' and 'formTable' knows how to handle an array of data, other types need code
 
               if ( formInfo && (f.type === 'form' || f.type === 'formTable')) {
-                f.businessLogic = formInfo.businessLogic
-                f.parentRecName = formInfo.parentRecName
-                f.noAdd = formInfo.noAdd
-                f.noClone = formInfo.noClone
+                f = {...formInfo, ...f}
               }
               field = gen(f, onChange)
           } catch (e) {
@@ -220,6 +217,10 @@ export const FormFields = (props) => {
       const dataName = gqlName + '['+dataIdx+']'
       const recFullName = (parentRecName) ? parentRecName+'.'+dataName : dataName
 
+      if (!props.pendingUpdates) {
+        console.log('--- FormFields props:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
+      }
+
       // console.log(' FormFields :', {gqlName, dataName, parentRecName, recFullName, formData:props.formData});
 
       const businessLogic = (props.businessLogic) ? props.businessLogic : (old, changed) => [changed, {}]
@@ -235,6 +236,7 @@ export const FormFields = (props) => {
       const formInfo = {                    // must match the same createField()'s formInfo items: lines 40-43
         parentRecName: recFullName,
         businessLogic,
+        pendingUpdates: props.pendingUpdates,
         noAdd: props.noAdd,
         noClone: props.noClone
       }
