@@ -224,6 +224,9 @@ export const Form = (props) => {
     console.log('--- Form parent:', props.parentRecName, 'name:',props.name, 'value:', props.value)  // all sub-forms will have info in props.value
   }
 
+  console.log('--- Form props:', props);
+  // chase down why no (props.pendingUpdates) or (props.setData)
+
   let incomingData = (props.data) ? props.data : props.value
 
   const gqlName = getGqlNameFromForm(props.name)
