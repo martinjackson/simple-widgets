@@ -242,6 +242,8 @@ function EntryScreenKeyed(props) {
       pickNewTopRecord={pickNewTopRecord}
       logErrors={logErrors}
       onChangeSpecial={onChangeSpecial}
+
+      showPendingData={props.showPendingData}
       />
   </>
 }

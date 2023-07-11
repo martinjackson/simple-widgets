@@ -93,8 +93,11 @@ export function SimpleEntryScreen(props) {
 
   // TODO: should I be using <Button insteadof <input type="button" ???
 
+  const pendingDataArea = (props.showPendingData) ? <pre>{JSON.stringify(pendingUpdates, null, 2)}</pre> : null
+  const pendingMessage = (pendingRecordCount > 0) ? <h1 className="text-white   bg-green-700 text-center">You have Pending Changes</h1> : null
+
   return <>
-    {pendingRecordCount > 0 && <h1 className="text-white   bg-green-700 text-center">You have Pending Changes</h1>}
+    {pendingMessage}
 
     <div className={props.header+"SectionFramed"}>
       <Form className={props.styleSelected}
@@ -119,7 +122,7 @@ export function SimpleEntryScreen(props) {
         <input key="submit1" type="button" onClick={onSubmit} value="Save" disabled={disabled} />
         <input key="submit2" type="button" onClick={clearData} value="Cancel Changes" disabled={disabled} />
         <hr />
-        <pre>{JSON.stringify(pendingUpdates, null, 2)}</pre>
+        {pendingDataArea}
       </div>
     </div>
   </>;
