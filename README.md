@@ -2,7 +2,26 @@
 
 A Collection of components to make your React code simpler.
 
-Breaking Changes:
+---------------------
+
+## From Synk Reports:
+
+H - word-wrap Regular Expression Denial of Service (ReDoS) Vulnerability 
+
+[CWE-1333](https://cwe.mitre.org/data/definitions/1333.html)
+[CVE-2023-26115](https://www.cve.org/CVERecord?id=CVE-2023-26115)
+[CVSS 7.5 HIGH](https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P)
+[SNYK-JS-WORDWRAP-3149973](https://app.snyk.io/vuln/SNYK-JS-WORDWRAP-3149973)
+
+**Introduced through: pdfmake@0.2.7**
+**Exploit maturity: PROOF OF CONCEPT**
+
+Introduced through: simple-widgets@1.35.4 › pdfmake@0.2.7 › @foliojs-fork/linebreak@1.1.1 › brfs@2.0.2 › static-module@3.0.4 › escodegen@1.14.3 › optionator@0.8.3 › word-wrap@1.2.3
+Fix: No remediation path available.
+
+---------------------
+
+## Breaking Changes:
 
 - 2023-06-05 Simple-Widgets version 1.35.0  \<Form> and \<FormFields> now calls the App supplied formDictionary() passing a string
     instead of the previous argument {formName: string}. Below is the code change needed to be compatable with previous versions of simple-widgets. Moving forward, the App supplied formDictionary() can expest a single string.
@@ -31,6 +50,8 @@ Planned removal:
 
 - dropping makeChangeHandler from library (It assumes React Component style 'this', not React components using React Hooks)
 
+---------------------
+
 ## Installation
 
 Using [npm](https://www.npmjs.com/):
@@ -44,6 +65,8 @@ Using [npm](https://www.npmjs.com/):
 ```bash
     yarn add simple-widgets
 ```
+
+---------------------
 
 ## How to test the library locally (before publishing to npm)
 
