@@ -1,5 +1,6 @@
+
 module.exports = {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "env": {
     "es6": true,
     "browser": true,
@@ -19,8 +20,8 @@ module.exports = {
     'semi': 'off',
     'no-console': 'off',
     'react/jsx-filename-extension': 'off',
-    'react/jsx-uses-react': 'on',
-    'react/jsx-uses-vars': 'on',
+    'react/jsx-uses-react': 1,
+    'react/jsx-uses-vars': 1,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'import/no-unresolved': [2, {commonjs: true, amd: true}],
