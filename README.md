@@ -6,7 +6,7 @@ A Collection of components to make your React code simpler.
 
 ## From Synk Reports:
 
-H - word-wrap Regular Expression Denial of Service (ReDoS) Vulnerability 
+H - word-wrap Regular Expression Denial of Service (ReDoS) Vulnerability
 
 [CWE-1333](https://cwe.mitre.org/data/definitions/1333.html)
 [CVE-2023-26115](https://www.cve.org/CVERecord?id=CVE-2023-26115)
@@ -51,6 +51,16 @@ Planned removal:
 - dropping makeChangeHandler from library (It assumes React Component style 'this', not React components using React Hooks)
 
 ---------------------
+
+## Kept back
+
+These are kept back because we are still holding compatability with react 17.0.2 and react-dom 17.0.2
+
+```bash
+@testing-library/dom                                 8.19.0  →     9.3.1
+@testing-library/react                               12.1.5  →    14.0.0
+react-test-renderer                                 ^17.0.0  →   ^18.2.0
+```
 
 ## Installation
 
