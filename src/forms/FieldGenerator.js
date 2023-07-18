@@ -6,7 +6,7 @@ import { DateInput }     from '../DateInput.js'
 
 import Input from './Input.js'
 import { Form, FormTable } from './Form.js'
-import { LocalChoice } from './LocalChoice.js'
+import { FormChoice } from './FormChoice.js'
 import { isFunction } from './isFunction.js'
 
 import ControlledTextarea from './ControlledTextarea.js'
@@ -77,7 +77,7 @@ const createFieldChoice = (f, onChange) => {
         // eslint-disable-next-line no-unused-vars
         const { className, name, ...whatsLeft  } = f
 
-        return <LocalChoice
+        return <FormChoice
                   {...whatsLeft}
                   className={`select-field form-control ${className||""}`}
                   name={name}

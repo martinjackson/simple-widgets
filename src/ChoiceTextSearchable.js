@@ -18,7 +18,7 @@ export const ChoiceTextSearchable = (props) => {
     if (e.target) {
       setValue(e.target.value)
       props.onChange(e)
-      // let LocalChoice decide to propigate if value matches a pair  opt pairs
+      // let FormChoice decide to propigate if value matches a pair  opt pairs
       }
   }
 

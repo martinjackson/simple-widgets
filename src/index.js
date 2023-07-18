@@ -57,11 +57,11 @@ import { EntryScreen } from './forms/EntryScreen.js'
 import { ErrorList } from './forms/ErrorList.js'
 import { setFieldGenerator, fieldGeneratorLookup } from './forms/FieldGenerator.js'
 import { DatabaseLoadingIcon, FormHeader, FormTable, Form } from './forms/Form.js'
+import { FormChoice } from './forms/FormChoice.js'
 import { getFieldRecName, getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, 
          FormFields } from './forms/FormFields.js'
 import { Gears } from './forms/Gears.js'
 import Input from './forms/Input.js'
-import { LocalChoice } from './forms/LocalChoice.js'
 import { MakeModal } from './forms/MakeModal.js'
 import NarrowForm from './forms/NarrowForm.js'
 import { pretty, Show } from './forms/Show.js'
@@ -123,9 +123,9 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          getList, decrypt, encrypt, createStoreItem, useStoreItem, openGeneralStore, hasOwnProperty,
          localStrToDate, makeChangeHandler, register, unregister, now, TS, dTS, Button, ControlledInput,
          ControlledTextarea, exampleFields, applyOptions, EntryScreen, ErrorList, setFieldGenerator,
-         fieldGeneratorLookup, DatabaseLoadingIcon, FormHeader, FormTable, Form, getFieldRecName,
-         getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, Gears, Input,
-         LocalChoice, MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen,
+         fieldGeneratorLookup, DatabaseLoadingIcon, FormHeader, FormTable, Form, FormChoice,
+         getFieldRecName, getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields,
+         Gears, Input, MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen,
          capWords, client, dataLog, getDataLog, applyDeepValueChange, dispAsString, flattenJSON,
          dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues,
          ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus, watchJobStatus,

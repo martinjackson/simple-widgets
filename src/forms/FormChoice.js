@@ -79,15 +79,15 @@ const getChoices = (lookup, options, cb) => {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
-export function LocalChoice(props) {
+export function FormChoice(props) {
 
-      // console.log('>>> LocalChoice(',props,')')
+      // console.log('>>> FormChoice(',props,')')
 
       // the cb() is for when the lookup changes -- ALSO when a lookup alias definition changes
       const cb = () => {
           const opt = getChoices(props.lookup, props.options, cb)
 
-          // console.log('   LocalChoice options changed --- name:', props.name, 'lookup:', props.lookup, 'opt:', opt)
+          // console.log('   FormChoice options changed --- name:', props.name, 'lookup:', props.lookup, 'opt:', opt)
           setChoicesLocal(opt)
       }
 
@@ -118,7 +118,7 @@ export function LocalChoice(props) {
 
       useEffect(() => {
         const opt = getChoices(props.lookup, props.options, cb)
-        // console.log('   LocalChoice useEffect[props.lookup, props.options] name:', props.name, 'opt:', opt);
+        // console.log('   FormChoice useEffect[props.lookup, props.options] name:', props.name, 'opt:', opt);
         setChoicesLocal(opt)
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [props.lookup, props.options])
@@ -156,7 +156,7 @@ export function LocalChoice(props) {
       const {transformFn, ...otherProps} = whatsLeft   // lower level components know not of transformFn()
       const opt = choicesLocal?.map((i) => i.label)
 
-      // console.log(`LocalChoice name: ${whatsLeft.name} opt[${opt.length}] value: ${whatsLeft.value}`);
+      // console.log(`FormChoice name: ${whatsLeft.name} opt[${opt.length}] value: ${whatsLeft.value}`);
 
       if (!selectable) {
         console.log(`   ${props.name} not selectable, lookup ${props.lookup} does not contain  ${whatsLeft.value} => ${displayableValue}`);
@@ -175,7 +175,7 @@ export function LocalChoice(props) {
         return <span></span>               // it is ok, sometime the lookup is an alias and empty list to disable this field
       }
 
-      if (choicesLocal.length < 50) {
+      if (choicesLocal.length < 25) {
         return (
           <Choice
             {...otherProps}
