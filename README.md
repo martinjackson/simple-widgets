@@ -114,38 +114,38 @@ All of these widgets require the following props:
 
 ## Component Documents
 
-[AlertModal](docs/AlertModal.md)
-[Browser Detect](docs/BrowserDetect.md)
-[CheckBox](docs/CheckBox-Example.md)
-[CheckBoxGroup](docs/CheckBoxGroup.md)
-[Choice](docs/Choice-Example.md)
-[ChoiceText](docs/ChoiceText.md)
-[ChoiceTextSearchable](docs/ChoiceTextSearchable.md)
-[Common Functions](docs/Common.md)
-[ConfirmModal](docs/ConfirmModal.md)
-[ContextMenu](docs/ContextMenu.md),
-[CSS Rule Functions](docs/CssRuleFunct.md)
-[Date Functions](docs/DateFunct.md)
-[DoubleListBox](docs/DoubleListBox.md)
-[Entry Form](docs/EntryForm.md) is used to help line up components in a form.
-[ErrorModal](docs/ErrorModal.md)
-[Header](docs/Header.md)
-[InputFile](docs/InputFile.md)
-[Invalid](docs/Invalid.md)
-[List](docs/List.md)
-[MenuBar](docs/MenuBar.md)
-[Menu Utils](docs/MenuUtils.md)
-[Modal](docs/Modal.md)
-[Outline](docs/Outline.md)
-[PageTitle](docs/PageTitle.md)
-[Radio](docs/Radio-Example.md)
-[Search Functions](docs/SearchFunct.md)
-[SearchSortTable](docs/SearchSortTable.md)
-[SimpleTable](docs/SimpleTable.md)
-[Slider](docs/Slider.md)
-[SpreadSheet](docs/SpreadSheet.md)
-[StatusBox](docs/StatusBox.md)
-[Theme](docs/Theme.md)
+[AlertModal](docs/AlertModal.md)<br />
+[Browser Detect](docs/BrowserDetect.md)<br />
+[CheckBox](docs/CheckBox-Example.md)<br />
+[CheckBoxGroup](docs/CheckBoxGroup.md)<br />
+[Choice](docs/Choice-Example.md)<br />
+[ChoiceText](docs/ChoiceText.md)<br />
+[ChoiceTextSearchable](docs/ChoiceTextSearchable.md)<br />
+[Common Functions](docs/Common.md)<br />
+[ConfirmModal](docs/ConfirmModal.md)<br />
+[ContextMenu](docs/ContextMenu.md)<br />
+[CSS Rule Functions](docs/CssRuleFunct.md)<br />
+[Date Functions](docs/DateFunct.md)<br />
+[DoubleListBox](docs/DoubleListBox.md)<br />
+[Entry Form](docs/EntryForm.md) is used to help line up components in a form.<br />
+[ErrorModal](docs/ErrorModal.md)<br />
+[Header](docs/Header.md)<br />
+[InputFile](docs/InputFile.md)<br />
+[Invalid](docs/Invalid.md)<br />
+[List](docs/List.md)<br />
+[MenuBar](docs/MenuBar.md)<br />
+[Menu Utils](docs/MenuUtils.md)<br />
+[Modal](docs/Modal.md)<br />
+[Outline](docs/Outline.md)<br />
+[PageTitle](docs/PageTitle.md)<br />
+[Radio](docs/Radio-Example.md)<br />
+[Search Functions](docs/SearchFunct.md)<br />
+[SearchSortTable](docs/SearchSortTable.md)<br />
+[SimpleTable](docs/SimpleTable.md)<br />
+[Slider](docs/Slider.md)<br />
+[SpreadSheet](docs/SpreadSheet.md)<br />
+[StatusBox](docs/StatusBox.md)<br />
+[Theme](docs/Theme.md)<br />
 
 ## Getting Started_
 
