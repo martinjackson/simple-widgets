@@ -114,27 +114,38 @@ All of these widgets require the following props:
 
 ## Component Documents
 
-[CheckBox](docs/CheckBox-Example.md), [Choice](docs/Choice-Example.md), [ChoiceText](docs/ChoiceText.md), [DoubleListBox](docs/DoubleListBox.md),  [List](docs/List.md), [Radio](docs/Radio-Example.md), [InputFile](docs/InputFile.md), [Slider](docs/Slider.md), [CheckBoxGroup](docs/CheckBoxGroup.md), [ChoiceTextSearchable](docs/ChoiceTextSearchable.md)
-
-[AlertModal](docs/AlertModal.md), [ErrorModal](docs/ErrorModal.md), [ConfirmModal](docs/ConfirmModal.md), [Modal](docs/Modal.md), [StatusBox](docs/StatusBox.md)
-
-[Invalid](docs/Invalid.md)
-
-[SearchSortTable](docs/SearchSortTable.md), [SimpleTable](docs/SimpleTable.md)
-
-[ContextMenu](docs/ContextMenu.md),
-
-[SpreadSheet](docs/SpreadSheet.md)
-
-[Theme](docs/Theme.md)
-
-[Search Functions](docs/SearchFunct.md), [Date Functions](docs/DateFunct.md), [Common Functions](docs/Common.md), [CSS Rule Functions](docs/CssRuleFunct.md)
-
-[Entry Form](docs/EntryForm.md) is used to help line up components in a form.
-
-[MenuBar](docs/MenuBar.md), [Menu Utils](docs/MenuUtils.md), [Header](docs/Header.md), [Outline](docs/Outline.md)
-
+[AlertModal](docs/AlertModal.md)
 [Browser Detect](docs/BrowserDetect.md)
+[CheckBox](docs/CheckBox-Example.md)
+[CheckBoxGroup](docs/CheckBoxGroup.md)
+[Choice](docs/Choice-Example.md)
+[ChoiceText](docs/ChoiceText.md)
+[ChoiceTextSearchable](docs/ChoiceTextSearchable.md)
+[Common Functions](docs/Common.md)
+[ConfirmModal](docs/ConfirmModal.md)
+[ContextMenu](docs/ContextMenu.md),
+[CSS Rule Functions](docs/CssRuleFunct.md)
+[Date Functions](docs/DateFunct.md)
+[DoubleListBox](docs/DoubleListBox.md)
+[Entry Form](docs/EntryForm.md) is used to help line up components in a form.
+[ErrorModal](docs/ErrorModal.md)
+[Header](docs/Header.md)
+[InputFile](docs/InputFile.md)
+[Invalid](docs/Invalid.md)
+[List](docs/List.md)
+[MenuBar](docs/MenuBar.md)
+[Menu Utils](docs/MenuUtils.md)
+[Modal](docs/Modal.md)
+[Outline](docs/Outline.md)
+[PageTitle](docs/PageTitle.md)
+[Radio](docs/Radio-Example.md)
+[Search Functions](docs/SearchFunct.md)
+[SearchSortTable](docs/SearchSortTable.md)
+[SimpleTable](docs/SimpleTable.md)
+[Slider](docs/Slider.md)
+[SpreadSheet](docs/SpreadSheet.md)
+[StatusBox](docs/StatusBox.md)
+[Theme](docs/Theme.md)
 
 ## Getting Started_
 

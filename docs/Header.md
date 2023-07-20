@@ -77,9 +77,9 @@ const App = () => {
         <div>
             <Header title="Your Title"
                     dbType="PROD"
-                    titleLogo='Logo.svg',
-                    alertLogo='./logo192.png',
-                    logoutURL='https://your-auth-server/logout',
+                    titleLogo="Logo.svg"
+                    alertLogo="./logo192.png"
+                    logoutURL="https://your-auth-server/logout"
                     username={username}
                     setUsername={setUserName} />
         </div>
