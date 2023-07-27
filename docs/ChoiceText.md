@@ -42,4 +42,9 @@ export default YourComponent;
 
 The choice that was selected by the user will be in the state variable exMode.  If the user should start typing a j, then only java, javascript, and jsx would show up for selection.  If the user wants to add a new item, just type the new item in the box and that will become the value of the state variable.
 
+### **Aditional Notes**
 
+Goggle Chrome and Microsoft Edge will only display the first 512 entries.  This is a browser limitation.  Here are two articles describing the problem:
+
+1. [Google Chorme 512 limitation](https://support.google.com/chrome/thread/6519570/datalist-not-loading-full-options-only-512-items?hl=en)
+2. [Microsoft Edge 512 limitation](https://learn.microsoft.com/en-us/answers/questions/542452/microsoft-edge-shows-only-512-items-in-datalist-93)
