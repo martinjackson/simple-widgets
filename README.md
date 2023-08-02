@@ -2,6 +2,8 @@
 
 A Collection of components to make your React code simpler.
 
+## Supports React 17.02 and React 18.x
+
 ---------------------
 
 ## From Synk Reports:
