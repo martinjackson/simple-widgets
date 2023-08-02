@@ -37,7 +37,7 @@ export const Choice = (propsIn) => {
 
     if (props.multiple) {
       return <Fragment>
-                <select multiple size={siz} {...options} value={props.value || ""}>
+                <select multiple size={siz} {...options} value={(props.value === null) ? "" : props.value}>
                   {placeholderJSX}
                   {keys.map( (el,k) => genOption(el,k) )}
                 </select>
@@ -45,7 +45,7 @@ export const Choice = (propsIn) => {
     }
     else {
       return <Fragment>
-                <select {...options} value={props.value || ""}>
+                <select {...options} value={(props.value === null) ? "" : props.value}>
                   {placeholderJSX}
                   {keys.map( (el,k) => genOption(el,k) )}
                 </select>
