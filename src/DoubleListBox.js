@@ -1,9 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { List } from './List.js';
+import { List, hasOwnProperty } from 'simple-widgets';
 
-import { hasOwnProperty } from './hasOwnProperty.js'
 
 export const DoubleListBox = props => {
     const [choices, setChoices] = useState([...props.choices || []]);
@@ -36,6 +35,19 @@ export const DoubleListBox = props => {
 
     useEffect (() => reset(props), [/*props.choices*/]);
 
+    useEffect (() => {
+        if (props.leftChange === true) { 
+            setLeftValues(props.choices); 
+            setChoices(props.choices);
+        }
+    }, [props.choices])
+
+    useEffect (() => { 
+        if (props.rightChange) {
+            setRightValues(props.values)
+        } 
+    }, [props.values]);
+
     const reportChange = (right) => {
         let compName = 'DoubleListBox';
         if (hasOwnProperty(props, 'name') === true) {
@@ -67,8 +79,17 @@ export const DoubleListBox = props => {
         let right = add(rightValues, leftSelections);
         let left =  sub(leftValues, right);
 
-        setLeftValues(left);
-        setRightValues(right);
+        if (props.sortLeft === true) {
+            setLeftValues(left.sort());
+        } else {
+            setLeftValues(left);
+        }
+        
+        if (props.sortRight === true) {
+            setRightValues(right.sort());
+        } else {
+            setRightValues(right);
+        }
         setLeftSelections([]);
         reportChange(right);
 
@@ -89,8 +110,16 @@ export const DoubleListBox = props => {
         let left = add(leftValues, rightSelections)
         let right =  sub(rightValues, left)
 
-        setLeftValues(left);
-        setRightValues(right);
+        if (props.sortLeft === true) {
+            setLeftValues(left.sort());
+        } else {
+            setLeftValues(left);
+        }
+        if (props.sortRight === true) {
+            setRightValues(right.sort());
+        } else {
+            setRightValues(right);
+        }
         setRightSelections([]);
         reportChange(right);
 
@@ -106,7 +135,11 @@ export const DoubleListBox = props => {
         }
 
         setLeftValues([]);
-        setRightValues(right);
+        if (props.sortRight === true) {
+            setRightValues(right.sort());
+        } else {
+            setRightValues(right);
+        }
         setLeftSelections([]);
         reportChange(right);
     }
@@ -119,7 +152,11 @@ export const DoubleListBox = props => {
             left.push (right[i]);
         }
 
-        setLeftValues(left);
+        if (props.sortLeft === true) {
+            setLeftValues(left.sort());
+        } else {
+            setLeftValues(left);
+        }
         setRightValues([]);
         setRightSelections([]);
         reportChange([]);
@@ -139,6 +176,7 @@ export const DoubleListBox = props => {
                 values.push (e.target[i].value);
             }
         }
+
         setLeftSelections(values);
         setLeftEvent(e.target);
     }
@@ -227,4 +265,3 @@ export const DoubleListBox = props => {
         </div>
     )
 }
-

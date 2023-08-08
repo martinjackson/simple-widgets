@@ -17,6 +17,10 @@ Other optional props:
 3. **title** = provides a title for the double list box
 4. **leftTitle** = provides a title over the left list (default is no title).  If there is a left title there must also be a right title, even if one of the title is blank('').
 5. **rightTitle** = provides a title over the right list (default is no title).  If there is a right title there must also be a left title, even if one of the title is blank('').
+6. **sortLeft** = indicates that the left list will be in sorted order (ascending) when items are moved into the left list from the right list.
+7. **sortRight** = indicates that the right list will be in sorted order (ascending) when items are moved into the right list from the left list.
+8. **leftChange** = indicates that new data can be loaded into the left list.
+9. **rightChange** = indicates that new data can be loaded into the right list.
 
 ## CSS File
 
@@ -123,13 +127,13 @@ A css file that contains the title, left list, and right list classes.  The name
 const [leftList, setLeftList] = useState(['Jones', 'Smith', 'Wesson', 'Doe', 'Johnson]);
 const [rightList, setRightList] = useState([]);
 
-const setRightList = (value) => {
+const getSelection = (value) => {
     console.log ('value', value);
 }
 ...
 <DoubleListBox choices={leftList} 
                value={rightList} 
-               onChange={(event) => setRightList(event.target.value)} />
+               onChange={(event) => getSelection(event.target.value)} />
 ...
 ```
 
@@ -144,12 +148,11 @@ const [rightList, setRightList] = useState(['Pierce']);
 
 const getSelection = (value) => {
     console.log ('value', value);
-    setRightList(value);
 }
 ...
 <DoubleListBox choices={leftList} 
                value={rightList} 
-               size="15"
+               size="5"
                onChange={(event) => getSelection(event.target.value)}
                title="Names to be Selected"
                leftTitle="Names"
@@ -166,9 +169,8 @@ Since size is 5, it will automatically default to 10, since there are left and r
 const [leftList, setLeftList] = useState(['Jones', 'Smith', 'Wesson', 'Doe', 'Johnson]);
 const [rightList, setRightList] = useState([]);
 
-const getSelection = (event) => {
-    console.log ('value', value);
-    setRightList(value);
+const processSelection = (event) => {
+    console.log ('value', event.target.value);
 }
 ...
     <DoubleListBox  title="DoubleListBox Example"
@@ -190,3 +192,49 @@ value { target: {
 }
 
 ```
+
+### **Example 4:**
+
+```javascript
+const [leftList, setLeftList] = useState(['Jones', 'Smith', 'Wesson', 'Doe', 'Johnson]);
+const [rightList, setRightList] = useState([]);
+
+const getSelection = (value) => {
+    console.log ('value', value);
+}
+...
+    <DoubleListBox  title="DoubleListBox Example"
+                    name="people"
+                    choices={nameList}
+                    size="15"
+                    value=""
+                    sortLeft
+                    sortRight
+                    onChange={(event) => getSelection(event.target.value)} />
+...
+```
+
+If the user moves values to the right list, they will be in sorted on the right list.  This is because of the sortRight prop.  If the user moves value back to the left list, the will be in sorted order in the left list.  This is because of the sortLeft prop. 
+
+### **Example 5:**
+
+```javascript
+const [leftList, setLeftList] = useState(['Jones', 'Smith', 'Wesson', 'Doe', 'Johnson]);
+const [rightList, setRightList] = useState([]);
+
+const getSelection = (value) => {
+    console.log ('value', value);
+}
+...
+    <DoubleListBox  title="DoubleListBox Example"
+                    name="people"
+                    choices={nameList}
+                    size="15"
+                    value=""
+                    leftChange
+                    rightChange
+                    onChange={(event) => getSelection(event.target.value)} />
+...
+```
+
+This will allow the user to change the left list or the right list outside of the DoubleListBox.  This is allowed due to the leftChange and rightChange props.  If these props were not there, the user can only change the values with the buttons. 
