@@ -27,7 +27,6 @@ module.exports = {
     'semi': 'off',
     'no-console': 'off',
     'react/jsx-filename-extension': 'off',
-    "plugin:react/jsx-runtime": "extends",
     'react/jsx-uses-react': 0,
     'react/jsx-uses-vars': 1,
     'react-hooks/rules-of-hooks': 'error',
