@@ -40,6 +40,16 @@ const createLookup = (name) => {          // name: String
     }
 }
 
+// -----------------------------------------------------------------------------------------------------
+export const isLookupDone = (name) => {
+
+  let done = false
+  if (!lookups[name] && lookups[name].end != null) {
+    done = true
+  }
+
+  return done
+}
 
 // -----------------------------------------------------------------------------------------------------
 export const serializeLookups = () => {                 // TODO: test and implement        serializeLookups()
