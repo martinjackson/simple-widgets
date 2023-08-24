@@ -122,13 +122,17 @@ export const changeLookupAlias = addLookupAlias       // functionality for chang
 
 // -----------------------------------------------------------------------------------------------------
   // name: String      query: GraphhQL query
-export const addLookup = (name, queryVars, transFn, cb) => {
+export const defineLookup = (name, queryVars, transFn, cb) => {
 
-  createLookup(name)
-  lookups[name].queryName   = name
-  lookups[name].queryVars   = queryVars
-  lookups[name].translateFn = transFn
-  startLookup(name, cb)
+  if (!lookups[name]) {
+    createLookup(name)
+    lookups[name].queryName   = name
+    lookups[name].queryVars   = queryVars
+    lookups[name].translateFn = transFn
+    startLookup(name, cb)
+  } else {
+    console.log(`defineLookup(${name}) has already completed. Did you wish to refresh the data? call refreshLookup()`);
+  }
 }
 
 
@@ -160,7 +164,7 @@ export const fetchLookupData = (lookupName, notifyFn=null) => {
 // }
 
 // -----------------------------------------------------------------------------------------------------
-export const startLookup = (lookupName, cb) => {
+export const startLookup = (lookupName, cb = null) => {
   pendingLookupQueries++
 
   createLookup(lookupName)
@@ -208,7 +212,9 @@ export const startLookup = (lookupName, cb) => {
 
       lookupLog(TS(), 'lookup:',lookupName, 'summary:', lookups[lookupName].summary)
 
-      cb(lookupName, 'complete')
+      if (cb != null) {
+        cb(lookupName, 'complete')
+      }
 
       pendingLookupQueries--
       if (pendingLookupQueries <= 0) {
@@ -224,6 +230,12 @@ export const startLookup = (lookupName, cb) => {
       lookupLog(TS(), '------------------------------------------');
       cb(lookupName, 'error', err)
     });
+}
+
+// in the future, this may need to be different than startLookup()
+// -----------------------------------------------------------------------------------------------------
+export const refreshLookup = (lookupName, cb = null) => {
+  startLookup(lookupName, cb)
 }
 
 // -----------------------------------------------------------------------------------------------------
