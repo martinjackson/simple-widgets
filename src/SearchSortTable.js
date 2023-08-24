@@ -2878,6 +2878,7 @@ const _InnerSearchSortTable = (props) => {
 
         let data = props.data;  // The data to filter
         let done = false;
+        let found = false;
 
         // Find if the index is in the date table
 
@@ -2951,10 +2952,16 @@ const _InnerSearchSortTable = (props) => {
                     setStartEnd(i, length, indexes); // Set the start and end positions of the data on the screen.
 
                     done = true;
+                    found = true;
                 }
             }
         }
-}
+
+        if (found === false) {
+            setAlertMessage(`Could not find ${searchItem} in the table`);
+            setShowAlert(true);
+        }
+    }
 
     /********************************************************************************************
      *
@@ -2976,6 +2983,11 @@ const _InnerSearchSortTable = (props) => {
                 found = true;
                 setStartEnd(i, length, indexes); // Set the start and end positions of the data on the screen.
             }
+        }
+
+        if (found === false) {
+            setAlertMessage(`Could not find ${search} in the table`);
+            setShowAlert(true);
         }
     }
 
@@ -3000,6 +3012,11 @@ const _InnerSearchSortTable = (props) => {
                 found = true;
                 setStartEnd(i, length, indexes);  // Set the start and end positions of the data on the screen.
             }
+        }
+
+        if (found === false) {
+            setAlertMessage(`Could not find ${search} in the table`);
+            setShowAlert(true);
         }
     }
 

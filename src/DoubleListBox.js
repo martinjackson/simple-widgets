@@ -1,208 +1,208 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
-// import { List, hasOwnProperty } from 'simple-widgets'
-import { List } from './List.js'
-import { hasOwnProperty } from './hasOwnProperty.js'
+import { hasOwnProperty } from './hasOwnProperty.js';
+import { List } from './List.js';
+
 
 export const DoubleListBox = props => {
-    const [choices, setChoices] = useState([...props.choices || []])
-    const [leftValues, setLeftValues] = useState(choices.filter( item => ![...props.value || []].find(r => r === item)))
-    const [rightValues, setRightValues] = useState([...props.value || []])
-    const [leftSelections, setLeftSelections] = useState([])
-    const [rightSelections, setRightSelections] = useState([])
-    const [leftEvent, setLeftEvent] = useState([])
-    const [rightEvent, setRightEvent] = useState([])
+    const [choices, setChoices] = useState((props.choices === null || props.choices.length === 0) ? [] : [...props.choices]);
+    const [leftValues, setLeftValues] = useState(choices.filter( item => (props.value === null || props.value.length === 0) ? [] : [...props.value].find(r => r === item)));
+    const [rightValues, setRightValues] = useState((props.value === null || props.value.length === 0) ? [] : [...props.value]);
+    const [leftSelections, setLeftSelections] = useState([]);
+    const [rightSelections, setRightSelections] = useState([]);
+    const [leftEvent, setLeftEvent] = useState([]);
+    const [rightEvent, setRightEvent] = useState([]);
 
     const reset = (props) => {
         if (!props.value) {
-            console.log("DoubleListBox props 'value' field is missing.")
+            console.log("DoubleListBox props 'value' field is missing.");
         }
 
         if (!props.choices) {
-            console.log("DoubleListBox props 'choices' field is missing.")
+            console.log("DoubleListBox props 'choices' field is missing.");
         }
 
-        const choices = [...props.choices || []]
-        const right = [...props.value || []]
+        const choices = (props.choices === null) ? [] : [...props.choices];
+        const right = (props.value === null) ? [] : [...props.value];
         const left = choices.filter( item => !right.find(r => r === item))  // not in the right
 
-        setChoices(choices)
-        setLeftValues(left)
-        setRightValues(right)
-        setLeftSelections([])
-        setRightSelections([])
+        setChoices(choices);
+        setLeftValues(left);
+        setRightValues(right);
+        setLeftSelections([]);
+        setRightSelections([]);
     }
 
-    useEffect (() => reset(props), [/*props.choices*/])
+    useEffect (() => reset(props), [/*props.choices*/]);
 
     useEffect (() => {
-        if (props.leftChange === true) {
-            setLeftValues(props.choices)
-            setChoices(props.choices)
+        if (props.leftChange === true) { 
+            setLeftValues(props.choices); 
+            setChoices(props.choices);
         }
     }, [props.choices])
 
-    useEffect (() => {
+    useEffect (() => { 
         if (props.rightChange) {
-            setRightValues(props.values)
-        }
-    }, [props.values])
+            setRightValues(props.value)
+        } 
+    }, [props.value]);
 
     const reportChange = (right) => {
-        let compName = 'DoubleListBox'
+        let compName = 'DoubleListBox';
         if (hasOwnProperty(props, 'name') === true) {
-            compName = props.name
+            compName = props.name;
         }
 
         // dont modify 'e', a Synthetic Event
-        props.onChange({target: {name: compName, value: right}})
+        props.onChange({target: {name: compName, value: right}});
     }
 
-    const add = (a,b) => {
-        let ans = [...a]
+    const add = (a, b) => {
+        let ans = [...a];
         for (let i = 0; i < b.length; i++) {
-            ans.push (b[i])
+            ans.push (b[i]);
         }
         return ans
     }
 
-    const sub = (a,b) => {
-        let ans = []
+    const sub = (a, b) => {
+        let ans = [];
         for (let i = 0; i < a.length; i++) {
             if ( !b.includes(a[i]) )
-               ans.push (a[i])
+               ans.push (a[i]);
         }
         return ans
     }
 
-    const moveRightSelectButton = (e) => {
-        let right = add(rightValues, leftSelections)
-        let left =  sub(leftValues, right)
+    const moveRightSelectButton = () => {
+        let right = add(rightValues, leftSelections);
+        let left =  sub(leftValues, right);
 
         if (props.sortLeft === true) {
-            setLeftValues(left.sort())
+            setLeftValues(left.sort());
         } else {
-            setLeftValues(left)
+            setLeftValues(left);
         }
-
+        
         if (props.sortRight === true) {
-            setRightValues(right.sort())
+            setRightValues(right.sort());
         } else {
-            setRightValues(right)
+            setRightValues(right);
         }
-        setLeftSelections([])
-        reportChange(right)
+        setLeftSelections([]);
+        reportChange(right);
 
-        clearSelections()
+        clearSelections();
     }
 
     const clearSelections = () => {
         for (let i = 0; i < leftEvent.length; i++) {
-            leftEvent[i].selected = false
+            leftEvent[i].selected = false;
         }
 
         for (let i = 0; i < rightEvent.length; i++) {
-            rightEvent[i].selected = false
+            rightEvent[i].selected = false;
         }
     }
 
-    const moveLeftSelectButton = (e) => {
+    const moveLeftSelectButton = () => {
         let left = add(leftValues, rightSelections)
         let right =  sub(rightValues, left)
 
         if (props.sortLeft === true) {
-            setLeftValues(left.sort())
+            setLeftValues(left.sort());
         } else {
-            setLeftValues(left)
+            setLeftValues(left);
         }
         if (props.sortRight === true) {
-            setRightValues(right.sort())
+            setRightValues(right.sort());
         } else {
-            setRightValues(right)
+            setRightValues(right);
         }
-        setRightSelections([])
-        reportChange(right)
+        setRightSelections([]);
+        reportChange(right);
 
-        clearSelections()
+        clearSelections();
     }
 
-    const moveRightAllButton = (e) => {
-        let left = leftValues
-        let right = [...rightValues]
+    const moveRightAllButton = () => {
+        let left = leftValues;
+        let right = [...rightValues];
 
         for (let i = 0; i < left.length; i++) {
-            right.push (left[i])
+            right.push (left[i]);
         }
 
-        setLeftValues([])
+        setLeftValues([]);
         if (props.sortRight === true) {
-            setRightValues(right.sort())
+            setRightValues(right.sort());
         } else {
-            setRightValues(right)
+            setRightValues(right);
         }
-        setLeftSelections([])
-        reportChange(right)
+        setLeftSelections([]);
+        reportChange(right);
     }
 
-    const moveLeftAllButton = (e) => {
-        let left = [...leftValues]
-        let right = rightValues
+    const moveLeftAllButton = () => {
+        let left = [...leftValues];
+        let right = rightValues;
 
         for (let i = 0; i < right.length; i++) {
-            left.push (right[i])
+            left.push (right[i]);
         }
 
         if (props.sortLeft === true) {
-            setLeftValues(left.sort())
+            setLeftValues(left.sort());
         } else {
-            setLeftValues(left)
+            setLeftValues(left);
         }
-        setRightValues([])
-        setRightSelections([])
-        reportChange([])
+        setRightValues([]);
+        setRightSelections([]);
+        reportChange([]);
     }
 
     const leftHandleChange = (e) => {
         if (typeof e === 'string')
-          return   // Passed in by Radio, can be ignored, next event has target.name
+          return;   // Passed in by Radio, can be ignored, next event has target.name
 
         if (typeof e.preventDefault === 'function') {
-            e.preventDefault()
+            e.preventDefault();
         }
 
-        let values = []
+        let values = [];
         for (let i = 0; i < e.target.length; i++) {
             if (e.target[i].selected === true) {
-                values.push (e.target[i].value)
+                values.push (e.target[i].value);
             }
         }
 
-        setLeftSelections(values)
-        setLeftEvent(e.target)
+        setLeftSelections(values);
+        setLeftEvent(e.target);
     }
 
     const rightHandleChange = (event) => {
         if (typeof event === 'string')
-          return   // Passed in by Radio, can be ignored, next event has target.name
+          return;   // Passed in by Radio, can be ignored, next event has target.name
 
         if (typeof event.preventDefault === 'function') {
-          event.preventDefault()
+          event.preventDefault();
         }
 
-        let values = []
+        let values = [];
         for (let i = 0; i < event.target.length; i++) {
             if (event.target[i].selected === true) {
-                values.push (event.target[i].value)
+                values.push (event.target[i].value);
             }
         }
 
-        setRightSelections(values)
-        setRightEvent(event.target)
+        setRightSelections(values);
+        setRightEvent(event.target);
     }
 
     const isPosInt = (num) => {
-        return /^\d*$/.test(num)
+        return /^\d*$/.test(num);
     }
 
 /*
@@ -217,28 +217,28 @@ export const DoubleListBox = props => {
     }
 */
 
-    let defaultSize = 7
+    let defaultSize = 7;
 
     if ((props.leftTitle && !props.rightTitle) || !props.leftTitle && props.rightTitle) {
-        console.log ('There must both be a right title and a left title')
+        console.log ('There must both be a right title and a left title');
     } else if (props.leftTitle && props.rightTitle) {
-        defaultSize = 10
+        defaultSize = 10;
     } else if (!props.leftTitle && !props.rightTitle) {
-        defaultSize = 7
+        defaultSize = 7;
     }
 
-    let size = 0
+    let size = 0;
     if (hasOwnProperty(props, 'size') === true) {
         if (props.size === 'all') {
-            size = Math.max(defaultSize, props.choices.length)
+            size = Math.max(defaultSize, props.choices.length);
         } else if (isPosInt(props.size)) {
-            size = Math.max(defaultSize, parseInt(props.size))  // arrow buttons need 7 or 10 lines
+            size = Math.max(defaultSize, parseInt(props.size));  // arrow buttons need 7 or 10 lines
         } else {
-            size = defaultSize
+            size = defaultSize;
         }
     }
     else {
-        size = defaultSize  // arrow buttons need 7 or 10 lines
+        size = defaultSize;  // arrow buttons need 7 or 10 lines
     }
 
 

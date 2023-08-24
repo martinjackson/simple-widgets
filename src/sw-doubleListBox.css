@@ -1,13 +1,14 @@
 /* sw = simple-widgets */
 
 .sw-dlb_buttonSt {
-    width: 50;
+    width: 3em;
     margin: 0.25em 0.75em;   /* top/bot 0.25  left/right 0.75 */
     justify-content: center;
     background-color: var(--sw-theme_buttonColor);
     color: var(--sw-theme_buttonTextColor);
     border: var(--sw-theme_buttonBorder);
     border-radius: var(--sw-theme_buttonRadius);
+    font-weight: 900;
 }
 
 .sw-dlb_topSt { 
