@@ -79,8 +79,8 @@ export const loadSerializedLookups = (data) => {           // TODO: test and imp
   if (data != null) {
     Object.keys(data).forEach(k => {
         createLookup(k)
-        lookups[k].start      = data[k].start
-        lookups[k].end        = data[k].end
+        lookups[k].start      = null     // data[k].start    preloaded data should not have a start and end load time
+        lookups[k].end        = null     // data[k].end
         lookups[k].aliasName  = data[k].aliasName
         lookups[k].data       = data[k].data
         lookups[k].error      = data[k].error
@@ -124,14 +124,19 @@ export const changeLookupAlias = addLookupAlias       // functionality for chang
   // name: String      query: GraphhQL query
 export const defineLookup = (name, queryVars, transFn, cb=null) => {
 
-  if (!lookups[name]) {
-    createLookup(name)
-    lookups[name].queryName   = name
-    lookups[name].queryVars   = queryVars
-    lookups[name].translateFn = transFn
+  createLookup(name)
+  lookups[name].queryName   = name
+  lookups[name].queryVars   = queryVars
+  lookups[name].translateFn = transFn
+
+  if (lookups[name].start === null) {   // may have been preloaded, but let's get fresh data
     startLookup(name, cb)
   } else {
-    console.log(`defineLookup(${name}) has already completed. Did you wish to refresh the data? call refreshLookup()`);
+    if (lookups[name].end === null) {
+      console.log(`defineLookup(${name}) has already started to load. If variables changed or you wish to refresh the data? call refreshLookup()`);
+    } else {
+      console.log(`defineLookup(${name}) has already loaded. If variables changed or you wish to refresh the data? call refreshLookup()`);
+    }
   }
 }
 
