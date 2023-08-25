@@ -85,8 +85,8 @@ import { createJobStatus, updateJobStatus, watchJobStatus } from './forms/jobs.j
 import { label2value, value2label } from './forms/label2value.js'
 import { logDiff } from './forms/logDiff.js'
 import { notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups, setLookupData, 
-         addLookupAlias, changeLookupAlias, addLookup, fetchLookupData, startLookup, calcLookupMemoryUse, 
-         lookupLog, getLookupLogs, getLookupSummary } from './forms/lookupUtil.js'
+         addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup, refreshLookup, 
+         calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary } from './forms/lookupUtil.js'
 import { makeGqlAST } from './forms/makeGqlAST.js'
 import { removeIllegalAttributes } from './forms/removeIllegalAttributes.js'
 import { removeTypeName } from './forms/removeTypeName.js'
@@ -130,10 +130,11 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues,
          ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus, watchJobStatus,
          label2value, value2label, logDiff, notifyLookupsDone, isLookupDone, serializeLookups,
-         loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias, addLookup,
-         fetchLookupData, startLookup, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary,
-         makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace, toCamelCaseVar,
-         toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo, getAppSpecificInfo,
-         createRec, deleteRec, formFromTableInfo, tableField2FormField, genDictionaryEntry, getTableColumns,
-         getTablePKs, findTableByGqlName, getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
+         loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias, defineLookup,
+         fetchLookupData, startLookup, refreshLookup, calcLookupMemoryUse, lookupLog, getLookupLogs,
+         getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace,
+         toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo,
+         getAppSpecificInfo, createRec, deleteRec, formFromTableInfo, tableField2FormField,
+         genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName, getGqlPKs,
+         listNotKeyedTables, updateRecord, AddRecordIcon,
          CloneRecordIcon }
