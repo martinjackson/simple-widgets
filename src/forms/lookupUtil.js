@@ -122,7 +122,7 @@ export const changeLookupAlias = addLookupAlias       // functionality for chang
 
 // -----------------------------------------------------------------------------------------------------
   // name: String      query: GraphhQL query
-export const defineLookup = (name, queryVars, transFn, cb) => {
+export const defineLookup = (name, queryVars, transFn, cb=null) => {
 
   if (!lookups[name]) {
     createLookup(name)
