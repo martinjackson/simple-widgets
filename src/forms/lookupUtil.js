@@ -244,10 +244,10 @@ export const refreshLookup = (lookupName, cb = null) => {
 }
 
 // -----------------------------------------------------------------------------------------------------
-const addNotify = (lookupName, f) => {
+export const addNotify = (lookupName, f) => {
 
     createLookup(lookupName)
-    if (f) {
+    if (f && lookups[lookupName] !== undefined) {
       lookups[lookupName].notify.push(f)
     }
   }
