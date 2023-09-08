@@ -17,7 +17,7 @@ import { DoubleListBox } from './DoubleListBox.js'
 import { ErrorModal } from './ErrorModal.js'
 import { Header } from './Header.js'
 import { HeaderModal } from './HeaderModal.js'
-import { InputFile } from './InputFile.js'
+import InputFile from './InputFile.js'
 import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
          checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
          isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, 
