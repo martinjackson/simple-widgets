@@ -1,3 +1,5 @@
+import { hasOwnProperty } from './hasOwnProperty.js'
+
 /************************************************************************************
  * 
  * This will find all the rules that match the name of the search rule in the CSS 
@@ -15,11 +17,13 @@ export const findCssRule = (searchRule) => {
     let ruleIndex = [];
     for (let j = 0; j < document.styleSheets.length; j++) {
         let found = false;
-        let cssRules = document.styleSheets[j].cssRules;
-        for (let i = 0; i < cssRules.length && found === false; i++) {
-            if (cssRules[i].selectorText === searchRule) {
-                ruleIndex.push ({ sheetIndex: j, index: i });
-                found = true;
+        if (hasOwnProperty(document.styleSheets[j], 'cssRules') === true) {
+            let cssRules = document.styleSheets[j].cssRules;
+            for (let i = 0; i < cssRules.length && found === false; i++) {
+                if (cssRules[i].selectorText === searchRule) {
+                    ruleIndex.push ({ sheetIndex: j, index: i });
+                    found = true;
+                }
             }
         }
     }

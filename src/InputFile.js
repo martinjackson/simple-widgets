@@ -1,24 +1,31 @@
-/* eslint-disable react/no-unknown-property */
 import React, { useState } from 'react';
 
-import { hasOwnProperty } from './hasOwnProperty.js'
+const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
 
-export const InputFile = (props) => {
+const InputFile = (props) => {
     const [displayFile, setDisplayFile] = useState('');
+    const [inputFile, setInputFile] = useState('');
 
     let buttonName = 'Browse';
-    if (hasOwnProperty(props, 'buttonname')) {
+    if (hasProperty(props, 'buttonname')) {
         buttonName = props.buttonname;
     }
 
-    const processFile = (file) => {
-        setDisplayFile(file.name);
+    const processFile = (value) => {
+        console.log ('value', value);
 
-        if (hasOwnProperty(props, 'getFileName')) {
-            props.getFileName(file.name, file);
+        let index = value.lastIndexOf('\\');
+        let file = value.substring(index + 1);
+        console.log('file :', file);
+
+        setInputFile(value);
+        setDisplayFile(file);
+
+        if (hasProperty(props, 'getFileName')) {
+            props.getFileName(file, value);
         }
 
-        if (hasOwnProperty(props, 'additionalProcessing')) {
+        if (hasProperty(props, 'additionalProcessing')) {
             props.additionalProcessing();
         }
     }
@@ -28,18 +35,23 @@ export const InputFile = (props) => {
     }
 
     let processDisplay = processDisplayDefault;
-    if (hasOwnProperty(props, 'processDisplay')) {
+    if (hasProperty(props, 'processDisplay')) {
         processDisplay = props.processDisplay;
     }
 
     return (
         <span className="InputFileClass">
-            <label htmlFor={props.id} className="sw-infile_marginStyle">{props.title}</label>
-            <input file="text" id="pfile" name="displayFile" value={displayFile} className="sw-infile_textStyle" onChange={(event) => processDisplay(event.target.value)} />
+            <label htmlFor="pfile" className="sw-infile_marginStyle">{props.title}</label>
+            <input type="text" id="pfile" name="displayFile" value={displayFile} className="sw-infile_textStyle" 
+            onChange={(event) => processDisplay(event.target.value)} />
             <label htmlFor={props.id} className="sw-infile_buttonStyle  sw-theme_normalButtonBackground" >
-                <input type="file" id={props.id} accept={(hasOwnProperty(props, 'accept')) ? props.accept : '' } className="sw-infile_fileStyle" onChange={(event) => processFile(event.target.files[0])} />
+                <input type="file" name={props.name} value={inputFile} id={props.id} 
+                    accept={(props.hasOwnProperty('accept')) ? props.accept : '' } className="sw-infile_fileStyle" 
+                    onChange={(event) => processFile(event.target.value)} />                
                 {buttonName}
             </label>
         </span>
     )
 }
+
+export default InputFile;
