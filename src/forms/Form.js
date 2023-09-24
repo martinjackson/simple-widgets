@@ -71,11 +71,11 @@ export const FormHeader = (props) => {
   const noLeft = <span>&nbsp;&nbsp;&nbsp;</span>   // same width as left arrow ??
   const LeftArrow  = (props.dataRowStart > 0) ?         <Button title="Previous"  text={"\u25C0"} onClick={props.recPrevFn} /> : noLeft
   const RightArrow = (props.dataRowStart < numRecs-1) ? <Button title="Next"      text={"\u25B6"} onClick={props.recNextFn} /> : <></>
-
+  const FormHeaderLabel = <span className='formHeaderLabel'>{props.header}</span>  // initially for puppeteer location
 
   return  <div className="heading">
           <div className="flex justify-between">
-              <div>{props.header} {isLoading} {AddRecButton} {CloneRecButton}   {LeftArrow} {cntMsg} {RightArrow} </div>
+              <div>{FormHeaderLabel} {isLoading} {AddRecButton} {CloneRecButton}   {LeftArrow} {cntMsg} {RightArrow} </div>
               <div>{recMsg}</div>
           </div>
         </div>

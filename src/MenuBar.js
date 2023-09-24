@@ -113,7 +113,7 @@ export const MenuBar = (props) => {
                  page={(hasOwnProperty(props, 'page')) ? true : false}
                  disabled={disableMenu} />
             <div className={`${typeClass} ${componentClassName}`}>
-                 <ActComp signalUnsaved={signalUnsaved} />
+                 <ActComp signalUnsaved={signalUnsaved} {...props} />
             </div>
         </div>
     )

@@ -253,7 +253,7 @@ export const addNotify = (lookupName, f) => {
   }
 
 // -----------------------------------------------------------------------------------------------------
-const removeNotify = (lookupName, f) => {
+export const removeNotify = (lookupName, f) => {
 
   createLookup(lookupName)
   if (f) {
