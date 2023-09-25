@@ -80,7 +80,7 @@ function InnerSimpleDataTable(props) {
   }, [props, rec.data, rec.loading, rec.variables.where, recSimplify])
 
   if (needsLoading) {
-    console.log(dTS(), 'loading QUERY:', props.queryName)
+    console.log(dTS(), 'SimpleDataTable loading QUERY:', props.queryName)
   }
 
 
@@ -92,7 +92,7 @@ function InnerSimpleDataTable(props) {
   const table = <SimpleTable data={data} height='17em' dataSelected={newRecRowSelected} />
   const dataArea = (needsLoading) ? <Gears width={70} height={50} /> : table
 
-  console.log('SimpleDataTable neadsLoading:', needsLoading, 'data:', JSON.stringify(data))
+  // console.log('SimpleDataTable neadsLoading:', needsLoading, 'data:', JSON.stringify(data))
 
   return (
     <div className={props.className}>

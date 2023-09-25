@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { NavigateBar } from './NavigateBar';
+import { NavigateBar }   from './NavigateBar';
 import { deleteCssRule } from './cssRulesFunct';
+import { dTS }           from './time.js'
 
 import { hasOwnProperty } from './hasOwnProperty.js'
 
@@ -84,10 +85,10 @@ export const MenuBar = (props) => {
 
     const signalUnsaved = (flag) => {     // null or true,   if true they have unsaved data
       if (flag) {
-        // console.log('Active Menu Component signals they have unsaved data. ');
+        // console.log(dTS(), 'Active Menu Component signals they have unsaved data. ');
         setDisableMenu(true)
       } else {
-        // console.log('Active Menu Component clears signal. ');
+        // console.log(dTS(), 'Active Menu Component clears signal. ');
         setDisableMenu(null)
       }
     }
@@ -138,9 +139,11 @@ export const Link = (props) => {
 
   const click = (e) => {
       e.preventDefault();
-      console.log(`You clicked ${props.to}`);
+      console.log(dTS(), `You clicked ${props.to}`);
       setMenuParms(props.parms)
       setMenuPath(props.to)
+      // window.location.search = `?path=${props.to}`    causes page to rerender
+      document.title = `RTP - ${props.to}`;
   }
 
   const cname = props.className || ""

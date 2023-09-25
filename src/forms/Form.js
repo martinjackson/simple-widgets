@@ -11,7 +11,7 @@ import { applyDeepValueChange } from './dataRecordUtil.js'
 import './Form.css'
 
   // <a target="_blank" href="https://icons8.com/icon/gxuEDgFteZdP/database">Database</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-  import databaseLoading from './icons8-database.gif'
+  const databaseLoading = '/icons8-database.gif'     // dont import complicates bundler rules
 
   // --------------------------------------------------------------------------
   export const DatabaseLoadingIcon = (props) => {
@@ -100,8 +100,9 @@ export const FormTable = (props) => {
       console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
     }
 
-    console.log('--- FormTable props:', props);
-    // chase down why no (props.pendingUpdates) or (props.setData)
+    // console.log('--- FormTable props:', props);
+
+    // TODO: chase down why no (props.pendingUpdates) or (props.setData)
 
     let activeData = (props.data) ? props.data : props.value
 
@@ -240,8 +241,9 @@ export const Form = (props) => {
     console.log('--- Form parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
   }
 
-  console.log('--- Form props:', props);
-  // chase down why no (props.pendingUpdates) or (props.setData)
+  // console.log('--- Form props:', props);
+
+  // TODO: chase down why no (props.pendingUpdates) or (props.setData)
 
   let incomingData = (props.data) ? props.data : props.value
 
