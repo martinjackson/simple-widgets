@@ -78,7 +78,7 @@ export const Outline = (props) => {
                 </ul>
             </div>
             <div className="sw-outline-selected_item">
-                { active.component() }
+                { active.component(props) }
             </div>
         </div>
     )

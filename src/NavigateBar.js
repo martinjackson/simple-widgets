@@ -104,7 +104,9 @@ export const NavigateBar = (props) => {
                             className={navItem}
                             onMouseEnter={(event) => onMouseEnter(event, row.index)}
                             onMouseLeave={(event) => onMouseLeave(row.index)}>
-                                <Link className='nav-links'>
+                                <Link
+                                  className='nav-links'
+                                  title={props.title}   >
                                     {page + row.title + addition1}
                                 </Link>
                                 { (dropDown[row.index] === true) ?
@@ -118,7 +120,8 @@ export const NavigateBar = (props) => {
             return (<li key={name}>
                             <Link
                                 className="dropdown-link"
-                                to={row.path}>
+                                title={props.title}
+                                to={row.path}       >
                                 {page + row.title}
                             </Link>
                     </li> )
@@ -150,7 +153,9 @@ export const NavigateBar = (props) => {
                                 className={navItem}
                                 onMouseEnter={(event) => onMouseEnter(event, index)}
                                 onMouseLeave={() => onMouseLeave(index)}>
-                                <Link className='nav-links'>
+                                <Link
+                                  className='nav-links'
+                                  title={props.title}   >
                                     {page + row.title + addition2}
                                 </Link>
                                 { (dropDown[index] === true) ?
@@ -164,7 +169,10 @@ export const NavigateBar = (props) => {
             } else if (hasOwnProperty(row, 'title')) {
                 return (<li key={name}
                             className={navItem}>
-                                <Link to={row.path} className='nav-links'>
+                                <Link
+                                   to={row.path}
+                                   className='nav-links'
+                                   title={props.title}   >
                                     {page + row.title}
                                 </Link>
                         </li> )

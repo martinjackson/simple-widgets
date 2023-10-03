@@ -26,11 +26,14 @@ const removeName = (exp) => {
 }
 
 // ------------------------------------------------------------------------------
-export const applyDeepValueChange = (data, targetName, value, info) => {                   // info {parentRecName, formName}
+export const applyDeepValueChange = (data, targetName, value, info, debug) => {                   // info {parentRecName, formName}
 
       const dataType = arrTypeOf(data)
+
       const howCalled = `applyDeepValueChange(${dataType}, targetName: '${targetName}', value: '${value}', info: ${info.parentRecName} ${info.formName})`
-      console.log(dTS(), howCalled, data)
+      if (debug) {
+        console.log(dTS(), howCalled, data)
+      }
 
       if (data === undefined || data === null) {
         throw new Error(howCalled)
@@ -38,24 +41,31 @@ export const applyDeepValueChange = (data, targetName, value, info) => {        
 
       const isArray = dataType.startsWith('array')
 
+      const newData = structuredClone(data)     // must return a new reference or useEffect and render wont tirgger, old version must stay unmodified
+                                                // if original is modified, libraries like  use-deep-compare-effect will not work
+                                                // import useDeepCompareEffect from 'use-deep-compare-effect'
+
+
       const lastDot = targetName.lastIndexOf('.')
       let recName = (lastDot != -1) ? targetName.substr(0, lastDot) : targetName
       let fieldName = (lastDot != -1) ? targetName.substr(lastDot+1) : targetName
 
-      const gqlName = getGqlName(recName)
-      const pkNames = getGqlPKs(gqlName)
-      let rec = (isArray) ? data[0] : data     // TODO: is it always data[0] ???
-      const keyValues = (pkNames) ? getKeyValues(pkNames, rec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
-      const update = {
-        gqlTable: gqlName,
-        gqlField: fieldName,
-        value: value,
-        where: keyValues
+      let update = {errMsg: 'unknown gqlRecName: '+recName}
+      if (!recName.startsWith('undefined')) {
+        const gqlName = getGqlName(recName)
+        const pkNames = getGqlPKs(gqlName)
+        let rec = (isArray) ? newData[0] : newData     // TODO: is it always data[0] ???
+        const keyValues = (pkNames) ? getKeyValues(pkNames, rec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
+        update = {
+          gqlTable: gqlName,
+          gqlField: fieldName,
+          value: value,
+          where: keyValues
+        }
+        if (debug) {
+          console.log(TS(), 'Transactions:', update);
+        }
       }
-      // console.log(TS(), 'Transactions:', update);
-
-      // The following code modifies data directly not doing comething like        const tmp = structuredClone(data)
-      // so this function does apply the change as the function name states
 
       if (isArray) {
         let varAssignment = removeName(targetName)
@@ -66,96 +76,29 @@ export const applyDeepValueChange = (data, targetName, value, info) => {        
           const fieldName = fields[2]
 
           // untested
-          console.log(` [applyDeepValueChange] doing              data[${i}][${fieldName}] = ${value}`);
-          data[i][fieldName] = value
+          console.log(` [applyDeepValueChange] doing              newData[${i}][${fieldName}] = ${value}`);
+          newData[i][fieldName] = value
 
         } else {
 
           // TODO: if seen (applyDeepValueChange    would have...), this is a problem
-          console.log(` [PUNT]  applyDeepValueChange    would have...      data${varAssignment} = ${value}, this is a problem`);
+          console.log(` [PUNT]  applyDeepValueChange    would have...      newData${varAssignment} = ${value}, this is a problem`);
         }
       } else {
 
         // tested
-        console.log(` [applyDeepValueChange] doing              data[${fieldName}] = ${value}`);
-        data[fieldName] = value
+        if (debug) {
+          console.log(` [applyDeepValueChange] doing              newData[${fieldName}] = ${value}`);
+        }
+        newData[fieldName] = value
       }
 
 
-      const returning = {newData: data, update: update}
-      console.log(' [applyDeepValueChange]    returning:', returning);
+      const returning = {newData, update}
+      if (debug) {
+        console.log(' [applyDeepValueChange]    returning:', returning);
+      }
 
     return (returning)
 }
 
-/*
-
-// ------------------------------------------------------------------------------
-const stringify = (val) => {
-
-       // possible typeof: string, number, bigint, boolean, undefined, symbol, null
-       // TODO how to handle symbol ???
-
-      const valType = typeof val
-      let s = val
-
-      if (['number', 'bigint','boolean'].indexOf(valType) != -1 ) {
-          s = ''+val
-      }
-
-      if (valType === 'object' || valType === 'string') {
-        s = JSON.stringify(val)
-      }
-
-      // console.log(`${s} is a ${valType}.`);
-
-      return s
-}
-
-
-        // https://stackoverflow.com/questions/7650071/is-there-a-way-to-create-a-function-from-a-string-with-javascript
-        // var func = new Function("return " + "function (a, b) { return a + b; }")();
-
-        let valExpression = stringify(value)
-        let recNameExpression = (isArray) ? removeName(recName) : '.'+recName
-
-
-        const setFnStr = `return function changeDataFn(data) {
-            // ${info.parentRecName} ${info.formName}
-            console.log('return function changeDataFn(',data,') {');
-            const tmp = structuredClone(data)                              // {...data} not a deep copy
-            tmp${fqVarName} = ${valExpression}
-            return tmp
-          }
-          `
-
-        const getFnStr = (info.parentRecName == undefined) ?
-          `return function getDataFn(data) {
-            return data
-          }
-          ` :
-          `return function getDataFn(data) {
-            return data${recNameExpression}
-          }
-          `
-
-        let rec = {}
-        try {
-            const getDataFn = new Function(getFnStr)();
-            rec = getDataFn(data)
-        } catch(e) {
-            console.log('getFnStr:', getFnStr)
-
-            const where = (e.fileName && e.lineNumber) ? e.fileName+':'+e.lineNumber : ''
-            console.log(howCalled,'in dataRecordUtil.js:74', where, e.message, );
-        }
-
-        let tmp
-        try {
-          const changeDataFn = new Function(setFnStr)();
-          tmp = changeDataFn(data)
-        } catch(e) {
-          console.log('setFnStr:', setFnStr)
-          console.log(howCalled, 'in dataRecordUtil.js setFnStr', e);
-        }
-*/

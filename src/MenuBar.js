@@ -112,7 +112,8 @@ export const MenuBar = (props) => {
                  type={type}
                  open={open}
                  page={(hasOwnProperty(props, 'page')) ? true : false}
-                 disabled={disableMenu} />
+                 disabled={disableMenu}
+                 title={props.title}/>
             <div className={`${typeClass} ${componentClassName}`}>
                  <ActComp signalUnsaved={signalUnsaved} {...props} />
             </div>
@@ -139,11 +140,11 @@ export const Link = (props) => {
 
   const click = (e) => {
       e.preventDefault();
-      console.log(dTS(), `You clicked ${props.to}`);
+      console.log(dTS(), `You clicked '${props.to}'`);
       setMenuParms(props.parms)
       setMenuPath(props.to)
       // window.location.search = `?path=${props.to}`    causes page to rerender
-      document.title = `RTP - ${props.to}`;
+      document.title = `${props.title} - ${props.to}`;
   }
 
   const cname = props.className || ""

@@ -217,9 +217,10 @@ export const FormFields = (props) => {
       const dataName = gqlName + '['+dataIdx+']'
       const recFullName = (parentRecName) ? parentRecName+'.'+dataName : dataName
 
-      if (!props.pendingUpdates) {
-        console.log('--- FormFields props:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
-      }
+      // it's OK, not every form will go back to a database, could be a compound search form
+      // if (!props.pendingUpdates) {
+      //   console.log('--- FormFields props:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
+      // }
 
       // console.log(' FormFields :', {gqlName, dataName, parentRecName, recFullName, formData:props.formData});
 

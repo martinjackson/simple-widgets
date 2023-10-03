@@ -96,13 +96,12 @@ export const FormTable = (props) => {
       }
     }
 
-    if (!props.pendingUpdates) {
-      console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
-    }
+    // it's OK, not every form will go back to a database, could be a compound search form
+    // if (!props.pendingUpdates) {
+    //   console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
+    // }
 
     // console.log('--- FormTable props:', props);
-
-    // TODO: chase down why no (props.pendingUpdates) or (props.setData)
 
     let activeData = (props.data) ? props.data : props.value
 
@@ -128,11 +127,12 @@ export const FormTable = (props) => {
 
         try {
           const info = {parentRecName: props.parentRecName, formName: props.name}
-          const changes = applyDeepValueChange(data, targetName, targetValue, info)
+          const changes = applyDeepValueChange(data, targetName, targetValue, info, props.debug)
           if (props.pendingUpdates) {
             props.pendingUpdates(changes.update)
           } else {
-            console.log('** missing props fn pendingUpdates --- FormTable parent:', props.parentRecName, 'form name:',props.name)
+            // it's OK, not every form will go back to a database, could be a compound search form
+            // console.log('** missing props fn pendingUpdates --- FormTable parent:', props.parentRecName, 'form name:',props.name)
           }
           if (props.setData) {
             props.setData(changes.newData) // reg field value changes
@@ -237,13 +237,13 @@ export const Form = (props) => {
       }
   }
 
-  if (!props.pendingUpdates) {
-    console.log('--- Form parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
-  }
+
+  // it's OK, not every form will go back to a database, could be a compound search form
+  // if (!props.pendingUpdates) {
+  //   console.log('--- Form parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
+  // }
 
   // console.log('--- Form props:', props);
-
-  // TODO: chase down why no (props.pendingUpdates) or (props.setData)
 
   let incomingData = (props.data) ? props.data : props.value
 
@@ -276,20 +276,23 @@ export const Form = (props) => {
 
   const onChange = (change) => {
 
-    console.log('<Forms form name:', props.name, 'onChange() change:', change)
+    if (props.debug) {
+      console.log('<Forms form name:', props.name, 'onChange() change:', change)
+    }
 
     const moreChanges = (data, targetName, targetValue) => {
 
       try {
         // BUG: what if data is an array, not object
         const info = {parentRecName: props.parentRecName, formName: props.name}
-        const changes = applyDeepValueChange(data, targetName, targetValue, info)
+        const changes = applyDeepValueChange(data, targetName, targetValue, info, props.debug)
 
         // echo back up the chain if requested
         if (props.pendingUpdates) {
           props.pendingUpdates(changes.update)
         } else {
-          console.log('props.pendingUpdates is not defined in form:',props.name ,'record update info will be lost:',changes.update);
+          // it's OK, not every form will go back to a database, could be a compound search form
+          // console.log('props.pendingUpdates is not defined in form:',props.name ,'record update info will be lost:',changes.update);
         }
 
         if (props.setData) {
@@ -308,7 +311,9 @@ export const Form = (props) => {
     }
 
     if (change.target && !handled) {
-      console.log(`  <Form name='${props.name}'>   ${change.target.name} <== ${change.target.value} (${typeof change.target.value})`);
+      if (props.debug) {
+         console.log(`  <Form name='${props.name}'>   ${change.target.name} <== ${change.target.value} (${typeof change.target.value})`);
+      }
       moreChanges(activeData, change.target.name, change.target.value)
     }
 
