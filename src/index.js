@@ -10,7 +10,7 @@ import { ChoiceTextSearchable } from './ChoiceTextSearchable.js'
 import { sanitize, formatMoney } from './Common.js'
 import { ConfirmModal } from './ConfirmModal.js'
 import { ContextMenu } from './ContextMenu.js'
-import { convertDate, dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime,
+import { convertDate, dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime, 
          currentDBDate, dbDate, monthName } from './DateFunct.js'
 import { DateInput } from './DateInput.js'
 import { DoubleListBox } from './DoubleListBox.js'
@@ -18,10 +18,10 @@ import { ErrorModal } from './ErrorModal.js'
 import { Header } from './Header.js'
 import { HeaderModal } from './HeaderModal.js'
 import { InputFile } from './InputFile.js'
-import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen,
-         checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable,
-         isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen,
-         clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly,
+import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
+         checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
+         isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, 
+         clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, 
          processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage } from './Invalid.js'
 import { List } from './List.js'
 import { getMenuParms, MenuBar, Redirect, Link } from './MenuBar.js'
@@ -58,7 +58,7 @@ import { ErrorList } from './forms/ErrorList.js'
 import { setFieldGenerator, fieldGeneratorLookup } from './forms/FieldGenerator.js'
 import { DatabaseLoadingIcon, FormHeader, FormTable, Form } from './forms/Form.js'
 import { FormChoice } from './forms/FormChoice.js'
-import { getFieldRecName, getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined,
+import { getFieldRecName, getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, 
          FormFields } from './forms/FormFields.js'
 import { Gears } from './forms/Gears.js'
 import Input from './forms/Input.js'
@@ -84,9 +84,10 @@ import { isPromise } from './forms/isPromise.js'
 import { createJobStatus, updateJobStatus, watchJobStatus } from './forms/jobs.js'
 import { label2value, value2label } from './forms/label2value.js'
 import { logDiff } from './forms/logDiff.js'
-import { notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups, setLookupData,
-         addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup, refreshLookup,
-         addNotify, removeNotify, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary } from './forms/lookupUtil.js'
+import { notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups, setLookupData, 
+         addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup, refreshLookup, 
+         addNotify, removeNotify, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary
+          } from './forms/lookupUtil.js'
 import { makeGqlAST } from './forms/makeGqlAST.js'
 import { removeIllegalAttributes } from './forms/removeIllegalAttributes.js'
 import { removeTypeName } from './forms/removeTypeName.js'
@@ -131,9 +132,9 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus, watchJobStatus,
          label2value, value2label, logDiff, notifyLookupsDone, isLookupDone, serializeLookups,
          loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias, defineLookup,
-         fetchLookupData, startLookup, refreshLookup, addNotify, removeNotify, calcLookupMemoryUse, lookupLog,
-         getLookupLogs, getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName, sendEmail,
-         stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
+         fetchLookupData, startLookup, refreshLookup, addNotify, removeNotify, calcLookupMemoryUse,
+         lookupLog, getLookupLogs, getLookupSummary, makeGqlAST, removeIllegalAttributes, removeTypeName,
+         sendEmail, stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
          setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec, formFromTableInfo,
          tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
          getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
