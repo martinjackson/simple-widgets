@@ -160,12 +160,13 @@ const _InnerSearchSortTable = (props) => {
 
     const pdfOrientValues = ['', 'Portrait', 'Landscape'];  // How the page is oriented for the PDF
 
+    let searchValue = (hasOwnProperty(props, 'searchall') === true) ? 'All' : '';
 
     // Set the state variables
     const [start, setStart] = useState(0);                              // The start of the pagination
     const [end, setEnd] = useState((hasOwnProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));    // The end of the pagination
     const [searchItem, setSearchItem] = useState('');                   // The item to search for
-    const [searchHeader, setSearchHeader] = useState('');               // The column to search
+    const [searchHeader, setSearchHeader] = useState(searchValue);    // The column to search
     const [searchHeaderValues, setSearchHeaderValues] = useState([searchHeader]); // The value of each header in the table -- intialize array to include default value
     const [sortOrder, setSortOrder] = useState(initialSortOrder);       // Indicates the sort: (N) none, (A) ascending,  or (D) descending (D)
     const [topDisabled, setTopDisabled] = useState(true);               // Indicates whether the top button is disabled or not
@@ -414,6 +415,10 @@ const _InnerSearchSortTable = (props) => {
     function populateSearch(table) {
         let localFilter = [...filter];   // The values in the filter input boxes
         let search = [''];      // The values for the drop down
+
+        if (hasOwnProperty(props, 'searchall') === true) {
+            search[0] = 'All';
+        }
 
         if (!table) {
            return
@@ -1162,6 +1167,7 @@ const _InnerSearchSortTable = (props) => {
     if (controlBreakVal === true) { // Display control break tables
         let cbTable = `cbtitles_${number}`;
         let cbHeader = `cbhead_${number}`;
+        console.log('controlBreakData :', controlBreakData);
 
         // Build the tables for the control breaks by rendering the headers in blue at the top and
         // each control break table following
@@ -1689,7 +1695,14 @@ const _InnerSearchSortTable = (props) => {
     function processTitle(k, info) {
         let title = '';
         for (let i = 0; i < info.srtOrder.length; i++) {
-            title += `${table[info.srtOrder[i].col].header} ${props.data[info.indexes[k]][table[info.srtOrder[i].col].name]}; `
+            if (hasOwnProperty(table[info.srtOrder[i].col], 'dataDate') === true ||
+                hasOwnProperty(table[info.srtOrder[i].col], 'filterDate') === true ||
+                hasOwnProperty(table[info.srtOrder[i].col], 'searchDate') === true ||
+                hasOwnProperty(table[info.srtOrder[i].col], 'sortDate') === true) {
+                    title += `${table[info.srtOrder[i].col].header} ${convertDate(props.data[info.indexes[k]][table[info.srtOrder[i].col].name])}; `
+            } else {
+                title += `${table[info.srtOrder[i].col].header} ${props.data[info.indexes[k]][table[info.srtOrder[i].col].name]}; `
+            }
         }
 
         return title;
@@ -2851,16 +2864,38 @@ const _InnerSearchSortTable = (props) => {
                 searchItem.toUpperCase() :  // Convert to upper case to ignore case
                 searchItem;
             // Find a match in the correct column of the data
-            let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
-            if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
-                searchDate(search, tableIndex);
-            } else if (hasOwnProperty(props,'searchstart') === true) {
-                searchStart(search, table[tableIndex].name);
-            } else {
-                searchAny(search, table[tableIndex].name);
-            }
+
+            let found = false;
+            if (searchHeader !== 'All') {
+                let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader); 
+                // Column match
+                if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
+                    found = searchDate(search, tableIndex);
+                } else if (hasOwnProperty(props,'searchstart') === true) {
+                    found = searchStart(search, table[tableIndex].name);
+                } else {
+                    found = searchAny(search, table[tableIndex].name);
+                }
+
 //            let index = props.data.findIndex(val => val[table[tableIndex].name].toString().startsWith(search));   // Text match
-//            setStartEnd(index); // Set the start and end to show the found text
+    //            setStartEnd(index); // Set the start and end to show the found text
+            }  
+            else if (hasOwnProperty(props, 'searchall')) {
+                for (let tableIndex = 0; tableIndex < table.length && found === false; tableIndex++) {
+                    if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
+                        found = searchDate(search, tableIndex);
+                    } else if (hasOwnProperty(props,'searchstart') === true && found === false) {
+                        found = searchStart(search, table[tableIndex].name);
+                    } else if (found === false) {
+                        found = searchAny(search, table[tableIndex].name);
+                    }
+                }
+            }
+
+            if (found === false) {
+                setAlertMessage(`Could not find ${searchItem} in the table`);
+                setShowAlert(true);
+            }
         }
     }
 
@@ -2957,10 +2992,7 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        if (found === false) {
-            setAlertMessage(`Could not find ${searchItem} in the table`);
-            setShowAlert(true);
-        }
+        return found;
     }
 
     /********************************************************************************************
@@ -2985,10 +3017,7 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        if (found === false) {
-            setAlertMessage(`Could not find ${search} in the table`);
-            setShowAlert(true);
-        }
+        return found;
     }
 
     /********************************************************************************************
@@ -3014,10 +3043,7 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        if (found === false) {
-            setAlertMessage(`Could not find ${search} in the table`);
-            setShowAlert(true);
-        }
+        return found;
     }
 
     /******************************************************************************************************************

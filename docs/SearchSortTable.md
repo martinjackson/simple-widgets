@@ -515,18 +515,20 @@ report="The PDF Report"
 
 38. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-39. **searchstart** = indicates that the search item will only match those data items that start with the search item
+39. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
 
-40. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+40. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-41. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+41. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+
+42. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-42. **showtable** = this will show the table and headers even if there is no data to display.
+43. **showtable** = this will show the table and headers even if there is no data to display.
 
-43. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+44. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-44. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+45. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -538,7 +540,7 @@ function startEnd (start, end) {
 <SearchSortTable startEnd={startEnd} />
 ```
 
-45. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+46. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -550,11 +552,11 @@ function startingPosition(value) {
 <SearchSortTable startingPos={startingPosition} />
 ```
 
-46. **title** = supplies a title to be displayed centered at the top of the table.
+47. **title** = supplies a title to be displayed centered at the top of the table.
 
-47. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+48. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-48. **width** = the width of the scroll box only.
+49. **width** = the width of the scroll box only.
 
 ## CSS Files
 
