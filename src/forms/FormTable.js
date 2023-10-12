@@ -1,29 +1,17 @@
-import React, { useState } from 'react';
-import { FormFields } from './FormFields.js';
-import { arrLen } from './arrLen.js';
-import { applyDeepValueChange } from './dataRecordUtil.js';
-import { getLabels } from './getLabels.js';
-import { FormHeader } from './FormHeader.js';
+import React, { useState } from 'react'
+import { FormFields } from './FormFields.js'
+import { arrLen } from './arrLen.js'
+import { applyDeepValueChange } from './dataRecordUtil.js'
+import { getLabels } from './getLabels.js'
+import { FormHeader } from './FormHeader.js'
+
+import { onFormChange } from './onFormChange.js'
+import { formStartMessage } from './formStartMessage.js'
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {
 
-  if (props.debug) {
-    if (props.data) {
-      console.log('--- FormTable parent:', props.parentRecName, 'form name:', props.name, 'data:', props.data); // The top most Form will have data
-    }
-
-    if (props.value) {
-      console.log('--- FormTable parent:', props.parentRecName, 'form name:', props.name, 'value:', props.value); // all sub-forms will have info in props.value
-    }
-  }
-
-  // it's OK, not every form will go back to a database, could be a compound search form
-  // if (!props.pendingUpdates) {
-  //   console.log('--- FormTable parent:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
-  // }
-  // console.log('--- FormTable props:', props);
-  let activeData = (props.data) ? props.data : props.value;
+  formStartMessage(props, 'FormTable')
 
   const [dataRowStart, setDataRowStart] = useState(0);
   const recPrevFn = () => { setDataRowStart(dataRowStart - 1); };
@@ -33,47 +21,19 @@ export const FormTable = (props) => {
     return <span>Loading...</span>;
   }
 
-  const logErrors = (e, help) => {
-    if (props.logErrors) {
-      props.logErrors(e.message);
-    }
-    console.log(help, e.message);
-    console.log(e.stack);
-  };
+  const gqlName = getGqlNameFromForm(props.name)
+  let incomingData = (props.data) ? props.data : props.value
+
+  let dataRow = incomingData
+  if (incomingData && incomingData[gqlName])   // if it is an object, ie. result from graphQL query and the graphQL noun is there
+     dataRow = incomingData[gqlName]
+
+  let activeData = incomingData    // keep as an array
 
   const onChange = (change) => {
+    onFormChange(change, props, '<FormTable ')
+  }
 
-    const moreChanges = (data, targetName, targetValue) => {
-
-      try {
-        const info = { parentRecName: props.parentRecName, formName: props.name };
-        const changes = applyDeepValueChange(data, targetName, targetValue, info, props.debug);
-        if (props.pendingUpdates) {
-          props.pendingUpdates(changes.update);
-        } else {
-          // it's OK, not every form will go back to a database, could be a compound search form
-          // console.log('** missing props fn pendingUpdates --- FormTable parent:', props.parentRecName, 'form name:',props.name)
-        }
-        if (props.setData) {
-          props.setData(changes.newData); // reg field value changes
-        } else {
-          const msg = '** missing props fn setData --- FormTable parent: ' + props.parentRecName + '  form name: ' + props.name;
-          console.log(msg);
-          throw new Error(msg);
-        }
-      } catch (e) {
-        logErrors(e, '<FormTable onChange() error:');
-      }
-
-    };
-
-    const handled = (props.onChangeSpecial) ? props.onChangeSpecial(change, moreChanges) : false;
-    if (change.target && !handled) {
-      // console.log(`   ${change.target.name} <== ${change.target.value}`);
-      moreChanges(activeData, change.target.name, change.target.value);
-    }
-
-  };
 
   const rows = (activeData) ? activeData.length : 0;
   // const [rowIndexes, setRowIndexes] = useState( [...Array(rows).keys()] )
@@ -142,4 +102,6 @@ export const FormTable = (props) => {
       </div>
     </div>
   );
-};
+}
+
+
