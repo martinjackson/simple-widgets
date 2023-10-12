@@ -8,9 +8,6 @@ import { applyDeepValueChange } from './dataRecordUtil.js'
 import './Form.css'
 import { FormHeader } from './FormHeader.js'
 
-  // <a target="_blank" href="https://icons8.com/icon/gxuEDgFteZdP/database">Database</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-  export const databaseLoading = '/icons8-database.gif'     // dont import complicates bundler rules
-
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const Form = (props) => {
 
