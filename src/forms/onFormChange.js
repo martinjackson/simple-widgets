@@ -1,6 +1,8 @@
 
+import { applyDeepValueChange } from './dataRecordUtil.js'
+
 // ----------------------------------------------------------------------------
-function logErrors(e, help) {
+function logErrors(e, help, props) {
   if (props.logErrors) {
     props.logErrors(e.message)
   }
@@ -9,13 +11,13 @@ function logErrors(e, help) {
 }
 
 // ----------------------------------------------------------------------------
-function moreChanges(data, targetName, targetValue, props, msgPrefix) {
+function moreChanges(data, targetName, targetValue, props, msgPrefix, setMsg) {
 
   if (data === undefined || data === null) {
-    const msg = 'Attempting field changes in '+msgPrefix+'' where there is no data record.'
+    const msg = 'Attempting field changes in '+msgPrefix+' where there is no data record.'
 
     const e = new Error(msgPrefix+' ' + msg)
-    logErrors(e, msgPrefix+' onChange() error:')
+    logErrors(e, msgPrefix+' onChange() error:', props)
     setMsg(msg)
     return
   }
@@ -42,13 +44,13 @@ function moreChanges(data, targetName, targetValue, props, msgPrefix) {
     }
 
   } catch (e) {
-    logErrors(e, msgPrefix+' onChange() error:')
+    logErrors(e, msgPrefix+' onChange() error:', props)
   }
 
 }
 
 // ----------------------------------------------------------------------------
-export function onFormChange(change, props, msgPrefix) {
+export function onFormChange(change, props, msgPrefix, setMsg, activeData) {
 
   if (props.debug) {
     console.log('${msgPrefix} form name:', props.name, 'onChange() change:', change)
@@ -63,7 +65,7 @@ export function onFormChange(change, props, msgPrefix) {
     if (props.debug) {
       console.log(`  ${msgPrefix} name='${props.name}'>   ${change.target.name} <== ${change.target.value} (${typeof change.target.value})`)
     }
-    moreChanges(activeData, change.target.name, change.target.value, props, msgPrefix)
+    moreChanges(activeData, change.target.name, change.target.value, props, msgPrefix, setMsg)
   }
 
 }

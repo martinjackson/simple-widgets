@@ -27,11 +27,17 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
     }
     if (error === true || disabled === true) {  // Change certain buttons to the disable color to reflect the buttons have been disabled due to an error
         genButtonStyle.backgroundColor = disableColor;
-    } else {    // Do not disable the button
+    } else {
+
+        // Do not disable the button
         // Make sure the style has a background color, if not use the theme color
+
+        // eslint-disable-next-line no-undef
+        const bc = Style(document.documentElement).getPropertyValue('--sw-theme_buttonColor')
         genButtonStyle.backgroundColor = (style !== null && hasOwnProperty(style, 'backgroundColor') === true) ?
-            style.backgroundColor : 
-            Style(document.documentElement).getPropertyValue('--sw-theme_buttonColor');;
+            style.backgroundColor : bc
+
+
     }
 
     return genButtonStyle;  // Return the button
@@ -48,13 +54,15 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
  *
  *********************************************************************************/
 export const generateDefaultButton = (error, disabled = false) => {
+
+    // Jim, buttonStyle is undefined          vvvvvvvvvvv
     const genButtonStyle = Object.assign ({}, buttonStyle); // Copy the button style
     if (error === true || disabled === true) {  // Change certain buttons to the disable color to reflect the buttons have been disabled due to an error
-        genButtonStyle.backgroundColor = 
+        genButtonStyle.backgroundColor =
             getComputedStyle(document.documentElement).getPropertyValue('--sw-theme_disableButtonColor');
     } else {    // Do not disable the button
         // Make sure the style has a background color, if not use the theme color
-        genButtonStyle.backgroundColor =  
+        genButtonStyle.backgroundColor =
             getComputedStyle(document.documentElement).getPropertyValue('--sw-theme_buttonColor');
     }
 
@@ -62,11 +70,11 @@ export const generateDefaultButton = (error, disabled = false) => {
 }
 
 /*****************************************************************************************************
- * 
+ *
  * This will generate the CSS for a button, based on whether there is an error, disabled, or normal.
  * If there is an error or disabled is true, it will use the cssDisableName; otherwise, it is the
  * cssNormalName.
- * 
+ *
  * Parameters:
  * @param cssClassName      the CSS class that descibes the button
  * @param error             boolean value indicating an error (true) or not (false)
@@ -74,10 +82,10 @@ export const generateDefaultButton = (error, disabled = false) => {
  * @param noBackground      boolean value indicating whether (false) or not (true) to use the normal background color
  * @param cssNormalName     the CSS class for the normal background color
  * @param cssDisableName    the CSS class for the error or disable background color
- * 
+ *
  **************************************************************************************************** */
 export const generateCSSButton = (cssClassName,
-                                  error, 
+                                  error,
                                   disabled = false,
                                   noBackground = false,
                                   cssNormalName = 'sw-theme_normalButtonBackground',
@@ -94,14 +102,14 @@ export const generateCSSButton = (cssClassName,
 }
 
 /*****************************************************************************************************
- * 
+ *
  * This will generate the CSS for a button using the classes in the Theme.js file.  It will call the
  * generateCSSButton.
- * 
+ *
  * Parameters:
  * @param error             boolean value indicating an error (true) or not (false)
  * @param disabled          boolean value indicating whether the button should be disabled (true) or not (false)
- * 
+ *
  **************************************************************************************************** */
 export const generateCSSDefaultButton = (error, disabled = false) => {
     return generateCSSButton('sw-theme_buttonStyle', error, disabled);

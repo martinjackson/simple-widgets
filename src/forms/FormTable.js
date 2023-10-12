@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FormFields } from './FormFields.js'
+// import { getGqlNameFromForm } from './FormFields.js'
 import { arrLen } from './arrLen.js'
-import { applyDeepValueChange } from './dataRecordUtil.js'
 import { getLabels } from './getLabels.js'
 import { FormHeader } from './FormHeader.js'
 
@@ -11,27 +11,29 @@ import { formStartMessage } from './formStartMessage.js'
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {
 
+  const [msg, setMsg] = useState(null);
+
   formStartMessage(props, 'FormTable')
 
   const [dataRowStart, setDataRowStart] = useState(0);
   const recPrevFn = () => { setDataRowStart(dataRowStart - 1); };
   const recNextFn = () => { setDataRowStart(dataRowStart + 1); };
 
-  if (props.isLoading) {
-    return <span>Loading...</span>;
+  if (props.isLoading) {                        // Is this needed? Form cant have this
+    return <span>Loading...</span>
   }
 
-  const gqlName = getGqlNameFromForm(props.name)
   let incomingData = (props.data) ? props.data : props.value
 
-  let dataRow = incomingData
-  if (incomingData && incomingData[gqlName])   // if it is an object, ie. result from graphQL query and the graphQL noun is there
-     dataRow = incomingData[gqlName]
+  // let dataRow = incomingData
+  // const gqlName = getGqlNameFromForm(props.name)
+  // if (incomingData && incomingData[gqlName])   // if it is an object, ie. result from graphQL query and the graphQL noun is there
+  //    dataRow = incomingData[gqlName]
 
   let activeData = incomingData    // keep as an array
 
   const onChange = (change) => {
-    onFormChange(change, props, '<FormTable ')
+    onFormChange(change, props, '<FormTable ', setMsg, activeData)
   }
 
 
@@ -54,6 +56,7 @@ export const FormTable = (props) => {
 
   return (
     <div className={props.className}>
+      {msg}
       <div className={"form sw-form"}>
         <FormHeader
           header={props.header}

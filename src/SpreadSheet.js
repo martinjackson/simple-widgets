@@ -7,26 +7,22 @@ import { SearchSortTable } from './SearchSortTable.js';
 import { ChoiceText }      from './ChoiceText.js';
 import { Radio }           from './Radio.js';
 
-// import { isInvalid, 
+// import { isInvalid,
 import { setInvalidTable, generateInvalid,
-         checkValidityTable, validCheckTable, 
-         clearInvalidTable, 
+         checkValidityTable, validCheckTable,
+         clearInvalidTable,
          processInvalidStyleTable, wasClickedTable} from './Invalid.js'
 
 import { ConfirmModal }  from './ConfirmModal.js';
 
 import { generateCSSButton } from './Theme.js';
 import { sanitize } from './Common.js';
-         
+
 import { hasOwnProperty } from './hasOwnProperty.js';
 
 let functYes = null;
 
 export const SpreadSheet = (props) => {
-    if (hasOwnProperty(props, 'sheet') === false) {
-        console.error ('SpreadSheet: The sheet prop is missing');
-        return <div></div>;
-    }
 
     const invalidArray = generateInvalid(0, props.sheet.length);
 
@@ -42,6 +38,23 @@ export const SpreadSheet = (props) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [confirmMessage, setConfirmMessage] = useState('');
     const [count, setCount] = useState(0);
+
+    useEffect(() => {
+      populateDirty(props.data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.data]);
+
+    useEffect(() => {
+      if (hasOwnProperty(props, 'data') === false) {
+          populate();
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    if (hasOwnProperty(props, 'sheet') === false) {
+      console.error ('SpreadSheet: The sheet prop is missing');
+      return <div></div>;
+    }
 
     let sheet = [...props.sheet];
     for (let i = 0; i < sheet.length; i++) {
@@ -86,11 +99,7 @@ export const SpreadSheet = (props) => {
         setData(localData);
     }
 
-    useEffect(() => {
-        populateDirty(props.data);
-    }, [props.data]);
 
- 
     const startEnd = (start, end) => {
         setStart(start);
         setEnd(end);
@@ -119,7 +128,7 @@ export const SpreadSheet = (props) => {
             for (let j = 0; j < sheet.length; j++) {
                 obj[sheet[j].name] = '';
             }
-            
+
             blank.push(obj);
         }
 
@@ -134,18 +143,13 @@ export const SpreadSheet = (props) => {
         }
     }
 
-    useEffect(() => {
-        if (hasOwnProperty(props, 'data') === false) {
-            populate();
-        }
-    }, [])
 
 
     if (table.length === 0) {
         let table = [];
         for (let i = 0; i < sheet.length; i++) {
             if (sheet[i].hidden === false) {
-                table.push({ header: sheet[i].header, name: sheet[i].name, 
+                table.push({ header: sheet[i].header, name: sheet[i].name,
                     search: sheet[i].search, sort: sheet[i].sort,
                     checked: (hasOwnProperty(sheet[i], 'checked') === true) ? sheet[i].checked : false });
             }
@@ -184,7 +188,7 @@ export const SpreadSheet = (props) => {
         let localInvalid = [...invalid];
 
         setInvalid(clearInvalidTable(localInvalid));
-        
+
         for (let i = 0; i < data.length; i++) {
             if (data[i].count > 0) {
                 for (let j = 0; j < sheet.length; j++) {
@@ -224,59 +228,59 @@ export const SpreadSheet = (props) => {
                     html.push (<td key={key} className="sw-ss_center">
                                     <CheckBox selectedValue="Y"
                                         name={rowSheet.name} value={row[rowSheet.name]}
-                                        onChange={(event) => processChecked(event.target.value, pos)} 
-                                        className={" sw-ss_check " + rowSheet.className} disabled={props.error || rowSheet.disabled} />                          
+                                        onChange={(event) => processChecked(event.target.value, pos)}
+                                        className={" sw-ss_check " + rowSheet.className} disabled={props.error || rowSheet.disabled} />
                                 </td>)
                 } else if (rowSheet.type === 'text' || rowSheet.type === 'date' || rowSheet.type === 'number') {
                     if (rowSheet.validate === true) {
                         html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
-                                    <input type={rowSheet.type} name={rowSheet.name} value={row[rowSheet.name]} 
-                                        onChange={(event) => processValue(event, pos, i)} 
-                                        onClick={() => wasClickedTable(invalid, i, pos, setInvalid)} 
-                                        disabled={props.error || rowSheet.disabled} 
+                                    <input type={rowSheet.type} name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processValue(event, pos, i)}
+                                        onClick={() => wasClickedTable(invalid, i, pos, setInvalid)}
+                                        disabled={props.error || rowSheet.disabled}
                                         className={rowSheet.className + ' ' + processInvalidStyleTable(invalid, i, pos)}/>
                                     { checkValidityTable(invalid, i, pos) }
                                 </td>);
                     } else {
                         html.push(<td key={key} className="sw-ss_center">
-                                    <input type={rowSheet.type} name={rowSheet.name} value={row[rowSheet.name]} 
-                                        onChange={(event) => processValue(event, pos, i)} 
+                                    <input type={rowSheet.type} name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processValue(event, pos, i)}
                                         className={rowSheet.className} disabled={props.error || rowSheet.disabled} />
                                 </td>);
                    }
                 } else if (rowSheet.type === 'textarea') {
                     if (rowSheet.validate === true) {
                         html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
-                                    <textarea name={rowSheet.name} value={row[rowSheet.name]} 
-                                        onChange={(event) => processValue(event, pos, i)} 
-                                        onClick={() => wasClickedTable(invalid, i, pos, setInvalid)} 
-                                        disabled={props.error || rowSheet.disabled} 
+                                    <textarea name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processValue(event, pos, i)}
+                                        onClick={() => wasClickedTable(invalid, i, pos, setInvalid)}
+                                        disabled={props.error || rowSheet.disabled}
                                         className={rowSheet.className + ' ' + processInvalidStyleTable(invalid, i, pos)}/>
                                     { checkValidityTable(invalid, i, pos) }
                                 </td>);
                     } else {
                         html.push(<td key={key} className="sw-ss_center">
-                                    <textarea name={rowSheet.name} value={row[rowSheet.name]} 
-                                        onChange={(event) => processValue(event, pos, i)} 
-                                        className={rowSheet.className} 
+                                    <textarea name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processValue(event, pos, i)}
+                                        className={rowSheet.className}
                                         disabled={props.error || rowSheet.disabled} />
                                 </td>);
                     }
                 } else if (rowSheet.type === 'Choice') {
                     if (rowSheet.validate === true) {
                         html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
-                                    <Choice choices={rowSheet.choices} 
-                                        name={rowSheet.name} value={row[rowSheet.name]} 
-                                        onChange={(event) => processValue(event, pos, i)} 
-                                        onClick={() => wasClickedTable(invalid, i, pos, setInvalid)} 
-                                        disabled={props.error || rowSheet.disabled} 
+                                    <Choice choices={rowSheet.choices}
+                                        name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processValue(event, pos, i)}
+                                        onClick={() => wasClickedTable(invalid, i, pos, setInvalid)}
+                                        disabled={props.error || rowSheet.disabled}
                                         className={rowSheet.className + ' ' + processInvalidStyleTable(invalid, i, pos)}/>
                                     { checkValidityTable(invalid, i, pos) }
                                 </td>);
                     } else {
                         html.push(<td key={key} className="sw-ss_center">
-                                    <Choice choices={rowSheet.choices} name={rowSheet.name} value={row[rowSheet.name]} 
-                                        onChange={(event) => processValue(event, pos, i)} 
+                                    <Choice choices={rowSheet.choices} name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processValue(event, pos, i)}
                                         className={rowSheet.className} disabled={props.error || rowSheet.disabled} />
                                 </td>);
                     }
@@ -284,18 +288,18 @@ export const SpreadSheet = (props) => {
                     if (rowSheet.validate === true) {
                         html.push(<td key={key} className="sw-invalid_checkForError sw-ss_center">
                                     <ChoiceText list={`sheetList_${i}_${pos}`} choices={rowSheet.choices}
-                                        name={rowSheet.name} value={row[rowSheet.name]} 
-                                        onChange={(event) => processValue(event, pos, i)} 
-                                        onClick={() => wasClickedTable(invalid, i, pos, setInvalid)} 
-                                        disabled={props.error || rowSheet.disabled} 
+                                        name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processValue(event, pos, i)}
+                                        onClick={() => wasClickedTable(invalid, i, pos, setInvalid)}
+                                        disabled={props.error || rowSheet.disabled}
                                         className={rowSheet.className + ' ' + processInvalidStyleTable(invalid, i, pos)}/>
                                     { checkValidityTable(invalid, i, pos) }
                                 </td>);
                     } else {
                         html.push(<td key={key} className="sw-ss_center">
                                     <ChoiceText list={`sheetList_${i}_${pos}`} choices={rowSheet.choices}
-                                        name={rowSheet.name} value={row[rowSheet.name]} 
-                                        onChange={(event) => processValue(event, pos, i)} 
+                                        name={rowSheet.name} value={row[rowSheet.name]}
+                                        onChange={(event) => processValue(event, pos, i)}
                                         className={rowSheet.className} disabled={props.error || rowSheet.disabled} />
                                 </td>);
                     }
@@ -303,21 +307,21 @@ export const SpreadSheet = (props) => {
                     html.push(<td key={key} className="sw-ss_center">
                                 <CheckBox selectedValue={rowSheet.selectedValue}
                                     name={rowSheet.name} value={row[rowSheet.name]} text={rowSheet.header}
-                                    onChange={(event) => processValue(event, pos, i)} 
-                                    className={rowSheet.className} disabled={props.error || rowSheet.disabled} />                          
+                                    onChange={(event) => processValue(event, pos, i)}
+                                    className={rowSheet.className} disabled={props.error || rowSheet.disabled} />
                             </td>);
                 } else if (rowSheet.type === 'Radio') {
                     html.push(<td key={key} className="sw-ss_center">
                                 <Radio selectedValue={rowSheet.selectedValue}
                                     name={rowSheet.name} value={row[rowSheet.name]} text={rowSheet.header}
-                                    onChange={(event) => processValue(event, pos, i)} 
-                                    className={rowSheet.className} disabled={props.error || rowSheet.disabled} />                          
+                                    onChange={(event) => processValue(event, pos, i)}
+                                    className={rowSheet.className} disabled={props.error || rowSheet.disabled} />
                                 </td>);
                 } else if (rowSheet.type === 'button') {
                     html.push(<td key={key} className="sw-ss_center">
-                                <button name={rowSheet.name} 
-                                        onClick={() => rowSheet.buttonOnClick(rowSheet.parameters, pos, data)} 
-                                        className={genButtonStyle + ' ' + rowSheet.className} 
+                                <button name={rowSheet.name}
+                                        onClick={() => rowSheet.buttonOnClick(rowSheet.parameters, pos, data)}
+                                        className={genButtonStyle + ' ' + rowSheet.className}
                                         disabled={props.error || rowSheet.disabled}>
                                     {rowSheet.name}
                                 </button>
@@ -341,7 +345,7 @@ export const SpreadSheet = (props) => {
 
         if (filter === 'Y') {
             for (let i = start; i < end; i++) {
-                pos = indexes[i];
+                const pos = indexes[i];
                 Object.keys(data[pos]).forEach (fieldName => {
                     if (fieldName !== 'count' && fieldName !== 'dirty' && fieldName !== 'checked') {
                         if (data[pos][fieldName] !== '' && data[pos][fieldName] !== null && data[pos][fieldName] !== undefined) {
@@ -401,7 +405,7 @@ export const SpreadSheet = (props) => {
                     delete newData[i].count;
                     delete newData[i].checked;
                 }
-                
+
                 for (let j = 0; j < sheet.length; j++) {
                     if (props.sheet[j].save === false) {
                         delete newData[i][sheet[j].name];
@@ -469,25 +473,25 @@ export const SpreadSheet = (props) => {
     }
 
     let specialButton = null;
-    if (checkFound === true && 
-        hasOwnProperty(props, 'buttonName') === true && 
+    if (checkFound === true &&
+        hasOwnProperty(props, 'buttonName') === true &&
         hasOwnProperty(props, 'buttonFunct') === true) {
         let newData = data.filter (row => row.checked === 'Y' );
 
-        specialButton = <button name={props.buttonName} 
+        specialButton = <button name={props.buttonName}
                             className={genButtonStyle} onClick={() => buttonFunct(newData)} >
                                 {props.buttonName}
                         </button>
     } else if (checkFound === true) {
         const buttonName = (hasOwnProperty(props, 'buttonName') === true) ? props.buttonName : 'Remove';
 
-        specialButton = <button name={buttonName} 
+        specialButton = <button name={buttonName}
                             className={genButtonStyle} onClick={() => removeFunct(data)} >
                                 {buttonName}
                         </button>
     }
 
-    let buttonGroup = 
+    let buttonGroup =
         <div className={alignmentClass}>
             {(hasOwnProperty(props, 'nosave') === true) ? null : <button name="save" className={genButtonStyle} onClick={saveButton }>Save</button> }
             {(hasOwnProperty(props, 'noclear') === true) ? null : <button name="clear" className={genButtonStyle} onClick={clearButton}>Clear</button> }

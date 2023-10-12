@@ -30,12 +30,12 @@ export const NavigateBar = (props) => {
 
     useEffect(() => {
         let menu = props.menuTree;
-        count = menu.length;
         setMenuTree(buildTree(menu));
 
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < menu.length; i++) {
             dropDown.push(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.menuTree]);
 
     const handleClick = () => {
@@ -46,7 +46,7 @@ export const NavigateBar = (props) => {
         setClick(value);
     }
 
-    const handleClickDD = (index) => {
+    const handleClickDD = (_index) => {
         let value = true;
         if (click === true) {
             value = false;
@@ -103,7 +103,7 @@ export const NavigateBar = (props) => {
                             key={name}
                             className={navItem}
                             onMouseEnter={(event) => onMouseEnter(event, row.index)}
-                            onMouseLeave={(event) => onMouseLeave(row.index)}>
+                            onMouseLeave={(_event) => onMouseLeave(row.index)}>
                                 <Link
                                   className='nav-links'
                                   title={props.title}   >

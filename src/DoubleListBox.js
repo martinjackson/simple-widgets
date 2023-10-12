@@ -34,19 +34,21 @@ export const DoubleListBox = props => {
         setRightSelections([]);
     }
 
-    useEffect (() => reset(props), [/*props.choices*/]);
+    useEffect (() => reset(props), [props])    // props.choices
 
     useEffect (() => {
-        if (props.leftChange === true) { 
-            setLeftValues(props.choices); 
+        if (props.leftChange === true) {
+            setLeftValues(props.choices);
             setChoices(props.choices);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.choices])
 
-    useEffect (() => { 
+    useEffect (() => {
         if (props.rightChange) {
             setRightValues(props.value)
-        } 
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.value]);
 
     const reportChange = (right) => {
@@ -85,7 +87,7 @@ export const DoubleListBox = props => {
         } else {
             setLeftValues(left);
         }
-        
+
         if (props.sortRight === true) {
             setRightValues(right.sort());
         } else {

@@ -1,7 +1,7 @@
 
 import { getKeyValues, getGqlName } from './getKeyValues.js'
 import { getGqlPKs } from './model/getTablePKs.js'
-import { dTS }  from '../time.js'
+import { dTS, TS }  from '../time.js'
 
 // ------------------------------------------------------------------------------
 // const O2s = (obj) => JSON.stringify(obj, null, 2)
@@ -71,7 +71,7 @@ export const applyDeepValueChange = (data, targetName, value, info, debug) => { 
 
       if (isArray) {
         let varAssignment = removeName(targetName)
-        const fields = varAssignment.split(/[\[\]\.]+/)
+        const fields = varAssignment.split(/[[\].]+/)
         console.log('varAssignment:', varAssignment, 'split -->', fields)
         if (fields.length === 3) {
           const i = Number(fields[1])

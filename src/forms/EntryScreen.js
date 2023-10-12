@@ -115,7 +115,7 @@ function EntryScreenKeyed(props) {
   })
 
 
-  if (needsLoading) {
+  if (needsLoading && props.debug) {
     console.log(dTS(), `  needs loading query ${props.queryName}, Keys:`, props.keys)
   }
 
@@ -194,11 +194,15 @@ function EntryScreenKeyed(props) {
           return prev
         })
 
-        console.log('   EntryScreen: Does the record need loading? name:', change.target.name, 'value:', change.target.value);
+        if (props.debug) {
+          console.log('   EntryScreen: Does the record need loading? name:', change.target.name, 'value:', change.target.value)
+        }
         if (change.target.value === '' || change.target.value === null) {      // cleared for search, but no answer selected
 
         } else {
-          console.log('   EntryScreen: thinking it needs loading ...');
+          if (props.debug) {
+            console.log('   EntryScreen: thinking it needs loading ...')
+          }
           setNeedsLoading(true)
         }
         return true; // signal it is handled

@@ -12,7 +12,7 @@ export const createStoreItem = (name, initialValue) => {
 
 const useStore = create(set => ({
     [name]: initialValue,
-    [setFn]: (newValue) => set(state => ({ [name]: newValue})),
+    [setFn]: (newValue) => set(_state => ({ [name]: newValue})),
   }))
 
   storeInventory[name] = useStore

@@ -198,7 +198,6 @@ const _InnerSearchSortTable = (props) => {
     const [pdfOrientation, setPdfOrientation] = useState('');           // Indicates whether Portrait or Landscape is to selected for the page orientation of the PDF
     const [excelData, setExcelData] = useState([]);                     // Contains the data to be placed in the excel spreadsheet
     const [showExcel, setShowExcel] = useState(false);                  // Indicates whether the Excel Display button can be displayed or not
-    const [hideCols, setHideCols] = useState([]);                       // Indicates which columns are hide and which are displayed
     const [checked, setChecked] = useState('N');                        // Indicates whether the checkbox in the header is checked (Y) or not
 
     // TODO: Ask Jim  hideCols is never used
@@ -1365,7 +1364,6 @@ const _InnerSearchSortTable = (props) => {
         if (hasOwnProperty(props, 'hidden') === true) {
             props.hidden(hide); // Call the hidden function in the calling component
         }
-        setHideCols(hide);
     }
 
     /***********************************************************************************************************************
@@ -2867,7 +2865,7 @@ const _InnerSearchSortTable = (props) => {
 
             let found = false;
             if (searchHeader !== 'All') {
-                let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader); 
+                let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader);
                 // Column match
                 if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
                     found = searchDate(search, tableIndex);
@@ -2879,7 +2877,7 @@ const _InnerSearchSortTable = (props) => {
 
 //            let index = props.data.findIndex(val => val[table[tableIndex].name].toString().startsWith(search));   // Text match
     //            setStartEnd(index); // Set the start and end to show the found text
-            }  
+            }
             else if (hasOwnProperty(props, 'searchall')) {
                 for (let tableIndex = 0; tableIndex < table.length && found === false; tableIndex++) {
                     if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
@@ -3139,7 +3137,7 @@ const _InnerSearchSortTable = (props) => {
                 } else if (dateFormat === 'MM-DD-YYYY HH:MM:SS') {
                     sortAry.push({index: row, data: convertDateTime(props.data[row][name], '-', 1)});
                 } else if (dateFormat === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                    sortAry.push({index: row, data: convertDateTimeReg (data[row][name])});
+                    sortAry.push({index: row, data: convertDateTimeReg (props.data[row][name])});
                 } else {
                     sortAry.push({index: row, data: props.data[row][name]})
                 }

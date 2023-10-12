@@ -65,6 +65,7 @@ export const CheckBox = props => {
     props.onChange(e);
   }
 
+  // eslint-disable-next-line no-unused-vars
   const {selectedValue, text, children, className, ...rest} = props     // at this point selectedValue variable is not used, option override by options. just dont pass to html
 
   let uniChar = null;

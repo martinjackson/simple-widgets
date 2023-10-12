@@ -34,8 +34,8 @@ export const ConfirmModal = inProps => {
                     <Modal>
                         <div>
                             <h1>{(props.message === '') ? defProps.message : props.message}</h1>
-                            <button name="yes" onClick={(async) => processYesFunct()} className="sw-modal_cbuttonStyle" >Yes</button>
-                            <button name="no" onClick={(async) => processNoFunct()} className="sw-modal_cbuttonStyle" >No</button>
+                            <button name="yes" onClick={async () => processYesFunct()} className="sw-modal_cbuttonStyle" >Yes</button>
+                            <button name="no" onClick={async () => processNoFunct()} className="sw-modal_cbuttonStyle" >No</button>
                         </div>
                     </Modal>
                 ) : null

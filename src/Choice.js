@@ -25,6 +25,7 @@ export const Choice = (propsIn) => {
          opt.unshift(props.value)
        }
 
+    // eslint-disable-next-line no-unused-vars
     let {value, placeholder, ...options} = props          // dont use var value from here, that is less descriptive -- this is a substraction
 
     if (placeholder) {

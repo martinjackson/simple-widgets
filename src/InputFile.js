@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-const hasProperty = (obj, propName) => { return !!Object.getOwnPropertyDescriptor(obj, propName);}
+import { hasOwnProperty } from './hasOwnProperty.js';
 
 export const InputFile = (props) => {
     const [displayFile, setDisplayFile] = useState('');
     const [inputFile, setInputFile] = useState('');
 
     let buttonName = 'Browse';
-    if (hasProperty(props, 'buttonname')) {
+    if (hasOwnProperty(props, 'buttonname')) {
         buttonName = props.buttonname;
     }
 
@@ -21,11 +21,11 @@ export const InputFile = (props) => {
         setInputFile(value);
         setDisplayFile(file);
 
-        if (hasProperty(props, 'getFileName')) {
+        if (hasOwnProperty(props, 'getFileName')) {
             props.getFileName(file, value);
         }
 
-        if (hasProperty(props, 'additionalProcessing')) {
+        if (hasOwnProperty(props, 'additionalProcessing')) {
             props.additionalProcessing();
         }
     }
@@ -35,7 +35,7 @@ export const InputFile = (props) => {
     }
 
     let processDisplay = processDisplayDefault;
-    if (hasProperty(props, 'processDisplay')) {
+    if (hasOwnProperty(props, 'processDisplay')) {
         processDisplay = props.processDisplay;
     }
 
@@ -46,7 +46,7 @@ export const InputFile = (props) => {
             onChange={(event) => processDisplay(event.target.value)} />
             <label htmlFor={props.id} className="sw-infile_buttonStyle  sw-theme_normalButtonBackground" >
                 <input type="file" name={props.name} value={inputFile} id={props.id}
-                    accept={(props.hasOwnProperty('accept')) ? props.accept : '' } className="sw-infile_fileStyle"
+                    accept={(hasOwnProperty(props,'accept')) ? props.accept : '' } className="sw-infile_fileStyle"
                     onChange={(event) => processFile(event.target.value)} />
                 {buttonName}
             </label>

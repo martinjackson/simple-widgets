@@ -13,6 +13,7 @@ var navigator = (navigator) ? navigator : {userAgent:""}
 var document = (document) ? document : {}
 
 // Opera 8.0+
+// eslint-disable-next-line no-undef
 export const isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 
 // Firefox 1.0+

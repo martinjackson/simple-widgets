@@ -3,7 +3,6 @@ import React, {useState} from 'react'
 
 import { FormFields, getGqlNameFromForm } from './FormFields.js'
 import { arrLen } from './arrLen.js'
-import { applyDeepValueChange } from './dataRecordUtil.js'
 
 import './Form.css'
 import { FormHeader } from './FormHeader.js'
@@ -21,21 +20,17 @@ export const Form = (props) => {
   const recPrevFn = () => {setDataRowStart(dataRowStart-1)}
   const recNextFn = () => {setDataRowStart(dataRowStart+1)}
 
-  if (props.isLoading) {
-    return <span>Loading...</span>;
-  }
-
-  const gqlName = getGqlNameFromForm(props.name)
   let incomingData = (props.data) ? props.data : props.value
 
   let dataRow = incomingData
+  const gqlName = getGqlNameFromForm(props.name)
   if (incomingData && incomingData[gqlName])   // if it is an object, ie. result from graphQL query and the graphQL noun is there
      dataRow = incomingData[gqlName]
 
   let activeData = (dataRow && dataRow[dataRowStart]) ? dataRow[dataRowStart] : dataRow
 
   const onChange = (change) => {
-    onFormChange(change, props, '<Form ')
+    onFormChange(change, props, '<Form ', setMsg, activeData)
   }
 
     return (
