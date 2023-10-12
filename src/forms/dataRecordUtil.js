@@ -30,12 +30,14 @@ export const applyDeepValueChange = (data, targetName, value, info, debug) => { 
 
       const dataType = arrTypeOf(data)
 
-      const howCalled = `applyDeepValueChange(${dataType}, targetName: '${targetName}', value: '${value}', info: ${info.parentRecName} ${info.formName})`
+      const howCalled = `applyDeepValueChange(data: ${dataType}, targetName: '${targetName}', value: '${value}', info: ${info.parentRecName} ${info.formName})`
       if (debug) {
         console.log(dTS(), howCalled, data)
       }
 
       if (data === undefined || data === null) {
+        console.log(dTS(), '*** applyDeepValueChange() w/o a data record to modify: ', howCalled, data)
+        console.log()
         throw new Error(howCalled)
       }
 
