@@ -178,7 +178,7 @@ const processSelection = (event) => {
                     choices={nameList}
                     size="15"
                     value=""
-                    onChange={processSelection} />
+                    onChange={() => processSelection} />
 ...
 ```
 
@@ -210,7 +210,7 @@ const getSelection = (value) => {
                     value=""
                     sortLeft
                     sortRight
-                    onChange={(event) => getSelection(event.target.value)} />
+                    onChange={() => getSelection(target.value)} />
 ...
 ```
 
@@ -233,7 +233,7 @@ const getSelection = (value) => {
                     value=""
                     leftChange
                     rightChange
-                    onChange={(event) => getSelection(event.target.value)} />
+                    onChange={() => getSelection(target.value)} />
 ...
 ```
 
