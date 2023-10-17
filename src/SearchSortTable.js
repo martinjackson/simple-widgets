@@ -3076,7 +3076,7 @@ const _InnerSearchSortTable = (props) => {
         if (isControlBreak(controlBreakInfo) === true) {    // There is a control break
             startingPosition = startPos[tableIndex];
             if (tableIndex + 1 >= startPos.length) {
-                endingPosition = startingPosition + 1;
+                endingPosition = indexes.length;
             } else {
                 endingPosition = startPos[tableIndex + 1];
             }
