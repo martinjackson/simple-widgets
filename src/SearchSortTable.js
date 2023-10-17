@@ -16,7 +16,8 @@ import { isInvalid, setInvalidScreen, generateInvalid,
 import { AlertModal } from './AlertModal.js';
 import { generateCSSButton } from './Theme.js';
 import { currentDate, convertDate } from './DateFunct.js';
-import { formatMoney } from './Common.js'
+import { formatMoney } from './Common.js';
+import { hasOwnProperty } from './hasOwnProperty.js';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
