@@ -210,7 +210,7 @@ const getSelection = (value) => {
                     value=""
                     sortLeft
                     sortRight
-                    onChange={() => getSelection(target.value)} />
+                    onChange={(event) => getSelection(event.target.value)} />
 ...
 ```
 
@@ -233,7 +233,7 @@ const getSelection = (value) => {
                     value=""
                     leftChange
                     rightChange
-                    onChange={() => getSelection(target.value)} />
+                    onChange={(event) => getSelection(event.target.value)} />
 ...
 ```
 

@@ -1168,7 +1168,6 @@ const _InnerSearchSortTable = (props) => {
     if (controlBreakVal === true) { // Display control break tables
         let cbTable = `cbtitles_${number}`;
         let cbHeader = `cbhead_${number}`;
-        console.log('controlBreakData :', controlBreakData);
 
         // Build the tables for the control breaks by rendering the headers in blue at the top and
         // each control break table following
@@ -1676,19 +1675,9 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************************/
     function processTemp(k, info) {
-        console.log('info :', info);
-        console.log('props.data :', props.data);
         let temp = {};  // Contains the temporary values
         if (props.data.length !== 0 && info.indexes.length !== 0) {
             for (let i = 0; i < info.srtOrder.length; i++) {    // Build the temporary value for a control break change
-                console.log ('================================================================================');
-                console.log('i :', i);
-                console.log('k :', k);
-                console.log('table[info.srtOrder[i].col].name :', table[info.srtOrder[i].col].name);
-                console.log('temp[table[info.srtOrder[i].col].name] :', temp[table[info.srtOrder[i].col].name]);
-                console.log('props.data[info.indexes[k]][table[info.srtOrder[i].col].name] :', props.data[info.indexes[k]][table[info.srtOrder[i].col].name]);
-                console.log('table[info.srtOrder[i].col].name :', table[info.srtOrder[i].col].name);
-                console.log('info.indexes[k] :', info.indexes[k]);
                 temp[table[info.srtOrder[i].col].name] = props.data[info.indexes[k]][table[info.srtOrder[i].col].name];
             }
         }

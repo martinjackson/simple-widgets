@@ -68,7 +68,7 @@ export const Outline = (props) => {
     const items = props.links.filter(getPaths)
 
     // default to first if no path has been selected (first time in)
-    const active = items.find(item => item.path === curPath) || ((props.nopage === true) ? null : items[0]);
+    const active = items.find(item => item.path === curPath) || ((props.nodefaultpage === true) ? null : items[0]);
 //    const active = items.find(item => item.path === curPath) || items[0];
 
     return (

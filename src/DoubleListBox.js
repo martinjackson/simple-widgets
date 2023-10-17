@@ -15,11 +15,11 @@ export const DoubleListBox = props => {
     const [rightEvent, setRightEvent] = useState([]);
 
     const reset = (props) => {
-        if (!props.value) {
+        if (hasOwnProperty(props, 'value') === false) {
             console.log("DoubleListBox props 'value' field is missing.");
         }
 
-        if (!props.choices) {
+        if (hasOwnProperty(props, 'choices') === false) {
             console.log("DoubleListBox props 'choices' field is missing.");
         }
 
