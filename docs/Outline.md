@@ -34,6 +34,8 @@ Props:
 
 2. ***disabled*** = indicates that the entire outline is disabled.  Can be set to disabled={true} or disabled={false}
 
+3. **nopage** = indicates that no page is to be displayed when the Outline is rendered.  By default, it will automatically show the first page listed in the links prop.
+
 
 ## Fields in a link object
 
