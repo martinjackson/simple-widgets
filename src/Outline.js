@@ -68,7 +68,8 @@ export const Outline = (props) => {
     const items = props.links.filter(getPaths)
 
     // default to first if no path has been selected (first time in)
-    const active = items.find(item => item.path === curPath) || items[0]
+    const active = items.find(item => item.path === curPath) || ((props.nopage === true) ? null : items[0]);
+//    const active = items.find(item => item.path === curPath) || items[0];
 
     return (
         <div className="sw-outline-flex">
@@ -78,7 +79,7 @@ export const Outline = (props) => {
                 </ul>
             </div>
             <div className="sw-outline-selected_item">
-                { active.component(props) }
+                { (active !== null) ? active.component(props) : null }
             </div>
         </div>
     )
