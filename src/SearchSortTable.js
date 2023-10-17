@@ -13,11 +13,10 @@ import { Choice } from './Choice.js';
 import { ChoiceText } from './ChoiceText.js';
 import { isInvalid, setInvalidScreen, generateInvalid,
          processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-import { AlertModal } from './AlertModal';
+import { AlertModal } from './AlertModal.js';
 import { generateCSSButton } from './Theme.js';
 import { currentDate, convertDate } from './DateFunct.js';
-import { formatMoney } from './Common.js';
-import { hasOwnProperty } from './hasOwnProperty';
+import { formatMoney } from './Common.js'
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -3514,4 +3513,3 @@ const _InnerSearchSortTable = (props) => {
         setDisable(length, length);
     }
 }
-
