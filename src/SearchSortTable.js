@@ -8,16 +8,16 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
-import { CheckBox } from './CheckBox.js';
-import { Choice } from './Choice.js';
-import { ChoiceText } from './ChoiceText.js';
+import { CheckBox } from 'simple-widgets';
+import { Choice } from 'simple-widgets';
+import { ChoiceText } from 'simple-widgets';
 import { isInvalid, setInvalidScreen, generateInvalid,
-         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-import { AlertModal } from './AlertModal.js';
-import { generateCSSButton } from './Theme.js';
-import { currentDate, convertDate } from './DateFunct.js';
-import { formatMoney } from './Common.js'
-import { hasOwnProperty } from './hasOwnProperty.js'
+         processInvalidStyleScreen, wasClickedScreen} from 'simple-widgets'
+import { AlertModal } from 'simple-widgets';
+import { generateCSSButton } from 'simple-widgets';
+import { currentDate, convertDate } from 'simple-widgets';
+import { formatMoney } from 'simple-widgets'
+import { hasOwnProperty } from 'simple-widgets'
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -212,7 +212,7 @@ const _InnerSearchSortTable = (props) => {
      * control break
      *
      **************************************************************************************************************/
-    function populateDropDown (table) {
+    function populateDropDown (table, indexes) {
         let isUserCtrlBreak = false;
         if (hasOwnProperty(props, 'controlBreak') === true) {
             isUserCtrlBreak = true;
@@ -333,7 +333,6 @@ const _InnerSearchSortTable = (props) => {
     // ---------
     useEffect (() => {
 //      console.log('SearchSortTable useEffect [] ');
-      populateDropDown(props.table);
       populateSearch(props.table)
       props.table.map(buildChoices);
       setColumns(localCols);
@@ -353,20 +352,23 @@ const _InnerSearchSortTable = (props) => {
     useEffect (() => {
 //      console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
 
-      if (!props.table && !table) {        // No table def passed in as a prop, setup a default
-        let tableDef = props.defaultColHeaders()
-        setTable(tableDef)
-        populateSearch(tableDef)
-        tableDef.forEach(buildChoices);
-        setColumns(localCols);
-      }
+        if (!props.table && !table) {        // No table def passed in as a prop, setup a default
+            let tableDef = props.defaultColHeaders()
+            setTable(tableDef)
+            populateSearch(tableDef)
+            tableDef.forEach(buildChoices);
+            setColumns(localCols);
+        }
 
-      if (indexes.length === 0 || props.data.length !== length) {   // There are no indexes
+        if (indexes.length === 0 || props.data.length !== length) {   // There are no indexes
             resetTheIndexes();
+            populateDropDown(props.table, origIndexes);
         } else {    // There are indexes
             setDisable(start, length);
             sendIndexes(start, end, length, indexes);
+            populateDropDown(props.table, indexes);
         }
+
     }, [props.data]);
 
     // ---------
@@ -1674,9 +1676,21 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************************/
     function processTemp(k, info) {
+        console.log('info :', info);
+        console.log('props.data :', props.data);
         let temp = {};  // Contains the temporary values
-        for (let i = 0; i < info.srtOrder.length; i++) {    // Build the temporary value for a control break change
-            temp[table[info.srtOrder[i].col].name] = props.data[info.indexes[k]][table[info.srtOrder[i].col].name];
+        if (props.data.length !== 0 && info.indexes.length !== 0) {
+            for (let i = 0; i < info.srtOrder.length; i++) {    // Build the temporary value for a control break change
+                console.log ('================================================================================');
+                console.log('i :', i);
+                console.log('k :', k);
+                console.log('table[info.srtOrder[i].col].name :', table[info.srtOrder[i].col].name);
+                console.log('temp[table[info.srtOrder[i].col].name] :', temp[table[info.srtOrder[i].col].name]);
+                console.log('props.data[info.indexes[k]][table[info.srtOrder[i].col].name] :', props.data[info.indexes[k]][table[info.srtOrder[i].col].name]);
+                console.log('table[info.srtOrder[i].col].name :', table[info.srtOrder[i].col].name);
+                console.log('info.indexes[k] :', info.indexes[k]);
+                temp[table[info.srtOrder[i].col].name] = props.data[info.indexes[k]][table[info.srtOrder[i].col].name];
+            }
         }
 
         return temp;
