@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { NavigateBar }   from './NavigateBar';
 import { deleteCssRule } from './cssRulesFunct';
-import { dTS }           from './time.js'
 
 import { hasOwnProperty } from './hasOwnProperty.js'
 
-let setMenuPath = (_newPath) => {}
-let setMenuParms = (_newParms) => {}
+export let setMenuPath = (_newPath) => {}
+export let setMenuParms = (_newParms) => {}
 
 let menuParms = {}
 export const getMenuParms = () => { return menuParms }
@@ -121,34 +120,4 @@ export const MenuBar = (props) => {
     )
 }
 
-// ----------------------------------------------------------------------------------
-export const Redirect = (props) => {
-
-  useEffect(() => {
-    setMenuParms(props.parms)
-    setMenuPath(props.to)
-  }, [props.to, props.parms])
-
-  return <></>
-}
-
-// ----------------------------------------------------------------------------------
-export const Link = (props) => {
-
-  if (!props.to || props.to.length < 1)    // same as || props.to === "")
-     return <span className="nav-links">{props.children}</span>
-
-  const click = (e) => {
-      e.preventDefault();
-      console.log(dTS(), `You clicked '${props.to}'`);
-      setMenuParms(props.parms)
-      setMenuPath(props.to)
-      // window.location.search = `?path=${props.to}`    causes page to rerender
-      document.title = `${props.title} - ${props.to}`;
-  }
-
-  const cname = props.className || ""
-
-  return <span className={'nav-links ' + cname} href={props.to} onClick={click}>{props.children}</span>
-}
 

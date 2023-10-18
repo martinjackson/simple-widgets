@@ -23,13 +23,15 @@ import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, che
          isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, 
          clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, 
          processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage } from './Invalid.js'
+import { Link } from './Link.js'
 import { List } from './List.js'
-import { getMenuParms, MenuBar, Redirect, Link } from './MenuBar.js'
+import { getMenuParms, MenuBar } from './MenuBar.js'
 import { Modal } from './Modal.js'
 import { NavigateBar } from './NavigateBar.js'
 import { Outline } from './Outline.js'
 import { PageTitle } from './PageTitle.js'
 import { Radio } from './Radio.js'
+import { Redirect } from './Redirect.js'
 import { search, binSearch } from './SearchFunct.js'
 import { SearchSortTable } from './SearchSortTable.js'
 import { SimpleTable } from './SimpleTable.js'
@@ -122,8 +124,8 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, validCheckTable,
          clearInvalidDual, clearInvalidScreen, clearInvalidTable, processInvalidStyleScreen,
          processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, isInvalid,
-         getInvalidMessage, List, getMenuParms, MenuBar, Redirect, Link, Modal, NavigateBar, Outline,
-         PageTitle, Radio, search, binSearch, SearchSortTable, SimpleTable, Slider, SpreadSheet, StatusBox,
+         getInvalidMessage, Link, List, getMenuParms, MenuBar, Modal, NavigateBar, Outline, PageTitle,
+         Radio, Redirect, search, binSearch, SearchSortTable, SimpleTable, Slider, SpreadSheet, StatusBox,
          generateButton, generateDefaultButton, generateCSSButton, generateCSSDefaultButton, isOpera,
          isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, findCssRule,
          deleteCssRule, findStyleSheet, insertCssRule, printCssRules, date2str, lastOfMonth, todayString,

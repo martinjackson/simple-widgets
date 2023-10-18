@@ -78,6 +78,7 @@ The title field is the title that will be displayed on the menu.  The path is th
 
 11. ***noSide*** = indicates that the selected menu item should be placed underneath the vertical menu instead of beside it.  This option only works with vertical menus.  If this option does not exist, it will place the menu item selected beside the vertical menu.
 
+12. ***title*** = The application name, this is used allong with the clicked path to change the browser title when a menu item is selected. example: you clicked About and the browser title becomes "{application name} - /About" because you passed title="{application name}" to MenuBar
 
 ### Format Prop
 
@@ -91,8 +92,8 @@ The following must be done in order to fix the header or the menu (in all the ex
         ***Example***
         ```javascript
             <div>
-              <Header username={user} setUsername={setUser} 
-                      title="This is a test" dbType="Test" 
+              <Header username={user} setUsername={setUser}
+                      title="This is a test" dbType="Test"
                       titleLogo="Logo.svg" />
               <MenuBar menuTree={mtree} type="vertical" open="always"  />
             </div>
@@ -105,8 +106,8 @@ The following must be done in order to fix the header or the menu (in all the ex
         ***Example***
         ```javascript
         <div>
-            <Header username={user} setUsername={setUser} 
-                    title="This is a test" dbType="Test" 
+            <Header username={user} setUsername={setUser}
+                    title="This is a test" dbType="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={mtree} type="horizontal" open="always" format="fixed" />
         </div>
@@ -166,7 +167,7 @@ The sw-NavBar.css controls the main horizontal or vertical bar across the top of
         - header is float and menu is float
         - no header and menu is float
 
-4.  **nav-menu_vert_250_0** = this is for vertical menus without a header.  This indicates that the position is absolute, left is left is 16em (250px) (for the vertical menu) and top is 0% (since there is no header)).  This is need in the horizontal menus, for no header with a menu of fixed. 
+4.  **nav-menu_vert_250_0** = this is for vertical menus without a header.  This indicates that the position is absolute, left is left is 16em (250px) (for the vertical menu) and top is 0% (since there is no header)).  This is need in the horizontal menus, for no header with a menu of fixed.
 
 Other styling features may also be added.
 
@@ -176,7 +177,7 @@ The DropDown.css controls the drop down (horizontal) on the MenuBar component.  
 
 1.  In the dropdown-menu class, the z-index may need to be changed if it is blocked by other css classes.
 2.  The widths in the dropdown-menu classes.
-3.  The colors, the box-shadow, and pointer types.  
+3.  The colors, the box-shadow, and pointer types.
 
 The css files can be modified to change colors or styling.  Other styling features may also be added.
 
@@ -268,7 +269,7 @@ import { MenuBar } from 'simple-widgets';
 const App = () => {
     let menuTree = menuTree from above;
     const url = new URL(window.location.href);
-    
+
     return (
         <div>
             <MenuBar menuTree={menuTree} path={url.pathname} >
@@ -299,8 +300,8 @@ import { MenuBar, Header } from 'simple-widgets';
 const App = () => {
     return (
         <div>
-            <Header username={user} setUsername={setUser} 
-                    title="This is a test" dbType="Test" 
+            <Header username={user} setUsername={setUser}
+                    title="This is a test" dbType="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={menuTree} type="horizontal" format="fixed" >
         </div>
@@ -308,7 +309,7 @@ const App = () => {
 }
 ```
 
-There is a header that is fixed and a vertical menu that is fixed.  
+There is a header that is fixed and a vertical menu that is fixed.
 
 
 7.  ### Example 7
@@ -318,8 +319,8 @@ import { MenuBar, Header } from 'simple-widgets';
 const App = () => {
     return (
         <div>
-            <Header username={user} setUsername={setUser} 
-                    title="This is a test" dbType="Test" 
+            <Header username={user} setUsername={setUser}
+                    title="This is a test" dbType="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={menuTree} type="vertical" format="fixed" >
         </div>
@@ -327,14 +328,14 @@ const App = () => {
 }
 ```
 
-There is a header that is fixed and a vertical menu that is fixed.  
+There is a header that is fixed and a vertical menu that is fixed.
 
 8.  ### Example 8
 ```js
 import { MenuBar } from 'simple-widgets';
 
 const App = () => {
-   
+
     return (
         <div>
             <MenuBar menuTree={menuTree} type="horizontal" format="fixed" >

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from './MenuBar';
+import { Link } from './Link.js'
 
 import { hasOwnProperty } from './hasOwnProperty.js'
 
