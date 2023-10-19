@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { hasOwnProperty } from './hasOwnProperty.js'
-import { Link } from './MenuBar.js'
+import { Link } from './Link.js'
 
 export const Outline = (props) => {
     const buttonClick = (path) => {
