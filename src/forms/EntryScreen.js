@@ -221,6 +221,15 @@ function EntryScreenKeyed(props) {
   const styleSelected = (props.styleSelected) ? props.styleSelected : 'form-style-11'
   const PopUpWidget = (props.NewRecordGui) ? props.NewRecordGui : SimpleTable
 
+  // included in {...props}
+  // header={props.header}
+  // formName={props.formName}
+  // who={props.who}
+  // recordName={props.recordName}
+  // noAdd={props.noAdd}
+  // noClone={props.noClone}
+  // showPendingData={props.showPendingData}
+  // debug={props.debug}
 
   return <>
     <MakeModal show={showModal} closeFunct={setShowModal} >
@@ -229,25 +238,14 @@ function EntryScreenKeyed(props) {
 
     <ErrorList list={errors} />
     <SimpleEntryScreen
-      header={props.header}
-      formName={props.formName}
-      who={props.who}
-      recordName={props.recordName}
       styleSelected={styleSelected}
-
       loadInProgress={needsLoading}
-
       data={data}
       setData={setData}
-
-      noAdd={props.noAdd}
-      noClone={props.noClone}
-
       pickNewTopRecord={pickNewTopRecord}
       logErrors={logErrors}
       onChangeSpecial={onChangeSpecial}
-
-      showPendingData={props.showPendingData}
+      {...props}
       />
   </>
 }

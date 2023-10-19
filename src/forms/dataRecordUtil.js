@@ -2,6 +2,7 @@
 import { getKeyValues, getGqlName } from './getKeyValues.js'
 import { getGqlPKs } from './model/getTablePKs.js'
 import { dTS, TS }  from '../time.js'
+import { getSubRecord } from './getSubRecord.js'
 
 // ------------------------------------------------------------------------------
 // const O2s = (obj) => JSON.stringify(obj, null, 2)
@@ -30,7 +31,7 @@ export const applyDeepValueChange = (data, targetName, value, info, debug) => { 
 
       const dataType = arrTypeOf(data)
 
-      const howCalled = `applyDeepValueChange(data: ${dataType}, targetName: '${targetName}', value: '${value}', info: ${info.parentRecName} ${info.formName})`
+      const howCalled = `applyDeepValueChange(dataType: ${dataType}, targetName: '${targetName}', value: '${value}', parentRecName: ${info.parentRecName} formName: ${info.formName})`
       if (debug) {
         console.log(dTS(), howCalled, data)
       }
@@ -48,16 +49,19 @@ export const applyDeepValueChange = (data, targetName, value, info, debug) => { 
                                                 // import useDeepCompareEffect from 'use-deep-compare-effect'
 
 
-      const lastDot = targetName.lastIndexOf('.')
-      let recName = (lastDot != -1) ? targetName.substr(0, lastDot) : targetName
-      let fieldName = (lastDot != -1) ? targetName.substr(lastDot+1) : targetName
+      const lastDot = targetName.lastIndexOf('.')                                   // lastDot = 24, targetName = "person[0].appointment[0].apptNote"
+      let recName = (lastDot != -1) ? targetName.substr(0, lastDot) : targetName    // recName = "person[0].appointment[0]"
+      let fieldName = (lastDot != -1) ? targetName.substr(lastDot+1) : targetName   // fieldName = "appNote"
+
+      // [15.622] applyDeepValueChange(data: object, targetName: 'person[0].appointment[0].apptNote', value: 'h', info: undefined person)
 
       let update = {errMsg: 'unknown gqlRecName: '+recName}
       if (!recName.startsWith('undefined')) {
-        const gqlName = getGqlName(recName)
-        const pkNames = getGqlPKs(gqlName)
-        let rec = (isArray) ? newData[0] : newData     // TODO: is it always data[0] ???
-        const keyValues = (pkNames) ? getKeyValues(pkNames, rec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
+        const gqlName = getGqlName(recName)                                         // gqlName = "appointment"
+        const pkNames = getGqlPKs(gqlName)                                          // pkNames = ['appointmentId']
+
+        let subRec = getSubRecord(recName, newData)
+        const keyValues = (pkNames) ? getKeyValues(pkNames, subRec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
         update = {
           gqlTable: gqlName,
           gqlField: fieldName,
@@ -103,4 +107,5 @@ export const applyDeepValueChange = (data, targetName, value, info, debug) => { 
 
     return (returning)
 }
+
 

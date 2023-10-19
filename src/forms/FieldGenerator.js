@@ -195,7 +195,6 @@ const createForm = (f, onChange) => {
   return <Form
               {...whatsLeft}
               className={`${className||""}`}
-              debug={false}
               onChange={onChange}
           />
 }
@@ -208,7 +207,6 @@ const createFormTable = (f, onChange) => {
   return <FormTable
               {...whatsLeft}
               className={`${className||""}`}   // TODO: should have a classname for all FormTables in the Style sheet
-              debug={false}
               onChange={onChange}
           />
 }

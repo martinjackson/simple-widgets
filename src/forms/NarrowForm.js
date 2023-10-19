@@ -10,16 +10,19 @@ const NarrowForm = props => {
     props.notify(formData)
   };
 
+  // included in {...props}
+  // formTitle={props.formTitle}
+  // formStructure={props.formStructure}
+  // buttonText={props.buttonText}
+
   return (
     <Form
       onSubmit={onSubmit}
-      formTitle={props.formTitle}
       setFormData={setFormData}
-      formStructure={props.formStructure}
       formData={formData}
-      buttonText={props.buttonText}
+      {...props}
     />
-  );
-};
+  )
+}
 
 export default NarrowForm;

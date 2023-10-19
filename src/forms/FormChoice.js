@@ -63,7 +63,8 @@ const getChoices = (lookup, options, cb) => {
       opt = []
     } else {
       if (opt.length === 0) {
-        console.log(`   lookup: ${lookup} is empty.`);
+        // TODO: should this be something you would sometimes want displayed ???
+        // console.log(`   lookup: ${lookup} is empty.`);
       }
     }
 

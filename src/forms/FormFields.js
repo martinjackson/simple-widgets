@@ -210,7 +210,7 @@ const typeSafeAssignment = (targetName, prevVal, newVal) => {
 // -------------------------------------------------------------------------------------------------------------------------
 export const FormFields = (props) => {
 
-      const {name, parentRecName, dataIndex, showDebug, withLabels=true} = props
+      const {name, parentRecName, dataIndex, withLabels=true} = props
 
       const gqlName = getGqlNameFromForm(name)
       const dataIdx = (ifDefined(dataIndex)) ? dataIndex : 0
@@ -224,25 +224,40 @@ export const FormFields = (props) => {
 
       // console.log(' FormFields :', {gqlName, dataName, parentRecName, recFullName, formData:props.formData});
 
-      const businessLogic = (props.businessLogic) ? props.businessLogic : (old, changed) => [changed, {}]
-      //  businessLogic returns [modState, dynOptions];
-      //  dynOptions has keyed arrays of options for fields whos options changed based on the values of other fields
-      //  const dynOptions = {
-      //    slideID: slides,
-      //    slideObs: obs
-      // };
-
-      // only needed for 'form', 'formTable'
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      const formInfo = {                    // must match the same createField()'s formInfo items: lines 40-43
-        parentRecName: recFullName,
-        businessLogic,
-        pendingUpdates: props.pendingUpdates,
-        noAdd: props.noAdd,
-        noClone: props.noClone
+      let fieldCalcLogic = props.fieldCalcLogic
+      if (fieldCalcLogic === undefined || fieldCalcLogic === null) {
+         fieldCalcLogic = (old, changed) => [changed, {}]          //  fieldCalcLogic returns [modState, dynOptions];
       }
 
-      const onChangeFormFields = (e => {
+      // only needed for 'form', 'formTable'
+      const formInfo = {                    // must have a minimum of the props least the same createField()'s formInfo items: lines 40-43
+
+        parentRecName: recFullName,
+        fieldCalcLogic,
+
+        //   ...leftOver,
+        pendingUpdates: props.pendingUpdates,
+        noAdd: props.noAdd,
+        noClone: props.noClone,
+        debug: props.debug
+    }
+
+      const setFormData = (incomingChange_PropsData) => {
+        if (data && !incomingChange_PropsData) {
+          console.log('clear data for formFields ?? ', {dataName, data, incomingChange_PropsData});
+          console.log(new Error().stack);
+        }
+        if (!data && !incomingChange_PropsData) {
+           return
+        }
+
+        const [modState, formOpts] = fieldCalcLogic(data, incomingChange_PropsData)
+        setFields( applyOptions(fields, formOpts) )
+
+        setData(modState)
+      }
+
+      const onChangeFormFields = (e) => {
         if (!e.target) {                // coming from a sub-form, echo up to the top
           if (typeof e === 'string') {
             // console.log('>>> FormFields up message:',{e})   // expect e to be a string
@@ -261,7 +276,7 @@ export const FormFields = (props) => {
 
           const tmp = {...data}
           tmp[e.target.name] = val
-          setData(tmp)                             // changes local to this sub-form, affects if the field can be modified
+          setData(tmp)               // changes local to this sub-form, affects if the field can be modified
           }
 
         // Pass it up so the top parent can change the data
@@ -274,7 +289,7 @@ export const FormFields = (props) => {
         // console.log(`   onChangeFormFields(${dataName}) target`, {name: e2.target.name, val: e2.target.value});
         props.onChange(e2)
 
-      })
+      }
 
       // ------------------------------------
       const [data, setData] = useState( props.formData );     // This is the single source of truth for this form/sub-form, expect the  props.onChange () to notify the parent
@@ -282,9 +297,9 @@ export const FormFields = (props) => {
 
       useEffect(() => {
 
-        if (showDebug) {
+        if (props.debug) {
           console.log('')
-          console.log(`   FormFields useEffect [data, ${props.name}] has changed.`, {data, formInfo, props_name: props.name, showDebug, withLabels});
+          console.log(`   FormFields useEffect [data, ${props.name}] has changed.`, {data, formInfo, props_name: props.name, debug: props.debug, withLabels});
         }
 
         const f = createFields(props.name, data, onChangeFormFields, withLabels, formInfo)
@@ -302,24 +317,9 @@ export const FormFields = (props) => {
 
           if (fields && props.formData) {
 
-            if (showDebug) {             // what else is needed in showDebug ??
+            if (props.debug) {
               console.log(`   FormFields useEffect [props.formData, ${props.name}, fields] changes:`,
-                  {props_formData : props.formData, props_name: props.name, fields, showDebug, recFullName, data, dataName} )
-            }
-
-            const setFormData = (incomingChange_PropsData) => {
-              if (data && !incomingChange_PropsData) {
-                console.log('clear data for formFields ?? ', {dataName, data, incomingChange_PropsData});
-                console.log(new Error().stack);
-              }
-              if (!data && !incomingChange_PropsData) {
-                 return
-              }
-
-              const [modState, formOpts] = businessLogic(data, incomingChange_PropsData)
-              setFields( applyOptions(fields, formOpts) )
-
-              setData(modState)
+                  {props_formData : props.formData, props_name: props.name, fields, debug: props.debug, recFullName, data, dataName} )
             }
 
             setFormData(props.formData)

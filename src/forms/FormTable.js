@@ -6,14 +6,16 @@ import { getLabels } from './getLabels.js'
 import { FormHeader } from './FormHeader.js'
 
 import { onFormChange } from './onFormChange.js'
-import { formStartMessage } from './formStartMessage.js'
+import { prop2str } from "./prop2str"
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {
 
   const [msg, setMsg] = useState(null);
 
-  formStartMessage(props, 'FormTable')
+  if (props.debug) {
+    console.log('--- FormTable ' + prop2str(props, ['parentRecName', 'name', 'data', 'value', 'setData']) )
+  }
 
   const [dataRowStart, setDataRowStart] = useState(0);
   const recPrevFn = () => { setDataRowStart(dataRowStart - 1); };
@@ -23,6 +25,8 @@ export const FormTable = (props) => {
     return <span>Loading...</span>
   }
 
+  // The top most Form will have data
+  // all sub-forms will have info in props.value
   let incomingData = (props.data) ? props.data : props.value
 
   // let dataRow = incomingData

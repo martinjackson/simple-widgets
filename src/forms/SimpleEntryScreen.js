@@ -91,10 +91,19 @@ export function SimpleEntryScreen(props) {
 
   const disabled = (pendingRecordCount == 0);
 
-  // TODO: should I be using <Button insteadof <input type="button" ???
-
   const pendingDataArea = (props.showPendingData) ? <pre>{JSON.stringify(pendingUpdates, null, 2)}</pre> : null
   const pendingMessage = (pendingRecordCount > 0) ? <h1 className="text-white   bg-green-700 text-center">You have Pending Changes</h1> : null
+
+  // included in {...props}
+  // header={props.header}
+  // loadInProgress={props.loadInProgress}
+  // data={props.data}
+  // setData={props.setData}
+  // cloneFeature={props.cloneFeature}
+  // noAdd={props.noAdd}
+  // noClone={props.noClone}
+  // debug={props.debug}
+  // onChangeSpecial={props.onChangeSpecial}
 
   return <>
     {pendingMessage}
@@ -102,19 +111,11 @@ export function SimpleEntryScreen(props) {
     <div className={props.header+"SectionFramed"}>
       <Form className={props.styleSelected}
         name={props.formName}
-        header={props.header}
-        loadInProgress={props.loadInProgress}
-        data={props.data}
-        setData={props.setData}
         addRecFn={addRecFn}
         cloneRecFn={cloneRecFn}
-        cloneFeature={props.cloneFeature}
-        noAdd={props.noAdd}
-        noClone={props.noClone}
         pendingUpdates={pendingUpdatesFn}
         isLoading={!props.rec || props.rec.loading}
-        debug={props.debug}
-        onChangeSpecial={props.onChangeSpecial}
+        {...props}
         />
     </div>
     <div className={props.styleSelected}>
