@@ -79,11 +79,11 @@ import { dataLog, getDataLog } from './forms/dataLog.js'
 import { applyDeepValueChange } from './forms/dataRecordUtil.js'
 import { dispAsString } from './forms/dispAsString.js'
 import { flattenJSON, dumbFlattenJSON } from './forms/flattenJSON.js'
-import { formStartMessage } from './forms/formStartMessage.js'
 import { genEmptyRecord } from './forms/genEmptyRecord.js'
 import { genColHeaders, genRowBuilder } from './forms/genRowBuilder.js'
 import { getGqlName, getKeyValues } from './forms/getKeyValues.js'
 import { getLabels } from './forms/getLabels.js'
+import { getSubRecord } from './forms/getSubRecord.js'
 import { ignoreCase } from './forms/ignoreCase.js'
 import { isFunction } from './forms/isFunction.js'
 import { isNotEmpty } from './forms/isNotEmpty.js'
@@ -97,6 +97,7 @@ import { notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookup
           } from './forms/lookupUtil.js'
 import { makeGqlAST } from './forms/makeGqlAST.js'
 import { onFormChange } from './forms/onFormChange.js'
+import { prop2str } from './forms/prop2str.js'
 import { removeIllegalAttributes } from './forms/removeIllegalAttributes.js'
 import { removeTypeName } from './forms/removeTypeName.js'
 import { sendEmail } from './forms/sendMail.js'
@@ -136,12 +137,12 @@ export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSear
          FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, FormHeader, FormTable, Gears, Input,
          MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen, capWords, client,
          dataLog, getDataLog, applyDeepValueChange, dispAsString, flattenJSON, dumbFlattenJSON,
-         formStartMessage, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues,
-         getLabels, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus,
-         watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone, isLookupDone,
-         serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias,
-         defineLookup, fetchLookupData, startLookup, refreshLookup, addNotify, removeNotify,
-         calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary, makeGqlAST, onFormChange,
+         genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues, getLabels, getSubRecord,
+         ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus, watchJobStatus,
+         label2value, value2label, logDiff, notifyLookupsDone, isLookupDone, serializeLookups,
+         loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias, defineLookup,
+         fetchLookupData, startLookup, refreshLookup, addNotify, removeNotify, calcLookupMemoryUse,
+         lookupLog, getLookupLogs, getLookupSummary, makeGqlAST, onFormChange, prop2str,
          removeIllegalAttributes, removeTypeName, sendEmail, stackTrace, toCamelCaseVar, toEnglishPhrase,
          useErrorList, useFetch, valueCompare, setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec,
          formFromTableInfo, tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs,
