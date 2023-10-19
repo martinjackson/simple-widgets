@@ -27,4 +27,4 @@ coverage
 simple-widgets-*.tgz
 wipe-modules.sh
 lib
-[0m[0;33mpackage-lock.json[0m
+package-lock.json
