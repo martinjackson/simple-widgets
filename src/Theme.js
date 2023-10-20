@@ -53,6 +53,7 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
  * @param {*} disabled      indicates whether the button should be disabled or not
  *
  *********************************************************************************/
+/*
 export const generateDefaultButton = (error, disabled = false) => {
 
     // Jim, buttonStyle is undefined          vvvvvvvvvvv
@@ -68,6 +69,7 @@ export const generateDefaultButton = (error, disabled = false) => {
 
     return genButtonStyle;  // Return the button
 }
+*/
 
 /*****************************************************************************************************
  *

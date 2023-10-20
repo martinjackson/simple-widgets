@@ -87,6 +87,11 @@ export const SearchSortTable = (propsPassed) => {
         return (<tr className={odd} key={i}>{cols}</tr>)
     }
 
+    if (!propsPassed.data || !Array.isArray(propsPassed.data)) {
+        console.error('Search Sort Table component props "data={}" is missing/null or not an Array:', propsPassed.data);
+        return <><hr /></>
+      }
+
     const defaultColHeaders = () => { return genDefaultColHeaders(propsPassed.data[0], hiddenLookupColumns) }
 
     const defaultProps = {                           // Default props if non are given
@@ -96,12 +101,7 @@ export const SearchSortTable = (propsPassed) => {
       table: defaultColHeaders()                     // if no table def passed in as a prop, setup a default
     }
 
-    const props = Object.assign(defaultProps, propsPassed);
-
-    if (!props.data || !Array.isArray(props.data)) {
-      console.error('Search Sort Table component: props.data is missing/null or not an Array:', props.data);
-      return <><hr /></>
-    }
+    const props = Object.assign(defaultProps, propsPassed)
 
     if (hasOwnProperty(props,'data') === false) {
       console.error('Search Sort Table component: A data prop must be passed');
