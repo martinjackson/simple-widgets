@@ -54,7 +54,7 @@ export const generateButton = (style, error, disabled = false, disableColor = 'g
  *
  *********************************************************************************/
 /*
-export const generateDefaultButton = (error, disabled = false) => {
+exp--ort const generateDefaultButton = (error, disabled = false) => {
 
     // Jim, buttonStyle is undefined          vvvvvvvvvvv
     const genButtonStyle = Object.assign ({}, buttonStyle); // Copy the button style
