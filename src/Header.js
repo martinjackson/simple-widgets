@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { AlertModal } from './AlertModal'
+import { AlertModal, HeaderModal } from './index.js'
 
-import { getList } from './encrypt.js'
-import { HeaderModal } from './HeaderModal'
-
+// ----------------------------------------------------------------------------
 export const Header = (props) => {
 
   const [showModal, setShowModal] = useState(false)
@@ -25,16 +23,17 @@ export const Header = (props) => {
 
   let userMsg  = (username === null) ? "User not Logged in" : 'Welcome: ' + username
 
+let logoutFn = props.logoutFn
+  if (logoutURL != null && logoutFn === null) {
+    logoutFn = () => {
+      window.location.href = logoutURL       // <a href={logoutURL} className="sw-header_link">Logout</a>
+    }
+  }
   const logout = (username === null || logoutURL === null) ?
-             null : <a href={logoutURL} className="sw-header_link">Logout</a>
+             null : <button className="sw-header_link" onClick={logoutFn}>Logout</button>
 
   const login  = (username !== null || loginURL === null)  ?
              null : <a href={loginURL} className="sw-header_link">Login</a>
-
-  let modalButton = null
-  if (getList().find(p => p === username)) {
-        modalButton = <button id="sw-modalButton" onClick={() => setShowModal(true)}>.</button>
-  }
 
   let alert = null
   if (!username && !props.noModalOnError) {
@@ -43,7 +42,7 @@ export const Header = (props) => {
     alert = <AlertModal show={showAlert} closeFunct={setShowAlert} message={msg} />
   }
 
-  const userSection = (props.hideUserSection) ? <></> : <span className="sw-header_link">{userMsg}{modalButton}</span>
+  const userSection = (props.hideUserSection) ? <></> : <span className="sw-header_link">{userMsg}</span>
 
   const titleImg = (titleLogo !== null) ? <img src={titleLogo} alt="Logo" className="sw-header_logo" /> : null
   return (<header id="header">

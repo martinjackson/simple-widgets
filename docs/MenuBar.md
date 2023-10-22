@@ -78,7 +78,7 @@ The title field is the title that will be displayed on the menu.  The path is th
 
 11. ***noSide*** = indicates that the selected menu item should be placed underneath the vertical menu instead of beside it.  This option only works with vertical menus.  If this option does not exist, it will place the menu item selected beside the vertical menu.
 
-12. ***title*** = The application name, this is used allong with the clicked path to change the browser title when a menu item is selected. example: you clicked About and the browser title becomes "{application name} - /About" because you passed title="{application name}" to MenuBar
+12. ***origTabTitle*** = The original application title in the browser tab, this is used allong with the clicked path to change the browser title when a menu item is selected. example: you clicked About and the browser title becomes "{application name} - /About"
 
 ### Format Prop
 

@@ -9,7 +9,7 @@ export const Link = (props) => {
     if (!props.to || props.to.length < 1) // same as || props.to === "")
         return <span className="nav-links">{props.children}</span>;
 
-    const title = (props.title) ? props.title : '';
+    const origTabTitle = (props.origTabTitle) ? props.origTabTitle : '';
 
     const click = (e) => {
         e.preventDefault();
@@ -17,7 +17,7 @@ export const Link = (props) => {
         setMenuParms(props.parms);
         setMenuPath(props.to);
         // window.location.search = `?path=${props.to}`    causes page to rerender
-        document.title = `${title} - ${props.to}`;
+        document.title = `${origTabTitle} - ${props.to}`;
     };
 
     const cname = props.className || "";

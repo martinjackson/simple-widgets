@@ -106,7 +106,7 @@ export const NavigateBar = (props) => {
                             onMouseLeave={(_event) => onMouseLeave(row.index)}>
                                 <Link
                                   className='nav-links'
-                                  title={props.title}   >
+                                  origTabTitle={props.origTabTitle}   >
                                     {page + row.title + addition1}
                                 </Link>
                                 { (dropDown[row.index] === true) ?
@@ -120,7 +120,7 @@ export const NavigateBar = (props) => {
             return (<li key={name}>
                             <Link
                                 className="dropdown-link"
-                                title={props.title}
+                                origTabTitle={props.origTabTitle}
                                 to={row.path}       >
                                 {page + row.title}
                             </Link>
@@ -155,7 +155,7 @@ export const NavigateBar = (props) => {
                                 onMouseLeave={() => onMouseLeave(index)}>
                                 <Link
                                   className='nav-links'
-                                  title={props.title}   >
+                                  origTabTitle={props.origTabTitle}   >
                                     {page + row.title + addition2}
                                 </Link>
                                 { (dropDown[index] === true) ?
@@ -172,7 +172,7 @@ export const NavigateBar = (props) => {
                                 <Link
                                    to={row.path}
                                    className='nav-links'
-                                   title={props.title}   >
+                                   origTabTitle={props.origTabTitle}   >
                                     {page + row.title}
                                 </Link>
                         </li> )

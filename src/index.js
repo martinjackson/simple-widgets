@@ -2,6 +2,7 @@
 import './index.css'
 
 import { AlertModal } from './AlertModal.js'
+import AppCore from './AppCore.js'
 import { CheckBox } from './CheckBox.js'
 import { CheckBoxGroup } from './CheckBoxGroup.js'
 import { Choice } from './Choice.js'
@@ -17,6 +18,7 @@ import { DoubleListBox } from './DoubleListBox.js'
 import { ErrorModal } from './ErrorModal.js'
 import { Header } from './Header.js'
 import { HeaderModal } from './HeaderModal.js'
+import { Home } from './Home.js'
 import { InputFile } from './InputFile.js'
 import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
          checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
@@ -39,16 +41,18 @@ import { Slider } from './Slider.js'
 import { SpreadSheet } from './SpreadSheet.js'
 import { StatusBox } from './StatusBox.js'
 import { generateButton, generateCSSButton, generateCSSDefaultButton } from './Theme.js'
+import { UserSection } from './UserSection.js'
 import { isOpera, isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium, isBlink } from './browserDetect.js'
 import { toCamelCase } from './camel.js'
 import { findCssRule, deleteCssRule, findStyleSheet, insertCssRule, printCssRules } from './cssRulesFunct.js'
 import { date2str } from './date2str.js'
 import { lastOfMonth, todayString } from './dateUtils.js'
-import { getList, decrypt, encrypt } from './encrypt.js'
 import { createStoreItem, useStoreItem, openGeneralStore } from './generalStore.js'
+import { getUrlPath } from './getUrlPath.js'
 import { hasOwnProperty } from './hasOwnProperty.js'
 import { localStrToDate } from './localStrToDate.js'
 import { makeChangeHandler } from './makeChangeHandler.js'
+import { printStackTrace } from './printStackTrace.js'
 import { register, unregister } from './serviceWorker.js'
 import { now, TS, dTS } from './time.js'
 import { Button } from './forms/Button.js'
@@ -117,34 +121,34 @@ import { listNotKeyedTables } from './forms/model/list-non-keyed-tables.js'
 import { updateRecord } from './forms/model/updateRec.js'
 import { AddRecordIcon, CloneRecordIcon } from './forms/img/FormImages.js'
 
-export { AlertModal, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSearchable, sanitize,
+export { AlertModal, AppCore, CheckBox, CheckBoxGroup, Choice, ChoiceText, ChoiceTextSearchable, sanitize,
          formatMoney, ConfirmModal, ContextMenu, convertDate, dateTime, addDigit, currentDateTime,
          currentDate, currentDBDateTime, currentDBDate, dbDate, monthName, DateInput, DoubleListBox,
-         ErrorModal, Header, HeaderModal, InputFile, generateInvalid, setInvalidScreen, setInvalidTable,
-         setInvalidDual, checkValidityScreen, checkValidityTable, resetDisplayScreen, resetDisplayTable,
-         wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen, validCheckTable,
-         clearInvalidDual, clearInvalidScreen, clearInvalidTable, processInvalidStyleScreen,
-         processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable, processStyleTable, isInvalid,
-         getInvalidMessage, Link, List, getMenuParms, MenuBar, Modal, NavigateBar, Outline, PageTitle,
-         Radio, Redirect, search, binSearch, SearchSortTable, SimpleTable, Slider, SpreadSheet, StatusBox,
-         generateButton, generateCSSButton, generateCSSDefaultButton, isOpera, isFirefox, isSafari, isIE,
-         isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, findCssRule, deleteCssRule, findStyleSheet,
-         insertCssRule, printCssRules, date2str, lastOfMonth, todayString, getList, decrypt, encrypt,
-         createStoreItem, useStoreItem, openGeneralStore, hasOwnProperty, localStrToDate, makeChangeHandler,
-         register, unregister, now, TS, dTS, Button, ControlledInput, ControlledTextarea,
-         DatabaseLoadingIcon, exampleFields, applyOptions, EntryScreen, ErrorList, setFieldGenerator,
-         fieldGeneratorLookup, Form, FormChoice, getFieldRecName, getGqlNameFromForm, FieldsFromList,
-         FieldsFromListWorks, ifDefined, FormFields, FormHeader, FormTable, Gears, Input, MakeModal,
-         NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, arrLen, capWords, client, dataLog,
-         getDataLog, applyDeepValueChange, dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord,
-         genColHeaders, genRowBuilder, getGqlName, getKeyValues, getLabels, getSubRecord, ignoreCase,
-         isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus, watchJobStatus, label2value,
-         value2label, logDiff, notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups,
-         setLookupData, addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup,
-         refreshLookup, addNotify, removeNotify, calcLookupMemoryUse, lookupLog, getLookupLogs,
-         getLookupSummary, makeGqlAST, onFormChange, prop2str, removeIllegalAttributes, removeTypeName,
-         sendEmail, stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
-         setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec, formFromTableInfo,
-         tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
-         getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
+         ErrorModal, Header, HeaderModal, Home, InputFile, generateInvalid, setInvalidScreen,
+         setInvalidTable, setInvalidDual, checkValidityScreen, checkValidityTable, resetDisplayScreen,
+         resetDisplayTable, wasClickedScreen, wasClickedTable, isConstant, validCheckDual, validCheckScreen,
+         validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable,
+         processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable,
+         processStyleTable, isInvalid, getInvalidMessage, Link, List, getMenuParms, MenuBar, Modal,
+         NavigateBar, Outline, PageTitle, Radio, Redirect, search, binSearch, SearchSortTable, SimpleTable,
+         Slider, SpreadSheet, StatusBox, generateButton, generateCSSButton, generateCSSDefaultButton,
+         UserSection, isOpera, isFirefox, isSafari, isIE, isEdge, isChrome, isEdgeChromium, isBlink,
+         toCamelCase, findCssRule, deleteCssRule, findStyleSheet, insertCssRule, printCssRules, date2str,
+         lastOfMonth, todayString, createStoreItem, useStoreItem, openGeneralStore, getUrlPath,
+         hasOwnProperty, localStrToDate, makeChangeHandler, printStackTrace, register, unregister, now, TS,
+         dTS, Button, ControlledInput, ControlledTextarea, DatabaseLoadingIcon, exampleFields, applyOptions,
+         EntryScreen, ErrorList, setFieldGenerator, fieldGeneratorLookup, Form, FormChoice, getFieldRecName,
+         getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, FormHeader,
+         FormTable, Gears, Input, MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen,
+         arrLen, capWords, client, dataLog, getDataLog, applyDeepValueChange, dispAsString, flattenJSON,
+         dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues, getLabels,
+         getSubRecord, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus,
+         watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone, isLookupDone,
+         serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias,
+         defineLookup, fetchLookupData, startLookup, refreshLookup, addNotify, removeNotify,
+         calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary, makeGqlAST, onFormChange,
+         prop2str, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace, toCamelCaseVar,
+         toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo, getAppSpecificInfo,
+         createRec, deleteRec, formFromTableInfo, tableField2FormField, genDictionaryEntry, getTableColumns,
+         getTablePKs, findTableByGqlName, getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
          CloneRecordIcon }
