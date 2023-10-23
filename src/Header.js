@@ -21,19 +21,20 @@ export const Header = (props) => {
   const loginURL    = (props.loginURL)                ? props.loginURL        : ''
   const setUsername = (props.setUsername)             ? props.setUsername     : () => {console.log('no setUsername fn() passed to Header.');}
 
-  let userMsg  = (username === null) ? "User not Logged in" : 'Welcome: ' + username
+  let userMsg  = (username === null) ? "You are not logged in" : 'Welcome: ' + username
 
-let logoutFn = props.logoutFn
-  if (logoutURL != null && logoutFn === null) {
-    logoutFn = () => {
+  const defLogoutFn = () => {
+    if (logoutURL != null) {
       window.location.href = logoutURL       // <a href={logoutURL} className="sw-header_link">Logout</a>
+    } else {
+      console.log('user clicked logout, but logoutURL:', logoutURL);
     }
   }
-  const logout = (username === null || logoutURL === null) ?
-             null : <button className="sw-header_link" onClick={logoutFn}>Logout</button>
 
-  const login  = (username !== null || loginURL === null)  ?
-             null : <a href={loginURL} className="sw-header_link">Login</a>
+  const logoutFn = (props.logoutFn) ? props.logoutFn : defLogoutFn
+  const logout = <button className="sw-header_link" onClick={logoutFn}>Logout</button>
+  const login  = ('loginURL' in props) ? <a href={loginURL} className="sw-header_link">Login</a> : null
+  const logInOut = ('username' in props && props.username != null) ? logout : login
 
   let alert = null
   if (!username && !props.noModalOnError) {
@@ -51,10 +52,10 @@ let logoutFn = props.logoutFn
               <h1 className="sw-header_title">{title}</h1>
               {userSection}
               <div className="sw-header_column">
-              {logout}
-                {dbType}
+              {logInOut}
+              {dbType}
               </div>
-              {login}
+
               <HeaderModal show={showModal} username={username} setUser={setUsername} closeFunct={setShowModal}/>
             </div>
             {alert}

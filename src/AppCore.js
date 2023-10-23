@@ -52,7 +52,9 @@ const AppCore = (props) => {
 
   const checkOut = () => {
     fetch('/api/checkOut')
-    .then(_status => {
+    .then(status => {
+      console.log('checkOut status:', status)
+
       // redirect browser to
       window.location.href = props.logoutURL       // click on <a href={logoutURL} className="sw-header_link">Logout</a>
       // no need to clear state, the SPA will be no more...
