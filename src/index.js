@@ -76,11 +76,11 @@ import NarrowForm from './forms/NarrowForm.js'
 import { pretty, Show } from './forms/Show.js'
 import { SimpleDataTable } from './forms/SimpleDataTable.js'
 import { SimpleEntryScreen } from './forms/SimpleEntryScreen.js'
+import { applyDeepValueChange } from './forms/applyDeepValueChange.js'
 import { arrLen } from './forms/arrLen.js'
 import { capWords } from './forms/capWords.js'
 import { client } from './forms/client.js'
 import { dataLog, getDataLog } from './forms/dataLog.js'
-import { applyDeepValueChange } from './forms/dataRecordUtil.js'
 import { dispAsString } from './forms/dispAsString.js'
 import { flattenJSON, dumbFlattenJSON } from './forms/flattenJSON.js'
 import { genEmptyRecord } from './forms/genEmptyRecord.js'
@@ -140,7 +140,7 @@ export { AlertModal, AppCore, CheckBox, CheckBoxGroup, Choice, ChoiceText, Choic
          EntryScreen, ErrorList, setFieldGenerator, fieldGeneratorLookup, Form, FormChoice, getFieldRecName,
          getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, FormHeader,
          FormTable, Gears, Input, MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen,
-         arrLen, capWords, client, dataLog, getDataLog, applyDeepValueChange, dispAsString, flattenJSON,
+         applyDeepValueChange, arrLen, capWords, client, dataLog, getDataLog, dispAsString, flattenJSON,
          dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues, getLabels,
          getSubRecord, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus,
          watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone, isLookupDone,

@@ -30,9 +30,20 @@
 // let recName = (lastDot != -1) ? targetName.substr(0, lastDot) : targetName    // recName = "person[0].appointment[0]"
 // let fieldName = (lastDot != -1) ? targetName.substr(lastDot+1) : targetName   // fieldName = "appNote"
 
-export function getSubRecord(recName, newData) {
-  console.log(`getSubRecord(${recName}, ${newData})`);
-  // TODO:  need code here
+export function getSubRecord(recName, data) {
+  console.log(`getSubRecord(${recName}, ${data})`)
 
+  const names = recName.split('.')
+  const layers = names.lenght
+  let rec = data
+  for (let i=1; i<layers; i++) {         // i=1 because names[0] is already pointed to by data
+    const words = names[i].split('[]')
+    const name = words[0]
+    const idx = Number(words[1])
+    console.log('recName:', recName, name, idx)
+    rec = rec[name][idx]
+  }
 
+  return rec
 }
+

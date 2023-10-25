@@ -1,5 +1,5 @@
 
-import { applyDeepValueChange } from './dataRecordUtil.js'
+import { applyDeepValueChange } from './applyDeepValueChange.js'
 
 // ----------------------------------------------------------------------------
 function logErrors(e, help, props) {
