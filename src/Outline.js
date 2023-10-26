@@ -41,7 +41,9 @@ export const Outline = (props) => {
                 if (hasOwnProperty(row,'type') && row.type === 'new') {
                     return  <li key={i} className={`${indentClass}`} >
                                 <div className={`${buttonClass} ${fontClass}`} >
-                                    <Link to={row.path}>{row.title}</Link>
+                                    <Link to={row.path}>{row.title}
+                                    origTabTitle={props.origTabTitle}
+                                    </Link>
                                 </div>
                             </li>
 

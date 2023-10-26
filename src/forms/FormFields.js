@@ -239,6 +239,7 @@ export const FormFields = (props) => {
         pendingUpdates: props.pendingUpdates,
         noAdd: props.noAdd,
         noClone: props.noClone,
+        setData: props.setData,    // ? maj       props.setData  or this local setData()
         debug: props.debug
     }
 
@@ -317,10 +318,10 @@ export const FormFields = (props) => {
 
           if (fields && props.formData) {
 
-            if (props.debug) {
-              console.log(`   FormFields useEffect [props.formData, ${props.name}, fields] changes:`,
-                  {props_formData : props.formData, props_name: props.name, fields, debug: props.debug, recFullName, data, dataName} )
-            }
+            // if (props.debug) {
+            //   console.log(`   FormFields useEffect [props.formData, ${props.name}, fields] changes:`,
+            //       {props_formData : props.formData, props_name: props.name, fields, debug: props.debug, recFullName, data, dataName} )
+            // }
 
             setFormData(props.formData)
           }
