@@ -7,11 +7,12 @@ export function Home(props) {
   let roleMsg, Bottom = <></>;
 
   switch (props.role) {
-    case undefined: roleMsg = "Role is undefined";
-      break;
+    case undefined: roleMsg = "No Role";
+    Bottom = props.missingRoleMessage
+    break;
 
     case null: roleMsg = "Checking Roles..."
-      Bottom = props.missingRoleMsg
+      Bottom = props.missingRoleMessage
       break;
 
     default: roleMsg = ""
