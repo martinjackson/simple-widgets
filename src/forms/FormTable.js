@@ -13,7 +13,7 @@ export const FormTable = (props) => {
 
   const [msg, setMsg] = useState(null);
 
-  if (props.debug) {
+  if (props.debug > 2) {
     console.log('--- FormTable ' + prop2str(props, ['parentRecName', 'name', 'data', 'value', 'setData']) )
   }
 

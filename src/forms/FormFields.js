@@ -298,7 +298,7 @@ export const FormFields = (props) => {
 
       useEffect(() => {
 
-        if (props.debug) {
+        if (props.debug > 2) {
           console.log('')
           console.log(`   FormFields useEffect [data, ${props.name}] has changed.`, {data, formInfo, props_name: props.name, debug: props.debug, withLabels});
         }

@@ -14,7 +14,7 @@ export const Form = (props) => {
 
   const [msg, setMsg] = useState(null);
 
-  if (props.debug) {
+  if (props.debug > 2) {
     console.log('--- Form ' + prop2str(props, ['parentRecName', 'name', 'data', 'value', 'setData']) )
   }
 
