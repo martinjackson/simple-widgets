@@ -36,6 +36,8 @@ Props:
 
 3. **nodefaultpage** = indicates that no page is to be displayed when the Outline is rendered.  By default, it will automatically show the first page listed in the links prop.
 
+4. **scroll** = places a scroll bar on the screen to the right of the outline.  The scroll bar will go from the top of the outline to the bottom of the page.  It will automatically readjust of change the bottom of the screen.  This will make the Outline fixed and can scroll without the right hand side moving.
+
 
 ## Fields in a link object
 
