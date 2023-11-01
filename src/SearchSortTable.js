@@ -88,10 +88,15 @@ export const SearchSortTable = (propsPassed) => {
     }
 
     if (!propsPassed.data || !Array.isArray(propsPassed.data)) {
-        console.error('Search Sort Table component props "data={}" is missing/null or not an Array:', propsPassed.data);
+        console.error('Search Sort Table component: props.data is missing/null or not an Array:', propsPassed.data);
         return <><hr /></>
-      }
-
+    }
+  
+    if (hasOwnProperty(propsPassed,'data') === false) {
+        console.error('Search Sort Table component: A data prop must be passed');
+        return (<span></span>);
+    }
+  
     const defaultColHeaders = () => { return genDefaultColHeaders(propsPassed.data[0], hiddenLookupColumns) }
 
     const defaultProps = {                           // Default props if non are given
@@ -101,12 +106,7 @@ export const SearchSortTable = (propsPassed) => {
       table: defaultColHeaders()                     // if no table def passed in as a prop, setup a default
     }
 
-    const props = Object.assign(defaultProps, propsPassed)
-
-    if (hasOwnProperty(props,'data') === false) {
-      console.error('Search Sort Table component: A data prop must be passed');
-      return (<span></span>);
-    }
+    const props = Object.assign(defaultProps, propsPassed);
 
     if (hasOwnProperty(props,'table') === false) {                         // CAN NOT HAPPEN, see defaultProps
         console.error('Search Sort Table component: A table object prop must be passed');
@@ -1168,6 +1168,7 @@ const _InnerSearchSortTable = (props) => {
     if (controlBreakVal === true) { // Display control break tables
         let cbTable = `cbtitles_${number}`;
         let cbHeader = `cbhead_${number}`;
+        console.log('controlBreakData :', controlBreakData);
 
         // Build the tables for the control breaks by rendering the headers in blue at the top and
         // each control break table following
@@ -1675,9 +1676,19 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************************/
     function processTemp(k, info) {
+        console.log('info :', info);
+        console.log('props.data :', props.data);
         let temp = {};  // Contains the temporary values
         if (props.data.length !== 0 && info.indexes.length !== 0) {
             for (let i = 0; i < info.srtOrder.length; i++) {    // Build the temporary value for a control break change
+                console.log ('================================================================================');
+                console.log('i :', i);
+                console.log('k :', k);
+                console.log('table[info.srtOrder[i].col].name :', table[info.srtOrder[i].col].name);
+                console.log('temp[table[info.srtOrder[i].col].name] :', temp[table[info.srtOrder[i].col].name]);
+                console.log('props.data[info.indexes[k]][table[info.srtOrder[i].col].name] :', props.data[info.indexes[k]][table[info.srtOrder[i].col].name]);
+                console.log('table[info.srtOrder[i].col].name :', table[info.srtOrder[i].col].name);
+                console.log('info.indexes[k] :', info.indexes[k]);
                 temp[table[info.srtOrder[i].col].name] = props.data[info.indexes[k]][table[info.srtOrder[i].col].name];
             }
         }
@@ -3514,3 +3525,4 @@ const _InnerSearchSortTable = (props) => {
         setDisable(length, length);
     }
 }
+

@@ -1,14 +1,22 @@
 import React, { Fragment } from 'react';
 
+import { hasOwnProperty } from './hasOwnProperty.js';
+
 // --------------------------------------------------------------------------------------------------------------------------------------------------
-export const Choice = (propsIn) => {
+const isValueInOpt = (opt, value) => {
+  const matches = opt.filter(element => element == value)
+  return (matches.length > 0)  
+}
 
-    // console.log('>>> Choice(', propsIn, ')')
+// --------------------------------------------------------------------------------------------------------------------------------------------------
+export const Choice = (props) => {
 
-    const {list, choices, size, ...props} = propsIn
-    const siz = size || 10;
-    const opt = list || choices || []
+    // console.log('>>> Choice(', props, ')')
 
+    const siz = (hasOwnProperty(props, 'size') === true) ? parseInt(props.size) : 10;
+    const opt = (hasOwnProperty(props, 'list') === true) ? props.list : 
+                (hasOwnProperty(props, 'choices') === true) ? props.choices : [];
+    
     const isKeyed = ( !Array.isArray(opt) )
     const keys = (isKeyed) ? Object.keys(opt) : opt
 
@@ -17,7 +25,7 @@ export const Choice = (propsIn) => {
     }
 
 
-    if ( !isKeyed && typeof(props.value) == 'string' &&  Array.isArray(opt) && !opt.includes(props.value) && !props.placeholder )
+    if ( !isKeyed && Array.isArray(opt) && !isValueInOpt(opt, props.value) && !props.placeholder )
        {
          if (opt.length > 0) {
            console.log(`Adding missing default value: '${props.value}' to ${opt}`);
@@ -26,10 +34,10 @@ export const Choice = (propsIn) => {
        }
 
     // eslint-disable-next-line no-unused-vars
-    let {value, placeholder, ...options} = props          // dont use var value from here, that is less descriptive -- this is a substraction
+    let {size, list, choices, value, placeholder, ...options} = props          // dont use var value from here, that is less descriptive -- this is a substraction
 
     if (placeholder) {
-      placeholder = placeholder.trim()
+      placeholder = props.placeholder.trim()
       if (placeholder.length === 0)
          placeholder = null
     }
