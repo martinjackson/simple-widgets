@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 
 import { SimpleTable }       from '../SimpleTable.js'
@@ -61,8 +61,17 @@ function genRecordTypeFromName(recordName) {
 }
 
 // --------------------------------------------------------------------------
+function hasNonNullKeys(keys) {
+  const keyNames = Object.keys(keys)
+  return keyNames.find(name => keys[name] != null) != null
+}
+
+// --------------------------------------------------------------------------
 function EntryScreenKeyed(props) {
-  // console.log(dTS(), '== EntryScreenKeyed render ==', props)
+
+  if (props.debug > 1) {
+     console.log(dTS(), '== EntryScreenKeyed render ==', props)
+  }
 
   const [showModal, setShowModal]   = useState(false)
   const [cloneRec, setCloneRec]     = useState(false)
@@ -73,9 +82,19 @@ function EntryScreenKeyed(props) {
 
   const [errors, logErrors] = useErrorList()
 
-  const keyNames = Object.keys(keys)
-  const hasNonNullKeys = keyNames.find(name => keys[name] != null) != null
-  const [needsLoading, setNeedsLoading] = useState(hasNonNullKeys)
+  const [needsLoading, setNeedsLoading] = useState(hasNonNullKeys(keys))
+
+  useEffect(() => {
+    setKeys(props.keys)
+  }, [props.keys])
+
+  useEffect(() => {
+
+    if (hasNonNullKeys(keys) && !needsLoading) {
+      setNeedsLoading(true)
+    }
+
+  }, [keys, needsLoading])
 
   const where = { ...props.keys, ...keys }
 
@@ -89,9 +108,9 @@ function EntryScreenKeyed(props) {
       console.log(dTS(), 'loaded record for:', where, data)
       setData(data)
 
-      // TODO call businessLogic after record has arrived -- allow lookup fields that are based on other fields
+      // call businessLogic after record has arrived -- allow lookup fields that are based on other fields
       if (props.businessLogic) {
-        const change = {target:{name:props.recordName+'[0]'}}   // signal wholre record was loaded
+        const change = {target:{name:props.recordName+'[0]'}}   // signal whole record was loaded
         props.businessLogic(change, data)                 // props.businessLogic()  can change multiple fields in currentRec via moreChanges
       }
 
@@ -103,7 +122,7 @@ function EntryScreenKeyed(props) {
     logErrors(error.message)
   }
 
-  // console.log(`  EntryScreen.js:77  makeGqlAST  ${props.queryName} str:`, props.queryStr)
+  // console.log(`  EntryScreen.js:106  makeGqlAST  ${props.queryName} str:`, props.queryStr)
 
   useQuery(makeGqlAST(props.queryStr), {
     skip: !needsLoading,
@@ -115,7 +134,7 @@ function EntryScreenKeyed(props) {
   })
 
 
-  if (needsLoading && props.debug) {
+  if (needsLoading && props.debug > 0) {
     console.log(dTS(), `  needs loading query ${props.queryName}, Keys:`, props.keys)
   }
 
@@ -238,6 +257,7 @@ function EntryScreenKeyed(props) {
 
     <ErrorList list={errors} />
     <SimpleEntryScreen
+      {...props}
       styleSelected={styleSelected}
       loadInProgress={needsLoading}
       data={data}
@@ -245,7 +265,6 @@ function EntryScreenKeyed(props) {
       pickNewTopRecord={pickNewTopRecord}
       logErrors={logErrors}
       onChangeSpecial={onChangeSpecial}
-      {...props}
       />
   </>
 }
