@@ -117,6 +117,7 @@ All of these widgets require the following props:
 ## Component Documents
 
 [AlertModal](docs/AlertModal.md)<br />
+[AppCore](docs/AppCore.md)<br />
 [Browser Detect](docs/BrowserDetect.md)<br />
 [CheckBox](docs/CheckBox-Example.md)<br />
 [CheckBoxGroup](docs/CheckBoxGroup.md)<br />
@@ -140,6 +141,7 @@ All of these widgets require the following props:
 [Modal](docs/Modal.md)<br />
 [Outline](docs/Outline.md)<br />
 [PageTitle](docs/PageTitle.md)<br />
+[ProgressCircles](docs/ProgressCircles.md)<br />
 [Radio](docs/Radio-Example.md)<br />
 [Search Functions](docs/SearchFunct.md)<br />
 [SearchSortTable](docs/SearchSortTable.md)<br />

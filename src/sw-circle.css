@@ -1,0 +1,38 @@
+.sw-circle_display {
+    display: flex;
+    justify-content: center;
+}
+
+.sw-circle_center {
+    align-self: center;
+    text-align: center;
+    width: 100%;
+}
+
+.sw-circle_center_width {
+    align-self: center;
+    text-align: center;
+    width: 150%;
+}
+
+.sw-circle_width {
+    width: 100%;
+}
+
+.sw-circle_left {
+    margin-top: 2em;
+    text-align: left;
+}
+
+.sw-circle_right {
+    margin-top: 2em;
+    text-align: right;
+}
+
+.sw-circle_margin {
+    margin-left: -8.9%;
+}
+
+.sw-circle_zindex {
+    z-index: 1;
+}
