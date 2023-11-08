@@ -21,6 +21,11 @@ export function SimpleEntryScreen(props) {
   // const [deleteRecord] = useMutation(DELETE_RECORD, {client, fetchPolicy: 'network-only'});
   const [updateRecord] = useMutation(UPDATE_RECORD, { client, fetchPolicy: 'network-only' });
 
+  if (props.debug > 1) {
+    console.log(dTS(), '== SimpleEntryScreen render ==', props)
+ }
+
+
 
   const clearData = () => {
     setPendingUpdates({}); // remove all pending updates
