@@ -32,10 +32,8 @@ In order to use the progress circles the user must pass the following props:
         - ***done*** = indicates a green circle with a check to show that the page has already been processed.
         - ***none*** = indicates a gray circle to show that the page has not been processed.
         - ***line*** = indicates that a line will be between circles.  If lines are not preferred, remove those objects from the array.
-    - ***page*** = the page that goes with the circle.  The page that will be displayed below the progress circles.  This is a normal page like anyother page.  If you also use validation or the setprops options, there will need to be some small changes.  This field is optional.
-    - ***validation*** = will call this function to see if the next page in the progress can be displayed or not.  This function should return a boolean value.  If true, the next page can be displayed; otherwise, it will remain on the current page.  See the section on Validating Before Moving to the Next Page.  This field is optional.
-    - ***setprops*** = this will allow props to be passed from one page to the next.  The function should return an object that will be passed into the props on the next page.  See the section on Passing Props from Page to Page.  This field is optional.
-    - function = the function associated with this status will execute when the status is current (blue circle).  This field is optional.
+    - ***page*** = the page that goes with the circle.  The page that will be displayed below the progress circles.  This is a normal page like anyother page.  If the processing option, there will need to be some small changes.  This field is optional.
+    - ***processing*** = will call this function to do any special processing need, when the next button is pressed.  See the section Processing Before Moving to the Next Page.  Each processing function have a unique name.  This field is optional.
 
 ### **Button Props**
 2. **havebuttons** = this will display two buttons Previous and Next below the circles.  These buttons will automatically move forward and backward, the blue circle and will switch to that page.  It will automatically update the circles along the way.
@@ -44,82 +42,61 @@ In order to use the progress circles the user must pass the following props:
 5. **nextbuton** = allows the name of the next button to be changed.
 6. **noprevious** = indicates that the previous button will not be displayed; therefore, can only move forward.
 
-## Validating Before Moving to the Next Page
+## Processing Before Moving to the Next Page
 
-To validate a page you must have the validation option for that object in the table array.  For example,
+To process a page you must have the processing option for that object in the table array.  For example,
 
 ```javascript
     let table = [
-        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, validation: validation2},
+        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, processing: processing2},
     ]
 ```
 
 With the above table entry, there will need to be an import for the page in the same file as the ProgressCircles and table.  The import for the above table entry will be:
 
 ```javascript
-    import DataTableMapping, { validation2 } from '.DataTableMapping.js';
+    import DataTableMapping, { processing2 } from '.DataTableMapping.js';
 ```
 
-The table indicates that the validation2 function will be called before leaving the Data / Table Mapping page.  The validation2 function must return a boolean value.  This function is called in the Next button is pressed and if it returns true, it will advance to the next page; otherwise, it will remain the page.
+The table indicates that the processing2 function will be called before leaving the Data / Table Mapping page.  The processing 2 function must return a boolean value.  Each function must have its own unique name.  This function is called when the Next button is pressed and if it the correct object, it will advance to the next page; otherwise, it will remain on the current page.
 
 **DataTableMapping.js**
 
 After the imports the following export and code will be needed:
 
 ```javascript
-    export validation2 = () => { return validation() };
+    export processing2 = () => { return processing() };
 
     const DataTableMapping = (props) => {
         ...
-        validation = () => {
+        processing = () => {
             ...
-            console.log ('validation2');
-            return true or false;
+            return {validationReturn: true or false, props fields};
         }
         ...
     }
 ```
 
-The export contains the name in the table for the validation field (can be any name as long as they match).
-    The return validation() is the function that is inside the component.  The name after the return can be any name as long it is the same name as in the component.  Notice the name in the component does ***NOT*** have a const in front of it.  The validation function can contain all the normal information that is validated.  If everything has been entered correctly return true; otherwise, return false.
+    The export contains the name in the table for the validation field (can be any name as long as they match).
+    The return processing() is the function that is inside the component.  The name after the return can be any name as long it is the same name as in the component.  Notice the name in the component does ***NOT*** have a const in front of it.  The validation function can contain all the normal information that is validated.  If everything has been entered correctly return true; otherwise, return false.
 
-## Passing Props from Page to Page
+    The processing function can do any type of processing, like saving data to a database, validating the data, passing props to the next page and following pages, etc.
 
-To validate a page you must have the validation option for that object in the table array.  For example,
+    The return in processing should be an object.  The fields in the object should be the following:
+    1.  **validationReturn** = this field is required, if validating data.  If the validation is ok, this field should be true; otherwise, false.  If there is no validation required, this field should be left out.  This field must be named validationReturn.
+    2.  **props fields*** = these are the fields that are sent to the next page via the props.
 
-```javascript
-    let table = [
-        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, setprops: setProps2},
-    ]
-```
-
-With the above table entry, there will need to be an import for the page in the same file as the ProgressCircles and table.  The import for the above table entry will be:
+    **Example 1**
 
 ```javascript
-    import DataTableMapping, { setProps2 } from '.DataTableMapping.js';
+    return ({validationReturn: true, fiscalYear: 2024, name: 'Smith, John'})
 ```
 
-The table indicates that the setProps2 function will be called when the Next button is pressed to leave the Data / Table Mapping page.  The setProps2 function must return an object consisting of the props to be passed down to the next page.
+    In the above example, validation is taking place; therefore, the validationReturn field is present and is returning a value of true indicating everything is ok.  The true can be replaced with a variable.
 
-**DataTableMapping.js**
+    The rest of fields (fiscalYear and name) will be sent down to the next page as props.  This is how information is sent page to page.
 
-After the imports the following export and code will be needed:
-
-```javascript
-    export setProps2 = () => { return setProps() };
-
-    const DataTableMapping = (props) => {
-        ...
-        setProps = () => {
-            ...
-            console.log ('setProps2');
-            return {...props, {name: 'John'}};
-        }
-        ...
-    }
-```
-
-The export contains the name in the table for the setprops field (can be any name as long as they match).  The return setProps() is the function that is inside the component.  The name after the return can be any name as long it is the same name as in the component.  Notice the name in the component does ***NOT*** have a const in front of it.  The setProps function can contain set any props that need to be passed onto the next page.  In the above example the current props that were initially passed are combined with the object {name: 'John'}.  Therefore, the return should always contain the current props and any new props to be passed.  The second object can be an example like the one above or it can be a variable with ... in front of it.
+    The validationReturn field will not be sent as a props to the next page.
 
 
 ## CSS File
@@ -217,19 +194,19 @@ This will display Progress Circles, with the way it is setup in the table.  The 
 ## **Example 4**
 
 ```javascript
-    import DataLoadSource, { validation1 } from './DataLoadSource.js';
-    import DataTableMapping, { validation2 } from './DataTableMapping.js';
-    import DataValidation, { validation3 } from './DataValidation.js';
-    import DataLoadResults, { validation4 } from './DataLoadResults.js';
+    import DataLoadSource, { processing1 } from './DataLoadSource.js';
+    import DataTableMapping, { processing2 } from './DataTableMapping.js';
+    import DataValidation, { processing3 } from './DataValidation.js';
+    import DataLoadResults, { processing4 } from './DataLoadResults.js';
 
     let table = [
-        {label: 'Data Load Source', status: 'done', page: DataLoadSource, validation: validation1},
+        {label: 'Data Load Source', status: 'done', page: DataLoadSource, processing: processing1},
         {label: '', status: 'line'},
-        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, validation: validation2},
+        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, processing: processing2},
         {label: '', status: 'line'},
-        {label: 'Data Validation', status: 'none', page: DataValidation, validation: validation3},
+        {label: 'Data Validation', status: 'none', page: DataValidation, processing: processing3},
         {label: '', status: 'line'},
-        {label: 'Data Load Results', status: 'none', page: DataLoadResults, validation: validation4},
+        {label: 'Data Load Results', status: 'none', page: DataLoadResults, processing: processing4},
     ]
 
     ...
@@ -244,39 +221,39 @@ This will display Progress Circles, with the way it is setup in the table.  The 
 **DataLoadSource.js**
 ```javascript
     ...
-    export validation1 = () => { return validation };
+    export processing1 = () => { return processing };
 
     const DataLoadSource = (props) => {
         ...
-        validation = () => {
+        processing = () => {
             if (filename !== '') {
-                return true;
+                return { validationReturn: true };
             } else {
-                return false;
+                return { validationReturn: false };
             }
         }
         ...
     }
 ```
 
-This will display Progress Circles, with the way it is setup in the table.  The Previous and Next buttons will be to the left and will be named Back and Forward, respectively.  The Back and Forward buttons will update the circles automatically.  Before going forward, the validation function for the current circle will be called.  The function should return a boolean value.  If true is returned, progress will go to the next circle.  If false is returned, nothing will happend, it will remain on that page.  The entry that is current will have its page displayed on the screen. Notice that there is ***not*** const in front of validation
+This will display Progress Circles, with the way it is setup in the table.  The Previous and Next buttons will be to the left and will be named Back and Forward, respectively.  The Back and Forward buttons will update the circles automatically.  Before going forward, the processing function for the current circle will be called.  The function should return an object and since validation is being done; there is the validationReturn field.  If true is returned, progress will go to the next circle.  If false is returned, nothing will happend, it will remain on that page.  The entry that is current will have its page displayed on the screen. Notice that there is ***not*** const in front of processing.  Since no props were being passed down, only the validationReturn field is present.
 
 ## **Example 5**
 
 ```javascript
-    import DataLoadSource, { setProps1 } from './DataLoadSource.js';
-    import DataTableMapping, { setProps2 } from './DataTableMapping.js';
-    import DataValidation, { setProps3 } from './DataValidation.js';
-    import DataLoadResults, { setProps4 } from './DataLoadResults.js';
+    import DataLoadSource, { processing1 } from './DataLoadSource.js';
+    import DataTableMapping, { processing2 } from './DataTableMapping.js';
+    import DataValidation, { processing3 } from './DataValidation.js';
+    import DataLoadResults, { processing4 } from './DataLoadResults.js';
 
     let table = [
-        {label: 'Data Load Source', status: 'done', page: DataLoadSource, setprops: setProps1},
+        {label: 'Data Load Source', status: 'done', page: DataLoadSource, processing: processing1},
         {label: '', status: 'line'},
-        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, setprops: setProps2},
+        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, processing: processing},
         {label: '', status: 'line'},
-        {label: 'Data Validation', status: 'none', page: DataValidation,setprops: setProps3},
+        {label: 'Data Validation', status: 'none', page: DataValidation, processing: processing3},
         {label: '', status: 'line'},
-        {label: 'Data Load Results', status: 'none', page: DataLoadResults, setprops: setProps4},
+        {label: 'Data Load Results', status: 'none', page: DataLoadResults, processing: processing4},
     ]
 
     ...
@@ -291,42 +268,36 @@ This will display Progress Circles, with the way it is setup in the table.  The 
 **DataLoadSource.js**
 ```javascript
     ...
-    export setProps1 = () => { return setProps() };
+    export processing1 = () => { return processing() };
 
     const DataLoadSource = (props) => {
         ...
-        let newProps = {last: 'Potter', first: 'Sherman', ssn: 154954939}
-        ...
-        setProps = () => {
+        processing = () => {
             return {...props, ...newProps};
         }
     }
 ```
 
-This will display Progress Circles, with the way it is setup in the table.  The Previous and Next buttons will be to the left and will be named Back and Forward, respectively.  The Back and Forward buttons will update the circles automatically.  When the next button (forward button), the setProps function for current circle will be called.  The function should return an object.  In the above example, the props and newProps objects are combined into one object and returned.  The object will be passed into the next page's props.
+This will display Progress Circles, with the way it is setup in the table.  The Previous and Next buttons will be to the left and will be named Back and Forward, respectively.  The Back and Forward buttons will update the circles automatically.  When the next button (forward button), the processing function for current circle will be called.  The function should return an object.  In the above example, the props and newProps objects are combined into one object and returned.  The object will be passed into the next page's props.  Notice that there is no validationReturn field, which indicates no validation was taking place.
 
 ## **Example 6**
 
 This is a combination of Examples 4 and 5
 
 ```javascript
-    import DataLoadSource, { validation1, setProps1 } from './DataLoadSource.js';
-    import DataTableMapping, { validation2, setProps2 } from './DataTableMapping.js';
-    import DataValidation, { validation3, setProps3 } from './DataValidation.js';
-    import DataLoadResults, { validation4, setProps4 } from './DataLoadResults.js';
+    import DataLoadSource, { processing1 } from './DataLoadSource.js';
+    import DataTableMapping, { processing2 } from './DataTableMapping.js';
+    import DataValidation, { processing3 } from './DataValidation.js';
+    import DataLoadResults, { processing4 } from './DataLoadResults.js';
 
     let table = [
-        {label: 'Data Load Source', status: 'done', page: DataLoadSource, validation: validation1, 
-                    setprops: setProps1},
+        {label: 'Data Load Source', status: 'done', page: DataLoadSource, processing: processing1},
         {label: '', status: 'line'},
-        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, , validation: validation2,   
-                    setprops: setProps2},
+        {label: 'Data / Table Mapping', status: 'current', page: DataTableMapping, processing: processing},   
         {label: '', status: 'line'},
-        {label: 'Data Validation', status: 'none', page: DataValidation, validation: validation3, 
-                    setprops: setProps3},
+        {label: 'Data Validation', status: 'none', page: DataValidation, processing: processing3},
         {label: '', status: 'line'},
-        {label: 'Data Load Results', status: 'none', page: DataLoadResults, validation: validation4, 
-                    setprops: setProps4},
+        {label: 'Data Load Results', status: 'none', page: DataLoadResults, processing: processing4},
     ]
 
     ...
@@ -341,8 +312,7 @@ This is a combination of Examples 4 and 5
 **DataLoadSource.js**
 ```javascript
     ...
-    export validation1 = () => { return validation }
-    export setProps1 = () => { return setProps() };
+    export processing1 = () => { return processing }
 
     const DataLoadSource = (props) => {
         ...
@@ -352,12 +322,7 @@ This is a combination of Examples 4 and 5
             } else {
                 return false;
             }
-        }
-        ...
-        let newProps = {last: 'Potter', first: 'Sherman', ssn: 154954939}
-        ...
-        setProps = () => {
-            return {...props, ...newProps};
+           return {validationReturn: true, ...props, ...newProps};
         }
     }
 ```

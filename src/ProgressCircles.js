@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { hasOwnProperty, generateCSSButton } from 'simple-widgets';
 
-//import { hasOwnProperty } from './hasOwnProperty.js';
-//import { generateCSSButton } from './Theme.js';
-
 import blue from './blue-circle.svg';
 import green from './green-check-circle.svg';
 import gray from './gray-circle.svg';
 import grayLine from './gray-line4.svg';
 
-let progressParms = {};
-
-
 const ProgressCircles = (props) => {
     const [position, setPosition] = useState(0);
     const [table, setTable] = useState([...props.table]);
-    const [newProps, setNewProps] = useState(props);
-    const [disablePrevious, setDisablePrevious] = useState(false);
+    const [disablePrevious, setDisablePrevious] = useState(true);
     const [disableNext, setDisableNext] = useState(false);
+    const [newProps, setNewProps] = useState(props);
 
-    const validateTable = () => {
+    const findCurrent = () => {
         for (let i = 0; i < props.table.length; i++) {
             if (props.table[i].status === 'current') {
                 setPosition(i);
@@ -27,13 +21,8 @@ const ProgressCircles = (props) => {
         }
     }
 
-    useEffect (() => {
-        validateTable();
-    }, [props.table]);
-
-    useEffect (() => {
-        validateTable();
-    }, []);
+    useEffect (() => findCurrent(), []); 
+    useEffect (() => findCurrent(), [table]); 
 
     if (hasOwnProperty(props, 'table') === false) {
         console.log ('ProgressCircle: Missing the table prop');
@@ -72,11 +61,14 @@ const ProgressCircles = (props) => {
         }
     }
 
-    const previousButton = () => {
+    previousButton = () => {
         let localTable = [...table];
+
+        table[position].status = 'none';
         localTable[position].status = 'none';
         let done = false;
-        for (let i = position; i >= 0 && done === false; i--) {
+        let i = 0;
+        for (i = position - 1; i >= 0 && done === false; i--) {
             if (i === 0) {
                 setDisablePrevious(true);
             }
@@ -86,39 +78,44 @@ const ProgressCircles = (props) => {
                 setPosition(i);
                 done = true;
             }
-
-            setTable(localTable);
-            setDisableNext(false);
-
         }
+
+        setTable(localTable);
+        setDisableNext(false);
     }
 
-    const nextButton = () => {
+    nextButton = () => {
         let localTable = [...table];
 
-        setNewProps ((hasOwnProperty(localTable[position], 'setprops') === true) ? localTable[position].setprops() : props);
-        console.log('newProps :', newProps);
+        if (hasOwnProperty(localTable[position], 'processing') === true) {
+            const retObj = localTable[position].processing();
+            let  valRet = true;
 
-        if (hasOwnProperty(localTable[position], 'validation') === true && localTable[position].validation() === false) {
-            return;
-        } else {
-            localTable[position].status = 'done';
-            let done = false;
-            for (let i = position; i < localTable.length && done === false; i++) {
-                if (i === localTable.length - 1) {
-                    setDisableNext(true);
-                }
+            if (hasOwnProperty(retObj, 'validationReturn') === true) { 
+                valRet = retObj.validationReturn;
+                delete retObj.valRet;
+            }
 
-                if (localTable[i].status === 'none') {
-                    localTable[i].status = 'current';
-                    setPosition(i);
-                    done = true;
-                }
+            setNewProps ({...props, ...retObj});
+            if (valRet === false) return;
+        }
 
-                setTable(localTable);
-                setDisablePrevious(false);
+        localTable[position].status = 'done';
+        let done = false;
+        for (let i = position; i < localTable.length && done === false; i++) {
+            if (i === localTable.length - 1) {
+                setDisableNext(true);
+            }
+
+            if (localTable[i].status === 'none') {
+                localTable[i].status = 'current';
+                setPosition(i);
+                done = true;
             }
         }
+
+        setTable(localTable);
+        setDisablePrevious(false);
     }
 
     const genPreviousStyle = generateCSSButton ('sw-theme_buttonStyle', disablePrevious);
@@ -134,14 +131,15 @@ const ProgressCircles = (props) => {
                 {(hasOwnProperty(props, 'noprevious') === false) ?
                     <button name="previous" className={genPreviousStyle} disabled={disablePrevious}
                         onClick={previousButton}>{previousName}</button> :
-                    null}
+                    <span></span>}
                 <button name="next" className={genNextStyle} onClick={nextButton} disabled={disableNext}>
                     {nextName}
                 </button>
             </div>
     }
 
-//    console.log('newProps 2 :', newProps);
+    let CurrentPage = (hasOwnProperty(table[position], 'page') === true) ?
+        table[position].page : <span></span>
 
     return (
         <div>
@@ -154,8 +152,7 @@ const ProgressCircles = (props) => {
                 </div>
             </div>
             {buttonGroup}
-            {(hasOwnProperty(table[position], 'page') === true) ?
-                table[position].page(newProps) : null}
+            <CurrentPage {...newProps} />
         </div>
     )
 }
