@@ -84,18 +84,6 @@ function EntryScreenKeyed(props) {
 
   const [needsLoading, setNeedsLoading] = useState(hasNonNullKeys(keys))
 
-  useEffect(() => {
-    setKeys(props.keys)
-  }, [props.keys])
-
-  useEffect(() => {
-
-    if (hasNonNullKeys(keys) && !needsLoading) {
-      setNeedsLoading(true)
-    }
-
-  }, [keys, needsLoading])
-
   const where = { ...props.keys, ...keys }
 
   const onCompleted = (data) => {
