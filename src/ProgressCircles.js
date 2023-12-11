@@ -93,7 +93,7 @@ const ProgressCircles = (props) => {
 
             if (hasOwnProperty(retObj, 'validationReturn') === true) { 
                 valRet = retObj.validationReturn;
-                delete retObj.valRet;
+                delete retObj.validationReturn;
             }
 
             setNewProps ({...props, ...retObj});
@@ -153,6 +153,7 @@ const ProgressCircles = (props) => {
             </div>
             {buttonGroup}
             <CurrentPage {...newProps} />
+            {(props.topbottom === true) ? buttonGroup : null}
         </div>
     )
 }
