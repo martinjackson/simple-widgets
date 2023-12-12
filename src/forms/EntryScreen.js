@@ -84,18 +84,6 @@ function EntryScreenKeyed(props) {
 
   const [needsLoading, setNeedsLoading] = useState(hasNonNullKeys(keys))
 
-  useEffect(() => {
-    setKeys(props.keys)
-  }, [props.keys])
-
-  useEffect(() => {
-
-    if (hasNonNullKeys(keys) && !needsLoading) {
-      setNeedsLoading(true)
-    }
-
-  }, [keys, needsLoading])
-
   const where = { ...props.keys, ...keys }
 
   const onCompleted = (data) => {
@@ -162,6 +150,7 @@ function EntryScreenKeyed(props) {
     const legalFields = Object.keys(empty)
     const incomingFields = Object.keys(rowSelected)
     const goodFields = incomingFields.filter(f => legalFields.includes(f))
+    const keyNames = Object.keys(keys)
     const goodKeys = incomingFields.filter(f => keyNames.includes(f))
 
     if (cloneRec) {
@@ -203,6 +192,7 @@ function EntryScreenKeyed(props) {
 
     if (change.target) {
 
+      const keyNames = Object.keys(keys)
       const matchKeyNames = keyNames.filter(name => (props.recordName + '[0].' + name === change.target.name) )
       if (matchKeyNames.length > 0) {
         const matchKey = matchKeyNames[0]
