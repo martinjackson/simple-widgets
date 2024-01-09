@@ -51,6 +51,19 @@ const keyReverse = (obj) => {
 }
 
 // -----------------------------------------------------------------------------------------------------
+export const getGqlFieldNames = (gqlTableName) => {
+
+  const dbInfo = findTableByGqlName(gqlTableName)
+  if (!dbInfo) {
+    return null
+  }
+
+  const gqlFieldNames = dbInfo.gqlNames.fields.keys()
+
+  return gqlFieldNames
+}
+
+// -----------------------------------------------------------------------------------------------------
 export const getGqlPKs = (gqlTableName) => {
 
   const dbInfo = findTableByGqlName(gqlTableName)

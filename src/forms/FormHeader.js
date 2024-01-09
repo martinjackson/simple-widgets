@@ -4,26 +4,13 @@ import { AddRecordIcon, CloneRecordIcon } from './img/FormImages.js';
 import { DatabaseLoadingIcon } from './DatabaseLoadingIcon.js';
 
 
-
+// ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormHeader = (props) => {
 
   const numRecs = props.numRecs;
-  const defaults = {
-    addRecFn: () => {
-      if (props.onChange) {
-        props.onChange("add record " + props.parentRecName + " " + props.name);
-      }
-    },
-    cloneRecFn: () => {
-      if (props.onChange) {
-        props.onChange("clone record " + props.parentRecName + " " + props.name);
-      }
-    }
-  };
-  const addRecFn = (props.addRecFn) ? props.addRecFn : defaults.addRecFn;
-  const cloneRecFn = (props.cloneRecFn) ? props.cloneRecFn : defaults.cloneRecFn;
-  const AddRecButton = (props.noAdd) ? null : <button title="New" onClick={addRecFn}><AddRecordIcon /></button>;
-  const CloneRecButton = (props.noClone) ? null : <button title="New cloned data" onClick={cloneRecFn}><CloneRecordIcon /></button>;
+
+  const AddRecButton = (props.noAdd) ? null : <button title="New" onClick={props.onAddRecButton}><AddRecordIcon /></button>;
+  const CloneRecButton = (props.noClone) ? null : <button title="New cloned data" onClick={props.onCloneRecButton}><CloneRecordIcon /></button>;
   const isLoading = (props.loadInProgress) ? <DatabaseLoadingIcon /> : null;
 
   let recMsg = '';

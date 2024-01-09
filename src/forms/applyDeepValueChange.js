@@ -27,7 +27,40 @@ const removeName = (exp) => {
 }
 
 // ------------------------------------------------------------------------------
-export const applyDeepValueChange = (data, targetName, value, info, debug) => {                   // info {parentRecName, formName}
+export const getRecordKeyInfo = (data, recName) => {                // recName = "person[0].appointment[0]"
+
+    const gqlName = getGqlName(recName)                                         // gqlName = "appointment"
+    const pkNames = getGqlPKs(gqlName)                                          // pkNames = ['appointmentId']
+
+    let subRec = getSubRecord(recName, data)
+    const keyValues = (pkNames) ? getKeyValues(pkNames, subRec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
+    const update = {
+      gqlTable: gqlName,
+      where: keyValues
+    }
+
+    return update
+}
+
+// ------------------------------------------------------------------------------
+const calcRecorcUpdateInfo = (data, targetName, value) => {
+
+  const lastDot = targetName.lastIndexOf('.')                                   // lastDot = 24, targetName = "person[0].appointment[0].apptNote"
+  let recName = (lastDot != -1) ? targetName.substr(0, lastDot) : targetName    // recName = "person[0].appointment[0]"
+  let fieldName = (lastDot != -1) ? targetName.substr(lastDot+1) : targetName   // fieldName = "appNote"
+
+  let update = {errMsg: 'unknown gqlRecName: '+recName}
+  if (!recName.startsWith('undefined')) {
+    update = getRecordKeyInfo(data, recName)
+    update['gqlField'] = fieldName
+    update['value'] = value
+  }
+
+    return update
+}
+
+// ------------------------------------------------------------------------------
+export const applyDeepValueChange = (data, targetName, value, info, debug) => {     // info {parentRecName, formName}
 
       const dataType = arrTypeOf(data)
 
@@ -48,29 +81,9 @@ export const applyDeepValueChange = (data, targetName, value, info, debug) => { 
                                                 // if original is modified, libraries like  use-deep-compare-effect will not work
                                                 // import useDeepCompareEffect from 'use-deep-compare-effect'
 
-
-      const lastDot = targetName.lastIndexOf('.')                                   // lastDot = 24, targetName = "person[0].appointment[0].apptNote"
-      let recName = (lastDot != -1) ? targetName.substr(0, lastDot) : targetName    // recName = "person[0].appointment[0]"
-      let fieldName = (lastDot != -1) ? targetName.substr(lastDot+1) : targetName   // fieldName = "appNote"
-
-      // [15.622] applyDeepValueChange(data: object, targetName: 'person[0].appointment[0].apptNote', value: 'h', info: undefined person)
-
-      let update = {errMsg: 'unknown gqlRecName: '+recName}
-      if (!recName.startsWith('undefined')) {
-        const gqlName = getGqlName(recName)                                         // gqlName = "appointment"
-        const pkNames = getGqlPKs(gqlName)                                          // pkNames = ['appointmentId']
-
-        let subRec = getSubRecord(recName, newData)
-        const keyValues = (pkNames) ? getKeyValues(pkNames, subRec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
-        update = {
-          gqlTable: gqlName,
-          gqlField: fieldName,
-          value: value,
-          where: keyValues
-        }
-        if (debug) {
+      let update = calcRecorcUpdateInfo(newData, targetName, value)
+      if (debug) {
           console.log(TS(), 'Transactions:', update);
-        }
       }
 
       if (isArray) {
@@ -94,11 +107,10 @@ export const applyDeepValueChange = (data, targetName, value, info, debug) => { 
 
         // tested
         if (debug) {
-          console.log(` [applyDeepValueChange] doing              newData[${fieldName}] = ${value}`);
+          console.log(` [applyDeepValueChange] doing              newData[${update.gqlField}] = ${value}`);
         }
-        newData[fieldName] = value
+        newData[update.gqlField] = value               // same as     newData[fieldName] = value
       }
-
 
       const returning = {newData, update}
       if (debug) {

@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 
-import { SimpleTable }       from '../SimpleTable.js'
+import { SimpleTable }        from '../SimpleTable.js'
 import { dTS }                from '../time.js'
 
-import { client }            from './client.js'
-import { genEmptyRecord }    from './genEmptyRecord.js'
-import { MakeModal }         from './MakeModal.js'
-import { makeGqlAST }        from './makeGqlAST.js'
-import { ErrorList }         from './ErrorList.js'
-import { useErrorList }      from './useErrorList.js'
-import { SimpleEntryScreen } from './SimpleEntryScreen.js'
+import { client }             from './client.js'
+import { genEmptyRecord }     from './genEmptyRecord.js'
+import { MakeModal }          from './MakeModal.js'
+import { makeGqlAST }         from './makeGqlAST.js'
+import { ErrorList }          from './ErrorList.js'
+import { useErrorList }       from './useErrorList.js'
+import { SimpleEntryScreen }  from './SimpleEntryScreen.js'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
+import { getSubRecord }       from './getSubRecord.js'
 
 // --------------------------------------------------------------------------
 export function EntryScreen(props) {
@@ -55,7 +56,7 @@ function capitalizeFirstLetter(string) {
 }
 
 // --------------------------------------------------------------------------
-function genRecordTypeFromName(recordName) {
+export function genRecordTypeFromName(recordName) {
     const recordType = capitalizeFirstLetter(recordName)
     return recordType
 }
@@ -124,6 +125,38 @@ function EntryScreenKeyed(props) {
 
   if (needsLoading && props.debug > 0) {
     console.log(dTS(), `  needs loading query ${props.queryName}, Keys:`, props.keys)
+  }
+
+  const newRecord = (cloneFlag, parentRecName, recName, activeDataRec) => {
+
+    if (props.debug) {
+      if (cloneFlag)
+         console.log(dTS(), '== EntryScreen newRecord (clone) ==', {parentRecName, recName, activeDataRec})
+      else
+         console.log(dTS(), '== EntryScreen newRecord ==', {parentRecName, recName, activeDataRec})
+      }
+
+    if (!parentRecName) {
+      pickNewTopRecord(cloneFlag)
+    } else {
+      const msg = (cloneFlag) ? 'cloning record:' : 'creating new record:'
+
+      if (props.genNewRecordKeys) {
+        const parentData = getSubRecord(parentRecName, data)
+        const newKeys = props.genNewRecordKeys(parentRecName, recName, activeDataRec, parentData)  // parentRecName, recName, siblingDataRec, parentData
+        if (newKeys === null) {
+          console.log(dTS(), 'ERROR '+msg, {parentRecName, recName, activeDataRec})
+          // TODO: display message to user that new record was not created.
+      } else {
+          // TODO: create new record and add into inside of data and call setData to trigger repaint
+        }
+      } else {
+        const errMsg = 'ERROR '+msg+' -- requires EntryScreen props.genNewRecordKeys(), but the prop is missing.'
+        console.log(dTS(), errMsg, {parentRecName, recName, activeDataRec})
+        // TODO: display message to user that new record was not created.
+      }
+    }
+
   }
 
   const pickNewTopRecord = (cloneFlag) => {
@@ -252,7 +285,7 @@ function EntryScreenKeyed(props) {
       loadInProgress={needsLoading}
       data={data}
       setData={setData}
-      pickNewTopRecord={pickNewTopRecord}
+      newRecord={newRecord}
       logErrors={logErrors}
       onChangeSpecial={onChangeSpecial}
       />

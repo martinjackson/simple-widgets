@@ -61,7 +61,7 @@ import ControlledInput from './forms/ControlledInput.js'
 import ControlledTextarea from './forms/ControlledTextarea.js'
 import { DatabaseLoadingIcon } from './forms/DatabaseLoadingIcon.js'
 import { exampleFields, applyOptions } from './forms/DefaultFormElements.js'
-import { EntryScreen } from './forms/EntryScreen.js'
+import { EntryScreen, genRecordTypeFromName } from './forms/EntryScreen.js'
 import { ErrorList } from './forms/ErrorList.js'
 import { setFieldGenerator, fieldGeneratorLookup } from './forms/FieldGenerator.js'
 import { Form } from './forms/Form.js'
@@ -77,7 +77,7 @@ import NarrowForm from './forms/NarrowForm.js'
 import { pretty, Show } from './forms/Show.js'
 import { SimpleDataTable } from './forms/SimpleDataTable.js'
 import { SimpleEntryScreen } from './forms/SimpleEntryScreen.js'
-import { applyDeepValueChange } from './forms/applyDeepValueChange.js'
+import { getRecordKeyInfo, applyDeepValueChange } from './forms/applyDeepValueChange.js'
 import { arrLen } from './forms/arrLen.js'
 import { capWords } from './forms/capWords.js'
 import { client } from './forms/client.js'
@@ -117,7 +117,7 @@ import { deleteRec } from './forms/model/deleteRec.js'
 import { formFromTableInfo, tableField2FormField } from './forms/model/formFromTableInfo.js'
 import { genDictionaryEntry } from './forms/model/genDictionaryEntry.js'
 import { getTableColumns } from './forms/model/getTableColumns.js'
-import { getTablePKs, findTableByGqlName, getGqlPKs } from './forms/model/getTablePKs.js'
+import { getTablePKs, findTableByGqlName, getGqlFieldNames, getGqlPKs } from './forms/model/getTablePKs.js'
 import { listNotKeyedTables } from './forms/model/list-non-keyed-tables.js'
 import { updateRecord } from './forms/model/updateRec.js'
 import { AddRecordIcon, CloneRecordIcon } from './forms/img/FormImages.js'
@@ -138,19 +138,20 @@ export { AlertModal, AppCore, CheckBox, CheckBoxGroup, Choice, ChoiceText, Choic
          printCssRules, date2str, lastOfMonth, todayString, createStoreItem, useStoreItem, openGeneralStore,
          getUrlPath, hasOwnProperty, localStrToDate, makeChangeHandler, printStackTrace, register,
          unregister, now, TS, dTS, Button, ControlledInput, ControlledTextarea, DatabaseLoadingIcon,
-         exampleFields, applyOptions, EntryScreen, ErrorList, setFieldGenerator, fieldGeneratorLookup, Form,
-         FormChoice, getFieldRecName, getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined,
-         FormFields, FormHeader, FormTable, Gears, Input, MakeModal, NarrowForm, pretty, Show,
-         SimpleDataTable, SimpleEntryScreen, applyDeepValueChange, arrLen, capWords, client, dataLog,
-         getDataLog, dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord, genColHeaders,
-         genRowBuilder, getGqlName, getKeyValues, getLabels, getSubRecord, ignoreCase, isFunction,
-         isNotEmpty, isPromise, createJobStatus, updateJobStatus, watchJobStatus, label2value, value2label,
-         logDiff, notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups, setLookupData,
-         addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup, refreshLookup,
-         addNotify, removeNotify, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary,
-         makeGqlAST, onFormChange, prop2str, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace,
-         toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo,
-         getAppSpecificInfo, createRec, deleteRec, formFromTableInfo, tableField2FormField,
-         genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName, getGqlPKs,
-         listNotKeyedTables, updateRecord, AddRecordIcon,
+         exampleFields, applyOptions, EntryScreen, genRecordTypeFromName, ErrorList, setFieldGenerator,
+         fieldGeneratorLookup, Form, FormChoice, getFieldRecName, getGqlNameFromForm, FieldsFromList,
+         FieldsFromListWorks, ifDefined, FormFields, FormHeader, FormTable, Gears, Input, MakeModal,
+         NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, getRecordKeyInfo,
+         applyDeepValueChange, arrLen, capWords, client, dataLog, getDataLog, dispAsString, flattenJSON,
+         dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues, getLabels,
+         getSubRecord, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus,
+         watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone, isLookupDone,
+         serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias,
+         defineLookup, fetchLookupData, startLookup, refreshLookup, addNotify, removeNotify,
+         calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary, makeGqlAST, onFormChange,
+         prop2str, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace, toCamelCaseVar,
+         toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo, getAppSpecificInfo,
+         createRec, deleteRec, formFromTableInfo, tableField2FormField, genDictionaryEntry, getTableColumns,
+         getTablePKs, findTableByGqlName, getGqlFieldNames, getGqlPKs, listNotKeyedTables, updateRecord,
+         AddRecordIcon,
          CloneRecordIcon }

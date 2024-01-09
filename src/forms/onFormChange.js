@@ -28,11 +28,11 @@ function moreChanges(data, targetName, targetValue, props, msgPrefix, setMsg) {
     const changes = applyDeepValueChange(data, targetName, targetValue, info, props.debug)
 
     // echo back up the chain if requested
-    if (props.pendingUpdates) {
-      props.pendingUpdates(changes.update)
+    if (props.pendingUpdatesFn) {
+      props.pendingUpdatesFn(changes.update)
     } else {
       // it's OK, not every form will go back to a database, could be a compound search form
-      // console.log('props.pendingUpdates is not defined in form:',props.name ,'record update info will be lost:',changes.update);
+      // console.log('props.pendingUpdatesFn is not defined in form:',props.name ,'record update info will be lost:',changes.update);
     }
 
     if (props.setData) {

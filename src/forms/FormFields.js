@@ -218,9 +218,6 @@ export const FormFields = (props) => {
       const recFullName = (parentRecName) ? parentRecName+'.'+dataName : dataName
 
       // it's OK, not every form will go back to a database, could be a compound search form
-      // if (!props.pendingUpdates) {
-      //   console.log('--- FormFields props:', props.parentRecName, 'form name:',props.name, 'props.pendingUpdates is missng')
-      // }
 
       // console.log(' FormFields :', {gqlName, dataName, parentRecName, recFullName, formData:props.formData});
 
@@ -229,14 +226,16 @@ export const FormFields = (props) => {
          fieldCalcLogic = (old, changed) => [changed, {}]          //  fieldCalcLogic returns [modState, dynOptions];
       }
 
-      // only needed for 'form', 'formTable'
-      const formInfo = {                    // must have a minimum of the props least the same createField()'s formInfo items: lines 40-43
+      // must have a minimum of the props in createField() when it is creating 'form', 'formTable'
+      const formInfo = {
 
         parentRecName: recFullName,
         fieldCalcLogic,
 
         //   ...leftOver,
-        pendingUpdates: props.pendingUpdates,
+        pendingUpdatesFn: props.pendingUpdatesFn,
+        addRecFn: props.addRecFn,
+        cloneRecFn: props.cloneRecFn,
         noAdd: props.noAdd,
         noClone: props.noClone,
         setData: props.setData,    // ? maj       props.setData  or this local setData()

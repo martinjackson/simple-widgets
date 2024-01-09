@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag';
 
-import { client }               from './client.js'
-import { Form }                 from './Form.js'
+import { client }              from './client.js'
+import { Form }                from './Form.js'
+import { getGqlNameFromForm }  from './FormFields.js'
 
-
-import { dTS }                   from '../time.js'
+import { dTS }                 from '../time.js'
 
 const UPDATE_RECORD = gql`mutation($gqlTable: String, $input: JSON, $where: JSON, $who: String) {
   updateRecord(gqlTable: $gqlTable, input: $input, where: $where, who: $who) }`
@@ -86,13 +86,15 @@ export function SimpleEntryScreen(props) {
     setPendingUpdates(prev => addUpdate(prev, update))
   }
 
-  const addRecFn = () => {
-    props.pickNewTopRecord(false); // not a clone
+  const addRecFn = (parentRecName, formName, activeDataRec) => {
+    const recName = getGqlNameFromForm(formName)
+    props.newRecord(false, parentRecName, recName, activeDataRec)              // not a clone
   }
 
-  const cloneRecFn = () => {
-    props.pickNewTopRecord(true);
-  };
+  const cloneRecFn = (parentRecName, formName, activeDataRec) => {
+    const recName = getGqlNameFromForm(formName)
+    props.newRecord(true, parentRecName, recName, activeDataRec)              // clone new record
+  }
 
   const disabled = (pendingRecordCount == 0);
 
@@ -100,15 +102,21 @@ export function SimpleEntryScreen(props) {
   const pendingMessage = (pendingRecordCount > 0) ? <h1 className="text-white   bg-green-700 text-center">You have Pending Changes</h1> : null
 
   // included in {...props}
-  // header={props.header}
-  // loadInProgress={props.loadInProgress}
-  // data={props.data}
-  // setData={props.setData}
-  // cloneFeature={props.cloneFeature}
-  // noAdd={props.noAdd}
-  // noClone={props.noClone}
-  // debug={props.debug}
-  // onChangeSpecial={props.onChangeSpecial}
+  // header, loadInProgress,  data, setData, cloneFeature, noAdd, noClone, debug, onChangeSpecial
+
+  // Form  props.pendingUpdatesFn -> passed as one of the props to sub-Forms
+  //
+  //    onFormChange() -> moreChanges()
+  //      const changes = applyDeepValueChange(data, targetName, targetValue, info, props.debug)
+  //
+  //     if (props.pendingUpdatesFn) {
+  //        props.pendingUpdatesFn(changes.update)
+  //                      update = {
+  //                        gqlTable: gqlName,
+  //                        gqlField: fieldName,
+  //                        value: value,
+  //                        where: keyValues
+  //                      }
 
   return <>
     {pendingMessage}
@@ -118,7 +126,7 @@ export function SimpleEntryScreen(props) {
         name={props.formName}
         addRecFn={addRecFn}
         cloneRecFn={cloneRecFn}
-        pendingUpdates={pendingUpdatesFn}
+        pendingUpdatesFn={pendingUpdatesFn}
         isLoading={!props.rec || props.rec.loading}
         {...props}
         />
