@@ -80,6 +80,16 @@ Using [npm](https://www.npmjs.com/):
 
 ---------------------
 
+## Dependencies not bundled with Simple Widgets
+
+In order to use simple-widgets, these dependencies need to be added in the home directory of your project.
+
+```bash
+npm i @apollo/client @types/react axios deep-object-diff graphql-tag object-sizeof react react-dom --save
+```
+
+
+
 ## How to test the library locally (before publishing to npm)
 
 ```bash
@@ -135,6 +145,7 @@ All of these widgets require the following props:
 [Header](docs/Header.md)<br />
 [InputFile](docs/InputFile.md)<br />
 [Invalid](docs/Invalid.md)<br />
+[Link](docs/MenuUtils.md)<br />
 [List](docs/List.md)<br />
 [MenuBar](docs/MenuBar.md)<br />
 [Menu Utils](docs/MenuUtils.md)<br />
@@ -143,6 +154,7 @@ All of these widgets require the following props:
 [PageTitle](docs/PageTitle.md)<br />
 [ProgressCircles](docs/ProgressCircles.md)<br />
 [Radio](docs/Radio-Example.md)<br />
+[Redirect](docs/MenuUtils.md)<br />
 [Search Functions](docs/SearchFunct.md)<br />
 [SearchSortTable](docs/SearchSortTable.md)<br />
 [SimpleTable](docs/SimpleTable.md)<br />
