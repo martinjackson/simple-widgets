@@ -132,6 +132,15 @@ The following must be done in order to fix the header or the menu (in all the ex
         </div>
         ```
 
+### SignalUnsaved 
+This is a function in MenuBar that can be called with a boolean value.  If the boolean value is true, the menu is disabled.  If the value is false, the menu is enabled.  The function is passed down as a prop and is; therefore, called using 
+```js
+props.signalUnsaved(true or false)
+```
+This function is automatically declared in MenuBar and is a props for every component in MenuBar.  The user is only using this function that is already declared in MenuBar.  It is not to be declared.
+
+This is used to make sure the screen is saved before leaving it.  See example 10 below.
+
 
 ## CSS Files
 
@@ -361,3 +370,30 @@ const App = () => {
 
 There is no header and a vertical menu that is fixed.
 
+10.  ### Example 10 signalUnsaved example (does not show MenuBar)
+```js
+const TestComp = () => {
+    const [emp, setEmp] = useState('');
+
+    const processEmployee = (value) => {
+        setEmp(value);
+        props.signalUnsaved(true);        
+    }
+
+    const saveButton = () => {
+        // Save the employee information
+        props.signalUnsaved(false);
+    }
+
+    return (
+        <div>
+            <label>Employee:</label>
+            <input type="text" name="emp" value={emp}
+                onChange={(event) => processEmployee(event.target.value)} />
+            <button> name="save" onClick={saveButton}>Save</button>
+        </div>
+    );
+}
+```
+
+The props.signalUnsaved is a function in MenuDir that will disable the menu when an employee is entered and re-enables the menu when the Save button is pressed.
