@@ -1168,7 +1168,6 @@ const _InnerSearchSortTable = (props) => {
     if (controlBreakVal === true) { // Display control break tables
         let cbTable = `cbtitles_${number}`;
         let cbHeader = `cbhead_${number}`;
-        console.log('controlBreakData :', controlBreakData);
 
         // Build the tables for the control breaks by rendering the headers in blue at the top and
         // each control break table following
@@ -1676,19 +1675,9 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************************/
     function processTemp(k, info) {
-        console.log('info :', info);
-        console.log('props.data :', props.data);
         let temp = {};  // Contains the temporary values
         if (props.data.length !== 0 && info.indexes.length !== 0) {
             for (let i = 0; i < info.srtOrder.length; i++) {    // Build the temporary value for a control break change
-                console.log ('================================================================================');
-                console.log('i :', i);
-                console.log('k :', k);
-                console.log('table[info.srtOrder[i].col].name :', table[info.srtOrder[i].col].name);
-                console.log('temp[table[info.srtOrder[i].col].name] :', temp[table[info.srtOrder[i].col].name]);
-                console.log('props.data[info.indexes[k]][table[info.srtOrder[i].col].name] :', props.data[info.indexes[k]][table[info.srtOrder[i].col].name]);
-                console.log('table[info.srtOrder[i].col].name :', table[info.srtOrder[i].col].name);
-                console.log('info.indexes[k] :', info.indexes[k]);
                 temp[table[info.srtOrder[i].col].name] = props.data[info.indexes[k]][table[info.srtOrder[i].col].name];
             }
         }
@@ -2843,7 +2832,7 @@ const _InnerSearchSortTable = (props) => {
      * box for searching.  This is called when the Search button is pressed.
      *
      *******************************************************************************/
-    function validate() {
+    function validate(type) {
         let localInvalid = [...invalid];
 
         localInvalid[SRCHHDR].validity = false;
@@ -2853,6 +2842,10 @@ const _InnerSearchSortTable = (props) => {
 
         if (searchHeader === '') {
             localInvalid = setInvalidScreen(localInvalid, SRCHHDR, 'A column header to be searched must be selected');
+        }
+
+        if (type === 'Letter' && searchHeader === 'All') {
+            localInvalid = setInvalidScreen(localInvalid, SRCHHDR, 'The word All can be used when using letters.  Select another column');
         }
 
         setInvalid(localInvalid);
@@ -2870,7 +2863,7 @@ const _InnerSearchSortTable = (props) => {
      *
      **********************************************************************************/
     function searchItemButton() {
-        if (table && validate() === true) {  // Make sure a value has been selected in the drop down and text box
+        if (table && validate('Search') === true) {  // Make sure a value has been selected in the drop down and text box
             let search = null;
             search = (hasOwnProperty(props,'ignorecase') === true) ?
                 searchItem.toUpperCase() :  // Convert to upper case to ignore case
@@ -3280,7 +3273,7 @@ const _InnerSearchSortTable = (props) => {
 
         let indexing = [...origIndexes];
 
-        if (validate() === true) {   // Validate that a search header was entered
+        if (validate('Letter') === true) {   // Validate that a search header was entered
             // Used to get the field name of the data item
             let index = table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
 
@@ -3525,4 +3518,3 @@ const _InnerSearchSortTable = (props) => {
         setDisable(length, length);
     }
 }
-
