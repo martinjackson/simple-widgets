@@ -42,7 +42,7 @@ function range(start, end) {
 const genHdr = (name) => {
     const header = name.replace(/_/g, ' ')
 
-    return {header, name, search: true, sort: true, dropDown: false, pdfCol: 'left' }
+    return {header, name, search: true, sort: true, dropDown: false, pdfCol: 'left', drag: false, align: 'sw-sst_center' }
 }
 
 // ----------------------------------------------------------------------------
@@ -113,6 +113,13 @@ export const SearchSortTable = (propsPassed) => {
         return (<span></span>);
     }
 
+    if (hasOwnProperty(props, 'table') === true && hasOwnProperty(props, 'footer') === true) {
+        if (props.table.length !== props.footer.length) {
+            console.error('The table and footer must have the same number of elements.');
+            return (<span></span>);
+        }
+    }
+
     if (hasOwnProperty(props,'letters') === true) {
       if (hasOwnProperty(props,'noupper') === true &&
           hasOwnProperty(props,'nolower') === true &&
@@ -162,6 +169,39 @@ const _InnerSearchSortTable = (props) => {
 
     let searchValue = (hasOwnProperty(props, 'searchall') === true) ? 'All' : '';
 
+    /******************************************************************************************
+     * 
+     * This will fill in any missing values in the table props.
+     * 
+     * Parameters:
+     * 1.   table - the table to add missing parameters to.
+     * 
+     *****************************************************************************************/
+    const fillMissingValsInTable = (table) => {
+        let localTable = [...table];
+        for (let i = 0; i < localTable.length; i++) {
+            if (hasOwnProperty(localTable[i], 'align') === false) {
+                localTable[i]['align'] = 'sw-sst_center';
+            }
+
+            if (hasOwnProperty(localTable[i], 'pdfCol') === false) {
+                localTable[i]['pdfCol'] = 'left';
+            }
+
+            if (hasOwnProperty(localTable[i], 'drag') === false) {
+                localTable[i]['drag'] = false;
+            }
+
+            if (hasOwnProperty(localTable[i], 'dropDown') === false) {
+                localTable[i]['dropDown'] = false;
+            }
+        }
+
+        return localTable;
+    }
+
+    let initTable = fillMissingValsInTable(props.table);
+
     // Set the state variables
     const [start, setStart] = useState(0);                              // The start of the pagination
     const [end, setEnd] = useState((hasOwnProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));    // The end of the pagination
@@ -186,7 +226,7 @@ const _InnerSearchSortTable = (props) => {
     const [copyIndex, setCopyIndex] = useState([...startIndexes]);      // This is a copy of the index in order to put it back into its original order
     const [length, setLength] = useState(props.data.length);            // The length of the data
     const [background, setBackground] = useState(initialBackground);    // Background color for the letters prop
-    const [table, setTable] = useState(props.table);                    // Contains information about how to display the table
+    const [table, setTable] = useState(initTable);                      // Contains information about how to display the table
     const [columns, setColumns] = useState(colAry);                     // Column values for the drop down in each filter item
     const [htmlDropDown, setHtmlDropDown] = useState(false);            // Contains the dropdown for each column in the table
     const [dropDownIndex, setDropDownIndex] = useState(-1);             // Indicates in which column the dropdown will appear
@@ -199,6 +239,8 @@ const _InnerSearchSortTable = (props) => {
     const [excelData, setExcelData] = useState([]);                     // Contains the data to be placed in the excel spreadsheet
     const [showExcel, setShowExcel] = useState(false);                  // Indicates whether the Excel Display button can be displayed or not
     const [checked, setChecked] = useState('N');                        // Indicates whether the checkbox in the header is checked (Y) or not
+    const [dragOver, setDragOver] = useState('');
+    const [userFooter, setUserFooter] = useState(props.footer);
 
     // TODO: Ask Jim  hideCols is never used
 
@@ -332,20 +374,22 @@ const _InnerSearchSortTable = (props) => {
 
     // ---------
     useEffect (() => {
+      let localTable = fillMissingValsInTable(props.table);
 //      console.log('SearchSortTable useEffect [] ');
-      populateSearch(props.table)
-      props.table.map(buildChoices);
+      populateSearch(localTable);
+      localTable.map(buildChoices);
       setColumns(localCols);
     }, []);
 
     // ---------
     useEffect (() => {
 //      console.log('SearchSortTable useEffect [] props.table:', props.table);
-
-      setTable(props.table);
-      populateSearch(props.table);
-      props.table.map(buildChoices);
-      setColumns(localCols);
+        let localTable = fillMissingValsInTable(props.table);
+      
+        setTable(localTable);
+        populateSearch(localTable);
+        localTable.map(buildChoices);
+        setColumns(localCols);
     }, [props.table]);
 
     // ---------
@@ -1069,6 +1113,96 @@ const _InnerSearchSortTable = (props) => {
         setShowExcel(false);
     }
 
+    /*******************************************************************************************
+     * 
+     * This function will be called when the drag operation on the header begins.
+     * 
+     * Parameters:
+     * 1.   e = the drag event
+     * 
+     *******************************************************************************************/
+    const handleDragStart = e => {
+        const { id } = e.target;
+        const idx = table.findIndex(col => col.header === id);  // Find the index of the starting column
+        e.dataTransfer.setData("colIdx", idx);  // Store the index of the starting column for the drag
+      };
+    
+    const handleDragOver = e => e.preventDefault();
+
+    /******************************************************************************************* 
+     * 
+     * This function is called when another column is entered.  It will note the id of the 
+     * column.
+     * Parameters:
+     * 1.   e = the drag event
+     * 
+     *******************************************************************************************/
+    const handleDragEnter = e => {
+        const { id } = e.target;
+        if (id !== '') setDragOver(id);
+    };
+    
+    /******************************************************************************************* 
+     * 
+     * This function is called when the mouse is released.  This is where most of work happens
+     * for the drag.  Columns are moved at this point.
+     * 
+     * Parameters:
+     * 1.   e = the drag event
+     * 
+     *******************************************************************************************/
+    const handleOnDrop = e => {
+//        const { id } = e.target;
+        const droppedColIdx = table.findIndex(col => col.header === dragOver);  // Index of where the column was dropped
+        const draggedColIdx = e.dataTransfer.getData("colIdx");                 // Index of the 
+        const tempCols = [...table];
+    
+        // Move the dragged column to its new location
+        let temp = tempCols[draggedColIdx];         // Make a temporary copy of the starting column
+        tempCols.splice (draggedColIdx, 1);         // Remove the starting column
+        tempCols.splice (droppedColIdx, 0, temp);   // Insert the column where it was dropped
+
+        // This will move the Math footers in control breaks
+        if (controlBreakVal === true) {
+            let localData = [...controlBreakData];
+            for (let i = 0; i < localData.length; i++) {
+                let temp = localData[i].footer[draggedColIdx];          // Make a temporary copy of the starting footer
+                localData[i].footer.splice (draggedColIdx, 1);          // Remove the starting footer
+                localData[i].footer.splice (droppedColIdx, 0, temp);    // Insert the footer where it was dropped
+
+                setControlBreakData(localData);
+            }
+        } else {    // Math footers not in control breaks
+            let localFooters = [...footers];
+            let temp = localFooters[draggedColIdx];         // Make a temporary copy of the Math Footer
+            localFooters.splice (draggedColIdx, 1);         // Remove the starting Math footer
+            localFooters.splice (droppedColIdx, 0, temp);   // Insert the Math footer where it was dropped
+
+            setFooters(localFooters);
+        }
+
+        // Normal user footer
+        let localUserFooter = null;
+        if (hasOwnProperty(props, 'footer') === true) { // There is a user footer
+            localUserFooter = [...userFooter];
+            temp = localUserFooter[draggedColIdx];              // Make a temporary copy of the user footer
+            localUserFooter.splice (draggedColIdx, 1);          // Remove the starting user footer
+            localUserFooter.splice (droppedColIdx, 0, temp);    // Insert the user footer where it was dropped
+        }
+        
+        if (hasOwnProperty(props, 'setTheTable') === true) {    // Send the table for storage in
+            props.setTheTable(tempCols);                        // the parent
+        }
+
+        if (hasOwnProperty(props, 'setTheFooter') === true) {   // Send the user footer for
+            props.setTheFooter(localUserFooter);                // storage in the parent
+        }
+
+        setTable(tempCols);
+        setUserFooter(localUserFooter);
+        setDragOver("");
+    };
+    
     // This will display the PDF button and the Orientation choice box on the screen
     const pdfDisplay = (props.nopdf === true) ? null :
         <span>
@@ -1173,11 +1307,13 @@ const _InnerSearchSortTable = (props) => {
         // each control break table following
         tableBuild =    <span>
                             <table className="sw-sst_table" key={cbTable}>
-                              <tbody>
-                                <tr key={cbHeader}>
-                                    {table.map(buildHeaders(true, 0))}
-                                </tr>
-                              </tbody>
+                                <thead>
+                                    <tr key={cbHeader}>
+                                        {table.map(buildHeaders(true, 0))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
                             </table>
                             {controlBreakData.map(renderCtrlBreak) }
                         </span>
@@ -1186,16 +1322,18 @@ const _InnerSearchSortTable = (props) => {
         let header = `head_${number}`;
         let count = -1;
         tableBuild =    <table className={hoverClassName + " sw-sst_table"} name={`table${number}`} key={keyTable}>
-                            <tbody>
+                            <thead>
                                 <tr key={header} className="sw-sst_centerBoldStyle">
                                     {table.map(buildHeaders(true, 0))}
                                 </tr>
+                            </thead>            
+                            <tbody>
                                 { showData.map((row) => {
                                     count++;
                                     return props.eachRowInTable(row, count);
                                 }) }
                                 { (hasOwnProperty(props,'footer') === true) ?
-                                    <tr className="footerStyle">{ props.footer.map(buildFooter) }</tr> : null }
+                                    <tr className="footerStyle">{ userFooter.map(buildFooter) }</tr> : null }
                                 <tr>
                                     {footers.map(buildMathFooters)}
                                 </tr>
@@ -1231,7 +1369,7 @@ const _InnerSearchSortTable = (props) => {
                     (<>
                         {filterSection}
                         {searchSection}
-                        <span className="sw-sst_right">
+                        <span className="sw-sst_right_top_bot">
                             {(areDropDowns() === false) ? null : <button name="reset" className={genButtonStyle} onClick={() => resetButton()} disabled={props.error}>Reset</button>}
                         </span>
                         {allButtonHTML}
@@ -1251,7 +1389,7 @@ const _InnerSearchSortTable = (props) => {
                         (<>
                             {filterSection}
                             {searchSection}
-                            <span className="sw-sst_right">
+                            <span className="sw-sst_right_top_bot">
                             {(areDropDowns() === false) ? null : <button name="reset" className={genButtonStyle} onClick={() => resetButton()} disabled={props.error}>Reset</button>}
                         </span>
                             {allButtonHTML}
@@ -1629,10 +1767,12 @@ const _InnerSearchSortTable = (props) => {
         return (    // Render the control break
             <table name={name} className={hoverClassName + " sw-sst_table"} key={keyTable}>
                 <caption className="sw-sst_tableBold">{row.title}</caption>
-                <tbody>
+                <thead>
                     <tr key={keyHeader}>
                         {table.map(buildHeaders(false, i))}
                     </tr>
+                </thead>
+                <tbody>
                     {data.map((row) => {
                         cbCount++;
                         return props.eachRowInTable(row, cbCount);
@@ -2337,11 +2477,14 @@ const _InnerSearchSortTable = (props) => {
      *********************************************************************************************************************/
     function buildHeaders(main, tableIndex) {
         const f = (row, i) => {
+//            console.log('row :', row);
             let key = 'cell_' + i;
             let btnImg = '\u2BC8';
             // let filterKey = 'filter_' + i;
             let filterName = row.header + '_filter';
             let ctrlBreak = false;
+
+//            console.log ('row.header', row.header)
 
             if (isControlBreak(controlBreakInfo) === true) {
                 ctrlBreak = true;
@@ -2377,7 +2520,14 @@ const _InnerSearchSortTable = (props) => {
             }
 
             if (row.checked === true) {
-                return (<th key={key} className={headerStyle}>
+                return (<th key={key} className={headerStyle} 
+                            id={row.header}
+                            draggable={row.drag && main}
+                                onDragStart={handleDragStart}
+                                onDragOver={handleDragOver}
+                                onDrop={handleOnDrop}
+                                onDragEnter={handleDragEnter} >
+
                             <CheckBox selectedValue="Y" className="sw-ss_check"
                                 name="checked" value={checked}
                                 onChange={(event) => processChecked(event.target.value)} />
@@ -2391,18 +2541,38 @@ const _InnerSearchSortTable = (props) => {
                     if (row.search === false) { // No searching on this field, so no filtering on it also
                         /* at this point main is always true    && main === true */
                         if (row.dropDown === true) {
-                            return (<th key={key} className={headerStyle}>
+                            return (<th key={key} className={headerStyle} 
+                                        id={row.header}
+                                        draggable={row.drag && main}
+                                            onDragStart={handleDragStart}
+                                            onDragOver={handleDragOver}
+                                            onDrop={handleOnDrop}
+                                            onDragEnter={handleDragEnter} >
+
                                         {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
                                         <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button>
                                     </th>)  // Display the header only
                         } else {
-                            return (<th key={key} className={headerStyle}>
+                            return (<th key={key} className={headerStyle} 
+                                        id={row.header}
+                                        draggable={row.drag && main}
+                                            onDragStart={handleDragStart}
+                                            onDragOver={handleDragOver}
+                                            onDrop={handleOnDrop}
+                                            onDragEnter={handleDragEnter} >
+
                                         <div className={fontColor}>{row.header}</div>
                                     </th>)  // Display the header only
                         }
                     } else {    // Can filter; therefore, display the input field
                         return (
-                            <th key={key} className={headerStyle + ' sw-sst_bottom'}>
+                            <th key={key} className={headerStyle + ' sw-sst_bottom'} 
+                                id={row.header}
+                                draggable={row.drag && main}
+                                    onDragStart={handleDragStart}
+                                    onDragOver={handleDragOver}
+                                    onDrop={handleOnDrop}
+                                    onDragEnter={handleDragEnter} >
                                 {/* at this point main is always true    && main === true */}
                                 {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
                                 {/* at this point main is always true    && main === true */}
@@ -2420,7 +2590,13 @@ const _InnerSearchSortTable = (props) => {
                 } else {    // Sorting on the column is allowed
                     if (row.search === false) { // No searching or filtering on the column, so display header only
                         return (
-                            <th key={key} className={headerStyle}>
+                            <th key={key} className={headerStyle} 
+                                id={row.header}
+                                draggable={row.drag && main}
+                                    onDragStart={handleDragStart}
+                                    onDragOver={handleDragOver}
+                                    onDrop={handleOnDrop}
+                                    onDragEnter={handleDragEnter} >
                               {/* at this point main is always true    && main === true */}
                                 {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
 
@@ -2432,7 +2608,13 @@ const _InnerSearchSortTable = (props) => {
                         );
                     } else {    // Searching and filtering is allowed
                         return (    // Display header and input field for filtering
-                            <th key={key} className={headerStyle + ' sw-sst_bottom'}>
+                            <th key={key} className={headerStyle + ' sw-sst_bottom'} 
+                                id={row.header}
+                                draggable={row.drag && main}
+                                    onDragStart={handleDragStart}
+                                    onDragOver={handleDragOver}
+                                    onDrop={handleOnDrop}
+                                    onDragEnter={handleDragEnter} >
                                 {/* at this point main is always true    && main === true */}
                                 {(i === dropDownIndex && htmlDropDown === true) ? showDropDown(row, i) : null}
                                 <div>
@@ -2452,14 +2634,28 @@ const _InnerSearchSortTable = (props) => {
                 }
             // Filtering is off or not allowed
             } else if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler
-                return (<th key={key} className={headerStyle}>
+                return (<th key={key} className={headerStyle} 
+                            id={row.header}
+                            draggable={row.drag && main}
+                                onDragStart={handleDragStart}
+                                onDragOver={handleDragOver}
+                                onDrop={handleOnDrop}
+                                onDragEnter={handleDragEnter} >
+
                                 {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
                                 {(row.dropDown === true && main === true) ? <button className={fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                     <div className={fontColor}>{row.header}</div>}
                         </th> ); // Display the header only
             } else {    // Sorting on the column is allowed
                 return (
-                    <th key={key} className={headerStyle}>
+                    <th key={key} className={headerStyle} 
+                        id={row.header}
+                        draggable={row.drag && main}
+                            onDragStart={handleDragStart}
+                            onDragOver={handleDragOver}
+                            onDrop={handleOnDrop}
+                            onDragEnter={handleDragEnter} >
+
                         {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
                         {(row.dropDown === true && main === true) ? <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                             <div className={fontColor}>{row.header}</div>}

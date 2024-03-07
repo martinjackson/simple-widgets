@@ -289,7 +289,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
   left: 0;
 }
 
-.sw-sst_right {
+.sw-sst_right_top_bot {
   text-align: right;
   float: right;
 }
@@ -319,6 +319,18 @@ table.sw-sst_search_sort_table10 tr:hover td {
 
 .sw-sst_stripe:nth-child(even) {
   background-color: gainsboro;
+}
+
+.sw-sst_left {
+  text-align: left;
+}
+
+.sw-sst_center {
+  text-align: center;
+}
+
+.sw-sst_right {
+  text-align: right;
 }
 
 .sw-sst_bottom {

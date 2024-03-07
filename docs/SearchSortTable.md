@@ -55,6 +55,18 @@ The dataDate field indicates the format of a date field in the data.  The filter
 
    In the above example, the drop down for the Name header would have the following aggregations in the drop down: count, distinct count, minimum, maximum.  The drop down for the Salary header would have the following aggregations: summation, average, count, distinct count, minimum, maximum, and median.
 
+  The drag field indicates that will allow columns to moved in the table.  If columns are to be moved around, the drag field should be true; otherwise it is set to false for no column dragging.  
+
+  An example set of rows in the table for a dropDown field might look like:
+   ```javascript
+        { header: 'City',  name: 'CITY',  sort: true, search: true, drag: true },
+        { header: 'State', name: 'STATE', sort: true, search: true, drag: false }
+   ```
+
+   In the above example, the City header can be dragged (drag is true) while the State header can not (drag is false).
+
+   The align specifies how the data will be displayed in the column.  The align specifies whether the data will left justified, center, or right justified.  The values are 'sw-sst_left', 'sw-sst_center', and 'sw-sst_right'.
+
    The pdfCol specifies the alignment of a PDF column if PDF's are allowed to be generated.  The values for the pdfCol are:
     - left        this will align the data to the left in the column
     - right       this will align the data to the right in the column
@@ -86,8 +98,9 @@ The dataDate field indicates the format of a date field in the data.  The filter
 
 3.  **eachRowInTable** = a function that indicates how each cell in a row will be displayed.  The function will build a row in the search sort table.  The function is passed a row in the table that needs to be put into the HTML table row format.  If hover props is used, the indexing table and onClick on the tr will need to be added.  The following example is with out the hover props being used:
 
+# Old Format (still works if not dragging)
 ```javascript
-          function eachRowInTable(row, i) {
+          const eachRowInTable = (row, i) => {
               let key = 'row_' + i + start;
               return (
                   <tr key={key}>
@@ -104,7 +117,7 @@ In the above example, the row parameter is row in the table to be displayed.  Th
 
 The following example is with the hover props being used:
 ```javascript
-    function eachRowInTable(row, i) {
+    const eachRowInTable = (row, i) => {
         let key = 'row_' + i + start;
 
         pos = indexing[i];
@@ -122,8 +135,77 @@ The following example is with the hover props being used:
 
 In the above example, it is the same as the previous example except for the indexing and the onClick on the <tr>.  The indexing will allow the correct data to be selected.  The data array is still in the original order that it came in and the indexes array indicate how the data is displayed.  Each value in the index array is a number that indicates the position in the data array.  So setting it to indexes[i] (current position in the indexes array being processed), places the position of the data in the data array into pos.  The onClick on the <tr> will retrieve the data being hovered over.  It will call the function called functName and pass down the position of the data in the data array.  The startEnd, indexing, and hover attributes must be in the <SearchSortTable> (see the props section below).  There is a full example below.
 
+# New Format (must use if using dragging)
+```javascript
+    const eachRowInTable = (row, i) => {
+        return (
+          <tr key={`row_${i}_${start}`}> 
+            { table.map((col, idx) => (
+                <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                        hidden={hideCol[idx]}>
+                    row[col.name]
+                </td>
+            ))}
+          </tr>
+        )
+    }
+```
 
-### **Examples**
+In the above example, the row parameter is row in the table to be displayed.  The i is the row number being processed and is only used if the hover prop is used.  The key will make every row in the table unique; otherwise, you will get a warning.  The <tr> and <td> define the rows and columns respectively.  The table.map section goes through each column in the table and prints out the value in that column with row[col.name].  The col.name is the name part in the object for a column in the table.  If the HTML is not returned, nothing will be displayed.  This will also need the startEnd prop on the <SearchSortTable> (see the startEnd prop in the props section).  There is a full example below.
+
+The following example is with the hover props being used:
+```javascript
+    const eachRowInTable = (row, i) => {
+        let pos = indexes[i];
+        
+        return (
+          <tr key={`row_${i}_${start}`} onClick={() => display(data[pos])}> 
+            { table.map((col, idx) => (
+                <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                        hidden={hideCol[idx]}>
+                    row[col.name] }
+                </td>
+            ))}
+          </tr>
+        )
+    }
+```
+
+In the above example, it is the same as the previous example except for the indexing and the onClick on the <tr>.  The indexing will allow the correct data to be selected.  The data array is still in the original order that it came in and the indexes array indicate how the data is displayed.  Each value in the index array is a number that indicates the position in the data array.  So setting it to indexes[i] (current position in the indexes array being processed), places the position of the data in the data array into pos.  The onClick on the <tr> will retrieve the data being hovered over.  It will call the function called functName and pass down the position of the data in the data array.  The startEnd, indexing, and hover attributes must be in the <SearchSortTable> (see the props section below).  There is a full example below.
+
+The following is an example on how to customize the new eachRowInTable:
+
+```javascript
+    const eachRowInTable = (row, i) => {
+        let pos = indexes[i];
+
+        return (
+          <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
+            { table.map((col, idx) => (
+                <td key={`${col.header}_${idx}_${i}`} className={"sw-sst_body_full " + col.align} 
+                        hidden={hideCol[idx]}>
+                    { (col.name === 'date') ? convertDate(row[col.name]) : 
+                      (col.name === 'money') ? formatMoney(row[col.name]) :
+                      (col.name === 'edit') ? <button name='edit' onClick={nothing}>Edit</button> :
+                       row[col.name] }
+                </td>
+            ))}
+          </tr>
+        )
+    }
+```
+
+In the above example, in between the <td> and </td> is where the customization occurs.  Each column can be customized using the following format:
+
+```javascript
+  { (col.name === 'name of column') ? <formating> :
+    (col.name === 'name of column') ? <formating> : ...
+     row[col.name] }
+```
+
+There can be either no customization or each column can be customized.
+
+### **Examples (using the old format)**
 The following is a simple code example:
 
 ```javascript
@@ -175,7 +257,7 @@ The following is a more involved code example:
               { header: 'Cost',           name: 'COST',       search: false,  sort: false },
           ];
 
-          function eachRowInTable(row, i) {
+          const eachRowInTable = (row, i) => {
               let key = 'row_' + i + start;
 
               pos = indexing[i];
@@ -239,18 +321,82 @@ The following example shows how to use the drop down in the column headers:
               { header: 'Cost',           name: 'COST',       search: false,  sort: false, dropDown: true },
           ];
 
-          function eachRowInTable(row, i) {
-              let key = 'row_' + i + start;
+          const eachRowInTable = (row, i) => {
+              return (
+                  <tr key={key}>
+                      <td>{row.ORDER_NUM}</td>
+                      <td>{row.ITEM}</td>
+                      <td>{row.ON_HAND}</td>
+                      <td>{row.COST}</td>
+                  </tr>
+              )
+         }
 
+          <SearchSortTable data={data}
+                          table={table}
+                          MAX_ITEMS={MAX_ITEMS}
+                          eachRowInTable={eachRowInTable}
+                          startEnd={startEnd}
+                          indexing={getIndexes}
+                          hidden={hiddenCols}
+                          setTheTable={setTheTable} 
+                          hover />
+        }
+```
+
+### **Examples (using the new format)**
+The following example shows how to use the drag with the new eachRowInTable function (see the Drag and Drop section):
+
+```javascript
+        import '../node_modules/simple-widgets/lib/theme.css';
+        import '../node_modules/simple-widgets/lib/table.css';
+
+        const MAX_ITEMS = 2;
+
+        let data = [
+            { ORDER_NUM: 10, ITEM: 'Hammer',        ON_HAND: 20, COST: 15.21 },
+            { ORDER_NUM: 11, ITEM: 'Screwdriver',   ON_HAND: 13, COST: 16.43 },
+            { ORDER_NUM: 22, ITEM: 'Pliers',        ON_HAND: 24, COST: 17.54 },
+            { ORDER_NUM: 23, ITEM: 'Wrench',        ON_HAND: 05, COST: 18.56 },
+            { ORDER_NUM: 24, ITEM: 'Saw',           ON_HAND: 11, COST: 14.78 },
+        ];
+
+        const sortExample = (props) => {
+          let tableTest = [
+              { header: 'Order Number',   name: 'ORDER_NUM',  search: true,   sort: true, drag: true  },
+              { header: 'Description',    name: 'ITEM',       search: true,   sort: true, drag: true  },
+              { header: 'On Hand Count',  name: 'ON_HAND',    search: true,   sort: true, drag: true  },
+              { header: 'Cost',           name: 'COST',       search: false,  sort: false, drag: true },
+          ];
+
+          const [start, setStart] = useState(0);
+          const [indexing, setIndexing] = useState([]);
+          const [table, setTable] = useState(tableTest);
+
+          const startEnd (start, end) {
+              setStart(start);
+          }
+          const getIndexes (indexing) {
+              setIndexing(indexing);
+          }
+
+          const setTheTable (table, footer) {
+            setTable(table);
+          }
+
+          const eachRowInTable = (row, i) => {
+              let key = 'row_' + i + start;
               pos = indexing[i];
 
               return (
-                  <tr key={key} onClick={(event) => functName(pos)}>
-                      <td hidden={hideCols[0]}>{row.ORDER_NUM}</td>
-                      <td hidden={hideCols[1]}>{row.ITEM}</td>
-                      <td hidden={hideCols[2]}>{row.ON_HAND}</td>
-                      <td hidden={hideCols[3]}>{row.COST}</td>
-                  </tr>
+                <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
+                  { table.map((col, idx) => (
+                      <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                              hidden={hideCol[idx]}>
+                          row[col.name] }
+                      </td>
+                  ))}
+                </tr>
               )
           }
 
@@ -259,12 +405,11 @@ The following example shows how to use the drop down in the column headers:
                           MAX_ITEMS={MAX_ITEMS}
                           eachRowInTable={eachRowInTable}
                           startEnd={startEnd}
-                          indexing={getIndexes}
-                          hidden={hiddenCols} 
+                          indexing={getIndexes} 
+                          setTheTable={setTable}
                           hover />
         }
 ```
-
 
 ### **Sorting**
 
@@ -340,6 +485,61 @@ The drop down that is displayed when you click on a column with a light blue let
 
   The Reset button will cause the data to go back to its original configuration.  All the control breaks will be removed and all the hidden columns will be displayed again.  Also, all aggregations will be removed from the bottom of each column.
 
+### Dragging and Drop
+
+This allows you to change the position of the columns in the table.  This allows the first column to move the last column in the table.
+
+How to Drag and Drop:
+1.  Only the blue column headers can be dragged.  To start the drag, place the cursor over the column header and press and hold the left mouse button.
+2.  Move the dragged column header to the drop column.  If the drag happens from left to right then the dragged column is placed right (after) of the drop column.  If the drag happens from right to left then the dragged column is placed left (before) of the drop column.
+3.  Release the left mouse button.
+
+How to Enable the Drag in Search Sort Table:
+1.  In the table prop in each row of the table array, set drag: true.  If drag is false, that column can not be dragged.  However the column that can be dragged can be dropped on by a dragged column.
+2.  Use the new eachRowInTable format.  Look in the eachRowInTable prop for an explanation.
+3.  Turn the table into a state variable.
+
+```javascript
+  let sortTable = [...];
+
+  const [table, setTable] = useState(sortTable);
+```
+
+4.  Add the setTheTable prop in SearchSortTable configuration.  See the setTheTable prop.
+
+```javascript
+  <SearchSortTable 
+      data={data}
+      table={table}
+      setTheTable={setTable}
+      ...
+  />
+```
+
+5.  If a footer is being used, turn it into a state Variable.  See the footer prop.
+
+```javascript
+  let theFooter = ['Totals', 123.45, 234.56, 334.66];
+
+  const [footer, setFooter] = useState(theFooter);
+```
+
+5.  If a footer is being used, add the setTheFooter prop in SearchSortTable configuration.  See the setTheFooter prop.
+
+```javascript
+  <SearchSortTable 
+      data={data}
+      table={table}
+      setTheTable={setTable}
+      setTheFooter={footer}
+      ...
+  />
+```
+
+If using a control breaks, the individual table columns for each table can be dragged and dropped.  Only the blue headers can be dragged and dropped.
+
+There is full example near the end of this document.
+
 ### **PDF Button**
 
 The PDF button will display the table as a PDF report.  If there are control breaks and hidden columns they will be transferred to the PDF.
@@ -406,7 +606,7 @@ The above control break array indicates the first column should be hidden, which
 
 5.  ***error*** = indicates that an error occurred.  This will disable all buttons in the Search Sort Table.
 
-6. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  A sample footer might be:
+6. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  There must be a footer for every column in the table.  Each array element represents one column in the table.  A sample footer might be:
 ```javascript
     let footer = [
         'Totals',
@@ -422,7 +622,7 @@ An example would be:
 ```javascript
 const [hideCol, setHideCol] = useState([]);
 
-function hideTheCols (value) {
+const hideTheCols = (value) => {
   setHideCol(value);
 }
 
@@ -443,7 +643,7 @@ An example would be:
 ```javascript
 const [indexes, setIndexes] = useState([]);
 
-function indexing(value) {
+const indexing = (value) => {
   setIndexes(value);
 }
 
@@ -519,44 +719,79 @@ report="The PDF Report"
 
 40. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-41. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+41. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
 
-42. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+```javascript
+  let sortTable = [...];
+  let theFooter = ['Totals', 123.45, 234.56, 345.67];
+
+  const [table, setTable] = useState(sortTable);
+  const [footer, setFooter] = useState(theFooter);
+  ...
+  <SearchSortTable 
+    table={table}
+    data={data}
+    setTheTable={setTable}
+    footer={footer}
+    setTheFooter={setFooter}
+    ...
+  />
+```
+
+42. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
+The function that is to be passed to it is the setTable function for the state variables.  Since the table has changed due to a changing of columns, the table in the parent must be changed to the new table also.  See the section on Dragging and Drop.  An example:
+
+```javascript
+  let sortTable = [...];
+
+  const [table, setTable] = useState(sortTable);
+  ...
+  <SearchSortTable 
+    table={table}
+    data={data}
+    setTheTable={setTable}
+    ...
+  />
+```
+
+43. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+
+44. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-43. **showtable** = this will show the table and headers even if there is no data to display.
+45. **showtable** = this will show the table and headers even if there is no data to display.
 
-44. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+46. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-45. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+47. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
 
-function startEnd (start, end) {
+const startEnd = (start, end) => {
   setStart(start);
 }
 
 <SearchSortTable startEnd={startEnd} />
 ```
 
-46. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+48. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
 
-function startingPosition(value) {
+const startingPosition = (value) => {
   setStartingPos(value);
 }
 
 <SearchSortTable startingPos={startingPosition} />
 ```
 
-47. **title** = supplies a title to be displayed centered at the top of the table.
+49. **title** = supplies a title to be displayed centered at the top of the table.
 
-48. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+50. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-49. **width** = the width of the scroll box only.
+51. **width** = the width of the scroll box only.
 
 ## CSS Files
 
@@ -911,7 +1146,7 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-33. ***sw-sst_right*** = postioning on the screen for the Reset button
+33. ***sw-sst_right_top_bot*** = postioning on the screen for the Reset button
 
 ```css
 .sw-sst_right {
@@ -997,10 +1232,32 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 .sw-sst_stripe_even:nth-child(even) {
   background-color: gainsboro;
 }
-
 ```
 
+41. **sw-sst_left** = this will left justify the data in a cell in a table
 
+```css
+.sw-sst_left {
+  text-align: left;
+}
+```
+
+42. **sw-sst_center** = this will center the data in a cell in a table
+
+```css
+.sw-sst_center {
+  text-align: center;
+}
+```
+
+43. **sw-sst_right** = this will right justify the data in a cell in a table
+
+```css
+.sw-sst_right {
+  text-align: right;
+}
+
+```
 
 
 
@@ -1020,11 +1277,11 @@ const sortExample = (props) => {
   const [start, setStart] = useState(0);
   const [indexing, setIndexing] = useState([]);
 
-  function startEnd (start, end) {
+  const startEnd = (start, end) => {
       setStart(start);
   }
 
-  function getIndexes(indexing) {
+  const getIndexes = (indexing) => {
       setIndexing(indexing);
   }
 
@@ -1056,28 +1313,23 @@ const sortExample = (props) => {
                       height="675px"
                       hover />
 
-  function eachRowInTable (row, i) {
+  const eachRowInTable = (row, i) => {
       const key = 'row_' + i + start; // The key for the row
-
-      const tableCellStyle2 = {  // The style for each cell in the table
-          padding: "5px",
-          textAlign: "left",
-          border: "1px solid black",
-      };
-
       let pos = indexing[i]
 
-      return (    // Render the row (action)
-          <tr key={key} onClick={() => editRow (pos)}>
-              <td style={tableCellStyle}>{row.CAN}</td>
-              <td style={tableCellStyle}>{row.STOCK_TOTAL}</td>
-              <td style={tableCellStyle}>{row.GAS_CYLINDER_RENTAL_TOTAL}</td>
-              <td style={tableCellStyle}>{row.TOTAL}</td>
-          </tr>
+      return (
+        <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
+          { table.map((col, idx) => (
+              <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                      hidden={hideCol[idx]}>
+                  row[col.name] }
+              </td>
+          ))}
+        </tr>
       )
   }
 
-  function editRow(index) {
+  const editRow = (index) => {
       ...
   }
 }
@@ -1166,15 +1418,15 @@ const sortExample = (props) => {
   const [indexing, setIndexing] = useState([]);
   const [hideCols, setHideCols] = useState([]);
 
-  function startEnd (start, end) {
+  const startEnd = (start, end) => => {
       setStart(start);
   }
 
-  function getIndexes(indexing) {
+  const getIndexes = (indexing) => {
       setIndexing(indexing);
   }
 
-  function hideTheColumn (columns) {
+  const hideTheColumn = (columns) => {
       setHideCols(columns)
   }
 
@@ -1199,32 +1451,111 @@ const sortExample = (props) => {
                       choice
                       hover />
 
-  function eachRowInTable (row, i) {
+  const eachRowInTable = (row, i) => {
       const key = 'row_' + i + start; // The key for the row
-
-      const tableCellStyle2 = {  // The style for each cell in the table
-          padding: "5px",
-          textAlign: "left",
-          border: "1px solid black",
-      };
-
       let pos = indexing[i];
 
-      return (    // Render the row (action)
-          <tr key={key} onClick={() => editRow (pos)}>
-              <td hidden={hideCols[0]} style={tableCellStyle}>{row.CAN}</td>
-              <td hidden={hideCols[1]} style={tableCellStyle}>{row.STOCK_TOTAL}</td>
-              <td hidden={hideCols[2]} style={tableCellStyle}>{row.GAS_CYLINDER_RENTAL_TOTAL}</td>
-              <td hidden={hideCols[3]} style={tableCellStyle}>{row.TOTAL}</td>
+        return (
+          <tr key={`row_${i}_${start}`} onClick={() => editRow(data[pos])}> 
+            { table.map((col, idx) => (
+                <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                        hidden={hideCol[idx]}>
+                    row[col.name] }
+                </td>
+            ))}
           </tr>
-      )
+        )
   }
 
-  function editRow(index) {
+  const editRow = (data) => {
       ...
   }
 }
 ```
 
 In this example, there will be a drop down when the user left clicks on the column header, because of the dropDown true being in every header.  If the dropDown is false in any definition in the table, there will not be a drop down for that column.  The hideTheColumn function gets called by SearchSortTable and returns the columns that are supposed to be hidden or shown.  Each element in the columns array corresponds to a column in the table.  If the element is true, the column is hidden and if it false the column is displayed.  To actually hide the columns, the hidden attribute (props) must be placed in the td.  Every cell should have one even if the dropDown is false. The hidden prop must be added to the SearchSortTable component to pass back the hidden array.  The choice prop on the SearchSortTable component indicates that
+there will be choice boxes on the filter input.
+
+
+### **Example 6***
+This example contains the drag and drop for a column and the new format in the eachRowInTable function:
+
+```javascript
+const RANGE = 50;
+
+let data = [
+  ...
+];
+
+const sortExample = (props) => {
+  const sstable = [
+      { header: 'CAN',            name: 'CAN',           search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Stock Total',    name: 'STOCK_TOTAL',   search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Gas Cylinder',   name: 'GAS_CYLINDER',  search: true,  sort: true, dropDown: true,
+      drag: true },
+      { header: 'Total for CAN',  name: 'TOTAL',         search: true,  sort: true, dropDown: true, drag: true },
+  ];
+
+  const thefooter = [
+    'Totals', '', '', 1234.56];
+  ]
+
+  const [error, setError] = useState(false);
+  const [start, setStart] = useState(0);
+  const [indexing, setIndexing] = useState([]);
+  const [hideCols, setHideCols] = useState([]);
+  const [table, setTable] = useState(sstable);
+  const [footer, setFooter] = useState(theFooter);
+
+  const startEnd = (start, end) => {
+      setStart(start);
+  }
+
+  const getIndexes = (indexing) => {
+      setIndexing(indexing);
+  }
+
+  const hideTheColumn = (columns) => {
+      setHideCols(columns)
+  }
+
+  <SearchSortTable  data={data}
+                    table={table}
+                    MAX_ITEMS={RANGE}
+                    eachRowInTable={eachRowInTable}
+                    startEnd={startEnd}
+                    indexing={getIndexes}
+                    hidden={hideTheColumn}
+                    setTheTable={setTable}
+                    setTheFooter={setFooter}
+                    error={error}
+                    title="Finance CSV"
+                    scroll
+                    height="675px"
+                    choice
+                    hover />
+
+  const eachRowInTable = (row, i) => {
+      const key = 'row_' + i + start; // The key for the row
+      let pos = indexing[i];
+
+      return (
+        <tr key={`row_${i}_${start}`} className="sw-sst_stripe" onClick={() => editRow(data[pos])}> 
+          { table.map((col, idx) => (
+              <td key={`${col.header}_${idx}_${i}`} className={"sw-sst_body_full " + col.align} 
+                      hidden={hideCol[idx]}>
+                  row[col.name] }
+              </td>
+          ))}
+        </tr>
+      )
+  }
+
+  const editRow = (data) => {
+      ...
+  }
+}
+```
+
+In this example, columns can be dragged to change their position in the table.  The drag: true in the table allows that column to be dragged.  If the drag is false the column can not be dragged; however, it can be dragged onto.  The setTable and setFooter will return the changed table and footer.  The footer has to have the same number of elements as the table.  The table has 5 elemenst and so does the footer.  Since you can drag columns it is using the new eachRowInTable (for more information see the eachRowInTable prop).  The table will be striped because of the sw-sst_stripe className.  The cells of the table will have black border because of the sw-sst_body_full className.  The hidden prop must be added to the SearchSortTable component to pass back the hidden array.  The choice prop on the SearchSortTable component indicates that
 there will be choice boxes on the filter input.
