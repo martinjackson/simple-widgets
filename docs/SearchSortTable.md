@@ -65,7 +65,9 @@ The dataDate field indicates the format of a date field in the data.  The filter
 
    In the above example, the City header can be dragged (drag is true) while the State header can not (drag is false).
 
-   The align specifies how the data will be displayed in the column.  The align specifies whether the data will left justified, center, or right justified.  The values are 'sw-sst_left', 'sw-sst_center', and 'sw-sst_right'.
+   The headerAlign specifies how the header will be displayed in the column.  The headerAlign specifies whether the header will left justified, centered, or right justified.  The values are 'sw-sst_left', 'sw-sst_center', 'sw-sst_right', or any CSS class.
+
+   The align specifies how the data will be displayed in the column.  The align specifies whether the data will left justified, centered, or right justified.  The values are 'sw-sst_left', 'sw-sst_center', 'sw-sst_right', or any CSS class.
 
    The pdfCol specifies the alignment of a PDF column if PDF's are allowed to be generated.  The values for the pdfCol are:
     - left        this will align the data to the left in the column

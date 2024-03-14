@@ -42,7 +42,9 @@ function range(start, end) {
 const genHdr = (name) => {
     const header = name.replace(/_/g, ' ')
 
-    return {header, name, search: true, sort: true, dropDown: false, pdfCol: 'left', drag: false, align: 'sw-sst_center' }
+    return {header, name, search: true, sort: true, 
+            dropDown: false, pdfCol: 'left', drag: false, 
+            align: 'sw-sst_center', headerAlign: 'sw-sst_center' }
 }
 
 // ----------------------------------------------------------------------------
@@ -182,6 +184,10 @@ const _InnerSearchSortTable = (props) => {
         for (let i = 0; i < localTable.length; i++) {
             if (hasOwnProperty(localTable[i], 'align') === false) {
                 localTable[i]['align'] = 'sw-sst_center';
+            }
+
+            if (hasOwnProperty(localTable[i], 'headerAlign') === false) {
+                localTable[i]['headerAlign'] = 'sw-sst_center';
             }
 
             if (hasOwnProperty(localTable[i], 'pdfCol') === false) {
@@ -2520,7 +2526,7 @@ const _InnerSearchSortTable = (props) => {
             }
 
             if (row.checked === true) {
-                return (<th key={key} className={headerStyle} 
+                return (<th key={key} className={headerStyle + " " + table[i].headerAlign} 
                             id={row.header}
                             draggable={row.drag && main}
                                 onDragStart={handleDragStart}
@@ -2541,7 +2547,7 @@ const _InnerSearchSortTable = (props) => {
                     if (row.search === false) { // No searching on this field, so no filtering on it also
                         /* at this point main is always true    && main === true */
                         if (row.dropDown === true) {
-                            return (<th key={key} className={headerStyle} 
+                            return (<th key={key} className={headerStyle + " " + table[i].headerAlign} 
                                         id={row.header}
                                         draggable={row.drag && main}
                                             onDragStart={handleDragStart}
@@ -2553,7 +2559,7 @@ const _InnerSearchSortTable = (props) => {
                                         <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button>
                                     </th>)  // Display the header only
                         } else {
-                            return (<th key={key} className={headerStyle} 
+                            return (<th key={key} className={headerStyle + " " + table[i].headerAlign} 
                                         id={row.header}
                                         draggable={row.drag && main}
                                             onDragStart={handleDragStart}
@@ -2566,7 +2572,7 @@ const _InnerSearchSortTable = (props) => {
                         }
                     } else {    // Can filter; therefore, display the input field
                         return (
-                            <th key={key} className={headerStyle + ' sw-sst_bottom'} 
+                            <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + table[i].headerAlign} 
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -2590,7 +2596,7 @@ const _InnerSearchSortTable = (props) => {
                 } else {    // Sorting on the column is allowed
                     if (row.search === false) { // No searching or filtering on the column, so display header only
                         return (
-                            <th key={key} className={headerStyle} 
+                            <th key={key} className={headerStyle + " " + table[i].headerAlign} 
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -2608,7 +2614,7 @@ const _InnerSearchSortTable = (props) => {
                         );
                     } else {    // Searching and filtering is allowed
                         return (    // Display header and input field for filtering
-                            <th key={key} className={headerStyle + ' sw-sst_bottom'} 
+                            <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + table[i].headerAlign} 
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -2634,7 +2640,7 @@ const _InnerSearchSortTable = (props) => {
                 }
             // Filtering is off or not allowed
             } else if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler
-                return (<th key={key} className={headerStyle} 
+                return (<th key={key} className={headerStyle + " " + table[i].headerAlign} 
                             id={row.header}
                             draggable={row.drag && main}
                                 onDragStart={handleDragStart}
@@ -2648,7 +2654,7 @@ const _InnerSearchSortTable = (props) => {
                         </th> ); // Display the header only
             } else {    // Sorting on the column is allowed
                 return (
-                    <th key={key} className={headerStyle} 
+                    <th key={key} className={headerStyle + " " + table[i].headerAlign} 
                         id={row.header}
                         draggable={row.drag && main}
                             onDragStart={handleDragStart}
