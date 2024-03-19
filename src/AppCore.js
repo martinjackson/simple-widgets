@@ -36,7 +36,7 @@ const AppCore = (props) => {
   const signalDone = () => {
     // there was more here earlier, be was refactor out. The debug was still useful
     if (props.debug) {
-      console.log(dTS(), 'signalDone() in App.js')
+      // console.log(dTS(), 'signalDone() in AppCore.js')
     }
   }
 
@@ -95,9 +95,11 @@ const AppCore = (props) => {
 
   const path = getUrlPath()
 
+  /*
   if (props.debug) {
     console.log(dTS(), 'AppCore render()', {username, dbType, dbReadOnly, path})
   }
+  */
 
   const dbMsg = dbType + ((dbReadOnly) ? ' R/O' : '')
   return (
