@@ -121,7 +121,7 @@ export const addLookupAlias = (alias, name) => {          // name: String      q
 export const changeLookupAlias = addLookupAlias       // functionality for changing the Alias is already built in, but not obvious
 
 // -----------------------------------------------------------------------------------------------------
-  // name: String      query: GraphhQL query
+  // name: String      query: GraphQL query
 export const defineLookup = (name, queryVars, transFn, cb=null) => {
 
   createLookup(name)
