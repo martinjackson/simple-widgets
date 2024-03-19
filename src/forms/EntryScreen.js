@@ -12,7 +12,9 @@ import { ErrorList }          from './ErrorList.js'
 import { useErrorList }       from './useErrorList.js'
 import { SimpleEntryScreen }  from './SimpleEntryScreen.js'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
-import { getSubRecord }       from './getSubRecord.js'
+// import { getSubRecord }       from './getSubRecord.js'
+
+import { getGqlPKs, getGqlName, getGqlFieldNames } from '../index.js'
 
 // --------------------------------------------------------------------------
 export function EntryScreen(props) {
@@ -65,6 +67,29 @@ export function genRecordTypeFromName(recordName) {
 function hasNonNullKeys(keys) {
   const keyNames = Object.keys(keys)
   return keyNames.find(name => keys[name] != null) != null
+}
+
+// --------------------------------------------------------------------------
+function genNewRecordKeys(parentRecName, recName, siblingDataRec, genPKsForNewRecords) {
+  console.log(dTS(), 'genNewRecordKeys()', {parentRecName, recName, siblingDataRec})
+
+  const parentGqlName = getGqlName(parentRecName)
+  const parentFields = getGqlFieldNames(parentGqlName)
+
+  const recGqlName = getGqlName(recName)
+  const recPks = getGqlPKs(recGqlName)
+
+  const samePKs = recPks.filter(name => parentFields.includes(name))     // recPks[] not in parentFields[]
+  const missingPkNames = recPks.filter(name => !parentFields.includes(name))     // recPks[] not in parentFields[]
+
+  genPKsForNewRecords(recGqlName, missingPkNames, siblingDataRec).then(newPks => {
+    const recordType = genRecordTypeFromName(recName)    // assumes recName has no . or []
+    const newRec = genEmptyRecord(recordType, true)
+    samePKs.map(k => newRec[k] = siblingDataRec[k])  // copy over all the same PK fields
+    missingPkNames.map(k => newRec[k] = newPks[k])
+    // TODO: set new record in the hierarchy and call setData() to cause a reflow
+    })
+
 }
 
 // --------------------------------------------------------------------------
@@ -141,17 +166,10 @@ function EntryScreenKeyed(props) {
     } else {
       const msg = (cloneFlag) ? 'cloning record:' : 'creating new record:'
 
-      if (props.genNewRecordKeys) {
-        const parentData = getSubRecord(parentRecName, data)
-        const newKeys = props.genNewRecordKeys(parentRecName, recName, activeDataRec, parentData)  // parentRecName, recName, siblingDataRec, parentData
-        if (newKeys === null) {
-          console.log(dTS(), 'ERROR '+msg, {parentRecName, recName, activeDataRec})
-          // TODO: display message to user that new record was not created.
+      if (props.genPKsForNewRecords) {
+        genNewRecordKeys(parentRecName, recName, activeDataRec, props.genPKsForNewRecords)  // activeDataRec is the siblingDataRec
       } else {
-          // TODO: create new record and add into inside of data and call setData to trigger repaint
-        }
-      } else {
-        const errMsg = 'ERROR '+msg+' -- requires EntryScreen props.genNewRecordKeys(), but the prop is missing.'
+        const errMsg = 'ERROR '+msg+' -- requires EntryScreen props.genPKsForNewRecords(), but the prop is missing.'
         console.log(dTS(), errMsg, {parentRecName, recName, activeDataRec})
         // TODO: display message to user that new record was not created.
       }

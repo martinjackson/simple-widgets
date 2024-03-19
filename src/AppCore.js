@@ -34,7 +34,7 @@ const AppCore = (props) => {
   const [errMsg, setErrMsg] = useState(null)
 
   const signalDone = () => {
-    // there was more here earlier, be was refactor out. The debug was still usefull
+    // there was more here earlier, be was refactor out. The debug was still useful
     if (props.debug) {
       console.log(dTS(), 'signalDone() in App.js')
     }
@@ -82,7 +82,7 @@ const AppCore = (props) => {
       setRole(role)
       setRoleNum(roleNum)
       setMenu(getMenu(role, dbType))
-      console.log(dTS(), 'setting menu', username, role, dbType)
+      console.log(dTS(), 'setting menu', {username, role, dbType})
     })
   }
 
@@ -96,7 +96,7 @@ const AppCore = (props) => {
   const path = getUrlPath()
 
   if (props.debug) {
-    console.log(dTS(), 'AppCore render()', username, dbType, dbReadOnly, path)
+    console.log(dTS(), 'AppCore render()', {username, dbType, dbReadOnly, path})
   }
 
   const dbMsg = dbType + ((dbReadOnly) ? ' R/O' : '')
@@ -144,14 +144,14 @@ const AppCore = (props) => {
     // titleLogo   -- application or Agency Logo
     // loginURL    -- place to login via password, pin, hardware token, biometrics, 2FA, etc.
     // logoutURL   -- place to logout clearing out agency mechanisms
-    // missingRoleMessage -- a link to get the propper User Request form to have a Role granted (agency specific)
+    // missingRoleMessage -- a link to get the proper User Request form to have a Role granted (agency specific)
     // debug       -- used to toggle console.log and other debug mechanisms
 
-    // origTabTitle -- The original application title in the browser tab, this is used allong with the clicked path to change the browser title when a menu item is selected. example: you clicked About and the browser title becomes "{application title} - /About"
+    // origTabTitle -- The original application title in the browser tab, this is used along with the clicked path to change the browser title when a menu item is selected. example: you clicked About and the browser title becomes "{application title} - /About"
     //                 because this was passed as origTabTitle="{application title}" to MenuBar
 
 
-  // MenuBar is passsed checkIn={checkIn} because other screens like About might needs props.checkIn() to refresh Header when displayed info has changed
+  // MenuBar is passed checkIn={checkIn} because other screens like About might needs props.checkIn() to refresh Header when displayed info has changed
 
 export default AppCore
 
