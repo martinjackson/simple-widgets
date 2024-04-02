@@ -66,8 +66,8 @@ import { ErrorList } from './forms/ErrorList.js'
 import { setFieldGenerator, fieldGeneratorLookup } from './forms/FieldGenerator.js'
 import { Form } from './forms/Form.js'
 import { FormChoice } from './forms/FormChoice.js'
-import { getFieldRecName, getGqlNameFromForm, FieldsFromList, FieldsFromListWorks, ifDefined, 
-         FormFields } from './forms/FormFields.js'
+import { getFieldRecName, getGqlNameFromForm, onChangeMaker, FieldsFromList, FieldsFromListWorks, 
+         ifDefined, FormFields } from './forms/FormFields.js'
 import { FormHeader } from './forms/FormHeader.js'
 import { FormTable } from './forms/FormTable.js'
 import { Gears } from './forms/Gears.js'
@@ -139,9 +139,9 @@ export { AlertModal, AppCore, CheckBox, CheckBoxGroup, Choice, ChoiceText, Choic
          getUrlPath, hasOwnProperty, localStrToDate, makeChangeHandler, printStackTrace, register,
          unregister, now, TS, dTS, Button, ControlledInput, ControlledTextarea, DatabaseLoadingIcon,
          exampleFields, applyOptions, EntryScreen, genRecordTypeFromName, ErrorList, setFieldGenerator,
-         fieldGeneratorLookup, Form, FormChoice, getFieldRecName, getGqlNameFromForm, FieldsFromList,
-         FieldsFromListWorks, ifDefined, FormFields, FormHeader, FormTable, Gears, Input, MakeModal,
-         NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, getRecordKeyInfo,
+         fieldGeneratorLookup, Form, FormChoice, getFieldRecName, getGqlNameFromForm, onChangeMaker,
+         FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, FormHeader, FormTable, Gears, Input,
+         MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, getRecordKeyInfo,
          applyDeepValueChange, arrLen, capWords, client, dataLog, getDataLog, dispAsString, flattenJSON,
          dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues, getLabels,
          getSubRecord, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus,
