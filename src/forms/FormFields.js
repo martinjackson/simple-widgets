@@ -147,12 +147,35 @@ const genFields = (fieldList, formData, onChange) => {
     return fields
 }
 
+// --------------------------------------------------------------------------
+export function onChangeMaker(setDataFn) {
+
+  // support variables for FormFields
+  const onChange = (change) => {
+    const newRec = {[change.target.name]: change.target.value}
+    setDataFn((prev) => ({...prev, ...newRec}) )
+}
+
+return onChange
+}
+
+
+/*
+   Uses
+      props.fieldList, props.formData and props.onChange
+     -- OR --
+      props.fieldList, props.formData and props.setFormData
+
+   to create a list of <input> elements.
+*/
 // -------------------------------------------------------------------------------------------------------------------------
 export const FieldsFromList = (props) => {
 
+  const onChange = (props.setFormData && !props.onChange) ? onChangeMaker(props.setFormData) : props.onChange
+
   // console.log('FieldsFromList render');
 
-  return genFields(props.fieldList, props.formData, props.onChange)
+  return genFields(props.fieldList, props.formData, onChange)
 }
 
 // -------------------------------------------------------------------------------------------------------------------------
