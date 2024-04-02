@@ -353,6 +353,11 @@ table.sw-sst_search_sort_table10 tr:hover td {
   text-decoration: none;
 }
 
+.sw-sst_checkbox_bold {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
 @keyframes tooltipAnim {
   0% {
     opacity: 0;

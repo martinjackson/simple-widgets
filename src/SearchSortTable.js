@@ -201,6 +201,10 @@ const _InnerSearchSortTable = (props) => {
             if (hasOwnProperty(localTable[i], 'dropDown') === false) {
                 localTable[i]['dropDown'] = false;
             }
+
+            if (hasOwnProperty(localTable[i], 'filterdaterange') === false) {
+                localTable[i]['filterdaterange'] = false;
+            }
         }
 
         return localTable;
@@ -225,6 +229,7 @@ const _InnerSearchSortTable = (props) => {
     const [filter, setFilter] = useState(initialFilters);               // The values for each column to be filtered
     const [filterOn, setFilterOn] = useState('');                       // Indicates whether the user has checked the Filter On check box or not
     const [filterPressed, setFilterPressed] = useState(false);          // Indicates whether the filtering is enabled or disabled (Filter button)
+    const [filterFound, setFilterFound] = useState(false);              // Indicates whether filtered items were found when the filter button was pressed
     const [invalid, setInvalid] = useState(invalidArray);               // Indicates which fields are invalid and which ones are not
     const [alertMessage, setAlertMessage] = useState('');               // The message for the alert modal
     const [showAlert, setShowAlert] = useState(false);                  // Indicates whether the alert modal should be displayed or not
@@ -332,32 +337,61 @@ const _InnerSearchSortTable = (props) => {
         let data = props.data;  // The data to be searched
         let values = [];        // The values to place in the choice boxes
 
-        // Spin through the data and place the data for that column in the values array, removing duplicates
-        for (let j = 0; j < data.length; j++) {
-            if (search (values, data[j][row.name]) === false) {
-                values.push(data[j][row.name]);
+        if (row.filterdaterange === true) { // The dates should have range options
+            values = [
+                'Last 10 Years',
+                'Last 7 Years',
+                'Last 5 Years',
+                'Last 2 Years',
+                'Last Year',
+                'Last Month',
+                'Last Week',
+                'Last 2 Days',
+                'Last Day',
+                'Last 12 Hours',
+                'Last 2 Hours',
+                'Last Hour',
+                'Next Hour',
+                'Next 2 Hours',
+                'Next 12 Hours',
+                'Next Day',
+                'Next 2 Days',
+                'Next Week',
+                'Next Month',
+                'Next Year',
+                'Next 2 Years',
+                'Next 5 Years',
+                'Next 7 Years',
+                'Next 10 Years',
+            ];
+        } else {
+            // Spin through the data and place the data for that column in the values array, removing duplicates
+            for (let j = 0; j < data.length; j++) {
+                if (search (values, data[j][row.name]) === false) {
+                    values.push(data[j][row.name]);
+                }
             }
+
+            // Sort the values array to place all the values in the choice box in ascending order
+            values.sort(function (item1, item2) {
+                // Convert to upper case if ignoring case
+                if (typeof item1 === 'string' &&
+                    hasOwnProperty(props,'ignorecase') === true) {
+                    // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
+                    item1 = item1.toUpperCase()
+                    item2 = (item2 !== null) ? item2.toUpperCase() : null;
+                }
+
+                // Make the comparison
+                if (item1 < item2) {
+                    return -1;
+                } else if (item1 > item2) {
+                    return 1;
+                } else {
+                    return 0;   // Equal
+                }
+            });
         }
-
-        // Sort the values array to place all the values in the choice box in ascending order
-        values.sort(function (item1, item2) {
-            // Convert to upper case if ignoring case
-            if (typeof item1 === 'string' &&
-                hasOwnProperty(props,'ignorecase') === true) {
-                // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
-                item1 = item1.toUpperCase()
-                item2 = (item2 !== null) ? item2.toUpperCase() : null;
-            }
-
-            // Make the comparison
-            if (item1 < item2) {
-                return -1;
-            } else if (item1 > item2) {
-                return 1;
-            } else {
-                return 0;   // Equal
-            }
-        });
 
         localCols[i] = values;  // Place each choice box value in the localCols array
     }
@@ -523,7 +557,7 @@ const _InnerSearchSortTable = (props) => {
     let filterBackground = null;
     if (filterOn !== 'Y') {
         filterBackground = 'sw-sst_imageStyleDisable';
-    } else if (filterPressed === true) {
+    } else if (filterPressed === true && filterFound === true) {
         filterBackground = 'sw-sst_imageStyleFilter';
     } else {
         filterBackground = 'sw-sst_imageStyleNormal';
@@ -643,7 +677,10 @@ const _InnerSearchSortTable = (props) => {
 
     const filterSection = (hasOwnProperty(props,'nofilter') === true || props.nofilter === true) ? null :
         (<>
-            <CheckBox selectedValue="Y" name="filterOn" text="&nbsp;&nbsp;&nbsp;Filter On" value={filterOn} onChange={(event) => processFilterOn(event.target.value)} />
+            <CheckBox selectedValue="Y" name="filterOn" 
+                text="&nbsp;Filter On" value={filterOn} 
+                checkedsymbol="green" className="sw-sst_checkbox_bold"
+                onChange={(event) => processFilterOn(event.target.value)} />
             <button onClick={filterButton} className="sw-sst_buttonStyle2" disabled={props.error || filterOn !== 'Y'}>
                 <img src={funnel} width="30px" height="30px" className={genFilterStyle} />
             </button>
@@ -2802,6 +2839,110 @@ const _InnerSearchSortTable = (props) => {
         return false;
     }
 
+    /*******************************************************************************
+     * 
+     * This will check to see if a date is within a range of the current date and 
+     * the range date.
+     * 
+     * Parameters:
+     * 
+     * 1.   range = the ending range to compare the dates.  The range will be a number
+     *          which could be years, month, days, or hours.
+     * 2.   type = indicates whether the range represents years, months, days, or hours.
+     * 3.   direction = indicates whether the range is before (value is Last) or 
+     *          after (value is Next) the current date.
+     * 4.   dataPart = the date to be compared to see if it is within the range.
+     * 
+     **********************************************************************************/
+    function dateCompare (range, type, direction, dataPart) {
+        let todayDate = new Date();             // Today's date (current date for comparison)
+        let currentDate = new Date();           // Current Date (used to calculate the range)
+        let rangeDate = null;                   // The amount of time between the current date and the end date
+        let compareDate = new Date(dataPart);   // The date to be compared
+
+        if (type === 'Year') {
+            rangeDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + range));
+        } else if (type === 'Month') {
+            rangeDate = new Date(currentDate.setMonth(currentDate.getMonth() + range));
+        } else if (type === 'Week' || type === 'Day') {
+            rangeDate = new Date(currentDate.setDate(currentDate.getDate() + range));
+        } else if (type === 'Hour') {
+            rangeDate = new Date(currentDate.setHours(currentDate.getHours() + range));
+        }
+
+        // Check to see if the date is within the range
+        if (direction === 'Last') {
+            return (compareDate >= rangeDate && compareDate <= todayDate) ? true : false;
+        }
+        else {
+            return (compareDate >= todayDate && compareDate <= rangeDate) ? true : false;
+        }
+    }
+
+    /*******************************************************************************
+     * 
+     * This will take the selection and set range, type, and direction and call
+     * the function that compares the dates to see if they are in the date range.
+     * 
+     * Parameters:
+     * 
+     * 1.   dataPart = the date to be compared to see if it is within the range.
+     * 2.   selection = the selection that was made on the ChoiceText box that
+     *          was selected on the filter for that header.
+     * 
+     ********************************************************************************/
+    function filterDateRange(dataPart, selection) {
+        if (selection === 'Last 10 Years') {
+            return dateCompare(-10, 'Year', 'Last', dataPart);
+        } else if (selection === 'Last 7 Years') {
+            return dateCompare(-7, 'Year', 'Last', dataPart);
+        } else if (selection === 'Last 5 Years') {
+            return dateCompare(-5, 'Year', 'Last', dataPart);
+        } else if (selection === 'Last 2 Years') {
+            return dateCompare(-2, 'Year', 'Last', dataPart);
+        } else if (selection === 'Last Year') {
+            return dateCompare(-1, 'Year', 'Last', dataPart);
+        } else if (selection === 'Last Month') {
+            return dateCompare(-1, 'Month', 'Last', dataPart);
+        } else if (selection === 'Last Week') {
+            return dateCompare(-7, 'Week', 'Last', dataPart);
+        } else if (selection === 'Last 2 Days') {
+            return dateCompare(-2, 'Day', 'Last', dataPart);
+        } else if (selection === 'Last Day') {
+            return dateCompare(-1, 'Day', 'Last', dataPart);
+        } else if (selection === 'Last 12 Hours') {
+            return dateCompare(-12, 'Hour', 'Last', dataPart);
+        } else if (selection === 'Last 2 Hours') {
+            return dateCompare(-2, 'Hour', 'Last', dataPart);
+        } else if (selection === 'Last Hour') {
+            return dateCompare(-1, 'Hour', 'Last', dataPart);
+        } else if (selection === 'Next Hour') {
+            return dateCompare(1, 'Hour', 'Next', dataPart);
+        } else if (selection === 'Next 2 Hours') {
+            return dateCompare(2, 'Hour', 'Next', dataPart);
+        } else if (selection === 'Next 12 Hours') {
+            return dateCompare(12, 'Hour', 'Next', dataPart);
+        } else if (selection === 'Next Day') {
+            return dateCompare(1, 'Day', 'Next', dataPart);
+        } else if (selection === 'Next 2 Days') {
+            return dateCompare(2, 'Day', 'Next', dataPart);
+        } else if (selection === 'Next Week') {
+            return dateCompare(1, 'Week', 'Next', dataPart);
+        } else if (selection === 'Next Month') {
+            return dateCompare(1, 'Month', 'Next', dataPart);
+        } else if (selection === 'Next Year') {
+            return dateCompare(1, 'Year', 'Next', dataPart);
+        } else if (selection === 'Next 2 Years') {
+            return dateCompare(2, 'Year', 'Next', dataPart);
+        } else if (selection === 'Next 5 Years') {
+            return dateCompare(5, 'Year', 'Next', dataPart);
+        } else if (selection === 'Next 7 Years') {
+            return dateCompare(7, 'Year', 'Next', dataPart);
+        } else if (selection === 'Next 10 Years') {
+            return dateCompare(10, 'Year', 'Next', dataPart);
+        }
+    }
+
     /***************************************************************************************
      *
      * This will filter the data and display it on the screen.
@@ -2908,12 +3049,17 @@ const _InnerSearchSortTable = (props) => {
                         filterPart = filter[indexing[j]];
                     }
 
-                    if (dataPart.toString().indexOf(filterPart.toString()) !== -1) {  // Compare the dates
+                    if (table[indexing[j]].filterdaterange === true) {  // There is a data range on the filter
+                        found.push(filterDateRange(dataPart, filter[indexing[j]]));
+                    } else if (dataPart.toString().indexOf(filterPart.toString()) !== -1) {  // Compare the dates
                         found.push(true);
                     } else {    // Dates are not equal
                         found.push(false);
                         done = true;
                     }
+                // There is a date range on the filter
+                } else if (table[indexing[j]].filterdaterange === true) {
+                    found.push(filterDateRange(data[indexes[i]][table[indexing[j]].name], filter[indexing[j]]));
                 // The data element matches one of the filter input boxes
                 } else if (data[indexes[i]][table[indexing[j]].name].toString().indexOf(filter[indexing[j]].toString()) !== -1) {
                     found.push(true);   // Place a true in the found array indicating the filter input box matched
@@ -2944,9 +3090,14 @@ const _InnerSearchSortTable = (props) => {
         if (count > 0) {    // There are filtered data elements
             setIndex(newData, true);
             setFilterPressed(true);
+            setFilterFound(true);
             if (isControlBreak(controlBreakInfo) === true) {
                 findCtrlBreak(controlBreakInfo, newData);
             }
+        } else {    // Filtered items were not found
+            setFilterFound(false);
+            setAlertMessage(`Could not find any rows that matched the filter criteria in the table`);
+            setShowAlert(true);
         }
     }
 

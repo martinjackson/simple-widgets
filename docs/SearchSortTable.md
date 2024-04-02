@@ -69,6 +69,33 @@ The dataDate field indicates the format of a date field in the data.  The filter
 
    The align specifies how the data will be displayed in the column.  The align specifies whether the data will left justified, centered, or right justified.  The values are 'sw-sst_left', 'sw-sst_center', 'sw-sst_right', or any CSS class.
 
+   An example of the headerAlign and align:
+
+  ```js
+      { header: 'City',  name: 'CITY',  sort: true, search: true, align: 'sw-sst_left' },
+      { header: 'State', name: 'STATE', sort: true, search: true, headerAlign: 'sw-sst-right' }
+  ```
+
+   In the above example, the City column values will be left aligned.  The State column will have its header aligned to the right.
+
+   The filterdaterange specifies that there should be a date range listed in the ChoiceText box.  Therefore, the filter will check to see if the date in the column is within the selected range.  If this option is used the field should contain a date for that column and the choice props must be used.  If this option is not specified and choice is used, all the dates in that column will be listed in the Choice box.
+   The default for this option will be false.  The list of ranges are:
+
+    Last Year, Last 2 Years, Last 5 Years, Last 7 Years, Last 10 Years
+    Last Month
+    Last Week
+    Last Day, Last 2 Days
+    Last Hour, Last 2 Hours, Last 12 Hours
+
+   An example of filterdaterange:
+
+  ```js
+      { header: 'Date',  name: 'DATE', sort: true, search: true, filterdatarange: true },
+  ```
+
+  In the above example, in the filter section under the Date column will be the list of ranges.  It will filter the dates within that range.
+
+
    The pdfCol specifies the alignment of a PDF column if PDF's are allowed to be generated.  The values for the pdfCol are:
     - left        this will align the data to the left in the column
     - right       this will align the data to the right in the column
@@ -571,7 +598,7 @@ const processAllChecks = (data) => {
 }
 ```
 
-3.  ***choice*** = this indicates whether there will be choice boxes or input boxes for the filter input.  If choice prop appears, then the box to place the filter information will contain a choice box with all the possible data for that column.  Select or type the value and press the filter button.  If there is no choice prop, the filter information will be entered into an input text box.
+3.  ***choice*** = this indicates whether there will be choice boxes or input boxes for the filter input.  If choice prop appears, then the box to place the filter information will contain a choice box with all the possible data for that column.  Select or type the value and press the filter button.  If there is no choice prop, the filter information will be entered into an input text box.  With this prop you can use the filterdaterange option with the table prop to get a list of ranges in the ChoiceText box for the filter.  For more information see table prop.
 
 4.  ***controlBreak*** = is an array that allows to set up hidden columns and control breaks before the table is displayed.  The control break array should have the same number of elements as the table array.  Each element is an object that contains a hidden and a control break field.  For example,
 ```javascript
@@ -1493,13 +1520,13 @@ const sortExample = (props) => {
   const sstable = [
       { header: 'CAN',            name: 'CAN',           search: true,  sort: true, dropDown: true, drag: true },
       { header: 'Stock Total',    name: 'STOCK_TOTAL',   search: true,  sort: true, dropDown: true, drag: true },
-      { header: 'Gas Cylinder',   name: 'GAS_CYLINDER',  search: true,  sort: true, dropDown: true,
-      drag: true },
+      { header: 'Gas Cylinder',   name: 'GAS_CYLINDER',  search: true,  sort: true, dropDown: true, drag: true },
       { header: 'Total for CAN',  name: 'TOTAL',         search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Date',  name: 'Date',                   search: true,  sort: true, dropDown: true, drag: true, filterdaterange: true },
   ];
 
   const thefooter = [
-    'Totals', '', '', 1234.56];
+    'Totals', '', '', 1234.56, ''];
   ]
 
   const [error, setError] = useState(false);
@@ -1559,5 +1586,4 @@ const sortExample = (props) => {
 }
 ```
 
-In this example, columns can be dragged to change their position in the table.  The drag: true in the table allows that column to be dragged.  If the drag is false the column can not be dragged; however, it can be dragged onto.  The setTable and setFooter will return the changed table and footer.  The footer has to have the same number of elements as the table.  The table has 5 elemenst and so does the footer.  Since you can drag columns it is using the new eachRowInTable (for more information see the eachRowInTable prop).  The table will be striped because of the sw-sst_stripe className.  The cells of the table will have black border because of the sw-sst_body_full className.  The hidden prop must be added to the SearchSortTable component to pass back the hidden array.  The choice prop on the SearchSortTable component indicates that
-there will be choice boxes on the filter input.
+In this example, columns can be dragged to change their position in the table.  The drag: true in the table allows that column to be dragged.  If the drag is false the column can not be dragged; however, it can be dragged onto.  The setTable and setFooter will return the changed table and footer.  The footer has to have the same number of elements as the table.  The table has 5 elemenst and so does the footer.  Since you can drag columns it is using the new eachRowInTable (for more information see the eachRowInTable prop).  The table will be striped because of the sw-sst_stripe className.  The cells of the table will have black border because of the sw-sst_body_full className.  The hidden prop must be added to the SearchSortTable component to pass back the hidden array.  The choice prop on the SearchSortTable component indicates that there will be choice boxes on the filter input and since filterdaterange is true on the Date header in the sstable.
