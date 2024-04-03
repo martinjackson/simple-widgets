@@ -424,7 +424,7 @@ const _InnerSearchSortTable = (props) => {
       let localTable = fillMissingValsInTable(props.table);
 //      console.log('SearchSortTable useEffect [] ');
       populateSearch(localTable);
-      localTable.map(buildChoices);
+      localTable.forEach(buildChoices);
       setColumns(localCols);
     }, []);
 
@@ -435,7 +435,7 @@ const _InnerSearchSortTable = (props) => {
       
         setTable(localTable);
         populateSearch(localTable);
-        localTable.map(buildChoices);
+        localTable.forEach(buildChoices);
         setColumns(localCols);
     }, [props.table]);
 
