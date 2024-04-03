@@ -8,16 +8,21 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
-import { CheckBox } from './CheckBox.js';
-import { Choice } from './Choice.js';
-import { ChoiceText } from './ChoiceText.js';
-import { isInvalid, setInvalidScreen, generateInvalid,
-         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-import { AlertModal } from './AlertModal.js';
-import { generateCSSButton } from './Theme.js';
-import { currentDate, convertDate } from './DateFunct.js';
-import { formatMoney } from './Common.js';
-import { hasOwnProperty } from './hasOwnProperty.js';
+//import { CheckBox } from './CheckBox.js';
+//import { Choice } from './Choice.js';
+//import { ChoiceText } from './ChoiceText.js';
+//import { isInvalid, setInvalidScreen, generateInvalid,
+//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
+//import { AlertModal } from './AlertModal.js';
+//import { generateCSSButton } from './Theme.js';
+//import { currentDate, convertDate } from './DateFunct.js';
+//import { formatMoney } from './Common.js';
+//import { hasOwnProperty } from './hasOwnProperty.js';
+
+import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
+    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText, 
+    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
+ } from 'simple-widgets';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -70,6 +75,7 @@ const genDefaultColHeaders = (rowZero, hiddenLookupColumns) => {
  *
  ****************************************************************************/
 export const SearchSortTable = (propsPassed) => {
+console.log('SearchSortTable Local:');
 
     const hiddenLookupColumns = (propsPassed.hiddenLookupColumns) ? propsPassed.hiddenLookupColumns : []
 
@@ -252,6 +258,7 @@ const _InnerSearchSortTable = (props) => {
     const [checked, setChecked] = useState('N');                        // Indicates whether the checkbox in the header is checked (Y) or not
     const [dragOver, setDragOver] = useState('');
     const [userFooter, setUserFooter] = useState(props.footer);
+    const [originalTable] = useState(props.table);
 
     // TODO: Ask Jim  hideCols is never used
 
@@ -1168,7 +1175,7 @@ const _InnerSearchSortTable = (props) => {
         const { id } = e.target;
         const idx = table.findIndex(col => col.header === id);  // Find the index of the starting column
         e.dataTransfer.setData("colIdx", idx);  // Store the index of the starting column for the drag
-      };
+    };
     
     const handleDragOver = e => e.preventDefault();
 
@@ -1181,7 +1188,7 @@ const _InnerSearchSortTable = (props) => {
      * 
      *******************************************************************************************/
     const handleDragEnter = e => {
-        const { id } = e.target;
+        const id = e.target.textContent
         if (id !== '') setDragOver(id);
     };
     
@@ -1195,10 +1202,18 @@ const _InnerSearchSortTable = (props) => {
      * 
      *******************************************************************************************/
     const handleOnDrop = e => {
-//        const { id } = e.target;
-        const droppedColIdx = table.findIndex(col => col.header === dragOver);  // Index of where the column was dropped
-        const draggedColIdx = e.dataTransfer.getData("colIdx");                 // Index of the 
+        const id  = e.target.textContent;
+        const droppedColIdx = parseInt(table.findIndex(col => col.header === id));  // Index of where the column was dropped
+        const draggedColIdx = parseInt(e.dataTransfer.getData("colIdx"));                 // Index of the 
         const tempCols = [...table];
+
+        if (droppedColIdx === -1) {
+            return;
+        }
+
+        if (tempCols[droppedColIdx].drag === false) {
+            return;
+        }
     
         // Move the dragged column to its new location
         let temp = tempCols[draggedColIdx];         // Make a temporary copy of the starting column
@@ -1510,6 +1525,7 @@ const _InnerSearchSortTable = (props) => {
         setControlBreakInfo(ctrlBreakInfo);
         setFooters(locFooters);
         setControlBreakData(ctrlBreakData);
+        setTable(originalTable);
     }
 
     /************************************************************************************************************
@@ -2405,6 +2421,7 @@ const _InnerSearchSortTable = (props) => {
      *
      ***************************************************************************************************************************/
     function showDropDown(row, i) {
+    console.log('showDropDown :');
         let functionList = null;
 
         if (hasOwnProperty(row, 'type') === true) {    // The type of data for the column is table props
@@ -2417,7 +2434,11 @@ const _InnerSearchSortTable = (props) => {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         } else if (typeof props.data[0][row.name] === 'number') {
             functionList = ['', 'Summation', 'Average', 'Count', 'Count Distinct', 'Minimum', 'Maximum', 'Median'];
+        } else {
+            functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
+
+        console.log ('got here 1');
 
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
@@ -2437,6 +2458,8 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
+        console.log ('got here 2');
+
         let controlBreakRender = null;
         if (hasOwnProperty(props, 'nocontrolbreak') === false) {
             if (controlBreakInfo[i].ctrlBreak === 0) {
@@ -2454,6 +2477,8 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
+        console.log ('got here 3');
+        console.log('functionList :', functionList);
 
         // Render the drop down
         return (
@@ -2489,6 +2514,8 @@ const _InnerSearchSortTable = (props) => {
      *
      ***************************************************************************************************************************/
     function displayDropDown(_row, i) {
+    console.log('_row :', _row);
+    console.log('i :', i);
         setDropDownIndex(i);    // Indicates which column in the table the drop down should appear above
         setFunctSelect('');     // No aggregate function has been selected
         setHtmlDropDown(true);  // Display the drop down over the appropriate column
@@ -2604,7 +2631,7 @@ const _InnerSearchSortTable = (props) => {
                                             onDrop={handleOnDrop}
                                             onDragEnter={handleDragEnter} >
 
-                                        <div className={fontColor}>{row.header}</div>
+                                        <div className={"sw-sst_headerButton " + fontColor}>{row.header}</div>
                                     </th>)  // Display the header only
                         }
                     } else {    // Can filter; therefore, display the input field
@@ -2686,7 +2713,7 @@ const _InnerSearchSortTable = (props) => {
                                 onDragEnter={handleDragEnter} >
 
                                 {(i === dropDownIndex && main === true && htmlDropDown === true) ? showDropDown(row, i) : null}
-                                {(row.dropDown === true && main === true) ? <button className={fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
+                                {(row.dropDown === true && main === true) ? <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button> :
                                     <div className={fontColor}>{row.header}</div>}
                         </th> ); // Display the header only
             } else {    // Sorting on the column is allowed
