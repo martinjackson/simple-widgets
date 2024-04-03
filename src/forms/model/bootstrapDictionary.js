@@ -199,7 +199,9 @@ const argv = yargs(hideBin(process.argv))
   .help()
   .alias("help", "h").argv;
 
-if (argv.tables) {
+
+if (argv.tables && !argv.tables.contains('this') ) {
+  const tables = (argv.tables.split(',')
   genDictionaryEntry(argv.tables)
 } else {
   populateDictionary()
