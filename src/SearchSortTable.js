@@ -1,37 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint react/prop-types: 0 */
 
-import React, { useState, useEffect } from 'react'
-import { css } from "@emotion/react"
-import FadeLoader from "react-spinners/FadeLoader"
-import pdfMake from "pdfmake/build/pdfmake"
-import pdfFonts from "pdfmake/build/vfs_fonts"
-import { CSVLink } from 'react-csv'
+import React, { useState, useEffect } from 'react';
+import { css } from "@emotion/react";
+import FadeLoader from "react-spinners/FadeLoader";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import { CSVLink } from 'react-csv';
 
-// import { CheckBox } from './CheckBox.js'
-// import { Choice } from './Choice.js'
-// import { ChoiceText } from './ChoiceText.js'
+// import { CheckBox } from './CheckBox.js';
+// import { Choice } from './Choice.js';
+// import { ChoiceText } from './ChoiceText.js';
 // import { isInvalid, setInvalidScreen, generateInvalid,
 //          processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-// import { AlertModal } from './AlertModal.js'
-// import { generateCSSButton } from './Theme.js'
-// import { currentDate, convertDate } from './DateFunct.js'
-// import { formatMoney } from './Common.js'
-// import { hasOwnProperty } from './hasOwnProperty.js'
+// import { AlertModal } from './AlertModal.js';
+// import { generateCSSButton } from './Theme.js';
+// import { currentDate, convertDate } from './DateFunct.js';
+// import { formatMoney } from './Common.js';
+// import { hasOwnProperty } from './hasOwnProperty.js';
 
- import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
-  processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
-  generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
-} from './index.js'
+import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
+    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
+    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
+ } from './index.js'     // from 'simple-widgets';
 
 
-import funnel from './funnel-filter-svgrepo-com.svg'
+import funnel from './funnel-filter-svgrepo-com.svg';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
-const lower = [...'abcdefghijklmnopqrstuvwxyz']
-const digit = [...'0123456789']
+const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+const lower = [...'abcdefghijklmnopqrstuvwxyz'];
+const digit = [...'0123456789'];
 
 
 // ----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ const genDefaultColHeaders = (rowZero, hiddenLookupColumns) => {
  *
  ****************************************************************************/
 export const SearchSortTable = (propsPassed) => {
-console.log('SearchSortTable Local:')
+console.log('SearchSortTable Local:');
 
     const hiddenLookupColumns = (propsPassed.hiddenLookupColumns) ? propsPassed.hiddenLookupColumns : []
 
@@ -84,7 +84,7 @@ console.log('SearchSortTable Local:')
         let cols = null      // if no data yet
         if (row) {
           const keys = Object.keys(row)
-          const hideCols = new Array(keys.length).fill(null)
+          const hideCols = new Array(keys.length).fill(null);
           hiddenLookupColumns.forEach(i => hideCols[i] = true)
 
           cols = keys.map( (idx, j) => ( <td hidden={hideCols[idx]} key={i + '_' + j}>{row[idx]}</td> ) )
@@ -96,13 +96,13 @@ console.log('SearchSortTable Local:')
     }
 
     if (!propsPassed.data || !Array.isArray(propsPassed.data)) {
-        console.error('Search Sort Table component: props.data is missing/null or not an Array:', propsPassed.data)
+        console.error('Search Sort Table component: props.data is missing/null or not an Array:', propsPassed.data);
         return <><hr /></>
     }
 
     if (hasOwnProperty(propsPassed,'data') === false) {
-        console.error('Search Sort Table component: A data prop must be passed')
-        return (<span></span>)
+        console.error('Search Sort Table component: A data prop must be passed');
+        return (<span></span>);
     }
 
     const defaultColHeaders = () => { return genDefaultColHeaders(propsPassed.data[0], hiddenLookupColumns) }
@@ -114,17 +114,17 @@ console.log('SearchSortTable Local:')
       table: defaultColHeaders()                     // if no table def passed in as a prop, setup a default
     }
 
-    const props = Object.assign(defaultProps, propsPassed)
+    const props = Object.assign(defaultProps, propsPassed);
 
     if (hasOwnProperty(props,'table') === false) {                         // CAN NOT HAPPEN, see defaultProps
-        console.error('Search Sort Table component: A table object prop must be passed')
-        return (<span></span>)
+        console.error('Search Sort Table component: A table object prop must be passed');
+        return (<span></span>);
     }
 
     if (hasOwnProperty(props, 'table') === true && hasOwnProperty(props, 'footer') === true) {
         if (props.table.length !== props.footer.length) {
-            console.error('The table and footer must have the same number of elements.')
-            return (<span></span>)
+            console.error('The table and footer must have the same number of elements.');
+            return (<span></span>);
         }
     }
 
@@ -132,15 +132,15 @@ console.log('SearchSortTable Local:')
       if (hasOwnProperty(props,'noupper') === true &&
           hasOwnProperty(props,'nolower') === true &&
           hasOwnProperty(props,'nodigit') === true) {
-            console.error('Search Sort Table component: If using letters prop, can not have all three: noupper, nolower, and nodigit')
-            return (<span></span>)
+            console.error('Search Sort Table component: If using letters prop, can not have all three: noupper, nolower, and nodigit');
+            return (<span></span>);
         }
     } else {
       if (hasOwnProperty(props,'noupper') === true ||
           hasOwnProperty (props,'nolower') === true ||
           hasOwnProperty(props,'nodigit') === true) {
-            console.error('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop')
-            return (<span></span>)
+            console.error('Search Sort Table component: Can not have noupper, nolower, or nodigit props without the letters prop');
+            return (<span></span>);
         }
     }
 
@@ -151,31 +151,31 @@ console.log('SearchSortTable Local:')
 const _InnerSearchSortTable = (props) => {
     const invalidArray = generateInvalid(5, 0);  // Used to tell whether the user entered and invalid value or not
 
-    const FILTER = 0
-    const SRCHITEM = 1
-    const SRCHHDR = 2
-    const PDFORIENT = 3
-    const AGGREGATE = 4
+    const FILTER = 0;
+    const SRCHITEM = 1;
+    const SRCHHDR = 2;
+    const PDFORIENT = 3;
+    const AGGREGATE = 4;
 
     const numCols = (props.table) ? props.table.length : 10     // Number of columns displayed
-    let colAry = Array(numCols)
+    let colAry = Array(numCols);
     const initialFilters = Array(numCols).fill('');             // React doesn't like <input value={null}
     const initialSortOrder = Array(numCols).fill('N');          // Initial sort order, which is neither
 
     const initialBackground = Array(63).fill({backgroundColor: getComputedStyle(document.documentElement)
-                    .getPropertyValue('--sw-theme_backgroundColor')})
+                    .getPropertyValue('--sw-theme_backgroundColor')});
 
     let startIndexes = (props.data.length > 0) ? range(0, props.data.length-1) : [];    // Initial set of indexes
 
     let initFooters = new Array(numCols);    // Allocate the footer array
 
     for (let i = 0; i < initFooters.length; i++) {  // Blank out the footers
-        initFooters[i] = []
+        initFooters[i] = [];
     }
 
     const pdfOrientValues = ['', 'Portrait', 'Landscape'];  // How the page is oriented for the PDF
 
-    let searchValue = (hasOwnProperty(props, 'searchall') === true) ? 'All' : ''
+    let searchValue = (hasOwnProperty(props, 'searchall') === true) ? 'All' : '';
 
     /******************************************************************************************
      *
@@ -186,37 +186,37 @@ const _InnerSearchSortTable = (props) => {
      *
      *****************************************************************************************/
     const fillMissingValsInTable = (table) => {
-        let localTable = [...table]
+        let localTable = [...table];
         for (let i = 0; i < localTable.length; i++) {
             if (hasOwnProperty(localTable[i], 'align') === false) {
-                localTable[i]['align'] = 'sw-sst_center'
+                localTable[i]['align'] = 'sw-sst_center';
             }
 
             if (hasOwnProperty(localTable[i], 'headerAlign') === false) {
-                localTable[i]['headerAlign'] = 'sw-sst_center'
+                localTable[i]['headerAlign'] = 'sw-sst_center';
             }
 
             if (hasOwnProperty(localTable[i], 'pdfCol') === false) {
-                localTable[i]['pdfCol'] = 'left'
+                localTable[i]['pdfCol'] = 'left';
             }
 
             if (hasOwnProperty(localTable[i], 'drag') === false) {
-                localTable[i]['drag'] = false
+                localTable[i]['drag'] = false;
             }
 
             if (hasOwnProperty(localTable[i], 'dropDown') === false) {
-                localTable[i]['dropDown'] = false
+                localTable[i]['dropDown'] = false;
             }
 
             if (hasOwnProperty(localTable[i], 'filterdaterange') === false) {
-                localTable[i]['filterdaterange'] = false
+                localTable[i]['filterdaterange'] = false;
             }
         }
 
-        return localTable
+        return localTable;
     }
 
-    let initTable = fillMissingValsInTable(props.table)
+    let initTable = fillMissingValsInTable(props.table);
 
     // Set the state variables
     const [start, setStart] = useState(0);                              // The start of the pagination
@@ -256,14 +256,14 @@ const _InnerSearchSortTable = (props) => {
     const [excelData, setExcelData] = useState([]);                     // Contains the data to be placed in the excel spreadsheet
     const [showExcel, setShowExcel] = useState(false);                  // Indicates whether the Excel Display button can be displayed or not
     const [checked, setChecked] = useState('N');                        // Indicates whether the checkbox in the header is checked (Y) or not
-    const [dragOver, setDragOver] = useState('')
-    const [userFooter, setUserFooter] = useState(props.footer)
-    const [originalTable] = useState(props.table)
+    const [dragOver, setDragOver] = useState('');
+    const [userFooter, setUserFooter] = useState(props.footer);
+    const [originalTable] = useState(props.table);
 
     // TODO: Ask Jim  hideCols is never used
 
-    // const [indexSet, setIndexSet] = useState([[...startIndexes]])
-    // const [origIndexes, setOrigIndexes] = useState([...startIndexes])
+    // const [indexSet, setIndexSet] = useState([[...startIndexes]]);
+    // const [origIndexes, setOrigIndexes] = useState([...startIndexes]);
     const origIndexes = [...startIndexes];  // The original set of indexes that is used when the sort order is neither or control breaks are removed
 
     /*************************************************************************************************************
@@ -273,41 +273,41 @@ const _InnerSearchSortTable = (props) => {
      *
      **************************************************************************************************************/
     function populateDropDown (table, indexes) {
-        let isUserCtrlBreak = false
+        let isUserCtrlBreak = false;
         if (hasOwnProperty(props, 'controlBreak') === true) {
-            isUserCtrlBreak = true
+            isUserCtrlBreak = true;
             if (props.controlBreak.length !== table.length) {
-                console.log ('SearchSortTable: controlBreak array must be the same size as the table array')
-                console.log ('SearchSortTable: User controlBreak array will not be used')
-                isUserCtrlBreak = false
+                console.log ('SearchSortTable: controlBreak array must be the same size as the table array');
+                console.log ('SearchSortTable: User controlBreak array will not be used');
+                isUserCtrlBreak = false;
             }
 
             for (let i = 0; i < props.controlBreak.length; i++) {
                 if (hasOwnProperty(props.controlBreak[i], 'hidden') === false) {
                     console.log ('SearchSortTable: The hidden field is missing')
-                    console.log ('SearchSortTable: User controlBreak array will not be used')
-                    isUserCtrlBreak = false
+                    console.log ('SearchSortTable: User controlBreak array will not be used');
+                    isUserCtrlBreak = false;
                 }
 
                 if (hasOwnProperty(props.controlBreak[i], 'ctrlBreak') === false) {
                     console.log ('SearchSortTable: The ctrlBreak field is missing')
-                    console.log ('SearchSortTable: User controlBreak array will not be used')
-                    isUserCtrlBreak = false
+                    console.log ('SearchSortTable: User controlBreak array will not be used');
+                    isUserCtrlBreak = false;
                 }
             }
         }
 
         if (isUserCtrlBreak === true) {
-            setControlBreakInfo (props.controlBreak)
-            findCtrlBreak(props.controlBreak, indexes)
-            hideTheColumns(props.controlBreak)
+            setControlBreakInfo (props.controlBreak);
+            findCtrlBreak(props.controlBreak, indexes);
+            hideTheColumns(props.controlBreak);
         } else {
             let ctrlBreakAry = [];  // The control break info array
             for (let i = 0; i < table.length; i++) {
-                ctrlBreakAry.push ({hidden: false, ctrlBreak: 0 })
+                ctrlBreakAry.push ({hidden: false, ctrlBreak: 0 });
             }
 
-            setControlBreakInfo(ctrlBreakAry)
+            setControlBreakInfo(ctrlBreakAry);
         }
     }
 
@@ -324,7 +324,7 @@ const _InnerSearchSortTable = (props) => {
     function search(table, key) {
         for (let i = 0; i < table.length; i++) {
             if (table[i] === key) { // Key has been found in the table
-                return true
+                return true;
             }
         }
 
@@ -370,12 +370,12 @@ const _InnerSearchSortTable = (props) => {
                 'Next 5 Years',
                 'Next 7 Years',
                 'Next 10 Years',
-            ]
+            ];
         } else {
             // Spin through the data and place the data for that column in the values array, removing duplicates
             for (let j = 0; j < data.length; j++) {
                 if (search (values, data[j][row.name]) === false) {
-                    values.push(data[j][row.name])
+                    values.push(data[j][row.name]);
                 }
             }
 
@@ -384,33 +384,33 @@ const _InnerSearchSortTable = (props) => {
                 // Convert to upper case if ignoring case
                 if (typeof item1 === 'string' &&
                     hasOwnProperty(props,'ignorecase') === true) {
-                    // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null
+                    // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
                     item1 = item1.toUpperCase()
-                    item2 = (item2 !== null) ? item2.toUpperCase() : null
+                    item2 = (item2 !== null) ? item2.toUpperCase() : null;
                 }
 
                 // Make the comparison
                 if (item1 < item2) {
-                    return -1
+                    return -1;
                 } else if (item1 > item2) {
-                    return 1
+                    return 1;
                 } else {
                     return 0;   // Equal
                 }
-            })
+            });
         }
 
         localCols[i] = values;  // Place each choice box value in the localCols array
     }
 
     const resetTheIndexes = () => {
-        setFilterOn(false)
-        setStartEnd(0, origIndexes.length, origIndexes)
-        setIndexes(origIndexes)
-        setCopyIndex(origIndexes)
-        setLength(origIndexes.length)
-        sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes)
-        setDisable(0, origIndexes.length)
+        setFilterOn(false);
+        setStartEnd(0, origIndexes.length, origIndexes);
+        setIndexes(origIndexes);
+        setCopyIndex(origIndexes);
+        setLength(origIndexes.length);
+        sendIndexes(0, origIndexes.length, origIndexes.length, origIndexes);
+        setDisable(0, origIndexes.length);
     }
 
     /******************************************************************************
@@ -421,79 +421,79 @@ const _InnerSearchSortTable = (props) => {
 
     // ---------
     useEffect (() => {
-      let localTable = fillMissingValsInTable(props.table)
-//      console.log('SearchSortTable useEffect [] ')
-      populateSearch(localTable)
-      localTable.forEach(buildChoices)
-      setColumns(localCols)
-    }, [])
+      let localTable = fillMissingValsInTable(props.table);
+//      console.log('SearchSortTable useEffect [] ');
+      populateSearch(localTable);
+      localTable.map(buildChoices);
+      setColumns(localCols);
+    }, []);
 
     // ---------
     useEffect (() => {
-//      console.log('SearchSortTable useEffect [] props.table:', props.table)
-        let localTable = fillMissingValsInTable(props.table)
+//      console.log('SearchSortTable useEffect [] props.table:', props.table);
+        let localTable = fillMissingValsInTable(props.table);
 
-        setTable(localTable)
-        populateSearch(localTable)
-        localTable.forEach(buildChoices)
-        setColumns(localCols)
-    }, [props.table])
+        setTable(localTable);
+        populateSearch(localTable);
+        localTable.map(buildChoices);
+        setColumns(localCols);
+    }, [props.table]);
 
     // ---------
     useEffect (() => {
-//      console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table)
+//      console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
 
         if (!props.table && !table) {        // No table def passed in as a prop, setup a default
             let tableDef = props.defaultColHeaders()
             setTable(tableDef)
             populateSearch(tableDef)
-            tableDef.forEach(buildChoices)
-            setColumns(localCols)
+            tableDef.forEach(buildChoices);
+            setColumns(localCols);
         }
 
         if (indexes.length === 0 || props.data.length !== length) {   // There are no indexes
-            resetTheIndexes()
-            populateDropDown(props.table, origIndexes)
+            resetTheIndexes();
+            populateDropDown(props.table, origIndexes);
         } else {    // There are indexes
-            setDisable(start, length)
-            sendIndexes(start, end, length, indexes)
-            populateDropDown(props.table, indexes)
+            setDisable(start, length);
+            sendIndexes(start, end, length, indexes);
+            populateDropDown(props.table, indexes);
         }
 
-    }, [props.data])
+    }, [props.data]);
 
     // ---------
     useEffect (() => {
-//        console.log('SearchSortTable useEffect [props.data.length] ')
-        resetTheIndexes()
+//        console.log('SearchSortTable useEffect [props.data.length] ');
+        resetTheIndexes();
     }, [props.data.length, props.resetIndexes])
 
 
-/*    console.log('props.data.length :', props.data.length)
-    console.log ('start', start)
-    console.log ('end', end)
-    console.log ('length', length)
-    console.log ('indexes', indexes)
-    console.log ('maxItems', maxItems)
-    console.log ('maximum', maximum)
-    console.log ('origIndexes', origIndexes)
-    console.log ('startIndexes :', startIndexes)
+/*    console.log('props.data.length :', props.data.length);
+    console.log ('start', start);
+    console.log ('end', end);
+    console.log ('length', length);
+    console.log ('indexes', indexes);
+    console.log ('maxItems', maxItems);
+    console.log ('maximum', maximum);
+    console.log ('origIndexes', origIndexes);
+    console.log ('startIndexes :', startIndexes);
 */
 
 
-    let number = 0
+    let number = 0;
     if (hasOwnProperty(props, 'number') === true) {
-        number = props.number
+        number = props.number;
     }
 
-    let mathDecimal = 2
+    let mathDecimal = 2;
     if (hasOwnProperty(props, 'mathDecimal') === true) {
-        mathDecimal = parseInt(props.mathDecimal)
+        mathDecimal = parseInt(props.mathDecimal);
     }
 
-    let mathIgnoreCase = false
+    let mathIgnoreCase = false;
     if (hasOwnProperty(props, 'mathIgnoreCase') === true) {
-        mathIgnoreCase = props.mathIgnoreCase
+        mathIgnoreCase = props.mathIgnoreCase;
     }
 
     /****************************************************************************
@@ -509,7 +509,7 @@ const _InnerSearchSortTable = (props) => {
         let search = [''];      // The values for the drop down
 
         if (hasOwnProperty(props, 'searchall') === true) {
-            search[0] = 'All'
+            search[0] = 'All';
         }
 
         if (!table) {
@@ -519,25 +519,25 @@ const _InnerSearchSortTable = (props) => {
         // Build the items for the drop down, the sort order, and the filter
         for (let i = 0; i < table.length; i++) {
             if (table[i].search === true) {
-                search.push (table[i].header)
+                search.push (table[i].header);
             }
             if (hasOwnProperty(props,'nofilter') === true || props.nofilter === true) {
-                localFilter[i] = ''
+                localFilter[i] = '';
             }
         }
 
-        setSearchHeaderValues(search)
+        setSearchHeaderValues(search);
 
-        setFilter(localFilter)
+        setFilter(localFilter);
 
         // Build the values for the row drop down on the bottom right of the screen.
-        let values = []
+        let values = [];
         for (let count = props.MAX_ITEMS; count <= 100; count += 5) {
-            values.push(count)
+            values.push(count);
         }
 
-        values.push ('All')
-        setRowValues (values)
+        values.push ('All');
+        setRowValues (values);
     }
 
 
@@ -547,45 +547,45 @@ const _InnerSearchSortTable = (props) => {
      * Render the screen.
      *
      **************************************************************************************************/
-    let tableDivStyle = ''
+    let tableDivStyle = '';
     if (hasOwnProperty(props,'scroll') === true) {
-        tableDivStyle = 'sw-sst_scrollStyle'
+        tableDivStyle = 'sw-sst_scrollStyle';
     }
 
-    let heightWidthStyle = {}
+    let heightWidthStyle = {};
     if (hasOwnProperty(props, 'height') === true && hasOwnProperty(props, 'width') === false) {
-        heightWidthStyle = { height: props.height }
+        heightWidthStyle = { height: props.height };
     } else if (hasOwnProperty(props, 'height') === false && hasOwnProperty(props, 'width') === true) {
-        heightWidthStyle = { width: props.width }
+        heightWidthStyle = { width: props.width };
     } else if (hasOwnProperty(props, 'height') === true && hasOwnProperty(props, 'width') === true) {
-        heightWidthStyle = { height: props.height, width: props.width }
+        heightWidthStyle = { height: props.height, width: props.width };
     }
 
-    let filterBackground = null
+    let filterBackground = null;
     if (filterOn !== 'Y') {
-        filterBackground = 'sw-sst_imageStyleDisable'
+        filterBackground = 'sw-sst_imageStyleDisable';
     } else if (filterPressed === true && filterFound === true) {
-        filterBackground = 'sw-sst_imageStyleFilter'
+        filterBackground = 'sw-sst_imageStyleFilter';
     } else {
-        filterBackground = 'sw-sst_imageStyleNormal'
+        filterBackground = 'sw-sst_imageStyleNormal';
     }
 
-    let headerStyle = 'sw-sst_headerStyle'
+    let headerStyle = 'sw-sst_headerStyle';
     if (hasOwnProperty(props, 'noheaderborder') === true) {
-        headerStyle = 'sw-sst_headerStyle2'
+        headerStyle = 'sw-sst_headerStyle2';
     }
 
-    let footerStyle = 'sw-sst_footerStyle'
+    let footerStyle = 'sw-sst_footerStyle';
     if (hasOwnProperty(props, 'nofooterborder') === true) {
-        footerStyle = 'sw-sst_footerStyle2'
+        footerStyle = 'sw-sst_footerStyle2';
     }
 
-    const genButtonStyle         = generateCSSButton('sw-sst_buttonStyle', props.error, false, false, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground')
-    const genTopButtonStyle      = generateCSSButton('sw-sst_noButtonStyle', props.error, topDisabled, true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground')
-    const genPreviousButtonStyle = generateCSSButton('sw-sst_noButtonStyle', props.error, previousDisabled, true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground')
-    const genNextButtonStyle     = generateCSSButton('sw-sst_noButtonStyle', props.error, nextDisabled, true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground')
-    const genBottomButtonStyle   = generateCSSButton('sw-sst_noButtonStyle', props.error, bottomDisabled, true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground')
-    const genFilterStyle         = generateCSSButton(filterBackground,  props.error, filterOn !== 'Y', true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground')
+    const genButtonStyle         = generateCSSButton('sw-sst_buttonStyle', props.error, false, false, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground');
+    const genTopButtonStyle      = generateCSSButton('sw-sst_noButtonStyle', props.error, topDisabled, true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground');
+    const genPreviousButtonStyle = generateCSSButton('sw-sst_noButtonStyle', props.error, previousDisabled, true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground');
+    const genNextButtonStyle     = generateCSSButton('sw-sst_noButtonStyle', props.error, nextDisabled, true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground');
+    const genBottomButtonStyle   = generateCSSButton('sw-sst_noButtonStyle', props.error, bottomDisabled, true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground');
+    const genFilterStyle         = generateCSSButton(filterBackground,  props.error, filterOn !== 'Y', true, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground');
 
     const topSymbol = '|\u2BC7';        // Bar and left triangle
     const previousSymbol = '\u2BC7';    // Left triangle
@@ -594,74 +594,74 @@ const _InnerSearchSortTable = (props) => {
 
     // Populate the table with the next set of data to populate
 
-    let showData = []
+    let showData = [];
     if (props.data !== undefined && props.data !== null && indexes.length !== 0) {
         for (let i = start; i < end && i < props.data.length; i++) {
-            showData.push (props.data[indexes[i]])
+            showData.push (props.data[indexes[i]]);
         }
     }
 
-//    console.log('showData :', showData)
+//    console.log('showData :', showData);
 
     let letterDigit = [];   // The letters and digits to be displayed at the top of the table
     let letters = null;     // The HTML to display the letters on the screen
     if (hasOwnProperty(props,'letters') === true) {
         if (hasOwnProperty(props,'noupper') === true) {
             if (hasOwnProperty(props,'nolower') === true) {
-                letterDigit = [...digit]
+                letterDigit = [...digit];
             } else {    // Lower
                 if (hasOwnProperty(props,'nodigit') === true) {
-                    letterDigit = [...lower]
+                    letterDigit = [...lower];
                 } else {    // Digit
-                    letterDigit = [...lower, ...digit]
+                    letterDigit = [...lower, ...digit];
                 }
             }
         } else {    // Upper
             if (hasOwnProperty(props,'nolower') === true) {
                 if (hasOwnProperty(props,'nodigit') === true) {
-                    letterDigit = [...upper]
+                    letterDigit = [...upper];
                 } else {    // Digit
-                    letterDigit = [...upper, ...digit]
+                    letterDigit = [...upper, ...digit];
                 }
             } else {    // Lower
                 if (hasOwnProperty(props,'nodigit') === true) {
-                    letterDigit = [...upper, ...lower]
+                    letterDigit = [...upper, ...lower];
                 } else {    // Digit
-                    letterDigit = [...upper, ...lower, ...digit]
+                    letterDigit = [...upper, ...lower, ...digit];
                 }
             }
         }
 
-        letterDigit.push('^')
+        letterDigit.push('^');
         letters = <span key="letters"><br />{letterDigit.map(alphabet)}<br /><br /></span>
     }
 
-    let topButtonHTML = <span></span>
+    let topButtonHTML = <span></span>;
     if (hasOwnProperty(props,'notop') === false && hasOwnProperty(props,'showall') === false) {
-        topButtonHTML = <button name="top" className={genTopButtonStyle} onClick={() => topButton()} disabled={props.error || topDisabled}>{topSymbol}</button>
+        topButtonHTML = <button name="top" className={genTopButtonStyle} onClick={() => topButton()} disabled={props.error || topDisabled}>{topSymbol}</button>;
     }
 
-    let previousButtonHTML = <span></span>
+    let previousButtonHTML = <span></span>;
     if (hasOwnProperty(props,'noprevious') === false && hasOwnProperty(props,'showall') === false) {
-        previousButtonHTML = <button name="previous" className={genPreviousButtonStyle} onClick={() => previousButton()} disabled={props.error || previousDisabled}>{previousSymbol}</button>
+        previousButtonHTML = <button name="previous" className={genPreviousButtonStyle} onClick={() => previousButton()} disabled={props.error || previousDisabled}>{previousSymbol}</button>;
     }
 
-    let nextButtonHTML = <span></span>
+    let nextButtonHTML = <span></span>;
     if (hasOwnProperty(props,'nonext') === false && hasOwnProperty(props,'showall') === false) {
-        nextButtonHTML = <button name="next" className={genNextButtonStyle} onClick={() => nextButton()} disabled={props.error || nextDisabled}>{nextSymbol}</button>
+        nextButtonHTML = <button name="next" className={genNextButtonStyle} onClick={() => nextButton()} disabled={props.error || nextDisabled}>{nextSymbol}</button>;
     }
 
-    let bottomButtonHTML = <span></span>
+    let bottomButtonHTML = <span></span>;
     if (hasOwnProperty(props,'nobottom') === false && hasOwnProperty(props,'showall') === false) {
-        bottomButtonHTML = <button name="bottom" className={genBottomButtonStyle} onClick={() => bottomButton()} disabled={props.error || bottomDisabled}>{bottomSymbol}</button>
+        bottomButtonHTML = <button name="bottom" className={genBottomButtonStyle} onClick={() => bottomButton()} disabled={props.error || bottomDisabled}>{bottomSymbol}</button>;
     }
 
-    let allButtonHTML = <span></span>
+    let allButtonHTML = <span></span>;
     if (hasOwnProperty(props,'showall') === true) {
-        allButtonHTML = <button name="all" className={genBottomButtonStyle} onClick={() => allButton()} disabled={props.error}>All</button>
+        allButtonHTML = <button name="all" className={genBottomButtonStyle} onClick={() => allButton()} disabled={props.error}>All</button>;
     }
 
-    let title = null
+    let title = null;
     if (hasOwnProperty(props,'title') === true) {
         if (hasOwnProperty(props,'titleSize') === true) {
             if (props.titleSize === '1') {
@@ -693,9 +693,9 @@ const _InnerSearchSortTable = (props) => {
             </button>
         </>)
 
-    const searchStyle = processInvalidStyleScreen(invalid, SRCHHDR, 'sw-sst_searchStyle')
+    const searchStyle = processInvalidStyleScreen(invalid, SRCHHDR, 'sw-sst_searchStyle');
 
-    const itemStyle = processInvalidStyleScreen(invalid, SRCHITEM)
+    const itemStyle = processInvalidStyleScreen(invalid, SRCHITEM);
 
     const searchSection = (hasOwnProperty(props,'nosearch') === true) ? null :
         (<>
@@ -717,11 +717,11 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************************/
     function pdfRegButton() {
-        let title = 'PDF Report'
+        let title = 'PDF Report';
         if (hasOwnProperty(props, 'title') === true) {
-            title = props.title
+            title = props.title;
         } else if (hasOwnProperty(props, 'report') === true) {
-            title = props.report
+            title = props.report;
         }
 
         let docDefinition = {   // This contains the PDF report information
@@ -752,7 +752,7 @@ const _InnerSearchSortTable = (props) => {
                     alignment: 'center'
                 }
             }
-        }
+        };
 
         docDefinition.header = {    // Build the header and footer
             stack: [
@@ -761,24 +761,24 @@ const _InnerSearchSortTable = (props) => {
                 ]},
                 { text: title, style: 'header1' },
             ]
-        }
-        docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' }
+        };
+        docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' };
 
         // Place the page number at the bottom of each page
 
-        docDefinition.footer = function(currentPage, pageCount) { return {text: 'Page: ' + currentPage.toString() + ' of ' + pageCount + '   For Official Use Only', alignment: 'center'} }
+        docDefinition.footer = function(currentPage, pageCount) { return {text: 'Page: ' + currentPage.toString() + ' of ' + pageCount + '   For Official Use Only', alignment: 'center'} };
 
         if (props.data.length > 0) {
             let widths = [];    // The width of each of the field, will be auto
             let headers = [];   // The header for each row of the table
             for (let i = 0; i < table.length; i++) {    // See if the column in the table is to be hidden or not
                 if (controlBreakInfo[i].hidden === false) { // Not hidden
-                    headers.push({text: table[i].header, style: 'cellCenter' })
+                    headers.push({text: table[i].header, style: 'cellCenter' });
                 }
             }
 
             for (let i = 0; i < headers.length; i++) {
-                widths.push('auto')
+                widths.push('auto');
             }
 
             let tableSST =
@@ -790,48 +790,48 @@ const _InnerSearchSortTable = (props) => {
                         headers,
                     ],
                     alignment: 'center'
-            }}
+            }};
 
-            docDefinition.content.push(tableSST)
+            docDefinition.content.push(tableSST);
 
             // Print out a row in the table
             for (let i = 0; i < indexes.length; i++) {
-                let text = []
+                let text = [];
                 for (let j = 0; j < table.length; j++) {    // Process a column in the table
                     if (controlBreakInfo[j].hidden === false) {
                         // Determine the format of the cell
                         if (hasOwnProperty(table[j], 'pdfCol') === true) {
                             if (table[j].pdfCol === 'left') {
-                                text.push({ text: props.data[indexes[i]][table[j].name] })
+                                text.push({ text: props.data[indexes[i]][table[j].name] });
                             } else if (table[j].pdfCol === 'right') {
-                                text.push({ text: props.data[indexes[i]][table[j].name], style: 'cellRight' })
+                                text.push({ text: props.data[indexes[i]][table[j].name], style: 'cellRight' });
                             } else if (table[j].pdfCol === 'center') {
-                                text.push({ text: props.data[indexes[i]][table[j].name], style: 'cellCenter' })
+                                text.push({ text: props.data[indexes[i]][table[j].name], style: 'cellCenter' });
                             } else if (table[j].pdfCol === 'date') {
-                                text.push({ text: convertDate(props.data[indexes[i]][table[j].name]), style: 'cellCenter' })
+                                text.push({ text: convertDate(props.data[indexes[i]][table[j].name]), style: 'cellCenter' });
                             } else if (table[j].pdfCol === 'dateLeft') {
-                                text.push({ text: convertDate(props.data[indexes[i]][table[j].name]) })
+                                text.push({ text: convertDate(props.data[indexes[i]][table[j].name]) });
                             } else if (table[j].pdfCol === 'dateRight') {
-                                text.push({ text: convertDate(props.data[indexes[i]][table[j].name]), style: 'cellRight' })
+                                text.push({ text: convertDate(props.data[indexes[i]][table[j].name]), style: 'cellRight' });
                             } else if (table[j].pdfCol === 'money') {
-                                text.push({ text: formatMoney(props.data[indexes[i]][table[j].name]), style: 'cellRight' })
+                                text.push({ text: formatMoney(props.data[indexes[i]][table[j].name]), style: 'cellRight' });
                             } else {
-                                text.push({ text: props.data[indexes[i]][table[j].name] })
+                                text.push({ text: props.data[indexes[i]][table[j].name] });
                             }
                         } else if (typeof props.data[indexes[i]][table[j].name] === 'number') {
-                            text.push({ text: props.data[indexes[i]][table[j].name], style: 'cellRight' })
+                            text.push({ text: props.data[indexes[i]][table[j].name], style: 'cellRight' });
                         } else if (hasOwnProperty(table[j], 'dataDate') === true ||
                                    hasOwnProperty(table[j], 'filterDate') === true ||
                                    hasOwnProperty(table[j], 'searchDate') === true ||
                                    hasOwnProperty(table[j], 'sortDate') === true) {
-                            text.push({ text: convertDate(props.data[indexes[i]][table[j].name]), style: 'cellCenter' })
+                            text.push({ text: convertDate(props.data[indexes[i]][table[j].name]), style: 'cellCenter' });
                         } else {
-                            text.push({ text: props.data[indexes[i]][table[j].name] })
+                            text.push({ text: props.data[indexes[i]][table[j].name] });
                         }
                     }
                 }
 
-                docDefinition.content[0].table.body.push(text)
+                docDefinition.content[0].table.body.push(text);
             }
 
             // Process the aggregate footers
@@ -841,17 +841,17 @@ const _InnerSearchSortTable = (props) => {
                 if (footers[i].length > 0) {
                     let value = ''; // Build the footer
                     for (let j = 0; j < footers[i].length; j++) {
-                        value += footers[i][j] + '\n'
+                        value += footers[i][j] + '\n';
                     }
-                    text.push({ text: value, style: 'cellLeftBold' })
-                    foundFooter = true
+                    text.push({ text: value, style: 'cellLeftBold' });
+                    foundFooter = true;
                 } else {
-                    text.push ({ text: ' ', style: 'cellLeftBold' })
+                    text.push ({ text: ' ', style: 'cellLeftBold' });
                 }
             }
 
             if (foundFooter === true) { // A footer was found, so display it
-                docDefinition.content[0].table.body.push(text)
+                docDefinition.content[0].table.body.push(text);
             }
 
             pdfMake.createPdf(docDefinition).open();    // Build the PDF
@@ -864,11 +864,11 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************************/
     function pdfCBButton() {
-        let title = 'PDF Report'
+        let title = 'PDF Report';
         if (hasOwnProperty(props, 'title') === true) {
-            title = props.title
+            title = props.title;
         } else if (hasOwnProperty(props, 'report') === true) {
-            title = props.report
+            title = props.report;
         }
 
         let docDefinition = {   // This contains the PDF report information
@@ -904,7 +904,7 @@ const _InnerSearchSortTable = (props) => {
                     alignment: 'center'
                 }
             }
-        }
+        };
 
         docDefinition.header = {    // Build the header and footer
             stack: [
@@ -913,35 +913,35 @@ const _InnerSearchSortTable = (props) => {
                 ]},
                 { text: title, style: 'header1' },
             ]
-        }
-        docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' }
+        };
+        docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' };
 
         // Place the page number at the bottom of each page
 
-        docDefinition.footer = function(currentPage, pageCount) { return {text: 'Page: ' + currentPage.toString() + ' of ' + pageCount + '   For Official Use Only', alignment: 'center'} }
+        docDefinition.footer = function(currentPage, pageCount) { return {text: 'Page: ' + currentPage.toString() + ' of ' + pageCount + '   For Official Use Only', alignment: 'center'} };
 
         if (props.data.length > 0) {
             let index = 0;  // Indicates the next position in the content array
 
             for (let k = 0; k < controlBreakData.length; k++) { // Spin through the control break data
                 if (k !== 0) {  // If not the first control break, print out a blank line
-                    docDefinition.content.push ({ text: ' ', style: 'cellCenterBoldBig' })
-                    index++
+                    docDefinition.content.push ({ text: ' ', style: 'cellCenterBoldBig' });
+                    index++;
                     }
-                docDefinition.content.push ({ text: controlBreakData[k].title, style: 'cellCenterBoldBig' })
-                index++
+                docDefinition.content.push ({ text: controlBreakData[k].title, style: 'cellCenterBoldBig' });
+                index++;
 
                 let widths = [];    // The width of each of the field, will be auto
                 let headers = [];   // The header for each row of the table
                 for (let i = 0; i < table.length; i++) {
                     if (controlBreakInfo[i].hidden === false) {
-                        headers.push({text: table[i].header, style: 'cellCenter' })
+                        headers.push({text: table[i].header, style: 'cellCenter' });
                     }
                 }
 
                 for (let i = 0; i < headers.length; i++) {
                     if (controlBreakInfo[i].hidden === false) {
-                        widths.push('auto')
+                        widths.push('auto');
                     }
                 }
 
@@ -953,9 +953,9 @@ const _InnerSearchSortTable = (props) => {
                         body: [ // Build the table header
                             headers,
                         ]
-                }}
+                }};
 
-                docDefinition.content.push(tableSST)
+                docDefinition.content.push(tableSST);
 
                 for (let i = 0; i < controlBreakData[k].data.length; i++) { // Spin throught the data for each control break
                     let text = [];  // The text for each cell
@@ -964,36 +964,36 @@ const _InnerSearchSortTable = (props) => {
                             // Determine the format for the column
                             if (hasOwnProperty(table[j], 'pdfCol') === true) {
                                 if (table[j].pdfCol === 'left') {
-                                    text.push({ text: controlBreakData[k].data[i][table[j].name] })
+                                    text.push({ text: controlBreakData[k].data[i][table[j].name] });
                                 } else if (table[j].pdfCol === 'right') {
-                                    text.push({ text: controlBreakData[k].data[i][table[j].name], style: 'cellRight' })
+                                    text.push({ text: controlBreakData[k].data[i][table[j].name], style: 'cellRight' });
                                 } else if (table[j].pdfCol === 'center') {
-                                    text.push({ text: controlBreakData[k].data[i][table[j].name], style: 'cellCenter' })
+                                    text.push({ text: controlBreakData[k].data[i][table[j].name], style: 'cellCenter' });
                                 } else if (table[j].pdfCol === 'date') {
-                                    text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]), style: 'cellCenter' })
+                                    text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]), style: 'cellCenter' });
                                 } else if (table[j].pdfCol === 'dateLeft') {
-                                    text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]) })
+                                    text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]) });
                                 } else if (table[j].pdfCol === 'dateRight') {
-                                    text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]), style: 'cellRight' })
+                                    text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]), style: 'cellRight' });
                                 } else if (table[j].pdfCol === 'money') {
-                                    text.push({ text: formatMoney(controlBreakData[k].data[i][table[j].name]), style: 'cellRight' })
+                                    text.push({ text: formatMoney(controlBreakData[k].data[i][table[j].name]), style: 'cellRight' });
                                 } else {
-                                    text.push({ text: controlBreakData[k].data[i][table[j].name] })
+                                    text.push({ text: controlBreakData[k].data[i][table[j].name] });
                                 }
                             } else if (typeof controlBreakData[k].data[i][table[j].name] === 'number') {
-                                text.push({ text: controlBreakData[k].data[i][table[j].name], style: 'cellRight' })
+                                text.push({ text: controlBreakData[k].data[i][table[j].name], style: 'cellRight' });
                             } else if (hasOwnProperty(table[j], 'dataDate') === true ||
                                        hasOwnProperty(table[j], 'filterDate') === true ||
                                        hasOwnProperty(table[j], 'searchDate') === true ||
                                        hasOwnProperty(table[j], 'sortDate') === true) {
-                                text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]), style: 'cellCenter' })
+                                text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]), style: 'cellCenter' });
                             } else {
-                                text.push({ text: controlBreakData[k].data[i][table[j].name] })
+                                text.push({ text: controlBreakData[k].data[i][table[j].name] });
                             }
                         }
                     }
 
-                    docDefinition.content[index].table.body.push(text)
+                    docDefinition.content[index].table.body.push(text);
                 }
 
                 let foundFooter = false;    // Indicates that a footer was found, so place it in the PDF
@@ -1002,20 +1002,20 @@ const _InnerSearchSortTable = (props) => {
                     if (controlBreakData[k].footer[i].length > 0) { // There is a footer
                         let value = ''; // Value for the footer
                         for (let j = 0; j < controlBreakData[k].footer[i].length; j++) {    // Build the footer
-                            value += controlBreakData[k].footer[i][j] + '\n'
+                            value += controlBreakData[k].footer[i][j] + '\n';
                         }
-                        text.push({ text: value, style: 'cellLeftBold' })
-                        foundFooter = true
+                        text.push({ text: value, style: 'cellLeftBold' });
+                        foundFooter = true;
                     } else {    // No footer found for that column
-                        text.push({ text: ' ', style: 'cellLeftBold' })
+                        text.push({ text: ' ', style: 'cellLeftBold' });
                     }
                 }
 
                 if (foundFooter === true) { // Place the footer in the column for the table
-                    docDefinition.content[index].table.body.push(text)
+                    docDefinition.content[index].table.body.push(text);
                 }
 
-                index++
+                index++;
             }
 
             pdfMake.createPdf(docDefinition).open();    // Build the PDF
@@ -1030,15 +1030,15 @@ const _InnerSearchSortTable = (props) => {
     function pdfButton() {
         let localInvalid = [...invalid];    // Makes sure a page orientation for the PDF was selected
         if (pdfOrientation === '' || pdfOrientation === null || pdfOrientation === undefined) {
-            localInvalid = setInvalidScreen(localInvalid, PDFORIENT, 'An orientation must be entered for the PDF')
-            setInvalid(localInvalid)
-            return
+            localInvalid = setInvalidScreen(localInvalid, PDFORIENT, 'An orientation must be entered for the PDF');
+            setInvalid(localInvalid);
+            return;
         }
 
         if (isControlBreak(controlBreakInfo) === true) {    // There is a control break
-            pdfCBButton()
+            pdfCBButton();
         } else {    // No control break
-            pdfRegButton()
+            pdfRegButton();
         }
     }
 
@@ -1048,43 +1048,43 @@ const _InnerSearchSortTable = (props) => {
      *
      *********************************************************************************************************************/
     function excelRegButton() {
-        let title = 'Excel Report'
+        let title = 'Excel Report';
         if (hasOwnProperty(props, 'title') === true) {
-            title = props.title
+            title = props.title;
         } else if (hasOwnProperty(props, 'report') === true) {
-            title = props.report
+            title = props.report;
         }
 
         let exData = [];    // The data for the excel spreadsheet
 
         // Title for the excel spreadsheet
-        exData.push(['Report Date: ' +  currentDate()])
-        exData.push([' '])
-        exData.push([title])
-        exData.push([' '])
+        exData.push(['Report Date: ' +  currentDate()]);
+        exData.push([' ']);
+        exData.push([title]);
+        exData.push([' ']);
 
         let header = [];    // Header for the excel spreadsheet
         for (let i = 0; i < table.length; i++) {
-            header.push(table[i].header)
+            header.push(table[i].header);
         }
 
-        exData.push(header)
+        exData.push(header);
         exData.push([' ']);     // Blank line
 
         // Data for the excel spreadsheet
         for (let i = 0; i < props.data.length; i++) {
-            let text = []
+            let text = [];
             for (let j = 0; j < table.length; j++) {
-                text.push(props.data[indexes[i]][table[j].name])
+                text.push(props.data[indexes[i]][table[j].name]);
             }
-            exData.push(text)
+            exData.push(text);
         }
 
         // Footer at the bottom of the spreadsheet
-        exData.push([' '])
-        exData.push[['For Offical Use Only']]
+        exData.push([' ']);
+        exData.push[['For Offical Use Only']];
 
-        setExcelData(exData)
+        setExcelData(exData);
         setShowExcel(true); // Show the Excel Display button
     }
 
@@ -1095,49 +1095,49 @@ const _InnerSearchSortTable = (props) => {
      *
      *********************************************************************************************************************/
     function excelCBButton() {
-        let title = 'Excel Report'
+        let title = 'Excel Report';
         if (hasOwnProperty(props, 'title') === true) {
-            title = props.title
+            title = props.title;
         } else if (hasOwnProperty(props, 'report') === true) {
-            title = props.report
+            title = props.report;
         }
 
         let exData = [];    // Data for the excel spreadsheet
 
         // Title for the excel spreadsheet
-        exData.push(['Report Date: ' +  currentDate()])
-        exData.push([' '])
-        exData.push([title])
-        exData.push([' '])
+        exData.push(['Report Date: ' +  currentDate()]);
+        exData.push([' ']);
+        exData.push([title]);
+        exData.push([' ']);
 
         // Header for the excel spreadsheet
-        let header = []
+        let header = [];
         for (let i = 0; i < table.length; i++) {
-            header.push(table[i].header)
+            header.push(table[i].header);
         }
 
         // Data for the excel spreadsheet
         for (let k = 0; k < controlBreakData.length; k++) {
-            exData.push([' '])
-            exData.push([' '])
-            exData.push([controlBreakData[k].title])
-            exData.push(header)
-            exData.push([' '])
+            exData.push([' ']);
+            exData.push([' ']);
+            exData.push([controlBreakData[k].title]);
+            exData.push(header);
+            exData.push([' ']);
 
             for (let i = 0; i < controlBreakData[k].data.length; i++) {
-                let text = []
+                let text = [];
                 for (let j = 0; j < table.length; j++) {
-                    text.push(controlBreakData[k].data[i][table[j].name])
+                    text.push(controlBreakData[k].data[i][table[j].name]);
                 }
-                exData.push(text)
+                exData.push(text);
             }
         }
 
         // Footer at the bottom of the spreadsheet
-        exData.push([' '])
-        exData.push[['For Offical Use Only']]
+        exData.push([' ']);
+        exData.push[['For Offical Use Only']];
 
-        setExcelData(exData)
+        setExcelData(exData);
         setShowExcel(true); // Show the Excel Display button
     }
 
@@ -1148,9 +1148,9 @@ const _InnerSearchSortTable = (props) => {
      *****************************************************************************************************************/
     function excelBuildButton() {
         if (isControlBreak(controlBreakInfo) === true) {    // There is a control break in the search sort table
-            excelCBButton()
+            excelCBButton();
         } else {    // No control break
-            excelRegButton()
+            excelRegButton();
         }
     }
 
@@ -1160,7 +1160,7 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************************/
     function closeExDisplay() {
-        setShowExcel(false)
+        setShowExcel(false);
     }
 
     /*******************************************************************************************
@@ -1172,12 +1172,12 @@ const _InnerSearchSortTable = (props) => {
      *
      *******************************************************************************************/
     const handleDragStart = e => {
-        const { id } = e.target
+        const { id } = e.target;
         const idx = table.findIndex(col => col.header === id);  // Find the index of the starting column
         e.dataTransfer.setData("colIdx", idx);  // Store the index of the starting column for the drag
-    }
+    };
 
-    const handleDragOver = e => e.preventDefault()
+    const handleDragOver = e => e.preventDefault();
 
     /*******************************************************************************************
      *
@@ -1189,8 +1189,8 @@ const _InnerSearchSortTable = (props) => {
      *******************************************************************************************/
     const handleDragEnter = e => {
         const id = e.target.textContent
-        if (id !== '') setDragOver(id)
-    }
+        if (id !== '') setDragOver(id);
+    };
 
     /*******************************************************************************************
      *
@@ -1202,17 +1202,17 @@ const _InnerSearchSortTable = (props) => {
      *
      *******************************************************************************************/
     const handleOnDrop = e => {
-        const id  = e.target.textContent
+        const id  = e.target.textContent;
         const droppedColIdx = parseInt(table.findIndex(col => col.header === id));  // Index of where the column was dropped
         const draggedColIdx = parseInt(e.dataTransfer.getData("colIdx"));                 // Index of the
-        const tempCols = [...table]
+        const tempCols = [...table];
 
         if (droppedColIdx === -1) {
-            return
+            return;
         }
 
         if (tempCols[droppedColIdx].drag === false) {
-            return
+            return;
         }
 
         // Move the dragged column to its new location
@@ -1222,27 +1222,27 @@ const _InnerSearchSortTable = (props) => {
 
         // This will move the Math footers in control breaks
         if (controlBreakVal === true) {
-            let localData = [...controlBreakData]
+            let localData = [...controlBreakData];
             for (let i = 0; i < localData.length; i++) {
                 let temp = localData[i].footer[draggedColIdx];          // Make a temporary copy of the starting footer
                 localData[i].footer.splice (draggedColIdx, 1);          // Remove the starting footer
                 localData[i].footer.splice (droppedColIdx, 0, temp);    // Insert the footer where it was dropped
 
-                setControlBreakData(localData)
+                setControlBreakData(localData);
             }
         } else {    // Math footers not in control breaks
-            let localFooters = [...footers]
+            let localFooters = [...footers];
             let temp = localFooters[draggedColIdx];         // Make a temporary copy of the Math Footer
             localFooters.splice (draggedColIdx, 1);         // Remove the starting Math footer
             localFooters.splice (droppedColIdx, 0, temp);   // Insert the Math footer where it was dropped
 
-            setFooters(localFooters)
+            setFooters(localFooters);
         }
 
         // Normal user footer
-        let localUserFooter = null
+        let localUserFooter = null;
         if (hasOwnProperty(props, 'footer') === true) { // There is a user footer
-            localUserFooter = [...userFooter]
+            localUserFooter = [...userFooter];
             temp = localUserFooter[draggedColIdx];              // Make a temporary copy of the user footer
             localUserFooter.splice (draggedColIdx, 1);          // Remove the starting user footer
             localUserFooter.splice (droppedColIdx, 0, temp);    // Insert the user footer where it was dropped
@@ -1256,10 +1256,10 @@ const _InnerSearchSortTable = (props) => {
             props.setTheFooter(localUserFooter);                // storage in the parent
         }
 
-        setTable(tempCols)
-        setUserFooter(localUserFooter)
-        setDragOver("")
-    }
+        setTable(tempCols);
+        setUserFooter(localUserFooter);
+        setDragOver("");
+    };
 
     // This will display the PDF button and the Orientation choice box on the screen
     const pdfDisplay = (props.nopdf === true) ? null :
@@ -1273,7 +1273,7 @@ const _InnerSearchSortTable = (props) => {
                     className={processInvalidStyleScreen(invalid, PDFORIENT)} />
                 {(isInvalid(invalid[PDFORIENT], -1) === true) ? <span className="sw-invalid_errMessage">{invalid[PDFORIENT].message}</span> : null }
             </span>
-        </span>
+        </span>;
 
     // This will display the Excel Build and Excel Display button on the screen
     const excelDisplay = (props.noexcel === true) ? null :
@@ -1281,14 +1281,14 @@ const _InnerSearchSortTable = (props) => {
             <button name="excelBuild" className={genButtonStyle} onClick={excelBuildButton} >Excel Build</button>
             {(showExcel === false) ? null :
                 <CSVLink data={excelData} target="_blank" onClick={closeExDisplay} className="sw-sst_excelButtonStyle">Excel Display</CSVLink> }
-        </span>
+        </span>;
 
     // This will determine if both the PDF and Excel buttons and choice box should be displayed or not
     const pdfExcel = (props.nopdf === true && props.noexcel === true) ? null :
         <div className="sw-sst_footStyle2">
             {pdfDisplay}
             {excelDisplay}
-        </div>
+        </div>;
 
     // Indicates whether the footer displaying the pagination on the bottom right corner of the search sort table should be displayed
     const footer = (hasOwnProperty(props,'nofooter') === true) ? null :
@@ -1310,26 +1310,26 @@ const _InnerSearchSortTable = (props) => {
             </div>
         </div>
 
-    let hoverClassName = `sw-sst_tableStyle `
+    let hoverClassName = `sw-sst_tableStyle `;
     if (hasOwnProperty(props,'hover') === true) {  // A row can be hovered over
         let root = document.documentElement;    // The root of the DOM
         let hoverBackColor = 'cyan';            // The default hover color
         let found = false;                      // Indicates whether more than 10 colors have been placed in the CSS
 
         if (hasOwnProperty(props,'hoverColor') === true) { // The default hover color is to be changed
-            hoverBackColor = props.hoverColor
+            hoverBackColor = props.hoverColor;
         }
 
         // Set the hover color in the CSS
         for (let i = 1; i <= 10 && found === false; i++) {
-            let colorValue = getComputedStyle(root).getPropertyValue(`--sw-sst_hover_back_color${i}`)
+            let colorValue = getComputedStyle(root).getPropertyValue(`--sw-sst_hover_back_color${i}`);
             if (colorValue === 'none') {
-                root.style.setProperty(`--sw-sst_hover_back_color${i}`, hoverBackColor)
-                hoverClassName += `sw-sst_search_sort_table${i}`
-                found = true
+                root.style.setProperty(`--sw-sst_hover_back_color${i}`, hoverBackColor);
+                hoverClassName += `sw-sst_search_sort_table${i}`;
+                found = true;
             } else if (colorValue === hoverBackColor) {
-                hoverClassName += `sw-sst_search_sort_table${i}`
-                found = true
+                hoverClassName += `sw-sst_search_sort_table${i}`;
+                found = true;
             }
         }
 
@@ -1340,8 +1340,8 @@ const _InnerSearchSortTable = (props) => {
 
      if (!table) {    // Loading (no Table Col Defs yet, no data yet)
       const override = css`
-        margin: 0 auto
-        `
+        margin: 0 auto;
+        `;
       const msg = (props.spinner) ?
           <div style={{height: '6em'}}>
             <h3>Loading</h3>
@@ -1352,14 +1352,14 @@ const _InnerSearchSortTable = (props) => {
       return msg
     }
 
-    let controlBreakVal = isControlBreak(controlBreakInfo)
+    let controlBreakVal = isControlBreak(controlBreakInfo);
 
-    let tableBuild = null
+    let tableBuild = null;
 
-    let cbCount = -1
+    let cbCount = -1;
     if (controlBreakVal === true) { // Display control break tables
-        let cbTable = `cbtitles_${number}`
-        let cbHeader = `cbhead_${number}`
+        let cbTable = `cbtitles_${number}`;
+        let cbHeader = `cbhead_${number}`;
 
         // Build the tables for the control breaks by rendering the headers in blue at the top and
         // each control break table following
@@ -1376,9 +1376,9 @@ const _InnerSearchSortTable = (props) => {
                             {controlBreakData.map(renderCtrlBreak) }
                         </span>
     } else {    // Regular search sort table
-        let keyTable = `table_${number}`
-        let header = `head_${number}`
-        let count = -1
+        let keyTable = `table_${number}`;
+        let header = `head_${number}`;
+        let count = -1;
         tableBuild =    <table className={hoverClassName + " sw-sst_table"} name={`table${number}`} key={keyTable}>
                             <thead>
                                 <tr key={header} className="sw-sst_centerBoldStyle">
@@ -1387,8 +1387,8 @@ const _InnerSearchSortTable = (props) => {
                             </thead>
                             <tbody>
                                 { showData.map((row) => {
-                                    count++
-                                    return props.eachRowInTable(row, count)
+                                    count++;
+                                    return props.eachRowInTable(row, count);
                                 }) }
                                 { (hasOwnProperty(props,'footer') === true) ?
                                     <tr className="footerStyle">{ userFooter.map(buildFooter) }</tr> : null }
@@ -1460,7 +1460,7 @@ const _InnerSearchSortTable = (props) => {
             }
             <AlertModal show={showAlert} closeFunct={setShowAlert} message={alertMessage} />
         </div>
-    )
+    );
 
     /*************************************************************************************
      *
@@ -1471,9 +1471,9 @@ const _InnerSearchSortTable = (props) => {
      **************************************************************************************/
     function processMaxItems(value) {
         if (value === 'All') {  // All data should be shown
-            setMaxItems(props.data.length)
+            setMaxItems(props.data.length);
         } else {
-            setMaxItems(parseInt(value))
+            setMaxItems(parseInt(value));
         }
         setMaximum(value);  // Used so the value will show on the drop down
     }
@@ -1487,8 +1487,8 @@ const _InnerSearchSortTable = (props) => {
      *
      **********************************************************************************/
     function setupSearch(value) {
-        setStartEnd(0, length, indexes)
-        setSearchItem(value)
+        setStartEnd(0, length, indexes);
+        setSearchItem(value);
     }
 
     /******************************************************************************************************************
@@ -1498,34 +1498,34 @@ const _InnerSearchSortTable = (props) => {
      *
      *******************************************************************************************************************/
     function resetButton() {
-        let ctrlBreakInfo = [...controlBreakInfo]
-        let locFooters = [...footers]
-        let ctrlBreakData = [...controlBreakData]
+        let ctrlBreakInfo = [...controlBreakInfo];
+        let locFooters = [...footers];
+        let ctrlBreakData = [...controlBreakData];
 
         // Remove the hidden columns and control breaks
         for (let i = 0; i < ctrlBreakInfo.length; i++) {
-            ctrlBreakInfo[i].hidden = false
-            ctrlBreakInfo[i].ctrlBreak = 0
+            ctrlBreakInfo[i].hidden = false;
+            ctrlBreakInfo[i].ctrlBreak = 0;
         }
 
         for (let i = 0; i < locFooters.length; i++) {   // Remove the footers
-            locFooters[i] = []
+            locFooters[i] = [];
         }
 
         for (let i = 0; i < ctrlBreakData.length; i++) {    // Remove the control break data
             for (let j = 0; j < ctrlBreakData[i].footer.length; j++) {
-                ctrlBreakData[i].footer[j] = []
+                ctrlBreakData[i].footer[j] = [];
             }
-            ctrlBreakData[i].title = ''
+            ctrlBreakData[i].title = '';
         }
 
-        hideTheColumns(ctrlBreakInfo)
+        hideTheColumns(ctrlBreakInfo);
 
         setIndex(origIndexes);  // Set the indexes back to the original indexes
-        setControlBreakInfo(ctrlBreakInfo)
-        setFooters(locFooters)
-        setControlBreakData(ctrlBreakData)
-        setTable(originalTable)
+        setControlBreakInfo(ctrlBreakInfo);
+        setFooters(locFooters);
+        setControlBreakData(ctrlBreakData);
+        setTable(originalTable);
     }
 
     /************************************************************************************************************
@@ -1574,9 +1574,9 @@ const _InnerSearchSortTable = (props) => {
      *
      ***********************************************************************************************************************/
     function hideColumn(_row, i) {
-        let ctrlBreakInfo = [...controlBreakInfo]
+        let ctrlBreakInfo = [...controlBreakInfo];
         ctrlBreakInfo[i].hidden = true;                 // Hide that particular column in the search sort table
-        hideTheColumns(ctrlBreakInfo)
+        hideTheColumns(ctrlBreakInfo);
 //        ctrlBreakInfo.forEach(findHiddenColumns(true));     // Find the column that is to be hidden in the DOM and add the hidden attribute
         setControlBreakInfo(controlBreakInfo)
         setHtmlDropDown(false);                         // Hide the dropdown in the column
@@ -1592,9 +1592,9 @@ const _InnerSearchSortTable = (props) => {
      *
      ***********************************************************************************************************************/
     function showColumn(_row, i) {
-        let ctrlBreakInfo = [...controlBreakInfo]
+        let ctrlBreakInfo = [...controlBreakInfo];
         ctrlBreakInfo[i].hidden = false;                // Show that particular column in the search sort table
-        hideTheColumns(ctrlBreakInfo)
+        hideTheColumns(ctrlBreakInfo);
 //        ctrlBreakInfo.forEach(findHiddenColumns(false));    // Find the column that is to be shown in the DOM and add the hidden attribute
         setControlBreakInfo(controlBreakInfo)
         setHtmlDropDown(false);                         // Hide the dropdown in the column
@@ -1612,7 +1612,7 @@ const _InnerSearchSortTable = (props) => {
         let max = -1;   // The next sort order number
         for (let i = 0; i < controlBreakInfo.length; i++) { // Find the maximum sort order number for the control breaks
             if (controlBreakInfo[i].ctrlBreak > max) {
-                max = controlBreakInfo[i].ctrlBreak
+                max = controlBreakInfo[i].ctrlBreak;
             }
         }
 
@@ -1631,31 +1631,31 @@ const _InnerSearchSortTable = (props) => {
     function buildSortData (breakOrder, row) {
         let data = [];  // The data for the control break
         for (let i = 0; i < breakOrder.length; i++) {   // Spin through the control break sort order
-            let dateFormat = null
+            let dateFormat = null;
             if (hasOwnProperty(table[breakOrder[i].col], 'sortDate')) {    // There is a sort data in the table props
-                dateFormat = table[breakOrder[i].col].sortDate
+                dateFormat = table[breakOrder[i].col].sortDate;
             }
 
             if (dateFormat !== null) {  // Convert the date to its sort date format
                 if (dateFormat === 'MM/DD/YYYY') {
-                    data.push(convertDate2(props.data[row][table[breakOrder[i].col].name], '/', 1))
+                    data.push(convertDate2(props.data[row][table[breakOrder[i].col].name], '/', 1));
                 } else if (dateFormat === 'MM-DD-YYYY') {
-                    data.push(convertDate2(props.data[row][table[breakOrder[i].col].name], '-', 1))
+                    data.push(convertDate2(props.data[row][table[breakOrder[i].col].name], '-', 1));
                 } else if (dateFormat === 'MM/DD/YYYY HH:MM:SS') {
-                    data.push(convertDateTime(props.data[row][table[breakOrder[i].col].name], '/', 1))
+                    data.push(convertDateTime(props.data[row][table[breakOrder[i].col].name], '/', 1));
                 } else if (dateFormat === 'MM-DD-YYYY HH:MM:SS') {
-                    data.push(convertDateTime(props.data[row][table[breakOrder[i].col].name], '-', 1))
+                    data.push(convertDateTime(props.data[row][table[breakOrder[i].col].name], '-', 1));
                 } else if (dateFormat === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                    data.push(convertDateTimeReg (props.data[row][table[breakOrder[i].col].name]))
+                    data.push(convertDateTimeReg (props.data[row][table[breakOrder[i].col].name]));
                 } else {
-                    data.push(props.data[row][table[breakOrder[i].col].name])
+                    data.push(props.data[row][table[breakOrder[i].col].name]);
                 }
             } else {    // No sort date format
-                data.push(props.data[row][table[breakOrder[i].col].name])
+                data.push(props.data[row][table[breakOrder[i].col].name]);
             }
         }
 
-        return data
+        return data;
     }
 
     /*********************************************************************************************************************
@@ -1677,19 +1677,19 @@ const _InnerSearchSortTable = (props) => {
         // Copy the control break order from the control break info
         for (let i = 0; i < ctrlBreakInfo.length; i++) {
             if (ctrlBreakInfo[i].ctrlBreak > 0) {
-                breakOrder.push ({ col: i, order: ctrlBreakInfo[i].ctrlBreak})
+                breakOrder.push ({ col: i, order: ctrlBreakInfo[i].ctrlBreak});
             }
         }
 
         // Sort the control break order
         breakOrder.sort(function (item1, item2) {
-            return item1.order - item2.order
-        })
+            return item1.order - item2.order;
+        });
 
         // Build the indexes for each control break
         indexes.forEach ((row) => {
-            sortAry.push ({ index: row, data: buildSortData(breakOrder, row) })
-        })
+            sortAry.push ({ index: row, data: buildSortData(breakOrder, row) });
+        });
 
         // Sort the indexes based on the control break sort order
         sortAry.sort(function (item1, item2) {
@@ -1707,22 +1707,22 @@ const _InnerSearchSortTable = (props) => {
 
                 // Make the comparison
                 if (a < b) {
-                    return -1
+                    return -1;
                 } else if (a > b) {
-                    return 1
+                    return 1;
                 }
             }
 
-            return 0
-        })
+            return 0;
+        });
 
         // Build the new indexes for the control break
-        let newIndexes = []
-        sortAry.forEach((row) => newIndexes.push(row.index))
+        let newIndexes = [];
+        sortAry.forEach((row) => newIndexes.push(row.index));
 
-        setIndex(newIndexes, false)
+        setIndex(newIndexes, false);
 
-        return { indexes: newIndexes, srtOrder: breakOrder }
+        return { indexes: newIndexes, srtOrder: breakOrder };
     }
 
     /***********************************************************************************************************************
@@ -1742,13 +1742,13 @@ const _InnerSearchSortTable = (props) => {
         let done = false;   // Indicates that the table position and index has been found
 
         for (let i = 0; i < controlBreakData.length && done === false; i++) {
-            length = controlBreakData[i].data.length
+            length = controlBreakData[i].data.length;
             if (count + length < point) {   // The point is not in this control break table
-                count += length
+                count += length;
             } else {    // The point is in the control break table
-                tablePos = i
-                index = (point - count)
-                done = true
+                tablePos = i;
+                index = (point - count);
+                done = true;
             }
         }
 
@@ -1767,8 +1767,8 @@ const _InnerSearchSortTable = (props) => {
         let infoObj = { tableStart: starting.table, // Place the starting and ending position in an object
                         startIndex: starting.index, // and return the object
                         tableEnd: ending.table,
-                        endIndex: ending.index }
-        return infoObj
+                        endIndex: ending.index };
+        return infoObj;
     }
 
     /*************************************************************************************************************************
@@ -1786,18 +1786,18 @@ const _InnerSearchSortTable = (props) => {
         let data = [];                      // The data for the control break
 
         if (i < tableCBInfo.tableStart) {   // Have not reached the starting control break table for the paginantion
-            return null
+            return null;
         } else if (tableCBInfo.tableStart === i) {      // At the start control break table to be displayed
             let end = controlBreakData[i].data.length;  // Set the ending of the pagination at the end of the control break table
             if (tableCBInfo.tableEnd === i) {           // The end of the pagination is before the end of the control break table
-                end = tableCBInfo.endIndex
+                end = tableCBInfo.endIndex;
             }
 
             // This pagination will reach the end of the control break table, so display any footers
             for (let j = tableCBInfo.startIndex; j < end; j++) {
                 data.push(row.data[j]); // Copy the data to be displayed
                 if (j + 1 === controlBreakData[i].data.length) {
-                    displayFooter = true
+                    displayFooter = true;
                 }
             }
         } else if (i < tableCBInfo.tableEnd) {  // Have not reached the ending control break table
@@ -1807,16 +1807,16 @@ const _InnerSearchSortTable = (props) => {
             for (let j = 0; j < tableCBInfo.endIndex; j++) {
                 data.push (row.data[j]);    // Copy the data to be displayed
                 if (j + 1 === controlBreakData[i].data.length) {
-                    displayFooter = true
+                    displayFooter = true;
                 }
             }
         } else {  // No more data for the pagination
-            return null
+            return null;
         }
 
         // At the end of the data for this pagination, so display the footer
         if (data.length === controlBreakData[i].data.length) {
-            displayFooter = true
+            displayFooter = true;
         }
 
         let keyTable = `cbtable_${number}_${i}`;    // Key for the table using the name of the control break table
@@ -1833,8 +1833,8 @@ const _InnerSearchSortTable = (props) => {
                 </thead>
                 <tbody>
                     {data.map((row) => {
-                        cbCount++
-                        return props.eachRowInTable(row, cbCount)
+                        cbCount++;
+                        return props.eachRowInTable(row, cbCount);
                     })}
                     <tr key={key}>
                         {(displayFooter === true) ? row.footer.map(buildMathFooters) : null}
@@ -1862,7 +1862,7 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        return found
+        return found;
     }
 
     /********************************************************************************************************************
@@ -1877,11 +1877,11 @@ const _InnerSearchSortTable = (props) => {
         let temp = {};  // Contains the temporary values
         if (props.data.length !== 0 && info.indexes.length !== 0) {
             for (let i = 0; i < info.srtOrder.length; i++) {    // Build the temporary value for a control break change
-                temp[table[info.srtOrder[i].col].name] = props.data[info.indexes[k]][table[info.srtOrder[i].col].name]
+                temp[table[info.srtOrder[i].col].name] = props.data[info.indexes[k]][table[info.srtOrder[i].col].name];
             }
         }
 
-        return temp
+        return temp;
     }
 
     /*******************************************************************************************************************
@@ -1893,7 +1893,7 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************************/
     function processTitle(k, info) {
-        let title = ''
+        let title = '';
         for (let i = 0; i < info.srtOrder.length; i++) {
             if (hasOwnProperty(table[info.srtOrder[i].col], 'dataDate') === true ||
                 hasOwnProperty(table[info.srtOrder[i].col], 'filterDate') === true ||
@@ -1905,7 +1905,7 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        return title
+        return title;
     }
 
     /*******************************************************************************************************************
@@ -1916,10 +1916,10 @@ const _InnerSearchSortTable = (props) => {
     function processFooter() {
         let footer = new  Array(table.length);      // Allocate an array for the number of columns in the control break table
         for (let i = 0; i < table.length; i++) {    // Build the blank footer
-            footer[i] = []
+            footer[i] = [];
         }
 
-        return footer
+        return footer;
     }
 
     /*******************************************************************************************************************
@@ -1935,34 +1935,34 @@ const _InnerSearchSortTable = (props) => {
         let ctrlBreakData = [];                                 // Contains the control break title, data, and footer
         let startingPos = [0];                                  // Contains where each control break starts in the data
 //        let pos = 0;                                            // Used to get the title out of the control break data
-        let data = [];                                          // The data for the control break
+        let data = [];                                          // The data for the control break;
 
-        let temp = processTemp (0, info)
+        let temp = processTemp (0, info);
 
         for (let k = 0; k < info.indexes.length; k++) {
             if (compare(k, info, temp) === true) {  // Check to see if the temporary value and data value are equal
-//                pos = k
+//                pos = k;
                 data.push(props.data[info.indexes[k]]); // Place the data into the control break data array
                 if ((k + 1) === info.indexes.length) {  // At the end of the control break
                     let title = processTitle(k, info);  // Get the control break title and footer
-                    let footer = processFooter()
+                    let footer = processFooter();
                     ctrlBreakData.push ({ title: title, data: [...data], footer: footer }); // Build the control break data array
                 }
             } else {    // Temporary value and dat values are unequal (new control break)
                 startingPos.push(k);    // Place the starting position of the new table
 
                 let title = processTitle(k - 1, info);    // Get the control break title and footer
-                let footer = processFooter()
+                let footer = processFooter();
 
                 // Build a control break table
-                ctrlBreakData.push ({ title: title, data: [...data], footer: footer })
+                ctrlBreakData.push ({ title: title, data: [...data], footer: footer });
 
                 data = [];  // Reset the data for the new control break table
                 temp = processTemp(k, info);            // Get a new temporary value
                 data.push(props.data[info.indexes[k]]); // Place the data in the control break data array
                 if ((k + 1) === info.indexes.length) {  // At the end of the control break
                     let title = processTitle(k, info);  // Get the control break title and footer
-                    let footer = processFooter()
+                    let footer = processFooter();
                     ctrlBreakData.push ({ title: title, data: [...data], footer: footer }); // Build the control break data array
                 }
             }
@@ -1971,8 +1971,8 @@ const _InnerSearchSortTable = (props) => {
         if (hasOwnProperty(props, 'startingpos') === true) {
             props.startingPos(startingPos); // Pass the starting positions of the control break tables back to the calling program
         }
-        setStartPos(startingPos)
-        setControlBreakData(ctrlBreakData)
+        setStartPos(startingPos);
+        setControlBreakData(ctrlBreakData);
     }
 
     /**************************************************************************************************************************
@@ -1984,11 +1984,11 @@ const _InnerSearchSortTable = (props) => {
      *
      **************************************************************************************************************************/
     function controlBreakOn(_row, i) {
-        let ctrlBreakInfo = [...controlBreakInfo]
+        let ctrlBreakInfo = [...controlBreakInfo];
 
         ctrlBreakInfo[i].ctrlBreak = maxPlusOne(ctrlBreakInfo); // Assign a control break number to the column
         findCtrlBreak(ctrlBreakInfo, indexes);                  // Find the control break title, data, and footer for the contorl break table
-        setControlBreakInfo(ctrlBreakInfo)
+        setControlBreakInfo(ctrlBreakInfo);
         setHtmlDropDown(false);                                 // Hide the dropdown for the column
     }
 
@@ -2001,11 +2001,11 @@ const _InnerSearchSortTable = (props) => {
      *
      **************************************************************************************************************************/
     function controlBreakOff(_row, i) {
-        let ctrlBreakInfo = [...controlBreakInfo]
+        let ctrlBreakInfo = [...controlBreakInfo];
 
         ctrlBreakInfo[i].ctrlBreak = 0;         // Turn off the control break
         findCtrlBreak(ctrlBreakInfo, indexes);  // Find the control break title, data, and footer for the contorl break table
-        setControlBreakInfo(ctrlBreakInfo)
+        setControlBreakInfo(ctrlBreakInfo);
         setHtmlDropDown(false);                 // Hide the dropdown for the column
     }
 
@@ -2034,11 +2034,11 @@ const _InnerSearchSortTable = (props) => {
         let pos = index;    // Current index of the aggregation column
         for (let i = 0; i < controlBreakInfo.length && i < index; i++) {  // Loop until the end of the columns or the hidden column is reached
             if (controlBreakInfo[i].hidden === true) {  // Check to see if the column is hidden
-                pos--
+                pos--;
             }
         }
 
-        return pos
+        return pos;
     }
 
     /**************************************************************************************************************************
@@ -2053,10 +2053,10 @@ const _InnerSearchSortTable = (props) => {
         let sum = 0;    // The sum of the column
         if (isControlBreak(controlBreakInfo) === true) {    // There are control breaks
             for (let j = 0; j < controlBreakData.length; j++) { // Spin through the control break tables
-                sum = 0
+                sum = 0;
                 // Sum up the column for each row
                 for (let k = 0; k < controlBreakData[j].data.length; k++) {
-                    sum += controlBreakData[j].data[k][row.name]
+                    sum += controlBreakData[j].data[k][row.name];
                 }
                 controlBreakData[j].footer[determineCol(i)].push(`Sum: ${sum}`);  // Place the sum into the footer
             }
@@ -2065,11 +2065,11 @@ const _InnerSearchSortTable = (props) => {
 
             // Sum the column for each row
             for (let j = 0; j < props.data.length; j++) {
-                sum += props.data[j][row.name]
+                sum += props.data[j][row.name];
             }
 
             locFooters[determineCol(i)].push(`Sum: ${sum}`);    // Place the sum into the footer
-            setFooters(locFooters)
+            setFooters(locFooters);
         }
     }
 
@@ -2086,12 +2086,12 @@ const _InnerSearchSortTable = (props) => {
         let count = 0;  // The number of numeric values (number of rows)
         if (isControlBreak(controlBreakInfo) === true) {    // There are control breaks
             for (let j = 0; j < controlBreakData.length; j++) { // Spin through the control break tables
-                sum = 0
-                count = 0
+                sum = 0;
+                count = 0;
                 // Sum the column for each row
                 for (let k = 0; k < controlBreakData[j].data.length; k++) {
-                    sum += controlBreakData[j].data[k][row.name]
-                    count++
+                    sum += controlBreakData[j].data[k][row.name];
+                    count++;
                 }
                 controlBreakData[j].footer[determineCol(i)].push(`Average: ${(sum / count).toFixed(mathDecimal)}`);   // Place the average into the footer
             }
@@ -2100,12 +2100,12 @@ const _InnerSearchSortTable = (props) => {
 
             // Sum the column for each row
             for (let j = 0; j < props.data.length; j++) {
-                sum += props.data[j][row.name]
-                count++
+                sum += props.data[j][row.name];
+                count++;
             }
 
             locFooters[determineCol(i)].push(`Average: ${(sum / count).toFixed(mathDecimal)}`);   // Place the sum into the footer
-            setFooters(locFooters)
+            setFooters(locFooters);
         }
     }
 
@@ -2121,10 +2121,10 @@ const _InnerSearchSortTable = (props) => {
         let count = 0;  // Counts the number of rows
         if (isControlBreak(controlBreakInfo) === true) {    // There are control breaks
             for (let j = 0; j < controlBreakData.length; j++) { // Spin through the control break tables
-                count = 0
+                count = 0;
                 // Count the number of rows
                 for (let k = 0; k < controlBreakData[j].data.length; k++) {
-                    count++
+                    count++;
                 }
                 controlBreakData[j].footer[determineCol(i)].push(`Count: ${count}`);  // Place the counter into the footer
             }
@@ -2133,11 +2133,11 @@ const _InnerSearchSortTable = (props) => {
 
             // Count the number of rows
             for (let j = 0; j < props.data.length; j++) {
-                count++
+                count++;
             }
 
             locFooters[determineCol(i)].push(`Count: ${count}`);  // Place the counter into the footer
-            setFooters(locFooters)
+            setFooters(locFooters);
         }
     }
 
@@ -2154,24 +2154,24 @@ const _InnerSearchSortTable = (props) => {
         let count = 0;  // The distinct (unique) count for the column
         if (isControlBreak(controlBreakInfo) === true) {    // There is a control break
             for (let j = 0; j < controlBreakData.length; j++) { // Spin through the control break tables
-                count = 0
+                count = 0;
                 for (let k = 0; k < controlBreakData[j].data.length; k++) { // Spin through the rows of data
-                    let found = false
+                    let found = false;
                     for (let m = 0; m < k; m++) {   // Spin through the previous rows in the table to see if a value for that column already exists
                         if (mathIgnoreCase === true && typeof controlBreakData[j].data[k][row.name] === 'string') {
                             // Check to see This value has already been counted after being converted to uppercase
                             if (controlBreakData[j].data[k][row.name].toUpperCase() === controlBreakData[j].data[m][row.name].toUpperCase() && found === false) {
-                                found = true
+                                found = true;
                             }
                         } else {    // Values is not a string and the case is ignored
                             if (controlBreakData[j].data[k][row.name] === controlBreakData[j].data[m][row.name] && found === false) {
-                                found = true
+                                found = true;
                             }
                         }
                     }
 
                     if (found === false) {  // Could not find this number already in the data; therefore, count it
-                        count++
+                        count++;
                     }
                 }
                 controlBreakData[j].footer[determineCol(i)].push(`Distinct Count: ${count}`); // Place the distinct count into the footer
@@ -2180,27 +2180,27 @@ const _InnerSearchSortTable = (props) => {
             let locFooters = [...footers];  // Current footers
 
             for (let j = 0; j < props.data.length; j++) {
-                let found = false
+                let found = false;
                 for (let m = 0; m < j; m++) {   // Spin through the previous rows in the table to see if a value for that column already exists
                     if (mathIgnoreCase === true && typeof props.data[j][row.name] === 'string') {
                         // Check to see This value has already been counted after being converted to uppercase
                         if (props.data[j][row.name].toUpperCase() === props.data[m][row.name].toUpperCase() && found === false) {
-                            found = true
+                            found = true;
                         }
                     } else {    // Values is not a string and the case is ignored
                         if (props.data[j][row.name] === props.data[m][row.name] && found === false) {
-                            found = true
+                            found = true;
                         }
                     }
                 }
 
                 if (found === false) {  // Could not find this number already in the data; therefore, count it
-                    count++
+                    count++;
                 }
             }
 
             locFooters[determineCol(i)].push(`Distinct Count: ${count}`); // Place the distinct count into the footer
-            setFooters(locFooters)
+            setFooters(locFooters);
         }
     }
 
@@ -2222,11 +2222,11 @@ const _InnerSearchSortTable = (props) => {
                     if (mathIgnoreCase === true && typeof controlBreakData[j].data[k][row.name] === 'string') {
                         // Determine if a new minimum was found
                         if (controlBreakData[j].data[k][row.name].toUpperCase() < minimum.toUpperCase()) {
-                            minimum = controlBreakData[j].data[k][row.name]
+                            minimum = controlBreakData[j].data[k][row.name];
                         }
                     } else {    // Ignore the case
                         if (controlBreakData[j].data[k][row.name] < minimum) {  // Determine if a new minimum was found
-                            minimum = controlBreakData[j].data[k][row.name]
+                            minimum = controlBreakData[j].data[k][row.name];
                         }
                     }
                 }
@@ -2240,17 +2240,17 @@ const _InnerSearchSortTable = (props) => {
                 if (mathIgnoreCase === true && typeof props.data[j][row.name] === 'string') {
                     // Determine if a new minimum was found
                     if (props.data[j][row.name].toUpperCase() < minimum.toUpperCase()) {
-                        minimum = props.data[j][row.name]
+                        minimum = props.data[j][row.name];
                     }
                 } else {    // Ignore the case
                     if (props.data[j][row.name] < minimum) {    // Determine if a new minimum was found
-                        minimum = props.data[j][row.name]
+                        minimum = props.data[j][row.name];
                     }
                 }
             }
 
             locFooters[determineCol(i)].push(`Minimum: ${minimum}`);  // Place the minimum value into the footer
-            setFooters(locFooters)
+            setFooters(locFooters);
         }
     }
 
@@ -2272,11 +2272,11 @@ const _InnerSearchSortTable = (props) => {
                     if (mathIgnoreCase === true && typeof controlBreakData[j].data[k][row.name] === 'string') {
                         if (controlBreakData[j].data[k][row.name].toUpperCase() > maximum.toUpperCase()) {
                             // Determine if a new maximum was found
-                            maximum = controlBreakData[j].data[k][row.name]
+                            maximum = controlBreakData[j].data[k][row.name];
                         }
                     } else {    // Ignore the case
                         if (controlBreakData[j].data[k][row.name] > maximum) {  // Determine if a new maximum was found
-                            maximum = controlBreakData[j].data[k][row.name]
+                            maximum = controlBreakData[j].data[k][row.name];
                         }
                     }
                 }
@@ -2290,17 +2290,17 @@ const _InnerSearchSortTable = (props) => {
                 if (mathIgnoreCase === true && typeof props.data[j][row.name] === 'string') {
                     // Determine if a new maximum was found
                     if (props.data[j][row.name].toUpperCase() > maximum.toUpperCase()) {
-                        maximum = props.data[j][row.name]
+                        maximum = props.data[j][row.name];
                     }
                 } else {    // Ignore the case
                     if (props.data[j][row.name] > maximum) {    // Determine if a new maximum was found
-                        maximum = props.data[j][row.name]
+                        maximum = props.data[j][row.name];
                     }
                 }
             }
 
             locFooters[determineCol(i)].push(`Maximum: ${maximum}`);  // Place the minimum value into the footer
-            setFooters(locFooters)
+            setFooters(locFooters);
         }
     }
 
@@ -2323,18 +2323,18 @@ const _InnerSearchSortTable = (props) => {
                 let data = [...controlBreakData[j].data];   // Copy the data for the control break
                 data.sort (function (item1, item2) {    // Sort the data inorder to find the median
                     if (item1[row.name] < item2[row.name]) {
-                        return -1
+                        return -1;
                     } else if (item1[row.name] > item2[row.name]) {
-                        return 1
+                        return 1;
                     } else {
-                        return 0
+                        return 0;
                     }
                 })
 
                 if (data.length % 2 === 0) {    // There is an even amount of numbers in the column
                     middle = parseInt(data.length / 2); // Find the middle of the data array
                     // Calculate the median by taking the average of the two numbers
-                    median = ((data[middle - 1][row.name] + data[middle][row.name]) / 2).toFixed(mathDecimal)
+                    median = ((data[middle - 1][row.name] + data[middle][row.name]) / 2).toFixed(mathDecimal);
                 } else {    // There are an odd amount of numbers in the column
                     middle = parseInt(data.length / 2); // Find the middle of the data array and grab that number
                     median = data[middle][row.name];    // for the median
@@ -2345,30 +2345,30 @@ const _InnerSearchSortTable = (props) => {
         } else {    // Regular search sort table
             let locFooters = [...footers];  // Current footers
 
-            median = null
-            middle = 0
+            median = null;
+            middle = 0;
             data = [...props.data]; // Copy the data in order to find the median
             data.sort (function (item1, item2) {        // Sort the data inorder to find the median
                 if (item1[row.name] < item2[row.name]) {
-                    return -1
+                    return -1;
                 } else if (item1[row.name] > item2[row.name]) {
-                    return 1
+                    return 1;
                 } else {
-                    return 0
+                    return 0;
                 }
             })
 
             if (data.length % 2 === 0) {    // There is an even amount of numbers in the column
                 middle = parseInt(data.length / 2); // Find the middle of the data array
                 // Calculate the median by taking the average of the two numbers
-                median = ((data[middle - 1][row.name] + data[middle][row.name]) / 2).toFixed(mathDecimal)
+                median = ((data[middle - 1][row.name] + data[middle][row.name]) / 2).toFixed(mathDecimal);
             } else {    // There are an odd amount of numbers in the column
                 middle = parseInt(data.length / 2); // Find the middle of the data array and grab that number
                 median = data[middle][row.name];    // for the median
             }
 
             locFooters[determineCol(i)].push(`Median: ${median}`);    // Place the median value into the footer
-            setFooters(locFooters)
+            setFooters(locFooters);
         }
     }
 
@@ -2383,27 +2383,27 @@ const _InnerSearchSortTable = (props) => {
      ***************************************************************************************************************************/
     function applyFunction(row, i) {
         // Make sure an aggregation was selected from the pull down choice box
-        let localInvalid = [...invalid]
+        let localInvalid = [...invalid];
         if (functSelect === '' || functSelect === null || functSelect === undefined) {
-            localInvalid = setInvalidScreen(localInvalid, AGGREGATE, 'An aggregate must be entered')
-            setInvalid(localInvalid)
-            return
+            localInvalid = setInvalidScreen(localInvalid, AGGREGATE, 'An aggregate must be entered');
+            setInvalid(localInvalid);
+            return;
         }
 
         if (functSelect === 'Summation') {
-            summationFunct (row, i)
+            summationFunct (row, i);
         } else if (functSelect === 'Average') {
-            averageFunct(row, i)
+            averageFunct(row, i);
         } else if (functSelect === 'Count') {
-            countFunct(row, i)
+            countFunct(row, i);
         } else if (functSelect === 'Count Distinct') {
-            countDistinctFunct(row, i)
+            countDistinctFunct(row, i);
         } else if (functSelect === 'Minimum') {
-            minimumFunct(row, i)
+            minimumFunct(row, i);
         } else if (functSelect === 'Maximum') {
-            maximumFunct(row, i)
+            maximumFunct(row, i);
         } else if (functSelect === 'Median') {
-            medianFunct(row, i)
+            medianFunct(row, i);
         }
         setHtmlDropDown(false); // Hide the dropDown over the column
     }
@@ -2421,33 +2421,33 @@ const _InnerSearchSortTable = (props) => {
      *
      ***************************************************************************************************************************/
     function showDropDown(row, i) {
-    console.log('showDropDown :')
-        let functionList = null
+    console.log('showDropDown :');
+        let functionList = null;
 
         if (hasOwnProperty(row, 'type') === true) {    // The type of data for the column is table props
             if (row.type === 'string') {
                 functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
             } else {
-                functionList = ['', 'Summation', 'Average', 'Count', 'Count Distinct', 'Minimum', 'Maximum', 'Median']
+                functionList = ['', 'Summation', 'Average', 'Count', 'Count Distinct', 'Minimum', 'Maximum', 'Median'];
             }
         } else if (typeof props.data[0][row.name] === 'string') {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         } else if (typeof props.data[0][row.name] === 'number') {
-            functionList = ['', 'Summation', 'Average', 'Count', 'Count Distinct', 'Minimum', 'Maximum', 'Median']
+            functionList = ['', 'Summation', 'Average', 'Count', 'Count Distinct', 'Minimum', 'Maximum', 'Median'];
         } else {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
 
-        console.log ('got here 1')
+        console.log ('got here 1');
 
-        let hiddenRender = null
+        let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
             if (controlBreakInfo[i].hidden === false) {
                 hiddenRender =
                     <span className="sw-sst_showToolTip">
                         <button name="hidden" onClick={() => hideColumn(row, i)} className="sw-sst_dropDownButton" >🗏⊗</button>
                         <span className="sw-sst_toolTip sw-sst_top">Hide Column</span>
-                    </span>
+                    </span>;
 
             } else {
                 hiddenRender =
@@ -2458,27 +2458,27 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        console.log ('got here 2')
+        console.log ('got here 2');
 
-        let controlBreakRender = null
+        let controlBreakRender = null;
         if (hasOwnProperty(props, 'nocontrolbreak') === false) {
             if (controlBreakInfo[i].ctrlBreak === 0) {
                 controlBreakRender =
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOn" onClick={() => controlBreakOn(row, i)} className="sw-sst_dropDownButton" >🗐</button>
                         <span className="sw-sst_toolTip sw-sst_top">Control Break</span>
-                    </span>
+                    </span>;
             } else {
                 controlBreakRender =
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOff" onClick={() => controlBreakOff(row, i)} className="sw-sst_dropDownButton" >🗐⊗</button>
                         <span className="sw-sst_toolTip sw-sst_top">Undo Control Break</span>
-                    </span>
+                    </span>;
             }
         }
 
-        console.log ('got here 3')
-        console.log('functionList :', functionList)
+        console.log ('got here 3');
+        console.log('functionList :', functionList);
 
         // Render the drop down
         return (
@@ -2502,7 +2502,7 @@ const _InnerSearchSortTable = (props) => {
                     </span>
                 }
             </div>
-        )
+        );
     }
 
     /****************************************************************************************************************************
@@ -2514,8 +2514,8 @@ const _InnerSearchSortTable = (props) => {
      *
      ***************************************************************************************************************************/
     function displayDropDown(_row, i) {
-    console.log('_row :', _row)
-    console.log('i :', i)
+    console.log('_row :', _row);
+    console.log('i :', i);
         setDropDownIndex(i);    // Indicates which column in the table the drop down should appear above
         setFunctSelect('');     // No aggregate function has been selected
         setHtmlDropDown(true);  // Display the drop down over the appropriate column
@@ -2530,8 +2530,8 @@ const _InnerSearchSortTable = (props) => {
      *
      ***********************************************************************************************************************/
     function processChecked(value) {
-        setChecked(value)
-        props.checkedFunct(value, filterOn)
+        setChecked(value);
+        props.checkedFunct(value, filterOn);
     }
 
 
@@ -2547,33 +2547,33 @@ const _InnerSearchSortTable = (props) => {
      *********************************************************************************************************************/
     function buildHeaders(main, tableIndex) {
         const f = (row, i) => {
-//            console.log('row :', row)
-            let key = 'cell_' + i
-            let btnImg = '\u2BC8'
-            // let filterKey = 'filter_' + i
-            let filterName = row.header + '_filter'
-            let ctrlBreak = false
+//            console.log('row :', row);
+            let key = 'cell_' + i;
+            let btnImg = '\u2BC8';
+            // let filterKey = 'filter_' + i;
+            let filterName = row.header + '_filter';
+            let ctrlBreak = false;
 
 //            console.log ('row.header', row.header)
 
             if (isControlBreak(controlBreakInfo) === true) {
-                ctrlBreak = true
+                ctrlBreak = true;
             }
 
-            let doSort = false
+            let doSort = false;
             if ((main === true && ctrlBreak === false) || (main === false && ctrlBreak === true)) {
-                doSort = true
+                doSort = true;
             }
 
             if (doSort === true && controlBreakInfo.length > 0 && controlBreakInfo[i].hidden === true) {
-                return
+                return;
             }
 
-            // console.log(`buildHeaders() filter[${filter.length}]:`, JSON.stringify(filter))
+            // console.log(`buildHeaders() filter[${filter.length}]:`, JSON.stringify(filter));
 
-            let fontColor = null
+            let fontColor = null;
             if (main === true) {
-                fontColor = "sw-sst_headerColor"
+                fontColor = "sw-sst_headerColor";
             }
 
             if (table[i].sort === true && sortOrder[i] !== 'N' && (doSort === true)) {
@@ -2605,7 +2605,7 @@ const _InnerSearchSortTable = (props) => {
                 )
             } else if (filterOn === 'Y' && (hasOwnProperty(props,'nofilter') === false  || props.nofilter === true) && main === true) {
                 // Filter is turned on
-                let filterStyle = processInvalidStyleScreen(invalid, FILTER, 'sw-sst_widthStyle')
+                let filterStyle = processInvalidStyleScreen(invalid, FILTER, 'sw-sst_widthStyle');
 
                 if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler
                     if (row.search === false) { // No searching on this field, so no filtering on it also
@@ -2655,7 +2655,7 @@ const _InnerSearchSortTable = (props) => {
                                         <ChoiceText list={"dropDown_" + i} choices={columns[i]} name={filterName} className={filterStyle} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} />}
                                 </span>
                             </th>
-                        )
+                        );
                     }
                 } else {    // Sorting on the column is allowed
                     if (row.search === false) { // No searching or filtering on the column, so display header only
@@ -2675,7 +2675,7 @@ const _InnerSearchSortTable = (props) => {
                                     <div className={fontColor}>{row.header}</div>}
                                 {(doSort === true) ? <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes, tableIndex)} className="sw-sst_buttonStyle2">{btnImg}</button> : null }
                             </th>
-                        )
+                        );
                     } else {    // Searching and filtering is allowed
                         return (    // Display header and input field for filtering
                             <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + table[i].headerAlign}
@@ -2699,7 +2699,7 @@ const _InnerSearchSortTable = (props) => {
                                         <ChoiceText list={"dropDown" + i} choices={columns[i]} name={filterName} className={filterStyle} value={filter[i]} onChange={(event) => processFilter(event.target.value, i)} disabled={props.error} /> }
                                 </span>
                             </th>
-                        )
+                        );
                     }
                 }
             // Filtering is off or not allowed
@@ -2731,7 +2731,7 @@ const _InnerSearchSortTable = (props) => {
                             <div className={fontColor}>{row.header}</div>}
                         {(doSort === true) ? <button name="sort" onClick={() => sortClicked(row.name, 'X', indexes, tableIndex)} className="sw-sst_buttonStyle2">{btnImg}</button> : null }
                     </th>
-                )
+                );
             }
         }
 
@@ -2747,7 +2747,7 @@ const _InnerSearchSortTable = (props) => {
      *
      *****************************************************************************************************/
     function buildFooter(row, i) {
-        let key = 'footer_' + i
+        let key = 'footer_' + i;
 
         return (    // Place a value in the column
             <td key={key} className={footerStyle}>{row}</td>
@@ -2763,16 +2763,16 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************************/
     function buildMathFooters(row, i) {
-        let key = 'mathfooter_' + i
+        let key = 'mathfooter_' + i;
 
         if (row === undefined || row === null) {    // No footer for this column, so return a blank cell
-            return <td key={key}></td>
+            return <td key={key}></td>;
         }
 
 
         let foot = [];  // Contains all the information in the footer with <br /> between each aggregate footer
         for (let j = 0; j < row.length; j++) {
-            foot.push(<span>{row[j]}<br /></span>)
+            foot.push(<span>{row[j]}<br /></span>);
         }
 
         return (    // Place a value in the column
@@ -2798,19 +2798,19 @@ const _InnerSearchSortTable = (props) => {
      *
      *****************************************************************************************/
     function processFilterOn(value) {
-        setFilterOn(value)
+        setFilterOn(value);
 
         if (value === 'Y') {    // Filter is on
-            clearSetBackground(0, false)
+            clearSetBackground(0, false);
         } else {
             setFilterPressed(false);        // Disable the filter button
         }
 
         if (value !== 'Y' && isControlBreak(controlBreakInfo) === true) {
-            findCtrlBreak(controlBreakInfo, origIndexes)
+            findCtrlBreak(controlBreakInfo, origIndexes);
         } else {
-            setIndex(origIndexes, true)
-            resetSortOrder()
+            setIndex(origIndexes, true);
+            resetSortOrder();
         }
     }
 
@@ -2825,11 +2825,11 @@ const _InnerSearchSortTable = (props) => {
     function processFilter(value, i) {
         let local = [...filter];    // The filter array for the filter input boxes
 
-        local[i] = value
+        local[i] = value;
 
-        // console.log(`processFilter() local[${local.length}]`, JSON.stringify(local))
+        // console.log(`processFilter() local[${local.length}]`, JSON.stringify(local));
 
-        setFilter(local)
+        setFilter(local);
     }
 
     /******************************************************************************************
@@ -2842,28 +2842,28 @@ const _InnerSearchSortTable = (props) => {
      *
      ******************************************************************************************/
     function filterValidate(_which) {
-        let localInvalid = [...invalid]
+        let localInvalid = [...invalid];
 
-        localInvalid[FILTER].validity = false
-        localInvalid[FILTER].display = false
+        localInvalid[FILTER].validity = false;
+        localInvalid[FILTER].display = false;
 
         // Search though the filter array to find a value
         for (let i = 0; i < filter.length; i++) {
             if (filter[i] !== '') { // There is a value
-                return true
+                return true;
             }
         }
 
         // No values for filtering were entered
-        localInvalid = setInvalidScreen (localInvalid, FILTER, '')
-        localInvalid[FILTER].display = false
+        localInvalid = setInvalidScreen (localInvalid, FILTER, '');
+        localInvalid[FILTER].display = false;
 
-        setInvalid(localInvalid)
+        setInvalid(localInvalid);
 
-        setAlertMessage('A filter value must be entered in at least one filter box')
-        setShowAlert(true)
+        setAlertMessage('A filter value must be entered in at least one filter box');
+        setShowAlert(true);
 
-        return false
+        return false;
     }
 
     /*******************************************************************************
@@ -2888,21 +2888,21 @@ const _InnerSearchSortTable = (props) => {
         let compareDate = new Date(dataPart);   // The date to be compared
 
         if (type === 'Year') {
-            rangeDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + range))
+            rangeDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + range));
         } else if (type === 'Month') {
-            rangeDate = new Date(currentDate.setMonth(currentDate.getMonth() + range))
+            rangeDate = new Date(currentDate.setMonth(currentDate.getMonth() + range));
         } else if (type === 'Week' || type === 'Day') {
-            rangeDate = new Date(currentDate.setDate(currentDate.getDate() + range))
+            rangeDate = new Date(currentDate.setDate(currentDate.getDate() + range));
         } else if (type === 'Hour') {
-            rangeDate = new Date(currentDate.setHours(currentDate.getHours() + range))
+            rangeDate = new Date(currentDate.setHours(currentDate.getHours() + range));
         }
 
         // Check to see if the date is within the range
         if (direction === 'Last') {
-            return (compareDate >= rangeDate && compareDate <= todayDate) ? true : false
+            return (compareDate >= rangeDate && compareDate <= todayDate) ? true : false;
         }
         else {
-            return (compareDate >= todayDate && compareDate <= rangeDate) ? true : false
+            return (compareDate >= todayDate && compareDate <= rangeDate) ? true : false;
         }
     }
 
@@ -2920,53 +2920,53 @@ const _InnerSearchSortTable = (props) => {
      ********************************************************************************/
     function filterDateRange(dataPart, selection) {
         if (selection === 'Last 10 Years') {
-            return dateCompare(-10, 'Year', 'Last', dataPart)
+            return dateCompare(-10, 'Year', 'Last', dataPart);
         } else if (selection === 'Last 7 Years') {
-            return dateCompare(-7, 'Year', 'Last', dataPart)
+            return dateCompare(-7, 'Year', 'Last', dataPart);
         } else if (selection === 'Last 5 Years') {
-            return dateCompare(-5, 'Year', 'Last', dataPart)
+            return dateCompare(-5, 'Year', 'Last', dataPart);
         } else if (selection === 'Last 2 Years') {
-            return dateCompare(-2, 'Year', 'Last', dataPart)
+            return dateCompare(-2, 'Year', 'Last', dataPart);
         } else if (selection === 'Last Year') {
-            return dateCompare(-1, 'Year', 'Last', dataPart)
+            return dateCompare(-1, 'Year', 'Last', dataPart);
         } else if (selection === 'Last Month') {
-            return dateCompare(-1, 'Month', 'Last', dataPart)
+            return dateCompare(-1, 'Month', 'Last', dataPart);
         } else if (selection === 'Last Week') {
-            return dateCompare(-7, 'Week', 'Last', dataPart)
+            return dateCompare(-7, 'Week', 'Last', dataPart);
         } else if (selection === 'Last 2 Days') {
-            return dateCompare(-2, 'Day', 'Last', dataPart)
+            return dateCompare(-2, 'Day', 'Last', dataPart);
         } else if (selection === 'Last Day') {
-            return dateCompare(-1, 'Day', 'Last', dataPart)
+            return dateCompare(-1, 'Day', 'Last', dataPart);
         } else if (selection === 'Last 12 Hours') {
-            return dateCompare(-12, 'Hour', 'Last', dataPart)
+            return dateCompare(-12, 'Hour', 'Last', dataPart);
         } else if (selection === 'Last 2 Hours') {
-            return dateCompare(-2, 'Hour', 'Last', dataPart)
+            return dateCompare(-2, 'Hour', 'Last', dataPart);
         } else if (selection === 'Last Hour') {
-            return dateCompare(-1, 'Hour', 'Last', dataPart)
+            return dateCompare(-1, 'Hour', 'Last', dataPart);
         } else if (selection === 'Next Hour') {
-            return dateCompare(1, 'Hour', 'Next', dataPart)
+            return dateCompare(1, 'Hour', 'Next', dataPart);
         } else if (selection === 'Next 2 Hours') {
-            return dateCompare(2, 'Hour', 'Next', dataPart)
+            return dateCompare(2, 'Hour', 'Next', dataPart);
         } else if (selection === 'Next 12 Hours') {
-            return dateCompare(12, 'Hour', 'Next', dataPart)
+            return dateCompare(12, 'Hour', 'Next', dataPart);
         } else if (selection === 'Next Day') {
-            return dateCompare(1, 'Day', 'Next', dataPart)
+            return dateCompare(1, 'Day', 'Next', dataPart);
         } else if (selection === 'Next 2 Days') {
-            return dateCompare(2, 'Day', 'Next', dataPart)
+            return dateCompare(2, 'Day', 'Next', dataPart);
         } else if (selection === 'Next Week') {
-            return dateCompare(1, 'Week', 'Next', dataPart)
+            return dateCompare(1, 'Week', 'Next', dataPart);
         } else if (selection === 'Next Month') {
-            return dateCompare(1, 'Month', 'Next', dataPart)
+            return dateCompare(1, 'Month', 'Next', dataPart);
         } else if (selection === 'Next Year') {
-            return dateCompare(1, 'Year', 'Next', dataPart)
+            return dateCompare(1, 'Year', 'Next', dataPart);
         } else if (selection === 'Next 2 Years') {
-            return dateCompare(2, 'Year', 'Next', dataPart)
+            return dateCompare(2, 'Year', 'Next', dataPart);
         } else if (selection === 'Next 5 Years') {
-            return dateCompare(5, 'Year', 'Next', dataPart)
+            return dateCompare(5, 'Year', 'Next', dataPart);
         } else if (selection === 'Next 7 Years') {
-            return dateCompare(7, 'Year', 'Next', dataPart)
+            return dateCompare(7, 'Year', 'Next', dataPart);
         } else if (selection === 'Next 10 Years') {
-            return dateCompare(10, 'Year', 'Next', dataPart)
+            return dateCompare(10, 'Year', 'Next', dataPart);
         }
     }
 
@@ -2978,7 +2978,7 @@ const _InnerSearchSortTable = (props) => {
     function filterButton() {
         // Make sure filter values were entered
         if (filterValidate() === false) {
-            return
+            return;
         }
 
         let data = props.data;  // The data to filter
@@ -2991,140 +2991,140 @@ const _InnerSearchSortTable = (props) => {
         // Build the indexes in which the user entered data in the filter input box
         for (let i = 0; i < table.length; i++) {
             if (filter[i] !== '') {
-                indexing.push(i)
+                indexing.push(i);
             }
         }
 
-        let foundDate = false
+        let foundDate = false;
 
         // Spin through the data and see if it meets the filter criteria
         for (let i = 0; i < indexes.length; i++) {
             found = [];     // Empty the found array for the next data element
-            done = false
+            done = false;
             // Spin through the filter input boxes to see if the data element matches
             for (let j = 0; j < indexing.length && done === false; j++) {
-                foundDate = false
+                foundDate = false;
                 // Find if the index is in the date table
                 if (hasOwnProperty(table[indexing[j]], 'dataDate') && hasOwnProperty(table[indexing[j]], 'filterDate')) {
-                    foundDate = true
+                    foundDate = true;
                 }
 
                 // The data field is blank or has no value
                 if (data[indexes[i]][table[indexing[j]].name] === null ||
                     data[indexes[i]][table[indexing[j]].name] === undefined) {
-                    found.push(false)
-                    done = true
+                    found.push(false);
+                    done = true;
                 } else if (foundDate === true) {    // The field contains a date
-                    let dataPart = null
-                    let filterPart = null
+                    let dataPart = null;
+                    let filterPart = null;
 
                     // Convert the format for the data part
                     if (table[indexing[j]].dataDate === 'MM/DD/YYYY') {
-                        dataPart = convertDate2(data[indexes[i]][table[indexing[j]].name], '/', 1)
+                        dataPart = convertDate2(data[indexes[i]][table[indexing[j]].name], '/', 1);
                     } else if (table[indexing[j]].dataDate === 'MM-DD-YYYY') {
-                        dataPart = convertDate2(data[indexes[i]][table[indexing[j]].name], '-', 1)
+                        dataPart = convertDate2(data[indexes[i]][table[indexing[j]].name], '-', 1);
                     } else if (table[indexing[j]].dataDate === 'MM/DD/YYYY HH:MM:SS') {
-                        dataPart = convertDateTime(data[indexes[i]][table[indexing[j]].name], '/', 1)
+                        dataPart = convertDateTime(data[indexes[i]][table[indexing[j]].name], '/', 1);
                     } else if (table[indexing[j]].dataDate === 'MM-DD-YYYY HH:MM:SS') {
-                        dataPart = convertDateTime (data[indexes[i]][table[indexing[j]].name], '-', 1)
+                        dataPart = convertDateTime (data[indexes[i]][table[indexing[j]].name], '-', 1);
                     } else if (table[indexing[j]].dataDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                        dataPart = convertDateTimeReg (data[indexes[i]][table[indexing[j]].name])
+                        dataPart = convertDateTimeReg (data[indexes[i]][table[indexing[j]].name]);
                     } else {
-                        dataPart = data[indexes[i]][table[indexing[j]].name]
+                        dataPart = data[indexes[i]][table[indexing[j]].name];
                     }
 
                     // Convert the format for the filter part
                     if (table[indexing[j]].filterDate === 'MM/DD/YYYY') {
                         if (filter[indexing[j]].length === 'MM/DD/YYYY'.length) {
-                            filterPart = convertDate2(filter[indexing[j]], '/', 1)
+                            filterPart = convertDate2(filter[indexing[j]], '/', 1);
                         } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('/') !== -1) {
-                            filterPart = convertDate2(filter[indexing[j]], '/', 2)
+                            filterPart = convertDate2(filter[indexing[j]], '/', 2);
                         } else {
-                            filterPart = filter[indexing[j]]
+                            filterPart = filter[indexing[j]];
                         }
                     } else if (table[indexing[j]].filterDate === 'MM-DD-YYYY') {
                         if (filter[indexing[j]].length === 'MM-DD-YYYY'.length) {
-                            filterPart = convertDate2(filter[indexing[j]], '-', 1)
+                            filterPart = convertDate2(filter[indexing[j]], '-', 1);
                         } else if (filter[indexing[j]].length === 'MM-YYYY'.length && filter[indexing[j]].indexOf('-') !== -1) {
-                            filterPart = convertDate2(filter[indexing[j]], '-', 2)
+                            filterPart = convertDate2(filter[indexing[j]], '-', 2);
                         } else {
-                            filterPart = filter[indexing[j]]
+                            filterPart = filter[indexing[j]];
                         }
                     } else if (table[indexing[j]].filterDate === 'MM/DD/YYYY HH:MM:SS') {
                         if (filter[indexing[j]].length === 'MM/DD/YYYY HH:MM:SS'.length) {
-                            filterPart = convertDateTime(filter[indexing[j]], '/', 1)
+                            filterPart = convertDateTime(filter[indexing[j]], '/', 1);
                         } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('/') !== -1) {
-                            filterPart = convertDate2(filter[indexing[j]], '/', 2)
+                            filterPart = convertDate2(filter[indexing[j]], '/', 2);
                         } else {
-                            filterPart = filter[indexing[j]]
+                            filterPart = filter[indexing[j]];
                         }
                     } else if (table[indexing[j]].filterDate === 'MM-DD-YYYY HH:MM:SS') {
                         if (filter[indexing[j]].length === 'MM-DD-YYYY HH:MM:SS'.length) {
-                            filterPart = convertDateTime (filter[indexing[j]], '-', 1)
+                            filterPart = convertDateTime (filter[indexing[j]], '-', 1);
                         } else if (filter[indexing[j]].length === 'MM/YYYY'.length && filter[indexing[j]].indexOf('-') !== -1) {
-                            filterPart = convertDate2(filter[indexing[j]], '-', 2)
+                            filterPart = convertDate2(filter[indexing[j]], '-', 2);
                         } else {
-                            filterPart = filter[indexing[j]]
+                            filterPart = filter[indexing[j]];
                         }
                     } else if (table[indexing].filterDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
                         if (filter[indexing[j]].length === 'YYYY-MM-DDTHH:MM:SS.SSS'.length) {
-                            filterPart = convertDateTimeReg (filter[indexing[j]])
+                            filterPart = convertDateTimeReg (filter[indexing[j]]);
                         } else {
-                            filterPart = filter[indexing[j]]
+                            filterPart = filter[indexing[j]];
                         }
                     } else {
-                        filterPart = filter[indexing[j]]
+                        filterPart = filter[indexing[j]];
                     }
 
                     if (table[indexing[j]].filterdaterange === true) {  // There is a data range on the filter
-                        found.push(filterDateRange(dataPart, filter[indexing[j]]))
+                        found.push(filterDateRange(dataPart, filter[indexing[j]]));
                     } else if (dataPart.toString().indexOf(filterPart.toString()) !== -1) {  // Compare the dates
-                        found.push(true)
+                        found.push(true);
                     } else {    // Dates are not equal
-                        found.push(false)
-                        done = true
+                        found.push(false);
+                        done = true;
                     }
                 // There is a date range on the filter
                 } else if (table[indexing[j]].filterdaterange === true) {
-                    found.push(filterDateRange(data[indexes[i]][table[indexing[j]].name], filter[indexing[j]]))
+                    found.push(filterDateRange(data[indexes[i]][table[indexing[j]].name], filter[indexing[j]]));
                 // The data element matches one of the filter input boxes
                 } else if (data[indexes[i]][table[indexing[j]].name].toString().indexOf(filter[indexing[j]].toString()) !== -1) {
                     found.push(true);   // Place a true in the found array indicating the filter input box matched
                 } else {    // The data element did not match the filter input box
-                    found.push(false)
+                    found.push(false);
                     done = true;    // Since a match was not found the data element will not meet the filter criteria
                 }
             }
 
 
             // Check to see if the data element met all the filter criteria
-            let move = true
+            let move = true;
             // Spin through found array making sure all values are true.  If they are, the data element
             // matches the filter criteria
             for (let k = 0; k < found.length && move === true; k++) {
                 if (found[k] === false) {   // False was found, so the data element does not match filter criteria
-                    move = false
+                    move = false;
                 }
             }
 
             // Data element matches the filter criteria, so place the data in the filtered data area
             if (move === true) {
-                newData.push(indexes[i])
-                count++
+                newData.push(indexes[i]);
+                count++;
             }
         }
 
         if (count > 0) {    // There are filtered data elements
-            setIndex(newData, true)
-            setFilterPressed(true)
-            setFilterFound(true)
+            setIndex(newData, true);
+            setFilterPressed(true);
+            setFilterFound(true);
             if (isControlBreak(controlBreakInfo) === true) {
-                findCtrlBreak(controlBreakInfo, newData)
+                findCtrlBreak(controlBreakInfo, newData);
             }
         } else {    // Filtered items were not found
-            setFilterFound(false)
-            setAlertMessage(`Could not find any rows that matched the filter criteria in the table`)
-            setShowAlert(true)
+            setFilterFound(false);
+            setAlertMessage(`Could not find any rows that matched the filter criteria in the table`);
+            setShowAlert(true);
         }
     }
 
@@ -3138,12 +3138,12 @@ const _InnerSearchSortTable = (props) => {
      *
      *********************************************************************************************************************/
     function setIndex(indexing, doCopy) {
-        setIndexes(indexing)
+        setIndexes(indexing);
         if (doCopy === true) {
-            setCopyIndex(indexing)
+            setCopyIndex(indexing);
         }
-        setLength (indexing.length)
-        setStartEnd (0, indexing.length, indexing)
+        setLength (indexing.length);
+        setStartEnd (0, indexing.length, indexing);
     }
 
 
@@ -3158,12 +3158,12 @@ const _InnerSearchSortTable = (props) => {
      *
      **********************************************************************************************/
     function convertDate2(date, char, type) {
-        let split = date.split(char)
+        let split = date.split(char);
 
         if (type === 1) {
-            return `${split[2]}-${split[0]}-${split[1]}`
+            return `${split[2]}-${split[0]}-${split[1]}`;
         } else {
-            return `${split[1]}-${split[0]}`
+            return `${split[1]}-${split[0]}`;
         }
     }
 
@@ -3178,13 +3178,13 @@ const _InnerSearchSortTable = (props) => {
      *
      **********************************************************************************************/
     function convertDateTime(date, char, type) {
-        let dateTime = date.split(' ')
-        let localDate = dateTime[0].split(char)
+        let dateTime = date.split(' ');
+        let localDate = dateTime[0].split(char);
 
         if (type === 1) {
-            return `${localDate[2]}-${localDate[0]}-${localDate[1]}T${dateTime[1]}`
+            return `${localDate[2]}-${localDate[0]}-${localDate[1]}T${dateTime[1]}`;
         } else {
-            return `${localDate[1]}-${localDate[0]}`
+            return `${localDate[1]}-${localDate[0]}`;
         }
     }
 
@@ -3197,12 +3197,12 @@ const _InnerSearchSortTable = (props) => {
      *
      ***********************************************************************************************/
     function convertDateTimeReg(date) {
-        let split = date.split('.')
+        let split = date.split('.');
 
         if (split.length === 0) {
-            return date
+            return date;
         } else {
-            return split[0]
+            return split[0];
         }
     }
 
@@ -3213,22 +3213,22 @@ const _InnerSearchSortTable = (props) => {
      *
      *******************************************************************************/
     function validate(type) {
-        let localInvalid = [...invalid]
+        let localInvalid = [...invalid];
 
-        localInvalid[SRCHHDR].validity = false
-        localInvalid[SRCHHDR].display = false
-        localInvalid[SRCHITEM].validity = false
-        localInvalid[SRCHITEM].display = false
+        localInvalid[SRCHHDR].validity = false;
+        localInvalid[SRCHHDR].display = false;
+        localInvalid[SRCHITEM].validity = false;
+        localInvalid[SRCHITEM].display = false;
 
         if (searchHeader === '') {
-            localInvalid = setInvalidScreen(localInvalid, SRCHHDR, 'A column header to be searched must be selected')
+            localInvalid = setInvalidScreen(localInvalid, SRCHHDR, 'A column header to be searched must be selected');
         }
 
         if (type === 'Letter' && searchHeader === 'All') {
-            localInvalid = setInvalidScreen(localInvalid, SRCHHDR, 'The word All can be used when using letters.  Select another column')
+            localInvalid = setInvalidScreen(localInvalid, SRCHHDR, 'The word All can be used when using letters.  Select another column');
         }
 
-        setInvalid(localInvalid)
+        setInvalid(localInvalid);
 
         return  localInvalid[SRCHHDR].validity === false &&
                 localInvalid[SRCHITEM].validity === false;    // No problems occurred
@@ -3244,22 +3244,22 @@ const _InnerSearchSortTable = (props) => {
      **********************************************************************************/
     function searchItemButton() {
         if (table && validate('Search') === true) {  // Make sure a value has been selected in the drop down and text box
-            let search = null
+            let search = null;
             search = (hasOwnProperty(props,'ignorecase') === true) ?
                 searchItem.toUpperCase() :  // Convert to upper case to ignore case
-                searchItem
+                searchItem;
             // Find a match in the correct column of the data
 
-            let found = false
+            let found = false;
             if (searchHeader !== 'All') {
-                let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader)
+                let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader);
                 // Column match
                 if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
-                    found = searchDate(search, tableIndex)
+                    found = searchDate(search, tableIndex);
                 } else if (hasOwnProperty(props,'searchstart') === true) {
-                    found = searchStart(search, table[tableIndex].name)
+                    found = searchStart(search, table[tableIndex].name);
                 } else {
-                    found = searchAny(search, table[tableIndex].name)
+                    found = searchAny(search, table[tableIndex].name);
                 }
 
 //            let index = props.data.findIndex(val => val[table[tableIndex].name].toString().startsWith(search));   // Text match
@@ -3268,18 +3268,18 @@ const _InnerSearchSortTable = (props) => {
             else if (hasOwnProperty(props, 'searchall')) {
                 for (let tableIndex = 0; tableIndex < table.length && found === false; tableIndex++) {
                     if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
-                        found = searchDate(search, tableIndex)
+                        found = searchDate(search, tableIndex);
                     } else if (hasOwnProperty(props,'searchstart') === true && found === false) {
-                        found = searchStart(search, table[tableIndex].name)
+                        found = searchStart(search, table[tableIndex].name);
                     } else if (found === false) {
-                        found = searchAny(search, table[tableIndex].name)
+                        found = searchAny(search, table[tableIndex].name);
                     }
                 }
             }
 
             if (found === false) {
-                setAlertMessage(`Could not find ${searchItem} in the table`)
-                setShowAlert(true)
+                setAlertMessage(`Could not find ${searchItem} in the table`);
+                setShowAlert(true);
             }
         }
     }
@@ -3297,87 +3297,87 @@ const _InnerSearchSortTable = (props) => {
     function searchDate(searchItem, tableIndex) {
 
         let data = props.data;  // The data to filter
-        let done = false
-        let found = false
+        let done = false;
+        let found = false;
 
         // Find if the index is in the date table
 
         for (let i = 0; i < indexes.length && done === false; i++) {
             // The data field is blank or has no value
             if (data[indexes[i]][table[tableIndex].name] === null) {
-                done = true
+                done = true;
             } else {    // The field contains a date
-                let dataPart = null
-                let searchPart = null
+                let dataPart = null;
+                let searchPart = null;
 
                 // Convert the format for the data part
                 if (table[tableIndex].dataDate === 'MM/DD/YYYY') {
-                    dataPart = convertDate2(data[indexes[i]][table[tableIndex].name], '/', 1)
+                    dataPart = convertDate2(data[indexes[i]][table[tableIndex].name], '/', 1);
                 } else if (table[tableIndex].dataDate === 'MM-DD-YYYY') {
-                    dataPart = convertDate2(data[indexes[i]][table[tableIndex].name], '-', 1)
+                    dataPart = convertDate2(data[indexes[i]][table[tableIndex].name], '-', 1);
                 } else if (table[tableIndex].dataDate === 'MM/DD/YYYY HH:MM:SS') {
-                    dataPart = convertDateTime(data[indexes[i]][table[tableIndex].name], '/', 1)
+                    dataPart = convertDateTime(data[indexes[i]][table[tableIndex].name], '/', 1);
                 } else if (table[tableIndex].dataDate === 'MM-DD-YYYY HH:MM:SS') {
-                    dataPart = convertDateTime (data[indexes[i]][table[tableIndex].name], '-', 1)
+                    dataPart = convertDateTime (data[indexes[i]][table[tableIndex].name], '-', 1);
                 } else if (table[tableIndex].dataDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                    dataPart = convertDateTimeReg (data[indexes[i]][table[tableIndex].name])
+                    dataPart = convertDateTimeReg (data[indexes[i]][table[tableIndex].name]);
                 } else {
-                    dataPart = data[indexes[i]][table[tableIndex].name]
+                    dataPart = data[indexes[i]][table[tableIndex].name];
                 }
 
                 // Convert the format for the filter part
                 if (table[tableIndex].searchDate === 'MM/DD/YYYY') {
                     if (searchItem.length === 'MM/DD/YYYY'.length) {
-                        searchPart = convertDate2(searchItem, '/', 1)
+                        searchPart = convertDate2(searchItem, '/', 1);
                     } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('/') !== -1) {
-                        searchPart = convertDate2(searchItem, '/', 2)
+                        searchPart = convertDate2(searchItem, '/', 2);
                     } else {
-                        searchPart = searchItem
+                        searchPart = searchItem;
                     }
                 } else if (table[tableIndex].searchDate === 'MM-DD-YYYY') {
                     if (searchItem.length === 'MM-DD-YYYY'.length) {
-                        searchPart = convertDate2(searchItem, '-', 1)
+                        searchPart = convertDate2(searchItem, '-', 1);
                     } else if (searchItem.length === 'MM-YYYY'.length && searchItem.indexOf('-') !== -1) {
-                        searchPart = convertDate2(searchItem, '-', 2)
+                        searchPart = convertDate2(searchItem, '-', 2);
                     } else {
-                        searchPart = searchItem
+                        searchPart = searchItem;
                     }
                 } else if (table[tableIndex].searchDate === 'MM/DD/YYYY HH:MM:SS') {
                     if (searchItem.length === 'MM/DD/YYYY HH:MM:SS'.length) {
-                        searchPart = convertDateTime(searchItem, '/', 1)
+                        searchPart = convertDateTime(searchItem, '/', 1);
                     } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('/') !== -1) {
-                        searchPart = convertDate2(searchItem, '/', 2)
+                        searchPart = convertDate2(searchItem, '/', 2);
                     } else {
-                        searchPart = searchItem
+                        searchPart = searchItem;
                     }
                 } else if (table[tableIndex].searchDate === 'MM-DD-YYYY HH:MM:SS') {
                     if (searchItem.length === 'MM-DD-YYYY HH:MM:SS'.length) {
-                        searchPart = convertDateTime (searchItem, '-', 1)
+                        searchPart = convertDateTime (searchItem, '-', 1);
                     } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('-') !== -1) {
-                        searchPart = convertDate2(searchItem, '-', 2)
+                        searchPart = convertDate2(searchItem, '-', 2);
                     } else {
-                        searchPart = searchItem
+                        searchPart = searchItem;
                     }
                 } else if (table[tableIndex].searchDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
                     if (searchItem.length === 'YYYY-MM-DDTHH:MM:SS.SSS'.length) {
-                        searchPart = convertDateTimeReg (searchItem)
+                        searchPart = convertDateTimeReg (searchItem);
                     } else {
-                        searchPart = searchItem
+                        searchPart = searchItem;
                     }
                 } else {
-                    searchPart = searchItem
+                    searchPart = searchItem;
                 }
 
                 if (dataPart.toString().indexOf(searchPart.toString()) !== -1) {  // Compare the dates
                     setStartEnd(i, length, indexes); // Set the start and end positions of the data on the screen.
 
-                    done = true
-                    found = true
+                    done = true;
+                    found = true;
                 }
             }
         }
 
-        return found
+        return found;
     }
 
     /********************************************************************************************
@@ -3395,14 +3395,14 @@ const _InnerSearchSortTable = (props) => {
 
         for (let i = begin; i < length && found === false; i++) {
             let compareStr = (hasOwnProperty(props, 'ignorecase')) ? props.data[indexes[i]][name].toString().toUpperCase() :
-                                                                  props.data[indexes[i]][name].toString()
+                                                                  props.data[indexes[i]][name].toString();
             if (compareStr.startsWith(search)) {    // Item was found
-                found = true
+                found = true;
                 setStartEnd(i, length, indexes); // Set the start and end positions of the data on the screen.
             }
         }
 
-        return found
+        return found;
     }
 
     /********************************************************************************************
@@ -3420,15 +3420,15 @@ const _InnerSearchSortTable = (props) => {
 
         for (let i = begin; i < props.data.length && found === false; i++) {
             const str = (props.data[indexes[i]][name]) ? props.data[indexes[i]][name].toString() : ''
-            const compareStr = (hasOwnProperty(props, 'ignorecase')) ? str.toUpperCase() : str
+            const compareStr = (hasOwnProperty(props, 'ignorecase')) ? str.toUpperCase() : str;
 
             if (compareStr.indexOf(search) !== -1) {    // Item was found
-                found = true
+                found = true;
                 setStartEnd(i, length, indexes);  // Set the start and end positions of the data on the screen.
             }
         }
 
-        return found
+        return found;
     }
 
     /******************************************************************************************************************
@@ -3445,141 +3445,141 @@ const _InnerSearchSortTable = (props) => {
      *******************************************************************************************************************/
     function sortClicked(name, orderType, indexes, tableIndex) {
 
-        // console.log('sortClicked(',name, orderType)
+        // console.log('sortClicked(',name, orderType);
 
         if (!table) {   // No table props
            return []
         }
 
         let index = table.map(function(e) { return e.name; }).indexOf(name);   // Column match
-        let localIndexes = [...indexes]
+        let localIndexes = [...indexes];
         let ctrlBreak = false;      // Indicates whether there is a control break or not
         let startingPosition = 0;   // The starting position of the control break for the column
         let endingPosition = 0;     // The ending position of the control break for the column
 
         if (isControlBreak(controlBreakInfo) === true) {    // There is a control break
-            startingPosition = startPos[tableIndex]
+            startingPosition = startPos[tableIndex];
             if (tableIndex + 1 >= startPos.length) {
-                endingPosition = indexes.length
+                endingPosition = indexes.length;
             } else {
-                endingPosition = startPos[tableIndex + 1]
+                endingPosition = startPos[tableIndex + 1];
             }
             localIndexes = [];  // Determine the indexes for the control break
             for (let j = startingPosition; j < endingPosition; j++) {
-                localIndexes.push (indexes[j])
+                localIndexes.push (indexes[j]);
             }
-            ctrlBreak = true
+            ctrlBreak = true;
         }
 
 
-        // console.log('sortClicked index:', index, 'name:', name)
+        // console.log('sortClicked index:', index, 'name:', name);
 
-        let order = [...sortOrder]
-        let ordering = 'A'
+        let order = [...sortOrder];
+        let ordering = 'A';
 
         if (orderType === 'A') {
-            ordering = 'A'
+            ordering = 'A';
         } else {
             if (order[index] === 'N') { // If sort is not specified (first time), change it to ascending
-                ordering = 'A'
-                order[index] = 'A'
+                ordering = 'A';
+                order[index] = 'A';
             } else if (order[index] === 'A') {
-                ordering = 'D'
-                order[index] = 'D'
+                ordering = 'D';
+                order[index] = 'D';
             } else if (order[index] === 'D') {
                 if (ctrlBreak === true) {
-                    ordering = 'A'
-                    order[index] = 'A'
+                    ordering = 'A';
+                    order[index] = 'A';
                 } else {
-                    ordering = 'N'
-                    order[index] = 'N'
+                    ordering = 'N';
+                    order[index] = 'N';
                 }
             }
 
-            setSortOrder(order)
+            setSortOrder(order);
         }
 
-        // console.log('sortOrder was:', sortOrder, 'changing to:', order, 'ordering:', ordering, 'orderType:', orderType)
+        // console.log('sortOrder was:', sortOrder, 'changing to:', order, 'ordering:', ordering, 'orderType:', orderType);
 
         if (ordering === 'N') {
-            setIndex(copyIndex, false)
+            setIndex(copyIndex, false);
 
-            return
+            return;
         }
 
-        let dateFormat = null
+        let dateFormat = null;
         if (hasOwnProperty(table[index], 'sortDate')) {
-            dateFormat = table[index].sortDate
+            dateFormat = table[index].sortDate;
         }
 
-        let sortAry = []
+        let sortAry = [];
         localIndexes.forEach ((row) => {
             if (dateFormat !== null) {
                 if (dateFormat === 'MM/DD/YYYY') {
-                    sortAry.push({index: row, data: convertDate2(props.data[row][name], '/', 1)})
+                    sortAry.push({index: row, data: convertDate2(props.data[row][name], '/', 1)});
                 } else if (dateFormat === 'MM-DD-YYYY') {
-                    sortAry.push({index: row, data: convertDate2(props.data[row][name], '-', 1)})
+                    sortAry.push({index: row, data: convertDate2(props.data[row][name], '-', 1)});
                 } else if (dateFormat === 'MM/DD/YYYY HH:MM:SS') {
-                    sortAry.push({index: row, data: convertDateTime(props.data[row][name], '/', 1)})
+                    sortAry.push({index: row, data: convertDateTime(props.data[row][name], '/', 1)});
                 } else if (dateFormat === 'MM-DD-YYYY HH:MM:SS') {
-                    sortAry.push({index: row, data: convertDateTime(props.data[row][name], '-', 1)})
+                    sortAry.push({index: row, data: convertDateTime(props.data[row][name], '-', 1)});
                 } else if (dateFormat === 'YYYY-MM-DDTHH:MM:SS.SSS') {
-                    sortAry.push({index: row, data: convertDateTimeReg (props.data[row][name])})
+                    sortAry.push({index: row, data: convertDateTimeReg (props.data[row][name])});
                 } else {
                     sortAry.push({index: row, data: props.data[row][name]})
                 }
             } else {
                 sortAry.push({index: row, data: props.data[row][name]})
             }
-        })
+        });
 
         sortAry.sort(function (item1, item2) {
             // Convert to upper case if ignoring case
             if (typeof item1.data === 'string' &&
                 hasOwnProperty(props,'ignorecase') === true) {
-                // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null
+                // item1.data = (item1.data !== null) ? item1.data.toUpperCase() : null;
                 item1.data = item1.data.toUpperCase()
-                item2.data = (item2.data !== null) ? item2.data.toUpperCase() : null
+                item2.data = (item2.data !== null) ? item2.data.toUpperCase() : null;
             }
 
             // Make the comparison
             if (item1.data < item2.data) {
-                return (ordering === 'A') ? -1 : 1
+                return (ordering === 'A') ? -1 : 1;
             } else if (item1.data > item2.data) {
-                return (ordering === 'A') ? 1 : -1
+                return (ordering === 'A') ? 1 : -1;
             } else {
                 return 0;   // Equal
             }
-        })
+        });
 
         if (ctrlBreak === true) {   // There is a control break
             let cbData = [];    // The data for the control break
             // Create the indexes for each individual control break
-            //console.log('sortAry :', sortAry)
+            //console.log('sortAry :', sortAry);
             for (let i = 0; i < sortAry.length; i++) {
-                localIndexes[i] = sortAry[i].index
-                cbData.push (props.data[sortAry[i].index])
+                localIndexes[i] = sortAry[i].index;
+                cbData.push (props.data[sortAry[i].index]);
             }
 
             let newIndexes = [...indexes];  // New indexes for the control break
             for (let i = startingPosition, j = 0; i < endingPosition; i++, j++) {
-                newIndexes[i] = localIndexes[j]
+                newIndexes[i] = localIndexes[j];
             }
 
-            let localData = [...controlBreakData]
-            localData[tableIndex].data = cbData
-            setControlBreakData(localData)
+            let localData = [...controlBreakData];
+            localData[tableIndex].data = cbData;
+            setControlBreakData(localData);
 
-            setIndex(newIndexes, false)
+            setIndex(newIndexes, false);
 
-            return newIndexes
+            return newIndexes;
         } else {    // Regular search sort table
             let newIndexes = [];    // Indexes for the search sort table
-            sortAry.forEach((row) => newIndexes.push(row.index))
+            sortAry.forEach((row) => newIndexes.push(row.index));
 
-            setIndex(newIndexes, false)
+            setIndex(newIndexes, false);
 
-            return newIndexes
+            return newIndexes;
         }
     }
 
@@ -3592,7 +3592,7 @@ const _InnerSearchSortTable = (props) => {
      *
      ***********************************************************************************/
     function alphabet(row, i) {
-        let key = 'anchor_' + i
+        let key = 'anchor_' + i;
 
         return (
             <span key={key}><a onClick={() => letterLink(`${row}`, i)} className={background[i]}>{row}</a>&nbsp;&nbsp;</span>
@@ -3605,9 +3605,9 @@ const _InnerSearchSortTable = (props) => {
      *
      *************************************************************************************************************************/
     function resetSortOrder() {
-        let order = new Array(table.length).fill('N')
-//        console.log('sortOrder was:', sortOrder, 'changing to:', order)
-        setSortOrder(order)
+        let order = new Array(table.length).fill('N');
+//        console.log('sortOrder was:', sortOrder, 'changing to:', order);
+        setSortOrder(order);
     }
 
     /*************************************************************************************************************************
@@ -3621,14 +3621,14 @@ const _InnerSearchSortTable = (props) => {
     function clearSetBackground(index, set) {
         let backgrd = [...background];  // Array of for each letter displayed for the background color
         for (let i = 0; i < backgrd.length; i++) {  // Set all the letters to a standard background color
-            backgrd[i] = 'sw-sst_regBackground'
+            backgrd[i] = 'sw-sst_regBackground';
         }
 
         if (set === true) { // Set the letter pressed to the special background color
-            backgrd[index] = 'sw-sst_letterBackground'
+            backgrd[index] = 'sw-sst_letterBackground';
         }
 
-        setBackground(backgrd)
+        setBackground(backgrd);
 }
 
     /***********************************************************************************
@@ -3651,25 +3651,25 @@ const _InnerSearchSortTable = (props) => {
           return
         }
 
-        let indexing = [...origIndexes]
+        let indexing = [...origIndexes];
 
         if (validate('Letter') === true) {   // Validate that a search header was entered
             // Used to get the field name of the data item
             let index = table.map(function(e) { return e.header; }).indexOf(searchHeader);   // Column match
 
-            clearSetBackground(bIndex, true)
+            clearSetBackground(bIndex, true);
 
-            resetSortOrder()
-            setIndex(origIndexes, true)
+            resetSortOrder();
+            setIndex(origIndexes, true);
             if (letter === '^') {
-//                setIndex(origIndexes, true)
-//                setDisableLetter(false)
-                return
+//                setIndex(origIndexes, true);
+//                setDisableLetter(false);
+                return;
             }
 
             const sortIndexes = sortClicked (table[index].name, 'A', indexing); // ascending order
 
-            let newIndexes = []
+            let newIndexes = [];
 
             // Find the beginning of the letter
             let begin = 0;      // Where the beginning of the letter is
@@ -3678,8 +3678,8 @@ const _InnerSearchSortTable = (props) => {
                 // Letter or digit is found
                 if (props.data[sortIndexes[begin]][table[index].name] !== null &&
                     props.data[sortIndexes[begin]][table[index].name].toString().startsWith(letter) === true) {
-                    found = true
-                    break
+                    found = true;
+                    break;
                 }
             }
 
@@ -3689,18 +3689,18 @@ const _InnerSearchSortTable = (props) => {
                 // End of the letter or digit is found
                 if (props.data[sortIndexes[stop]][table[index].name] !== null &&
                     props.data[sortIndexes[stop]][table[index].name].toString().startsWith(letter) === false) {
-                    break
+                    break;
                 }
-                newIndexes.push(sortIndexes[stop])
+                newIndexes.push(sortIndexes[stop]);
             }
 
             if (found === true) {
-                setIndex(newIndexes, true)
-                setDisable (0, newIndexes.length)
-                setFilterOn(false)
+                setIndex(newIndexes, true);
+                setDisable (0, newIndexes.length);
+                setFilterOn(false);
             } else {
-                setAlertMessage ('No ' + searchHeader + ' starts with a ' + letter)
-                setShowAlert(true)
+                setAlertMessage ('No ' + searchHeader + ' starts with a ' + letter);
+                setShowAlert(true);
             }
         }
     }
@@ -3713,8 +3713,8 @@ const _InnerSearchSortTable = (props) => {
      *
      **********************************************************************************/
     function allButton() {
-        setStart(0)
-        setEnd(length)
+        setStart(0);
+        setEnd(length);
     }
 
     /************************************************************************************************************
@@ -3728,22 +3728,22 @@ const _InnerSearchSortTable = (props) => {
      *************************************************************************************************************/
     function setDisable(index, endLen) {
         if (index > 0) {    // Index is past the start of the data, so enable top and previous
-            setPreviousDisabled(false)
-            setTopDisabled(false)
+            setPreviousDisabled(false);
+            setTopDisabled(false);
         } else {
                   // Can not go any further up so disable top and previous
                   // Index is before the start of the data, so disable top and previous
-            setPreviousDisabled(true)
-            setTopDisabled(true)
+            setPreviousDisabled(true);
+            setTopDisabled(true);
         }
 
         // Cannot go any further down so disable, next and bottom
         if (index + maxItems >= endLen) {
-            setNextDisabled(true)
-            setBottomDisabled(true)
+            setNextDisabled(true);
+            setBottomDisabled(true);
         } else {    // Not at the bottom so enable next and bottom
-            setNextDisabled(false)
-            setBottomDisabled(false)
+            setNextDisabled(false);
+            setBottomDisabled(false);
         }
     }
 
@@ -3760,7 +3760,7 @@ const _InnerSearchSortTable = (props) => {
     function sendIndexes(start, end, length, indexes) {
         let sentIndexes = [];   // The indexes to be returned (pagination) to the calling component
         for (let i = start; i < end && i < length; i++) {
-            sentIndexes.push(indexes[i])
+            sentIndexes.push(indexes[i]);
         }
 
         if (hasOwnProperty(props, 'indexing')) {
@@ -3785,17 +3785,17 @@ const _InnerSearchSortTable = (props) => {
     function setStartEnd(index, dataLen, indexes) {
         if (index !== -1) {
             if (index + maxItems >= dataLen) { // End is past the data
-                setStart (index)
-                setEnd (dataLen)
-                (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (index, dataLen) : null
-                sendIndexes(index, dataLen, dataLen, indexes)
-                setDisable(index, dataLen)
+                setStart (index);
+                setEnd (dataLen);
+                (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (index, dataLen) : null;
+                sendIndexes(index, dataLen, dataLen, indexes);
+                setDisable(index, dataLen);
             } else {    // End is not past the data
-                setStart (index)
-                setEnd (index + maxItems)
-                setDisable(index, dataLen)
-                (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null
-                sendIndexes(index, index + maxItems, dataLen, indexes)
+                setStart (index);
+                setEnd (index + maxItems);
+                setDisable(index, dataLen);
+                (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;
+                sendIndexes(index, index + maxItems, dataLen, indexes);
             }
         }
     }
@@ -3808,15 +3808,15 @@ const _InnerSearchSortTable = (props) => {
      ***********************************************************************************/
     function topButton() {
         if (maxItems < length) {  // Not at the end of the data
-            setStart (0)
-            setEnd (maxItems)
-            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null
-            sendIndexes(0, maxItems, length, indexes)
+            setStart (0);
+            setEnd (maxItems);
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
+            sendIndexes(0, maxItems, length, indexes);
         } else {    // At the end of the data
-            setStart (0)
-            setEnd (length)
-            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null
-            sendIndexes(0, length, length, indexes)
+            setStart (0);
+            setEnd (length);
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
+            sendIndexes(0, length, length, indexes);
         }
 
         setDisable(0, length);  // Determine which buttons to disable
@@ -3831,15 +3831,15 @@ const _InnerSearchSortTable = (props) => {
     function previousButton() {
         let index = start - maxItems;    // Go back the appropriate number of records in the data
         if (index <= 0) {   // Past the beginning of the data
-            setStart (0)
-            setEnd (maxItems)
-            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null
-            sendIndexes(0, maxItems, length, indexes)
+            setStart (0);
+            setEnd (maxItems);
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, maxItems) : null;
+            sendIndexes(0, maxItems, length, indexes);
         } else {    // Not past the beginning of the data
-            setStart (index)
-            setEnd (index + maxItems)
+            setStart (index);
+            setEnd (index + maxItems);
             (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (index, index + maxItems) : null;    // Add max items to get the new current end
-            sendIndexes(index, index + maxItems, length, indexes)
+            sendIndexes(index, index + maxItems, length, indexes);
         }
 
         setDisable(index, length);  // Determine which buttons to disable
@@ -3856,21 +3856,21 @@ const _InnerSearchSortTable = (props) => {
         let begin = 0;      // Current beginning of the start of the data
 
         if (index < length) {    // Not at the end of the data
-            begin = index
+            begin = index;
         } else {    // At the end of the data, so place the beginning at the current start
-            begin = start
+            begin = start;
         }
 
         if (index + maxItems >= length) { // At the end of the data
-            setStart (begin)
-            setEnd (length)
-            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (begin, length) : null
-            sendIndexes(begin, length, length, indexes)
+            setStart (begin);
+            setEnd (length);
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (begin, length) : null;
+            sendIndexes(begin, length, length, indexes);
         } else {    // Not at the end of the data
-            setStart (begin)
-            setEnd (index + maxItems)
+            setStart (begin);
+            setEnd (index + maxItems);
             (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (begin, index + maxItems) : null;    // Increment to the next max items
-            sendIndexes(begin, index + maxItems, length, indexes)
+            sendIndexes(begin, index + maxItems, length, indexes);
         }
 
         setDisable(index, length);  // Determine which buttons to disable
@@ -3884,17 +3884,17 @@ const _InnerSearchSortTable = (props) => {
      ***********************************************************************************/
     function bottomButton() {
         if (length - maxItems < 0) {  // At the end of the data
-            setStart (0)
-            setEnd (length)
-            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null
-            sendIndexes(0, length, length, indexes)
+            setStart (0);
+            setEnd (length);
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd (0, length) : null;
+            sendIndexes(0, length, length, indexes);
         } else {    // Not at the end of the data
-            setStart (length - maxItems)
-            setEnd (length)
-            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd(length - maxItems, length) : null
-            sendIndexes(length - maxItems, length, length, indexes)
+            setStart (length - maxItems);
+            setEnd (length);
+            (hasOwnProperty(props,'startEnd') === true) ? props.startEnd(length - maxItems, length) : null;
+            sendIndexes(length - maxItems, length, length, indexes);
         }
 
-        setDisable(length, length)
+        setDisable(length, length);
     }
 }
