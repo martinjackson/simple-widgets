@@ -22,7 +22,7 @@ import { CSVLink } from 'react-csv';
 import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
     processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
     generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
- } from './index.js'     // from 'simple-widgets';
+ } from './index.js' //     from 'simple-widgets';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -75,8 +75,6 @@ const genDefaultColHeaders = (rowZero, hiddenLookupColumns) => {
  *
  ****************************************************************************/
 export const SearchSortTable = (propsPassed) => {
-console.log('SearchSortTable Local:');
-
     const hiddenLookupColumns = (propsPassed.hiddenLookupColumns) ? propsPassed.hiddenLookupColumns : []
 
     const defaultEachRowInTable = (row, i) => {
@@ -1338,7 +1336,7 @@ const _InnerSearchSortTable = (props) => {
         }
     }
 
-     if (!table) {    // Loading (no Table Col Defs yet, no data yet)
+    if (!table) {    // Loading (no Table Col Defs yet, no data yet)
       const override = css`
         margin: 0 auto;
         `;
@@ -1526,6 +1524,10 @@ const _InnerSearchSortTable = (props) => {
         setFooters(locFooters);
         setControlBreakData(ctrlBreakData);
         setTable(originalTable);
+
+        if (hasOwnProperty(props, 'setTheTable') === true) {
+            props.setTheTable(originalTable);
+        }
     }
 
     /************************************************************************************************************
@@ -2421,7 +2423,6 @@ const _InnerSearchSortTable = (props) => {
      *
      ***************************************************************************************************************************/
     function showDropDown(row, i) {
-    console.log('showDropDown :');
         let functionList = null;
 
         if (hasOwnProperty(row, 'type') === true) {    // The type of data for the column is table props
@@ -2437,8 +2438,6 @@ const _InnerSearchSortTable = (props) => {
         } else {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
-
-        console.log ('got here 1');
 
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
@@ -2458,8 +2457,6 @@ const _InnerSearchSortTable = (props) => {
             }
         }
 
-        console.log ('got here 2');
-
         let controlBreakRender = null;
         if (hasOwnProperty(props, 'nocontrolbreak') === false) {
             if (controlBreakInfo[i].ctrlBreak === 0) {
@@ -2476,9 +2473,6 @@ const _InnerSearchSortTable = (props) => {
                     </span>;
             }
         }
-
-        console.log ('got here 3');
-        console.log('functionList :', functionList);
 
         // Render the drop down
         return (
@@ -2514,8 +2508,6 @@ const _InnerSearchSortTable = (props) => {
      *
      ***************************************************************************************************************************/
     function displayDropDown(_row, i) {
-    console.log('_row :', _row);
-    console.log('i :', i);
         setDropDownIndex(i);    // Indicates which column in the table the drop down should appear above
         setFunctSelect('');     // No aggregate function has been selected
         setHtmlDropDown(true);  // Display the drop down over the appropriate column
