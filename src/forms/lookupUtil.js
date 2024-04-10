@@ -58,7 +58,7 @@ export const serializeLookups = () => {                 // TODO: test and implem
 
   const clone = {}
 
-  // remove all references to funcctions
+  // remove all references to functions
   Object.keys(lookups).forEach(k => {
     clone[k] = {}
 
@@ -100,7 +100,7 @@ export const setLookupData = (name, data, error) => {          // name: String
 
 
 // -----------------------------------------------------------------------------------------------------
-export const addLookupAlias = (alias, name) => {          // name: String      query: GraphhQL query
+export const addLookupAlias = (alias, name) => {          // name: String      query: GraphQL query
 
   const notifyFn = (lookupName, data, error) => {
     setLookupData(alias, data, error)
