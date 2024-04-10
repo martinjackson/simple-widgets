@@ -1,6 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint react/prop-types: 0 */
 
+// cSpell:ignore Funct hdrs occrred noupper nolower nodigit SRCHITEM SRCHHDR PDFORIENT searclall Vals filterdaterange showall intialize searchall nofilter
+// cSpell:ignore noheaderborder  nofooterborder notop noprevious nonext nobottom checkedsymbol nosearch throught Offical nofooter norows nodisplay cbtitles
+// cSpell:ignore cbhead sfbottom showtable backgrd DDTHH nosort comparision paginantion cbtable cbrow cbfoot blenk startingpos contorl wiht condsidering inorder
+// cSpell:ignore nohidden nocontrolbreak searchstart nocontsearch represnts mathfooter inidicates noaggregation
+
 import React, { useState, useEffect } from 'react';
 import { css } from "@emotion/react";
 import FadeLoader from "react-spinners/FadeLoader";
@@ -254,7 +259,7 @@ const _InnerSearchSortTable = (props) => {
     const [excelData, setExcelData] = useState([]);                     // Contains the data to be placed in the excel spreadsheet
     const [showExcel, setShowExcel] = useState(false);                  // Indicates whether the Excel Display button can be displayed or not
     const [checked, setChecked] = useState('N');                        // Indicates whether the checkbox in the header is checked (Y) or not
-    const [dragOver, setDragOver] = useState('');
+    const [dragOver, setDragOver] = useState('');                       // TODO: dragOver is never used, change to _dragOver if intentionally needed
     const [userFooter, setUserFooter] = useState(props.footer);
     const [originalTable] = useState(props.table);
 
