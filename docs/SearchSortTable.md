@@ -211,7 +211,8 @@ The following is an example on how to customize the new eachRowInTable:
         return (
           <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
             { table.map((col, idx) => (
-                <td key={`${col.header}_${idx}_${i}`} className={"sw-sst_body_full " + col.align} 
+                <td key={`${col.header}_${idx}_${i}`}                           
+                        className={"sw-sst_body_full " + col.align} 
                         hidden={hideCol[idx]}>
                     { (col.name === 'date') ? convertDate(row[col.name]) : 
                       (col.name === 'money') ? formatMoney(row[col.name]) :
@@ -1224,7 +1225,7 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 
 ***These are some useful CSS classes that can be used in the eachRowInTable functions:***
 
-37. ***sw-sst_full*** = puts a single border around a cell in the table.
+37. ***sw-sst_body_full*** = puts a single border around a cell in the table.
 
 ```css
 .sw-sst_body_full {
