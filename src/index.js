@@ -30,6 +30,7 @@ import { List } from './List.js'
 import { getMenuParms, MenuBar } from './MenuBar.js'
 import { Modal } from './Modal.js'
 import { NavigateBar } from './NavigateBar.js'
+import { OpenTab } from './OpenTab.js'
 import { Outline } from './Outline.js'
 import { PageTitle } from './PageTitle.js'
 import ProgressCircles from './ProgressCircles.js'
@@ -131,7 +132,7 @@ export { AlertModal, AppCore, CheckBox, CheckBoxGroup, Choice, ChoiceText, Choic
          validCheckTable, clearInvalidDual, clearInvalidScreen, clearInvalidTable,
          processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable,
          processStyleTable, isInvalid, getInvalidMessage, Link, List, getMenuParms, MenuBar, Modal,
-         NavigateBar, Outline, PageTitle, ProgressCircles, Radio, Redirect, search, binSearch,
+         NavigateBar, OpenTab, Outline, PageTitle, ProgressCircles, Radio, Redirect, search, binSearch,
          SearchSortTable, SimpleTable, Slider, SpreadSheet, StatusBox, generateButton, generateCSSButton,
          generateCSSDefaultButton, UserSection, isOpera, isFirefox, isSafari, isIE, isEdge, isChrome,
          isEdgeChromium, isBlink, toCamelCase, findCssRule, deleteCssRule, findStyleSheet, insertCssRule,
