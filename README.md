@@ -150,6 +150,7 @@ All of these widgets require the following props:
 [MenuBar](docs/MenuBar.md)<br />
 [Menu Utils](docs/MenuUtils.md)<br />
 [Modal](docs/Modal.md)<br />
+[OpenTab](docs/OpenTab.md)<br />
 [Outline](docs/Outline.md)<br />
 [PageTitle](docs/PageTitle.md)<br />
 [ProgressCircles](docs/ProgressCircles.md)<br />
