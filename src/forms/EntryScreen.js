@@ -1,3 +1,6 @@
+
+// cSpell:ignore  closeFunct
+
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 
@@ -23,7 +26,7 @@ export function EntryScreen(props) {
   const queryStr = namedQueries(props.queryName)
 
   if (!queryStr) {      // null or undefined
-    const ErrorMsg = `Error query named: ${props.queryName}, has no definitiion.`
+    const ErrorMsg = `Error query named: ${props.queryName}, has no definition.`
     console.log(ErrorMsg);
     return ErrorMsg
   }
