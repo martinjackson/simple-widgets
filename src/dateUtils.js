@@ -1,5 +1,5 @@
 
-// TODO: this is the last day oif the previous month !== to this months last day
+// TODO: lastOfMonth() returns the last day of the previous month !== to the last day of this month
 
 export const lastOfMonth = () => {
   let today = new Date();

@@ -27,57 +27,33 @@ export const Form = (props) => {
   let incomingData = (props.data) ? props.data : props.value
 
   let dataRow = incomingData
-  const gqlName = getGqlNameFromForm(props.name)          // TODO: is the polution of Form to know anything about GraphQL ???
+  const gqlName = getGqlNameFromForm(props.name)          // TODO: is the pollution of Form to know anything about GraphQL ???
   if (incomingData && incomingData[gqlName])   // if it is an object, ie. result from graphQL query and the graphQL noun is there
      dataRow = incomingData[gqlName]
 
   let activeData = (dataRow && dataRow[dataRowStart]) ? dataRow[dataRowStart] : dataRow
 
-  const onAddRecButton = () => {
-    if (props.onChangeMsg) {
-      props.onChangeMsg("add record " + props.parentRecName + " " + props.name);
-    }
-    if (props.addRecFn) {
-      props.addRecFn(props.parentRecName, props.name, activeData)
-    }
-  }
+  let onAddRec = null
+  let onCloneRec = null
 
-  const onCloneRecButton = () => {
-    if (props.onChangeMsg) {
-      props.onChangeMsg("clone record " + props.parentRecName + " " + props.name);
+  if (props.newRecord) {
+    onAddRec = () => {
+      if (props.onChangeMsg) {
+        props.onChangeMsg("add record " + props.parentRecName + " " + props.name);
+      }
+      props.newRecord(false, props.parentRecName, props.name, activeData)
     }
-    if (props.cloneRecFn) {
-      props.cloneRecFn(props.parentRecName, props.name, activeData)
+
+    onCloneRec = () => {
+      if (props.onChangeMsg) {
+        props.onChangeMsg("clone record " + props.parentRecName + " " + props.name);
+      }
+      props.newRecord(props.parentRecName, props.name, activeData)
     }
   }
 
   const onChange = (change) => {
     onFormChange(change, props, '<Form ', setMsg, activeData)
-    //          onFormChange(change, props, msgPrefix, setMsg, activeData)
-    // handled = props.onChangeSpecial(change, moreChanges)
-    // -- or --
-    // moreChanges(activeData, change.target.name, change.target.value, props, msgPrefix, setMsg)
-    //          moreChanges(data, targetName, targetValue, props, msgPrefix, setMsg)
-    //   \---->
-    //          const info = { parentRecName: props.parentRecName, formName: props.name }
-    //          const changes = applyDeepValueChange(data, targetName, targetValue, info, props.debug)
-    //          \---->
-    //                 let update = calcRecorcUpdateInfo(data, targetName, targetValue)
-    //              returns
-    //                      update = {
-    //                        gqlTable: gqlName,
-    //                        gqlField: fieldName,
-    //                        value: value,
-    //                        where: keyValues
-    //                      }
-    //
-    //                   getRecorcKeyInfo = (data, recName) => {                // recName = "person[0].appointment[0]"
-    //              returns
-    //                      update = {
-    //                        gqlTable: gqlName,
-    //                        where: keyValues
-    //                      }
-
   }
 
   // included in {...props}
@@ -95,8 +71,8 @@ export const Form = (props) => {
                numRecs={arrLen(dataRow)}
                recPrevFn={recPrevFn}
                recNextFn={recNextFn}
-               onAddRecButton={onAddRecButton}
-               onCloneRecButton={onCloneRecButton}
+               onAddRec={onAddRec}
+               onCloneRec={onCloneRec}
                {...props}
                />
           <FormFields

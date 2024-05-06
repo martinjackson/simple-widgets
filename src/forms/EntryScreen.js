@@ -4,20 +4,15 @@
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 
-import { SimpleTable }        from '../SimpleTable.js'
 import { dTS }                from '../time.js'
 
 import { client }             from './client.js'
-import { genEmptyRecord }     from './genEmptyRecord.js'
-import { MakeModal }          from './MakeModal.js'
 import { makeGqlAST }         from './makeGqlAST.js'
 import { ErrorList }          from './ErrorList.js'
 import { useErrorList }       from './useErrorList.js'
 import { SimpleEntryScreen }  from './SimpleEntryScreen.js'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
-// import { getSubRecord }       from './getSubRecord.js'
 
-import { getGqlPKs, getGqlName, getGqlFieldNames } from '../index.js'
 
 // --------------------------------------------------------------------------
 export function EntryScreen(props) {
@@ -73,38 +68,11 @@ function hasNonNullKeys(keys) {
 }
 
 // --------------------------------------------------------------------------
-function genNewRecordKeys(parentRecName, recName, siblingDataRec, genPKsForNewRecords) {
-  console.log(dTS(), 'genNewRecordKeys()', {parentRecName, recName, siblingDataRec})
-
-  const parentGqlName = getGqlName(parentRecName)
-  const parentFields = getGqlFieldNames(parentGqlName)
-
-  const recGqlName = getGqlName(recName)
-  const recPks = getGqlPKs(recGqlName)
-
-  const samePKs = recPks.filter(name => parentFields.includes(name))     // recPks[] not in parentFields[]
-  const missingPkNames = recPks.filter(name => !parentFields.includes(name))     // recPks[] not in parentFields[]
-
-  genPKsForNewRecords(recGqlName, missingPkNames, siblingDataRec).then(newPks => {
-    const recordType = genRecordTypeFromName(recName)    // assumes recName has no . or []
-    const newRec = genEmptyRecord(recordType, true)
-    samePKs.map(k => newRec[k] = siblingDataRec[k])  // copy over all the same PK fields
-    missingPkNames.map(k => newRec[k] = newPks[k])
-    // TODO: set new record in the hierarchy and call setData() to cause a reflow
-    })
-
-}
-
-// --------------------------------------------------------------------------
 function EntryScreenKeyed(props) {
 
   if (props.debug > 1) {
      console.log(dTS(), '== EntryScreenKeyed render ==', props)
   }
-
-  const [showModal, setShowModal]   = useState(false)
-  const [cloneRec, setCloneRec]     = useState(false)
-  const [newRecList, setNewRecList] = useState([])
 
   const [keys, setKeys] = useState(props.keys)
   const [data, setData] = useState(null)
@@ -155,83 +123,9 @@ function EntryScreenKeyed(props) {
     console.log(dTS(), `  needs loading query ${props.queryName}, Keys:`, props.keys)
   }
 
-  const newRecord = (cloneFlag, parentRecName, recName, activeDataRec) => {
-
-    if (props.debug) {
-      if (cloneFlag)
-         console.log(dTS(), '== EntryScreen newRecord (clone) ==', {parentRecName, recName, activeDataRec})
-      else
-         console.log(dTS(), '== EntryScreen newRecord ==', {parentRecName, recName, activeDataRec})
-      }
-
-    if (!parentRecName) {
-      pickNewTopRecord(cloneFlag)
-    } else {
-      const msg = (cloneFlag) ? 'cloning record:' : 'creating new record:'
-
-      if (props.genPKsForNewRecords) {
-        genNewRecordKeys(parentRecName, recName, activeDataRec, props.genPKsForNewRecords)  // activeDataRec is the siblingDataRec
-      } else {
-        const errMsg = 'ERROR '+msg+' -- requires EntryScreen props.genPKsForNewRecords(), but the prop is missing.'
-        console.log(dTS(), errMsg, {parentRecName, recName, activeDataRec})
-        // TODO: display message to user that new record was not created.
-      }
-    }
-
-  }
-
-  const pickNewTopRecord = (cloneFlag) => {
-    setCloneRec(cloneFlag)
-
-    if (props.genPickListOfNew) {
-      const newRecList = props.genPickListOfNew()
-      if (newRecList.length <= 0) {
-        console.log('newRecList selection is broken.')
-      } else {
-        setNewRecList(newRecList)
-        setShowModal(true)
-      }
-    } else {
-      setShowModal(true)
-    }
-  }
-
-  const newRecRowSelected = (rowSelected) => {
-    console.log('rowSelected:', rowSelected);
-
-    const recordType = genRecordTypeFromName(props.recordName)
-    const empty = genEmptyRecord(recordType, true)
-    const legalFields = Object.keys(empty)
-    const incomingFields = Object.keys(rowSelected)
-    const goodFields = incomingFields.filter(f => legalFields.includes(f))
-    const keyNames = Object.keys(keys)
-    const goodKeys = incomingFields.filter(f => keyNames.includes(f))
-
-    if (cloneRec) {
-      if (data) { // clone from previous data
-        goodFields.forEach(f => {
-          data[props.recordName][0][f] = rowSelected[f]
-        })
-      }
-    } else { // empty record
-      console.log('Creating Empty Record[',recordType,']', empty);
-
-      goodFields.forEach(f => {
-        empty[f] = rowSelected[f]
-      })
-      setData({ [props.recordName]: [empty] })
-
-      // TODO: comes from  genPickListOfNew() and is not the normal lookup for the first field
-
-    }
-
-    const newKeys = {}
-    goodKeys.forEach(f => {
-      newKeys[f] = rowSelected[f]
-    })
-    setKeys(newKeys)
-    setShowModal(false)
-  }
+  // was newRecord() { .. } defined here
+  // was pickNewTopRecord() { .. } defined here
+  // was newRecRowSelected() { .. } defined here
 
 
   const onChangeSpecial = (change, moreChanges) => {
@@ -272,9 +166,6 @@ function EntryScreenKeyed(props) {
       }
     } else {
       console.log(dTS(), '*** Unexpected', props.recordName, 'rec msg: ', change)
-
-      pickNewTopRecord(false); // TODO: verify this is not a clone
-
       return true
     }
 
@@ -282,23 +173,17 @@ function EntryScreenKeyed(props) {
   }
 
   const styleSelected = (props.styleSelected) ? props.styleSelected : 'form-style-11'
-  const PopUpWidget = (props.NewRecordGui) ? props.NewRecordGui : SimpleTable
 
   // included in {...props}
   // header={props.header}
   // formName={props.formName}
   // who={props.who}
   // recordName={props.recordName}
-  // noAdd={props.noAdd}
-  // noClone={props.noClone}
+  // newRecord={newRecord}                                <--- (onAdd, onClone refactored out) replaced by newRecord interface 2024-05-06
   // showPendingData={props.showPendingData}
   // debug={props.debug}
 
   return <>
-    <MakeModal show={showModal} closeFunct={setShowModal} >
-      <PopUpWidget data={newRecList} height='30em' dataSelected={newRecRowSelected} hiddenLookupColumns={props.hiddenLookupColumns} />
-    </MakeModal>
-
     <ErrorList list={errors} />
     <SimpleEntryScreen
       {...props}
@@ -306,7 +191,7 @@ function EntryScreenKeyed(props) {
       loadInProgress={needsLoading}
       data={data}
       setData={setData}
-      newRecord={newRecord}
+
       logErrors={logErrors}
       onChangeSpecial={onChangeSpecial}
       />

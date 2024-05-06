@@ -9,8 +9,8 @@ export const FormHeader = (props) => {
 
   const numRecs = props.numRecs;
 
-  const AddRecButton = (props.noAdd) ? null : <button title="New" onClick={props.onAddRecButton}><AddRecordIcon /></button>;
-  const CloneRecButton = (props.noClone) ? null : <button title="New cloned data" onClick={props.onCloneRecButton}><CloneRecordIcon /></button>;
+  const AddRecButton = (props.onAddRec) ? <button title="New" onClick={props.onAddRec}><AddRecordIcon /></button> : null
+  const CloneRecButton = (props.onCloneRec) ? <button title="New cloned data" onClick={props.onCloneRec}><CloneRecordIcon /></button> : null
   const isLoading = (props.loadInProgress) ? <DatabaseLoadingIcon /> : null;
 
   let recMsg = '';
