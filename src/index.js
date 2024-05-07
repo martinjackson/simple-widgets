@@ -102,6 +102,7 @@ import { notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookup
          addNotify, removeNotify, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary
           } from './forms/lookupUtil.js'
 import { makeGqlAST } from './forms/makeGqlAST.js'
+import { newRecord } from './forms/newRecord.js'
 import { onFormChange } from './forms/onFormChange.js'
 import { prop2str } from './forms/prop2str.js'
 import { removeIllegalAttributes } from './forms/removeIllegalAttributes.js'
@@ -149,10 +150,10 @@ export { AlertModal, AppCore, CheckBox, CheckBoxGroup, Choice, ChoiceText, Choic
          watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone, isLookupDone,
          serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias,
          defineLookup, fetchLookupData, startLookup, refreshLookup, addNotify, removeNotify,
-         calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary, makeGqlAST, onFormChange,
-         prop2str, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace, toCamelCaseVar,
-         toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo, getAppSpecificInfo,
-         createRec, deleteRec, formFromTableInfo, tableField2FormField, genDictionaryEntry, getTableColumns,
-         getTablePKs, findTableByGqlName, getGqlFieldNames, getGqlPKs, listNotKeyedTables, updateRecord,
-         AddRecordIcon,
+         calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary, makeGqlAST, newRecord,
+         onFormChange, prop2str, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace,
+         toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo,
+         getAppSpecificInfo, createRec, deleteRec, formFromTableInfo, tableField2FormField,
+         genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName, getGqlFieldNames, getGqlPKs,
+         listNotKeyedTables, updateRecord, AddRecordIcon,
          CloneRecordIcon }

@@ -141,7 +141,9 @@ const files = fullList
               .filter(fn => fn.endsWith('.js'))
               .filter(fn => !skip.includes(fn))
 
-const fileInfo = files.map( fname => { return { filename: fname, exportInfo: getExports(fname) } })
+let fileInfo = files.map( fname => { return { filename: fname, exportInfo: getExports(fname) } })
+fileInfo = fileInfo.filter(info => info.exportInfo.length > 0)       // remove any files that have no exports
+
 const exportNames = fileInfo.map(info => info.exportInfo.map(i => i.ename)).flat()
 const importLines = fileInfo.map (info => genImports(info)  )
 
