@@ -170,7 +170,6 @@
     "react-calendar": "^4.6.1",
     "react-csv": "^2.2.2",
     "react-spinners": "^0.13.8",
-    "simple-widgets": "file:simple-widgets-1.40.8.tgz",
     "zustand": "^4.4.3"
   }
 }
