@@ -23,30 +23,30 @@ export function formFromTableInfo(table, fields, labels) {
 
 // ---------------------------------------------------------------------------------------------------------------------
 function special(fieldName) {
-  
+
   switch (fieldName) {
-    "SEX":              return { type: "choice", options: ['M','F'],   },
-    "NCTR_ID":          return { type: "choice", lookup: "NCTR_ID"     },
-    "DIVISION":         return { type: "choice", lookup: "DIVISION"    },
-    "PROGRAM_ID":       return { type: "choice", lookup: "PROGRAM_ID"  },
-    "VACANCY_ID":       return { type: "choice", lookup: "VACANCY_ID"  },
-    "PAYER_ID":         return { type: "choice", lookup: "PAYER_ID"    },
-    "INSURANCE_FLAG":   return { type: "choice", options: ['Y','N'],   },
+    case "SEX":              return { type: "choice", options: ['M','F'],   }
+    case "NCTR_ID":          return { type: "choice", lookup: "NCTR_ID"     }
+    case "DIVISION":         return { type: "choice", lookup: "DIVISION"    }
+    case "PROGRAM_ID":       return { type: "choice", lookup: "PROGRAM_ID"  }
+    case "VACANCY_ID":       return { type: "choice", lookup: "VACANCY_ID"  }
+    case "PAYER_ID":         return { type: "choice", lookup: "PAYER_ID"    }
+    case "INSURANCE_FLAG":   return { type: "choice", options: ['Y','N'],   }
   }
 
 return null
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
-function translate(dbFieldType) {
+function translate(dbFieldType, len, precision, step) {
 
   switch (dbFieldType) {
-    "CHAR":             return { type: "text", size: len, maxLength: len },
-    "VARCHAR":          return { type: "text", size: len, maxLength: len },
-    "VARCHAR2":         return { type: "text", size: len, maxLength: len },
-    "DATE":             return { type: "date", format: 'yyyy-mm-dd' },
-    "NUMBER":           return { type: "number", size: precision, maxLength: precision },
-    "FLOAT":            return { type: "number", step: step },
+    case "CHAR":             return { type: "text", size: len, maxLength: len }
+    case "VARCHAR":          return { type: "text", size: len, maxLength: len }
+    case "VARCHAR2":         return { type: "text", size: len, maxLength: len }
+    case "DATE":             return { type: "date", format: 'yyyy-mm-dd' }
+    case "NUMBER":           return { type: "number", size: precision, maxLength: precision }
+    case "FLOAT":            return { type: "number", step: step }
     // "FLOAT"    only as field ID in "SHARED.MAIL_ATTACH", "APPROVAL.MAIL_ATTACH"
     // "BLOB":     "TODO:Popup Viewer",   // only as field FILE_DATA in "SHARED.MAIL_ATTACH", "APPROVAL.MAIL_ATTACH"
   }
@@ -65,7 +65,7 @@ function translateDBType2FieldType(dbType, fName, len, precision, scale) {
   if (isSpecialField) {
     ans = isSpecialField
   } else {
-    const isTranslatable = translate(dbType)
+    const isTranslatable = translate(dbType, len, precision, step))
     if (isTranslatable)
       ans = isTranslable
 

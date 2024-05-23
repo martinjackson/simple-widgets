@@ -5,6 +5,7 @@
 // cSpell:ignore noheaderborder  nofooterborder notop noprevious nonext nobottom checkedsymbol nosearch throught Offical nofooter norows nodisplay cbtitles
 // cSpell:ignore cbhead sfbottom showtable backgrd DDTHH nosort comparision paginantion cbtable cbrow cbfoot blenk startingpos contorl wiht condsidering inorder
 // cSpell:ignore nohidden nocontrolbreak searchstart nocontsearch represents mathfooter inidicates noaggregation
+// cSpell:ignore finaltotals finaltotal finaltitle wnated titlse sumtitle determing numbe aggregrate rowft represnts
 
 import React, { useState, useEffect } from 'react';
 import { css } from "@emotion/react";
@@ -310,7 +311,7 @@ const _InnerSearchSortTable = (props) => {
                 console.log ('SearchSortTable: final totals array must be the same size as the table array');
                 console.log ('SearchSortTable: final totals may not work correctly');
             }
-        } 
+        }
 
         if (isUserCtrlBreak === true) {
             setControlBreakInfo (props.controlBreak);
@@ -419,9 +420,9 @@ const _InnerSearchSortTable = (props) => {
     }
 
     /*******************************************************************************************************
-     * 
+     *
      * This will reset the indexes back to the original indexes.
-     * 
+     *
      ********************************************************************************************************/
     const resetTheIndexes = () => {
         setFilterOn(false);
@@ -1418,8 +1419,8 @@ const _InnerSearchSortTable = (props) => {
             let localInfo = [...controlBreakInfo];
             let temp = localInfo[draggedColIdx];         // Make a temporary copy of the starting column
             localInfo.splice (draggedColIdx, 1);         // Remove the starting column
-            localInfo.splice (droppedColIdx, 0, temp);   // Insert the column where it was dropped    
-            
+            localInfo.splice (droppedColIdx, 0, temp);   // Insert the column where it was dropped
+
             setControlBreakInfo(localInfo);
 //            findCtrlBreak(localInfo, indexes);
         } else {    // Math footers not in control breaks
@@ -1443,8 +1444,8 @@ const _InnerSearchSortTable = (props) => {
             let localInfo = [...finalTotalsInfo];
             let temp2 = localInfo[draggedColIdx];         // Make a temporary copy of the starting column
             localInfo.splice (draggedColIdx, 1);         // Remove the starting column
-            localInfo.splice (droppedColIdx, 0, temp2);   // Insert the column where it was dropped    
-            
+            localInfo.splice (droppedColIdx, 0, temp2);   // Insert the column where it was dropped
+
             setFinalTotalsInfo(localInfo);
         }
 
@@ -1479,13 +1480,13 @@ const _InnerSearchSortTable = (props) => {
                 return ( <td key={key} hidden></td> );
             } else if (hasOwnProperty(finalTotalsInfo[i], 'money') === true && finalTotalsInfo[i].money === true) {
                 return ( <td key={key} className={footerStyle + ' sw-sst_right'}>{row}</td> );
-            } else if (hasOwnProperty(finalTotalsInfo[i], 'align') === true && 
+            } else if (hasOwnProperty(finalTotalsInfo[i], 'align') === true &&
                     finalTotalsInfo[i].align === 'left') {
                 return ( <td key={key} className={footerStyle + ' sw-sst_left'}>{row}</td> );
-            } else if (hasOwnProperty(finalTotalsInfo[i], 'align') === true && 
+            } else if (hasOwnProperty(finalTotalsInfo[i], 'align') === true &&
                     finalTotalsInfo[i].align === 'right') {
                 return ( <td key={key} className={footerStyle + ' sw-sst_right'}>{row}</td> );
-            } else if (hasOwnProperty(finalTotalsInfo[i], 'align') === true && 
+            } else if (hasOwnProperty(finalTotalsInfo[i], 'align') === true &&
                     finalTotalsInfo[i].align === 'center') {
                 return ( <td key={key} className={footerStyle + ' sw-sst_center'}>{row}</td> );
             } else {
@@ -1628,7 +1629,7 @@ const _InnerSearchSortTable = (props) => {
         let count = -1;
 
 //        let finalTotals = buildFinalFooters();
-        
+
         tableBuild =    <table className={hoverClassName + " sw-sst_table"} name={`table${number}`} key={keyTable}>
                             <thead>
                                 <tr key={header} className="sw-sst_centerBoldStyle">
@@ -3755,13 +3756,13 @@ const _InnerSearchSortTable = (props) => {
     }
 
     /*********************************************************************************************************
-     * 
+     *
      * This will store the final footers in the finalTotal array which sent back to tables that already have
      * control breaks and those that do not have control breaks.  This will require the finaltotals prop.
-     * 
+     *
      * Parameters:
      * 1.   total = contain the raw final totals
-     * 
+     *
      *********************************************************************************************************/
     function storeFinalFooters(total) {
         if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure there is the finaltotals prop
@@ -3801,9 +3802,9 @@ const _InnerSearchSortTable = (props) => {
     }
 
     /*********************************************************************************************************
-     * 
+     *
      * This function will total up the final totals and place them in the footer section for each column.
-     * 
+     *
      *********************************************************************************************************/
     function buildFinalFooters() {
         if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure final totals are wnated
@@ -3840,13 +3841,13 @@ const _InnerSearchSortTable = (props) => {
                     ctrlBreakInfo[j].sum === true) {
                         summing = true;
                 }
-        
+
                 let totaling = false;   // Indicates whether the column should be totaled
                 if (hasOwnProperty(props, 'finaltotals') === true &&
                     props.finaltotals[j].finaltotal === true) {
                         totaling = true;
                 }
-        
+
                 // Place the sum title in one of the footers
                 if (hasOwnProperty(ctrlBreakInfo[j], 'sumtitle') === true &&    // The column has a title, but
                     hasOwnProperty(ctrlBreakInfo[j], 'sum') === false) {        // does not have a sum
@@ -3883,12 +3884,12 @@ const _InnerSearchSortTable = (props) => {
                     ctrlBreakData[i].footer[j].push('');  // Place a blank into the footer
                 }
             }
-        } 
-        
+        }
+
         // Store the final totals to be displayed
         let finalTotals = storeFinalFooters(total);
         setFinalTotals(finalTotals);
-        
+
         return ctrlBreakData;   // Return the control break data that now contains the footer containing the totals
     }
 
