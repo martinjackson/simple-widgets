@@ -22,38 +22,52 @@ export function formFromTableInfo(table, fields, labels) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
+function special(fieldName) {
+  
+  switch (fieldName) {
+    "SEX":              return { type: "choice", options: ['M','F'],   },
+    "NCTR_ID":          return { type: "choice", lookup: "NCTR_ID"     },
+    "DIVISION":         return { type: "choice", lookup: "DIVISION"    },
+    "PROGRAM_ID":       return { type: "choice", lookup: "PROGRAM_ID"  },
+    "VACANCY_ID":       return { type: "choice", lookup: "VACANCY_ID"  },
+    "PAYER_ID":         return { type: "choice", lookup: "PAYER_ID"    },
+    "INSURANCE_FLAG":   return { type: "choice", options: ['Y','N'],   },
+  }
 
-const special = {
-  "SEX":              { type: "choice", options: ['M','F'],   },
-  "NCTR_ID":          { type: "choice", lookup: "NCTR_ID"     },
-  "DIVISION":         { type: "choice", lookup: "DIVISION"    },
-  "PROGRAM_ID":       { type: "choice", lookup: "PROGRAM_ID"  },
-  "VACANCY_ID":       { type: "choice", lookup: "VACANCY_ID"  },
-  "PAYER_ID":         { type: "choice", lookup: "PAYER_ID"    },
-  "INSURANCE_FLAG":   { type: "choice", options: ['Y','N'],   },
+return null
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+function translate(dbFieldType) {
+
+  switch (dbFieldType) {
+    "CHAR":             return { type: "text", size: len, maxLength: len },
+    "VARCHAR":          return { type: "text", size: len, maxLength: len },
+    "VARCHAR2":         return { type: "text", size: len, maxLength: len },
+    "DATE":             return { type: "date", format: 'yyyy-mm-dd' },
+    "NUMBER":           return { type: "number", size: precision, maxLength: precision },
+    "FLOAT":            return { type: "number", step: step },
+    // "FLOAT"    only as field ID in "SHARED.MAIL_ATTACH", "APPROVAL.MAIL_ATTACH"
+    // "BLOB":     "TODO:Popup Viewer",   // only as field FILE_DATA in "SHARED.MAIL_ATTACH", "APPROVAL.MAIL_ATTACH"
+  }
+
+  return null
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
 function translateDBType2FieldType(dbType, fName, len, precision, scale) {
 
   const step = (scale && scale > 0) ? Math.pow(10, 0 - scale).toString() : null // "0.01"
-  const translate = {
-    "CHAR": { type: "text", size: len, maxLength: len },
-    "VARCHAR": { type: "text", size: len, maxLength: len },
-    "VARCHAR2": { type: "text", size: len, maxLength: len },
-    "DATE": { type: "date", format: 'yyyy-mm-dd' },
-    "NUMBER": { type: "number", size: precision, maxLength: precision },
-    "FLOAT": { type: "number", step: step },
-    // "FLOAT"    only as field ID in "SHARED.MAIL_ATTACH", "APPROVAL.MAIL_ATTACH"
-    // "BLOB":     "TODO:Popup Viewer",   // only as field FILE_DATA in "SHARED.MAIL_ATTACH", "APPROVAL.MAIL_ATTACH"
-  }
 
   let ans = { type: "text" }
-  if (special[fName]) {
-    ans = special[fName]
+
+  const isSpecialField = special(fName)
+  if (isSpecialField) {
+    ans = isSpecialField
   } else {
-    if (translate[dbType])
-      ans = translate[dbType]
+    const isTranslatable = translate(dbType)
+    if (isTranslatable)
+      ans = isTranslable
 
     if (ans.type === 'text' && len > 60) {
       ans.type = 'textArea'
