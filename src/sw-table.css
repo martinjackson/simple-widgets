@@ -107,14 +107,13 @@ table.sw-sst_search_sort_table10 tr:hover td {
 }
 
 .sw-sst_footerStyle {
-  text-align: center;
   font-weight: bold;
   font-size: 20px;
   border: 1px solid black;
 }
 
 .sw-sst_footerStyle2 {
-  text-align: center;
+  text-align: none;
   font-weight: bold;
   font-size: 20px;
 }
@@ -303,6 +302,10 @@ table.sw-sst_search_sort_table10 tr:hover td {
   width: 100%;
 }
 
+.sw-sst_final_total_margin {
+  margin-top: 20px;
+}
+
 .sw-sst_body_col {
   border-left: 1px solid black;
   border-right: 1px solid black;
@@ -323,13 +326,88 @@ table.sw-sst_search_sort_table10 tr:hover td {
 
 .sw-sst_left {
   text-align: left;
+  font-weight: normal;
+  font-size: unset;
+}
+
+.sw-sst_left_bold {
+  font-weight: bold;
+  text-align: left;
 }
 
 .sw-sst_center {
   text-align: center;
+  font-weight: normal;
+  font-size: unset;
+}
+
+.sw-sst_center_bold {
+  font-weight: bold;
+  text-align: center;
 }
 
 .sw-sst_right {
+  text-align: right;
+  font-weight: normal;
+  font-size: unset;
+}
+
+.sw-sst_right_bold {
+  font-weight: bold;
+  text-align: right;
+}
+
+.sw-sst_money {
+  text-align: right;
+}
+
+.sw-sst_money_bold {
+  font-weight: bold;
+  text-align: right;
+}
+
+.sw-sst_money_left {
+  text-align: left;
+}
+
+.sw-sst_money_left_bold {
+  font-weight: bold;
+  text-align: left;
+}
+
+.sw-sst_money_center {
+  text-align: center;
+}
+
+.sw-sst_money_center_bold {
+  font-weight: bold;
+  text-align: center;
+}
+
+.sw-sst_date {
+  text-align: center;
+}
+
+.sw-sst_date_bold {
+  font-weight: bold;
+  text-align: center;
+}
+
+.sw-sst_date_left {
+  text-align: left;
+}
+
+.sw-sst_date_left_bold {
+  font-weight: bold;
+  text-align: left;
+}
+
+.sw-sst_date_right {
+  text-align: right;
+}
+
+.sw-sst_date_right_bold {
+  font-weight: bold;
   text-align: right;
 }
 

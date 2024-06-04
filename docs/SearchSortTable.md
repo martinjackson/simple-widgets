@@ -4,7 +4,17 @@ This will allow a user to display a limited number of items in a table.  The use
 
 The user can also click on a column and the column will be sorted in either ascending or descending order.  The first type a column is clicked it will be sorted in ascending order.  After that it will alternate between descending and ascending order, respectively.
 
-The user can also filter the data that is to be displayed.
+The user can also filter the data that is to be displayed.  They can also select the values to filter on through a choice box.  The user can also list out a range of dates.
+
+The user can hide columns, and do control breaks on columns.  The user can do automatic totaling of control breaks and final totals.
+
+The user can drag and drop columns.
+
+The user can select an item in the table.
+
+The user can align whether the columns can be left justified, centered, or right justified.
+
+The user can print out tables in a PDF format or in an Excel spreadsheet.
 
 ### **Props**
 In order for the user to use the Search Sort Table, they must pass the following props:
@@ -13,7 +23,25 @@ In order for the user to use the Search Sort Table, they must pass the following
 2.  **table** = an object that contains the headers for each column in the table, the field name for each item in the data array, whether the column can be searched or not, and whether the column could be sorted or not.
 The header field is the name of the header for that column of the table.  The name is field name in the data object passed as the data prop.  The search field name indicates whether that column can be searched or not.  The sort field indicates whether the column can be sorted or not.  
 
-Other possible fields for a row in the table are: dataDate, filterDate, sortDate, searchDate, dropDown, type, and pdfCol.  
+All the possible field values for the table are:
+
+  - align             how to align the value in the cell.  See the Alignment in a Table Cell section.
+  - drag              indicates that the column can be dragged to another area of the table.
+  - dataDate          the format of date of the data comming in for the column. See below.
+  - dropDown          indicates that the dropDown menu is available or not
+  - header            the header for that column of the table
+  - headerAlign       the alignment for the header.  See the Alignment in a Table Cell section.
+  - filterDate        the format of date for dates that are to be filtered in this column. See below.
+  - filterdaterange   indicates whether the date column for the filter should be a range of dates.  Some examples are: Last 2 years, Last Year, Last 6 months, etc.
+  - name              the name of the column in the data object for the table
+  - pdfCol            the alignment for the PDF column.  See the Alignment in a Table Cell section.
+  - search            indicates whether this column can be searched or not
+  - searchDate        the format of the date for dates that are to be searched in this column.  See below.
+  - sort              indicates that the column can be sorted.
+  - sortDate          the format of the date for dates that are to be sorted in this column.  See below.
+  - type              the type of data (string or number) that the column is going to contain.  This is rarely used.
+
+All the above values is described below.
 
 The dataDate field indicates the format of a date field in the data.  The filterDate field indicates the format of the date on the filter field in the display table.  The sort date field is the format of the date field to be sorted.  The searchDate field indicates the format of the date on the search field in the display table.  The possible date formats are:
   - MM/DD/YYYY
@@ -44,8 +72,8 @@ The dataDate field indicates the format of a date field in the data.  The filter
    In the above example, when the City header is clicked on a drop down will appear allowing the user to hide columns, control break a column, or aggregate a column.
    The State header will do nothing when it is clicked on since dropDown is false.
 
-   The type field indicates the type of data that the field is holding.  The values can be string or number.  This so that type of aggregation that can be done on that
-   field.  String fields can only do count, distinct count, minimum, and maximum aggregations.  Number fields can do all that the string fields can do along with summation, average, and median aggregations.  If the type field is left of, the system will try to determine the type.
+   The type field indicates the type of data that the field is holding.  The values can be string or number.  This is the type of aggregation that can be done on that
+   field.  String fields can only do count, distinct count, minimum, and maximum aggregations.  Number fields can do all that the string fields can do along with summation, average, and median aggregations.  If the type field is left off, the system will try to determine the type.  This field is rarely used.
 
    An example set of rows in the table for a type field might look like:
    ```javascript
@@ -65,15 +93,15 @@ The dataDate field indicates the format of a date field in the data.  The filter
 
    In the above example, the City header can be dragged (drag is true) while the State header can not (drag is false).
 
-   The headerAlign specifies how the header will be displayed in the column.  The headerAlign specifies whether the header will left justified, centered, or right justified.  The values are 'sw-sst_left', 'sw-sst_center', 'sw-sst_right', or any CSS class.
+   The headerAlign specifies how the header will be displayed in the column.  The headerAlign specifies whether the header will left justified, centered, or right justified.  The values are 'left', 'center', 'right', or any CSS class.  The default value is center.
 
-   The align specifies how the data will be displayed in the column.  The align specifies whether the data will left justified, centered, or right justified.  The values are 'sw-sst_left', 'sw-sst_center', 'sw-sst_right', or any CSS class.
+   The align specifies how the data will be displayed in the column.  The align specifies whether the data will left justified, centered, or right justified.  The values are left, leftbold, center, centerbold, rightbold, number, date, datebold, dateleft, dateleftbold, dateright, daterightbold, money, moneybold, moneyleft, moneyleftbold, moneyright, moneyrightbold, or any CSS class.  See the Alignment in a Table Cell section.
 
    An example of the headerAlign and align:
 
   ```js
-      { header: 'City',  name: 'CITY',  sort: true, search: true, align: 'sw-sst_left' },
-      { header: 'State', name: 'STATE', sort: true, search: true, headerAlign: 'sw-sst-right' }
+      { header: 'City',  name: 'CITY',  sort: true, search: true, align: 'left' },
+      { header: 'State', name: 'STATE', sort: true, search: true, headerAlign: 'right' }
   ```
 
    In the above example, the City column values will be left aligned.  The State column will have its header aligned to the right.
@@ -97,13 +125,24 @@ The dataDate field indicates the format of a date field in the data.  The filter
 
 
    The pdfCol specifies the alignment of a PDF column if PDF's are allowed to be generated.  The values for the pdfCol are:
-    - left        this will align the data to the left in the column
-    - right       this will align the data to the right in the column
-    - center      this will center the data in the column
-    - date        this will convert the date to the MM/DD/YYYY format and center the date
-    - dateLeft    this will convert the date to the MM/DD/YYYY format and align the date to the left
-    - dateRight   this will convert the date to the MM/DD/YYYY format and align the date to the right
-    - money       this will convert the number into a dollar amount with the format of $DD,DDD.DD
+    - left            this will left justify the data in the column
+    - leftbold        this will left justify and bold the data in the column
+    - right           this will right justify the data in the column
+    - rightbold       this will right justify and bold the data in the column
+    - center          this will center the data in the column
+    - centerbold      this will center and bold the data in the column
+    - date            this will convert the date to the MM/DD/YYYY format and center the date
+    - datebold        this will convert the date to the MM/DD/YYYY format, center and bold the date
+    - dateleft        this will convert the date to the MM/DD/YYYY format and left justify the date
+    - dateleftbold    this will convert the date to the MM/DD/YYYY format, left justify, and bold the date
+    - dateright       this will convert the date to the MM/DD/YYYY format and right justify the date
+    - daterightbold   this will convert the date to the MM/DD/YYYY format, right justify, and bold the date
+    - money           this will convert the number into a dollar amount with the format of $DD,DDD.DD and will right justify the money data
+    - moneybold       this will convert the number into a dollar amount with the format of $DD,DDD.DD, will right justify, and bold the money data
+    - moneyleft       this will convert the number into a dollar amount with the format of $DD,DDD.DD and will left justify the money data
+    - moneyleftbold   this will convert the number into a dollar amount with the format of $DD,DDD.DD, will left justify, and bold the money data
+    - moneycenter     this will convert the number into a dollar amount with the format of $DD,DDD.DD and will center the money data
+    - moneycenterbold this will convert the number into a dollar amount with the format of $DD,DDD.DD, will center, and bold the money data
 
    If the date is already in the correct format, use left, right, or center.  If you do not supply a pdfCol, it will left justify the value for that column.
 
@@ -166,13 +205,19 @@ In the above example, it is the same as the previous example except for the inde
 
 # New Format (must use if using dragging)
 ```javascript
+    import { getAlignment } from 'simple-widgets';
+    ...
     const eachRowInTable = (row, i) => {
+        const align = getAlignment(col.align);
         return (
           <tr key={`row_${i}_${start}`}> 
             { table.map((col, idx) => (
-                <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                <td key={`${col.header}_${idx}_${i}`} className={align} 
                         hidden={hideCol[idx]}>
-                    row[col.name]
+                  {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
+                      (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
+                          row[col.name] 
+                  }
                 </td>
             ))}
           </tr>
@@ -182,8 +227,23 @@ In the above example, it is the same as the previous example except for the inde
 
 In the above example, the row parameter is row in the table to be displayed.  The i is the row number being processed and is only used if the hover prop is used.  The key will make every row in the table unique; otherwise, you will get a warning.  The <tr> and <td> define the rows and columns respectively.  The table.map section goes through each column in the table and prints out the value in that column with row[col.name].  The col.name is the name part in the object for a column in the table.  If the HTML is not returned, nothing will be displayed.  This will also need the startEnd prop on the <SearchSortTable> (see the startEnd prop in the props section).  There is a full example below.
 
+If your eachRowInTable function is exactly like the one above and you don't want to type it.  Use the following in the SearchSortTable:
+
+```javascript
+  <SearchSortTable>
+    data=...
+    table=...
+    eachRowInTable="default"
+  </SearchSortTable>
+```
+
+If the default one is used, the hidden information will not need to be passed back and used
+in the eachRowInTable.
+
 The following example is with the hover props being used:
 ```javascript
+    import { getAlignment } from 'simple-widgets';
+    ...
     const eachRowInTable = (row, i) => {
         let pos = indexes[i];
         
@@ -193,6 +253,10 @@ The following example is with the hover props being used:
                 <td key={`${col.header}_${idx}_${i}`} className={col.align} 
                         hidden={hideCol[idx]}>
                     row[col.name] }
+                  {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
+                      (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
+                          row[col.name] 
+                  }
                 </td>
             ))}
           </tr>
@@ -214,10 +278,13 @@ The following is an example on how to customize the new eachRowInTable:
                 <td key={`${col.header}_${idx}_${i}`}                           
                         className={"sw-sst_body_full " + col.align} 
                         hidden={hideCol[idx]}>
-                    { (col.name === 'date') ? convertDate(row[col.name]) : 
-                      (col.name === 'money') ? formatMoney(row[col.name]) :
-                      (col.name === 'edit') ? <button name='edit' onClick={nothing}>Edit</button> :
-                       row[col.name] }
+                  {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
+                      (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
+                      (col.name === 'edit') ? <button name='edit' onClick={nothing}>
+                                                Edit
+                                              </button> :
+                      row[col.name] 
+                  }
                 </td>
             ))}
           </tr>
@@ -348,7 +415,7 @@ The following example shows how to use the drop down in the column headers:
               { header: 'Order Number',   name: 'ORDER_NUM',  search: true,   sort: true,  dropDown: true },
               { header: 'Description',    name: 'ITEM',       search: true,   sort: true,  dropDown: true },
               { header: 'On Hand Count',  name: 'ON_HAND',    search: true,   sort: true,  dropDown: true },
-              { header: 'Cost',           name: 'COST',       search: false,  sort: false, dropDown: true },
+              { header: 'Cost',           name: 'COST',       search: false,  sort: false, dropDown: true, align: 'money' },
           ];
 
           const eachRowInTable = (row, i) => {
@@ -357,7 +424,7 @@ The following example shows how to use the drop down in the column headers:
                       <td>{row.ORDER_NUM}</td>
                       <td>{row.ITEM}</td>
                       <td>{row.ON_HAND}</td>
-                      <td>{row.COST}</td>
+                      <td>{formatMoney(row.COST)}</td>
                   </tr>
               )
          }
@@ -451,7 +518,7 @@ The user can create their own field entries in the table prop to be used in the 
               { header: 'Order Number',   name: 'ORDER_NUM',  search: true,   sort: true, drag: true  },
               { header: 'Description',    name: 'ITEM',       search: true,   sort: true, drag: true, align: 'sw-sst_left'  },
               { header: 'On Hand Count',  name: 'ON_HAND',    search: true,   sort: true, drag: true  },
-              { header: 'Cost',           name: 'COST',       search: false,  sort: false, drag: true, align: 'sw-sst_right' },
+              { header: 'Cost',           name: 'COST',       search: false,  sort: false, drag: true, align: 'money' },
           ];
 
           const [start, setStart] = useState(0);
@@ -499,7 +566,7 @@ Another example:
           { header: 'Order Number',   name: 'ORDER_NUM',  search: true,   sort: true, drag: true  },
           { header: 'Date',    name: 'DATE',       search: true,   sort: true, drag: true, date: true  },
           { header: 'On Hand Count',  name: 'ON_HAND',    search: true,   sort: true, drag: true  },
-          { header: 'Cost',           name: 'COST',       search: false,  sort: false, drag: true, align: 'sw-sst_right', money: true },
+          { header: 'Cost',           name: 'COST',       search: false,  sort: false, drag: true, align: 'money' },
       ];
 
       const eachRowInTable = (row, i) => {
@@ -511,10 +578,12 @@ Another example:
                 <td key={`${col.header}_${idx}_${i}`}                           
                         className={"sw-sst_body_full " + col.align} 
                         hidden={hideCol[idx]}>
-                    { (col.date === true) ? convertDate(row[col.name]) : 
-                      (col.money === true) ? formatMoney(row[col.name]) :
-                      (col.edit === true) ? <button name='edit' onClick={nothing}>Edit</button> :
-                       row[col.name] }
+                    { (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
+                      (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
+                      (col.edit === true) ? <button name='edit' onClick={nothing}>
+                                              Edit
+                                            </button> :
+                      row[col.name] }
                 </td>
             ))}
           </tr>
@@ -669,26 +738,281 @@ To generate an excel spread sheet containing the table with control breaks and h
 2.  Press the Excel Display button.  
 3.  Click on the button being displayed in the lower left corner.  This will open up the Excel Spreadsheet application and place the data in the spreadsheet.
 
-### Automatic Totaling
+### **Automatic Totaling**
 
 This feature allows columns to be automatically totalled.  When using a control break, each individual control break can have columns summed.  For a control break total on the controlBreak array prop add the sumtitle, sum, money, and align fields.  For more information see the controlBreak prop.
 
 For doing final totals automatically use the final totals array prop.  That array can have the finaltitle, finaltotal, money, and align fields.  For more information see the finaltotals prop.
 
+### **Alignment in a Table Cell**
+
+This only applies if you are using the new format of eachRowInTable.
+
+This section will show how align the value in a table cell (<td>) or PDF cell.  You can place the alignment in the
+table prop, controlBreak prop, and finaltotals prop.  In the table, there can be 3 different alignments and they are
+
+- align: aligns the normal cells in the table
+- headerAlign: aligns the headers in the table
+- pdfCol: aligns the columns in the PDF
+
+The values for headerAlign are:
+- sw-sst_left
+- sw-sst_left_bold
+- sw-sst_center
+- sw-sst_center_bold
+- sw-sst_right
+- sw-sst_right_bold
+- 
+- another CSS class
+
+The values for control break array, final totals array, and pdfCol are:
+- left              left justifies the data in the column
+- leftbold          left justifies and bolds the data in the column
+- center            centers the data in the column
+- centerbold        centers and bolds the data in the column
+- right             right justifies the data in the column
+- rightbold         right justifies and bolds the data in the column
+- dateleft          formats the date to the MM/DD/YYYY and left justifies the data in the column
+- dateleftbold      formats the date to the MM/DD/YYYY, left justifies, and bolds the data in the column
+- datecenter        formats the date to the MM/DD/YYYY and centers the data in the column
+- datecenterbold    formats the date to the MM/DD/YYYY, centers, and bolds the data in the column
+- dateright         formats the date to the MM/DD/YYYY and right justifies the data in the column
+- daterightbold     formats the date to the MM/DD/YYYY, right justifies, and bolds the data in the column
+- money             formats to the $DD,DDD.DD and right justifies the money value
+- moneybold         formats to the $DD,DDD.DD, right justifies, and bolds the money value
+- moneyleft         formats to the $DD,DDD.DD and left justifies the money value
+- moneyleftbold     formats to the $DD,DDD.DD, left justifies, and bolds the money value
+- moneycenter       formats to the $DD,DDD.DD and centers the money value
+- moneycenterbold   formats to the $DD,DDD.DD, centers, and bolds the money value
+
+If the element in the table does not have some type of alignment, it will default to center.
+
+The way in which the alignments are applied:
+1.  It applies the align and headerAlign in table
+2.  It applies the align in control break (if none for that column, it keeps the table alignments)
+3.  It applies the align in final totals (if none for that column, it keeps what is in control break)
+4.  It applies the pdfCol in table (if none for that column, it keeps what is in final totals)
+
+Therefore, the alignment has a cascading effect.
+
+Consider the following:
+
+let table = [
+    { header: 'Name',       heading: 'NAME', ...,       align: 'left' },
+    { header: 'City',       heading: 'CITY', ...,       align: 'left' },
+    { header: 'State',      heading: 'STATE', ...,      pdfCol: 'left' },
+    { header: 'Zip',        heading: 'ZIP', ..., },
+    { header: 'Stock Num',  heading: 'STOCK_NUM', ..., },
+    { header: 'Cost',       heading: 'Cost', ..., align: 'money' },
+    { header: 'Num Order',  heading: 'NUM_ORDER', ..., align: 'center'},
+    { header: 'Amount Due', heading: 'AMOUNT_DUE', ..., align: 'money'},
+];
+
+let controlBreak = [
+    { hidden: false, ctrlBreak: 1, sumtitle: 'Name Totals', align: left },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0, sum: true, align: moneybold },
+    { hidden: false, ctrlBreak: 0, sum: true },
+    { hidden: false, ctrlBreak: 0, sum: true, align: 'moneybold' },
+];
+
+let finaltotals = [
+    { finaltitle: 'Final Totals' },
+    { finaltotal: false },
+    { finaltotal: false },
+    { finaltotal: false },
+    { finaltotal: false },
+    { finaltotal: false },
+    { finaltotal: false },
+    { finaltotal: true },
+];
+
+The table will be built with a control break on name.
+
+All table headers will be centered, since there is no headerAlign.  The default is center.
+
+For normal columns in the table:
+- Name and City has an align of sw-sst_left; therefore, it will be left justified.
+- State, Zip, and Stock Num do not have an align; therefore, the default of sw-sst_center will be used to center the value.
+- Cost has an align of right; therefore, the cost will be right justified.
+- Num Order does not have an align; the default of sw-sst_center will be used to center the value.
+- Amount has an align of right; therefore, the cost will be right justified.
+
+For the Control Break:
+
+The control break occurs on the name.  The control break total columns alignment:
+- Name column will contain Totals.  The alignment will be to the left.  Since there is no align in the control break array, it will use the one in table, which is sw-sst_left; therefore, it will be left justified.
+- State, Zip, Stock Num do not have aligns in the control break array and they did not have aligns in table; therefore, it will default to sw-sst_center.
+- Cost does not have an align in the control break array, but it does have an align in table; therefore, it will use the one in table, which is sw-sst_center.
+- Num Order does not have an align in the control break array, but table does have align; therefore, it will use that one which is sw-sst_center.
+- Amount does have an align in the control break array; therefore, it will use that one (align: 'right').
+
+For the Final Totals:
+- Name column will contain Final Totals.  Since, there is no align in the final totals array and there is no align in the control break array, it will use the one in table, which is sw-sst_left. Therefore, the column will be left justified.
+- State, Zip, Stock Num do not have aligns in the final totals array, and do not have aligns in the control break array, and they did not have aligns in table; therefore, it will default to sw-sst_center.
+- Cost does not have an align in the final totals array and does not have an align in the control break array, but it does have an align in table; therefore, it will use the one in table, which is sw-sst_right.
+- Num Order does not have an align in the final totals array and does not have an align in the control break array, but table does have align; therefore, it will use that one which is sw-sst_center.
+- Amount does not have an align in the final totals array, but does have an align in the control break array; therefore, it will use that one (right justified).
+
+If a PDF is generated:
+- Name has pdfCol in table, no align in the final totals array, and there is no align in the control break array, it will use the one in table, which is sw-sst_left. Therefore, the column will be left justified.
+- State does have a pdfCol in table; therefore, it will use that one, which is sw-ss
+- Zip, Stock Num do not have a pdfCol in the table, do not have aligns in the final totals array, and do not have aligns in the control break array, and they do not have aligns in table; therefore, it will default to sw-sst_center.
+- Cost does not have a pdfCol in the table, does not have an align in the final totals array and does not have an align in the control break array, but it does have an align in table; therefore, it will use the one in table, which is sw-sst_right.
+- Num Order does not have a pdfCol in the table, does not have an align in the final totals array and does not have an align in the control break array, but table does have align; therefore, it will use that one which is sw-sst_center.
+- Amount does not have a pdfCol in the table, does not have an align in the final totals array, but does have an align in the control break array; therefore, it will use that one (right justified).
+
+If there is not a control break array, it ignores all information about the control break array.
+If there is not a final totals array, it ignores all information about the final totals array.
+
+To sum up how the alignment works:
+
+For a PDF column:
+1.  If table has a pdfCol, use it and go to 6.
+2.  If there is a final totals array and it has an align, use it and go to 6.
+3.  If there is a control break array and it has an align, use it and go to 6.
+4.  If table has an align, use it and go to 6.
+5.  Use the default, which is sw-sst_center.
+6.  done
+
+For a final totals array column
+1.  If there is a final totals array and it has an align, use it and go to 5.
+2.  If there is a control break array and it has an align, use it and go to 5.
+3.  If table has an align, use it and go to 5.
+4.  Use the default, which is sw-sst_center.
+5.  done
+
+For a control break array column:
+1.  If there is a control break array and it has an align, use it and go to 4.
+2.  If table has an align, use it and go to 4.
+3.  Use the default, which is sw-sst_center.
+4.  done
+
+For a normal column:
+1.  If table has an align, use it and go to 3.
+2.  Use the default, which is sw-sst_center.
+3.  done
+
+
 ### **Other props:**
 
 1. **allIndexes** = is a function that returns all the indexes for the entire data set, not just the ones being displayed as in indexing.   The format of the function is the same as indexing.
 
-2.  ***checkedFunction*** = is a function that determines the behavior of the checkbox in the header.  The checkbox is placed in the header by using checked: true as an entry in the table for a column.  See the table section above.  The format of the function is as follows:
+2. ***cbtitlealignsize*** = the alignment and size of the control break title. The alignment can be one of the following:
+
+  - left      - leftbold        - right         - rightbold
+  - center    - centerbold
+
+The font size is followed by a colon (:) and then a number indicating the font size.  The
+size can be any valid font size for the font.  If the size is left off it will default to a font size of 20.
+
+If this prop does not appear, the default alignment will be center with a font size of 20.
+
+An example:
+
+```javascript
+  <SearchSortTable
+    data={data}
+    table={table}
+    eachRowInTable="default"
+    cbtitlealignsize="leftbold:25"
+    ...
+  />
+```
+
+In the above example, the title alignment for the control break will be left justified and bolded.  The font size will be 25.
+
+Another example:
+
+```javascript
+  <SearchSortTable
+    data={data}
+    table={table}
+    eachRowInTable="default"
+    cbtitlealignsize="leftbold"
+    ...
+  />
+```
+
+In the above example, the title alignment for the control break will be left justified and bolded.  The font size will be 20, since no font size was specified.
+
+3. ***cbtitleformat*** = determines the characters in the control break title. A character can seperate the header and the value and between control breaks.  The seperators can be one of the following:
+
+  - none      - colon (:)        - scolon (;)     - slash (/)     - dash (-) 
+  - any other character, except ~
+
+The none means that there is no seperator.  The default is none~colon.  The ~ is used to seperate the two seperators.
+
+The first seperator divides the header and value.  By default there is no seperator.  The value after the ~ indicates the second seperator, which seperates the titles.  If there is not a second seperator the default is used, which is the semi-colon (;).
+
+
+An example:
+
+```javascript
+  <SearchSortTable
+    data={data}
+    table={table}
+    eachRowInTable="default"
+    cbtitleformat="colon~comma"
+    ...
+  />
+```
+
+Suppose the control break was by state and then city.  The title for a control break would look like the following:
+
+  State: AR, City: Pine Bluff
+
+The seperator between the header and value is a colon (:).  The seperator between the control breaks is a comma (,).
+
+Another example:
+
+```javascript
+  <SearchSortTable
+    data={data}
+    table={table}
+    eachRowInTable="default"
+    cbtitleformat="none~scolon"
+    ...
+  />
+```
+
+The control break title would look like the following
+
+  State AR; City: Pine Bluff
+
+There is not seperator between the header and value and a semi-colon between the control breaks.
+
+Third Example:
+
+```javascript
+  <SearchSortTable
+    data={data}
+    table={table}
+    eachRowInTable="default"
+    cbtitleformat="#~none"
+    ...
+  />
+```
+
+The result would be:
+
+  State# AR City# Pine Bluff
+
+There is # between the header and value and nothing between the control breaks.
+
+4.  ***checkedFunction*** = is a function that determines the behavior of the checkbox in the header.  The checkbox is placed in the header by using checked: true as an entry in the table for a column.  See the table section above.  The format of the function is as follows:
 ```javascript
 const processAllChecks = (data) => {
   ...
 }
 ```
 
-3.  ***choice*** = this indicates whether there will be choice boxes or input boxes for the filter input.  If choice prop appears, then the box to place the filter information will contain a choice box with all the possible data for that column.  Select or type the value and press the filter button.  If there is no choice prop, the filter information will be entered into an input text box.  With this prop you can use the filterdaterange option with the table prop to get a list of ranges in the ChoiceText box for the filter.  For more information see table prop.
+5.  ***choice*** = this indicates whether there will be choice boxes or input boxes for the filter input.  If choice prop appears, then the box to place the filter information will contain a choice box with all the possible data for that column.  Select or type the value and press the filter button.  If there is no choice prop, the filter information will be entered into an input text box.  With this prop you can use the filterdaterange option with the table prop to get a list of ranges in the ChoiceText box for the filter.  For more information see table prop.
 
-4.  ***controlBreak*** = is an array that allows to set up hidden columns and control breaks before the table is displayed.  The control break array should have the same number of elements as the table array.  Each element is an object that contains a hidden and a control break field.  For example,
+6.  ***controlBreak*** = is an array that allows to set up hidden columns and control breaks before the table is displayed.  The control break array should have the same number of elements as the table array.  Each element is an object that contains a hidden and a control break field.  For example,
 ```javascript
   let controlBreak = [
     { hidden: false, ctrlBreak: 0 },
@@ -711,7 +1035,7 @@ The above control break array indicates that all the columns are visible and the
 The first element in the table corresponds to the first item in the control break array.  Suppose there needs to be a control break on State and then City and the Name column should be hidden, the control break array would look like the following:
 ```javascript
   let controlBreak = [
-    { hidden: true, ctrlBreak: 0 },         element 0
+    { hidden: true,  ctrlBreak: 0 },        element 0
     { hidden: false, ctrlBreak: 2 },        element 1
     { hidden: false, ctrlBreak: 1 },        element 2
     { hidden: false, ctrlBreak: 0 },        element 3
@@ -740,12 +1064,14 @@ The control break can also be used to total up certain columns in the control br
     { hidden: false, ctrlBreak: 1 },                            element 2
     { hidden: false, ctrlBreak: 0 },                            element 3
     { hidden: false, ctrlBreak: 0, sum: true },                 element 4
-    { hidden: false, ctrlBreak: 0, sum: true, money: true },    element 5
+    { hidden: false, ctrlBreak: 0, sum: true, align: 'money' }, element 5
   ]
 ```
 
-The above control break array indicates the first column should be hidden, which is the Name column.  The ctrlBreak field for State (element 2) has a value of 1, which indicates that a control break will first occur on the State.  The ctrlBreak field for City (element 1) has a value 2, which indicates a control break will happen on City after the control break on State has happened.  Also, the City (element 1) has a sumtitle: 'Totals:', which indicates that after the last data row, that Totals will appear. In the Invoices (element 4), the sum: true indicates that the column will be summed and will be placed after the last invoice for the control break.  If sum is false or not present, the column will not be summed.  In the Amount field (element 5), the sum: true indicate the column will be summed, and the money: true indicates that the sum for the control break will be in a money format.
-If the money field is absent or is false, the column will not be considered a money format.
+The above control break array indicates the first column should be hidden, which is the Name column.  The ctrlBreak field for State (element 2) has a value of 1, which indicates that a control break will first occur on the State.  The ctrlBreak field for City (element 1) has a value 2, which indicates a control break will happen on City after the control break on State has happened.  Also, the City (element 1) has a sumtitle: 'Totals:', which indicates that after the last data row, that Totals will appear. In the Invoices (element 4), the sum: true indicates that the column will be summed and will be placed after the last invoice for the control break.  If sum is false or not present, the column will not be summed.  In the Amount field (element 5), the sum: true indicate the column will be summed, and the align: 'money' indicates that the sum for the control break will be in a money format ($DD,DDD.DD).
+For more information on the align see the Alignment in a Table Cell.
+
+If an alignment is **not** specified, the default for the font will be bold and size of 20. 
 
 Therefore, the output might look like:
 
@@ -755,20 +1081,20 @@ Therefore, the output might look like:
   Cleveland   OH    44121      10      $1,234.56
   Totals                       15      $1,534.56
 
-The alignment of the totals is the same alignment as the data, unless the align field is used.  The money field always right justifies the number.  The align format can have the following values: left, right, and center.  An example, would be:
+The alignment of the totals is the same alignment as the data, unless the align field is used.  The money field always right justifies the number.  The align format can have the following values: left, right, center, and more.  For more information on alignment, see the Alignment in a Table Cell section.  An example, would be:
 
 ```javascript
   let controlBreak = [
-    { hidden: true, ctrlBreak: 0 },                                       element 0
+    { hidden: true,  ctrlBreak: 0 },                                       element 0
     { hidden: false, ctrlBreak: 2, sumtitle: 'Totals:', align: 'left' },  element 1
     { hidden: false, ctrlBreak: 1 },                                      element 2
     { hidden: false, ctrlBreak: 0 },                                      element 3
     { hidden: false, ctrlBreak: 0, sum: true, align: 'center' },          element 4
-    { hidden: false, ctrlBreak: 0, sum: true, money: true },              element 5
+    { hidden: false, ctrlBreak: 0, sum: true, align: 'money' },           element 5
   ]
 ```
 
-In the above example, Totals: would be left justified in its cell because of the align: 'left'.  The Invoice total would be centered in its cell, because of the align: 'center'.  The Amount total would be right justified in its cell, because of money: true.
+In the above example, Totals: would be left justified in its cell because of the align: 'left'.  The Invoice total would be centered in its cell, because of the align: 'center'.  The Amount total would be right justified and in the money format ($DD,DDD.DD) in its cell, because of align: 'money'.
 
 An example in the search sort table component
 
@@ -781,9 +1107,9 @@ An example in the search sort table component
   />
 ```
 
-5.  ***error*** = indicates that an error occurred.  This will disable all buttons in the Search Sort Table.
+7.  ***error*** = indicates that an error occurred.  This will disable all buttons in the Search Sort Table.
 
-6. **finaltotals*** = is an array that allows final totals in a table to be displayed.  The final totals array should have the same number of elements as the table array and control break array.  The final totals will automatically calculate the final totals.  Each element is an object that finaltitle, finaltotal, money, and align fields.  The final totals can be calculated for tables with or without control breaks.  For example,
+8. **finaltotals*** = is an array that allows final totals in a table to be displayed.  The final totals array should have the same number of elements as the table array and control break array.  The final totals will automatically calculate the final totals.  Each element is an object that finaltitle, finaltotal, money, and align fields.  The final totals can be calculated for tables with or without control breaks.  For example,
 
 ```javascript
   const table = [
@@ -798,16 +1124,18 @@ An example in the search sort table component
 
 ```javascript
   let finaltotals = [
-    { finaltitle: 'Final Totals: ' },     element 0
-    { finaltotal: false },                element 1
-    { finaltotal: false },                element 2
-    { finaltotal: false },                element 3
-    { finaltotal: true },                 element 4
-    { finaltotal: true, money: true },    element 5
+    { finaltitle: 'Final Totals: ' },           element 0
+    { finaltotal: false },                      element 1
+    { finaltotal: false },                      element 2
+    { finaltotal: false },                      element 3
+    { finaltotal: true, align: 'centerbold' },  element 4
+    { finaltotal: true, align: 'moneybold'      element 5
   ]
 ```
 
-The above final totals array indicates that the first column (Name column, element 0) should contain the Final Totals: title, since it has the finaltitle field.  The Invoices field (element 4) will be automatically totalled, since the finaltotal is set to true.  If it was set to false, it would not total.  The Amount column (element 5) will be automatically totalled, since the finaltotal is set to true.  The money is set to true for that field, so the final total for the column will be placed in money format and right justified.  If the money field is absent or is false, the column will not be considered a money format.
+The above final totals array indicates that the first column (Name column, element 0) should contain the Final Totals: title, since it has the finaltitle field.  The Invoices field (element 4) will be automatically totalled, since the finaltotal is set to true.  If it was set to false, it would not total.  The Invoice final total will be centered and bolded.  The Amount column (element 5) will be automatically totalled, since the finaltotal is set to true.  The Amount alignment is set to moneybold, so the final total for the column will be placed in money format ($DD,DDD.DD), right justified, and bolded.  For more information on the align see the Alignment in a Table Cell.
+
+If an alignment is **not** specified, the default for the font will be bold and size of 20.
 
 Therefore, the output might look like:
 
@@ -817,7 +1145,7 @@ Therefore, the output might look like:
   Cleveland       OH    44121      10      $1,234.56
   Final Totals:                    15      $1,534.56
 
-The alignment of the totals is the same alignment as the data, unless the align field is used.  The money field always right justifies the number.  The align format can have the following values: left, right, and center.  An example, would be:
+The alignment of the totals is the same alignment as the data, unless the align field is used.  The align: 'money' field always right justifies and places number in the money format.  For more information on the align see the Alignment in a Table Cell section.  An example, would be:
 
 ```javascript
   let finaltotals = [
@@ -826,11 +1154,11 @@ The alignment of the totals is the same alignment as the data, unless the align 
     { finaltotal: false },                              element 2
     { finaltotal: false },                              element 3
     { finaltotal: true, align: 'center' },              element 4
-    { finaltotal: true, money: true },                  element 5
+    { finaltotal: true, align: 'moneybold'  },          element 5
   ]
 ```
 
-In the above example, Final Totals: would be left justified in its cell because of the align: 'left'.  The Invoice total would be centered in its cell, because of the align: 'center'.  The Amount total would be right justified in its cell, because of money: true.
+In the above example, Final Totals: would be left justified in its cell because of the align: 'left'.  The Invoice total would be centered in its cell, because of the align: 'center'.  The Amount total would be in the money format, right justified, and bolded in its cell, because of align: 'money'.
 
 An example in the search sort table component for control breaks and final totals.
 
@@ -855,7 +1183,7 @@ An example in the search sort table component for final totals.
   />
 ```
 
-7. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  There must be a footer for every column in the table.  Each array element represents one column in the table.  A sample footer might be:
+9. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  There must be a footer for every column in the table.  Each array element represents one column in the table.  A sample footer might be:
 ```javascript
     let footer = [
         'Totals',
@@ -864,9 +1192,9 @@ An example in the search sort table component for final totals.
         totalCAN,
     ];
 ```
-8. **height** = the height of the scroll box only.
+10. **height** = the height of the scroll box only.
 
-9. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.
+11. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.
 An example would be:
 ```javascript
 const [hideCol, setHideCol] = useState([]);
@@ -878,16 +1206,17 @@ const hideTheCols = (value) => {
 <SearchSortTable hidden={hideTheCols}/>
 ```
 
-10. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
+12. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
 
-11. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
+13. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
 ```javascript
 hoverColor="yellow"
 ```
 
-12. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
+14. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
 
-13. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See other examples.
+15. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See other examples.
+
 An example would be:
 ```javascript
 const [indexes, setIndexes] = useState([]);
@@ -899,7 +1228,7 @@ const indexing = (value) => {
 <SearchSortTable indexing={indexing} />
 ```
 
-14. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
+16. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
   - To use the letters option:
     1. Select a column header from the drop down menu.
     2. Select a letter or digit.
@@ -909,66 +1238,66 @@ const indexing = (value) => {
     2. **nolower** = does not display the lower case letters
     3. **nodigit** = does not display the digits
 
-15. **mathdecimal** = the number of digits right of the decimal for an average or median aggregation
+17. **mathdecimal** = the number of digits right of the decimal for an average or median aggregation
 
-16. **mathignorecase** = ignore the case of the data for all the string aggregations.
+18. **mathignorecase** = ignore the case of the data for all the string aggregations.
 
-17. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
+19. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
 
-18. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
+20. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
 
-19. **nobottom** = does not display the bottom button.
+21. **nobottom** = does not display the bottom button.
 
-20. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
+22. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
 
-21. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
+23. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
 
-22. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
+24. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-23. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
+25. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
 
-24. **nofilter** = this will not display the Filter On check box and the filter button.  Can also set the value to true of false.
+26. **nofilter** = this will not display the Filter On check box and the filter button.  Can also set the value to true of false.
 
-25. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
+27. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 
-26. **nofooterborder** = do not put a border around each individual footer item.
+28. **nofooterborder** = do not put a border around each individual footer item.
 
-27. **noheaderborder** = do not put a border around each individual header item.
+29. **noheaderborder** = do not put a border around each individual header item.
 
-28. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
+30. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
 
-29. **nonext** = does not display the next button.
+31. **nonext** = does not display the next button.
 
-30. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
+32. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
 
 
-31. **noprevious** = does not display the previous button.
+33. **noprevious** = does not display the previous button.
 
-32. **norows** = does not display how maximum number of rows or the choice box for changing it.
+34. **norows** = does not display how maximum number of rows or the choice box for changing it.
 
-33. **nosearch** = does not display the header drop down, text box, and Search button.
+35. **nosearch** = does not display the header drop down, text box, and Search button.
 
-34. **nosort** = does not allow the headers to be sorted.
+36. **nosort** = does not allow the headers to be sorted.
 
-35. **notop** = does not display the top button or the total number of rows.
+37. **notop** = does not display the top button or the total number of rows.
 
-36. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
+38. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
 
-37. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
+39. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
 An example would be:
 ```javascript
 report="The PDF Report"
 ```
 
-38. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
+40. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
 
-39. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+41. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-40. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
+42. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
 
-41. **searchstart** = indicates that the search item will only match those data items that start with the search item
+43. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-42. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
+44. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
 
 ```javascript
   let sortTable = [...];
@@ -987,7 +1316,7 @@ report="The PDF Report"
   />
 ```
 
-43. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
+45. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
 The function that is to be passed to it is the setTable function for the state variables.  Since the table has changed due to a changing of columns, the table in the parent must be changed to the new table also.  See the section on Dragging and Drop.  An example:
 
 ```javascript
@@ -1003,16 +1332,16 @@ The function that is to be passed to it is the setTable function for the state v
   />
 ```
 
-44. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+46. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
-45. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+47. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-46. **showtable** = this will show the table and headers even if there is no data to display.
+48. **showtable** = this will show the table and headers even if there is no data to display.
 
-47. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+49. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-48. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+50. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -1024,7 +1353,7 @@ const startEnd = (start, end) => {
 <SearchSortTable startEnd={startEnd} />
 ```
 
-49. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+51. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -1036,11 +1365,12 @@ const startingPosition = (value) => {
 <SearchSortTable startingPos={startingPosition} />
 ```
 
-50. **title** = supplies a title to be displayed centered at the top of the table.
+52. **title** = supplies a title to be displayed centered at the top of the table.
 
-51. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+53. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-52. **width** = the width of the scroll box only.
+54. **width** = the width of the scroll box only.
+
 
 ## CSS Files
 
@@ -1488,26 +1818,62 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 ```css
 .sw-sst_left {
   text-align: left;
+  font-weight: normal;
+  font-size: unset;
 }
 ```
 
-42. **sw-sst_center** = this will center the data in a cell in a table
+42. **sw-sst_left_bold** = this will left justify and bold the data in a cell in a table
+
+```css
+.sw-sst_left {
+  text-align: left;
+  font-weight: bold;
+  font-size: unset;
+}
+```
+
+43. **sw-sst_center** = this will center the data in a cell in a table
 
 ```css
 .sw-sst_center {
   text-align: center;
+  font-weight: normal;
+  font-size: unset;
 }
 ```
 
-43. **sw-sst_right** = this will right justify the data in a cell in a table
+44. **sw-sst_center_bold** = this will center and bold the data in a cell in a table
+
+```css
+.sw-sst_center {
+  text-align: center;
+  font-weight: bold;
+  font-size: unset;
+}
+```
+
+45. **sw-sst_right** = this will right justify the data in a cell in a table
 
 ```css
 .sw-sst_right {
   text-align: right;
+  font-weight: normal;
+  font-size: unset;
 }
 
 ```
 
+46. **sw-sst_right_bold** = this will right justify and bold the data in a cell in a table
+
+```css
+.sw-sst_right {
+  text-align: right;
+  font-weight: bold;
+  font-size: unset;
+}
+
+```
 
 
 
@@ -1954,7 +2320,7 @@ This example uses some of the items in Example 7.
 ```
 
 ### **Example 10**
-This example shows how to do automatic totaling with control breaks with **NO** totals and final totals using the new format in the eachRowInTable function:
+This example shows how to do automatic totaling with control breaks with **NO** control break totals, but with final totals using the new format in the eachRowInTable function:
 
 ```javascript
 const RANGE = 50;
@@ -1970,7 +2336,8 @@ const sortExample = (props) => {
       { header: 'State',      name: 'STATE',      search: true,  sort: true, dropDown: true, drag: true },
       { header: 'Zip',        name: 'ZIP_CODE',   search: true,  sort: true, dropDown: true, drag: true },
       { header: 'Num Items',  name: 'NUM_ITEMS',  search: true,  sort: true, dropDown: true, drag: true },
-      { header: 'Amount',     name: 'AMOUNT',     search: true,  sort: true, dropDown: true, drag: true, filterdaterange: true },
+      { header: 'Date',       name: 'DATE',       search: true,  sort: true, dropDown: true, drag: true, filterdaterange: true },
+      { header: 'Amount',     name: 'AMOUNT',     search: true,  sort: true, dropDown: true, drag: true },
   ];
 
   const [error, setError] = useState(false);
@@ -2045,3 +2412,78 @@ const sortExample = (props) => {
   }
 }
 ```
+
+### **Example 11**
+This example shows how to do automatic totaling with control breaks with **NO** control break totals, but with final totals using default value for eachRowInTable function:
+
+```javascript
+const RANGE = 50;
+
+let data = [
+  ...
+];
+
+const sortExample = (props) => {
+  const sstable = [
+      { header: 'Name',       name: 'NAME',       search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'City',       name: 'CITY',       search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'State',      name: 'STATE',      search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Zip',        name: 'ZIP_CODE',   search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Num Items',  name: 'NUM_ITEMS',  search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Date',       name: 'Date',       search: true,  sort: true, dropDown: true, drag: true, filterdaterange: true },
+      { header: 'Amount',     name: 'AMOUNT',     search: true,  sort: true, dropDown: true, drag: true },
+  ];
+
+  const [error, setError] = useState(false);
+  const [start, setStart] = useState(0);
+  const [indexing, setIndexing] = useState([]);
+  const [hideCols, setHideCols] = useState([]);
+  const [table, setTable] = useState(sstable);
+  const [footer, setFooter] = useState(theFooter);
+
+  const startEnd = (start, end) => {
+      setStart(start);
+  }
+
+  const getIndexes = (indexing) => {
+      setIndexing(indexing);
+  }
+
+  controlBreak = [
+    { hidden: true,  ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 1 },
+    { hidden: false, ctrlBreak: 2 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 }
+  ]
+
+  finalTotals = [
+    { finaltotal: false },
+    { finaltotal: false, finaltitle: 'Final Totals: ', align: 'left' },
+    { finaltotal: false },
+    { finaltotal: false },
+    { finaltotal: true },
+    { finaltotal: true, money: true}
+  ]
+
+  <SearchSortTable  data={data}
+                    table={table}
+                    MAX_ITEMS={RANGE}
+                    eachRowInTable="default"
+                    startEnd={startEnd}
+                    indexing={getIndexes}
+                    setTheTable={setTable}
+                    setTheFooter={setFooter}
+                    controlBreak={controlBreak}
+                    finaltotals={finalTotals}
+                    error={error}
+                    title="Finance CSV"
+                    scroll
+                    height="675px"
+                    choice
+                    hover />
+}
+```
+
+In the SearchSortTable section, notice that eachRowInTable has the value of default.  This is using the eachRowInTable build into SearchSortTable.  Also, if the default is used, there is no need for the hidden function.
