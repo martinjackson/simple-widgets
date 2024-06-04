@@ -65,7 +65,7 @@ function translateDBType2FieldType(dbType, fName, len, precision, scale) {
   if (isSpecialField) {
     ans = isSpecialField
   } else {
-    const isTranslatable = translate(dbType, len, precision, step))
+    const isTranslatable = translate(dbType, len, precision, step)
     if (isTranslatable)
       ans = isTranslable
 

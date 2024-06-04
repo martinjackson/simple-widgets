@@ -37,7 +37,7 @@ import ProgressCircles from './ProgressCircles.js'
 import { Radio } from './Radio.js'
 import { Redirect } from './Redirect.js'
 import { search, binSearch } from './SearchFunct.js'
-import { SearchSortTable } from './SearchSortTable.js'
+import { getAlignment, SearchSortTable } from './SearchSortTable.js'
 import { SimpleTable } from './SimpleTable.js'
 import { Slider } from './Slider.js'
 import { SpreadSheet } from './SpreadSheet.js'
@@ -134,26 +134,26 @@ export { AlertModal, AppCore, CheckBox, CheckBoxGroup, Choice, ChoiceText, Choic
          processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, processInvalidStyleTable,
          processStyleTable, isInvalid, getInvalidMessage, Link, List, getMenuParms, MenuBar, Modal,
          NavigateBar, OpenTab, Outline, PageTitle, ProgressCircles, Radio, Redirect, search, binSearch,
-         SearchSortTable, SimpleTable, Slider, SpreadSheet, StatusBox, generateButton, generateCSSButton,
-         generateCSSDefaultButton, UserSection, isOpera, isFirefox, isSafari, isIE, isEdge, isChrome,
-         isEdgeChromium, isBlink, toCamelCase, findCssRule, deleteCssRule, findStyleSheet, insertCssRule,
-         printCssRules, date2str, lastOfMonth, todayString, createStoreItem, useStoreItem, openGeneralStore,
-         getUrlPath, hasOwnProperty, localStrToDate, makeChangeHandler, printStackTrace, register,
-         unregister, now, TS, dTS, Button, ControlledInput, ControlledTextarea, DatabaseLoadingIcon,
-         exampleFields, applyOptions, EntryScreen, genRecordTypeFromName, ErrorList, setFieldGenerator,
-         fieldGeneratorLookup, Form, FormChoice, getFieldRecName, getGqlNameFromForm, onChangeMaker,
-         FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, FormHeader, FormTable, Gears, Input,
-         MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen, getRecordKeyInfo,
-         applyDeepValueChange, arrLen, capWords, client, dataLog, getDataLog, dispAsString, flattenJSON,
-         dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName, getKeyValues, getLabels,
-         getSubRecord, ignoreCase, isFunction, isNotEmpty, isPromise, createJobStatus, updateJobStatus,
-         watchJobStatus, label2value, value2label, logDiff, notifyLookupsDone, isLookupDone,
-         serializeLookups, loadSerializedLookups, setLookupData, addLookupAlias, changeLookupAlias,
-         defineLookup, fetchLookupData, startLookup, refreshLookup, addNotify, removeNotify,
-         calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary, makeGqlAST, newRecord,
-         onFormChange, prop2str, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace,
-         toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo,
-         getAppSpecificInfo, createRec, deleteRec, formFromTableInfo, tableField2FormField,
-         genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName, getGqlFieldNames, getGqlPKs,
-         listNotKeyedTables, updateRecord, AddRecordIcon,
+         getAlignment, SearchSortTable, SimpleTable, Slider, SpreadSheet, StatusBox, generateButton,
+         generateCSSButton, generateCSSDefaultButton, UserSection, isOpera, isFirefox, isSafari, isIE,
+         isEdge, isChrome, isEdgeChromium, isBlink, toCamelCase, findCssRule, deleteCssRule, findStyleSheet,
+         insertCssRule, printCssRules, date2str, lastOfMonth, todayString, createStoreItem, useStoreItem,
+         openGeneralStore, getUrlPath, hasOwnProperty, localStrToDate, makeChangeHandler, printStackTrace,
+         register, unregister, now, TS, dTS, Button, ControlledInput, ControlledTextarea,
+         DatabaseLoadingIcon, exampleFields, applyOptions, EntryScreen, genRecordTypeFromName, ErrorList,
+         setFieldGenerator, fieldGeneratorLookup, Form, FormChoice, getFieldRecName, getGqlNameFromForm,
+         onChangeMaker, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, FormHeader, FormTable,
+         Gears, Input, MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen,
+         getRecordKeyInfo, applyDeepValueChange, arrLen, capWords, client, dataLog, getDataLog,
+         dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder,
+         getGqlName, getKeyValues, getLabels, getSubRecord, ignoreCase, isFunction, isNotEmpty, isPromise,
+         createJobStatus, updateJobStatus, watchJobStatus, label2value, value2label, logDiff,
+         notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups, setLookupData,
+         addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup, refreshLookup,
+         addNotify, removeNotify, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary,
+         makeGqlAST, newRecord, onFormChange, prop2str, removeIllegalAttributes, removeTypeName, sendEmail,
+         stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
+         setAppSpecificInfo, getAppSpecificInfo, createRec, deleteRec, formFromTableInfo,
+         tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
+         getGqlFieldNames, getGqlPKs, listNotKeyedTables, updateRecord, AddRecordIcon,
          CloneRecordIcon }
