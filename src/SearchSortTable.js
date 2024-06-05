@@ -257,7 +257,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             }
 
             if (hasOwnProperty(localTable[i], 'headerAlign') === false) {
-                localTable[i]['headerAlign'] = 'sw-sst_center';
+                localTable[i]['headerAlign'] = 'sw-sst_center_bold';
             }
 
 //            if (hasOwnProperty(localTable[i], 'pdfCol') === false) {
@@ -345,6 +345,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                                 hidden={controlBreakInfo[idx].hidden} >
                         {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
                             (col.align.indexOf('date') !==  -1) ? convertDate(row[col.name]) :
+                            (hasOwnProperty(col, 'decimal') === true) ? row[col.name].toFixed(col.decimal) :
                                 row[col.name] 
                         }
                     </td>
@@ -1752,11 +1753,15 @@ const _InnerSearchSortTable = (propsPassed) => {
     }
 
     let controlBreakVal = isControlBreak(controlBreakInfo);
+    let controlBreakProps = false;
+    if (hasOwnProperty(props, 'controlBreak') === true) {
+        controlBreakProps = isControlBreak(props.controlBreak);
+    }
 
     let tableBuild = null;
 
     let cbCount = -1;
-    if (controlBreakVal === true || hasOwnProperty(props, 'controlBreak') === true) { // Display control break tables
+    if (controlBreakVal === true || controlBreakProps === true) { // Display control break tables
         let cbTable = `cbtitles_${number}`;
         let cbHeader = `cbhead_${number}}`;
         let cbTable2 = `cbtitles2_${number}}`;
@@ -1801,16 +1806,16 @@ const _InnerSearchSortTable = (propsPassed) => {
                             </table>
                         </Fragment>
     } else {    // Regular search sort table
-        let keyTable = `table_${number}_${i}}`;
-        let header = `head_${number}_${i}`;
+        let keyTable = `table_${number}`;
+        let header = `head_${number}`;
         let count = -1;
 
 //        let finalTotals = buildFinalFooters();
 
-        let finalTotalsRow = <tr key={`tblank3_${number}_${i}}`}></tr>;
+        let finalTotalsRow = <tr key={`tblank3_${number}`}></tr>;
         if (hasOwnProperty(props, 'finaltotals') === true) {
             finalTotalsRow = 
-                <tr key={`tblank3_${number}_${i}`}>
+                <tr key={`tblank3_${number}`}>
                     {finalTotals.map(doFinalTotals)}
                 </tr>
         }
@@ -1868,7 +1873,9 @@ const _InnerSearchSortTable = (propsPassed) => {
                         {filterSection}
                         {searchSection}
                         <span className="sw-sst_right_top_bot">
-                            {(areDropDowns() === false) ? null : <button name="reset" className={genButtonStyle} onClick={() => resetButton()} disabled={props.error}>Reset</button>}
+                            {(areDropDowns() === false && hasOwnProperty(props, 'controlBreak') === false) ? 
+                                null : 
+                                <button name="reset" className={genButtonStyle} onClick={() => resetButton()} disabled={props.error}>Reset</button>}
                         </span>
                         {allButtonHTML}
                         {letters}
@@ -1888,7 +1895,12 @@ const _InnerSearchSortTable = (propsPassed) => {
                             {filterSection}
                             {searchSection}
                             <span className="sw-sst_right_top_bot">
-                            {(areDropDowns() === false) ? null : <button name="reset" className={genButtonStyle} onClick={() => resetButton()} disabled={props.error}>Reset</button>}
+                            {(areDropDowns() === false && hasOwnProperty(props, 'controlBreak') === false) ? 
+                                null : 
+                                <button name="reset" className={genButtonStyle} 
+                                    onClick={() => resetButton()} disabled={props.error}>
+                                        Reset
+                                </button>}
                         </span>
                             {allButtonHTML}
                             {letters}
@@ -1946,6 +1958,8 @@ const _InnerSearchSortTable = (propsPassed) => {
         for (let i = 0; i < ctrlBreakInfo.length; i++) {
             ctrlBreakInfo[i].hidden = false;
             ctrlBreakInfo[i].ctrlBreak = 0;
+            props.controlBreak[i].hidden = false;
+            props.controlBreak[i].ctrlBreak = 0;
         }
 
         for (let i = 0; i < locFooters.length; i++) {   // Remove the footers
@@ -2226,7 +2240,7 @@ const _InnerSearchSortTable = (propsPassed) => {
      *
      **************************************************************************************************************************/
     function renderCtrlBreak (row, i) {
-        let name = `table_${number}_${i}`;   // The name of the table
+        let name = `table_${number}_${i}`;  // The name of the table
         let tableCBInfo = calcPagination(); // Calculate the starting and ending points for the data on the screen
         let displayFooter = false;          // Indicates whether the footer should be displayed or not
         let data = [];                      // The data for the control break
@@ -3137,8 +3151,15 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
             }
 
+            let align = table[i].headerAlign;
+            let hSize = 'medium';
+
+            if (hasOwnProperty(props, 'headersize') === true) {
+                hSize = props.headersize;
+            }
+
             if (row.checked === true) {
-                return (<th key={key} className={headerStyle + " " + getAlignment(table[i].headerAlign)}
+                return (<th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
                                 id={row.header}
                                 draggable={row.drag && main}
                                 onDragStart={handleDragStart}
@@ -3160,7 +3181,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     if (row.search === false) { // No searching on this field, so no filtering on it also
                         /* at this point main is always true    && main === true */
                         if (row.dropDown === true) {
-                            return (<th key={key} className={headerStyle + " " + getAlignment(table[i].headerAlign)}
+                            return (<th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
                                         id={row.header}
                                         draggable={row.drag && main}
                                             onDragStart={handleDragStart}
@@ -3172,7 +3193,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                                         <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button>
                                     </th>)  // Display the header only
                         } else {
-                            return (<th key={key} className={headerStyle + " " + getAlignment(table[i].headerAlign)}
+                            return (<th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
                                         id={row.header}
                                         draggable={row.drag && main}
                                             onDragStart={handleDragStart}
@@ -3185,7 +3206,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         }
                     } else {    // Can filter; therefore, display the input field
                         return (
-                            <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + getAlignment(table[i].headerAlign)}
+                            <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + align} style={{ fontSize: hSize }}
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -3214,7 +3235,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 } else {    // Sorting on the column is allowed
                     if (row.search === false) { // No searching or filtering on the column, so display header only
                         return (
-                            <th key={key} className={headerStyle + " " + getAlignment(table[i].headerAlign)}
+                            <th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -3232,7 +3253,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         );
                     } else {    // Searching and filtering is allowed
                         return (    // Display header and input field for filtering
-                            <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + getAlignment(table[i].headerAlign)}
+                            <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + align} style={{ fontSize: hSize }}
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -3258,7 +3279,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
             // Filtering is off or not allowed
             } else if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler
-                return (<th key={key} className={headerStyle + " " + getAlignment(table[i].headerAlign)}
+                return (<th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
                             id={row.header}
                             draggable={row.drag && main}
                                 onDragStart={handleDragStart}
@@ -3272,7 +3293,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         </th> ); // Display the header only
             } else {    // Sorting on the column is allowed
                 return (
-                    <th key={key} className={headerStyle + " " + getAlignment(table[i].headerAlign)}
+                    <th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
                         id={row.header}
                         draggable={row.drag && main}
                             onDragStart={handleDragStart}

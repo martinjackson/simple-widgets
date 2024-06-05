@@ -26,6 +26,7 @@ The header field is the name of the header for that column of the table.  The na
 All the possible field values for the table are:
 
   - align             how to align the value in the cell.  See the Alignment in a Table Cell section.
+  - decimal           indicates the number of digits right of the decimal point.  This should only be used when the field contains a floating point number.
   - drag              indicates that the column can be dragged to another area of the table.
   - dataDate          the format of date of the data comming in for the column. See below.
   - dropDown          indicates that the dropDown menu is available or not
@@ -41,7 +42,7 @@ All the possible field values for the table are:
   - sortDate          the format of the date for dates that are to be sorted in this column.  See below.
   - type              the type of data (string or number) that the column is going to contain.  This is rarely used.
 
-All the above values is described below.
+All the above values are described below.
 
 The dataDate field indicates the format of a date field in the data.  The filterDate field indicates the format of the date on the filter field in the display table.  The sort date field is the format of the date field to be sorted.  The searchDate field indicates the format of the date on the search field in the display table.  The possible date formats are:
   - MM/DD/YYYY
@@ -123,6 +124,17 @@ The dataDate field indicates the format of a date field in the data.  The filter
 
   In the above example, in the filter section under the Date column will be the list of ranges.  It will filter the dates within that range.
 
+  The decimal field should only be used for floating point numbers.  It indicates the number of decimal places right of the decimal point.  The decimal is only valid when the eachRowInTable function uses the default or with the hasOwnPropert(props, decimal) entry found in the examples in the eachRowInTable, which is below (see the eachRowInTable prop).  An example of a table entry might be:
+
+  ```javascript
+  let table = [
+    ...
+    {header: 'Amount', name: 'AMOUNT', search: true, sort: false, decimal: 2 },
+    ...
+  ];
+  ```
+
+  In the above example it is assumed that amount is a floating point number.  The decimal: 2, indicates that only 2 digits will be display right of the decimal point.
 
    The pdfCol specifies the alignment of a PDF column if PDF's are allowed to be generated.  The values for the pdfCol are:
     - left            this will left justify the data in the column
@@ -216,6 +228,7 @@ In the above example, it is the same as the previous example except for the inde
                         hidden={hideCol[idx]}>
                   {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
                       (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
+                      (hasOwnProperty(props, 'decimal') === true) ? row[col.name].toFixed(props.decimal) :
                           row[col.name] 
                   }
                 </td>
@@ -225,7 +238,7 @@ In the above example, it is the same as the previous example except for the inde
     }
 ```
 
-In the above example, the row parameter is row in the table to be displayed.  The i is the row number being processed and is only used if the hover prop is used.  The key will make every row in the table unique; otherwise, you will get a warning.  The <tr> and <td> define the rows and columns respectively.  The table.map section goes through each column in the table and prints out the value in that column with row[col.name].  The col.name is the name part in the object for a column in the table.  If the HTML is not returned, nothing will be displayed.  This will also need the startEnd prop on the <SearchSortTable> (see the startEnd prop in the props section).  There is a full example below.
+In the above example, the row parameter is row in the table to be displayed.  The i is the row number being processed and is only used if the hover prop is used.  The key will make every row in the table unique; otherwise, you will get a warning.  The <tr> and <td> define the rows and columns respectively.  The table.map section goes through each column in the table and prints out the value in that column with row[col.name].  The col.name is the name part in the object for a column in the table.  If the HTML is not returned, nothing will be displayed.  If the align is used for that entry in the table and the word money appears in the align, the value will be formated as money.  If the align is used for that entry in the table and the word date appears in the align, the value will be formated as date. This will also need the indexing prop on the <SearchSortTable> (see the startEnd prop in the props section).  There is a full example below.
 
 If your eachRowInTable function is exactly like the one above and you don't want to type it.  Use the following in the SearchSortTable:
 
@@ -255,6 +268,7 @@ The following example is with the hover props being used:
                     row[col.name] }
                   {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
                       (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
+                      (hasOwnProperty(props, 'decimal') === true) ? row[col.name].toFixed(props.decimal) :
                           row[col.name] 
                   }
                 </td>
@@ -280,6 +294,7 @@ The following is an example on how to customize the new eachRowInTable:
                         hidden={hideCol[idx]}>
                   {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
                       (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
+                      (hasOwnProperty(props, 'decimal') === true) ? row[col.name].toFixed(props.decimal) :
                       (col.name === 'edit') ? <button name='edit' onClick={nothing}>
                                                 Edit
                                               </button> :
@@ -1192,9 +1207,24 @@ An example in the search sort table component for final totals.
         totalCAN,
     ];
 ```
-10. **height** = the height of the scroll box only.
 
-11. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.
+10. **headersize** = the font size of each column header in the table.  The header size can be any valid value for a font-size.  An example:
+
+```javascript
+  <SearchSortTable
+    table={table}
+    data={data}
+    ...
+    headersize='x-large'
+    ...
+  />
+```
+
+The above example indicates that the header size should be x-large.
+
+11. **height** = the height of the scroll box only.
+
+12. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.
 An example would be:
 ```javascript
 const [hideCol, setHideCol] = useState([]);
@@ -1206,16 +1236,16 @@ const hideTheCols = (value) => {
 <SearchSortTable hidden={hideTheCols}/>
 ```
 
-12. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
+13. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
 
-13. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
+14. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
 ```javascript
 hoverColor="yellow"
 ```
 
-14. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
+15. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
 
-15. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See other examples.
+16. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See other examples.
 
 An example would be:
 ```javascript
@@ -1228,7 +1258,7 @@ const indexing = (value) => {
 <SearchSortTable indexing={indexing} />
 ```
 
-16. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
+17. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
   - To use the letters option:
     1. Select a column header from the drop down menu.
     2. Select a letter or digit.
@@ -1238,66 +1268,66 @@ const indexing = (value) => {
     2. **nolower** = does not display the lower case letters
     3. **nodigit** = does not display the digits
 
-17. **mathdecimal** = the number of digits right of the decimal for an average or median aggregation
+18. **mathdecimal** = the number of digits right of the decimal for an average or median aggregation
 
-18. **mathignorecase** = ignore the case of the data for all the string aggregations.
+19. **mathignorecase** = ignore the case of the data for all the string aggregations.
 
-19. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
+20. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
 
-20. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
+21. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
 
-21. **nobottom** = does not display the bottom button.
+22. **nobottom** = does not display the bottom button.
 
-22. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
+23. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
 
-23. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
+24. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
 
-24. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
+25. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-25. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
+26. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
 
-26. **nofilter** = this will not display the Filter On check box and the filter button.  Can also set the value to true of false.
+27. **nofilter** = this will not display the Filter On check box and the filter button.  Can also set the value to true of false.
 
-27. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
+28. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 
-28. **nofooterborder** = do not put a border around each individual footer item.
+29. **nofooterborder** = do not put a border around each individual footer item.
 
-29. **noheaderborder** = do not put a border around each individual header item.
+30. **noheaderborder** = do not put a border around each individual header item.
 
-30. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
+31. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
 
-31. **nonext** = does not display the next button.
+32. **nonext** = does not display the next button.
 
-32. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
+33. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
 
 
-33. **noprevious** = does not display the previous button.
+34. **noprevious** = does not display the previous button.
 
-34. **norows** = does not display how maximum number of rows or the choice box for changing it.
+35. **norows** = does not display how maximum number of rows or the choice box for changing it.
 
-35. **nosearch** = does not display the header drop down, text box, and Search button.
+36. **nosearch** = does not display the header drop down, text box, and Search button.
 
-36. **nosort** = does not allow the headers to be sorted.
+37. **nosort** = does not allow the headers to be sorted.
 
-37. **notop** = does not display the top button or the total number of rows.
+38. **notop** = does not display the top button or the total number of rows.
 
-38. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
+39. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
 
-39. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
+40. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
 An example would be:
 ```javascript
 report="The PDF Report"
 ```
 
-40. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
+41. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
 
-41. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+42. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
 
-42. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
+43. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
 
-43. **searchstart** = indicates that the search item will only match those data items that start with the search item
+44. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-44. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
+45. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
 
 ```javascript
   let sortTable = [...];
@@ -1316,7 +1346,7 @@ report="The PDF Report"
   />
 ```
 
-45. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
+46. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
 The function that is to be passed to it is the setTable function for the state variables.  Since the table has changed due to a changing of columns, the table in the parent must be changed to the new table also.  See the section on Dragging and Drop.  An example:
 
 ```javascript
@@ -1332,16 +1362,16 @@ The function that is to be passed to it is the setTable function for the state v
   />
 ```
 
-46. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+47. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
-47. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+48. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-48. **showtable** = this will show the table and headers even if there is no data to display.
+49. **showtable** = this will show the table and headers even if there is no data to display.
 
-49. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+50. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-50. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+51. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -1353,7 +1383,7 @@ const startEnd = (start, end) => {
 <SearchSortTable startEnd={startEnd} />
 ```
 
-51. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+52. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -1365,11 +1395,11 @@ const startingPosition = (value) => {
 <SearchSortTable startingPos={startingPosition} />
 ```
 
-52. **title** = supplies a title to be displayed centered at the top of the table.
+53. **title** = supplies a title to be displayed centered at the top of the table.
 
-53. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+54. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-54. **width** = the width of the scroll box only.
+55. **width** = the width of the scroll box only.
 
 
 ## CSS Files
