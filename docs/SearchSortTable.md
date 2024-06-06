@@ -818,7 +818,7 @@ let table = [
     { header: 'State',      heading: 'STATE', ...,      pdfCol: 'left' },
     { header: 'Zip',        heading: 'ZIP', ..., },
     { header: 'Stock Num',  heading: 'STOCK_NUM', ..., },
-    { header: 'Cost',       heading: 'Cost', ..., align: 'money' },
+    { header: 'Cost',       heading: 'Cost', ...,     align: 'money' },
     { header: 'Num Order',  heading: 'NUM_ORDER', ..., align: 'center'},
     { header: 'Amount Due', heading: 'AMOUNT_DUE', ..., align: 'money'},
 ];
@@ -856,7 +856,7 @@ For normal columns in the table:
 - Num Order does not have an align; the default of sw-sst_center will be used to center the value.
 - Amount has an align of right; therefore, the cost will be right justified.
 
-For the Control Break:
+***For the Control Break:***
 
 The control break occurs on the name.  The control break total columns alignment:
 - Name column will contain Totals.  The alignment will be to the left.  Since there is no align in the control break array, it will use the one in table, which is sw-sst_left; therefore, it will be left justified.
@@ -865,14 +865,14 @@ The control break occurs on the name.  The control break total columns alignment
 - Num Order does not have an align in the control break array, but table does have align; therefore, it will use that one which is sw-sst_center.
 - Amount does have an align in the control break array; therefore, it will use that one (align: 'right').
 
-For the Final Totals:
+***For the Final Totals:***
 - Name column will contain Final Totals.  Since, there is no align in the final totals array and there is no align in the control break array, it will use the one in table, which is sw-sst_left. Therefore, the column will be left justified.
 - State, Zip, Stock Num do not have aligns in the final totals array, and do not have aligns in the control break array, and they did not have aligns in table; therefore, it will default to sw-sst_center.
 - Cost does not have an align in the final totals array and does not have an align in the control break array, but it does have an align in table; therefore, it will use the one in table, which is sw-sst_right.
 - Num Order does not have an align in the final totals array and does not have an align in the control break array, but table does have align; therefore, it will use that one which is sw-sst_center.
 - Amount does not have an align in the final totals array, but does have an align in the control break array; therefore, it will use that one (right justified).
 
-If a PDF is generated:
+***If a PDF is generated:***
 - Name has pdfCol in table, no align in the final totals array, and there is no align in the control break array, it will use the one in table, which is sw-sst_left. Therefore, the column will be left justified.
 - State does have a pdfCol in table; therefore, it will use that one, which is sw-ss
 - Zip, Stock Num do not have a pdfCol in the table, do not have aligns in the final totals array, and do not have aligns in the control break array, and they do not have aligns in table; therefore, it will default to sw-sst_center.
@@ -885,7 +885,7 @@ If there is not a final totals array, it ignores all information about the final
 
 To sum up how the alignment works:
 
-For a PDF column:
+***For a PDF column:***
 1.  If table has a pdfCol, use it and go to 6.
 2.  If there is a final totals array and it has an align, use it and go to 6.
 3.  If there is a control break array and it has an align, use it and go to 6.
@@ -893,23 +893,30 @@ For a PDF column:
 5.  Use the default, which is sw-sst_center.
 6.  done
 
-For a final totals array column
+***For a final totals array column***
 1.  If there is a final totals array and it has an align, use it and go to 5.
 2.  If there is a control break array and it has an align, use it and go to 5.
 3.  If table has an align, use it and go to 5.
 4.  Use the default, which is sw-sst_center.
 5.  done
 
-For a control break array column:
+***For a control break array column:***
 1.  If there is a control break array and it has an align, use it and go to 4.
 2.  If table has an align, use it and go to 4.
 3.  Use the default, which is sw-sst_center.
 4.  done
 
-For a normal column:
+***For a normal column:***
 1.  If table has an align, use it and go to 3.
 2.  Use the default, which is sw-sst_center.
 3.  done
+
+##### **Column Align Cascading**
+1.  Defaults to a normal center
+2.  Applies the table align array
+3.  Applies the control break align array, if available
+4.  Applies thee final totals align array, if available
+5.  Applies the pdfCol align in the table array.
 
 
 ### **Other props:**

@@ -1048,6 +1048,20 @@ const _InnerSearchSortTable = (propsPassed) => {
      * 
      ********************************************************************************************************/
     function determineAlignment (index, type, isPDF) {
+        let tempControlBreak = null;
+        if (hasOwnProperty(props, 'controlBreak') === true && controlBreakInfo.length === 0) {
+            tempControlBreak = props.controlBreak;
+        } else {
+            tempControlBreak = controlBreakInfo;
+        }
+
+        let tempFinalTotals = null;
+        if (hasOwnProperty(props, 'finaltotals') === true && finalTotalsInfo.length === 0) {
+            tempFinalTotals = props.finaltotals;
+        } else {
+            tempFinalTotals = finalTotalsInfo;
+        }
+
         let align = (isPDF === true) ? DEFAULT_ALIGN_PDF : DEFAULT_ALIGN;           // The current alignment for the column.  Default is center.
         let originalAlign = (isPDF === true) ? DEFAULT_ALIGN_PDF : DEFAULT_ALIGN;   // The original alignment for the column.  Default is center.
 
@@ -1064,18 +1078,18 @@ const _InnerSearchSortTable = (propsPassed) => {
         if (type === CONTROL_BREAK_ALIGN || 
             type === FINAL_TOTALS_ALIGN || type === PDF_ALIGN) {
             if (hasOwnProperty(props, 'controlBreak') === true &&
-                hasOwnProperty(props.controlBreak[index], 'align') === true) {
-                align = getAlignment(props.controlBreak[index].align, isPDF);   // Determine the alignment
-                originalAlign = props.controlBreak[index].align;
+                hasOwnProperty(tempControlBreak[index], 'align') === true) {
+                align = getAlignment(tempControlBreak[index].align, isPDF);   // Determine the alignment
+                originalAlign = tempControlBreak[index].align;
             }
         }
 
         // Process the final totals aligns
         if (type === FINAL_TOTALS_ALIGN || type === PDF_ALIGN) {
             if (hasOwnProperty(props, 'finaltotals') === true &&
-                hasOwnProperty(props.finaltotals[index], 'align') === true) {
-                align = getAlignment(props.finaltotals[index].align, isPDF);
-                originalAlign = props.finaltotals[index].align;
+                hasOwnProperty(tempFinalTotals[index], 'align') === true) {
+                align = getAlignment(tempFinalTotals[index].align, isPDF);
+                originalAlign = tempFinalTotals[index].align;
             }
         }
 
@@ -1554,6 +1568,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         const droppedColIdx = parseInt(table.findIndex(col => col.header === id));  // Index of where the column was dropped
         const draggedColIdx = parseInt(e.dataTransfer.getData("colIdx"));                 // Index of the
         const tempCols = [...table];
+        let   temp = null;
 
         if (droppedColIdx === -1) {
             return;
@@ -1564,15 +1579,15 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         // Move the dragged column to its new location
-        let temp = tempCols[draggedColIdx];         // Make a temporary copy of the starting column
+        temp = tempCols[draggedColIdx];         // Make a temporary copy of the starting column
         tempCols.splice (draggedColIdx, 1);         // Remove the starting column
         tempCols.splice (droppedColIdx, 0, temp);   // Insert the column where it was dropped
 
         // This will move the Math footers in control breaks
-        if (controlBreakVal === true) {
+//        if (controlBreakVal === true) {
             let localData = [...controlBreakData];
             for (let i = 0; i < localData.length; i++) {
-                let temp = localData[i].footer[draggedColIdx];          // Make a temporary copy of the starting footer
+                temp = localData[i].footer[draggedColIdx];          // Make a temporary copy of the starting footer
                 localData[i].footer.splice (draggedColIdx, 1);          // Remove the starting footer
                 localData[i].footer.splice (droppedColIdx, 0, temp);    // Insert the footer where it was dropped
             }
@@ -1580,20 +1595,19 @@ const _InnerSearchSortTable = (propsPassed) => {
             setControlBreakData(localData);
 
             let localInfo = [...controlBreakInfo];
-            let temp = localInfo[draggedColIdx];         // Make a temporary copy of the starting column
+            temp = localInfo[draggedColIdx];         // Make a temporary copy of the starting column
             localInfo.splice (draggedColIdx, 1);         // Remove the starting column
             localInfo.splice (droppedColIdx, 0, temp);   // Insert the column where it was dropped    
             
             setControlBreakInfo(localInfo);
-//            findCtrlBreak(localInfo, indexes);
-        } else {    // Math footers not in control breaks
+//        } else {    // Math footers not in control breaks
             let localFooters = [...footers];
-            let temp = localFooters[draggedColIdx];         // Make a temporary copy of the Math Footer
+            temp = localFooters[draggedColIdx];         // Make a temporary copy of the Math Footer
             localFooters.splice (draggedColIdx, 1);         // Remove the starting Math footer
             localFooters.splice (droppedColIdx, 0, temp);   // Insert the Math footer where it was dropped
 
             setFooters(localFooters);
-        }
+//        }
 
         // Set Final Totals
         if (hasOwnProperty(props, 'finaltotals') === true) {
@@ -2774,7 +2788,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     }
                 }
 
-                if (Number.isInteger(minimum) === true) {
+                if (Number.isInteger(minimum) === true || typeof minimum === 'string') {
                     controlBreakData[j].footer[i].push(`Minimum: ${minimum}`);  // Place the minimum value into the footer
                 } else {
                     controlBreakData[j].footer[i].push(`Minimum: ${minimum.toFixed(mathDecimal)}`);  // Place the minimum value into the footer
@@ -2797,7 +2811,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
             }
 
-            if (Number.isInteger(minimum) === true) {
+            if (Number.isInteger(minimum) === true || typeof minimum === 'string') {
                 locFooters[i].push(`Minimum: ${minimum}`);  // Place the minimum value into the footer
             } else {
                 locFooters[i].push(`Minimum: ${minimum.toFixed(mathDecimal)}`);  // Place the minimum value into the footer
@@ -2834,7 +2848,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     }
                 }
 
-                if (Number.isInteger(maximum) === true) {
+                if (Number.isInteger(maximum) === true || typeof maximum === 'string') {
                     controlBreakData[j].footer[i].push(`Maximum: ${maximum}`);  // Place the maximum value into the footer
                 } else {
                     controlBreakData[j].footer[i].push(`Maximum: ${maximum.toFixed(mathDecimal)}`);  // Place the maximum value into the footer
@@ -2857,7 +2871,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
             }
 
-            if (Number.isInteger(maximum) === true) {
+            if (Number.isInteger(maximum) === true || typeof maximum === 'string') {
                 locFooters[i].push(`Maximum: ${maximum}`);  // Place the minimum value into the footer
             } else {
                 locFooters[i].push(`Maximum: ${maximum.toFixed(mathDecimal)}`);  // Place the minimum value into the footer
@@ -3354,14 +3368,24 @@ const _InnerSearchSortTable = (propsPassed) => {
             return <td key={key2} hidden></td>
         }
 
-        let foot = [];  // Contains all the information in the footer with <br /> between each aggregate footer
+        let foot = '';  // Contains all the information in the footer with <br /> between each aggregate footer
         for (let j = 0; j < row.length; j++) {
-            foot.push(row[j] + '\n');
+            if (j === row.length - 1) {
+                foot += row[j];
+            } else {
+                foot += (row[j] + '\n');
+            }
         }
 
         if (ctrlBreakInfo !== undefined) {
             const [align, originalAlign] = determineAlignment(i, CONTROL_BREAK_ALIGN, false);
-            return (<td key={key3} className={footerStyle + ' ' + align}>{foot}</td>)
+            let newAlign = align;
+            if (hasOwnProperty(table[i], 'dropDown') === true && 
+                table[i].dropDown === true && 
+                align.endsWith('_bold') === false) {
+                    newAlign += '_bold';
+            }
+            return (<td key={key3} className={`${footerStyle} ${newAlign} sw-sst_pre`}>{foot}</td>)
         }
     }
 
