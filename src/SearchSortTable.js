@@ -329,6 +329,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     const [finalTotals, setFinalTotals] = useState([]);                 // Contains the final totals for certain fields in the table
     const [finalTotalsInfo, setFinalTotalsInfo] = useState(localFinalTotals);   // Contains the final totals info, like any title for the final total and which fields get the final totals
     const [done, setDone] = useState(false);
+    const [origControlBreakInfo, setOrigControlBreakInfo] = useState([]);
 
     // TODO: Ask Jim  hideCols is never used
 
@@ -398,6 +399,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
         if (isUserCtrlBreak === true) {
             setControlBreakInfo (props.controlBreak);
+            setOrigControlBreakInfo(props.controlBreak);
             if (done === false) {
                 setDone(findCtrlBreak(props.controlBreak, indexes));
             }
@@ -409,6 +411,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             }
 
             setControlBreakInfo(ctrlBreakAry);
+            setOrigControlBreakInfo(ctrlBreakAry)
         }
     }
 
@@ -668,7 +671,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         tableDivStyle = 'sw-sst_scrollStyle';
     }
 
-    let heightWidthStyle = {};  // Set the height and width of the SearchSortTable
+    let heightWidthStyle = {};  // Set the and width of the SearchSortTable
     if (hasOwnProperty(props, 'height') === true && hasOwnProperty(props, 'width') === false) {
         heightWidthStyle = { height: props.height };
     } else if (hasOwnProperty(props, 'height') === false && hasOwnProperty(props, 'width') === true) {
@@ -1243,8 +1246,12 @@ const _InnerSearchSortTable = (propsPassed) => {
                             } else if (originalAlign.indexOf('money') !== -1) {
                                 text.push({ text: formatMoney(controlBreakData[k].data[i][table[j].name]), style: align });
                             } else {
-                                text.push({ text: props.data[indexes[i]][table[j].name], style: align });                        
+                                text.push({ text: controlBreakData[k].data[i][table[j].name], style: align });                        
                             }
+                            console.log('controlBreakData[k] :', controlBreakData[k]);
+                            console.log('controlBreakData[k].data[i] :', controlBreakData[k].data[i]);
+                            console.log('controlBreakData[k].data[i][table[j]] :', controlBreakData[k].data[i][table[j]]);
+                            console.log('controlBreakData[k].data[i][table[j].name] :', controlBreakData[k].data[i][table[j].name]);
                         }
                     }
 
@@ -1964,10 +1971,10 @@ const _InnerSearchSortTable = (propsPassed) => {
      *
      *******************************************************************************************************************/
     function resetButton() {
-        let ctrlBreakInfo = [...controlBreakInfo];
+        let ctrlBreakInfo = [...origControlBreakInfo];
         let locFooters = [...footers];
         let ctrlBreakData = [...controlBreakData];
-
+       
         // Remove the hidden columns and control breaks
         for (let i = 0; i < ctrlBreakInfo.length; i++) {
             ctrlBreakInfo[i].hidden = false;
@@ -1985,6 +1992,12 @@ const _InnerSearchSortTable = (propsPassed) => {
                 ctrlBreakData[i].footer[j] = [];
             }
             ctrlBreakData[i].title = '';
+        }
+
+        if (hasOwnProperty(props, 'finaltotals') === true) {
+            setFinalTotalsInfo(props.finaltotals);
+        } else {
+            setFinalTotalsInfo([]);
         }
 
         hideTheColumns(ctrlBreakInfo);
@@ -2300,6 +2313,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         let title = row.title;
         if (row.title.endsWith('; ') === true || row.title.endsWith(', ') === true) {
             title = row.title.substring(0, row.title.length - 2);
+            row.title = title;
         }
         
 
@@ -4062,6 +4076,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure there is the finaltotals prop
             let isFooter = false;
             let finalTotal = new Array(finalTotalsInfo.length).fill('');    // Array that contains the final totals
+            console.log('finalTotalsInfo 1 :', finalTotalsInfo);
             for (let j = 0; j < finalTotalsInfo.length; j++) {  // Spin through the final totals
                 const [align, originalAlign] = determineAlignment(j, FINAL_TOTALS_ALIGN, false);
                 if (hasOwnProperty(finalTotalsInfo[j], 'finaltitle') === true &&    // Title and total go together
@@ -4102,10 +4117,10 @@ const _InnerSearchSortTable = (propsPassed) => {
     function buildFinalFooters() {
         if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure final totals are wnated
             let total = new Array(table.length).fill(0);    // Array that contains the final totals
-            for (let j = 0; j < props.finaltotals.length; j++) {    // Spin through the final totals to
+            for (let j = 0; j < finalTotalsInfo.length; j++) {    // Spin through the final totals to
                 let totaling = false;                               // determing which fields have final totals and titlse
                 if (hasOwnProperty(props, 'finaltotals') === true &&    // Make sure this column is to be
-                    props.finaltotals[j].finaltotal === true) {         // totaled
+                    finalTotalsInfo[j].finaltotal === true) {         // totaled
                     totaling = true;
                 }
                 // Sum up the column for each row
@@ -4137,7 +4152,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         
                 let totaling = false;   // Indicates whether the column should be totaled
                 if (hasOwnProperty(props, 'finaltotals') === true &&
-                    props.finaltotals[j].finaltotal === true) {
+                    finalTotalsInfo[j].finaltotal === true) {
                         totaling = true;
                 }
         
