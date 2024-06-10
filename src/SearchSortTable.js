@@ -96,27 +96,27 @@ export function getAlignment (align, isPDF = false) {
     }
 
     switch (align) {
-        case 'left':                        return (isPDF === true) ? 'cellLeft' : 'sw-sst_left';
-        case 'leftbold':                    return (isPDF === true) ? 'cellLeftBold' : 'sw-sst_left_bold';
-        case 'center':                      return (isPDF === true) ? 'cellCenter' : 'sw-sst_center';
-        case 'centerbold':                  return (isPDF === true) ? 'cellCenterBold' : 'sw-sst_center_bold';
-        case 'right':                       return (isPDF === true) ? 'cellRight' : 'sw-sst_right';
-        case 'rightbold':                   return (isPDF === true) ? 'cellRightBold' : 'sw-sst_right_bold';
-        case 'number':                      return (isPDF === true) ? 'cellRight' : 'sw-sst_right';
-        case 'numberbold':                  return (isPDF === true) ? 'cellRightBold' : 'sw-sst_right_bold';
-        case 'moneyleft':                   return (isPDF === true) ? 'cellLeft' : 'sw-sst_left';
-        case 'moneyleftbold':               return (isPDF === true) ? 'cellLeftBold' : 'sw-sst_left_bold';
-        case 'moneycenter':                 return (isPDF === true) ? 'cellCenter' : 'sw-sst_center';
-        case 'moneycenterbold':             return (isPDF === true) ? 'cellCenterBold' : 'sw-sst_center_bold';
-        case 'money':                       return (isPDF === true) ? 'cellRight' : 'sw-sst_right';
-        case 'moneybold':                   return (isPDF === true) ? 'cellRightBold' : 'sw-sst_right_bold';
-        case 'dateleft':                    return (isPDF === true) ? 'cellLeft' : 'sw-sst_left';
-        case 'dataleftbold':                return (isPDF === true) ? 'cellLeftBold' : 'sw-sst_left_bold';
-        case 'date':                        return (isPDF === true) ? 'cellCenter' : 'sw-sst_center';
-        case 'datebold':                    return (isPDF === true) ? 'cellCenterBold' : 'sw-sst_center_bold';
-        case 'dateright':                   return (isPDF === true) ? 'cellRight' : 'sw-sst_right';
-        case 'datarightbold':               return (isPDF === true) ? 'cellRightBold' : 'sw-sst_right_bold';
-        default:                            return (isPDF === true) ? DEFAULT_ALIGN_PDF : align;
+        case 'left':            return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
+        case 'leftbold':        return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
+        case 'center':          return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
+        case 'centerbold':      return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
+        case 'right':           return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'rightbold':       return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        case 'number':          return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'numberbold':      return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        case 'moneyleft':       return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
+        case 'moneyleftbold':   return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
+        case 'moneycenter':     return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
+        case 'moneycenterbold': return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
+        case 'money':           return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'moneybold':       return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        case 'dateleft':        return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
+        case 'dataleftbold':    return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
+        case 'date':            return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
+        case 'datebold':        return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
+        case 'dateright':       return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'datarightbold':   return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        default:                return (isPDF === true) ? DEFAULT_ALIGN_PDF : align;
     }
 }
 
@@ -1787,8 +1787,6 @@ const _InnerSearchSortTable = (propsPassed) => {
     if (controlBreakVal === true || controlBreakProps === true) { // Display control break tables
         let cbTable = `cbtitles_${number}`;
         let cbHeader = `cbhead_${number}}`;
-        let cbTable2 = `cbtitles2_${number}}`;
-        let cbHeader2 = `cbhead2_${number}}`;
 
         let finalTotalsTable = <Fragment key={`frag_2_${number}`}></Fragment>;
         if (hasOwnProperty(props, 'finaltotals') === true) {
@@ -2269,7 +2267,6 @@ const _InnerSearchSortTable = (propsPassed) => {
      *
      **************************************************************************************************************************/
     function renderCtrlBreak (row, i) {
-        let name = `table_${number}_${i}`;  // The name of the table
         let tableCBInfo = calcPagination(); // Calculate the starting and ending points for the data on the screen
         let displayFooter = false;          // Indicates whether the footer should be displayed or not
         let data = [];                      // The data for the control break
@@ -2406,13 +2403,14 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     function processTitleFormat (value) {
         switch (value) {
-            case 'colon':               return ':';
-            case 'comma':               return ',';
-            case 'scolon', 'semi':      return ';';
-            case 'slash':               return '/';
-            case 'dash':                return '-';
-            case 'none':                return '';
-            default:                    return value;
+            case 'colon':   return ':';
+            case 'comma':   return ',';
+            case 'scolon':  return ';';
+            case 'semi':    return ';';
+            case 'slash':   return '/';
+            case 'dash':    return '-';
+            case 'none':    return '';
+            default:        return value;
         }
     }
 
@@ -2512,7 +2510,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             }
         }
 
-        ctrlBreakData = buildControlBreakFooters(ctrlBreakData, true);
+        ctrlBreakData = buildControlBreakFooters(ctrlBreakData);
 
         if (hasOwnProperty(props, 'startingpos') === true) {
             props.startingPos(startingPos); // Pass the starting positions of the control break tables back to the calling program
@@ -2582,16 +2580,16 @@ const _InnerSearchSortTable = (propsPassed) => {
      * @returns the correct index of the aggregation column wiht condsidering hidden columns
      *
      **************************************************************************************************************************/
-    function determineCol (index) {
-        let pos = index;    // Current index of the aggregation column
-        for (let i = 0; i < controlBreakInfo.length && i < index; i++) {  // Loop until the end of the columns or the hidden column is reached
-            if (controlBreakInfo[i].hidden === true) {  // Check to see if the column is hidden
-                pos--;
-            }
-        }
-
-        return pos;
-    }
+//    function determineCol (index) {
+//        let pos = index;    // Current index of the aggregation column
+//        for (let i = 0; i < controlBreakInfo.length && i < index; i++) {  // Loop until the end of the columns or the hidden column is reached
+//            if (controlBreakInfo[i].hidden === true) {  // Check to see if the column is hidden
+//                pos--;
+//            }
+//        }
+//
+//        return pos;
+//    }
 
     /**************************************************************************************************************************
      *
