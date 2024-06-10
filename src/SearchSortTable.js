@@ -1290,52 +1290,54 @@ const _InnerSearchSortTable = (propsPassed) => {
             index++;
 
             // Print the header for the final totals
-            let widths = [];    // The width of each of the field, will be auto
-            let headers = [];   // The header for each row of the table
-            for (let i = 0; i < table.length; i++) {
-                if (controlBreakInfo[i].hidden === false) {
-                    headers.push({text: table[i].header, style: 'cellCenter' });
+            if (finalTotals.length > 0) {
+                let widths = [];    // The width of each of the field, will be auto
+                let headers = [];   // The header for each row of the table
+                for (let i = 0; i < table.length; i++) {
+                    if (controlBreakInfo[i].hidden === false) {
+                        headers.push({text: table[i].header, style: 'cellCenter' });
+                    }
                 }
-            }
 
-            for (let i = 0; i < headers.length; i++) {
-                widths.push(points);
-            }
-
-            let tableSSTFinal = // Table for the final totals
-            {
-                columns: [
-                    { width: '*', text: '' },
-                    { width: 'auto',
-                      table: {  // Build the table
-                        headerRows: 1,  // 1 row of headers
-                        widths: widths,
-
-                        body: [ // Build the table header
-                            headers,
-                        ]
-                    }},
-                    { width: '*', text: '' },
-                ]
-            }
-
-
-            docDefinition.content.push(tableSSTFinal);
-
-            // Process the final totals
-            let text = [];
-            let foundFooter = false;
-            for (let i = 0; i < finalTotals.length; i++) {
-                if (controlBreakInfo[i].hidden === false) {
-                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
-                    text.push({ text: finalTotals[i], style: align })
-                    foundFooter = true;
+                for (let i = 0; i < headers.length; i++) {
+                    widths.push(points);
                 }
-            }
 
-            if (foundFooter === true) { // Place the footer in the column for the table
-                docDefinition.content[index].columns[1].table.body.push(text);
-                index++;
+                let tableSSTFinal = // Table for the final totals
+                {
+                    columns: [
+                        { width: '*', text: '' },
+                        { width: 'auto',
+                        table: {  // Build the table
+                            headerRows: 1,  // 1 row of headers
+                            widths: widths,
+
+                            body: [ // Build the table header
+                                headers,
+                            ]
+                        }},
+                        { width: '*', text: '' },
+                    ]
+                }
+
+
+                docDefinition.content.push(tableSSTFinal);
+
+                // Process the final totals
+                let text = [];
+                let foundFooter = false;
+                for (let i = 0; i < finalTotals.length; i++) {
+                    if (controlBreakInfo[i].hidden === false) {
+                        const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                        text.push({ text: finalTotals[i], style: align })
+                        foundFooter = true;
+                    }
+                }
+
+                if (foundFooter === true) { // Place the footer in the column for the table
+                    docDefinition.content[index].columns[1].table.body.push(text);
+                    index++;
+                }
             }
 
             pdfMake.createPdf(docDefinition).open();    // Build the PDF
