@@ -1807,7 +1807,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                             <table className="sw-sst_table" key={cbTable}>
                                 <thead>
                                     <tr key={cbHeader}>
-                                        {table.map(buildHeaders(true, 0))}
+                                        {table.map(buildHeaders(true, 0, true))}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1834,11 +1834,11 @@ const _InnerSearchSortTable = (propsPassed) => {
                 </tr>
         }
         
-        tableBuild =    <table className={hoverClassName + " sw-sst_table"} 
+        tableBuild =    <table className={`${hoverClassName} sw-sst_table`} 
                                 name={`table${number}`} key={keyTable}>
                             <thead>
                                 <tr key={header} className="sw-sst_centerBoldStyle">
-                                    {table.map(buildHeaders(true, 0))}
+                                    {table.map(buildHeaders(true, 0, false))}
                                 </tr>
                             </thead>
                             <tbody>
@@ -1879,7 +1879,7 @@ const _InnerSearchSortTable = (propsPassed) => {
      *
      **************************************************************************************************************************/
     return (
-        <div className="sw-sst_divStyle">
+        <div className={`sw-sst_divStyle ${heightWidthStyle}`}>
             {title}
             <div>
                 { (hasOwnProperty(props,'sfbottom') === false) ?
@@ -1899,7 +1899,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             { (props.data.length === 0 && hasOwnProperty(props,'showtable') === false) ?
             <div>No Data to Display</div> :
             <div>
-                <div className={tableDivStyle} style={heightWidthStyle}>
+                <div className={tableDivStyle}>
                     {tableBuild}
                 </div>
                 {footer}
@@ -2332,7 +2332,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         </td>
                     </tr>
                     <tr key={keyHeader}>
-                        {table.map(buildHeaders(false, i))}
+                        {table.map(buildHeaders(false, i, false))}
                     </tr>
                 </thead>
                 <tbody key={`tbody_${number}_${i}`}>
@@ -3121,7 +3121,7 @@ const _InnerSearchSortTable = (propsPassed) => {
      * @param {*} tableIndex    indicates the column in which drop down should appear
      *
      *********************************************************************************************************************/
-    function buildHeaders(main, tableIndex) {
+    function buildHeaders(main, tableIndex, isMainHeader) {
         const f = (row, i) => {
 //            console.log('row :', row);
             let key = `cell_${number}_${i}`;
@@ -3172,8 +3172,10 @@ const _InnerSearchSortTable = (propsPassed) => {
                 hSize = props.headersize;
             }
 
+            let classes = null;
             if (row.checked === true) {
-                return (<th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
+                classes = (isMainHeader === true) ? `${headerStyle} ${align}` : `${headerStyle} ${align} sw-sst_resize`;
+                return (<th key={key} className={classes} style={{ fontSize: hSize }}
                                 id={row.header}
                                 draggable={row.drag && main}
                                 onDragStart={handleDragStart}
@@ -3195,7 +3197,8 @@ const _InnerSearchSortTable = (propsPassed) => {
                     if (row.search === false) { // No searching on this field, so no filtering on it also
                         /* at this point main is always true    && main === true */
                         if (row.dropDown === true) {
-                            return (<th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
+                            classes = (isMainHeader === true) ? `${headerStyle} ${align}` : `${headerStyle} ${align} sw-sst_resize`;
+                            return (<th key={key} className={classes} style={{ fontSize: hSize }}
                                         id={row.header}
                                         draggable={row.drag && main}
                                             onDragStart={handleDragStart}
@@ -3207,7 +3210,8 @@ const _InnerSearchSortTable = (propsPassed) => {
                                         <button className={"sw-sst_headerButton " + fontColor} onClick={() => displayDropDown(row, i)}>{row.header}</button>
                                     </th>)  // Display the header only
                         } else {
-                            return (<th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
+                            classes = (isMainHeader === true) ? `${headerStyle} ${align}` : `${headerStyle} ${align} sw-sst_resize`;
+                            return (<th key={key} className={classes} style={{ fontSize: hSize }}
                                         id={row.header}
                                         draggable={row.drag && main}
                                             onDragStart={handleDragStart}
@@ -3219,8 +3223,9 @@ const _InnerSearchSortTable = (propsPassed) => {
                                     </th>)  // Display the header only
                         }
                     } else {    // Can filter; therefore, display the input field
+                        classes = (isMainHeader === true) ? `${headerStyle} sw-sst_bottom ${align}` : `${headerStyle} sw-sst_bottom ${align} sw-sst_resize`;
                         return (
-                            <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + align} style={{ fontSize: hSize }}
+                            <th key={key} className={classes} style={{ fontSize: hSize }}
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -3248,8 +3253,9 @@ const _InnerSearchSortTable = (propsPassed) => {
                     }
                 } else {    // Sorting on the column is allowed
                     if (row.search === false) { // No searching or filtering on the column, so display header only
+                        classes = (isMainHeader === true) ? `${headerStyle} ${align}` : `${headerStyle} ${align} sw-sst_resize`;
                         return (
-                            <th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
+                            <th key={key} className={classes} style={{ fontSize: hSize }}
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -3266,8 +3272,9 @@ const _InnerSearchSortTable = (propsPassed) => {
                             </th>
                         );
                     } else {    // Searching and filtering is allowed
+                        classes = (isMainHeader === true) ? `${headerStyle} sw-sst_bottom ${align}` : `${headerStyle} sw-sst_bottom ${align} sw-sst_resize`;
                         return (    // Display header and input field for filtering
-                            <th key={key} className={headerStyle + ' sw-sst_bottom' + " " + align} style={{ fontSize: hSize }}
+                            <th key={key} className={classes} style={{ fontSize: hSize }}
                                 id={row.header}
                                 draggable={row.drag && main}
                                     onDragStart={handleDragStart}
@@ -3293,7 +3300,8 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
             // Filtering is off or not allowed
             } else if (row.sort === false || hasOwnProperty(props,'nosort') === true) { // No sorting, so no onClick handler
-                return (<th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
+                classes = (isMainHeader === true) ? `${headerStyle} ${align}` : `${headerStyle} ${align} sw-sst_resize`;
+                return (<th key={key} className={classes} style={{ fontSize: hSize }}
                             id={row.header}
                             draggable={row.drag && main}
                                 onDragStart={handleDragStart}
@@ -3306,8 +3314,9 @@ const _InnerSearchSortTable = (propsPassed) => {
                                     <div className={fontColor}>{row.header}</div>}
                         </th> ); // Display the header only
             } else {    // Sorting on the column is allowed
+                classes = (isMainHeader === true) ? `${headerStyle} ${align}` : `${headerStyle} ${align} sw-sst_resize`;
                 return (
-                    <th key={key} className={headerStyle + " " + align} style={{ fontSize: hSize }}
+                    <th key={key} className={classes} style={{ fontSize: hSize }}
                         id={row.header}
                         draggable={row.drag && main}
                             onDragStart={handleDragStart}

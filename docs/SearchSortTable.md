@@ -1229,7 +1229,7 @@ An example in the search sort table component for final totals.
 
 The above example indicates that the header size should be x-large.
 
-11. **height** = the height of the scroll box only.
+11. **height** = the height of the scroll box only.  If the height is used it will automatically disable the ability to resize the table.
 
 12. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.
 An example would be:
@@ -1328,7 +1328,7 @@ report="The PDF Report"
 
 41. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
 
-42. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  With this prop a width and height option for the scroll box must be supplied.
+42. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  
 
 43. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
 
@@ -1406,7 +1406,7 @@ const startingPosition = (value) => {
 
 54. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-55. **width** = the width of the scroll box only.
+55. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
 
 
 ## CSS Files
@@ -1506,13 +1506,12 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 }
 ```
 
-8.  ***sw-sst_scrollStyle*** = the CSS styling for the scroll box.  This is only applied if scroll is a prop on the component.  This will also determine the height of the Search Sort Table.  This height can also be passed in as a prop and will override the value in the CSS.
+8.  ***sw-sst_scrollStyle*** = the CSS styling for the scroll box.  This is only applied if scroll is a prop on the component.  
 
 ```css
 .sw-sst_scrollStyle {
   display: block;
-  overflow: scroll;
-  height: 500px;
+  overflow: scroll; 
   width: auto;
   border: 1px solid black;
   margin-left: auto;
@@ -1962,7 +1961,6 @@ const sortExample = (props) => {
                       footer={footer}
                       sfbottom
                       scroll
-                      height="675px"
                       hover />
 
   const eachRowInTable = (row, i) => {
@@ -1999,7 +1997,6 @@ const sortExample = (props) => {
                     letters
                     nolower
                     scroll
-                    height="675px"
                     hover />
 ```
 
@@ -2037,7 +2034,6 @@ A title of Pick will be displayed centered at the top of the table.  If a differ
                     dateTable={dateTable}
                     error = {error}
                     scroll
-                    height="500px"
                     hover />
 ...
     let table = [   // Used to build the SearchSortTable
@@ -2099,7 +2095,6 @@ const sortExample = (props) => {
                       error={error}
                       title="Finance CSV"
                       scroll
-                      height="675px"
                       choice
                       hover />
 
@@ -2182,7 +2177,6 @@ const sortExample = (props) => {
                     error={error}
                     title="Finance CSV"
                     scroll
-                    height="675px"
                     choice
                     hover />
 
@@ -2281,7 +2275,6 @@ const sortExample = (props) => {
                     error={error}
                     title="Finance CSV"
                     scroll
-                    height="675px"
                     choice
                     hover />
 
@@ -2326,7 +2319,6 @@ This example uses some of the items in Example 7.
                     error={error}
                     title="Finance CSV"
                     scroll
-                    height="675px"
                     choice
                     hover />
 ```
@@ -2350,7 +2342,6 @@ This example uses some of the items in Example 7.
                     error={error}
                     title="Finance CSV"
                     scroll
-                    height="675px"
                     choice
                     hover />
 
@@ -2428,7 +2419,6 @@ const sortExample = (props) => {
                     error={error}
                     title="Finance CSV"
                     scroll
-                    height="675px"
                     choice
                     hover />
 
@@ -2517,7 +2507,6 @@ const sortExample = (props) => {
                     error={error}
                     title="Finance CSV"
                     scroll
-                    height="675px"
                     choice
                     hover />
 }

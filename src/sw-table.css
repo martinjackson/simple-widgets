@@ -60,7 +60,9 @@ table.sw-sst_search_sort_table10 tr:hover td {
   margin: 5px;
   padding: 10px;
   width: fit-content;
+  overflow: auto;
   background-color: var(--sw-theme_backgroundColor);  /* "#CCCC66" */
+  resize: horizontal;
 }
 
 .sw-sst_noButtonStyle {
@@ -86,9 +88,10 @@ table.sw-sst_search_sort_table10 tr:hover td {
   background: none;
 }
 
-.sw-sst_tableStyle {  /* The style for the table */
+.sw-sst_tableStyle { 
   margin: auto;
   border: 1px solid black;
+  width: fit-content;
 }
 
 .sw-sst_oddRow {
@@ -120,7 +123,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
 
 .sw-sst_scrollStyle {
   display: block;
-  overflow: scroll;
+  overflow: scroll; 
   width: auto;
   border: 1px solid black;
   margin-left: auto;
@@ -297,9 +300,15 @@ table.sw-sst_search_sort_table10 tr:hover td {
   border: 1px solid black;
 }
 
-.sw-sst_table {
+.sw-sst_table {     /* The style for the table */
   border-collapse: collapse;
   width: 100%;
+  
+}
+
+.sw-sst_resize { 
+  resize: horizontal; 
+  overflow: auto; 
 }
 
 .sw-sst_final_total_margin {
