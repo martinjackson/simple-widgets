@@ -1979,13 +1979,16 @@ const _InnerSearchSortTable = (propsPassed) => {
         for (let i = 0; i < ctrlBreakInfo.length; i++) {
             ctrlBreakInfo[i].hidden = false;
             ctrlBreakInfo[i].ctrlBreak = 0;
-            props.controlBreak[i].hidden = false;
-            props.controlBreak[i].ctrlBreak = 0;
+            if (hasOwnProperty(props, 'controlBreak') === true) {
+                props.controlBreak[i].hidden = false;
+                props.controlBreak[i].ctrlBreak = 0;
+            }
         }
 
         for (let i = 0; i < locFooters.length; i++) {   // Remove the footers
             locFooters[i] = [];
         }
+        setFooters(locFooters);
 
         for (let i = 0; i < ctrlBreakData.length; i++) {    // Remove the control break data
             for (let j = 0; j < ctrlBreakData[i].footer.length; j++) {
