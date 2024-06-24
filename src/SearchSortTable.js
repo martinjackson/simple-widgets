@@ -237,7 +237,10 @@ const _InnerSearchSortTable = (propsPassed) => {
         initFooters[i] = [];
     }
 
-    const pdfOrientValues = ['', 'Portrait', 'Landscape'];  // How the page is oriented for the PDF
+    // How the page is oriented for the PDF
+    const pdfOrientValues = (hasOwnProperty(props, 'pdfcard') === true) ?
+        ['', 'Portrait', 'Landscape', 'Card', 'Card per Page'] : 
+        ['', 'Portrait', 'Landscape'];
 
     let searchValue = (hasOwnProperty(props, 'searchall') === true) ? 'All' : '';
 
@@ -835,6 +838,17 @@ const _InnerSearchSortTable = (propsPassed) => {
         </>)
 
     /*****************************************************************************************************************
+     * 
+     * Constants for the PDFs
+     * 
+     ****************************************************************************************************************/
+
+    const PDF_TABLE_HEAD = 'cellLeft';
+    const PDF_TABLE_VALUE = 'cellLeft';
+    const PDF_PORTRAIT_POINTS = 571;
+    const PDF_LANDSCAPE_POINTS = 717;
+
+    /*****************************************************************************************************************
      *
      * This will display the PDF with the regular data that is in the search sort table.
      *
@@ -923,6 +937,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     { width: '*', text: '' },
                     { width: 'auto',
                       table: {  // Build the table
+                        dontBreakRows: true,
                         headerRows: 1,  // 1 row of headers
                         widths: widths,
 
@@ -1015,6 +1030,178 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
     }
 
+    /*****************************************************************************************************************
+     *
+     * This will display the PDF with the regular data that is in the search sort table.
+     *
+     ******************************************************************************************************************/
+    function pdfRegCardFormat(perPage) {
+        let title = 'PDF Report';
+        if (hasOwnProperty(props, 'title') === true) {
+            title = props.title;
+        } else if (hasOwnProperty(props, 'report') === true) {
+            title = props.report;
+        }
+
+        let docDefinition = {   // This contains the PDF report information
+            info: {
+                 title: title,
+            },
+            pageOrientation: pdfOrientation,
+            pageMargins: [20, 100, 20, 80],
+
+            content: [  // The main body of the PDF
+            ],
+            styles: {   // Styles for the header and cell headers
+                header1: {
+                    fontSize: 14,
+                    bold: true,
+                    alignment: 'center',
+                    margin: [0, 3, 0, 0]
+                },
+                cellLeft: {
+                    alignment: 'left',
+                },
+                cellLeftBold: {
+                    alignment: 'left',
+                    fontSize: 12,
+                    bold: true,
+                },
+                cellCenter: {
+                    alignment: 'center'
+                },
+                cellCenterBold: {
+                    alignment: 'center',
+                    fontSize: 12,
+                    bold: true,
+                },
+                cellRight: {
+                    alignment: 'right',
+                },
+                cellRightBold: {
+                    alignment: 'right',
+                    fontSize: 12,
+                    bold: true,
+                },
+            }
+        };
+
+        docDefinition.header = {    // Build the header and footer
+            stack: [
+                {columns: [
+                    { text: 'Report Date: ' +  currentDate(), alignment: 'right', margin: [0, 5, 5, 0]},
+                ]},
+                { text: title, style: 'header1' },
+            ]
+        };
+        docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' };
+
+        // Place the page number at the bottom of each page
+
+        docDefinition.footer = function(currentPage, pageCount) { return {text: 'Page: ' + currentPage.toString() + ' of ' + pageCount + '   For Official Use Only', alignment: 'center'} };
+
+        if (props.data.length > 0) {
+            let tableSST =  // Builds the body of the table
+            {
+                columns: [  // Used to center the table on the screen
+                    { width: '*', text: '' },
+                    { width: 'auto',
+                      table: {  // Build the table
+                        widths: [161, 375],
+
+                        body: [ // Build the table header
+                        ]
+                    }},
+                    { width: '*', text: '' },
+                ]
+            }
+
+
+            // Print out a row in the table
+            let index = 0;
+            for (let i = 0; i < indexes.length; i++) {
+                docDefinition.content.push(structuredClone(tableSST));
+                for (let j = 0; j < table.length; j++) {    // Process a column in the table
+                    let text = [];
+                    if (controlBreakInfo[j].hidden === false) {
+                        text.push({text: table[j].header, style: PDF_TABLE_HEAD });
+
+                        const [align, originalAlign] = determineAlignment(j, REGULAR_ALIGN, true);
+                        // Determine the format of the cell
+                        if (originalAlign.indexOf('money') !== -1) {
+                            text.push({ text: formatMoney(props.data[indexes[i]][table[j].name]), style: PDF_TABLE_VALUE });
+                        } else if (originalAlign.indexOf('date') !== -1 ||
+                                   hasOwnProperty(table[j], 'dataDate') === true ||
+                                   hasOwnProperty(table[j], 'filterDate') === true ||
+                                   hasOwnProperty(table[j], 'searchDate') === true ||
+                                   hasOwnProperty(table[j], 'sortDate') === true) {
+                            text.push({ text: convertDate(props.data[indexes[i]][table[j].name]), style: PDF_TABLE_VALUE });
+                        } else {
+                            text.push({ text: props.data[indexes[i]][table[j].name], style: PDF_TABLE_VALUE });
+                        }
+                        docDefinition.content[index].columns[1].table.body.push(text);
+                    }
+                }
+                index++;
+                docDefinition.content.push ({ text: ' ' });
+                index++;
+                if (perPage === true) {
+                    docDefinition.content.push ({ text: ' ', pageBreak: 'after' });
+                } else {
+                    docDefinition.content.push ({ text: ' ' });
+                }
+                index++;
+            }
+
+            if (userFooter.length > 0) {
+                docDefinition.content.push(structuredClone(tableSST));
+            }
+
+            // Process the user footers
+            for (let i = 0; i < userFooter.length; i++) {
+                let text = [];
+                if (controlBreakInfo[i].hidden === false) {
+                    text.push({text: table[i].header, style: PDF_TABLE_HEAD });
+
+                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                    text.push({ text: userFooter[i], style: PDF_TABLE_VALUE })
+                    docDefinition.content[index].columns[1].table.body.push(text);
+                }
+            }
+
+            if (userFooter.length > 0) {
+                index++;
+                docDefinition.content.push ({ text: ' ' });
+                index++;
+                if (perPage === true) {
+                    docDefinition.content.push ({ text: ' ', pageBreak: 'after' });
+                } else {
+                    docDefinition.content.push ({ text: ' ' });
+                }
+                index++;
+            }
+
+            if (finalTotals.length > 0) {
+                docDefinition.content.push(structuredClone(tableSST));
+            }
+
+            // Process the final total footers
+            for (let i = 0; i < finalTotals.length; i++) {
+                let text = [];
+                if (controlBreakInfo[i].hidden === false) {
+                    text.push({text: table[i].header, style: PDF_TABLE_HEAD });
+
+                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                    text.push({ text: finalTotals[i], style: PDF_TABLE_VALUE})
+                    docDefinition.content[index].columns[1].table.body.push(text);
+                }
+            }
+
+            pdfMake.createPdf(docDefinition).open();    // Build the PDF
+            console.log('docDefinition :', docDefinition);
+        }
+    }
+
     /****************************************************************************************************
      * 
      * This will determine how the value will be aligned in the cell.  
@@ -1077,7 +1264,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             }
         }
 
-        // Proce the control break aligns
+        // Process the control break aligns
         if (type === CONTROL_BREAK_ALIGN || 
             type === FINAL_TOTALS_ALIGN || type === PDF_ALIGN) {
             if (hasOwnProperty(props, 'controlBreak') === true &&
@@ -1120,9 +1307,9 @@ const _InnerSearchSortTable = (propsPassed) => {
             title = props.report;
         }
 
-        let sidePoints = 537;
+        let sidePoints = PDF_PORTRAIT_POINTS;
         if (pdfOrientation === 'Landscape') {
-            sidePoints = 717;
+            sidePoints = PDF_LANDSCAPE_POINTS;
         }
 
         let points = sidePoints / controlBreakInfo.length;
@@ -1248,10 +1435,6 @@ const _InnerSearchSortTable = (propsPassed) => {
                             } else {
                                 text.push({ text: controlBreakData[k].data[i][table[j].name], style: align });                        
                             }
-                            console.log('controlBreakData[k] :', controlBreakData[k]);
-                            console.log('controlBreakData[k].data[i] :', controlBreakData[k].data[i]);
-                            console.log('controlBreakData[k].data[i][table[j]] :', controlBreakData[k].data[i][table[j]]);
-                            console.log('controlBreakData[k].data[i][table[j].name] :', controlBreakData[k].data[i][table[j].name]);
                         }
                     }
 
@@ -1309,6 +1492,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         { width: '*', text: '' },
                         { width: 'auto',
                         table: {  // Build the table
+                            dontBreakRows: true,
                             headerRows: 1,  // 1 row of headers
                             widths: widths,
 
@@ -1336,10 +1520,260 @@ const _InnerSearchSortTable = (propsPassed) => {
 
                 if (foundFooter === true) { // Place the footer in the column for the table
                     docDefinition.content[index].columns[1].table.body.push(text);
+                }
+            }
+
+            if (hasOwnProperty(props, 'footer') === true) {
+                let foundFooter = false;
+                let text = [];
+                for (let i = 0; i < userFooter.length; i++) {
+                    if (controlBreakInfo[i].hidden === false) {
+                        const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                        text.push({ text: userFooter[i], style: align })
+                        foundFooter = true;
+                    }
+                }
+    
+                if (foundFooter === true) { // Place the footer in the column for the table
+                    docDefinition.content[index].columns[1].table.body.push(text);
                     index++;
                 }
             }
 
+            pdfMake.createPdf(docDefinition).open();    // Build the PDF
+        }
+    }
+
+    /*****************************************************************************************************************
+     *
+     * This will display the PDF with the control break data that is in the search sort table.
+     *
+     ******************************************************************************************************************/
+    function pdfCBCardFormat(perPage) {
+        let title = 'PDF Report';
+        if (hasOwnProperty(props, 'title') === true) {
+            title = props.title;
+        } else if (hasOwnProperty(props, 'report') === true) {
+            title = props.report;
+        }
+
+        let docDefinition = {   // This contains the PDF report information
+            info: {
+                 title: title,
+            },
+            pageOrientation: 'Portrait',
+            pageMargins: [20, 100, 20, 80],
+
+            content: [  // The main body of the PDF
+            ],
+            styles: {   // Styles for the header and cell headers
+                header1: {
+                    fontSize: 14,
+                    bold: true,
+                    alignment: 'center',
+                    margin: [0, 3, 0, 0]
+                },
+                cellLeft: {
+                    alignment: 'left',
+                },
+                cellLeftBold: {
+                    alignment: 'left',
+                    fontSize: 12,
+                    bold: true,
+                },
+                cellCenterBoldBig: {
+                    alignment: 'center',
+                    fontSize: 14,
+                    bold: true,
+                },
+                cellCenter: {
+                    alignment: 'center'
+                },
+                cellCenterBold: {
+                    alignment: 'center',
+                    fontSize: 12,
+                    bold: true,
+                },
+                cellRight: {
+                    alignment: 'right',
+                },
+                cellRightBold: {
+                    alignment: 'right',
+                    fontSize: 12,
+                    bold: true,
+                },
+            }
+        };
+
+        docDefinition.header = {    // Build the header and footer
+            stack: [
+                {columns: [
+                    { text: 'Report Date: ' +  currentDate(), alignment: 'right', margin: [0, 5, 5, 0]},
+                ]},
+                { text: title, style: 'header1' },
+            ]
+        };
+        docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' };
+
+        // Place the page number at the bottom of each page
+
+        docDefinition.footer = function(currentPage, pageCount) { return {text: 'Page: ' + currentPage.toString() + ' of ' + pageCount + '   For Official Use Only', alignment: 'center'} };
+
+        if (props.data.length > 0) {    // There is data to display
+            let index = 0;  // Indicates the next position in the content array
+
+            for (let k = 0; k < controlBreakData.length; k++) { // Spin through the control break data
+                if (k !== 0) {  // If not the first control break, print out a blank line
+                    if (perPage === true) {
+                        docDefinition.content.push ({ text: ' ', pageBreak: 'before' });
+                    } else {
+                        docDefinition.content.push ({ text: ' ', style: 'cellCenterBoldBig' });
+                    }
+                    index++;
+                }
+                docDefinition.content.push ({ text: controlBreakData[k].title, style: 'cellCenterBoldBig' });
+                index++;
+
+                let widths = [161, 375];
+
+                let tableSST =  // Main table
+                {
+                    columns: [
+                        { width: '*', text: '' },
+                        { width: 'auto',
+                          table: {  // Build the table
+                            widths: widths,
+
+                            body: [ // Build the table header
+                            ]
+                        }},
+                        { width: '*', text: '' },
+                    ]
+                }
+
+                docDefinition.content.push(tableSST);
+
+                for (let i = 0; i < controlBreakData[k].data.length; i++) { // Spin throught the data for each control break
+                    for (let j = 0; j < table.length; j++) {
+                        if (controlBreakInfo[j].hidden === false) {
+                            let text = [];  // The text for each cell
+                            text.push({text: table[j].header, style: PDF_TABLE_HEAD });
+
+                            const [align, originalAlign] = determineAlignment(j, REGULAR_ALIGN, true);
+                            if (originalAlign.indexOf('date') !== -1 ||
+                                hasOwnProperty(table[j], 'dataDate') === true ||
+                                hasOwnProperty(table[j], 'filterDate') === true ||
+                                hasOwnProperty(table[j], 'searchDate') === true ||
+                                hasOwnProperty(table[j], 'sortDate') === true) {
+                                text.push({ text: convertDate(controlBreakData[k].data[i][table[j].name]), style: PDF_TABLE_VALUE });
+                            } else if (originalAlign.indexOf('money') !== -1) {
+                                text.push({ text: formatMoney(controlBreakData[k].data[i][table[j].name]), style: PDF_TABLE_VALUE });
+                            } else {
+                                text.push({ text: controlBreakData[k].data[i][table[j].name], style: PDF_TABLE_VALUE });                        
+                            }
+                            
+                            if (perPage === true && j >= table.length - 1) {
+                                text[1]['pageBreak'] = 'after';
+                            }
+                            docDefinition.content[index].columns[1].table.body.push(text);
+                        }
+                    }
+
+                    if (perPage === false) {
+                        let blank = [
+                            { text: ' ', style: 'cellCenterBoldBig' },
+                            { text: ' ', style: 'cellCenterBoldBig' }
+                        ];
+
+                        docDefinition.content[index].columns[1].table.body.push(blank);
+                    }
+                }
+
+                // Print out the aggregrate values and the totals for each control break
+                for (let i = 0; i < controlBreakData[k].footer.length; i++) {
+                    let text = [];              // The value for a footer in a column in the table
+                    if (controlBreakData[k].footer[i].length > 0) { // There is a footer
+                        let value = ''; // Value for the footer
+                        for (let j = 0; j < controlBreakData[k].footer[i].length; j++) {    // Build the footer
+                            value += controlBreakData[k].footer[i][j].toString() + '\n';
+                        }
+
+                        if (controlBreakInfo[i].hidden === false) {
+                            text.push({text: table[i].header, style: PDF_TABLE_HEAD });
+
+                            const [align, originalAlign] = determineAlignment (i, CONTROL_BREAK_ALIGN, true);
+                            text.push({ text: value, style: PDF_TABLE_VALUE });
+                            docDefinition.content[index].columns[1].table.body.push(text);
+                        }
+                    } else {    // No footer found for that column
+                        text.push({text: table[i].header, style: PDF_TABLE_HEAD });
+                        text.push({ text: ' ', style: 'cellLeftBold' });
+                        docDefinition.content[index].columns[1].table.body.push(text);
+                    }
+                }
+
+                index++;
+            }
+
+            // Print a blank line
+            if (perPage === true) {
+                docDefinition.content.push ({ text: ' ', style: 'cellCenter', pageBreak: 'after'});
+            } else {
+                docDefinition.content.push ({ text: ' ', style: 'cellCenter', });
+            }
+            index++;
+
+            // Print the header for the final totals
+            if (finalTotals.length > 0) {
+                let tableSSTFinal = // Table for the final totals
+                {
+                    columns: [
+                        { width: '*', text: '' },
+                        { width: 'auto',
+                        table: {  // Build the table
+                            headerRows: 1,  // 1 row of headers
+                            widths: [161, 375],
+
+                            body: [ // Build the table header
+                            ]
+                        }},
+                        { width: '*', text: '' },
+                    ]
+                }
+
+
+                docDefinition.content.push(tableSSTFinal);
+
+                // Process the final totals
+                for (let i = 0; i < finalTotals.length; i++) {
+                    let text = [];
+                    if (controlBreakInfo[i].hidden === false) {
+                        text.push({text: table[i].header, style: PDF_TABLE_HEAD });
+
+                        const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                        text.push({ text: finalTotals[i], style: PDF_TABLE_VALUE })
+                        docDefinition.content[index].columns[1].table.body.push(text);
+                    }
+                }
+            }
+
+            if (hasOwnProperty(props, 'footer') === true) {
+                let foundFooter = false;
+                for (let i = 0; i < userFooter.length; i++) {
+                    let text = [];
+                    if (controlBreakInfo[i].hidden === false) {
+                        text.push({text: table[i].header, style: PDF_TABLE_HEAD });
+
+                        const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                        text.push({ text: userFooter[i], style: PDF_TABLE_VALUE })
+                        docDefinition.content[index].columns[1].table.body.push(text);
+                    }
+                }
+    
+                index++;
+            }
+
+            console.log('docDefinition :', docDefinition);
             pdfMake.createPdf(docDefinition).open();    // Build the PDF
         }
     }
@@ -1358,9 +1792,22 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         if (isControlBreak(controlBreakInfo) === true) {    // There is a control break
-            pdfCBButton();
+            if (pdfOrientation === 'Card') {
+                pdfCBCardFormat(false);
+            } else if (pdfOrientation === 'Card per Page') {
+                pdfCBCardFormat(true);
+            } else {
+                pdfCBButton();
+            }
         } else {    // No control break
-            pdfRegButton();
+            if (pdfOrientation === 'Card') {
+                pdfRegCardFormat(false);
+            } else if (pdfOrientation === 'Card per Page') {
+                pdfRegCardFormat(true);
+            } else {
+                pdfRegButton();
+            }
+            
         }
     }
 
@@ -1492,6 +1939,18 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
             }
             exData.push(text);
+        }
+
+        // Print the user footers
+        if (hasOwnProperty(props, 'footer') === true) {
+            let text = [];
+            for (let i = 0; i < userFooter.length; i++) {
+                if (controlBreakInfo[i].hidden === false) {
+                    text.push(userFooter[i]);
+                }
+            }
+            exData.push(text);
+            exData.push([' ']);
         }
 
         exData.push([' ']);
@@ -1642,6 +2101,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             temp = localUserFooter[draggedColIdx];              // Make a temporary copy of the user footer
             localUserFooter.splice (draggedColIdx, 1);          // Remove the starting user footer
             localUserFooter.splice (droppedColIdx, 0, temp);    // Insert the user footer where it was dropped
+            setUserFooter(localUserFooter);
         }
 
         if (hasOwnProperty(props, 'setTheTable') === true) {    // Send the table for storage in
@@ -1653,7 +2113,6 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         setTable(tempCols);
-        setUserFooter(localUserFooter);
         setDragOver("");
     }
 

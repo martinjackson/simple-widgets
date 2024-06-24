@@ -1320,21 +1320,40 @@ const indexing = (value) => {
 
 39. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
 
-40. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
+40. **pdfcard** = are two additional entries on the PDF Orientation drop down for PDF reports.  The two additional entries are with this prop are:
+  - Card = indicates that each row or entry in the table is displayed as a card format rather than a traditional table.  For example, consider the following table entries:
+
+        Name            City          State
+        John Doe        Los Angeles   CA
+        Jim Smith       New York      NY
+
+    The card format is:
+
+        Name        John Doe
+        City        Los Angeles
+        State       CA
+
+        Name        Jim Smith
+        City        New York
+        State       NY
+
+  - Card per page = this is the same as Card, except that there is only one card per page.
+
+41. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
 An example would be:
 ```javascript
 report="The PDF Report"
 ```
 
-41. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
+42. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
 
-42. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  
+43. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  
 
-43. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
+44. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
 
-44. **searchstart** = indicates that the search item will only match those data items that start with the search item
+45. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-45. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
+46. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
 
 ```javascript
   let sortTable = [...];
@@ -1353,7 +1372,7 @@ report="The PDF Report"
   />
 ```
 
-46. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
+47. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
 The function that is to be passed to it is the setTable function for the state variables.  Since the table has changed due to a changing of columns, the table in the parent must be changed to the new table also.  See the section on Dragging and Drop.  An example:
 
 ```javascript
@@ -1369,16 +1388,16 @@ The function that is to be passed to it is the setTable function for the state v
   />
 ```
 
-47. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+48. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
-48. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+49. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-49. **showtable** = this will show the table and headers even if there is no data to display.
+50. **showtable** = this will show the table and headers even if there is no data to display.
 
-50. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+51. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-51. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+52. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -1390,7 +1409,7 @@ const startEnd = (start, end) => {
 <SearchSortTable startEnd={startEnd} />
 ```
 
-52. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+53. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -1402,11 +1421,11 @@ const startingPosition = (value) => {
 <SearchSortTable startingPos={startingPosition} />
 ```
 
-53. **title** = supplies a title to be displayed centered at the top of the table.
+54. **title** = supplies a title to be displayed centered at the top of the table.
 
-54. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+55. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-55. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
+56. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
 
 
 ## CSS Files
