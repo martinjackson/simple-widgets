@@ -1936,6 +1936,8 @@ The root and table.search_sort_table items are used by the SearchSortTable compo
 
 Contains a footer for the totals in the table.  The filter and the search are at the bottom of the table:
 ```javascript
+import { getAlignment } from 'simple-widgets';
+
 const RANGE = 50;
 
 let data = [
@@ -1989,7 +1991,7 @@ const sortExample = (props) => {
       return (
         <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
           { table.map((col, idx) => (
-              <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+              <td key={`${col.header}_${idx}_${i}`} className={getAlignment(col.align)} 
                       hidden={hideCol[idx]}>
                   row[col.name] }
               </td>
@@ -2073,6 +2075,8 @@ In the above example is the dateTable prop.  This is used when the actual date i
 This example contains the drop down for a column and how to handle the hidden columns in the eachRowInTable function:
 
 ```javascript
+import { getAlignment } from 'simple-widgets';
+
 const RANGE = 50;
 
 let data = [
@@ -2124,7 +2128,7 @@ const sortExample = (props) => {
         return (
           <tr key={`row_${i}_${start}`} onClick={() => editRow(data[pos])}> 
             { table.map((col, idx) => (
-                <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                <td key={`${col.header}_${idx}_${i}`} className={getAlignment(col.align)} 
                         hidden={hideCol[idx]}>
                     row[col.name] }
                 </td>
@@ -2146,6 +2150,8 @@ there will be choice boxes on the filter input.
 This example contains the drag and drop for a column and the new format in the eachRowInTable function:
 
 ```javascript
+import { getAlignment } from 'simple-widgets';
+
 const RANGE = 50;
 
 let data = [
@@ -2206,7 +2212,8 @@ const sortExample = (props) => {
       return (
         <tr key={`row_${i}_${start}`} className="sw-sst_stripe" onClick={() => editRow(data[pos])}> 
           { table.map((col, idx) => (
-              <td key={`${col.header}_${idx}_${i}`} className={"sw-sst_body_full " + col.align} 
+              <td key={`${col.header}_${idx}_${i}`} 
+                      className={"sw-sst_body_full " + getAlignment(col.align)} 
                       hidden={hideCol[idx]}>
                   row[col.name] }
               </td>
@@ -2227,6 +2234,8 @@ In this example, columns can be dragged to change their position in the table.  
 This example shows how to do automatic totaling with control breaks and final totals using the new format in the eachRowInTable function:
 
 ```javascript
+import { getAlignment } from 'simple-widgets';
+
 const RANGE = 50;
 
 let data = [
@@ -2304,7 +2313,8 @@ const sortExample = (props) => {
       return (
         <tr key={`row_${i}_${start}`} className="sw-sst_stripe"> 
           { table.map((col, idx) => (
-              <td key={`${col.header}_${idx}_${i}`} className={"sw-sst_body_full " + col.align} 
+              <td key={`${col.header}_${idx}_${i}`} 
+                      className={"sw-sst_body_full " + getAlignment(col.align)} 
                       hidden={hideCol[idx]}>
                   row[col.name] }
               </td>
@@ -2370,6 +2380,8 @@ This example uses some of the items in Example 7.
 This example shows how to do automatic totaling with control breaks with **NO** control break totals, but with final totals using the new format in the eachRowInTable function:
 
 ```javascript
+import { getAlignment } from 'simple-widgets';
+
 const RANGE = 50;
 
 let data = [
@@ -2448,7 +2460,8 @@ const sortExample = (props) => {
       return (
         <tr key={`row_${i}_${start}`} className="sw-sst_stripe"> 
           { table.map((col, idx) => (
-              <td key={`${col.header}_${idx}_${i}`} className={"sw-sst_body_full " + col.align} 
+              <td key={`${col.header}_${idx}_${i}`} 
+                      className={"sw-sst_body_full " + getAlignment(col.align)} 
                       hidden={hideCol[idx]}>
                   row[col.name] }
               </td>
