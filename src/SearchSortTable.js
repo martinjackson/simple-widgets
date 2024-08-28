@@ -134,6 +134,12 @@ export function getAlignment (align, isPDF = false) {
 export const SearchSortTable = (propsPassed) => {
     const hiddenLookupColumns = (propsPassed.hiddenLookupColumns) ? propsPassed.hiddenLookupColumns : []
 
+    // Set the number of the SearchSort table to the value in the props for numbe
+    let number = 0;
+    if (hasOwnProperty(propsPassed, 'number') === true) {
+        number = propsPassed.number;
+    }
+
     const defaultEachRowInTable = (row, i) => {
 
         let cols = null      // if no data yet
@@ -142,7 +148,7 @@ export const SearchSortTable = (propsPassed) => {
             const hideCols = new Array(keys.length).fill(null);
             hiddenLookupColumns.forEach(i => hideCols[i] = true)
 
-            let tableKey = `cols_${number}_${i}_${j}}`;
+            let tableKey = `cols_${number}_${i}}`;
 
             cols = keys.map( (idx, j) => ( <td hidden={hideCols[idx]} key={tableKey}>{row[idx]}</td> ) )
         }
@@ -341,21 +347,25 @@ const _InnerSearchSortTable = (propsPassed) => {
     const origIndexes = [...startIndexes];  // The original set of indexes that is used when the sort order is neither or control breaks are removed
 
     const defaultEachRowInTable2 = (row, i) => {
-        return (
-            <tr key={`eachRowInTableRow_${props.number}_${i}`} className="sw-sst_stripe"> 
-                {table.map((col, idx) => (
-                    <td key={`${col.header}_${idx}_${i}`} 
-                                className={"sw-sst_body_full " + getAlignment(col.align)}
-                                hidden={controlBreakInfo[idx].hidden} >
-                        {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
-                            (col.align.indexOf('date') !==  -1) ? convertDate(row[col.name]) :
-                            (hasOwnProperty(col, 'decimal') === true) ? row[col.name].toFixed(col.decimal) :
-                                row[col.name] 
-                        }
-                    </td>
-                ))}
-            </tr>
-        )
+        if (controlBreakInfo.length !== 0) {
+            return (
+                <tr key={`eachRowInTableRow_${props.number}_${i}`} className="sw-sst_stripe"> 
+                    {table.map((col, idx) => (
+                        <td key={`${col.header}_${idx}_${i}`} 
+                                    className={"sw-sst_body_full " + getAlignment(col.align)}
+                                    hidden={controlBreakInfo[idx].hidden} >
+                            {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
+                                (col.align.indexOf('date') !==  -1) ? convertDate(row[col.name]) :
+                                (hasOwnProperty(col, 'decimal') === true) ? row[col.name].toFixed(col.decimal) :
+                                    row[col.name] 
+                            }
+                        </td>
+                    ))}
+                </tr>
+            )
+        } else {
+            return <tr></tr>
+        }
     }
 
     if (props.eachRowInTable === 'default') {
@@ -539,11 +549,12 @@ const _InnerSearchSortTable = (propsPassed) => {
       localTable.forEach(buildChoices);
       setColumns(localCols);
       setFinalTotals(buildFinalFooters())
+      populateDropDown(props.table, indexes);
     }, []);
 
     // ---------
     useEffect (() => {
-//      console.log('SearchSortTable useEffect [] props.table:', props.table);
+//        console.log('SearchSortTable useEffect [] props.table:', props.table);
         let localTable = fillMissingValsInTable(props.table);
 
         setTable(localTable);
@@ -551,11 +562,12 @@ const _InnerSearchSortTable = (propsPassed) => {
         localTable.forEach(buildChoices);
         setColumns(localCols);
         setFinalTotals(buildFinalFooters())
+        populateDropDown(props.table, indexes);
     }, [props.table]);
 
     // ---------
     useEffect (() => {
-//      console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
+  //    console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
 
         if (!props.table && !table) {        // No table def passed in as a prop, setup a default
             let tableDef = props.defaultColHeaders()
@@ -582,9 +594,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 //        console.log('SearchSortTable useEffect [props.data.length] ');
         resetTheIndexes();
         if (hasOwnProperty(props, 'controlBreak') === false) {
-//            console.log ('got here 103');
-//            populateDropDown(props.table, indexes);
-//        } else {
+            populateDropDown(props.table, indexes);
             setFinalTotals(buildFinalFooters())
         }
     }, [props.data.length, props.resetIndexes])
@@ -1198,7 +1208,6 @@ const _InnerSearchSortTable = (propsPassed) => {
             }
 
             pdfMake.createPdf(docDefinition).open();    // Build the PDF
-            console.log('docDefinition :', docDefinition);
         }
     }
 
@@ -1773,7 +1782,6 @@ const _InnerSearchSortTable = (propsPassed) => {
                 index++;
             }
 
-            console.log('docDefinition :', docDefinition);
             pdfMake.createPdf(docDefinition).open();    // Build the PDF
         }
     }
@@ -4538,7 +4546,6 @@ const _InnerSearchSortTable = (propsPassed) => {
         if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure there is the finaltotals prop
             let isFooter = false;
             let finalTotal = new Array(finalTotalsInfo.length).fill('');    // Array that contains the final totals
-            console.log('finalTotalsInfo 1 :', finalTotalsInfo);
             for (let j = 0; j < finalTotalsInfo.length; j++) {  // Spin through the final totals
                 const [align, originalAlign] = determineAlignment(j, FINAL_TOTALS_ALIGN, false);
                 if (hasOwnProperty(finalTotalsInfo[j], 'finaltitle') === true &&    // Title and total go together
