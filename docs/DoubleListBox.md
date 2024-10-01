@@ -18,9 +18,10 @@ Other optional props:
 4. **leftTitle** = provides a title over the left list (default is no title).  If there is a left title there must also be a right title, even if one of the title is blank('').
 5. **rightTitle** = provides a title over the right list (default is no title).  If there is a right title there must also be a left title, even if one of the title is blank('').
 6. **sortLeft** = indicates that the left list will be in sorted order (ascending) when items are moved into the left list from the right list.
-7. **sortRight** = indicates that the right list will be in sorted order (ascending) when items are moved into the right list from the left list.
+7. **sortRight** = indicates that the right list will be in sorted order (ascending) when items are moved into the right list from the left list.  Should not be used if the updown option is used.
 8. **leftChange** = indicates that new data can be loaded into the left list.
 9. **rightChange** = indicates that new data can be loaded into the right list.
+10. **updownbuttons** = this allows the user to move items up or down in the right list.  A set of buttons will appear to the right of the right list.  They are the up arrow with a line above it, an up arrow, a down arrow, and a down arrow with a line under it. The up arrow will move the selected items up one row on the right side.  More than one item can be selected, but they should be consecutive.  The down arrow will move the selected items down one row.  The up arrow with the line on top of it will move the selected rows to the top of the right column.  The down arrow with the line under it will move the selected items to the bottom of the right list.  This should not be used in conjunction with the sortRight prop.  The reason for this is the every time an item is moved to the right list, the right list will be sorted.
 
 ## CSS File
 

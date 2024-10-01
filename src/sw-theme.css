@@ -9,8 +9,8 @@
     --sw-theme_buttonHeight: 30px;
     --sw-theme_buttonBorder: 2px solid #bcdff3;
     --sw-theme_buttonColor: #a4d3ee;
-    --sw-theme_buttonTextColor: rgb(46, 41, 37);;
-    --sw-theme_buttonFont: "Open Sans", sans-serif;;
+    --sw-theme_buttonTextColor: rgb(46, 41, 37);
+    --sw-theme_buttonFont: "Open Sans", sans-serif;
     --sw-theme_buttonFontWeight: 600;
     --sw-theme_buttonFontSize: 12;
     --sw-theme_buttonStyle: normal;
