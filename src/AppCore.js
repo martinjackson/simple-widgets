@@ -95,7 +95,8 @@ const AppCore = (props) => {
 
   const path = getUrlPath()
 
-  const dbMsg = dbDisplay + ((dbReadOnly) ? ' R/O' : '')
+  const sessionOnlyRO = dbReadOnly && !dbDisplay.endsWith('-RO')   // TODO: This is such a hack (no time to do better)
+  const dbMsg = dbDisplay + ((sessionOnlyRO) ? ' R/O' : '')
   return (
         <div>
             <Header username={username}  dbDisplay={dbMsg}
