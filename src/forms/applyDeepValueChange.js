@@ -43,7 +43,7 @@ export const getRecordKeyInfo = (data, recName) => {                // recName =
 }
 
 // ------------------------------------------------------------------------------
-const calcRecorcUpdateInfo = (data, targetName, value) => {
+const calcRecordUpdateInfo = (data, targetName, value) => {
 
   const lastDot = targetName.lastIndexOf('.')                                   // lastDot = 24, targetName = "person[0].appointment[0].apptNote"
   let recName = (lastDot != -1) ? targetName.substr(0, lastDot) : targetName    // recName = "person[0].appointment[0]"
@@ -77,11 +77,11 @@ export const applyDeepValueChange = (data, targetName, value, info, debug) => { 
 
       const isArray = dataType.startsWith('array')
 
-      const newData = structuredClone(data)     // must return a new reference or useEffect and render wont tirgger, old version must stay unmodified
+      const newData = structuredClone(data)     // must return a new reference or useEffect and render wont trigger, old version must stay unmodified
                                                 // if original is modified, libraries like  use-deep-compare-effect will not work
                                                 // import useDeepCompareEffect from 'use-deep-compare-effect'
 
-      let update = calcRecorcUpdateInfo(newData, targetName, value)
+      let update = calcRecordUpdateInfo(newData, targetName, value)
       if (debug) {
           console.log(TS(), 'Transactions:', update);
       }
