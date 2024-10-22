@@ -28,7 +28,7 @@ const labelWrap = (f, idx, children) => {
 const createField = (fieldStructure, idx, value, onChange, withLabels=true, formInfo=null) => {
 
       if (value === null) {
-        // console.log(`createField() [${idx}]  type:${fieldStructure.type}  name:${fieldStructure.name} value=null`)  // , fieldStructure, value, withLabels, formInfo)
+        // console.log(`createField () [${idx}]  type:${fieldStructure.type}  name:${fieldStructure.name} value=null`)  // , fieldStructure, value, withLabels, formInfo)
         // console.trace()
       }
 
@@ -37,6 +37,7 @@ const createField = (fieldStructure, idx, value, onChange, withLabels=true, form
 
       const gen = fieldGeneratorLookup(f.type)
       let field = `unknown field type: ${f.type}`
+
       // TODO: where should ifRequired go?
       // const ifRequired = (f.required) ? <span className="required">*</span> : null
       if (gen) {
@@ -251,7 +252,7 @@ export const FormFields = (props) => {
          fieldCalcLogic = (old, changed) => [changed, {}]          //  fieldCalcLogic returns [modState, dynOptions];
       }
 
-      // must have a minimum of the props in createField() when it is creating 'form', 'formTable'
+      // must have a minimum of the props in createField () when it is creating 'form', 'formTable'
       const formInfo = {
 
         parentRecName: recFullName,

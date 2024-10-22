@@ -1,4 +1,6 @@
 
+/* global debug */
+
 import { getKeyValues, getGqlName } from './getKeyValues.js'
 import { getGqlPKs } from './model/getTablePKs.js'
 import { dTS, TS }  from '../time.js'
@@ -29,8 +31,18 @@ const removeName = (exp) => {
 // ------------------------------------------------------------------------------
 export const getRecordKeyInfo = (data, recName) => {                // recName = "person[0].appointment[0]"
 
+    if (debug) {
+    //   console.log('  const data=',JSON.stringify(data,null,2))
+    //   console.log(`  getRecordKeyInfo(data, "${recName}")   `)
+    }
+
     const gqlName = getGqlName(recName)                                         // gqlName = "appointment"
     const pkNames = getGqlPKs(gqlName)                                          // pkNames = ['appointmentId']
+
+    // if (debug) {
+    //   console.log(`  getGqlName("${recName}")  returns "${gqlName}" `);
+    //   console.log(`  getGqlPKs("${gqlName}")   returns "${pkNames}" `)
+    // }
 
     let subRec = getSubRecord(recName, data)
     const keyValues = (pkNames) ? getKeyValues(pkNames, subRec, gqlName) : 'BIG PROBLEM: '+gqlName+' has no keys defined in dbStruct.'
