@@ -224,7 +224,7 @@ In the above example, it is the same as the previous example except for the inde
         return (
           <tr key={`row_${i}_${start}`}> 
             { table.map((col, idx) => (
-                <td key={`${col.header}_${idx}_${i}`} className={align} 
+                <td key={`${col.header}_${idx}_${i}`} className={getAlignment(col.align)} 
                         hidden={hideCol[idx]}>
                   {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
                       (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
@@ -263,7 +263,7 @@ The following example is with the hover props being used:
         return (
           <tr key={`row_${i}_${start}`} onClick={() => display(data[pos])}> 
             { table.map((col, idx) => (
-                <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                <td key={`${col.header}_${idx}_${i}`} className={getAlignment(col.align)} 
                         hidden={hideCol[idx]}>
                     row[col.name] }
                   {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
@@ -290,7 +290,7 @@ The following is an example on how to customize the new eachRowInTable:
           <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
             { table.map((col, idx) => (
                 <td key={`${col.header}_${idx}_${i}`}                           
-                        className={"sw-sst_body_full " + col.align} 
+                        className={"sw-sst_body_full " + getAlignment(col.align)} 
                         hidden={hideCol[idx]}>
                   {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
                       (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
@@ -503,7 +503,7 @@ The following example shows how to use the drag with the new eachRowInTable func
               return (
                 <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
                   { table.map((col, idx) => (
-                      <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                      <td key={`${col.header}_${idx}_${i}`} className={getAlignment(col.align)} 
                               hidden={hideCol[idx]}>
                           row[col.name] }
                       </td>
@@ -551,7 +551,7 @@ The user can create their own field entries in the table prop to be used in the 
               return (
                 <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
                   { table.map((col, idx) => (
-                      <td key={`${col.header}_${idx}_${i}`} className={col.align} 
+                      <td key={`${col.header}_${idx}_${i}`} className={getAlignment(col.align)} 
                               hidden={hideCol[idx]}>
                           row[col.name] }
                       </td>
@@ -591,7 +591,7 @@ Another example:
           <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
             { table.map((col, idx) => (
                 <td key={`${col.header}_${idx}_${i}`}                           
-                        className={"sw-sst_body_full " + col.align} 
+                        className={"sw-sst_body_full " + getAlignment(col.align)} 
                         hidden={hideCol[idx]}>
                     { (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
                       (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
@@ -1107,7 +1107,7 @@ The alignment of the totals is the same alignment as the data, unless the align 
 
 ```javascript
   let controlBreak = [
-    { hidden: true,  ctrlBreak: 0 },                                       element 0
+    { hidden: true,  ctrlBreak: 0 },                                      element 0
     { hidden: false, ctrlBreak: 2, sumtitle: 'Totals:', align: 'left' },  element 1
     { hidden: false, ctrlBreak: 1 },                                      element 2
     { hidden: false, ctrlBreak: 0 },                                      element 3
