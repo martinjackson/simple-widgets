@@ -1,4 +1,6 @@
 
+// cSpell:ignore ints
+
 // import { selectHttpOptionsAndBodyInternal } from '@apollo/client'
 import React, {useState, useEffect} from 'react'
 
@@ -12,8 +14,8 @@ const labelWrap = (f, idx, children) => {
 
     const ifRequired = (f.required) ? <span className="required">*</span> : null
 
-    // fType is no loonger passed as 4th argument (f, idx, children, fType)
-    // dont <label for="form name" Chrome complains there is no field with that name
+    // fType is no longer passed as 4th argument (f, idx, children, fType)
+    // don't <label for="form name" Chrome complains there is no field with that name
     // const name = (fType === 'form' || f.type === 'formTable') ? null : f.name
 
     // return <label htmlFor={name} key={idx} className="form-group"><span>{f.label}{ifRequired}</span>{children}</label>
@@ -26,7 +28,7 @@ const labelWrap = (f, idx, children) => {
 const createField = (fieldStructure, idx, value, onChange, withLabels=true, formInfo=null) => {
 
       if (value === null) {
-        // console.log(`createField() [${idx}]  type:${fieldStructure.type}  name:${fieldStructure.name} value=null`)  // , fieldStructure, value, withLabels, formInfo)
+        // console.log(`createField () [${idx}]  type:${fieldStructure.type}  name:${fieldStructure.name} value=null`)  // , fieldStructure, value, withLabels, formInfo)
         // console.trace()
       }
 
@@ -35,6 +37,7 @@ const createField = (fieldStructure, idx, value, onChange, withLabels=true, form
 
       const gen = fieldGeneratorLookup(f.type)
       let field = `unknown field type: ${f.type}`
+
       // TODO: where should ifRequired go?
       // const ifRequired = (f.required) ? <span className="required">*</span> : null
       if (gen) {
@@ -249,7 +252,7 @@ export const FormFields = (props) => {
          fieldCalcLogic = (old, changed) => [changed, {}]          //  fieldCalcLogic returns [modState, dynOptions];
       }
 
-      // must have a minimum of the props in createField() when it is creating 'form', 'formTable'
+      // must have a minimum of the props in createField () when it is creating 'form', 'formTable'
       const formInfo = {
 
         parentRecName: recFullName,
@@ -328,7 +331,7 @@ export const FormFields = (props) => {
         const f = createFields(props.name, data, onChangeFormFields, withLabels, formInfo)
         setFields( f )
         if (!f) {
-          console.log("<FormFields />   Somthing horrible: createFields () returned null");
+          console.log("<FormFields />   Something horrible: createFields () returned null");
       }
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -358,7 +361,7 @@ export const FormFields = (props) => {
 
       const badEntry = fields.findIndex( element => element === null)
       if (badEntry !== -1) {
-          return `<FormFields />   Somthing horrible: createFields () returned [${badEntry}] as null`
+          return `<FormFields />   Something horrible: createFields () returned [${badEntry}] as null`
       }
 
       const jsx = (props.wrapWith) ? fields.map((f,k) => props.wrapWith(k,f)) : fields   // support <td key={k}>{f}</td> or something else

@@ -53,7 +53,7 @@ function moreChanges(data, targetName, targetValue, props, msgPrefix, setMsg) {
 export function onFormChange(change, props, msgPrefix, setMsg, activeData) {
 
   if (props.debug) {
-    console.log('${msgPrefix} form name:', props.name, 'onChange() change:', change)
+    console.log(`${msgPrefix} form name:`, props.name, 'onChange() change:', change)
   }
 
   let handled = false

@@ -13,7 +13,7 @@ export const Header = (props) => {
   }
 
   const title       = (props.title)                   ? props.title           : ''
-  const dbType      = (props.dbType && props.dbType.length > 0) ? props.dbType + ' DB'  : ''
+  const dbDisplay   = (props.dbDisplay && props.dbDisplay.length > 0) ? props.dbDisplay + ' DB'  : ''
   const username    = (props.username)                ? props.username        : ''
   const titleLogo   = (props.titleLogo !== undefined) ? props.titleLogo       : ''
   const alertLogo   = (props.alertLogo !== undefined) ? props.alertLogo       : ''
@@ -53,7 +53,7 @@ export const Header = (props) => {
               {userSection}
               <div className="sw-header_column">
               {logInOut}
-              {dbType}
+              {dbDisplay}
               </div>
 
               <HeaderModal show={showModal} username={username} setUser={setUsername} closeFunct={setShowModal}/>

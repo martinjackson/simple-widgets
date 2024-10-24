@@ -9,13 +9,13 @@ import { MenuBar, dTS, Header, getUrlPath }   from './index.js'
 const extractSessionParts = (sessionInfo) => {
 
     const username    = sessionInfo.user?.name       // Network ID
-    const dbType      = sessionInfo.dbInfo?.dbType
+    const dbDisplay   = sessionInfo.dbInfo?.dbDisplay
     const dbReadOnly  = sessionInfo.dbInfo?.dbReadOnly
     const role        = sessionInfo.user?.role
     const roleNum     = sessionInfo.user?.roleNum
     const userId      = sessionInfo.user?.userId
 
-    return {username, dbType, dbReadOnly, role, roleNum, userId}
+    return {username, dbDisplay, dbReadOnly, role, roleNum, userId}
 }
 
 
@@ -26,7 +26,7 @@ const AppCore = (props) => {
 
   const [username, setUsername] = useState(null);
   const [userId, setUserId] = useState(-1);
-  const [dbType, setDbType] = useState('');
+  const [dbDisplay, setDbDisplay] = useState('');
   const [dbReadOnly, setDbReadOnly] = useState(false);
   const [role, setRole] = useState(null);        // value for unassigned, checking roles
   const [roleNum, setRoleNum] = useState(-1);    // value for unassigned, checking roles
@@ -74,15 +74,15 @@ const AppCore = (props) => {
       if (props.debug) {
          console.log('session:', session)
       }
-      const {username, dbType, dbReadOnly, role, roleNum, userId} = session
+      const {username, dbDisplay, dbReadOnly, role, roleNum, userId} = session
       setUsername(username)
       setUserId(userId)
-      setDbType(dbType)
+      setDbDisplay(dbDisplay)
       setDbReadOnly(dbReadOnly)
       setRole(role)
       setRoleNum(roleNum)
-      setMenu(getMenu(role, dbType))
-      console.log(dTS(), 'setting menu', {username, role, dbType})
+      setMenu(getMenu(role, dbDisplay))
+      console.log(dTS(), 'setting menu', {username, role, dbDisplay: dbDisplay})
     })
   }
 
@@ -95,16 +95,11 @@ const AppCore = (props) => {
 
   const path = getUrlPath()
 
-  /*
-  if (props.debug) {
-    console.log(dTS(), 'AppCore render()', {username, dbType, dbReadOnly, path})
-  }
-  */
-
-  const dbMsg = dbType + ((dbReadOnly) ? ' R/O' : '')
+  const sessionOnlyRO = dbReadOnly && !dbDisplay.endsWith('-RO')   // TODO: This is such a hack (no time to do better)
+  const dbMsg = dbDisplay + ((sessionOnlyRO) ? ' R/O' : '')
   return (
         <div>
-            <Header username={username}  dbType={dbMsg}
+            <Header username={username}  dbDisplay={dbMsg}
                 title={props.title}
                 alertLogo={props.alertLogo}
                 titleLogo={props.titleLogo}

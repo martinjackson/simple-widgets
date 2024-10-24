@@ -11,7 +11,7 @@ import React from 'react'
 import { setAppSpecificInfo }   from './simple-widgets.js'
 import AppCore from './AppCore.js'
 
-import { getMenu }        from './menuItems.js'            // getMenu(role, dbType) called from AppCore
+import { getMenu }        from './menuItems.js'
 import { AppStartup }     from './AppStartup.js'
 
 import { formDictionary } from './entry/formDictionary.js'
@@ -62,13 +62,13 @@ export default App
     // -- user
     //   {name, id, role}
     // -- database info
-    //      dbType:      ['PROD', 'TEST', 'DEV', 'NoSQL', or 'SQL']
-    //      dbReadOnly:  false     (usefull to set true for integrated testing)
+    //      dbDisplay:    ['PROD', 'TEST', 'DEV', 'NoSQL', or 'SQL']
+    //      dbReadOnly:   false     (useful to set true for integrated testing)
     //
     // as you develop your own API layer your organization may need
-    // other information in dbType -- it is just a string to be
-    // displayed in thhe header of the application by the <Header />
-    // compoent.
+    // other information in dbDisplay -- it is just a string to be
+    // displayed in the header of the application by the <Header />
+    // component.
     // This is so a tester's screen shots will help document
     // how/where/what they are testing.
     // ---------------------------------------------------------
@@ -84,8 +84,14 @@ export default App
 
       if (!req.session['dbInfo']) {
         const dbInfo = {
-          dbType: process.env.DB_TYPE,
-          dbReadOnly: false
+          // changeable by api
+          dbReadOnly: false,           // if true, INSERT/UPDATE/DELETE transactions are not applied to the DB
+                                      // used by the subroutines underneath the graphQL resolvers
+
+          // assigned once
+          dbDisplay: DB_Display,
+          dbChangeLogger: logStream,          // used by the subroutines underneath the graphQL resolvers
+          dbChangeLoggerFileName: log
         }
 
         req.session.dbInfo = dbInfo

@@ -93,7 +93,7 @@ The following must be done in order to fix the header or the menu (in all the ex
         ```javascript
             <div>
               <Header username={user} setUsername={setUser}
-                      title="This is a test" dbType="Test"
+                      title="This is a test" dbDisplay="Test"
                       titleLogo="Logo.svg" />
               <MenuBar menuTree={mtree} type="vertical" open="always"  />
             </div>
@@ -107,7 +107,7 @@ The following must be done in order to fix the header or the menu (in all the ex
         ```javascript
         <div>
             <Header username={user} setUsername={setUser}
-                    title="This is a test" dbType="Test"
+                    title="This is a test" dbDisplay="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={mtree} type="horizontal" open="always" format="fixed" />
         </div>
@@ -132,8 +132,8 @@ The following must be done in order to fix the header or the menu (in all the ex
         </div>
         ```
 
-### SignalUnsaved 
-This is a function in MenuBar that can be called with a boolean value.  If the boolean value is true, the menu is disabled.  If the value is false, the menu is enabled.  The function is passed down as a prop and is; therefore, called using 
+### SignalUnsaved
+This is a function in MenuBar that can be called with a boolean value.  If the boolean value is true, the menu is disabled.  If the value is false, the menu is enabled.  The function is passed down as a prop and is; therefore, called using
 ```js
 props.signalUnsaved(true or false)
 ```
@@ -310,7 +310,7 @@ const App = () => {
     return (
         <div>
             <Header username={user} setUsername={setUser}
-                    title="This is a test" dbType="Test"
+                    title="This is a test" dbDisplay="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={menuTree} type="horizontal" format="fixed" >
         </div>
@@ -329,7 +329,7 @@ const App = () => {
     return (
         <div>
             <Header username={user} setUsername={setUser}
-                    title="This is a test" dbType="Test"
+                    title="This is a test" dbDisplay="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={menuTree} type="vertical" format="fixed" >
         </div>
@@ -377,7 +377,7 @@ const TestComp = () => {
 
     const processEmployee = (value) => {
         setEmp(value);
-        props.signalUnsaved(true);        
+        props.signalUnsaved(true);
     }
 
     const saveButton = () => {

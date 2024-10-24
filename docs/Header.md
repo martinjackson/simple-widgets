@@ -6,7 +6,7 @@ Props:
 1.  ***title*** = the title to display on the header.
 2.  ***titleLogo*** = the logo to be displayed on the right hand side of the header.  This needs to be an image file.
 3.  ***alertLogo*** = the logo to be displayed when an error message is displayed.  This needs to be an image file.
-4.  ***dbType*** = indicates where database for the application is set.  Common values are PROD, TEST, DEV.
+4.  ***dbDisplay*** = indicates where database for the application is set.  Common values are PROD, TEST, DEV.
 5.  ***logout*** = the action to be done when the user presses the Logout link on the right of the screen.
 6.  ***login*** = the action to be done when the user presses the Login link on the right of the screen.
 7.  ***username*** = the name of the user who is using the application.
@@ -76,7 +76,7 @@ const App = () => {
     return (
         <div>
             <Header title="Your Title"
-                    dbType="PROD"
+                    dbDisplay="PROD"
                     titleLogo="Logo.svg"
                     alertLogo="./logo192.png"
                     logoutURL="https://your-auth-server/logout"
@@ -87,7 +87,7 @@ const App = () => {
 }
 ```
 
-The title on the header will be 'Title of the Application'.  The user name on the header will be JJONES.  The database type will be PROD.  If you do not want to display the database type, the prop should be dbType=" " (see below).  The logo on the left hand side of the header will be the image in titleLogo.  If the Logout Link on the right of the header is pressed, the link will go to the logout URL.  If there is an error, the image in the alertLogo will be displayed along with alert message.
+The title on the header will be 'Title of the Application'.  The user name on the header will be JJONES.  The database type will be PROD.  If you do not want to display the database type, the prop should be dbDisplay=" " (see below).  The logo on the left hand side of the header will be the image in titleLogo.  If the Logout Link on the right of the header is pressed, the link will go to the logout URL.  If there is an error, the image in the alertLogo will be displayed along with alert message.
 
 ### Example 2
 
@@ -113,7 +113,7 @@ const App = () => {
 
     return (
         <div>
-            <Header dbType=" " />
+            <Header dbDisplay=" " />
         </div>
     );
 }

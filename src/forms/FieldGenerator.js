@@ -1,3 +1,6 @@
+
+// cSpell:ignore classname
+
 import React from 'react';
 
 import { CheckBox }      from '../CheckBox.js'
