@@ -8,8 +8,8 @@ import { getGqlNameFromForm }  from './FormFields.js'
 
 import { dTS }                 from '../time.js'
 
-const UPDATE_RECORD = gql`mutation($gqlTable: String, $input: JSON, $where: JSON, $who: String) {
-  updateRecord(gqlTable: $gqlTable, input: $input, where: $where, who: $who) }`
+const UPDATE_RECORD = gql`mutation($gqlTable: String, $input: JSON, $where: JSON) {
+  updateRecord(gqlTable: $gqlTable, input: $input, where: $where) }`
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 export function SimpleEntryScreen(props) {
@@ -38,7 +38,7 @@ export function SimpleEntryScreen(props) {
     const pendingKeys = Object.keys(pendingUpdates);
     pendingKeys.forEach(k => {
       const r = pendingUpdates[k];
-      updateRecord({ variables: { gqlTable: r.gqlTable, input: r.fields, where: r.where, who: props.who } })
+      updateRecord({ variables: { gqlTable: r.gqlTable, input: r.fields, where: r.where} })
         .then(rec => {
           const status = rec.data.updateRecord;
           if (status) {

@@ -23,7 +23,7 @@ export const createRec = (gqlTable, input, where, username) => {
         .then(rec => {
           const status = rec.data.createRecord;
           if (status) {
-              console.log('record insertd:', where);
+              console.log('record inserted:', where);
           }
         })
         .catch(err => {

@@ -177,7 +177,6 @@ function EntryScreenKeyed(props) {
   // included in {...props}
   // header={props.header}
   // formName={props.formName}
-  // who={props.who}
   // recordName={props.recordName}
   // newRecord={newRecord}                                <--- (onAdd, onClone refactored out) replaced by newRecord interface 2024-05-06
   // showPendingData={props.showPendingData}
