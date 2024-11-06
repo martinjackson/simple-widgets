@@ -1,17 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint react/prop-types: 0 */
 
-// cSpell:ignore Funct hdrs occrred noupper nolower nodigit SRCHITEM SRCHHDR PDFORIENT searclall Vals filterdaterange showall intialize searchall nofilter
-// cSpell:ignore noheaderborder  nofooterborder notop noprevious nonext nobottom checkedsymbol nosearch throught Offical nofooter norows nodisplay cbtitles
-// cSpell:ignore cbhead sfbottom showtable backgrd DDTHH nosort comparision paginantion cbtable cbrow cbfoot blenk startingpos contorl wiht condsidering inorder
+// cSpell:ignore Funct hdrs occrred noupper nolower nodigit SRCHITEM SRCHHDR PDFORIENT searclall Vals filterdaterange 
+// cSpell:ignore showall intialize searchall nofilter
+// cSpell:ignore noheaderborder  nofooterborder notop noprevious nonext nobottom checkedsymbol nosearch throught 
+// cSpell:ignore Offical nofooter norows nodisplay cbtitles
+// cSpell:ignore cbhead sfbottom showtable backgrd DDTHH nosort comparision paginantion cbtable cbrow cbfoot blenk 
+// cSpell:ignore startingpos contorl wiht condsidering inorder
 // cSpell:ignore nohidden nocontrolbreak searchstart nocontsearch represents mathfooter inidicates noaggregation
 
 import React, { Fragment, useState, useEffect } from 'react';
 import { css } from "@emotion/react";
 import FadeLoader from "react-spinners/FadeLoader";
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
+
 
 import '../src/sw-table.css';
 
@@ -31,10 +33,11 @@ import { hasOwnProperty } from './hasOwnProperty.js';
 //    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
 //} /*from './index.js'*/     from 'simple-widgets';
 
-
 import funnel from './funnel-filter-svgrepo-com.svg';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.vfs;
 
 const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
