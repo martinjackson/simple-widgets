@@ -1,5 +1,4 @@
 
-import { useMutation } from '@apollo/client'
 import gql from 'graphql-tag';
 
 import { client } from '../client.js'
@@ -14,20 +13,19 @@ const INSERT_RECORD = gql`mutation(
 `
 
 // ------------------------------------------------------------------------
-export const createRec = (gqlTable, input) => {
+export async function createRec(gqlTable, input) {
+    
+    const recStr = JSON.stringify(input)
+    console.log(`createRec(${gqlTable}, ${recStr})`)
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [createRecord] = useMutation(INSERT_RECORD, {client, fetchPolicy: 'network-only'});
+    let info = await client.mutate ({
+      mutation: INSERT_RECORD,
+      variables: { gqlTable: gqlTable, input: input} })
 
-    // TODO: this function should return the promise and make the calling code cleaner
-    createRecord({ variables: { gqlTable: gqlTable, input: input} })
-        .then(rec => {
-          const status = rec.data.createRecord;
-          if (status) {
-              console.log('record inserted:', input);
-          }
-        })
-        .catch(err => {
-          throw new Error('Unable to insert ' + input + ' -- ' + err);
-        })
+    const status = info.data.createRecord;
+    if (status) {
+       console.log('record inserted:', input);
+    }
+
+    return info.data
 }
