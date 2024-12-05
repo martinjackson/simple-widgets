@@ -11,21 +11,7 @@ import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 // ------------------------------------------------------------------------
 export function SimpleDataTable(props) {
 
-  const { namedQueries } = getAppSpecificInfo()
-  const queryStr = namedQueries(props.queryName)
-  if (!queryStr) {      // null or undefined
-    const ErrorMsg = `Error query named: ${props.queryName}, has no definition.`
-    console.log(ErrorMsg);
-    return ErrorMsg
-  }
-
-  return <InnerSimpleDataTable {...props} queryStr={queryStr} />
-}
-
-// ------------------------------------------------------------------------
-function InnerSimpleDataTable(props) {
-
-  const { fetchRec } = getAppSpecificInfo()
+  const { execQuery } = getAppSpecificInfo()
 
   const [data, setData] = useState(null)
   const [errors, logErrors] = useErrorList()
@@ -67,13 +53,13 @@ function InnerSimpleDataTable(props) {
 
   const onError = (error) => {
     if (error) {
-      console.log('[fetchRec() error] rec:', error)
+      console.log('[execQuery() error] rec:', error)
       logErrors(error.message)
     }
   }
 
   if (needsLoading) {
-    fetchRec(props.queryStr, { where: where })
+    execQuery(props.queryName, { where: where })
     .then(results => onCompleted(results))
     .catch(error => onError(error))
 

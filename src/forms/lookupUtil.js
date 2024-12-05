@@ -184,9 +184,9 @@ export const startLookup = (lookupName, cb = null) => {
   lookups[lookupName].start = now()
   lookupLog(TS(), 'loading lookup:', lookupName);
 
-  const { execNamedQuery } = getAppSpecificInfo()
+  const { execQuery } = getAppSpecificInfo()
 
-  execNamedQuery(lookups[lookupName].queryName, lookups[lookupName].queryVars)
+  execQuery(lookups[lookupName].queryName, lookups[lookupName].queryVars)
     .then(results => {
 
       let normalized = results.data

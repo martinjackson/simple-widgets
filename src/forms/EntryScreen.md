@@ -75,27 +75,15 @@ export function Employee(props) {
 
 -----------------------------------------------------------------------------------
 
-## Refactored out dependencies on graphQL specifics
-
-```js
-// console.log(`  EntryScreen.js:106  makeGqlAST  ${props.queryName} str:`, props.queryStr)
-
-  useQuery(makeGqlAST(props.queryStr), {
-    skip: !needsLoading,
-    variables: { where: where },
-    client,
-    fetchPolicy: 'network-only',
-    onCompleted: onCompleted,
-    onError: onError
-  })
-```
-
-replaced with
 
 ```js
   if (needsLoading) {
-    fetchRec(props.queryStr, { where: where })
+    execQuery(props.queryName, { where: where })
       .then(results => onCompleted(results))
       .catch(error => onError(error))
   }
 ```
+
+
+It is up to the application's implmentation of execQuery() whether queries are named or are literal queries
+

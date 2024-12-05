@@ -14,15 +14,6 @@ import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 // --------------------------------------------------------------------------
 export function EntryScreen(props) {
 
-  const { namedQueries } = getAppSpecificInfo()
-  const queryStr = namedQueries(props.queryName)
-
-  if (!queryStr) {      // null or undefined
-    const ErrorMsg = `Error query named: ${props.queryName}, has no definition.`
-    console.log(ErrorMsg);
-    return ErrorMsg
-  }
-
   // TODO: redo the code to detect the only key in the data returned from the query -- to derive the recordName and not need it passed as a prop
 
   if (!props['recordName']) {      // null or undefined
@@ -44,7 +35,7 @@ export function EntryScreen(props) {
     return ErrorMsg
   }
 
-  return <EntryScreenKeyed {...props} queryStr={queryStr} />
+  return <EntryScreenKeyed {...props} />
 }
 
 // --------------------------------------------------------------------------
@@ -65,13 +56,13 @@ function hasNonNullKeys(keys) {
 }
 
 // --------------------------------------------------------------------------
-function EntryScreenKeyed(props) {
+function EntryScreenKeyed(props) {                     // local use only (no export)
 
   if (props.debug > 1) {
      console.log(dTS(), '== EntryScreenKeyed render ==', props)
   }
 
-  const { fetchRec } = getAppSpecificInfo()
+  const { execQuery } = getAppSpecificInfo()
 
   const [keys, setKeys] = useState(props.keys)
   const [data, setData] = useState(null)
@@ -107,7 +98,7 @@ function EntryScreenKeyed(props) {
   }
 
   if (needsLoading) {
-    fetchRec(props.queryStr, { where: where })
+    execQuery(props.queryName, { where: where })
       .then(results => onCompleted(results))
       .catch(error => onError(error))
   }

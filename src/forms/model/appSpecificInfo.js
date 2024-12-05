@@ -7,19 +7,15 @@ export const setAppSpecificInfo = (functionsFromApp) => {
 
 export const getAppSpecificInfo = () => { return appSpecificInfo }
 
-export const setAppSpecificInfoExample = 'setAppSpecificInfo({dbStruct, formDictionary, namedQueries, execNamedQuery, fetchRec})'
+export const setAppSpecificInfoExample = 'setAppSpecificInfo({dbStruct, formDictionary, execQuery})'
 
 // How to Use:
 //    import { getAppSpecificInfo } from './model/appSpecificInfo.js'
-//    const {dbStruct, formDictionary, namedQueries, etc} = getAppSpecificInfo()
+//    const {dbStruct, formDictionary, execQuery} = getAppSpecificInfo()
 
 
-// execNamedQuery()       src/forms/lookupUtil.js
-//
-// namedQueries()         src/forms/EntryScreen.js
-//                        src/forms/SimpleDataTable.js
-//
-// fetchRec()             src/forms/EntryScreen.js
+// execQuery()            src/forms/lookupUtil.js
+//                        src/forms/EntryScreen.js
 //                        src/forms/SimpleDataTable.js
 //
 // dbStruct               src/forms/FormFields.js
