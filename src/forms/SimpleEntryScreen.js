@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
-import { useMutation } from '@apollo/client'
-import gql from 'graphql-tag';
 
-import { client }              from './client.js'
 import { Form }                from './Form.js'
 import { getGqlNameFromForm }  from './FormFields.js'
+import { isFunction }          from './isFunction.js'
 
 import { dTS }                 from '../time.js'
 
-const UPDATE_RECORD = gql`mutation($gqlTable: String, $input: JSON, $where: JSON) {
-  updateRecord(gqlTable: $gqlTable, input: $input, where: $where) }`
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 export function SimpleEntryScreen(props) {
@@ -17,9 +13,11 @@ export function SimpleEntryScreen(props) {
   const [pendingUpdates, setPendingUpdates] = useState({});
   const [pendingRecordCount, setPendingRecordCount] = useState(0);
 
-  // const [createRecord] = useMutation(CREATE_RECORD, {client, fetchPolicy: 'network-only'});
-  // const [deleteRecord] = useMutation(DELETE_RECORD, {client, fetchPolicy: 'network-only'});
-  const [updateRecord] = useMutation(UPDATE_RECORD, { client, fetchPolicy: 'network-only' });
+  const updateRec = props.updateRec
+
+  if (!isFunction(updateRec)) {
+     console.log(dTS(), "*** SimpleEntryScreen missing props.updateRec -- record updates disabled.");
+  }
 
   if (props.debug > 1) {
     console.log(dTS(), '== SimpleEntryScreen render ==', props)
@@ -38,19 +36,21 @@ export function SimpleEntryScreen(props) {
     const pendingKeys = Object.keys(pendingUpdates);
     pendingKeys.forEach(k => {
       const r = pendingUpdates[k];
-      updateRecord({ variables: { gqlTable: r.gqlTable, input: r.fields, where: r.where} })
-        .then(rec => {
-          const status = rec.data.updateRecord;
-          if (status) {
-            delete pendingUpdates[k];
-            setPendingRecordCount(prevCnt => {
-              return (prevCnt - 1);
-            });
-          }
-        })
-        .catch(err => {
-          props.logErrors('Unable to save ' + k + ' -- ' + err);
-        });
+      if (isFunction(updateRec)) {
+        updateRec(r.gqlTable, r.fields, r.where)
+          .then(rec => {
+            const status = rec.data.updateRecord;
+            if (status) {
+              delete pendingUpdates[k];
+              setPendingRecordCount(prevCnt => {
+                return (prevCnt - 1);
+              });
+            }
+          })
+          .catch(err => {
+            props.logErrors('Unable to save ' + k + ' -- ' + err);
+          });
+      }
     });
 
   };

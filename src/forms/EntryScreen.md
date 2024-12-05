@@ -1,6 +1,8 @@
 
 # EntryScreen
 
+cSpell: ignore nctr userdir
+
 TODO: needs brief description.
 
 ## Required Props
@@ -69,4 +71,31 @@ export function Employee(props) {
               />
 }
 
+```
+
+-----------------------------------------------------------------------------------
+
+## Refactored out dependencies on graphQL specifics
+
+```js
+// console.log(`  EntryScreen.js:106  makeGqlAST  ${props.queryName} str:`, props.queryStr)
+
+  useQuery(makeGqlAST(props.queryStr), {
+    skip: !needsLoading,
+    variables: { where: where },
+    client,
+    fetchPolicy: 'network-only',
+    onCompleted: onCompleted,
+    onError: onError
+  })
+```
+
+replaced with
+
+```js
+  if (needsLoading) {
+    fetchRec(props.queryStr, { where: where })
+      .then(results => onCompleted(results))
+      .catch(error => onError(error))
+  }
 ```

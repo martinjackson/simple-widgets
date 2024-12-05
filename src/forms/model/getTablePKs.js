@@ -1,6 +1,6 @@
 
 import { dTS } from '../../time.js'
-import { getAppSpecificInfo } from './appSpecificInfo.js';
+import { getAppSpecificInfo, setAppSpecificInfoExample } from './appSpecificInfo.js';
 
 // -----------------------------------------------------------------------------------------------------
 export const getTablePKs = (tableName) => {
@@ -9,7 +9,7 @@ export const getTablePKs = (tableName) => {
 
   if (!dbStruct) {
     console.log(dTS(), `no dbStructure defined. no place to look up: ${tableName} `)
-    console.log(dTS(), `read about having the line setAppSpecificInfo({dbStruct, formDictionary, namedQueries}) in your App.js `)
+    console.log(dTS(), `read about having the line ${setAppSpecificInfoExample} in your App.js `)
     return []
   }
 

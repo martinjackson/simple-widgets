@@ -1,10 +1,10 @@
 
+// cSpell:ignore nctr userdir
+
 import sizeof from 'object-sizeof'
 
 import { now, TS }    from '../time.js'
-import { client }     from './client.js'
 import { isNotEmpty } from './isNotEmpty.js'
-import { makeGqlAST } from './makeGqlAST.js'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 
 // -----------------------------------------------------------------------------------------------------
@@ -184,21 +184,9 @@ export const startLookup = (lookupName, cb = null) => {
   lookups[lookupName].start = now()
   lookupLog(TS(), 'loading lookup:', lookupName);
 
+  const { execNamedQuery } = getAppSpecificInfo()
 
-  const { namedQueries } = getAppSpecificInfo()
-
-  const queryString = namedQueries(lookups[lookupName].queryName)
-  if (!queryString) {
-     console.error('undefined query named:', lookups[lookupName].queryName);
-     return  // nothing to do
-  }
-
-  const gqlQuery = { query: makeGqlAST(queryString),
-                     variables: lookups[lookupName].queryVars,
-                     fetchPolicy: 'network-only'
-                   }
-
-  client.query(gqlQuery)
+  execNamedQuery(lookups[lookupName].queryName, lookups[lookupName].queryVars)
     .then(results => {
 
       let normalized = results.data

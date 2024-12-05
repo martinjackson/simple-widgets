@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { useQuery } from '@apollo/client'
+import React, { useState } from 'react'
 
 import { SimpleTable }  from '../SimpleTable.js'
 import { dTS }           from '../time.js'
 
-import { client }       from './client.js'
 import { useErrorList } from './useErrorList.js'
 import { Gears }        from './Gears.js'
 import { ErrorList }    from './ErrorList.js'
-import { makeGqlAST }   from './makeGqlAST.js'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 
 // ------------------------------------------------------------------------
@@ -17,7 +14,7 @@ export function SimpleDataTable(props) {
   const { namedQueries } = getAppSpecificInfo()
   const queryStr = namedQueries(props.queryName)
   if (!queryStr) {      // null or undefined
-    const ErrorMsg = `Error query named: ${props.queryName}, has no definitiion.`
+    const ErrorMsg = `Error query named: ${props.queryName}, has no definition.`
     console.log(ErrorMsg);
     return ErrorMsg
   }
@@ -28,6 +25,8 @@ export function SimpleDataTable(props) {
 // ------------------------------------------------------------------------
 function InnerSimpleDataTable(props) {
 
+  const { fetchRec } = getAppSpecificInfo()
+
   const [data, setData] = useState(null)
   const [errors, logErrors] = useErrorList()
   const [needsLoading, setNeedsLoading] = useState(true)
@@ -35,49 +34,50 @@ function InnerSimpleDataTable(props) {
   const identity = (r) => { return r }
   const recSimplify = (props.recSimplify) ? props.recSimplify : identity
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const rec = useQuery(makeGqlAST(props.queryStr), {
-    skip: !needsLoading,
-    variables: { where: {} },
-    client,
-    fetchPolicy: 'network-only'
-  })
+  const where = {}
 
-  useEffect(() => {
-    if (rec.error) {
-      console.log('[rec.error] rec:', rec)
-      logErrors(rec.error.message)
+  const onCompleted = (results) => {
+    setNeedsLoading(false)
+    const data = results.data
+
+    const recNames = Object.keys(data)
+    if (!recNames.includes(props.recordName)) {
+      console.log('No "' + props.recordName + '" records retrieved for:', where)
+      console.log('No "' + props.recordName + '" in rec ', recNames)
+      return
     }
-  }, [logErrors, rec, rec.error])
 
-  useEffect(() => {
-    if (!rec.loading && rec.data) {
-      setNeedsLoading(false)
+    console.log(dTS(), 'loaded record where:', where, data)
 
-      const recNames = Object.keys(rec.data)
-      if (!recNames.includes(props.recordName)) {
-        console.log('No "' + props.recordName + '" records retrieved for:', rec.variables.where)
-        console.log('No "' + props.recordName + '" in rec ', recNames)
-        return
+    if (!data[props.recordName]) {
+      console.log(dTS(), 'No "' + props.recordName + '" records retrieved for:', where)
+      console.log(dTS(), 'using (new record):', data[props.recordName])
+    } else {
+      const reformated = data[props.recordName].map(r => recSimplify(r))
+      const data = reformated.filter(r => r != null)   // allow recSimplify to eliminate records
+
+      if (props.reportRecordCount) {
+        props.reportRecordCount(data.length)
       }
+      setData(data)
 
-      console.log(dTS(), 'loaded record where:', rec.variables.where, rec.data)
-
-      if (!rec.data[props.recordName]) {      // || rec.data[props.recordName].length == 0) {
-        console.log(dTS(), 'No "' + props.recordName + '" records retrieved for:', rec.variables.where)
-        console.log(dTS(), 'using (new record):', rec.data[props.recordName])
-      } else {
-        const reformated = rec.data[props.recordName].map(r => recSimplify(r))
-        const data = reformated.filter(r => r != null)   // allow recSimplify to eliminat records
-
-        if (props.reportRecordCount) {
-          props.reportRecordCount(data.length)
-        }
-        setData(data)
-
-      }
     }
-  }, [props, rec.data, rec.loading, rec.variables.where, recSimplify])
+
+  }
+
+  const onError = (error) => {
+    if (error) {
+      console.log('[fetchRec() error] rec:', error)
+      logErrors(error.message)
+    }
+  }
+
+  if (needsLoading) {
+    fetchRec(props.queryStr, { where: where })
+    .then(results => onCompleted(results))
+    .catch(error => onError(error))
+
+  }
 
   if (needsLoading) {
     console.log(dTS(), 'SimpleDataTable loading QUERY:', props.queryName)
@@ -92,7 +92,7 @@ function InnerSimpleDataTable(props) {
   const table = <SimpleTable data={data} height='17em' dataSelected={newRecRowSelected} />
   const dataArea = (needsLoading) ? <Gears width={70} height={50} /> : table
 
-  // console.log('SimpleDataTable neadsLoading:', needsLoading, 'data:', JSON.stringify(data))
+  // console.log('SimpleDataTable needsLoading:', needsLoading, 'data:', JSON.stringify(data))
 
   return (
     <div className={props.className}>

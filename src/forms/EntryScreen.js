@@ -2,12 +2,9 @@
 // cSpell:ignore  closeFunct
 
 import React, { useState } from 'react'
-import { useQuery } from '@apollo/client'
 
 import { dTS }                from '../time.js'
 
-import { client }             from './client.js'
-import { makeGqlAST }         from './makeGqlAST.js'
 import { ErrorList }          from './ErrorList.js'
 import { useErrorList }       from './useErrorList.js'
 import { SimpleEntryScreen }  from './SimpleEntryScreen.js'
@@ -74,6 +71,8 @@ function EntryScreenKeyed(props) {
      console.log(dTS(), '== EntryScreenKeyed render ==', props)
   }
 
+  const { fetchRec } = getAppSpecificInfo()
+
   const [keys, setKeys] = useState(props.keys)
   const [data, setData] = useState(null)
 
@@ -107,26 +106,15 @@ function EntryScreenKeyed(props) {
     logErrors(error.message)
   }
 
-  // console.log(`  EntryScreen.js:106  makeGqlAST  ${props.queryName} str:`, props.queryStr)
-
-  useQuery(makeGqlAST(props.queryStr), {
-    skip: !needsLoading,
-    variables: { where: where },
-    client,
-    fetchPolicy: 'network-only',
-    onCompleted: onCompleted,
-    onError: onError
-  })
-
+  if (needsLoading) {
+    fetchRec(props.queryStr, { where: where })
+      .then(results => onCompleted(results))
+      .catch(error => onError(error))
+  }
 
   if (needsLoading && props.debug > 0) {
     console.log(dTS(), `  needs loading query ${props.queryName}, Keys:`, props.keys)
   }
-
-  // was newRecord() { .. } defined here
-  // was pickNewTopRecord() { .. } defined here
-  // was newRecRowSelected() { .. } defined here
-
 
   const onChangeSpecial = (change, moreChanges) => {
 
@@ -181,6 +169,7 @@ function EntryScreenKeyed(props) {
   // newRecord={newRecord}                                <--- (onAdd, onClone refactored out) replaced by newRecord interface 2024-05-06
   // showPendingData={props.showPendingData}
   // debug={props.debug}
+  // updateRec={props.updateRec}             updateRec(r.gqlTable, r.fields, r.where)   table name, json of field values, where clause as json
 
   return <>
     <ErrorList list={errors} />
