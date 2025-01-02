@@ -1,6 +1,4 @@
 
-// cSpell:ignore Funct Parms disp
-
 import './index.css'
 
 import { AlertModal } from './AlertModal.js'
@@ -13,7 +11,7 @@ import { ChoiceTextSearchable } from './ChoiceTextSearchable.js'
 import { sanitize, formatMoney } from './Common.js'
 import { ConfirmModal } from './ConfirmModal.js'
 import { ContextMenu } from './ContextMenu.js'
-import { convertDate, dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime,
+import { convertDate, dateTime, addDigit, currentDateTime, currentDate, currentDBDateTime, 
          currentDBDate, dbDate, monthName } from './DateFunct.js'
 import { DateInput } from './DateInput.js'
 import { DoubleListBox } from './DoubleListBox.js'
@@ -22,10 +20,10 @@ import { Header } from './Header.js'
 import { HeaderModal } from './HeaderModal.js'
 import { Home } from './Home.js'
 import { InputFile } from './InputFile.js'
-import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen,
-         checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable,
-         isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen,
-         clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly,
+import { generateInvalid, setInvalidScreen, setInvalidTable, setInvalidDual, checkValidityScreen, 
+         checkValidityTable, resetDisplayScreen, resetDisplayTable, wasClickedScreen, wasClickedTable, 
+         isConstant, validCheckDual, validCheckScreen, validCheckTable, clearInvalidDual, clearInvalidScreen, 
+         clearInvalidTable, processInvalidStyleScreen, processStyleScreen, clearInvalidScreenOnly, 
          processInvalidStyleTable, processStyleTable, isInvalid, getInvalidMessage } from './Invalid.js'
 import { Link } from './Link.js'
 import { List } from './List.js'
@@ -69,7 +67,7 @@ import { ErrorList } from './forms/ErrorList.js'
 import { setFieldGenerator, fieldGeneratorLookup } from './forms/FieldGenerator.js'
 import { Form } from './forms/Form.js'
 import { FormChoice } from './forms/FormChoice.js'
-import { getFieldRecName, getGqlNameFromForm, onChangeMaker, FieldsFromList, FieldsFromListWorks,
+import { getFieldRecName, getGqlNameFromForm, onChangeMaker, FieldsFromList, FieldsFromListWorks, 
          ifDefined, FormFields } from './forms/FormFields.js'
 import { FormHeader } from './forms/FormHeader.js'
 import { FormTable } from './forms/FormTable.js'
@@ -98,8 +96,8 @@ import { isPromise } from './forms/isPromise.js'
 import { createJobStatus, updateJobStatus, watchJobStatus } from './forms/jobs.js'
 import { label2value, value2label } from './forms/label2value.js'
 import { logDiff } from './forms/logDiff.js'
-import { notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups, setLookupData,
-         addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup, refreshLookup,
+import { notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups, setLookupData, 
+         addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup, refreshLookup, 
          addNotify, removeNotify, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary
           } from './forms/lookupUtil.js'
 import { newRecord } from './forms/newRecord.js'
@@ -113,7 +111,7 @@ import { toCamelCaseVar, toEnglishPhrase } from './forms/toCamelCase.js'
 import { useErrorList } from './forms/useErrorList.js'
 import useFetch from './forms/useFetch.js'
 import { valueCompare } from './forms/valueCompare.js'
-import { setAppSpecificInfo, getAppSpecificInfo } from './forms/model/appSpecificInfo.js'
+import { setAppSpecificInfo, getAppSpecificInfo, setAppSpecificInfoExample } from './forms/model/appSpecificInfo.js'
 import { formFromTableInfo, tableField2FormField } from './forms/model/formFromTableInfo.js'
 import { genDictionaryEntry } from './forms/model/genDictionaryEntry.js'
 import { getTableColumns } from './forms/model/getTableColumns.js'
@@ -141,16 +139,16 @@ export { AlertModal, AppCore, CheckBox, CheckBoxGroup, Choice, ChoiceText, Choic
          setFieldGenerator, fieldGeneratorLookup, Form, FormChoice, getFieldRecName, getGqlNameFromForm,
          onChangeMaker, FieldsFromList, FieldsFromListWorks, ifDefined, FormFields, FormHeader, FormTable,
          Gears, Input, MakeModal, NarrowForm, pretty, Show, SimpleDataTable, SimpleEntryScreen,
-         getRecordKeyInfo, applyDeepValueChange, arrLen, capWords, dataLog, getDataLog,
-         dispAsString, flattenJSON, dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder,
-         getGqlName, getKeyValues, getLabels, getSubRecord, ignoreCase, isFunction, isNotEmpty, isPromise,
+         getRecordKeyInfo, applyDeepValueChange, arrLen, capWords, dataLog, getDataLog, dispAsString,
+         flattenJSON, dumbFlattenJSON, genEmptyRecord, genColHeaders, genRowBuilder, getGqlName,
+         getKeyValues, getLabels, getSubRecord, ignoreCase, isFunction, isNotEmpty, isPromise,
          createJobStatus, updateJobStatus, watchJobStatus, label2value, value2label, logDiff,
          notifyLookupsDone, isLookupDone, serializeLookups, loadSerializedLookups, setLookupData,
          addLookupAlias, changeLookupAlias, defineLookup, fetchLookupData, startLookup, refreshLookup,
          addNotify, removeNotify, calcLookupMemoryUse, lookupLog, getLookupLogs, getLookupSummary,
-         newRecord, onFormChange, prop2str, removeIllegalAttributes, removeTypeName, sendEmail,
-         stackTrace, toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare,
-         setAppSpecificInfo, getAppSpecificInfo, formFromTableInfo,
-         tableField2FormField, genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName,
-         getGqlFieldNames, getGqlPKs, listNotKeyedTables, AddRecordIcon,
+         newRecord, onFormChange, prop2str, removeIllegalAttributes, removeTypeName, sendEmail, stackTrace,
+         toCamelCaseVar, toEnglishPhrase, useErrorList, useFetch, valueCompare, setAppSpecificInfo,
+         getAppSpecificInfo, setAppSpecificInfoExample, formFromTableInfo, tableField2FormField,
+         genDictionaryEntry, getTableColumns, getTablePKs, findTableByGqlName, getGqlFieldNames, getGqlPKs,
+         listNotKeyedTables, AddRecordIcon,
          CloneRecordIcon }
