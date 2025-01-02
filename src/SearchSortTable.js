@@ -34,7 +34,7 @@ import { hasOwnProperty } from './hasOwnProperty.js';
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+//pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];

@@ -5,29 +5,29 @@ import { hasOwnProperty } from './hasOwnProperty.js';
 import { List } from './List.js';
 
 /******************************************************************************************
- *
+ * 
  * Double List Box
- *
+ * 
  * The Double List Box has two list boxes that move items between the lists.  There is a
  * left list and a right list, with a set of buttons in the middle.  These buttons allow the
  * user to move the items between the boxes.  There is also a set of buttons to the right of
  * the right list.  This allows items in the right list box to be moved up and down.
- *
+ * 
  *******************************************************************************************/
 export const DoubleListBox = props => {
     const [choices, setChoices] = useState((props.choices === null || props.choices.length === 0) ? [] : [...props.choices]);   // Items for the left list box via the props
     const [leftValues, setLeftValues] = useState(choices.filter( item => (props.value === null || props.value.length === 0) ? [] : [...props.value].find(r => r === item)));    // Items for the left list box
     const [rightValues, setRightValues] = useState((props.value === null || props.value.length === 0) ? [] : [...props.value]); // Items for the right list box
     const [leftSelections, setLeftSelections] = useState([]);       // Items selected by the user in the left list
-    const [rightSelections, setRightSelections] = useState([]);     // Items selected by the user in the right list
+    const [rightSelections, setRightSelections] = useState([]);     // Items selected by the user in the right list     
     const [leftEvent, setLeftEvent] = useState([]);                 // The event that caused items to be moved from the right list to the left list
     const [rightEvent, setRightEvent] = useState([]);               // The event that caused items to be moved from the left list to the right list
 
     /*************************************************************************************
-     *
+     * 
      * This will make sure that the choices and values props are set.  It will also
      * restore the Double List Box to values in the props.
-     *
+     * 
      *************************************************************************************/
     const reset = (props) => {
         if (hasOwnProperty(props, 'value') === false) {
@@ -69,10 +69,10 @@ export const DoubleListBox = props => {
     }, [props.value]);
 
     /***************************************************************************************
-     *
+     * 
      * This is called whenever there is a change to the right list and the value of the
      * right list is returned to the parent.
-     *
+     * 
      ***************************************************************************************/
     const reportChange = (right) => {
         let compName = 'DoubleListBox';
@@ -85,9 +85,9 @@ export const DoubleListBox = props => {
     }
 
     /*************************************************************************************
-     *
+     * 
      * This will add a value to the a list.
-     *
+     * 
      *************************************************************************************/
     const add = (a, b) => {
         let ans = [...a];
@@ -98,9 +98,9 @@ export const DoubleListBox = props => {
     }
 
     /************************************************************************************
-     *
+     * 
      * This will remove items in the a list that are in the b list.
-     *
+     * 
      ************************************************************************************/
     const sub = (a, b) => {
         let ans = [];
@@ -112,10 +112,10 @@ export const DoubleListBox = props => {
     }
 
     /***************************************************************************************
-     *
+     * 
      * This will move values from the left list to the right list and sort the list if the
      * props are set.
-     *
+     * 
      ***************************************************************************************/
     const moveRightSelectButton = () => {
         let right = add(rightValues, leftSelections);
@@ -139,10 +139,10 @@ export const DoubleListBox = props => {
     }
 
     /**************************************************************************************
-     *
+     * 
      * This will remove any selections made by the user.  This is generally called after a
      * move has been made (when one of the buttons has been pressed).
-     *
+     * 
      **************************************************************************************/
     const clearSelections = () => {
         for (let i = 0; i < leftEvent.length; i++) {
@@ -155,10 +155,10 @@ export const DoubleListBox = props => {
     }
 
     /***************************************************************************************
-     *
+     * 
      * This will move values from the right list to the left list and sort the list if the
      * props are set.
-     *
+     * 
      ***************************************************************************************/
     const moveLeftSelectButton = () => {
         let left = add(leftValues, rightSelections)
@@ -181,10 +181,10 @@ export const DoubleListBox = props => {
     }
 
     /************************************************************************************
-     *
+     * 
      * This will move all the items in the left list to the right list and sort them if
      * necessary.
-     *
+     * 
      ************************************************************************************/
     const moveRightAllButton = () => {
         let left = leftValues;
@@ -205,10 +205,10 @@ export const DoubleListBox = props => {
     }
 
     /************************************************************************************
-     *
+     * 
      * This will move all the items in the right list to the left list and sort them if
      * necessary.
-     *
+     * 
      ************************************************************************************/
     const moveLeftAllButton = () => {
         let left = [...leftValues];
@@ -229,9 +229,9 @@ export const DoubleListBox = props => {
     }
 
     /****************************************************************************************
-     *
+     * 
      * This determines which values in the left list have been selected.
-     *
+     * 
      ****************************************************************************************/
     const leftHandleChange = (e) => {
         if (typeof e === 'string')
@@ -253,9 +253,9 @@ export const DoubleListBox = props => {
     }
 
     /****************************************************************************************
-     *
+     * 
      * This determines which values in the right list have been selected.
-     *
+     * 
      ****************************************************************************************/
     const rightHandleChange = (event) => {
         if (typeof event === 'string')
@@ -277,14 +277,14 @@ export const DoubleListBox = props => {
     }
 
     /***************************************************************************************
-     *
+     * 
      * This will find the item in the list that should be moved up or down in the right
      * list.
-     *
+     * 
      * @param {*} right             the right list
      * @param {*} rightSelections   the items to move up or down in the list
      * @returns the index of where the values are in the list to be moved up or down
-     *
+     * 
      ***************************************************************************************/
     const findStartIndex = (right, rightSelections) => {
         for (let i = 0; i < right.length; i++) {
@@ -297,34 +297,34 @@ export const DoubleListBox = props => {
     }
 
     /****************************************************************************************
-     *
+     * 
      * This will move the selected items up one in the array
-     *
+     * 
      ****************************************************************************************/
     const moveItemsUp = (arr, startIndex, count) => {
         if (startIndex < 1 || startIndex + count > arr.length) {
           return arr; // Invalid input, return original array
         }
-
+      
         for (let i = startIndex; i < startIndex + count; i++) {
           const temp = arr[i];
           arr[i] = arr[i - 1];
           arr[i - 1] = temp;
         }
-
+      
         return arr;
     }
 
     /****************************************************************************************
-     *
+     * 
      * This will move the selected items down one in the array
-     *
+     * 
      ****************************************************************************************/
     const moveItemsDown = (arr, startIndex, count) => {
         if (startIndex < 0 || startIndex + count > arr.length) {
           return arr; // Invalid input, return original array
         }
-
+      
         for (let i = startIndex + count - 1; i >= startIndex; i--) {
           if (i + 1 < arr.length) {
             const temp = arr[i];
@@ -332,67 +332,67 @@ export const DoubleListBox = props => {
             arr[i + 1] = temp;
           }
         }
-
+      
         return arr;
     }
 
     /****************************************************************************************
-     *
+     * 
      * This moves the selected items to the top of the right list
-     *
+     * 
      ****************************************************************************************/
     const moveItemsToTop = (array, itemsToMove) => {
         // Create a new array to store the reordered elements
         const newArray = [];
-
+      
         // Add the items to move to the new array
         for (const item of itemsToMove) {
           if (array.includes(item)) {
             newArray.push(item);
           }
         }
-
+      
         // Add the remaining items from the original array
         for (const item of array) {
           if (!itemsToMove.includes(item)) {
             newArray.push(item);
           }
         }
-
+      
         return newArray;
     }
 
     /****************************************************************************************
-     *
+     * 
      * This moves the selected items to the bottom of the right list
-     *
+     * 
      ****************************************************************************************/
     const moveItemsToBottom = (arr, itemsToMove) => {
         const result = [];
         const itemsToMoveSet = new Set(itemsToMove);
-
+      
         // Iterate through the array and add elements to the result array
         for (const item of arr) {
           if (!itemsToMoveSet.has(item)) {
             result.push(item);
           }
         }
-
+      
         // Add the items to move to the end of the result array
         for (const item of arr) {
           if (itemsToMoveSet.has(item)) {
             result.push(item);
           }
         }
-
+      
         return result;
     }
 
     /****************************************************************************************
-     *
+     * 
      * This indicates that the Up button was pushed, which moves the items selected in the
      * right list to be moved up one row.
-     *
+     * 
      ****************************************************************************************/
     const moveUpSelectButton = () => {
         let right = [...rightValues];
@@ -406,10 +406,10 @@ export const DoubleListBox = props => {
     }
 
     /****************************************************************************************
-     *
+     * 
      * This indicates that the Down button was pushed, which moves the items selected in the
      * right list to be moved down one row.
-     *
+     * 
      ****************************************************************************************/
     const moveDownSelectButton = () => {
         let right = [...rightValues];
@@ -423,10 +423,10 @@ export const DoubleListBox = props => {
     }
 
     /****************************************************************************************
-     *
-     * This indicates that the Top button (up arrow with a line over it) was pushed, which
+     * 
+     * This indicates that the Top button (up arrow with a line over it) was pushed, which 
      * moves the items selected in the right list to be moved the top.
-     *
+     * 
      ****************************************************************************************/
     const moveTopSelectButton = () => {
         let right = [...rightValues];
@@ -439,10 +439,10 @@ export const DoubleListBox = props => {
     }
 
     /****************************************************************************************
-     *
-     * This indicates that the Bottom button (down arrow with a line under it) was pushed,
+     * 
+     * This indicates that the Bottom button (down arrow with a line under it) was pushed,  
      * which moves the items selected in the right list to be moved the bottom.
-     *
+     * 
      ****************************************************************************************/
     const moveBottomSelectButton = () => {
         let right = [...rightValues];
