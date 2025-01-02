@@ -1,19 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint react/prop-types: 0 */
 
-// cSpell:ignore Funct hdrs occrred noupper nolower nodigit SRCHITEM SRCHHDR PDFORIENT searclall Vals filterdaterange 
-// cSpell:ignore showall intialize searchall nofilter
-// cSpell:ignore noheaderborder  nofooterborder notop noprevious nonext nobottom checkedsymbol nosearch throught 
-// cSpell:ignore Offical nofooter norows nodisplay cbtitles
-// cSpell:ignore cbhead sfbottom showtable backgrd DDTHH nosort comparision paginantion cbtable cbrow cbfoot blenk 
-// cSpell:ignore startingpos contorl wiht condsidering inorder
+// cSpell:ignore Funct hdrs occrred noupper nolower nodigit SRCHITEM SRCHHDR PDFORIENT searclall Vals filterdaterange showall intialize searchall nofilter
+// cSpell:ignore noheaderborder  nofooterborder notop noprevious nonext nobottom checkedsymbol nosearch throught Offical nofooter norows nodisplay cbtitles
+// cSpell:ignore cbhead sfbottom showtable backgrd DDTHH nosort comparision paginantion cbtable cbrow cbfoot blenk startingpos contorl wiht condsidering inorder
 // cSpell:ignore nohidden nocontrolbreak searchstart nocontsearch represents mathfooter inidicates noaggregation
 
 import React, { Fragment, useState, useEffect } from 'react';
 import { css } from "@emotion/react";
 import FadeLoader from "react-spinners/FadeLoader";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
-
 
 import '../src/sw-table.css';
 
@@ -33,11 +31,10 @@ import { hasOwnProperty } from './hasOwnProperty.js';
 //    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
 //} /*from './index.js'*/     from 'simple-widgets';
 
+
 import funnel from './funnel-filter-svgrepo-com.svg';
 
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-pdfMake.vfs = pdfFonts.vfs;
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
@@ -349,19 +346,56 @@ const _InnerSearchSortTable = (propsPassed) => {
     // const [origIndexes, setOrigIndexes] = useState([...startIndexes]);
     const origIndexes = [...startIndexes];  // The original set of indexes that is used when the sort order is neither or control breaks are removed
 
+    const setTableTD = (obj, i) => {
+        let row = obj.row;
+        let col = obj.col;
+        if (hasOwnProperty(props, 'tableTD') === true &&
+            hasOwnProperty(props, 'firstTD') === true) {
+                return props.tableTD(obj, i);
+        } else if (col.align.indexOf('money') !== -1) {
+            return formatMoney(row[col.name]);
+        } else if (col.align.indexOf('date') !==  -1) { 
+            return convertDate(row[col.name]);
+        } else if (hasOwnProperty(col, 'decimal') === true) { 
+            return row[col.name].toFixed(col.decimal);
+        } else if (hasOwnProperty(props, 'tableTD') === true &&
+                   hasOwnProperty(props, 'firstTD') === false) {
+            return props.tableTD(obj, i);
+        } else {
+            return row[col.name];
+        }
+    }
+
     const defaultEachRowInTable2 = (row, i) => {
         if (controlBreakInfo.length !== 0) {
             return (
-                <tr key={`eachRowInTableRow_${props.number}_${i}`} className="sw-sst_stripe"> 
+                <tr key={`eachRowInTableRow_${props.number}_${i}`} className="sw-sst_stripe">
                     {table.map((col, idx) => (
                         <td key={`${col.header}_${idx}_${i}`} 
                                     className={"sw-sst_body_full " + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
-                            {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
-                                (col.align.indexOf('date') !==  -1) ? convertDate(row[col.name]) :
-                                (hasOwnProperty(col, 'decimal') === true) ? row[col.name].toFixed(col.decimal) :
-                                    row[col.name] 
-                            }
+                            { [{row, col}].map((obj, i) => setTableTD(obj, i)) }
+                        </td>
+                    ))}
+                </tr>
+            )
+        } else {
+            return <tr></tr>
+        }
+    }
+
+    const defaultEachRowInTableTransfer = (row, i) => {
+        if (controlBreakInfo.length !== 0) {
+            let pos = indexes[i];
+
+            return (
+                <tr key={`eachRowInTableRow_${props.number}_${i}`} className="sw-sst_stripe"
+                        onClick={() => props.transfer(props.data[pos])}>
+                    {table.map((col, idx) => (
+                        <td key={`${col.header}_${idx}_${i}`} 
+                                    className={"sw-sst_body_full " + getAlignment(col.align)}
+                                    hidden={controlBreakInfo[idx].hidden} >
+                            { [{row, col}].map((obj, i) => setTableTD(obj, i)) }
                         </td>
                     ))}
                 </tr>
@@ -373,6 +407,8 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     if (props.eachRowInTable === 'default') {
         props.eachRowInTable = defaultEachRowInTable2;
+    } else if (props.eachRowInTable === 'defaultTransfer') {
+        props.eachRowInTable = defaultEachRowInTableTransfer;
     }
     
     /*************************************************************************************************************

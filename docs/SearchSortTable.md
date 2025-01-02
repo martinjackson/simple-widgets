@@ -607,9 +607,70 @@ Another example:
 
 In the above example, tableTest contains edit: true, date: true, and money: true correspond to the col.date, col.money, and col.edit in eachRowInTable.  Therefore, the Date in tableTest will be converted to the MM/DD/YYYY format.  The Edit in tableTest will be a button.  The Cost column in tableTest will be converted to the money format.
 
+### **No EachRowInTable Function**
+
+The latest version of SearchSortTable will allow to have no eachRowInTable function, on indexing function, no startEnd function and hide function.  Their will still be an eachRowInTable prop, but the function will be replaced with either default or defaultTransfer.  The default one is used if you do not want to select any data to transfer to somewhere else.  The defaultTransfer is used it you want to select data to transfer somewhere else.  This will replace the 
+
+```js
+let pos = indexes[i];
+...
+<tr onClick={() => data[pos]}> in the eachRowInTable function
+```
+
+The other prop used with the defaultTransfer is transfer.  Transfer passes a function to SearchSortTable that is called when the user clicks on that row of in the table.  The row will be passed to the function as an object.  An example would be:
+
+```js
+const transfer = (data) => {
+  console.log ('data: ', data);
+}
+
+<SearchSortTable data={data}
+                 table={table}
+                 eachRowInTable="defaultTransfer"
+                 transfer={transfer}>
+```
+
+The other props that can be used are: tableTD and firstTD.  The tableTD is a function that is called when there is special formatting for a cell, like a button or link.  The row data and the column information in the table prop are passed in for that cell.  An example of the function would be:
+
+```js
+let table = [
+  ...
+  header: 'Edit', name: '', search: false, sort: false, align: center
+  ...
+]
+
+const editButton = () {
+  console.log ('This is the edit button');
+}
+
+const setColumn = (rowcol, i) => {
+  let row = rowcol.row; // The data for the row
+  let col = rowcol.col; // The data for each object in the table
+
+  if (col.header === 'Edit') {
+    return (
+      <button onClick={editButton}>
+        Edit
+      </button>
+    )
+  } else {
+    return row[col.name];
+  }
+}
+
+<SearchSortTable data={data}
+                 table={table}
+                 eachRowInTable="default"
+                 tableTD={setColumn}>
+```
+
+This will place an Edit button underneath the header Edit for each row in the table.  When the button is pressed it will execute the editButton function.
+
+The firstTD indicates whether the tableTD function is the first item executed or the last item executed (default).  There are two other items that are executed, normally before the tableTD function.  If the align has date somewhere in the align, the date is automatically converted to the MM/DD/YYYY format.  If the align has money somewhere in the align, the number is converted into a money format ($N,NNN.NN) and right aligned.  After that the tableTD function is normally executed.  If firstTD prop is in the set of props, the tableTD function will only be executed and the date and money ones will not.  This will rarely be used.
+
 ### **Sorting**
 
-If sorting is allowed for that column, there will either be an triangle (ascending order), or an upside down triangle (descending order), or triangle on its side (no order) next to the header.  Intially all the triangles will be on there sides to indicate no order.
+If sorting is allowed for that column, there will either be a triangle (ascending order), or an upside down triangle (descending order), or triangle on its side (no order) next to the header.  Intially all the triangles will be on there sides to indicate no order.
 
 To sort press on the triangle on its side, this will place the data in ascending order and it will appear as a regular triangle.
 If pressed again, it will place it in descending order with an upside down triangle.
@@ -812,6 +873,7 @@ Therefore, the alignment has a cascading effect.
 
 Consider the following:
 
+```js
 let table = [
     { header: 'Name',       heading: 'NAME', ...,       align: 'left' },
     { header: 'City',       heading: 'CITY', ...,       align: 'left' },
@@ -844,6 +906,7 @@ let finaltotals = [
     { finaltotal: false },
     { finaltotal: true },
 ];
+```
 
 The table will be built with a control break on name.
 
@@ -1205,6 +1268,9 @@ An example in the search sort table component for final totals.
   />
 ```
 
+9. **firstTD** = this is used in conjunction with the tableCD and indicates it should not do the standard transition for align: money, data, and decimal.  If any one of these has the word in the align, the transition will take place.  Therefore, moneybold will do the translation.  For money, the translation that occurs is that $, commas, and decimal points are placed in the number and the number is right justified.  For date, the date is will transform any date into the MM/DD/YYYY format.  For decimal, a number is also specified to determine the number of digits right of the decimal point there.  
+
+Therefore, if firstTD is used as a prop, it will ignore the special formatting for money, date, and decimal.  This parameter should be used very sparingly and probably will be.
 9. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  There must be a footer for every column in the table.  Each array element represents one column in the table.  A sample footer might be:
 ```javascript
     let footer = [
@@ -1420,10 +1486,56 @@ const startingPosition = (value) => {
 
 <SearchSortTable startingPos={startingPosition} />
 ```
+53. **tableTD** = this allows a column in the table to be specified the way the user wants.  For
+example, a button, link, etc.  The tableTD is a function that is called to specify how a column is to be formatted.  The format for the functions is as follows:
+
+```js
+const editButton = (row) => {
+  console.log ('row : ', row);
+}
+
+const setColumn (rowcol, i) => {
+  let row = rowcol.row;
+  let col = rowcol.col;
+
+  if (col.header === 'Edit') {
+    return <button onClick={() => editButton(row)}>
+              Edit
+           </button>
+  } else {
+    return row[col.name];
+  }
+}
+```
+
+Explanation of the above example:
+This function must return a value in order to generate a row.  The row contains the data for the selected row in the SearchSortTable.  The column contains a column in the table prop.
+
+The col.header is looking at the column header in the table prop and if it is an Edit, a button will be placed in that column of the table.  When the button is pressed it will call the edit button and print out the value of the object in row, which is the data from a row in the SearchSortTable.
+
+There needs to be an else clause, since this function returns a value.  The standard return would to display the item in the table, which is what row[col.name] will do.
+
+If in the table prop, there is an align of date, money, or decimal it will over ride what is in the setColumn function.  If this is not desired, place the firstTD prop in as a prop.
 
 54. **title** = supplies a title to be displayed centered at the top of the table.
 
 55. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+
+56. **transfer** = this is function that trqansfers the data when the ures presses a row in the table.  When a row is pressed, this function is called and transfers the data in the row to the transfer function.  The transfer function accepts the parameter data that contains the data for the row as an object based on the name in the table prop.  The format for the transfer function is:
+
+```js
+  const transferData = (data) => {
+
+  }
+
+  <SearchSortTable  ...
+                    transfer={transferData}>
+```
+
+transferData is the name of the function
+data is an object that contains all the data in a row of the SearchSortTable
+
+This is used in conjunction with eachRowInTable="defaultTransfer" prop and the hover prop. 
 
 56. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
 
@@ -2494,19 +2606,8 @@ const sortExample = (props) => {
   ];
 
   const [error, setError] = useState(false);
-  const [start, setStart] = useState(0);
-  const [indexing, setIndexing] = useState([]);
-  const [hideCols, setHideCols] = useState([]);
   const [table, setTable] = useState(sstable);
   const [footer, setFooter] = useState(theFooter);
-
-  const startEnd = (start, end) => {
-      setStart(start);
-  }
-
-  const getIndexes = (indexing) => {
-      setIndexing(indexing);
-  }
 
   controlBreak = [
     { hidden: true,  ctrlBreak: 0 },
@@ -2530,8 +2631,6 @@ const sortExample = (props) => {
                     table={table}
                     MAX_ITEMS={RANGE}
                     eachRowInTable="default"
-                    startEnd={startEnd}
-                    indexing={getIndexes}
                     setTheTable={setTable}
                     setTheFooter={setFooter}
                     controlBreak={controlBreak}
@@ -2544,4 +2643,106 @@ const sortExample = (props) => {
 }
 ```
 
-In the SearchSortTable section, notice that eachRowInTable has the value of default.  This is using the eachRowInTable build into SearchSortTable.  Also, if the default is used, there is no need for the hidden function.
+In the SearchSortTable section, notice that eachRowInTable has the value of default.  This is using the eachRowInTable built into SearchSortTable.  Also, if the default is used, there is no need for the hidden function, indexing function, or startEnd function.
+
+### **Example 12**
+This uses the defaultTransfer value for eachRowInTable function:
+
+```javascript
+const RANGE = 50;
+
+let data = [
+  ...
+];
+
+const sortExample = (props) => {
+  const sstable = [
+      { header: 'Name',       name: 'NAME',       search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'City',       name: 'CITY',       search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'State',      name: 'STATE',      search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Zip',        name: 'ZIP_CODE',   search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Num Items',  name: 'NUM_ITEMS',  search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Date',       name: 'Date',       search: true,  sort: true, dropDown: true, drag: true, filterdaterange: true },
+      { header: 'Amount',     name: 'AMOUNT',     search: true,  sort: true, dropDown: true, drag: true },
+  ];
+
+  const [error, setError] = useState(false);
+  const [table, setTable] = useState(sstable);
+  const [footer, setFooter] = useState(theFooter);
+
+  const transferFunct = (data) => {
+      console.log ('data: ', data);
+  }
+
+  <SearchSortTable  data={data}
+                    table={table}
+                    MAX_ITEMS={RANGE}
+                    eachRowInTable="defaultTransfer"
+                    transfer={transferFunc}
+                    setTheTable={setTable}
+                    setTheFooter={setFooter}
+                    error={error}
+                    scroll
+                    hover
+                    choice
+                    hover />
+}
+```
+
+In the SearchSortTable section, notice that eachRowInTable has the value of defaultTransfer.   This is using the eachRowInTable with transfer capablities built into SearchSortTable.  Also, if the defaultTransfer is used, there is no need for the hidden function, indexing function, or startEnd function.  Also, note the transfer prop contains a function.  This function is called when the user presses a row on the table.  The data will be the data for that row in the table.
+
+### **Example 13**
+This will demonstrate the default eachRowInTable and how to add a link in the table.
+
+```javascript
+const RANGE = 50;
+
+let data = [
+  ...
+];
+
+const sortExample = (props) => {
+  const sstable = [
+      { header: 'Name',       name: 'NAME',       search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'City',       name: 'CITY',       search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'State',      name: 'STATE',      search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Zip',        name: 'ZIP_CODE',   search: true,  sort: true, dropDown: true, drag: true },
+      { header: 'Download',   name: 'URL',  search: true,  sort: true, dropDown: true, drag: true },
+
+  const setColumn = (rowcol, i) => {
+    let row = rowcol.row; // The data for the row
+    let col = rowcol.col; // The data for each object in the table
+
+    if (col.header === 'Download') {
+      return (
+        <a src={col.name}>
+          Download
+        </a>
+      )
+    } else {
+      return row[col.name];
+    }
+  }
+
+  const [error, setError] = useState(false);
+  const [table, setTable] = useState(sstable);
+
+  <SearchSortTable  data={data}
+                    table={table}
+                    MAX_ITEMS={RANGE}
+                    eachRowInTable="default"
+                    tableTD={setColumn}
+                    setTheTable={setTable}
+                    error={error}
+                    title="Finance CSV"
+                    scroll
+                    choice
+                    hover />
+}
+```
+
+In the SearchSortTable section, notice that eachRowInTable has the value of default.   This is using the eachRowInTable built into SearchSortTable.  Also, if the default is used, there is no need for the hidden function, indexing function, or startEnd function.  The setColumn function is used to create a link.
+
+The setColumn passes down two parameters: rowcol and i.  The rowcol is an object that contains both the row and column for the table prop.  The i is the index into the data array.  The row accesses the entire row of data in the table prop and the column accesses on of the fields in that table.
+
+The first code in the setColumn is to seperate the row and column.  Next, the column header is checked to see if it is the column that is going to get the link.  If it is the download column, link is returned for that cell.  If is not the download column the standard row[col.name] is returned.  One or the other must be returned.
