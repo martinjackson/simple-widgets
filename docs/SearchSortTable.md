@@ -577,9 +577,9 @@ Another example:
 
 ```javascript
       let tableTest = [
-          { header: 'Edit',   name: '',  search: true,   sort: true, drag: true, edit: true  },
+          { header: 'Edit',           name: '',           search: true,   sort: true, drag: true, edit: true  },
           { header: 'Order Number',   name: 'ORDER_NUM',  search: true,   sort: true, drag: true  },
-          { header: 'Date',    name: 'DATE',       search: true,   sort: true, drag: true, date: true  },
+          { header: 'Date',           name: 'DATE',       search: true,   sort: true, drag: true, date: true  },
           { header: 'On Hand Count',  name: 'ON_HAND',    search: true,   sort: true, drag: true  },
           { header: 'Cost',           name: 'COST',       search: false,  sort: false, drag: true, align: 'money' },
       ];
@@ -781,7 +781,7 @@ How to Enable the Drag in Search Sort Table:
   const [footer, setFooter] = useState(theFooter);
 ```
 
-5.  If a footer is being used, add the setTheFooter prop in SearchSortTable configuration.  See the setTheFooter prop.
+6.  If a footer is being used, add the setTheFooter prop in SearchSortTable configuration.  See the setTheFooter prop.
 
 ```javascript
   <SearchSortTable 
@@ -886,12 +886,12 @@ let table = [
 ];
 
 let controlBreak = [
-    { hidden: false, ctrlBreak: 1, sumtitle: 'Name Totals', align: left },
+    { hidden: false, ctrlBreak: 1, sumtitle: 'Name Totals', align: 'left' },
     { hidden: false, ctrlBreak: 0 },
     { hidden: false, ctrlBreak: 0 },
     { hidden: false, ctrlBreak: 0 },
     { hidden: false, ctrlBreak: 0 },
-    { hidden: false, ctrlBreak: 0, sum: true, align: moneybold },
+    { hidden: false, ctrlBreak: 0, sum: true, align: 'moneybold' },
     { hidden: false, ctrlBreak: 0, sum: true },
     { hidden: false, ctrlBreak: 0, sum: true, align: 'moneybold' },
 ];
