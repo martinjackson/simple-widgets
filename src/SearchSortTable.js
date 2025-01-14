@@ -13,23 +13,21 @@ import pdfMake from "pdfmake/build/pdfmake";
 //import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
-import '../src/sw-table.css';
+//import { CheckBox } from './CheckBox.js';
+//import { Choice } from './Choice.js';
+//import { ChoiceText } from './ChoiceText.js';
+//import { isInvalid, setInvalidScreen, generateInvalid,
+//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
+//import { AlertModal } from './AlertModal.js';
+//import { generateCSSButton } from './Theme.js';
+//import { currentDate, convertDate } from './DateFunct.js';
+//import { formatMoney } from './Common.js';
+//import { hasOwnProperty } from './hasOwnProperty.js';
 
-import { CheckBox } from './CheckBox.js';
-import { Choice } from './Choice.js';
-import { ChoiceText } from './ChoiceText.js';
-import { isInvalid, setInvalidScreen, generateInvalid,
-         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-import { AlertModal } from './AlertModal.js';
-import { generateCSSButton } from './Theme.js';
-import { currentDate, convertDate } from './DateFunct.js';
-import { formatMoney } from './Common.js';
-import { hasOwnProperty } from './hasOwnProperty.js';
-
-//import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
-//    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
-//    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
-//} /*from './index.js'*/     from 'simple-widgets';
+import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
+    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
+    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
+} /*from './index.js'*/     from 'simple-widgets';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -584,7 +582,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     // ---------
     useEffect (() => {
       let localTable = fillMissingValsInTable(props.table);
-      console.log('SearchSortTable useEffect [] ');
+//      console.log('SearchSortTable useEffect [] ');
       populateSearch(localTable);
       localTable.forEach(buildChoices);
       setColumns(localCols);
@@ -594,7 +592,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     // ---------
     useEffect (() => {
-        console.log('SearchSortTable useEffect [] props.table:', props.table);
+//        console.log('SearchSortTable useEffect [] props.table:', props.table);
         let localTable = fillMissingValsInTable(props.table);
 
         setTable(localTable);
@@ -607,7 +605,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     // ---------
     useEffect (() => {
-        console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
+//        console.log('SearchSortTable useEffect [props.data]', props.data, ' props.table:', props.table, 'table:', table);
 
         if (!props.table && !table) {        // No table def passed in as a prop, setup a default
             let tableDef = props.defaultColHeaders()
@@ -631,7 +629,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     // ---------
     useEffect (() => {
-        console.log('SearchSortTable useEffect [props.data.length] ');
+//        console.log('SearchSortTable useEffect [props.data.length] ');
         resetTheIndexes();
         if (hasOwnProperty(props, 'controlBreak') === false) {
             populateDropDown(props.table, indexes);
@@ -2991,7 +2989,6 @@ const _InnerSearchSortTable = (propsPassed) => {
 
         let temp = processTemp (0, info);
 
-        console.log ('findCtrlBreak data', props.data);
         for (let k = 0; k < info.indexes.length; k++) {
             if (compare(k, info, temp) === true) {  // Check to see if the temporary value and data value are equal
 //                pos = k;

@@ -19,38 +19,27 @@ In the index.js, place the following:
     import '../node_modules/simple-widgets/src/index.css'
 ```
 
-## B. Using the CSS files from the node_modules directory in the file it is used
-
-This allows the CSS file to be imported into the file that needs it.  The disadvantage is that since it is in the node_modules directory, you can not change them to style them to your needs.  The CSS files can also be placed in the index.js.  This allows them to be accessed by all javascript files.
-
-An example, suppose you are using the DoubleListBox component in the file, you will need the following imports:
-
-```javascript
-import '../node_modules/simple-widgets/lib/sw-theme.css'
-import '../node_modules/simple-widgets/lib/sw-doubleListBox.css'
-```
-
-If the CSS file is being used in multiple files, the CSS file can be placed in the index.js file instead of each file that uses it.
-
-## C. Being able to Modify CSS files to meet your styling needs
+## B. Being able to Modify CSS files to meet your styling needs
 
 1.  Copy the css files from the library into the public directory of your project.  
 ```
-    cd your-project-name
-    cp ./node_modules/simple-widgets/src/*.css ./public/
+    Go to the src directory on simple-widgets.
+    Open the CSS file you want to modify.
+    Copy the contents of the file and place it in a in the src file with an extension of css.
 ```
 
-2.  Make copies of any CSS files you are planning on modifying.  Remove the CSS files that are not needed.
+2.  Remove the file that you copied from the 
+        ```javascript
+        ../node_modules/simple-widgets/src/index.css file.
+        ```
 
-3.  Make the modifications to the CSS file.
+3.  In the index.js file import the css file that you created in the step above
+    ```javascript
+    import './name-of-the-file.css';
+    ```
 
-In the file, that is going to use the modified file, you will need the following import
+4.  Make the modifications to the name-of-the-file.css file
 
-```javascript
-import '../public/name-of-the-file.css';
-```
-
-If the CSS file is being used in multiple files, the CSS file can be placed in the index.js file instead of the files that need it.
 
 ## CSS Files in simple-widgets
 
@@ -67,9 +56,10 @@ The css files in the simple-widgets source directory (src) are:
 9. sw-modal.css
 10. sw-NavBar.css
 11. sw-outline.css
-11. sw-slider1.css to sw-slider5.css
-12. sw-spreadSheet.css
-12. sw-table.css
-13. sw-theme.css
+12. sw-pageTitle.css
+13. sw-slider1.css to sw-slider5.css
+14. sw-spreadSheet.css
+15. sw-table.css
+16. sw-theme.css
 
 Each of these files are described in the documentation in which they are used.

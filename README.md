@@ -25,6 +25,16 @@ Fix: No remediation path available.
 
 ## Breaking Changes:
 
+- 2025-01-15 Simple-Widgets version 1.42.0 CSS files will not be automatically imported anymore.  This will make it easier for the user to override CSS files from the default CSS settings.
+
+    The following import will need to be placed in the index.js file (to fix the break change):
+
+    ```js
+    import '../node_modules/simple-widgets/lib/index.css'
+    ```
+
+    See the section on CSS File Information.
+
 - 2023-06-05 Simple-Widgets version 1.35.0  \<Form> and \<FormFields> now calls the App supplied formDictionary() passing a string
     instead of the previous argument {formName: string}. Below is the code change needed to be compatable with previous versions of simple-widgets. Moving forward, the App supplied formDictionary() can expest a single string.
 
@@ -47,6 +57,8 @@ Fix: No remediation path available.
 
 - 2021-09-01   DatePicker, DatePickerStyle, UnstyledDatePicker are now obsolete  please used DateInput instead (same React props)
 - last version (1.11.3) of simple-widgets to have DatePicker, DatePickerStyle, UnstyledDatePicker `npm install --save simple-widgets@1.11.3`
+
+
 
 Planned removal:
 
