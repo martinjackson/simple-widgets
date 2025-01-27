@@ -137,26 +137,32 @@ The dataDate field indicates the format of a date field in the data.  The filter
   In the above example it is assumed that amount is a floating point number.  The decimal: 2, indicates that only 2 digits will be display right of the decimal point.
 
    The pdfCol specifies the alignment of a PDF column if PDF's are allowed to be generated.  The values for the pdfCol are:
-    - left            this will left justify the data in the column
-    - leftbold        this will left justify and bold the data in the column
-    - right           this will right justify the data in the column
-    - rightbold       this will right justify and bold the data in the column
-    - center          this will center the data in the column
-    - centerbold      this will center and bold the data in the column
-    - date            this will convert the date to the MM/DD/YYYY format and center the date
-    - datebold        this will convert the date to the MM/DD/YYYY format, center and bold the date
-    - dateleft        this will convert the date to the MM/DD/YYYY format and left justify the date
-    - dateleftbold    this will convert the date to the MM/DD/YYYY format, left justify, and bold the date
-    - dateright       this will convert the date to the MM/DD/YYYY format and right justify the date
-    - daterightbold   this will convert the date to the MM/DD/YYYY format, right justify, and bold the date
-    - money           this will convert the number into a dollar amount with the format of $DD,DDD.DD and will right justify the money data
-    - moneybold       this will convert the number into a dollar amount with the format of $DD,DDD.DD, will right justify, and bold the money data
-    - moneyleft       this will convert the number into a dollar amount with the format of $DD,DDD.DD and will left justify the money data
-    - moneyleftbold   this will convert the number into a dollar amount with the format of $DD,DDD.DD, will left justify, and bold the money data
-    - moneycenter     this will convert the number into a dollar amount with the format of $DD,DDD.DD and will center the money data
-    - moneycenterbold this will convert the number into a dollar amount with the format of $DD,DDD.DD, will center, and bold the money data
+    - left              this will left justify the data in the column
+    - leftbold          this will left justify and bold the data in the column
+    - right             this will right justify the data in the column
+    - rightbold         this will right justify and bold the data in the column
+    - center            this will center the data in the column
+    - centerbold        this will center and bold the data in the column
+    - datetime          this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20 in the center of the cell
+    - datetimebold      this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20 in the center of the cell and bolded
+    - datetimeleft      this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20 and left justified
+    - datetimeleftbold  this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20,left justified, and bolded
+    - datetimeright     this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20 and right justified
+    - datetimerightbold this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20, right justified, and bolded
+    - date              this will convert the date to the MM/DD/YYYY format and center the date
+    - datebold          this will convert the date to the MM/DD/YYYY format, center and bold the date
+    - dateleft          this will convert the date to the MM/DD/YYYY format and left justify the date
+    - dateleftbold      this will convert the date to the MM/DD/YYYY format, left justify, and bold the date
+    - dateright         this will convert the date to the MM/DD/YYYY format and right justify the date
+    - daterightbold     this will convert the date to the MM/DD/YYYY format, right justify, and bold the date
+    - money             this will convert the number into a dollar amount with the format of $DD,DDD.DD and will right justify the money data
+    - moneybold         this will convert the number into a dollar amount with the format of $DD,DDD.DD, will right justify, and bold the money data
+    - moneyleft         this will convert the number into a dollar amount with the format of $DD,DDD.DD and will left justify the money data
+    - moneyleftbold     this will convert the number into a dollar amount with the format of $DD,DDD.DD, will left justify, and bold the money data
+    - moneycenter       this will convert the number into a dollar amount with the format of $DD,DDD.DD and will center the money data
+    - moneycenterbold   this will convert the number into a dollar amount with the format of $DD,DDD.DD, will center, and bold the money data
 
-   If the date is already in the correct format, use left, right, or center.  If you do not supply a pdfCol, it will left justify the value for that column.
+   If the date or date and time is already in the correct format, use left, right, or center.  If you do not supply a pdfCol, it will left justify the value for that column.
 
    An example set of row in the table for a pdfCol field might look like:
 
@@ -848,6 +854,12 @@ The values for control break array, final totals array, and pdfCol are:
 - centerbold        centers and bolds the data in the column
 - right             right justifies the data in the column
 - rightbold         right justifies and bolds the data in the column
+- datetime          this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20 in the center of the cell
+- datetimebold      this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20 in the center of the cell and bolded
+- datetimeleft      this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20 and left justified
+- datetimeleftbold  this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20,left justified, and bolded
+- datetimeright     this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20 and right justified
+- datetimerightbold this will convert the date in time in the format of 2025-01-23T21:22:20.000Z to a format of 01/23/2025 21:22:20, right justified, and bolded
 - dateleft          formats the date to the MM/DD/YYYY and left justifies the data in the column
 - dateleftbold      formats the date to the MM/DD/YYYY, left justifies, and bolds the data in the column
 - datecenter        formats the date to the MM/DD/YYYY and centers the data in the column

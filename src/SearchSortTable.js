@@ -13,21 +13,22 @@ import pdfMake from "pdfmake/build/pdfmake";
 //import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
-//import { CheckBox } from './CheckBox.js';
-//import { Choice } from './Choice.js';
-//import { ChoiceText } from './ChoiceText.js';
-//import { isInvalid, setInvalidScreen, generateInvalid,
-//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-//import { AlertModal } from './AlertModal.js';
-//import { generateCSSButton } from './Theme.js';
-//import { currentDate, convertDate } from './DateFunct.js';
-//import { formatMoney } from './Common.js';
-//import { hasOwnProperty } from './hasOwnProperty.js';
+import { CheckBox } from './CheckBox.js';
+import { Choice } from './Choice.js';
+import { ChoiceText } from './ChoiceText.js';
+import { isInvalid, setInvalidScreen, generateInvalid,
+         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
+import { AlertModal } from './AlertModal.js';
+import { generateCSSButton } from './Theme.js';
+import { currentDate, convertDate } from './DateFunct.js';
+import { formatMoney } from './Common.js';
+import { hasOwnProperty } from './hasOwnProperty.js';
 
-import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
-    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
-    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
-} /*from './index.js'*/     from 'simple-widgets';
+//import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
+//    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
+//    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
+//    dateTime
+//} /*from './index.js'*/     from 'simple-widgets';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -94,27 +95,33 @@ export function getAlignment (align, isPDF = false) {
     }
 
     switch (align) {
-        case 'left':            return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
-        case 'leftbold':        return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
-        case 'center':          return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
-        case 'centerbold':      return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
-        case 'right':           return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
-        case 'rightbold':       return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
-        case 'number':          return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
-        case 'numberbold':      return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
-        case 'moneyleft':       return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
-        case 'moneyleftbold':   return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
-        case 'moneycenter':     return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
-        case 'moneycenterbold': return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
-        case 'money':           return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
-        case 'moneybold':       return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
-        case 'dateleft':        return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
-        case 'dataleftbold':    return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
-        case 'date':            return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
-        case 'datebold':        return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
-        case 'dateright':       return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
-        case 'datarightbold':   return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
-        default:                return (isPDF === true) ? DEFAULT_ALIGN_PDF : align;
+        case 'left':                return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
+        case 'leftbold':            return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
+        case 'center':              return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
+        case 'centerbold':          return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
+        case 'right':               return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'rightbold':           return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        case 'number':              return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'numberbold':          return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        case 'moneyleft':           return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
+        case 'moneyleftbold':       return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
+        case 'moneycenter':         return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
+        case 'moneycenterbold':     return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
+        case 'money':               return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'moneybold':           return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        case 'datetimeleft':        return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
+        case 'datetimeleftbold':    return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
+        case 'datetime':            return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
+        case 'datetimebold':        return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
+        case 'datertimeight':       return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'datetimerightbold':   return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        case 'dateleft':            return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
+        case 'dateleftbold':        return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
+        case 'date':                return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
+        case 'datebold':            return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
+        case 'dateright':           return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'daterightbold':       return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
+        default:                    return (isPDF === true) ? DEFAULT_ALIGN_PDF : align;
     }
 }
 
@@ -352,6 +359,8 @@ const _InnerSearchSortTable = (propsPassed) => {
                 return props.tableTD(obj, i);
         } else if (col.align.indexOf('money') !== -1) {
             return formatMoney(row[col.name]);
+        } else if (col.align.indexOf('datetime') !==  -1) { 
+            return dateTime(row[col.name]);
         } else if (col.align.indexOf('date') !==  -1) { 
             return convertDate(row[col.name]);
         } else if (hasOwnProperty(col, 'decimal') === true) { 
