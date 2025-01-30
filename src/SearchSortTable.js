@@ -13,6 +13,8 @@ import pdfMake from "pdfmake/build/pdfmake";
 //import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
+import '../src/sw-table.css';
+
 //import { CheckBox } from './CheckBox.js';
 //import { Choice } from './Choice.js';
 //import { ChoiceText } from './ChoiceText.js';
@@ -26,9 +28,8 @@ import { CSVLink } from 'react-csv';
 
 import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
     processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
-    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
-    dateTime
-} from './index.js' //     from 'simple-widgets';
+    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
+} /*from './index.js'*/     from 'simple-widgets';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -359,7 +360,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 return props.tableTD(obj, i);
         } else if (col.align.indexOf('money') !== -1) {
             return formatMoney(row[col.name]);
-        } else if (col.align.indexOf('datetime') !==  -1) { 
+        } else if (col.align.indexOf('datetime') !==  -1) {
             return dateTime(row[col.name]);
         } else if (col.align.indexOf('date') !==  -1) { 
             return convertDate(row[col.name]);
@@ -393,11 +394,10 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     const defaultEachRowInTableTransfer = (row, i) => {
         if (controlBreakInfo.length !== 0) {
-            let pos = indexes[i];
 
             return (
                 <tr key={`eachRowInTableRow_${props.number}_${i}`} className="sw-sst_stripe"
-                        onClick={() => props.transfer(props.data[pos])}>
+                        onClick={() => props.transfer(row)}>
                     {table.map((col, idx) => (
                         <td key={`${col.header}_${idx}_${i}`} 
                                     className={"sw-sst_body_full " + getAlignment(col.align)}
@@ -417,14 +417,8 @@ const _InnerSearchSortTable = (propsPassed) => {
     } else if (props.eachRowInTable === 'defaultTransfer') {
         props.eachRowInTable = defaultEachRowInTableTransfer;
     }
-    
-    /*************************************************************************************************************
-     *
-     * This will set up controlBreakInfo array, which contains whether the column in the table is hidden or is a
-     * control break
-     *
-     **************************************************************************************************************/
-    function populateDropDown (table, indexes) {
+
+    const userCtrlBreak = (table) => {
         let isUserCtrlBreak = false;
         if (hasOwnProperty(props, 'controlBreak') === true) {
             isUserCtrlBreak = true;
@@ -448,6 +442,18 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
             }
         }
+
+        return isUserCtrlBreak;
+    }
+    
+    /*************************************************************************************************************
+     *
+     * This will set up controlBreakInfo array, which contains whether the column in the table is hidden or is a
+     * control break
+     *
+     **************************************************************************************************************/
+    function populateDropDown (table, indexes) {
+        let isUserCtrlBreak = userCtrlBreak(table);
 
         if (hasOwnProperty(props, 'finaltotals') === true) {
             if (props.finaltotals.length !== table.length) {
@@ -2695,6 +2701,19 @@ const _InnerSearchSortTable = (propsPassed) => {
             sortAry.push ({ index: row, data: buildSortData(breakOrder, row) });
         });
 
+        let count = 0;
+        for (let i = 0; i < controlBreakInfo.length; i++) {
+            if (controlBreakInfo[i].ctrlBreak !== 0) {
+                count++;
+            }
+        }
+
+        let descending = false;
+        if (count === 1 && hasOwnProperty(props, 'controlOrder') === true &&
+            props.controlOrder.toUpperCase() === 'DESC') {
+                descending = true;
+        }
+
         // Sort the indexes based on the control break sort order
         sortAry.sort(function (item1, item2) {
             for (let i = 0; i < breakOrder.length; i++) {
@@ -2709,11 +2728,20 @@ const _InnerSearchSortTable = (propsPassed) => {
                     b = b.toUpperCase()
                 }
 
-                // Make the comparison
-                if (a < b) {
-                    return -1;
-                } else if (a > b) {
-                    return 1;
+                if (descending === true) {
+                    // Make the comparison
+                    if (a < b) {
+                        return 1;
+                    } else if (a > b) {
+                        return -11;
+                    }
+                } else {
+                    // Make the comparison
+                    if (a < b) {
+                        return -1;
+                    } else if (a > b) {
+                        return 1;
+                    }
                 }
             }
 
@@ -3554,9 +3582,13 @@ const _InnerSearchSortTable = (propsPassed) => {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
 
+        let isUserCtrlBreak = userCtrlBreak(table);
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
-            if (controlBreakInfo[i].hidden === false) {
+            if (isUserCtrlBreak === true && controlBreakInfo[i].hidden === true &&
+                controlBreakInfo[i].hidden === props.controlBreak[i].hidden) {
+                hiddenRender = <span></span>;
+            } else if (controlBreakInfo[i].hidden === false) {
                 hiddenRender =
                     <span className="sw-sst_showToolTip">
                         <button name="hidden" onClick={() => hideColumn(row, i)} className="sw-sst_dropDownButton" >🗏⊗</button>
@@ -3574,7 +3606,10 @@ const _InnerSearchSortTable = (propsPassed) => {
 
         let controlBreakRender = null;
         if (hasOwnProperty(props, 'nocontrolbreak') === false) {
-            if (controlBreakInfo[i].ctrlBreak === 0) {
+            if (isUserCtrlBreak === true && controlBreakInfo[i].ctrlBreak !== 0 &&
+                controlBreakInfo[i].ctrlBreak === props.controlBreak[i].ctrlBreak) {
+                controlBreakRender = <span></span>;
+            } else if (controlBreakInfo[i].ctrlBreak === 0) {
                 controlBreakRender =
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOn" onClick={() => controlBreakOn(row, i)} className="sw-sst_dropDownButton" >🗐</button>

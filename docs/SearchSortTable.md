@@ -1204,9 +1204,32 @@ An example in the search sort table component
   />
 ```
 
-7.  ***error*** = indicates that an error occurred.  This will disable all buttons in the Search Sort Table.
+7.  ***controlOrder*** = indicates the order in which a **single control break passed down to SearchSortTable** is to be sorted.  The values can be ASC, asc, DESC, or desc.  The ASC and asc stand for ascending order and the DESC and desc stand for descending order.  The default is asc.
 
-8. **finaltotals*** = is an array that allows final totals in a table to be displayed.  The final totals array should have the same number of elements as the table array and control break array.  The final totals will automatically calculate the final totals.  Each element is an object that finaltitle, finaltotal, money, and align fields.  The final totals can be calculated for tables with or without control breaks.  For example,
+An example using the controlBreak prop is:
+
+```jsx
+  let controlBreak = [
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: true,  ctrlBreak: 1 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 },
+  ];
+
+  <SearchSortTable
+    table={table}
+    data={data}
+    controlBreak={controlBreak}
+    controlOrder="DESC"
+    ...
+  />
+```
+
+8.  ***error*** = indicates that an error occurred.  This will disable all buttons in the Search Sort Table.
+
+9. **finaltotals*** = is an array that allows final totals in a table to be displayed.  The final totals array should have the same number of elements as the table array and control break array.  The final totals will automatically calculate the final totals.  Each element is an object that finaltitle, finaltotal, money, and align fields.  The final totals can be calculated for tables with or without control breaks.  For example,
 
 ```javascript
   const table = [
@@ -1280,10 +1303,10 @@ An example in the search sort table component for final totals.
   />
 ```
 
-9. **firstTD** = this is used in conjunction with the tableCD and indicates it should not do the standard transition for align: money, data, and decimal.  If any one of these has the word in the align, the transition will take place.  Therefore, moneybold will do the translation.  For money, the translation that occurs is that $, commas, and decimal points are placed in the number and the number is right justified.  For date, the date is will transform any date into the MM/DD/YYYY format.  For decimal, a number is also specified to determine the number of digits right of the decimal point there.  
+10. **firstTD** = this is used in conjunction with the tableCD and indicates it should not do the standard transition for align: money, data, and decimal.  If any one of these has the word in the align, the transition will take place.  Therefore, moneybold will do the translation.  For money, the translation that occurs is that $, commas, and decimal points are placed in the number and the number is right justified.  For date, the date is will transform any date into the MM/DD/YYYY format.  For decimal, a number is also specified to determine the number of digits right of the decimal point there.  
 
 Therefore, if firstTD is used as a prop, it will ignore the special formatting for money, date, and decimal.  This parameter should be used very sparingly and probably will be.
-10. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  There must be a footer for every column in the table.  Each array element represents one column in the table.  A sample footer might be:
+11. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  There must be a footer for every column in the table.  Each array element represents one column in the table.  A sample footer might be:
 ```javascript
     let footer = [
         'Totals',
@@ -1293,7 +1316,7 @@ Therefore, if firstTD is used as a prop, it will ignore the special formatting f
     ];
 ```
 
-11. **headersize** = the font size of each column header in the table.  The header size can be any valid value for a font-size.  An example:
+12. **headersize** = the font size of each column header in the table.  The header size can be any valid value for a font-size.  An example:
 
 ```javascript
   <SearchSortTable
@@ -1307,9 +1330,9 @@ Therefore, if firstTD is used as a prop, it will ignore the special formatting f
 
 The above example indicates that the header size should be x-large.
 
-12. **height** = the height of the scroll box only.  If the height is used it will automatically disable the ability to resize the table.
+13. **height** = the height of the scroll box only.  If the height is used it will automatically disable the ability to resize the table.
 
-13. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.
+14. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.  This is not needed if default or defaultTransfer for eachRowInTable is used.
 An example would be:
 ```javascript
 const [hideCol, setHideCol] = useState([]);
@@ -1321,16 +1344,16 @@ const hideTheCols = (value) => {
 <SearchSortTable hidden={hideTheCols}/>
 ```
 
-14. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
+15. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
 
-15. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
+16. **hoverColor** = is the color that is displayed when a row in the table is hovered over.  If a value is not given, it will default to cyan.  An example would be:
 ```javascript
 hoverColor="yellow"
 ```
 
-16. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
+17. **ignorecase** = indicates that the case will be ignored in the search item.  So it will match both upper case or lower case in the search.
 
-17. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  See other examples.
+18. **indexing** = is a function that returns the indexes into the current data being displayed.  This is used in eachRowInTable function where the user needs to actually access the actual data.  The user will need to add the indexing as a state variable.  This is not needed if default or defaultTransfer are used for eachRowInTable.  See other examples.
 
 An example would be:
 ```javascript
@@ -1343,7 +1366,7 @@ const indexing = (value) => {
 <SearchSortTable indexing={indexing} />
 ```
 
-18. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
+19. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
   - To use the letters option:
     1. Select a column header from the drop down menu.
     2. Select a letter or digit.
@@ -1353,52 +1376,52 @@ const indexing = (value) => {
     2. **nolower** = does not display the lower case letters
     3. **nodigit** = does not display the digits
 
-19. **mathdecimal** = the number of digits right of the decimal for an average or median aggregation
+20. **mathdecimal** = the number of digits right of the decimal for an average or median aggregation
 
-20. **mathignorecase** = ignore the case of the data for all the string aggregations.
+21. **mathignorecase** = ignore the case of the data for all the string aggregations.
 
-21. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
+22. **MAX_ITEMS** = the maximum number of rows that will be displayed in the table.  Default is 100.
 
-22. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
+23. **noaggregation** = indicates that the aggregation will not show up on the drop down on the column.
 
-23. **nobottom** = does not display the bottom button.
+24. **nobottom** = does not display the bottom button.
 
-24. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
+25. **nocontrolbreak** = indicates that the control break symbols will not show up on the drop down on the column.
 
-25. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
+26. **nocontsearch** = indicates that if the search button is pressed again, it will not find the next item that matches the search item.
 
-26. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
+27. **nodisplay** = this will not display what rows are being displayed or the total number of rows.
 
-27. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
+28. **noexcel** = does not display the Excel Build or Excel Display buttons.  This value can be supplied with a true or false value.
 
-28. **nofilter** = this will not display the Filter On check box and the filter button.  Can also set the value to true of false.
+29. **nofilter** = this will not display the Filter On check box and the filter button.  Can also set the value to true of false.
 
-29. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
+30. **nofooter** = this will not display the top, previous, next, bottom, what rows are being displayed,
 
-30. **nofooterborder** = do not put a border around each individual footer item.
+31. **nofooterborder** = do not put a border around each individual footer item.
 
-31. **noheaderborder** = do not put a border around each individual header item.
+32. **noheaderborder** = do not put a border around each individual header item.
 
-32. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
+33. **nohidden** = indicates that the hidden symbols will not show up on the drop down on the column.
 
-33. **nonext** = does not display the next button.
+34. **nonext** = does not display the next button.
 
-34. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
+35. **nopdf** = does not display the PDF button or the Orientation choice box.  This value can be supplied with a true or false value.
 
 
-35. **noprevious** = does not display the previous button.
+36. **noprevious** = does not display the previous button.
 
-36. **norows** = does not display how maximum number of rows or the choice box for changing it.
+37. **norows** = does not display how maximum number of rows or the choice box for changing it.
 
-37. **nosearch** = does not display the header drop down, text box, and Search button.
+38. **nosearch** = does not display the header drop down, text box, and Search button.
 
-38. **nosort** = does not allow the headers to be sorted.
+39. **nosort** = does not allow the headers to be sorted.
 
-39. **notop** = does not display the top button or the total number of rows.
+40. **notop** = does not display the top button or the total number of rows.
 
-40. **number** = the number to be assigned to each SearchSortTable.  The default is 0.
+41. **number** = the number to be assigned to each SearchSortTable.  If using default or defaultTransfer in eachRowInTable, then this should be used.  The default is 0.
 
-41. **pdfcard** = are two additional entries on the PDF Orientation drop down for PDF reports.  The two additional entries are with this prop are:
+42. **pdfcard** = are two additional entries on the PDF Orientation drop down for PDF reports.  The two additional entries are with this prop are:
   - Card = indicates that each row or entry in the table is displayed as a card format rather than a traditional table.  For example, consider the following table entries:
 
         Name            City          State
@@ -1417,21 +1440,21 @@ const indexing = (value) => {
 
   - Card per page = this is the same as Card, except that there is only one card per page.
 
-42. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
+43. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
 An example would be:
 ```javascript
 report="The PDF Report"
 ```
 
-43. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
+44. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
 
-44. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  
+45. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  
 
-45. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
+46. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
 
-46. **searchstart** = indicates that the search item will only match those data items that start with the search item
+47. **searchstart** = indicates that the search item will only match those data items that start with the search item
 
-47. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
+48. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
 
 ```javascript
   let sortTable = [...];
@@ -1450,7 +1473,7 @@ report="The PDF Report"
   />
 ```
 
-48. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
+49. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
 The function that is to be passed to it is the setTable function for the state variables.  Since the table has changed due to a changing of columns, the table in the parent must be changed to the new table also.  See the section on Dragging and Drop.  An example:
 
 ```javascript
@@ -1466,16 +1489,16 @@ The function that is to be passed to it is the setTable function for the state v
   />
 ```
 
-49. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+50. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
-50. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+51. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-51. **showtable** = this will show the table and headers even if there is no data to display.
+52. **showtable** = this will show the table and headers even if there is no data to display.
 
-52. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+53. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-53. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  See examples.
+54. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  This is not needed if default or defaultTransfer are used for eachRowInTable.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -1487,7 +1510,7 @@ const startEnd = (start, end) => {
 <SearchSortTable startEnd={startEnd} />
 ```
 
-54. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+55. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -1498,7 +1521,7 @@ const startingPosition = (value) => {
 
 <SearchSortTable startingPos={startingPosition} />
 ```
-55. **tableTD** = this allows a column in the table to be specified the way the user wants.  For
+56. **tableTD** = this allows a column in the table to be specified the way the user wants.  For
 example, a button, link, etc.  The tableTD is a function that is called to specify how a column is to be formatted.  The format for the functions is as follows:
 
 ```js
@@ -1529,11 +1552,11 @@ There needs to be an else clause, since this function returns a value.  The stan
 
 If in the table prop, there is an align of date, money, or decimal it will over ride what is in the setColumn function.  If this is not desired, place the firstTD prop in as a prop.
 
-56. **title** = supplies a title to be displayed centered at the top of the table.
+57. **title** = supplies a title to be displayed centered at the top of the table.
 
-57. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+58. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-58. **transfer** = this is function that trqansfers the data when the ures presses a row in the table.  When a row is pressed, this function is called and transfers the data in the row to the transfer function.  The transfer function accepts the parameter data that contains the data for the row as an object based on the name in the table prop.  The format for the transfer function is:
+59. **transfer** = this is function that trqansfers the data when the ures presses a row in the table.  When a row is pressed, this function is called and transfers the data in the row to the transfer function.  The transfer function accepts the parameter data that contains the data for the row as an object based on the name in the table prop.  The format for the transfer function is:
 
 ```js
   const transferData = (data) => {
@@ -1549,7 +1572,7 @@ data is an object that contains all the data in a row of the SearchSortTable
 
 This is used in conjunction with eachRowInTable="defaultTransfer" prop and the hover prop. 
 
-59. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
+60. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
 
 
 ## CSS Files
