@@ -1,30 +1,15 @@
-# Build Systems #
-.cache
-node_modules
-bin
 
-# Packages #
-################################################################################
-*.7z
-*.dmg
-*.zip
-*.rar
-*.iso
+# cSpell:ignore esbuild
 
+node_modules/
 
-# OS generated files #
-################################################################################
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Thumbs.db
-token
-example/dist/*
 coverage
 
 simple-widgets-*.tgz
 wipe-modules.sh
-lib
 package-lock.json
+
+# where we build things
+lib/
+esbuild-lib/

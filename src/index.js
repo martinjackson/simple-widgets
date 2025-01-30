@@ -1,4 +1,6 @@
 
+import './index.css'
+
 import { AlertModal } from './AlertModal.js'
 import AppCore from './AppCore.js'
 import { CheckBox } from './CheckBox.js'

@@ -4,9 +4,8 @@
 
 const { build } = require('esbuild')
 const inlineImage = require("esbuild-plugin-inline-image")
-// const { externalGlobalPlugin } = require("esbuild-plugin-external-global");
 
-const { dependencies, peerDependencies } = require('./package.json')
+const { peerDependencies } = require('./package.json')
 
 /*
     externalGlobalPlugin({
@@ -19,9 +18,9 @@ const { dependencies, peerDependencies } = require('./package.json')
 */
 
 const peerDeps = Object.keys(peerDependencies)
-console.log('peerDeps:', peerDeps)
+console.log('const peerDeps =', JSON.stringify(peerDeps))
 
-const shared = {
+build({
   entryPoints: ['src/index.js'],
   bundle: true,
   sourcemap: true,
@@ -32,28 +31,10 @@ const shared = {
     inlineImage(),
   ],
   external: peerDeps,
-}
 
-build({
-  ...shared,
-  outfile: 'lib/index.js',
-  format: "cjs",
+  outfile: 'esbuild-lib/index.js',
+  format: "cjs",                      //
 })
 
-/*
-build({
-  ...shared,
-  outfile: 'lib/index.mjs',
-  format: 'esm',
-})
-*/
-
-/*
-const { Generator } = require('npm-dts')
-
-new Generator({
-  entry: 'src/index.ts',
-  output: 'lib/index.d.ts',
-}).generate()
-
-*/
+// https://esbuild.github.io/api/#format
+// esm, cjs, iife (immediately-invoked function expression aka. browser)
