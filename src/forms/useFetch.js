@@ -1,3 +1,6 @@
+
+// cSpell:ignore Connor itsbridgeschool
+
 // possibly replace the use of this source file with
 //    https://use-http.com/#/?id=examples-videos
 //                 useFetch
@@ -14,7 +17,7 @@
 
 import { useState, useEffect } from "react";
 
-function useFetch(url) {
+export function useFetch(url) {
   const [data, setData] = useState([]);
 
   async function fetchUrl(url) {
@@ -36,5 +39,3 @@ function useFetch(url) {
 
   return [data];
 }
-
-export default useFetch;

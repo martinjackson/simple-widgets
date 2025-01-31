@@ -22,7 +22,7 @@ function onInputFocus(event) {
 */
 
 // --------------------------------------------------------------------------------------------------------------------
-const ControlledInput = (props) => {
+export const ControlledInput = (props) => {
    const { value, onChange, ...rest } = props
    const [cursor, setCursor] = useState(null)
    const ref = useRef(null)
@@ -44,8 +44,6 @@ const ControlledInput = (props) => {
 
    return <input ref={ref} value={value} onChange={handleChange} {...rest} />
 }
-
-export default ControlledInput
 
 // answered Aug 25, 2021 at 18:39
 // [Daniel Loiterton's user avatar](https://i.stack.imgur.com/8dtHP.jpg?s=64&g=1)

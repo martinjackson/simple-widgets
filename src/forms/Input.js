@@ -5,7 +5,7 @@ import React from "react";
 
 import ControlledInput from "./ControlledInput.js"      // drop in replacement for <input  but preserves cursor position
 
-const Input = (props) => {
+export const Input = (props) => {
 
     // optional:     maxLength, size,  maxLength={maxLength},  size={size}
 
@@ -37,4 +37,3 @@ const Input = (props) => {
   );
 };
 
-export default Input;

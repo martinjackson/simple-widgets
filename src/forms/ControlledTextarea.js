@@ -9,7 +9,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 // --------------------------------------------------------------------------------------------------------------------
-const ControlledTextarea = (props) => {
+export const ControlledTextarea = (props) => {
    const { value, onChange, ...rest } = props
    const [cursor, setCursor] = useState(null)
    const ref = useRef(null)
@@ -26,8 +26,6 @@ const ControlledTextarea = (props) => {
 
    return <textarea ref={ref} value={value} onChange={handleChange} {...rest} />
 }
-
-export default ControlledTextarea
 
 // answered Aug 25, 2021 at 18:39
 // [Daniel Loiterton's user avatar](https://i.stack.imgur.com/8dtHP.jpg?s=64&g=1)

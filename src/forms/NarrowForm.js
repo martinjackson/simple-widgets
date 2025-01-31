@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Form } from "./Form.js"
 
-const NarrowForm = props => {
+export const NarrowForm = props => {
   const [formData, setFormData] = useState({});
 
   const onSubmit = e => {
@@ -25,4 +25,3 @@ const NarrowForm = props => {
   )
 }
 
-export default NarrowForm;

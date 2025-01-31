@@ -6,7 +6,7 @@ import green from './green-check-circle.svg'
 import gray from './gray-circle.svg'
 import grayLine from './gray-line4.svg'
 
-const ProgressCircles = (props) => {
+export const ProgressCircles = (props) => {
     const [position, setPosition] = useState(0)
     const [table, setTable] = useState([...props.table])
     const [disablePrevious, setDisablePrevious] = useState(true)
@@ -160,6 +160,4 @@ const ProgressCircles = (props) => {
         </div>
     )
 }
-
-export default ProgressCircles
 

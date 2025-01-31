@@ -20,7 +20,7 @@ const extractSessionParts = (sessionInfo) => {
 
 
 // ----------------------------------------------------------------------------------------------
-const AppCore = (props) => {
+export const AppCore = (props) => {
 
   const getMenu = props.getMenu
 
@@ -150,6 +150,5 @@ const AppCore = (props) => {
 
   // MenuBar is passed checkIn={checkIn} because other screens like About might needs props.checkIn() to refresh Header when displayed info has changed
 
-export default AppCore
 
 

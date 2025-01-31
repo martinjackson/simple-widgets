@@ -1,25 +1,24 @@
 
-const fs = require('fs');
+const fs = require('node:fs');
 
 const files = fs.readdirSync('.')
               .filter(fn => fn.endsWith('.js'))
               .filter(fn => fn !== 'gen_imports.js')
               .filter(fn => fn !== 'index.js')
 
-const ans = files.map( fname => {
-  const names = fs.readFileSync(fname,{ encoding : 'utf8' })
-      .split('\n')
-      .filter( line => line.includes('export '))
-      .filter( line => !line.includes('export default'))
-      .map(line => line.split(' ')[2])  // get 3rd word
+console.log(`
 
-  return { fname, names:names.sort().join(', ') }
-})
-   .filter(f => f.names.length>0)
-   .map( info => [
-     `import { ${info.names} } from './${info.fname}' `,
-     `export { ${info.names} }`
-   ])
+  // cSpell:ignore Funct
 
-ans.flat().forEach(f => console.log(f))
+  import './index.css'
 
+  // export * from "module-name"
+
+`)
+
+
+files.forEach(name => {
+  // export * from "module-name";
+  console.log(`export * from "${name}"`)
+
+});
