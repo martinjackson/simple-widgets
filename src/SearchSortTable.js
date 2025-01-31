@@ -5,6 +5,9 @@
 // cSpell:ignore noheaderborder  nofooterborder notop noprevious nonext nobottom checkedsymbol nosearch throught Offical nofooter norows nodisplay cbtitles
 // cSpell:ignore cbhead sfbottom showtable backgrd DDTHH nosort comparision paginantion cbtable cbrow cbfoot blenk startingpos contorl wiht condsidering inorder
 // cSpell:ignore nohidden nocontrolbreak searchstart nocontsearch represents mathfooter inidicates noaggregation
+// cSpell:ignore leftbold centerbold rightbold numberbold moneyleft moneyleftbold moneycenterbold moneycenter moneybold datetimeleft datetimeleftbold datetimebold
+// cSpell:ignore datetimeright datetimerightbold dateleft dateleftbold dateright datebold daterightbold pdfcard finaltotals dont tblank disgarded
+// cSpell:ignore headersize finaltitle finaltotal sumtitle rowft cbtitlealignsize scolon cbtitleformat
 
 import React, { Fragment, useState, useEffect } from 'react';
 import { css } from "@emotion/react";
@@ -28,7 +31,8 @@ import '../src/sw-table.css';
 
 import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
     processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
-    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty
+    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
+    dateTime
 }
 from './index.js';
 // from 'simple-widgets';
@@ -116,7 +120,7 @@ export function getAlignment (align, isPDF = false) {
         case 'datetimeleftbold':    return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
         case 'datetime':            return (isPDF === true) ? 'cellCenter'      : 'sw-sst_center';
         case 'datetimebold':        return (isPDF === true) ? 'cellCenterBold'  : 'sw-sst_center_bold';
-        case 'datertimeight':       return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
+        case 'datetimeright':       return (isPDF === true) ? 'cellRight'       : 'sw-sst_right';
         case 'datetimerightbold':   return (isPDF === true) ? 'cellRightBold'   : 'sw-sst_right_bold';
         case 'dateleft':            return (isPDF === true) ? 'cellLeft'        : 'sw-sst_left';
         case 'dateleftbold':        return (isPDF === true) ? 'cellLeftBold'    : 'sw-sst_left_bold';
@@ -142,7 +146,7 @@ export function getAlignment (align, isPDF = false) {
 export const SearchSortTable = (propsPassed) => {
     const hiddenLookupColumns = (propsPassed.hiddenLookupColumns) ? propsPassed.hiddenLookupColumns : []
 
-    // Set the number of the SearchSort table to the value in the props for numbe
+    // Set the number of the SearchSort table to the value in the props for number
     let number = 0;
     if (hasOwnProperty(propsPassed, 'number') === true) {
         number = propsPassed.number;
@@ -158,7 +162,7 @@ export const SearchSortTable = (propsPassed) => {
 
             let tableKey = `cols_${number}_${i}}`;
 
-            cols = keys.map( (idx, j) => ( <td hidden={hideCols[idx]} key={tableKey}>{row[idx]}</td> ) )
+            cols = keys.map( (idx) => ( <td hidden={hideCols[idx]} key={tableKey}>{row[idx]}</td> ) )
         }
 
         const odd = (i % 2) ? 'sw-sst_oddRow' : 'sw-sst_evenRow'
@@ -340,7 +344,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     const [excelData, setExcelData] = useState([]);                     // Contains the data to be placed in the excel spreadsheet
     const [showExcel, setShowExcel] = useState(false);                  // Indicates whether the Excel Display button can be displayed or not
     const [checked, setChecked] = useState('N');                        // Indicates whether the checkbox in the header is checked (Y) or not
-    const [dragOver, setDragOver] = useState('');                       // TODO: dragOver is never used, change to _dragOver if intentionally needed
+    const [_dragOver, setDragOver] = useState('');                       // TODO: dragOver is never used, change to _dragOver if intentionally needed
     const [userFooter, setUserFooter] = useState(localUserFooter);      // Contains the users footer that is passed down through the footer prop
     const [originalTable] = useState(props.table);                      // Contains the original table before any dragging took place
     const [finalTotals, setFinalTotals] = useState([]);                 // Contains the final totals for certain fields in the table
@@ -666,7 +670,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     console.log ('startIndexes :', startIndexes);
 */
 
-    // Set the number of the SearchSort table to the value in the props for numbe
+    // Set the number of the SearchSort table to the value in the props for number
     let number = 0;
     if (hasOwnProperty(props, 'number') === true) {
         number = props.number;
@@ -1045,7 +1049,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             let text = [];              // The text for the footers
             for (let i = 0; i < footers.length; i++) {
                 if (footers[i].length > 0) {
-                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                    const [align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                     let value = ''; // Build the footer
                     for (let j = 0; j < footers[i].length; j++) {
                         value += footers[i][j] + '\n';
@@ -1066,7 +1070,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             foundFooter = false;
             for (let i = 0; i < userFooter.length; i++) {
                 if (controlBreakInfo[i].hidden === false) {
-                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                    const [align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                     text.push({ text: userFooter[i], style: align })
                     foundFooter = true;
                 }
@@ -1081,7 +1085,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             foundFooter = false;
             for (let i = 0; i < finalTotals.length; i++) {
                 if (controlBreakInfo[i].hidden === false) {
-                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                    const [align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                     text.push({ text: finalTotals[i], style: align})
                     foundFooter = true;
                 }
@@ -1191,7 +1195,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     if (controlBreakInfo[j].hidden === false) {
                         text.push({text: table[j].header, style: PDF_TABLE_HEAD });
 
-                        const [align, originalAlign] = determineAlignment(j, REGULAR_ALIGN, true);
+                        const [_align, originalAlign] = determineAlignment(j, REGULAR_ALIGN, true);
                         // Determine the format of the cell
                         if (originalAlign.indexOf('money') !== -1) {
                             text.push({ text: formatMoney(props.data[indexes[i]][table[j].name]), style: PDF_TABLE_VALUE });
@@ -1228,7 +1232,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 if (controlBreakInfo[i].hidden === false) {
                     text.push({text: table[i].header, style: PDF_TABLE_HEAD });
 
-                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                    const [_align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                     text.push({ text: userFooter[i], style: PDF_TABLE_VALUE })
                     docDefinition.content[index].columns[1].table.body.push(text);
                 }
@@ -1256,7 +1260,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 if (controlBreakInfo[i].hidden === false) {
                     text.push({text: table[i].header, style: PDF_TABLE_HEAD });
 
-                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                    const [_align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                     text.push({ text: finalTotals[i], style: PDF_TABLE_VALUE})
                     docDefinition.content[index].columns[1].table.body.push(text);
                 }
@@ -1289,9 +1293,9 @@ const _InnerSearchSortTable = (propsPassed) => {
      * if there are any alignments at the table level.  If there use that alignment; otherwise, use the
      * default of center.  If there are any control break alignments for a column.  If there are use that
      * alignment and disregard the previous one for that column.  If there are any final totals alignments
-     * for that column.  If there are use that aligment and disregard the previous one for that column.  If
+     * for that column.  If there are use that alignment and disregard the previous one for that column.  If
      * there are any PDF alignments for a column.  If there are any PDF alignments for that column.  If
-     * there are use that aligment and disregard the previous one for that column.
+     * there are use that alignment and disregard the previous one for that column.
      *
      * Parameters:
      * 1.   index = the index of the column in either the table, control break, final totals, and
@@ -1505,7 +1509,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     docDefinition.content[index].columns[1].table.body.push(text);
                 }
 
-                // Print out the aggregrate values and the totals for each control break
+                // Print out the aggregate values and the totals for each control break
                 let foundFooter = false;    // Indicates that a footer was found, so place it in the PDF
                 let text = [];              // The value for a footer in a column in the table
                 for (let i = 0; i < controlBreakData[k].footer.length; i++) {
@@ -1516,7 +1520,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         }
 
                         if (controlBreakInfo[i].hidden === false) {
-                            const [align, originalAlign] = determineAlignment (i, CONTROL_BREAK_ALIGN, true);
+                            const [align, _originalAlign] = determineAlignment (i, CONTROL_BREAK_ALIGN, true);
                             text.push({ text: value, style: align });
                             foundFooter = true;
                         }
@@ -1576,7 +1580,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 let foundFooter = false;
                 for (let i = 0; i < finalTotals.length; i++) {
                     if (controlBreakInfo[i].hidden === false) {
-                        const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                        const [align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                         text.push({ text: finalTotals[i], style: align })
                         foundFooter = true;
                     }
@@ -1592,7 +1596,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 let text = [];
                 for (let i = 0; i < userFooter.length; i++) {
                     if (controlBreakInfo[i].hidden === false) {
-                        const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                        const [align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                         text.push({ text: userFooter[i], style: align })
                         foundFooter = true;
                     }
@@ -1723,7 +1727,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                             let text = [];  // The text for each cell
                             text.push({text: table[j].header, style: PDF_TABLE_HEAD });
 
-                            const [align, originalAlign] = determineAlignment(j, REGULAR_ALIGN, true);
+                            const [_align, originalAlign] = determineAlignment(j, REGULAR_ALIGN, true);
                             if (originalAlign.indexOf('date') !== -1 ||
                                 hasOwnProperty(table[j], 'dataDate') === true ||
                                 hasOwnProperty(table[j], 'filterDate') === true ||
@@ -1753,7 +1757,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     }
                 }
 
-                // Print out the aggregrate values and the totals for each control break
+                // Print out the aggregate values and the totals for each control break
                 for (let i = 0; i < controlBreakData[k].footer.length; i++) {
                     let text = [];              // The value for a footer in a column in the table
                     if (controlBreakData[k].footer[i].length > 0) { // There is a footer
@@ -1765,7 +1769,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         if (controlBreakInfo[i].hidden === false) {
                             text.push({text: table[i].header, style: PDF_TABLE_HEAD });
 
-                            const [align, originalAlign] = determineAlignment (i, CONTROL_BREAK_ALIGN, true);
+                            const [_align, _originalAlign] = determineAlignment (i, CONTROL_BREAK_ALIGN, true);
                             text.push({ text: value, style: PDF_TABLE_VALUE });
                             docDefinition.content[index].columns[1].table.body.push(text);
                         }
@@ -1814,7 +1818,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     if (controlBreakInfo[i].hidden === false) {
                         text.push({text: table[i].header, style: PDF_TABLE_HEAD });
 
-                        const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                        const [_align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                         text.push({ text: finalTotals[i], style: PDF_TABLE_VALUE })
                         docDefinition.content[index].columns[1].table.body.push(text);
                     }
@@ -1822,13 +1826,13 @@ const _InnerSearchSortTable = (propsPassed) => {
             }
 
             if (hasOwnProperty(props, 'footer') === true) {
-                let foundFooter = false;
+                let _foundFooter = false;
                 for (let i = 0; i < userFooter.length; i++) {
                     let text = [];
                     if (controlBreakInfo[i].hidden === false) {
                         text.push({text: table[i].header, style: PDF_TABLE_HEAD });
 
-                        const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
+                        const [_align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, true);
                         text.push({ text: userFooter[i], style: PDF_TABLE_VALUE })
                         docDefinition.content[index].columns[1].table.body.push(text);
                     }
@@ -2186,10 +2190,10 @@ const _InnerSearchSortTable = (propsPassed) => {
         if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure final totals are wanted
             if (controlBreakInfo !== undefined && controlBreakInfo.length !== 0 &&
                 controlBreakInfo[i].hidden === true) {
-                    const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, false);
+                    const [_align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, false);
                     return ( <td key={key} className={footerStyle} hidden></td> );
             } else {
-                const [align, originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, false);
+                const [align, _originalAlign] = determineAlignment(i, FINAL_TOTALS_ALIGN, false);
                 return ( <td key={key} className={footerStyle + ' ' + align}>{row}</td> );
             }
         }
@@ -2970,15 +2974,15 @@ const _InnerSearchSortTable = (propsPassed) => {
      *
      ******************************************************************************************************************/
     function processTitle(k, info) {
-        let seperator1 = '';
-        let seperator2 = ';';
+        let separator1 = '';
+        let separator2 = ';';
         if (hasOwnProperty(props, 'cbtitleformat') === true) {
             if (props.cbtitleformat.indexOf('~') === -1) {
-                seperator1 = processTitleFormat(props.cbtitleformat);
+                separator1 = processTitleFormat(props.cbtitleformat);
             } else {
-                let seperators = props.cbtitleformat.split('~');
-                seperator1 = processTitleFormat(seperators[0]);
-                seperator2 = processTitleFormat(seperators[1]);
+                let separators = props.cbtitleformat.split('~');
+                separator1 = processTitleFormat(separators[0]);
+                separator2 = processTitleFormat(separators[1]);
             }
         }
 
@@ -2988,9 +2992,9 @@ const _InnerSearchSortTable = (propsPassed) => {
                 hasOwnProperty(table[info.srtOrder[i].col], 'filterDate') === true ||
                 hasOwnProperty(table[info.srtOrder[i].col], 'searchDate') === true ||
                 hasOwnProperty(table[info.srtOrder[i].col], 'sortDate') === true) {
-                    title += `${table[info.srtOrder[i].col].header}${seperator1} ${convertDate(props.data[info.indexes[k]][table[info.srtOrder[i].col].name])}${seperator2} `
+                    title += `${table[info.srtOrder[i].col].header}${separator1} ${convertDate(props.data[info.indexes[k]][table[info.srtOrder[i].col].name])}${separator2} `
             } else {
-                title += `${table[info.srtOrder[i].col].header}${seperator1} ${props.data[info.indexes[k]][table[info.srtOrder[i].col].name]}${seperator2} `
+                title += `${table[info.srtOrder[i].col].header}${separator1} ${props.data[info.indexes[k]][table[info.srtOrder[i].col].name]}${separator2} `
             }
         }
 
@@ -3908,7 +3912,7 @@ const _InnerSearchSortTable = (propsPassed) => {
      *
      * This will place a line in the last row of the table, which can be used for totals of each column.
      *
-     * @param {*} row   represnts the value to place in each column of the table
+     * @param {*} row   represents the value to place in each column of the table
      * @param {*} i     index into the mapped array
      *
      *****************************************************************************************************/
@@ -3955,7 +3959,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         if (ctrlBreakInfo !== undefined) {
-            const [align, originalAlign] = determineAlignment(i, CONTROL_BREAK_ALIGN, false);
+            const [align, _originalAlign] = determineAlignment(i, CONTROL_BREAK_ALIGN, false);
             let newAlign = align;
             if (hasOwnProperty(table[i], 'dropDown') === true &&
                 table[i].dropDown === true &&
@@ -4628,10 +4632,10 @@ const _InnerSearchSortTable = (propsPassed) => {
      *********************************************************************************************************/
     function storeFinalFooters(total) {
         if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure there is the finaltotals prop
-            let isFooter = false;
+            let _isFooter = false;
             let finalTotal = new Array(finalTotalsInfo.length).fill('');    // Array that contains the final totals
             for (let j = 0; j < finalTotalsInfo.length; j++) {  // Spin through the final totals
-                const [align, originalAlign] = determineAlignment(j, FINAL_TOTALS_ALIGN, false);
+                const [_align, originalAlign] = determineAlignment(j, FINAL_TOTALS_ALIGN, false);
                 if (hasOwnProperty(finalTotalsInfo[j], 'finaltitle') === true &&    // Title and total go together
                     hasOwnProperty(finalTotalsInfo[j], 'finaltotal') === true &&
                     finalTotalsInfo[j].finaltotal === true) {   // There is a final total for this column
@@ -4640,11 +4644,11 @@ const _InnerSearchSortTable = (propsPassed) => {
                         } else {    // Final total is not a money format
                             finalTotal[j] = `${finalTotalsInfo[j].finaltitle}: ${total[j]}`;
                         }
-                        isFooter = true;
+                        _isFooter = true;
                 } else if (hasOwnProperty(finalTotalsInfo[j], 'finaltitle') === true &&     // The title and total
                             hasOwnProperty(finalTotalsInfo[j], 'finaltotal') === false) {   // do not go together
                     finalTotal[j] = `${finalTotalsInfo[j].finaltitle}`;
-                    isFooter = true;
+                    _isFooter = true;
                 } else if (hasOwnProperty(finalTotalsInfo[j], 'finaltotal') === true && // Final total is by itself
                           finalTotalsInfo[j].finaltotal === true) {
                     if (originalAlign.indexOf('money') !== -1) {    // Final total should be in a money format
@@ -4652,7 +4656,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                     } else {    // Final total is not in a money format
                         finalTotal[j] = `${total[j]}`;
                     }
-                    isFooter = true;
+                    _isFooter = true;
                 }
             }
 
@@ -4668,10 +4672,10 @@ const _InnerSearchSortTable = (propsPassed) => {
      *
      *********************************************************************************************************/
     function buildFinalFooters() {
-        if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure final totals are wnated
+        if (hasOwnProperty(props, 'finaltotals') === true) {    // Make sure final totals are wanted
             let total = new Array(table.length).fill(0);    // Array that contains the final totals
             for (let j = 0; j < finalTotalsInfo.length; j++) {    // Spin through the final totals to
-                let totaling = false;                               // determing which fields have final totals and titlse
+                let totaling = false;                               // determine which fields have final totals and titles
                 if (hasOwnProperty(props, 'finaltotals') === true &&    // Make sure this column is to be
                     finalTotalsInfo[j].finaltotal === true) {         // totaled
                     totaling = true;
@@ -4726,7 +4730,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
                 // Check to see if the column is hidden
                 if (ctrlBreakInfo[j].hidden === false) {    // Column is not hidden
-                    const [align, originalAlign] = determineAlignment(j, CONTROL_BREAK_ALIGN, false);
+                    const [_align, originalAlign] = determineAlignment(j, CONTROL_BREAK_ALIGN, false);
                     if (originalAlign.indexOf('money') !== -1 && summing === true) {    // The column contains money, so format for money
                             if (hasOwnProperty(ctrlBreakInfo[j], 'sumtitle') === true) {    // Column should have a title and sum
                                 ctrlBreakData[i].footer[j].push(`${ctrlBreakInfo[j].sumtitle} ${formatMoney(sum[j])}`);  // Place the sum into the footer

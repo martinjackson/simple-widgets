@@ -22,7 +22,7 @@ export const DoubleListBox = props => {
     const propChoices     = (props.choices === null || props.choices.length === 0) ? [] : [...props.choices]
 
     const propLeftValues = propChoices.filter(item => propValues.find(r => r === item))
-    const [choices, setChoices] = useState(propChoices);   // Items for the left list box via the props
+    const [_choices, setChoices] = useState(propChoices);   // Items for the left list box via the props
     const [leftValues, setLeftValues] = useState(propLeftValues);    // Items for the left list box
     const [rightValues, setRightValues] = useState(propRightValues); // Items for the right list box
     const [leftSelections, setLeftSelections] = useState([]);       // Items selected by the user in the left list
@@ -87,7 +87,7 @@ export const DoubleListBox = props => {
             compName = props.name;
         }
 
-        // dont modify 'e', a Synthetic Event
+        // don't modify 'e', a Synthetic Event
         props.onChange({target: {name: compName, value: right}});
     }
 
@@ -462,7 +462,7 @@ export const DoubleListBox = props => {
     }
 
 
-    // Returns true if the num is a postive integer
+    // Returns true if the num is a positive integer
     const isPosInt = (num) => {
         return /^\d*$/.test(num);
     }
