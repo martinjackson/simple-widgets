@@ -1,9 +1,6 @@
 import React from "react";
 
-// import classes from "./Input.module.css";
-//         className={classes.input}
-
-import ControlledInput from "./ControlledInput.js"      // drop in replacement for <input  but preserves cursor position
+import { ControlledInput } from './index.js'      // drop in replacement for <input  but preserves cursor position
 
 export const Input = (props) => {
 

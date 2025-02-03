@@ -1,4 +1,4 @@
-import { hasOwnProperty } from './hasOwnProperty.js'
+import { hasOwnProperty } from './index.js'
 
 /*********************************************************************
  *

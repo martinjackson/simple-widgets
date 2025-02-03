@@ -1,13 +1,9 @@
 
 import React, {useState} from 'react'
 
-import { FormFields, getGqlNameFromForm } from './FormFields.js'
-import { arrLen } from './arrLen.js'
-
 import './Form.css'
-import { FormHeader } from './FormHeader.js'
-import { onFormChange } from './onFormChange.js'
-import { prop2str } from "./prop2str"
+
+import { FormFields, getGqlNameFromForm, arrLen, FormHeader, onFormChange, prop2str } from './index.js'
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const Form = (props) => {

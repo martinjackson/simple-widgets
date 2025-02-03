@@ -1,4 +1,6 @@
 
+// cSpell:ignore Loiterton
+
 // Take from:
 //        https://stackoverflow.com/questions/46000544/react-controlled-input-cursor-jumps/68928267#68928267
 

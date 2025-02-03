@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-import { SearchSortTable } from './SearchSortTable.js'
+import { SearchSortTable } from './index.js'
 
 // ---------------------------------------------------------------------------------------------------------------
 export const SimpleTable = (props) => {

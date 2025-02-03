@@ -1,8 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-import { hasOwnProperty } from './hasOwnProperty.js';
-import { List } from './List.js';
+import { hasOwnProperty, List } from './index.js'
 
 /******************************************************************************************
  *

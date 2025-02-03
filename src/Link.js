@@ -1,6 +1,8 @@
-import React from 'react';
-import { dTS } from './time.js';
-import { setMenuParms, setMenuPath } from './MenuBar';
+
+// cSpell:ignore Parms Funct
+
+import React from 'react'
+import { dTS, setMenuParms, setMenuPath } from './index.js'
 
 // ----------------------------------------------------------------------------------
 

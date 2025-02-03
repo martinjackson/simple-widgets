@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-import { hasOwnProperty } from './hasOwnProperty.js'
-import { Link } from './Link.js'
+import { hasOwnProperty, Link } from './index.js'
 
 export const Outline = (props) => {
     const outlineRef = useRef();
@@ -18,7 +17,7 @@ export const Outline = (props) => {
     function reportWindowSize() {
         setOutlineHeight(window.innerHeight - outlineRef.current.offsetTop - 5)
     }
-      
+
     if (hasOwnProperty(props, 'scroll') === true) {
         window.onresize = reportWindowSize;
     }

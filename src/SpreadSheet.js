@@ -1,24 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { CheckBox }        from './CheckBox.js';
-import { Choice }          from './Choice.js';
-import { SearchSortTable } from './SearchSortTable.js';
-import { ChoiceText }      from './ChoiceText.js';
-import { Radio }           from './Radio.js';
+import { CheckBox, Choice, SearchSortTable, ChoiceText, Radio,
+  setInvalidTable, generateInvalid, checkValidityTable, validCheckTable, clearInvalidTable,
+  processInvalidStyleTable, wasClickedTable, ConfirmModal, generateCSSButton, sanitize, hasOwnProperty
+} from './index.js';
 
-// import { isInvalid,
-import { setInvalidTable, generateInvalid,
-         checkValidityTable, validCheckTable,
-         clearInvalidTable,
-         processInvalidStyleTable, wasClickedTable} from './Invalid.js'
-
-import { ConfirmModal }  from './ConfirmModal.js';
-
-import { generateCSSButton } from './Theme.js';
-import { sanitize } from './Common.js';
-
-import { hasOwnProperty } from './hasOwnProperty.js';
 
 let functYes = null;
 

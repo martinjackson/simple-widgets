@@ -1,9 +1,6 @@
 
-// import gql from 'graphql-tag';
 
-import { fetchLookupData } from './lookupUtil.js'
-
-
+import { fetchLookupData } from './index.js'
 
 // ------------------------------------------------------------------------
 export function genEmptyRecord(typeName, children=false, whereTraveled=[]) {

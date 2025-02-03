@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { hasOwnProperty } from './hasOwnProperty.js'
+import { hasOwnProperty } from './index.js'
 
 export const Slider = (props) => {
     const min = (hasOwnProperty(props, 'start')) ? props.start : 0

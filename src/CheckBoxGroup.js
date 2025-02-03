@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { CheckBox } from './CheckBox.js'
+import { CheckBox } from './index.js'
 
 export const CheckBoxGroup = ({
   choices,

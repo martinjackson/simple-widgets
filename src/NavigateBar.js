@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from './Link.js'
-
-import { hasOwnProperty } from './hasOwnProperty.js'
+import { Link, hasOwnProperty } from './index.js'
 
 
 let dropDown = [];

@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 
-import { hasOwnProperty } from './hasOwnProperty.js';
+import { hasOwnProperty } from './index.js';
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------
 const isValueInOpt = (opt, value) => {
   const matches = opt.filter(element => element == value)
-  return (matches.length > 0)  
+  return (matches.length > 0)
 }
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,9 +14,9 @@ export const Choice = (props) => {
     // console.log('>>> Choice(', props, ')')
 
     const siz = (hasOwnProperty(props, 'size') === true) ? parseInt(props.size) : 10;
-    const opt = (hasOwnProperty(props, 'list') === true) ? props.list : 
+    const opt = (hasOwnProperty(props, 'list') === true) ? props.list :
                 (hasOwnProperty(props, 'choices') === true) ? props.choices : [];
-    
+
     const isKeyed = ( !Array.isArray(opt) )
     const keys = (isKeyed) ? Object.keys(opt) : opt
 

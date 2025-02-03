@@ -2,8 +2,6 @@
 import React, {useState, useEffect } from 'react'
 
 import { MenuBar, dTS, Header, getUrlPath }   from './index.js'
-// import { printStackTrace } from './index.js'
-
 
 // ----------------------------------------------------------------------------------------------
 const extractSessionParts = (sessionInfo) => {
@@ -17,7 +15,6 @@ const extractSessionParts = (sessionInfo) => {
 
     return {username, dbDisplay, dbReadOnly, role, roleNum, userId}
 }
-
 
 // ----------------------------------------------------------------------------------------------
 export const AppCore = (props) => {

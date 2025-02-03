@@ -1,9 +1,7 @@
 import React from 'react';
 
-// import { date2str } from "simple-widgets";
-import { date2str } from "./date2str"
-
-import Input from './forms/Input'
+import { date2str } from './index.js'
+import {Input}      from './forms/index.js'
 
 //--------------------------------------------------------------------------------
 export const DateInput = (props) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { hasOwnProperty } from './hasOwnProperty.js'
+import { hasOwnProperty } from './index.js'
 
   /*
     ☐  U+2610 &#9744;  Ballot Box

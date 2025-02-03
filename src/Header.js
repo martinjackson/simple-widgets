@@ -1,3 +1,6 @@
+
+// cSpell:ignore Parms Funct
+
 import React, { useState } from 'react';
 import { AlertModal, HeaderModal } from './index.js'
 

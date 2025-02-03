@@ -1,9 +1,9 @@
+
+// cSpell:ignore Parms subsymbol
+
 import React, { useState } from 'react';
 
-import { NavigateBar }   from './NavigateBar';
-import { deleteCssRule } from './cssRulesFunct';
-
-import { hasOwnProperty } from './hasOwnProperty.js'
+import { NavigateBar, deleteCssRule, hasOwnProperty } from './index.js'
 
 export let setMenuPath = (_newPath) => {}
 export let setMenuParms = (_newParms) => {}

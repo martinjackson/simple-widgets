@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import { hasOwnProperty } from './hasOwnProperty.js';
+import { hasOwnProperty } from './index.js'
 
 export const InputFile = (props) => {
     const [displayFile, setDisplayFile] = useState('');

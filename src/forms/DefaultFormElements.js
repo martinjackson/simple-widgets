@@ -1,14 +1,11 @@
 
-
-// import {pretty} from "./Show";
-
 const dowList = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"]
 const MIStyle = {width: '2em', paddingRight: '0', paddingLeft: '0', textAlign: 'center'}
 
 export const exampleFields = {
   firstName:    { type: "text",      name: "firstName",    text: "First Name",    placeholder: 'Jack',          required: true },
   lastName:     { type: "text",      name: "lastName",     text: "Last Name",     placeholder: 'Doe',           required: true },
-  midItial:     { type: "text",      name: "midItial",     text: "M.I.",          placeholder: 'E',             required: false,  size:1, maxLength: 1, style: MIStyle},
+  midInitial:   { type: "text",      name: "midInitial",   text: "M.I.",          placeholder: 'E',             required: false,  size:1, maxLength: 1, style: MIStyle},
   email:        { type: "email",     name: "email",        text: "Email",         placeholder: 'jack@mail.com', required: true },
   addressLine:  { type: "text",      name: "addressLine",  text: "Address Line",  placeholder: 'Awesome str 9', required: true },
   postalCode:   { type: "text",      name: "postalCode",   text: "Postal Code",   placeholder: '12345',         required: true },

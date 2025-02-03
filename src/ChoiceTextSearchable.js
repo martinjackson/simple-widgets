@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { ChoiceText } from './ChoiceText.js'
+import { ChoiceText } from './index.js'
 
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------

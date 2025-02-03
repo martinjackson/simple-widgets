@@ -2,7 +2,7 @@
 
 import { create } from 'zustand'        // zustand 1.4k  vs Recoil 1740k (1.74M)
 
-import { toCamelCase } from './camel'
+import { toCamelCase } from './index.js'
 
 const storeInventory = {}     // where all the createStoreItem() items will be remembered by name
 

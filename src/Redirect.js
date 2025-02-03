@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react';
-import { setMenuParms, setMenuPath } from './MenuBar';
+
+// cSpell:ignore Parms
+
+import React, { useEffect } from 'react'
+import { setMenuParms, setMenuPath } from './index.js'
 
 // ----------------------------------------------------------------------------------
 
