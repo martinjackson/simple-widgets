@@ -1,7 +1,9 @@
 
 import { dTS }                from '../time.js'
 import { genEmptyRecord }     from './genEmptyRecord.js'
-import { getGqlPKs, getGqlName, getGqlFieldNames, genRecordTypeFromName } from '../index.js'
+import { getGqlPKs, getGqlFieldNames } from './model/getTablePKs.js'
+import { getGqlName } from './getKeyValues.js'
+import { genRecordTypeFromName } from './EntryScreen.js'
 
 // import { getSubRecord }       from './getSubRecord.js'
 

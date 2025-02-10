@@ -13,3 +13,9 @@ package-lock.json
 # where we build things
 lib/
 esbuild-lib/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

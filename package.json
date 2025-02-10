@@ -1,19 +1,18 @@
 {
   "name": "simple-widgets",
-  "version": "1.41.10",
+  "version": "1.41.11",
   "description": "A Collection of React components to make your React code simpler",
-  "main": "./esbuild-lib/index.js",
+  "main": "./lib/index.js",
   "files": [
-    "esbuild-lib",
+    "lib",
     "package.json"
   ],
   "scripts": {
-    "esbuild": "node build.js && ls -l esbuild-lib/ ",
     "update": "npm install --legacy-peer-deps --silent; npx npm-force-resolutions ; npm audit",
     "setup": "npm install  --legacy-peer-deps",
     "lint": "eslint src/",
     "lint-fix": "eslint src/ --fix",
-    "build": "./build-prep.sh && webpack && npm pack --silent ",
+    "build": "rm -f lib/*  && webpack && npm pack --silent ",
     "dry": "run-s build dry-run",
     "pub": "run-s build release",
     "test-lib": "echo '// Install the local package \n   npm install '../location/of/your/local/project' ",
@@ -22,7 +21,8 @@
     "coverage": "jest --coverage && cat ./tests/coverage/lcov.info ",
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",
     "dry-run": "release-it --dry-run -n --no-git.requireCleanWorkingDir",
-    "release": "release-it --no-git.requireCleanWorkingDir"
+    "release": "release-it --no-git.requireCleanWorkingDir",
+    "test-ct": "playwright test -c playwright-ct.config.js"
   },
   "resolutions": {
     "got": "11.8.5",
@@ -113,10 +113,12 @@
     "@babel/preset-flow": "^7.22.15",
     "@babel/preset-react": "^7.22.15",
     "@babel/preset-typescript": "^7.23.2",
+    "@playwright/experimental-ct-react": "^1.50.1",
     "@testing-library/dom": "9.3.3",
     "@testing-library/jest-dom": "6.1.4",
     "@testing-library/react": "14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
+    "@types/node": "^22.13.1",
     "acorn-dynamic-import": "^4.0.0",
     "ajv": "^8.12.0",
     "autoprefixer": "^10.4.16",
