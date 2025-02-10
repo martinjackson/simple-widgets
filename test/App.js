@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import { CheckBox, Choice, List, Radio, DateInput, DoubleListBox } from '../src/index'
      // from 'simple-widgets'  if a stand alone app
 
-const fullList = ['apple', 'bannana', 'blackberry', 'blueberry', 'peach', 'strawberry', ]
+const fullList = ['apple', 'banana', 'blackberry', 'blueberry', 'peach', 'strawberry', ]
 const preSelected = fullList.filter( item => item.startsWith('b') )
 const lang = ["java", "javascript", "jsx", "markdown", "bash"]
-const shoppingChoices = ["bannana", 'bread', 'milk']
+const shoppingChoices = ["banana", 'bread', 'milk']
 
 const initialState = {
   name: "",

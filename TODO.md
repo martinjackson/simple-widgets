@@ -21,3 +21,9 @@ Don't try testing with npm link (lost two full days, 4/6/2023 and 4/7/2023) chas
 LocalChoice.js:36    name: sex value: m is not found in selection list: (3) [{…}, {…}, {…}]
 LocalChoice.js:162    sex not selectable, lookup undefined does not contain  m => m
 ```
+
+## Missing .d.ts file containing `declare module 'simple-widgets';
+
+Could not find a declaration file for module 'simple-widgets'. '/home/mjackson/projects/simple-widgets/esbuild-lib/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/simple-widgets` if it exists or add a new declaration (.d.ts) file containing `declare module 'simple-widgets';`ts(7016)
+module "/home/mjackson/projects/simple-widgets/esbuild-lib/index"
