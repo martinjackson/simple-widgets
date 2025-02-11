@@ -66,16 +66,6 @@ Planned removal:
 
 ---------------------
 
-## Kept back
-
-These are kept back because we are still holding compatability with react 17.0.2 and react-dom 17.0.2
-
-```bash
-@testing-library/dom                                 8.19.0  →     9.3.1
-@testing-library/react                               12.1.5  →    14.0.0
-react-test-renderer                                 ^17.0.0  →   ^18.2.0
-```
-
 ## Installation
 
 Using [npm](https://www.npmjs.com/):
