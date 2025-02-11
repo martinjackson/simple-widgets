@@ -13,7 +13,7 @@
     "lint-fix": "eslint src/ --fix",
     "build": "npm run esbuild && npm run pack",
     "esbuild": "rm -rf dist && node esbuild.js",
-    "pack": "npm pack --pack-destination ./temp/ && mv ./temp/simple-widgets-1.41.11.tgz ./simple-widgets-1.41.11-esbuild.tgz",
+    "pack": "npm pack --silent --pack-destination ./temp/ && mv ./temp/simple-widgets-${npm_package_version}.tgz ./simple-widgets-${npm_package_version}-esbuild.tgz",
     "dry": "run-s build dry-run",
     "pub": "run-s build release",
     "test-lib": "echo '// Install the local package \n   npm install '../location/of/your/local/project' ",
