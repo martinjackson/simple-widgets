@@ -181,10 +181,6 @@ All of these widgets require the following props:
 2. npm run dry
 3. npm run pub
 
-## Source Code Build Dependencies
-
-- wallaby.js needs .babelrc for code coverage testing
-- webpack uses babel config in webpack.config.js babel-loader section
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/martinjackson/simple-widgets/issues)
 

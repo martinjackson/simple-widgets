@@ -1,19 +1,14 @@
+import esbuild from 'esbuild'
+import { nodeExternalsPlugin } from 'esbuild-node-externals'
 
-const esbuild = require("esbuild");
-const { nodeExternalsPlugin } = require("esbuild-node-externals");
+import postcss from 'esbuild-postcss'
 
-const postcss = require('esbuild-postcss')
-const inlineImage = require("esbuild-plugin-inline-image")
-const esbPlugMd = require('esbuild-plugin-markdown')
+import inlineImage from 'esbuild-plugin-inline-image'
+import esbPlugMd from 'esbuild-plugin-markdown'
 const { markdownPlugin } = esbPlugMd
 
-const chalk = require('chalk')
-
+import chalk from 'chalk';
 // chalk.level = 1;    // Use colors in the VS Code Debug Window
-
-const error = chalk.red;
-const _warning = chalk.bgRed;         // Orange color
-const good = chalk.greenBright;
 
 // ----------------------------------------------------------------------------
 function format(yourDate) {
@@ -50,10 +45,10 @@ esbuild
     plugins: [postcss(), inlineImage(), markdownPlugin(), nodeExternalsPlugin()],
   })
   .catch((err) => {
-    console.log(error(' build err: '), err.message);
+    console.log(chalk.red(' build err: '), err.message);
     process.exit(1)
   })
   .finally(() => {
     const end = new Date()
-    console.log(good(` • built in ${(end - start)/1000.0}s on ${format(end)} `))
+    console.log(chalk.green(` • built in ${(end - start)/1000.0}s on ${format(end)} `))
   })
