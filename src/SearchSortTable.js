@@ -346,6 +346,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     const [finalTotalsInfo, setFinalTotalsInfo] = useState(localFinalTotals);   // Contains the final totals info, like any title for the final total and which fields get the final totals
 //    const [done, setDone] = useState(false);
     const [origControlBreakInfo, setOrigControlBreakInfo] = useState([]);
+    const [origFinalTotals, setOrigFinalTotals] = useState([]);
 
     // TODO: Ask Jim  hideCols is never used
 
@@ -466,6 +467,9 @@ const _InnerSearchSortTable = (propsPassed) => {
         if (isUserCtrlBreak === true) {
             setControlBreakInfo (props.controlBreak);
             setOrigControlBreakInfo(props.controlBreak);
+            if (hasOwnProperty(props, 'finaltotals') === true) {
+                setOrigFinalTotals(props.finaltotals);
+            }
             findCtrlBreak(props.controlBreak, indexes);
 //            if (done === false) {
 //                setDone(findCtrlBreak(props.controlBreak, indexes));
@@ -2505,9 +2509,11 @@ const _InnerSearchSortTable = (propsPassed) => {
         for (let i = 0; i < ctrlBreakInfo.length; i++) {
             ctrlBreakInfo[i].hidden = false;
             ctrlBreakInfo[i].ctrlBreak = 0;
+            delete ctrlBreakInfo[i].sortOrder;
             if (hasOwnProperty(props, 'controlBreak') === true) {
                 props.controlBreak[i].hidden = false;
                 props.controlBreak[i].ctrlBreak = 0;
+                delete props.controlBreak[i].sortOrder;
             }
         }
 
@@ -2524,7 +2530,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         if (hasOwnProperty(props, 'finaltotals') === true) {
-            setFinalTotalsInfo(props.finaltotals);
+            setFinalTotalsInfo([...origFinalTotals]);
         } else {
             setFinalTotalsInfo([]);
         }
@@ -2538,7 +2544,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         setTable(originalTable);
 
         if (hasOwnProperty(props, 'setTheTable') === true) {
-            props.setTheTable(originalTable);
+            props.setTheTable(originalTable, origControlBreakInfo, origFinalTotals);
         }
     }
 
@@ -2693,7 +2699,12 @@ const _InnerSearchSortTable = (propsPassed) => {
         // Copy the control break order from the control break info
         for (let i = 0; i < ctrlBreakInfo.length; i++) {
             if (ctrlBreakInfo[i].ctrlBreak > 0) {
-                breakOrder.push ({ col: i, order: ctrlBreakInfo[i].ctrlBreak});
+                let sortOrder = 'ASC';
+                if (hasOwnProperty(ctrlBreakInfo[i], 'sortOrder') === true) {
+                    console.log ('got here');
+                    sortOrder = ctrlBreakInfo[i].sortOrder.toUpperCase();
+                }
+                breakOrder.push ({ col: i, order: ctrlBreakInfo[i].ctrlBreak, sortOrder: sortOrder});
             }
         }
 
@@ -2706,12 +2717,6 @@ const _InnerSearchSortTable = (propsPassed) => {
         indexes.forEach ((row) => {
             sortAry.push ({ index: row, data: buildSortData(breakOrder, row) });
         });
-
-        let descending = false;
-        if (hasOwnProperty(props, 'controlOrder') === true &&
-            props.controlOrder.toUpperCase() === 'DESC') {
-                descending = true;
-        }
 
         // Sort the indexes based on the control break sort order
         sortAry.sort(function (item1, item2) {
@@ -2727,7 +2732,9 @@ const _InnerSearchSortTable = (propsPassed) => {
                     b = b.toUpperCase()
                 }
 
-                if (descending === true) {
+
+
+                if (breakOrder[i].sortOrder === 'DESC') {
                     // Make the comparison
                     if (a < b) {
                         return 1;
@@ -3584,10 +3591,10 @@ const _InnerSearchSortTable = (propsPassed) => {
         let isUserCtrlBreak = userCtrlBreak(table);
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
-            if (isUserCtrlBreak === true && controlBreakInfo[i].hidden === true &&
+            /*if (isUserCtrlBreak === true &&  controlBreakInfo[i].hidden === true &&
                 controlBreakInfo[i].hidden === props.controlBreak[i].hidden) {
                 hiddenRender = <span></span>;
-            } else if (controlBreakInfo[i].hidden === false) {
+            } else*/ if (controlBreakInfo[i].hidden === false) {
                 hiddenRender =
                     <span className="sw-sst_showToolTip">
                         <button name="hidden" onClick={() => hideColumn(row, i)} className="sw-sst_dropDownButton" >🗏⊗</button>
@@ -3605,10 +3612,10 @@ const _InnerSearchSortTable = (propsPassed) => {
 
         let controlBreakRender = null;
         if (hasOwnProperty(props, 'nocontrolbreak') === false) {
-            if (isUserCtrlBreak === true && controlBreakInfo[i].ctrlBreak !== 0 &&
+            /*if (isUserCtrlBreak === true && controlBreakInfo[i].ctrlBreak !== 0 &&
                 controlBreakInfo[i].ctrlBreak === props.controlBreak[i].ctrlBreak) {
                 controlBreakRender = <span></span>;
-            } else if (controlBreakInfo[i].ctrlBreak === 0) {
+            } else */if (controlBreakInfo[i].ctrlBreak === 0) {
                 controlBreakRender =
                     <span className="sw-sst_showToolTip">
                         <button name="controlBreakOn" onClick={() => controlBreakOn(row, i)} className="sw-sst_dropDownButton" >🗐</button>
