@@ -3,14 +3,14 @@
 This will place a banner on the screen that indicates the title of the page.  The banner will have the following CSS properties (most important ones):
 
 1.  background color: rgb(0, 124, 186)
-2.  text color: white
+2.  text color: rgb(255, 255, 255)
 3.  font size: 24pt
-4.  line height: 1.2
 5.  text align: left
-6.  border style: solid
+6.  align-items: center
 
 ## Props
 1.  ***title*** = the title that is on the banner.
+2.  ***smallTitle*** = a smaller title underneath the main banner title.  Will only appear if the smallTitle prop is used.
 
 ## CSS Files
 
@@ -22,11 +22,10 @@ The classes in the file are:
 
 ```css
 .sw-pt_banner {
-    background-color: var(--sw-theme_bannerBackground);
-    border-style: var(--sw-theme_bannerBorderStyle);
-    border-width: var(--sw-theme_bannerBorderWidth);
-    border-color: var(--sw-theme_bannerBackground);
-    margin: var(--sw-theme_bannerMargin);
+    display: flex;
+    align-items: center;
+    background-color: var(--sw-pt_bannerBackground); 
+    border-radius: var(--sw-pt_bannerBorderRadius);
 }
 ```
 
@@ -34,15 +33,26 @@ The classes in the file are:
 
 ```css
 .sw-pt_bannerFont {
-    font-family: var(--sw-theme_font);
-    font-size: var(--sw-theme_bannerFontSize);
-    color: var(--sw-theme_bannerTextColor);
-    font-weight: var(--sw-theme_bannerFontWeight);
-    font-style: var(--sw-theme_bannerStyle);
-    text-align: var(--sw-theme_bannerTextAlign);
-    padding: var(--sw-theme_bannerPadding);
-    line-height: var(--sw-theme_bannerLineHeight);
-    overflow-y: var(--sw-theme_bannerOverFlowY);
+    font-family: var(--sw-pt_font);
+    font-weight: var(--sw-pt_bannerFontWeight);
+    font-style: var(--sw-pt_bannerStyle);
+    color: var(--sw-pt_bannerTextColor);
+    text-align: var(--sw-pt_bannerTextAlign);
+    margin-left: var(--sw-pt_bannerMarginLeft);
+    overflow-y: var(--sw-pt_bannerOverFlowY);
+}
+```
+
+3.  ***sw-pt_bannerSmallFont*** = describes the font used for the small title.
+
+```css
+.sw-pt_bannerSmallFont {
+    font-family: var(--sw-pt_font);
+    color: var(--sw-pt_bannerTextColor);
+    text-align: var(--sw-pt_bannerTextAlign);
+    margin-left: var(--sw-pt_bannerMarginLeft);
+    margin-bottom: var(--sw-pt_bannerMarginBottom);
+    overflow-y: var(--sw-pt_bannerOverFlowY);
 }
 ```
 
@@ -52,20 +62,17 @@ The classes in the file are:
 :root {
     --sw-pt_bannerBackground: rgb(0, 124, 186);
     --sw-pt_bannerTextColor: rgb(255, 255, 255);
-    --sw-pt_bannerBorderStyle: solid;
-    --sw-pt_bannerBorderWidth: 30px;
-    --sw-pt_bannerMargin: 0px;
+    --sw-pt_bannerBorderRadius: 8px;
     --sw-pt_bannerFontSize: 24pt;
     --sw-pt_bannerFontWeight: normal;
-    --sw-pt_bannerStyle: normal;
     --sw-pt_bannerTextAlign: left;
-    --sw-pt_bannerPadding: 5px;
-    --sw-pt_bannerLineHeight: 1.2;
+    --sw-pt_bannerMarginLeft: 20px;
+    --sw-pt_bannerMarginBottom: 10px;
     --sw-pt_bannerOverFlowY: hidden;
  }
 ```
 
-### Example
+### Example 1
 
 ```javascript
 import { PageTitle } from 'simple-widgets';
@@ -76,3 +83,15 @@ import { PageTitle } from 'simple-widgets';
 ```
 
 This will print a banner with a title of This is a banner test.
+
+### Example 2
+
+```javascript
+import { PageTitle } from 'simple-widgets';
+
+<div>
+    <PageTitle title="This is a banner test" smallTitle="This is a small title" />
+</div>
+```
+
+This will print a banner with a title of This is a banner test and will then print a smaller title of This is a small title underneath the main title.
