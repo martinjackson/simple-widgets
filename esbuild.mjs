@@ -36,7 +36,7 @@ esbuild
     entryPoints: ["./src/index.js"],
     outfile: "dist/index.js",
     bundle: true,
-    minify: true,
+    minify: false,
     treeShaking: true,
     platform: "node",
     format: "cjs",

@@ -1,4 +1,8 @@
 
+// cSpell:ignore Funct Parms disp
+
+import './index.css'
+
 // cSpell:ignore
 
 

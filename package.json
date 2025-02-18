@@ -11,7 +11,7 @@
     "setup": "npm install  --legacy-peer-deps",
     "lint": "eslint src/",
     "lint-fix": "eslint src/ --fix",
-    "prebuild": "npx gen_named_exports src >src/index.js",
+    "prebuild": "cp src/pre.txt src/index.js && npx gen_named_exports src >>src/index.js",
     "build": "npm run esbuild && npm run pack",
     "esbuild": "rm -rf dist && node esbuild.mjs",
     "pack": "npm pack --silent --pack-destination ./temp/ && mv ./temp/simple-widgets-${npm_package_version}.tgz ./simple-widgets-${npm_package_version}-esbuild.tgz",
