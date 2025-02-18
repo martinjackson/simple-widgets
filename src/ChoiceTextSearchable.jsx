@@ -4,7 +4,7 @@ import { ChoiceText } from './index.js'
 
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------
-export const ChoiceTextSearchable = (props) => {
+export function ChoiceTextSearchable(props) {
 
   const [value, setValue] = useState(props.value);
 
@@ -18,7 +18,7 @@ export const ChoiceTextSearchable = (props) => {
     if (e.target) {
       setValue(e.target.value)
       props.onChange(e)
-      // let FormChoice decide to propigate if value matches a pair  opt pairs
+      // let FormChoice decide to propagate if value matches a pair  opt pairs
       }
   }
 

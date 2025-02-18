@@ -2,7 +2,7 @@ import React from 'react'
 
 import { hasOwnProperty, Input } from './index.js'
 
-export const ChoiceText = inProps => {
+export function ChoiceText(inProps) {
 
     let props = {...inProps};
     const pref = (hasOwnProperty(props, 'name')) ? props.name + '_' : '';

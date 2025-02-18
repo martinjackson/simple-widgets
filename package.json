@@ -1,6 +1,6 @@
 {
   "name": "simple-widgets",
-  "version": "1.41.11",
+  "version": "1.41.12",
   "description": "A Collection of React components to make your React code simpler",
   "main": "dist/index.js",
   "files": [
@@ -99,7 +99,6 @@
     "react-calendar": "^5.1.0",
     "react-csv": "^2.2.2",
     "react-spinners": "^0.15.0",
-    "yargs": "^17.7.2",
     "zustand": "^5.0.3"
   }
 }

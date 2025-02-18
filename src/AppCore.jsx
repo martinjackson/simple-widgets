@@ -17,7 +17,7 @@ const extractSessionParts = (sessionInfo) => {
 }
 
 // ----------------------------------------------------------------------------------------------
-export const AppCore = (props) => {
+export function AppCore(props) {
 
   const getMenu = props.getMenu
 

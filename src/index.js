@@ -106,7 +106,6 @@ import { useErrorList } from './forms/useErrorList.js'
 import { useFetch } from './forms/useFetch.js' 
 import { valueCompare } from './forms/valueCompare.js' 
 import { getAppSpecificInfo, setAppSpecificInfo, setAppSpecificInfoExample } from './forms/model/appSpecificInfo.js' 
-import { formDictionary } from './forms/model/bootstrapDictionary.js' 
 import { formFromTableInfo, tableField2FormField } from './forms/model/formFromTableInfo.js' 
 import { genDictionaryEntry } from './forms/model/genDictionaryEntry.js' 
 import { getTableColumns } from './forms/model/getTableColumns.js' 
@@ -216,7 +215,6 @@ useErrorList,
 useFetch,
 valueCompare,
 getAppSpecificInfo,setAppSpecificInfo,setAppSpecificInfoExample,
-formDictionary,
 formFromTableInfo,tableField2FormField,
 genDictionaryEntry,
 getTableColumns,

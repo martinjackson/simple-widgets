@@ -8,7 +8,7 @@ const defProps = {
     message: 'No Alert message given',
 }
 
-export const AlertModal = inProps => {
+export function AlertModal(inProps) {
 
     const props = {...defProps, ...inProps};
 

@@ -1,6 +1,9 @@
 /*eslint no-undef: "error"*/
 /*eslint-env node*/
 
+// cSpell:ignore APPT Reloc
+
+
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 
@@ -112,7 +115,7 @@ SEPS.STIPEND: [
   // 'SEPS.APPT_PAYER'    "pk": ["APPOINTMENT_ID","PAYER_ID","STIPEND_ID"],	"fk": ["APPOINTMENT_ID"],
 
   // RTP data spelunking
-  //    SEPS.PERSON NCTR_IDs with change since last May (25 poeple)
+  //    SEPS.PERSON NCTR_IDs with change since last May (25 people)
   //       diff 2021-11-15-17-12-18-160/SEPS.PERSON.table 2021-05-20-20-16-16-094/SEPS.PERSON.table
   //
   //            20556,20894,20801,19869,20890,20871,20877,20881,20761,18803,
@@ -144,7 +147,7 @@ const MIStyle="px-0 text-center w-10"      // Tailwind for  {width: '2.5em', pad
 example fields
 const fields = {
   firstName:    { type: "text",      name: "firstName",    text: "First Name",    placeholder: 'Jack',          required: true },
-  midItial:     { type: "text",      name: "midItial",     text: "M.I.",          placeholder: 'E',             required: false,  size:1, maxLength: 1, className: MIStyle},
+  midInitial:   { type: "text",      name: "midInitial",   text: "M.I.",          placeholder: 'E',             required: false,  size:1, maxLength: 1, className: MIStyle},
   email:        { type: "email",     name: "email",        text: "Email",         placeholder: 'jack@mail.com', required: true },
   startDate:    { type: "date",      name: "startDate",    text: "Start Date",    format: 'yyyy-mm-dd',         required: true },
   password:     { type: "password",  name: "password",     text: "Password",                                    required: true },
