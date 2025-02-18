@@ -4,7 +4,7 @@
 import React, {useState, useEffect} from 'react'
 
 import { applyOptions }         from './DefaultFormElements.js'
-import { fieldGeneratorLookup } from './FieldGenerator.js'
+import { fieldGeneratorLookup } from './FieldGenerator.jsx'
 import { getAppSpecificInfo }   from './model/appSpecificInfo.js'
 import { dataLog }              from './dataLog.js'
 

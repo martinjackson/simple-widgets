@@ -5,9 +5,9 @@ import React, { useState } from 'react'
 
 import { dTS }                from '../time.js'
 
-import { ErrorList }          from './ErrorList.js'
+import { ErrorList }          from './ErrorList.jsx'
 import { useErrorList }       from './useErrorList.js'
-import { SimpleEntryScreen }  from './SimpleEntryScreen.js'
+import { SimpleEntryScreen }  from './SimpleEntryScreen.jsx'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 
 

@@ -5,7 +5,7 @@ const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 
 
-import { dTS } from '../time.js'
+import { dTS } from '../../time.js'
 
 import { genDictionaryEntry } from './genDictionaryEntry.js'
 import { formFromTableInfo } from './formFromTableInfo.js'

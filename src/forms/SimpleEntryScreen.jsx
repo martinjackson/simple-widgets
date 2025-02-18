@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { Form }                from './Form.js'
-import { getGqlNameFromForm }  from './FormFields.js'
+import { Form }                from './Form.jsx'
+import { getGqlNameFromForm }  from './FormFields.jsx'
 import { isFunction }          from './isFunction.js'
 
 import { dTS }                 from '../time.js'

@@ -1,9 +1,67 @@
+Need to install the following packages:
+gen_named_exports@0.9.3
+Ok to proceed? (y) 
 
 // cSpell:ignore
 
 
 // scanning src
-// files with no named exports:  ["forms/newRecRowSelected.js"]
+// Error parsing src/CheckBox.jsx src/CheckBox.jsx.jsx
+// Error parsing src/AlertModal.jsx src/AlertModal.jsx.jsx
+// Error parsing src/AppCore.jsx src/AppCore.jsx.jsx
+// Error parsing src/ConfirmModal.jsx src/ConfirmModal.jsx.jsx
+// Error parsing src/ChoiceTextSearchable.jsx src/ChoiceTextSearchable.jsx.jsx
+// Error parsing src/ChoiceText.jsx src/ChoiceText.jsx.jsx
+// Error parsing src/Choice.jsx src/Choice.jsx.jsx
+// Error parsing src/ContextMenu.jsx src/ContextMenu.jsx.jsx
+// Error parsing src/DateInput.jsx src/DateInput.jsx.jsx
+// Error parsing src/ErrorModal.jsx src/ErrorModal.jsx.jsx
+// Error parsing src/HeaderModal.jsx src/HeaderModal.jsx.jsx
+// Error parsing src/CheckBoxGroup.jsx src/CheckBoxGroup.jsx.jsx
+// Error parsing src/Home.jsx src/Home.jsx.jsx
+// Error parsing src/List.jsx src/List.jsx.jsx
+// Error parsing src/Header.jsx src/Header.jsx.jsx
+// Error parsing src/InputFile.jsx src/InputFile.jsx.jsx
+// Error parsing src/Link.jsx src/Link.jsx.jsx
+// Error parsing src/Modal.jsx src/Modal.jsx.jsx
+// Error parsing src/Invalid.jsx src/Invalid.jsx.jsx
+// Error parsing src/OpenTab.jsx src/OpenTab.jsx.jsx
+// Error parsing src/MenuBar.jsx src/MenuBar.jsx.jsx
+// Error parsing src/PageTitle.jsx src/PageTitle.jsx.jsx
+// Error parsing src/Outline.jsx src/Outline.jsx.jsx
+// Error parsing src/NavigateBar.jsx src/NavigateBar.jsx.jsx
+// Error parsing src/Redirect.jsx src/Redirect.jsx.jsx
+// Error parsing src/ProgressCircles.jsx src/ProgressCircles.jsx.jsx
+// Error parsing src/Radio.jsx src/Radio.jsx.jsx
+// Error parsing src/SimpleTable.jsx src/SimpleTable.jsx.jsx
+// Error parsing src/StatusBox.jsx src/StatusBox.jsx.jsx
+// Error parsing src/DoubleListBox.jsx src/DoubleListBox.jsx.jsx
+// Error parsing src/SpreadSheet.jsx src/SpreadSheet.jsx.jsx
+// Error parsing src/Slider.jsx src/Slider.jsx.jsx
+// Error parsing src/UserSection.jsx src/UserSection.jsx.jsx
+// Error parsing src/forms/Button.jsx src/forms/Button.jsx.jsx
+// Error parsing src/forms/ErrorList.jsx src/forms/ErrorList.jsx.jsx
+// Error parsing src/forms/ControlledTextarea.jsx src/forms/ControlledTextarea.jsx.jsx
+// Error parsing src/forms/FieldGenerator.jsx src/forms/FieldGenerator.jsx.jsx
+// Error parsing src/forms/Form.jsx src/forms/Form.jsx.jsx
+// Error parsing src/forms/FormFields.jsx src/forms/FormFields.jsx.jsx
+// Error parsing src/forms/DatabaseLoadingIcon.jsx src/forms/DatabaseLoadingIcon.jsx.jsx
+// Error parsing src/forms/EntryScreen.jsx src/forms/EntryScreen.jsx.jsx
+// Error parsing src/forms/Gears.jsx src/forms/Gears.jsx.jsx
+// Error parsing src/forms/ControlledInput.jsx src/forms/ControlledInput.jsx.jsx
+// Error parsing src/forms/FormHeader.jsx src/forms/FormHeader.jsx.jsx
+// Error parsing src/SearchSortTable.jsx src/SearchSortTable.jsx.jsx
+// Error parsing src/forms/FormTable.jsx src/forms/FormTable.jsx.jsx
+// Error parsing src/forms/NarrowForm.jsx src/forms/NarrowForm.jsx.jsx
+// Error parsing src/forms/MakeModal.jsx src/forms/MakeModal.jsx.jsx
+// Error parsing src/forms/Show.jsx src/forms/Show.jsx.jsx
+// Error parsing src/forms/Input.jsx src/forms/Input.jsx.jsx
+// Error parsing src/forms/SimpleEntryScreen.jsx src/forms/SimpleEntryScreen.jsx.jsx
+// Error parsing src/forms/FormChoice.jsx src/forms/FormChoice.jsx.jsx
+// Error parsing src/forms/SimpleDataTable.jsx src/forms/SimpleDataTable.jsx.jsx
+// Error parsing src/forms/genRowBuilder.jsx src/forms/genRowBuilder.jsx.jsx
+// Error parsing src/forms/img/FormImages.jsx src/forms/img/FormImages.jsx.jsx
+// files with no named exports:  ["AlertModal.jsx","AppCore.jsx","CheckBox.jsx","CheckBoxGroup.jsx","Choice.jsx","ChoiceText.jsx","ChoiceTextSearchable.jsx","ConfirmModal.jsx","ContextMenu.jsx","DateInput.jsx","DoubleListBox.jsx","ErrorModal.jsx","Header.jsx","HeaderModal.jsx","Home.jsx","InputFile.jsx","Invalid.jsx","Link.jsx","List.jsx","MenuBar.jsx","Modal.jsx","NavigateBar.jsx","OpenTab.jsx","Outline.jsx","PageTitle.jsx","ProgressCircles.jsx","Radio.jsx","Redirect.jsx","SearchSortTable.jsx","SimpleTable.jsx","Slider.jsx","SpreadSheet.jsx","StatusBox.jsx","UserSection.jsx","forms/Button.jsx","forms/ControlledInput.jsx","forms/ControlledTextarea.jsx","forms/DatabaseLoadingIcon.jsx","forms/EntryScreen.jsx","forms/ErrorList.jsx","forms/FieldGenerator.jsx","forms/Form.jsx","forms/FormChoice.jsx","forms/FormFields.jsx","forms/FormHeader.jsx","forms/FormTable.jsx","forms/Gears.jsx","forms/Input.jsx","forms/MakeModal.jsx","forms/NarrowForm.jsx","forms/Show.jsx","forms/SimpleDataTable.jsx","forms/SimpleEntryScreen.jsx","forms/genRowBuilder.jsx","forms/newRecRowSelected.js","forms/img/FormImages.jsx"]
 
 import { formatMoney, sanitize } from './Common.js' 
 import { addDigit, convertDate, currentDBDate, currentDBDateTime, currentDate, currentDateTime, dateTime, dbDate, monthName } from './DateFunct.js' 
