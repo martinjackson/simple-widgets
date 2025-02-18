@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { FormFields, arrLen, getLabels, FormHeader, onFormChange, prop2str } from './index.js'
+import { FormFields, arrLen, getLabels, FormHeader, onFormChange, prop2str } from '../index.js'
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormTable = (props) => {

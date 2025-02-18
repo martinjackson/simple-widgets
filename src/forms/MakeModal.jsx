@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal }  from '../Modal.js';
+import { Modal }  from '../Modal.jsx';
 
 // import '../node_modules/simple-widgets/lib/sw-modal.css';
 // see ./simple-widgets.js

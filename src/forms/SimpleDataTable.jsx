@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-import { SimpleTable }  from '../SimpleTable.js'
+import { SimpleTable }  from '../SimpleTable.jsx'
 import { dTS }           from '../time.js'
 
 import { useErrorList } from './useErrorList.js'
-import { Gears }        from './Gears.js'
-import { ErrorList }    from './ErrorList.js'
+import { Gears }        from './Gears.jsx'
+import { ErrorList }    from './ErrorList.jsx'
 import { getAppSpecificInfo } from './model/appSpecificInfo.js'
 
 // ------------------------------------------------------------------------

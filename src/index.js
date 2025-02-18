@@ -1,72 +1,48 @@
-Need to install the following packages:
-gen_named_exports@0.9.3
-Ok to proceed? (y) 
 
 // cSpell:ignore
 
 
 // scanning src
-// Error parsing src/CheckBox.jsx src/CheckBox.jsx.jsx
-// Error parsing src/AlertModal.jsx src/AlertModal.jsx.jsx
-// Error parsing src/AppCore.jsx src/AppCore.jsx.jsx
-// Error parsing src/ConfirmModal.jsx src/ConfirmModal.jsx.jsx
-// Error parsing src/ChoiceTextSearchable.jsx src/ChoiceTextSearchable.jsx.jsx
-// Error parsing src/ChoiceText.jsx src/ChoiceText.jsx.jsx
-// Error parsing src/Choice.jsx src/Choice.jsx.jsx
-// Error parsing src/ContextMenu.jsx src/ContextMenu.jsx.jsx
-// Error parsing src/DateInput.jsx src/DateInput.jsx.jsx
-// Error parsing src/ErrorModal.jsx src/ErrorModal.jsx.jsx
-// Error parsing src/HeaderModal.jsx src/HeaderModal.jsx.jsx
-// Error parsing src/CheckBoxGroup.jsx src/CheckBoxGroup.jsx.jsx
-// Error parsing src/Home.jsx src/Home.jsx.jsx
-// Error parsing src/List.jsx src/List.jsx.jsx
-// Error parsing src/Header.jsx src/Header.jsx.jsx
-// Error parsing src/InputFile.jsx src/InputFile.jsx.jsx
-// Error parsing src/Link.jsx src/Link.jsx.jsx
-// Error parsing src/Modal.jsx src/Modal.jsx.jsx
-// Error parsing src/Invalid.jsx src/Invalid.jsx.jsx
-// Error parsing src/OpenTab.jsx src/OpenTab.jsx.jsx
-// Error parsing src/MenuBar.jsx src/MenuBar.jsx.jsx
-// Error parsing src/PageTitle.jsx src/PageTitle.jsx.jsx
-// Error parsing src/Outline.jsx src/Outline.jsx.jsx
-// Error parsing src/NavigateBar.jsx src/NavigateBar.jsx.jsx
-// Error parsing src/Redirect.jsx src/Redirect.jsx.jsx
-// Error parsing src/ProgressCircles.jsx src/ProgressCircles.jsx.jsx
-// Error parsing src/Radio.jsx src/Radio.jsx.jsx
-// Error parsing src/SimpleTable.jsx src/SimpleTable.jsx.jsx
-// Error parsing src/StatusBox.jsx src/StatusBox.jsx.jsx
-// Error parsing src/DoubleListBox.jsx src/DoubleListBox.jsx.jsx
-// Error parsing src/SpreadSheet.jsx src/SpreadSheet.jsx.jsx
-// Error parsing src/Slider.jsx src/Slider.jsx.jsx
-// Error parsing src/UserSection.jsx src/UserSection.jsx.jsx
-// Error parsing src/forms/Button.jsx src/forms/Button.jsx.jsx
-// Error parsing src/forms/ErrorList.jsx src/forms/ErrorList.jsx.jsx
-// Error parsing src/forms/ControlledTextarea.jsx src/forms/ControlledTextarea.jsx.jsx
-// Error parsing src/forms/FieldGenerator.jsx src/forms/FieldGenerator.jsx.jsx
-// Error parsing src/forms/Form.jsx src/forms/Form.jsx.jsx
-// Error parsing src/forms/FormFields.jsx src/forms/FormFields.jsx.jsx
-// Error parsing src/forms/DatabaseLoadingIcon.jsx src/forms/DatabaseLoadingIcon.jsx.jsx
-// Error parsing src/forms/EntryScreen.jsx src/forms/EntryScreen.jsx.jsx
-// Error parsing src/forms/Gears.jsx src/forms/Gears.jsx.jsx
-// Error parsing src/forms/ControlledInput.jsx src/forms/ControlledInput.jsx.jsx
-// Error parsing src/forms/FormHeader.jsx src/forms/FormHeader.jsx.jsx
-// Error parsing src/SearchSortTable.jsx src/SearchSortTable.jsx.jsx
-// Error parsing src/forms/FormTable.jsx src/forms/FormTable.jsx.jsx
-// Error parsing src/forms/NarrowForm.jsx src/forms/NarrowForm.jsx.jsx
-// Error parsing src/forms/MakeModal.jsx src/forms/MakeModal.jsx.jsx
-// Error parsing src/forms/Show.jsx src/forms/Show.jsx.jsx
-// Error parsing src/forms/Input.jsx src/forms/Input.jsx.jsx
-// Error parsing src/forms/SimpleEntryScreen.jsx src/forms/SimpleEntryScreen.jsx.jsx
-// Error parsing src/forms/FormChoice.jsx src/forms/FormChoice.jsx.jsx
-// Error parsing src/forms/SimpleDataTable.jsx src/forms/SimpleDataTable.jsx.jsx
-// Error parsing src/forms/genRowBuilder.jsx src/forms/genRowBuilder.jsx.jsx
-// Error parsing src/forms/img/FormImages.jsx src/forms/img/FormImages.jsx.jsx
-// files with no named exports:  ["AlertModal.jsx","AppCore.jsx","CheckBox.jsx","CheckBoxGroup.jsx","Choice.jsx","ChoiceText.jsx","ChoiceTextSearchable.jsx","ConfirmModal.jsx","ContextMenu.jsx","DateInput.jsx","DoubleListBox.jsx","ErrorModal.jsx","Header.jsx","HeaderModal.jsx","Home.jsx","InputFile.jsx","Invalid.jsx","Link.jsx","List.jsx","MenuBar.jsx","Modal.jsx","NavigateBar.jsx","OpenTab.jsx","Outline.jsx","PageTitle.jsx","ProgressCircles.jsx","Radio.jsx","Redirect.jsx","SearchSortTable.jsx","SimpleTable.jsx","Slider.jsx","SpreadSheet.jsx","StatusBox.jsx","UserSection.jsx","forms/Button.jsx","forms/ControlledInput.jsx","forms/ControlledTextarea.jsx","forms/DatabaseLoadingIcon.jsx","forms/EntryScreen.jsx","forms/ErrorList.jsx","forms/FieldGenerator.jsx","forms/Form.jsx","forms/FormChoice.jsx","forms/FormFields.jsx","forms/FormHeader.jsx","forms/FormTable.jsx","forms/Gears.jsx","forms/Input.jsx","forms/MakeModal.jsx","forms/NarrowForm.jsx","forms/Show.jsx","forms/SimpleDataTable.jsx","forms/SimpleEntryScreen.jsx","forms/genRowBuilder.jsx","forms/newRecRowSelected.js","forms/img/FormImages.jsx"]
+// files with no named exports:  ["forms/newRecRowSelected.js"]
 
+import { AlertModal } from './AlertModal.jsx' 
+import { AppCore } from './AppCore.jsx' 
+import { CheckBox } from './CheckBox.jsx' 
+import { CheckBoxGroup } from './CheckBoxGroup.jsx' 
+import { Choice } from './Choice.jsx' 
+import { ChoiceText } from './ChoiceText.jsx' 
+import { ChoiceTextSearchable } from './ChoiceTextSearchable.jsx' 
 import { formatMoney, sanitize } from './Common.js' 
+import { ConfirmModal } from './ConfirmModal.jsx' 
+import { ContextMenu } from './ContextMenu.jsx' 
 import { addDigit, convertDate, currentDBDate, currentDBDateTime, currentDate, currentDateTime, dateTime, dbDate, monthName } from './DateFunct.js' 
+import { DateInput } from './DateInput.jsx' 
+import { DoubleListBox } from './DoubleListBox.jsx' 
+import { ErrorModal } from './ErrorModal.jsx' 
+import { Header } from './Header.jsx' 
+import { HeaderModal } from './HeaderModal.jsx' 
+import { Home } from './Home.jsx' 
+import { InputFile } from './InputFile.jsx' 
+import { checkValidityScreen, checkValidityTable, clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, generateInvalid, getInvalidMessage, isConstant, isInvalid, processInvalidStyleScreen, processInvalidStyleTable, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, wasClickedScreen, wasClickedTable } from './Invalid.jsx' 
+import { Link } from './Link.jsx' 
+import { List } from './List.jsx' 
+import { MenuBar, getMenuParms, setMenuParms, setMenuPath } from './MenuBar.jsx' 
+import { Modal } from './Modal.jsx' 
+import { NavigateBar } from './NavigateBar.jsx' 
+import { OpenTab } from './OpenTab.jsx' 
+import { Outline } from './Outline.jsx' 
+import { PageTitle } from './PageTitle.jsx' 
+import { ProgressCircles } from './ProgressCircles.jsx' 
+import { Radio } from './Radio.jsx' 
+import { Redirect } from './Redirect.jsx' 
 import { binSearch, search } from './SearchFunct.js' 
+import { SearchSortTable, getAlignment } from './SearchSortTable.jsx' 
+import { SimpleTable } from './SimpleTable.jsx' 
+import { Slider } from './Slider.jsx' 
+import { SpreadSheet } from './SpreadSheet.jsx' 
+import { StatusBox } from './StatusBox.jsx' 
 import { generateButton, generateCSSButton, generateCSSDefaultButton } from './Theme.js' 
+import { UserSection } from './UserSection.jsx' 
 import { isBlink, isChrome, isEdge, isEdgeChromium, isFirefox, isIE, isOpera, isSafari } from './browserDetect.js' 
 import { toCamelCase } from './camel.js' 
 import { deleteCssRule, findCssRule, findStyleSheet, insertCssRule, printCssRules } from './cssRulesFunct.js' 
@@ -79,7 +55,26 @@ import { localStrToDate } from './localStrToDate.js'
 import { makeChangeHandler } from './makeChangeHandler.js' 
 import { printStackTrace } from './printStackTrace.js' 
 import { TS, dTS, now } from './time.js' 
+import { Button } from './forms/Button.jsx' 
+import { ControlledInput } from './forms/ControlledInput.jsx' 
+import { ControlledTextarea } from './forms/ControlledTextarea.jsx' 
+import { DatabaseLoadingIcon } from './forms/DatabaseLoadingIcon.jsx' 
 import { applyOptions, exampleFields } from './forms/DefaultFormElements.js' 
+import { EntryScreen, genRecordTypeFromName } from './forms/EntryScreen.jsx' 
+import { ErrorList } from './forms/ErrorList.jsx' 
+import { fieldGeneratorLookup, setFieldGenerator } from './forms/FieldGenerator.jsx' 
+import { Form } from './forms/Form.jsx' 
+import { FormChoice } from './forms/FormChoice.jsx' 
+import { FieldsFromList, FieldsFromListWorks, FormFields, getFieldRecName, getGqlNameFromForm, ifDefined, onChangeMaker } from './forms/FormFields.jsx' 
+import { FormHeader } from './forms/FormHeader.jsx' 
+import { FormTable } from './forms/FormTable.jsx' 
+import { Gears } from './forms/Gears.jsx' 
+import { Input } from './forms/Input.jsx' 
+import { MakeModal } from './forms/MakeModal.jsx' 
+import { NarrowForm } from './forms/NarrowForm.jsx' 
+import { Show, pretty } from './forms/Show.jsx' 
+import { SimpleDataTable } from './forms/SimpleDataTable.jsx' 
+import { SimpleEntryScreen } from './forms/SimpleEntryScreen.jsx' 
 import { applyDeepValueChange, getRecordKeyInfo } from './forms/applyDeepValueChange.js' 
 import { arrLen } from './forms/arrLen.js' 
 import { capWords } from './forms/capWords.js' 
@@ -87,6 +82,7 @@ import { dataLog, getDataLog } from './forms/dataLog.js'
 import { dispAsString } from './forms/dispAsString.js' 
 import { dumbFlattenJSON, flattenJSON } from './forms/flattenJSON.js' 
 import { genEmptyRecord } from './forms/genEmptyRecord.js' 
+import { genColHeaders, genRowBuilder } from './forms/genRowBuilder.jsx' 
 import { getGqlName, getKeyValues } from './forms/getKeyValues.js' 
 import { getLabels } from './forms/getLabels.js' 
 import { getSubRecord } from './forms/getSubRecord.js' 
@@ -116,12 +112,47 @@ import { genDictionaryEntry } from './forms/model/genDictionaryEntry.js'
 import { getTableColumns } from './forms/model/getTableColumns.js' 
 import { findTableByGqlName, getGqlFieldNames, getGqlPKs, getTablePKs } from './forms/model/getTablePKs.js' 
 import { listNotKeyedTables } from './forms/model/list-non-keyed-tables.js' 
+import { AddRecordIcon, CloneRecordIcon } from './forms/img/FormImages.jsx' 
 
 export {
+AlertModal,
+AppCore,
+CheckBox,
+CheckBoxGroup,
+Choice,
+ChoiceText,
+ChoiceTextSearchable,
 formatMoney,sanitize,
+ConfirmModal,
+ContextMenu,
 addDigit,convertDate,currentDBDate,currentDBDateTime,currentDate,currentDateTime,dateTime,dbDate,monthName,
+DateInput,
+DoubleListBox,
+ErrorModal,
+Header,
+HeaderModal,
+Home,
+InputFile,
+checkValidityScreen,checkValidityTable,clearInvalidDual,clearInvalidScreen,clearInvalidScreenOnly,clearInvalidTable,generateInvalid,getInvalidMessage,isConstant,isInvalid,processInvalidStyleScreen,processInvalidStyleTable,processStyleScreen,processStyleTable,resetDisplayScreen,resetDisplayTable,setInvalidDual,setInvalidScreen,setInvalidTable,validCheckDual,validCheckScreen,validCheckTable,wasClickedScreen,wasClickedTable,
+Link,
+List,
+MenuBar,getMenuParms,setMenuParms,setMenuPath,
+Modal,
+NavigateBar,
+OpenTab,
+Outline,
+PageTitle,
+ProgressCircles,
+Radio,
+Redirect,
 binSearch,search,
+SearchSortTable,getAlignment,
+SimpleTable,
+Slider,
+SpreadSheet,
+StatusBox,
 generateButton,generateCSSButton,generateCSSDefaultButton,
+UserSection,
 isBlink,isChrome,isEdge,isEdgeChromium,isFirefox,isIE,isOpera,isSafari,
 toCamelCase,
 deleteCssRule,findCssRule,findStyleSheet,insertCssRule,printCssRules,
@@ -134,7 +165,26 @@ localStrToDate,
 makeChangeHandler,
 printStackTrace,
 TS,dTS,now,
+Button,
+ControlledInput,
+ControlledTextarea,
+DatabaseLoadingIcon,
 applyOptions,exampleFields,
+EntryScreen,genRecordTypeFromName,
+ErrorList,
+fieldGeneratorLookup,setFieldGenerator,
+Form,
+FormChoice,
+FieldsFromList,FieldsFromListWorks,FormFields,getFieldRecName,getGqlNameFromForm,ifDefined,onChangeMaker,
+FormHeader,
+FormTable,
+Gears,
+Input,
+MakeModal,
+NarrowForm,
+Show,pretty,
+SimpleDataTable,
+SimpleEntryScreen,
 applyDeepValueChange,getRecordKeyInfo,
 arrLen,
 capWords,
@@ -142,6 +192,7 @@ dataLog,getDataLog,
 dispAsString,
 dumbFlattenJSON,flattenJSON,
 genEmptyRecord,
+genColHeaders,genRowBuilder,
 getGqlName,getKeyValues,
 getLabels,
 getSubRecord,
@@ -171,4 +222,5 @@ genDictionaryEntry,
 getTableColumns,
 findTableByGqlName,getGqlFieldNames,getGqlPKs,getTablePKs,
 listNotKeyedTables,
+AddRecordIcon,CloneRecordIcon,
 }

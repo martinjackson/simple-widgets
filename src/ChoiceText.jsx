@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { hasOwnProperty } from './index.js'
-import { Input } from './forms/index.js'
+import { hasOwnProperty, Input } from './index.js'
 
 export const ChoiceText = inProps => {
 

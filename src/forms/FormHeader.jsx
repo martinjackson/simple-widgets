@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from './Button.js';
-import { AddRecordIcon, CloneRecordIcon } from './img/FormImages.js';
-import { DatabaseLoadingIcon } from './DatabaseLoadingIcon.js';
+import { Button } from './Button.jsx';
+import { AddRecordIcon, CloneRecordIcon } from './img/FormImages.jsx';
+import { DatabaseLoadingIcon } from './DatabaseLoadingIcon.jsx';
 
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
