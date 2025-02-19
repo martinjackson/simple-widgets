@@ -26,15 +26,16 @@ export const ErrorModal = inProps => {
             {
                 (props.show === true) ?  (
                     <Modal>
-                        <div>
+                        <div className="sw-modal_flex">
+                            <p className="sw-modal_header">Error</p>
                             { (hasOwnProperty(props, 'nodisplayX') === true) ?
                                 <span></span> :
-                                <XButton closeFunct={props.closeFunct} />
+                                <XButton closeFunct={props.closeFunct} nounder />
                             }
-                            <h1 className="modal_marginStyle">Error</h1>
-                            <h2>{(props.message === '') ? defProps.message : props.message}</h2>
-                            <button name="ok" onClick={() => props.closeFunct(false)} className="sw-modal_ebuttonStyle" >OK</button>
                         </div>
+                        <hr />
+                        <h2>{(props.message === '') ? defProps.message : props.message}</h2>
+                        <button name="ok" onClick={() => props.closeFunct(false)} className="sw-modal_ebuttonStyle" >OK</button>
                     </Modal>
                 ) : null
             }

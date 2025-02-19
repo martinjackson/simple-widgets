@@ -56,5 +56,20 @@
 }
 
 .sw-modal_divButton {
-    text-align: right
+    text-align: right;
 }
+
+.sw-modal_flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sw-modal_header {
+    font-size: 24pt;
+    font-weight: bold;
+    margin-bottom: -10px;
+
+}
+
+
+

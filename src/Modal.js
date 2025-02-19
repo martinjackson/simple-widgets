@@ -28,15 +28,11 @@ export const Modal = ({ children }) => {
 };
 
 export const XButton = (props) => {
-    if (hasOwnProperty(props, 'closeFunct') === false) {
-        console.log ('X Button: There is no closeFunct prop');
-        return ( <span></span> );
-    } else {
-        return (
-            <div className="sw-modal_divButton">
-            <button name="close" onClick={() => props.closeFunct(false)} className="sw-modal_xbuttonStyle" >🞫</button>
-            { (hasOwnProperty(props, 'nounder') === true) ? <span></span> : <hr /> }
-            </div>
-        )
-    }
+    return (
+        <p className="sw-modal_divButton">
+           <button name="close" onClick={() => props.closeFunct(false)} 
+                   className="sw-modal_xbuttonStyle" >X</button>
+           { (hasOwnProperty(props, 'nounder') === true) ? <span></span> : <hr /> }
+        </p>
+    )
 }
