@@ -47,7 +47,7 @@
 }
 
 .sw-modal_xbuttonStyle {
-    color: darkgray;
+    color: black;
     font: "san-serif";
     font-weight: var(--sw-theme_buttonFontWeight);
     font-size: 16pt;

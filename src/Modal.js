@@ -34,7 +34,7 @@ export const XButton = (props) => {
     } else {
         return (
             <div className="sw-modal_divButton">
-            <button name="close" onClick={() => props.closeFunct(false)} className="sw-modal_xbuttonStyle" >X</button>
+            <button name="close" onClick={() => props.closeFunct(false)} className="sw-modal_xbuttonStyle" >🞫</button>
             { (hasOwnProperty(props, 'nounder') === true) ? <span></span> : <hr /> }
             </div>
         )
