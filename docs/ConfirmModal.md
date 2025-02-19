@@ -1,6 +1,10 @@
 # **Confirm Modal**
 
-This will allow the user to pop up a confirm modal asking the user of the application a yes or no question.  If the user answers by pressing the Yes button, the noFunct will be executed to close the confirm modal and the yesFunct will then be executed.  If the user answers by pressing the No button, the confirm modal will close.
+This will allow the user to pop up a confirm modal asking the user of the application a yes or no question.  If the user answers by pressing the Yes button, the noFunct will be executed to close the confirm modal and, then yesFunct will then be executed.  If the user answers by pressing the No button, the confirm modal will close.
+
+Either the noFunct or the closeFunct function should be used to close the modal.  If you have both the noFunct and closeFunct are present, the closeFunct should be used to close the modal.  If there is no special processing when the No button is pressed, then the noFunct can be used to close the modal.  The X button in the upper corner of the modal can also be used to only close the modal.  
+
+If there is special processing with the No button, then there should be a noFunct to do the special processing.  The closeFunct should then be used to close the modal.
 
 ### **Props**
 In order to use the alert modal the user must pass the following props:
@@ -10,6 +14,8 @@ In order to use the alert modal the user must pass the following props:
 3. **noFunct** = a function that will be executed when the user presses the No button on the confirm model.  Another use this for this function is to set the show variable back to false to close the confirm modal, when the user presses the No button.  Also, called to close the confirm modal when the Yes button is pressed.
 4. **closeFunct** = a function that is used to close the modal when the Yes or No button is pressed.  If there are both a yesFunct and noFunct, the closeFunct is required to set the show variable back to false to close the confirm modal.  This option should not be present if the noFunct is used to close the modal.
 5. **message** = the message to display in the confirm modal.
+6. **nodisplayX** = indicates that the X button and the line underneath it will not be displayed.
+
 
 The show, yesFunct, and noFunct and / or closeFunct props are required.  The message style prop is not required.  If the message prop is not supplied, the default message will be 'No Confirm message given'.
 

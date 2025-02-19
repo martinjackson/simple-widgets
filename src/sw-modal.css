@@ -45,3 +45,16 @@
     font-size: var(--sw-theme_buttonFontSize);
     background-color: var(--sw-theme_buttonColor);
 }
+
+.sw-modal_xbuttonStyle {
+    color: darkgray;
+    font: "san-serif";
+    font-weight: var(--sw-theme_buttonFontWeight);
+    font-size: 16pt;
+    background-color: inherit;
+    border: 1px solid lightgray;
+}
+
+.sw-modal_divButton {
+    text-align: right
+}

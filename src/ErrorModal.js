@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { Modal, hasOwnProperty } from './index.js'
+import { Modal, XButton } from './Modal.js';
+
+import { hasOwnProperty } from './hasOwnProperty.js';
 
 const defProps = {
     show: true,
@@ -25,6 +27,10 @@ export const ErrorModal = inProps => {
                 (props.show === true) ?  (
                     <Modal>
                         <div>
+                            { (hasOwnProperty(props, 'nodisplayX') === true) ?
+                                <span></span> :
+                                <XButton closeFunct={props.closeFunct} />
+                            }
                             <h1 className="modal_marginStyle">Error</h1>
                             <h2>{(props.message === '') ? defProps.message : props.message}</h2>
                             <button name="ok" onClick={() => props.closeFunct(false)} className="sw-modal_ebuttonStyle" >OK</button>

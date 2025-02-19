@@ -165,6 +165,7 @@ All of these widgets require the following props:
 [SpreadSheet](docs/SpreadSheet.md)<br />
 [StatusBox](docs/StatusBox.md)<br />
 [Theme](docs/Theme.md)<br />
+[XButton](docs/XButton.md)<br />
 
 ## Getting Started_
 
