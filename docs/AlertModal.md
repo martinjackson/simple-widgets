@@ -1,6 +1,6 @@
 # **Alert Modal**
 
-This will allow the user to pop up an alert modal giving the user of the application information.  It will have an OK button to close the Alert modal.
+This will allow the user to pop up an alert modal giving the user of the application information.  It will have an OK button or an X button in the upper right corner to close the Alert modal.
 
 ## **Props**
 In order to use the alert modal the user must pass the following props:
@@ -8,8 +8,9 @@ In order to use the alert modal the user must pass the following props:
 1. **show** = a boolean variable indicating whether the alert modal should be displayed (true) or not (false).
 2. **closeFunct** = a function that will set the show variable back to false to close the alert modal.
 3. **message** = the message to display in the alert modal.
+4. **nodisplayX** = indicates that the X button and the line underneath it will not be displayed.
 
-The show, closeFunct, and message props are required.  The extra style prop is not required.
+The show, closeFunct, and message props are required.  
 
 ## CSS File
 

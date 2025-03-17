@@ -1,5 +1,6 @@
 import React, { useEffect, useRef }  from 'react';
 import { createPortal } from 'react-dom';
+import { hasOwnProperty } from './hasOwnProperty';
 
 
 export const Modal = ({ children }) => {
@@ -26,3 +27,12 @@ export const Modal = ({ children }) => {
     return createPortal(<div>{children}</div>, elRef.current);
 };
 
+export const XButton = (props) => {
+    return (
+        <p className="sw-modal_divButton">
+           <button name="close" onClick={() => props.closeFunct(false)} 
+                   className="sw-modal_xbuttonStyle" >X</button>
+           { (hasOwnProperty(props, 'nounder') === true) ? <span></span> : <hr /> }
+        </p>
+    )
+}
