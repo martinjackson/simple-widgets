@@ -66,16 +66,6 @@ Planned removal:
 
 ---------------------
 
-## Kept back
-
-These are kept back because we are still holding compatability with react 17.0.2 and react-dom 17.0.2
-
-```bash
-@testing-library/dom                                 8.19.0  →     9.3.1
-@testing-library/react                               12.1.5  →    14.0.0
-react-test-renderer                                 ^17.0.0  →   ^18.2.0
-```
-
 ## Installation
 
 Using [npm](https://www.npmjs.com/):
@@ -175,6 +165,7 @@ All of these widgets require the following props:
 [SpreadSheet](docs/SpreadSheet.md)<br />
 [StatusBox](docs/StatusBox.md)<br />
 [Theme](docs/Theme.md)<br />
+[XButton](docs/XButton.md)<br />
 
 ## Getting Started_
 
@@ -191,10 +182,6 @@ All of these widgets require the following props:
 2. npm run dry
 3. npm run pub
 
-## Source Code Build Dependencies
-
-- wallaby.js needs .babelrc for code coverage testing
-- webpack uses babel config in webpack.config.js babel-loader section
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/martinjackson/simple-widgets/issues)
 

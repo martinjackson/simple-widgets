@@ -1109,7 +1109,7 @@ const processAllChecks = (data) => {
 
 5.  ***choice*** = this indicates whether there will be choice boxes or input boxes for the filter input.  If choice prop appears, then the box to place the filter information will contain a choice box with all the possible data for that column.  Select or type the value and press the filter button.  If there is no choice prop, the filter information will be entered into an input text box.  With this prop you can use the filterdaterange option with the table prop to get a list of ranges in the ChoiceText box for the filter.  For more information see table prop.
 
-6.  ***controlBreak*** = is an array that allows to set up hidden columns and control breaks before the table is displayed.  The control break array should have the same number of elements as the table array.  Each element is an object that contains a hidden and a control break field.  For example,
+6.  ***controlBreak*** = is an array that allows to set up hidden columns and control breaks before the table is displayed.  The control break array should have the same number of elements as the table array.  Each element is an object that contains a hidden, control break, and sort order fields, along with totaling fields.  For example,
 ```javascript
   let controlBreak = [
     { hidden: false, ctrlBreak: 0 },
@@ -1140,6 +1140,18 @@ The first element in the table corresponds to the first item in the control brea
 ```
 
 The above control break array indicates the first column should be hidden, which is the Name column.  The ctrlBreak field for State (element 2) has a value of 1, which indicates that a control break will first occur on the State.  The ctrlBreak field for City (element 1) has a value 2, which indicates a control break will happen on City after the control break on State has happened.
+
+The control break can also have a sort order field.  The sort order determines the way in which that column should be sorted.  The order can be in either ascending (default) or descending order.  The values can be ASC or asc (ascending) and / or DESC or desc (descending).  The following is an example with sort order in a control break:
+
+```javascript
+  let controlBreak = [
+    { hidden: true,  ctrlBreak: 0 },                          element 0
+    { hidden: false, ctrlBreak: 2, sortOrder: 'DESC' },       element 1
+    { hidden: false, ctrlBreak: 1 },                          element 2
+    { hidden: false, ctrlBreak: 0 },                          element 3
+  ]
+```
+This indicates that the second columm (City) will be sorted in descending order.  The third column (State) will be sorted in ascending order, since there is no sort order (ascending is the default).
 
 The control break can also be used to total up certain columns in the control break.  The totalling will happen automatically.  Three fields are used to the totaling and they are sumtitle, sum, and money.  The sumtitle allows a title to be placed in one or more of the columns.  The sum indicates that the column should be summed.  The money field indicates that columns contains a dollar amount and that the column should be formatted for money.  Consider the following example:
 
@@ -1200,29 +1212,6 @@ An example in the search sort table component
     table={table}
     data={data}
     controlBreak={controlBreak}
-    ...
-  />
-```
-
-7.  ***controlOrder*** = indicates the order in which a **single control break passed down to SearchSortTable** is to be sorted.  The values can be ASC, asc, DESC, or desc.  The ASC and asc stand for ascending order and the DESC and desc stand for descending order.  The default is asc.
-
-An example using the controlBreak prop is:
-
-```jsx
-  let controlBreak = [
-    { hidden: false, ctrlBreak: 0 },
-    { hidden: false, ctrlBreak: 0 },
-    { hidden: true,  ctrlBreak: 1 },
-    { hidden: false, ctrlBreak: 0 },
-    { hidden: false, ctrlBreak: 0 },
-    { hidden: false, ctrlBreak: 0 },
-  ];
-
-  <SearchSortTable
-    table={table}
-    data={data}
-    controlBreak={controlBreak}
-    controlOrder="DESC"
     ...
   />
 ```

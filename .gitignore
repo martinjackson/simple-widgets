@@ -1,21 +1,24 @@
 
 # cSpell:ignore esbuild
 
-node_modules/
+node_modules
+package-lock.json
 
 .DS_Store
 coverage
 
 simple-widgets-*.tgz
 wipe-modules.sh
-package-lock.json
 
 # where we build things
 lib/
 esbuild-lib/
+dist/
 
 # Playwright
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+old-enzyme-tests
