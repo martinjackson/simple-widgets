@@ -64,6 +64,8 @@ export const sanitize = (text, item) => {
  **********************************************************************************************/
 export const formatMoney = (amount, decimalCount = 2, decimal = ".", thousands = ",", dollarSign = '$') => {
     try {
+        if (amount === null) return null;
+        
         // Truncate to the apprpriate number of decimals after the decimal point
         decimalCount = Math.abs(decimalCount);
         decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
