@@ -792,14 +792,16 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     let headerStyle = 'sw-sst_headerStyle';
     if (hasOwnProperty(props, 'noborders') === true ||
-        hasOwnProperty(props, 'noHeaderBorder') === true) {
-        headerStyle = 'sw-sst_headerStyle2';
+        hasOwnProperty(props, 'noHeaderBorder') === true ||
+        hasOwnProperty(props, 'noh0eaderborder') === true) {
+            headerStyle = 'sw-sst_headerStyle2';
     }
 
     let footerStyle = 'sw-sst_footerStyle';
     if (hasOwnProperty(props, 'noborders') === true ||
-        hasOwnProperty(props, 'noFooterBorder') === true) {
-        footerStyle = 'sw-sst_footerStyle2';
+        hasOwnProperty(props, 'noFooterBorder') === true ||
+        hasOwnProperty(props, 'nofooterborder') === true) {
+            footerStyle = 'sw-sst_footerStyle2';
     }
 
     const genButtonStyle         = generateCSSButton('sw-sst_buttonStyle', props.error, false, false, 'sw-sst_normalButtonBackground', 'sw-sst_grayButtonBackground');
