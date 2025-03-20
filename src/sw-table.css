@@ -65,6 +65,17 @@ table.sw-sst_search_sort_table10 tr:hover td {
   resize: horizontal;
 }
 
+.sw-sst_divStyle2 {
+  border: none;
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+  width: fit-content;
+  overflow: auto;
+  background-color: var(--sw-theme_backgroundColor);  /* "#CCCC66" */
+  resize: horizontal;
+}
+
 .sw-sst_noButtonStyle {
   margin: 10px;
   padding: 0px;
@@ -86,6 +97,10 @@ table.sw-sst_search_sort_table10 tr:hover td {
   padding: 0px;
   border: none;
   background: none;
+}
+
+.sw-sst_noBorder {
+  border: none;
 }
 
 .sw-sst_tableStyle { 
@@ -302,8 +317,12 @@ table.sw-sst_search_sort_table10 tr:hover td {
 
 .sw-sst_table {     /* The style for the table */
   border-collapse: collapse;
-  width: 100%;
-  
+  width: 100%;  
+}
+
+.sw-sst_table2 {     /* The style for the table */
+  border: none;
+  width: 100%;  
 }
 
 .sw-sst_resize { 

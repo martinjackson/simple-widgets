@@ -15,22 +15,22 @@ import { CSVLink } from 'react-csv';
 
 import '../src/sw-table.css';
 
-//import { CheckBox } from './CheckBox.js';
-//import { Choice } from './Choice.js';
-//import { ChoiceText } from './ChoiceText.js';
-//import { isInvalid, setInvalidScreen, generateInvalid,
-//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-//import { AlertModal } from './AlertModal.js';
-//import { generateCSSButton } from './Theme.js';
-//import { currentDate, convertDate } from './DateFunct.js';
-//import { formatMoney } from './Common.js';
-//import { hasOwnProperty } from './hasOwnProperty.js';
+import { CheckBox } from './CheckBox.js';
+import { Choice } from './Choice.js';
+import { ChoiceText } from './ChoiceText.js';
+import { isInvalid, setInvalidScreen, generateInvalid,
+         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
+import { AlertModal } from './AlertModal.js';
+import { generateCSSButton } from './Theme.js';
+import { currentDate, convertDate, dateTime } from './DateFunct.js';
+import { formatMoney } from './Common.js';
+import { hasOwnProperty } from './hasOwnProperty.js';
 
-import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
-    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
-    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
-    dateTime
-} from './index.js'
+//import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
+//    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
+//    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
+//    dateTime
+//} from './index.js'
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -300,8 +300,38 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     const localUserFooter = (hasOwnProperty(props, 'footer') === true) ? props.footer : [];
     const localFinalTotals = (hasOwnProperty(props, 'finaltotals') === true) ? props.finaltotals : [];
+    
+    let cellBorder = "sw-sst_body_full ";
+    if (hasOwnProperty(props, 'noborders') === true) {
+        cellBorder = "";
+    } else if (hasOwnProperty(props, 'cellBorder') === true) {
+        if (props.cellBorder === 'none') {
+            cellBorder = "";
+        } else if (props.cellBorder === 'full') {
+            cellBorder = "sw-sst_body_full ";
+        } else if (props.cellBorder === 'row') {
+            cellBorder = "sw-sst_body_row ";
+        } else if (props.cellBorder === 'col') {
+            cellBorder = "sw-sst_body_col ";
+        }
+    }
 
-    // Set the state variables
+    let rowStyle = "sw-sst_stripe";
+    if (hasOwnProperty(props, 'rowStyle') === true) {
+        if (props.rowStyle === 'none') {
+            rowStyle="";
+        } else if (props.rowStyle === 'stripe') {
+            rowStyle = "sw-sst_stripe";
+        }
+    }
+
+    let tableBorder = "sw-sst_table";
+    if (hasOwnProperty(props, 'noborders') === true ||
+        hasOwnProperty(props, 'noTableBorder') === true) {
+            tableBorder = "sw-sst_table2";
+    }
+
+// Set the state variables
     const [start, setStart] = useState(0);                              // The start of the pagination
     const [end, setEnd] = useState((hasOwnProperty(props,'showall') === true) ? props.data.length : parseInt(props.MAX_ITEMS));    // The end of the pagination
     const [searchItem, setSearchItem] = useState('');                   // The item to search for
@@ -379,10 +409,10 @@ const _InnerSearchSortTable = (propsPassed) => {
     const defaultEachRowInTable2 = (row, i) => {
         if (controlBreakInfo.length !== 0) {
             return (
-                <tr key={`eachRowInTableRow_${props.number}_${i}`} className="sw-sst_stripe">
+                <tr key={`eachRowInTableRow_${props.number}_${i}`} className={rowStyle} >
                     {table.map((col, idx) => (
                         <td key={`${col.header}_${idx}_${i}`}
-                                    className={"sw-sst_body_full " + getAlignment(col.align)}
+                                    className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
                             { [{row, col}].map((obj, i) => setTableTD(obj, i)) }
                         </td>
@@ -398,11 +428,11 @@ const _InnerSearchSortTable = (propsPassed) => {
         if (controlBreakInfo.length !== 0) {
 
             return (
-                <tr key={`eachRowInTableRow_${props.number}_${i}`} className="sw-sst_stripe"
+                <tr key={`eachRowInTableRow_${props.number}_${i}`} className={rowStyle}
                         onClick={() => props.transfer(row)}>
                     {table.map((col, idx) => (
                         <td key={`${col.header}_${idx}_${i}`}
-                                    className={"sw-sst_body_full " + getAlignment(col.align)}
+                                    className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
                             { [{row, col}].map((obj, i) => setTableTD(obj, i)) }
                         </td>
@@ -761,12 +791,14 @@ const _InnerSearchSortTable = (propsPassed) => {
     }
 
     let headerStyle = 'sw-sst_headerStyle';
-    if (hasOwnProperty(props, 'noheaderborder') === true) {
+    if (hasOwnProperty(props, 'noborders') === true ||
+        hasOwnProperty(props, 'noHeaderBorder') === true) {
         headerStyle = 'sw-sst_headerStyle2';
     }
 
     let footerStyle = 'sw-sst_footerStyle';
-    if (hasOwnProperty(props, 'nofooterborder') === true) {
+    if (hasOwnProperty(props, 'noborders') === true ||
+        hasOwnProperty(props, 'noFooterBorder') === true) {
         footerStyle = 'sw-sst_footerStyle2';
     }
 
@@ -2341,7 +2373,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         // Build the tables for the control breaks by rendering the headers in blue at the top and
         // each control break table following
         tableBuild =    <Fragment key={`frag_3_${number}}`}>
-                            <table className="sw-sst_table" key={cbTable}>
+                            <table className={tableBorder} key={cbTable}>
                                 <thead>
                                     <tr key={cbHeader}>
                                         {table.map(buildHeaders(true, 0, true))}
@@ -2351,7 +2383,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                                 </tbody>
                             </table>
                             <table key={`table1_${number}`}
-                                    className={hoverClassName + " sw-sst_table sw-sst_final_total_margin"}>
+                                    className={`${hoverClassName} ${tableBorder} sw-sst_final_total_margin`}>
                                 {controlBreakData.map(renderCtrlBreak) }
                                 { finalTotalsTable }
                             </table>
@@ -2371,7 +2403,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 </tr>
         }
 
-        tableBuild =    <table className={`${hoverClassName} sw-sst_table`}
+        tableBuild =    <table className={`${hoverClassName} ${tableBorder}`}
                                 name={`table${number}`} key={keyTable}>
                             <thead>
                                 <tr key={header} className="sw-sst_centerBoldStyle">
@@ -2410,13 +2442,22 @@ const _InnerSearchSortTable = (propsPassed) => {
         return false;   // No drop downs in the table
     }
 
+    console.log ('got here');
+    let outerBorder = "sw-sst_divStyle";
+    console.log('outerBorder 1 :', outerBorder);
+    if (hasOwnProperty(props, 'noborders') === true || 
+        hasOwnProperty(props, 'noOuterBorder') === true) {
+        outerBorder = "sw-sst_divStyle2";
+        console.log('outerBorder 2 :', outerBorder);
+    }
+
     /**************************************************************************************************************************
      *
      * Render the screen
      *
      **************************************************************************************************************************/
     return (
-        <div className={`sw-sst_divStyle ${heightWidthStyle}`}>
+        <div className={outerBorder} style={heightWidthStyle}>
             {title}
             <div>
                 { (hasOwnProperty(props,'sfbottom') === false) ?
