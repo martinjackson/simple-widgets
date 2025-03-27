@@ -134,6 +134,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
   text-align: none;
   font-weight: bold;
   font-size: 20px;
+  border: none;
 }
 
 .sw-sst_scrollStyle {
@@ -194,7 +195,7 @@ table.sw-sst_search_sort_table10 tr:hover td {
   /*flex-direction: column; */
   top: 0;
   z-index: 2;
-  border: 0px solid var(--sw-theme_backgroundColor);
+  border: none;
   background-color: var(--sw-sst_header_background);
 }
 
@@ -346,6 +347,10 @@ table.sw-sst_search_sort_table10 tr:hover td {
   border-right: none;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+}
+
+.sw_sst_body_none {
+  border: none;
 }
 
 .sw-sst_stripe:nth-child(even) {

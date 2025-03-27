@@ -303,10 +303,10 @@ const _InnerSearchSortTable = (propsPassed) => {
     
     let cellBorder = "sw-sst_body_full ";
     if (hasOwnProperty(props, 'noborders') === true) {
-        cellBorder = "";
+        cellBorder = "sw-sst_body_none ";
     } else if (hasOwnProperty(props, 'cellBorder') === true) {
         if (props.cellBorder === 'none') {
-            cellBorder = "";
+            cellBorder = "sw-sst_body_none ";
         } else if (props.cellBorder === 'full') {
             cellBorder = "sw-sst_body_full ";
         } else if (props.cellBorder === 'row') {
@@ -2444,13 +2444,11 @@ const _InnerSearchSortTable = (propsPassed) => {
         return false;   // No drop downs in the table
     }
 
-    console.log ('got here');
     let outerBorder = "sw-sst_divStyle";
     console.log('outerBorder 1 :', outerBorder);
     if (hasOwnProperty(props, 'noborders') === true || 
         hasOwnProperty(props, 'noOuterBorder') === true) {
         outerBorder = "sw-sst_divStyle2";
-        console.log('outerBorder 2 :', outerBorder);
     }
 
     /**************************************************************************************************************************

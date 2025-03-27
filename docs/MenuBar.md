@@ -164,28 +164,12 @@ The sw-NavBar.css controls the main horizontal or vertical bar across the top of
 12. --sw-slide_time: the time it takes to do the animation for sliding of the menu.
 13. --sw-menu_additional: used to add extra spacing so that the page will clear the vertical menu.
 
-**CSS Classes needed to make the format to work:**
-
-1.  ***nav-menu_horiz_22*** = this is for horizontal menus.  This indicates that the position is absolute and top is 22% (combination of the header (12%) and the menu (10%)).  This is need in the horizontal menus, ***except*** for:
-        - header is float and menu is float
-        - no header and menu is float
-
-2.  **nav-menu_horiz_10** = this is for horizontal menus without a header.  This indicates that the position is absolute and top is 10% (menu is 10%)).  This is need in the horizontal menus, for no header with a menu of fixed.
-
-3.  **nav-menu_vert_250_12** = this is for vertical menus.  This indicates that the position is absolute, left is 16em (250px) (for the vertical menu), and top is 12% (for the header (12%)).  This is need in the verical menus, ***except*** for:
-        - header is float and menu is float
-        - no header and menu is float
-
-4.  **nav-menu_vert_250_0** = this is for vertical menus without a header.  This indicates that the position is absolute, left is left is 16em (250px) (for the vertical menu) and top is 0% (since there is no header)).  This is need in the horizontal menus, for no header with a menu of fixed.
-
-Other styling features may also be added.
-
 ### DropDown.css
 
 The DropDown.css controls the drop down (horizontal) on the MenuBar component.  The only items that should be changed are the following:
 
-1.  In the dropdown-menu class, the z-index may need to be changed if it is blocked by other css classes.
-2.  The widths in the dropdown-menu classes.
+1.  In the sw-dropdown-menu class, the z-index may need to be changed if it is blocked by other css classes.
+2.  The widths in the sw-dropdown-menu classes.
 3.  The colors, the box-shadow, and pointer types.
 
 The css files can be modified to change colors or styling.  Other styling features may also be added.
