@@ -6,8 +6,8 @@ import { dTS }           from './time.js'
 
 import { hasOwnProperty } from './hasOwnProperty.js'
 
-let setMenuPath = (_newPath) => {}
-let setMenuParms = (_newParms) => {}
+export let setMenuPath = (_newPath) => {}
+export let setMenuParms = (_newParms) => {}
 
 let menuParms = {}
 export const getMenuParms = () => { return menuParms }
