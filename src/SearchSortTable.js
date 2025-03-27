@@ -303,10 +303,10 @@ const _InnerSearchSortTable = (propsPassed) => {
     
     let cellBorder = "sw-sst_body_full ";
     if (hasOwnProperty(props, 'noborders') === true) {
-        cellBorder = "sw-sst_body_none ";
+        cellBorder = "";
     } else if (hasOwnProperty(props, 'cellBorder') === true) {
         if (props.cellBorder === 'none') {
-            cellBorder = "sw-sst_body_none ";
+            cellBorder = "";
         } else if (props.cellBorder === 'full') {
             cellBorder = "sw-sst_body_full ";
         } else if (props.cellBorder === 'row') {
@@ -2445,7 +2445,6 @@ const _InnerSearchSortTable = (propsPassed) => {
     }
 
     let outerBorder = "sw-sst_divStyle";
-    console.log('outerBorder 1 :', outerBorder);
     if (hasOwnProperty(props, 'noborders') === true || 
         hasOwnProperty(props, 'noOuterBorder') === true) {
         outerBorder = "sw-sst_divStyle2";
@@ -2742,7 +2741,6 @@ const _InnerSearchSortTable = (propsPassed) => {
             if (ctrlBreakInfo[i].ctrlBreak > 0) {
                 let sortOrder = 'ASC';
                 if (hasOwnProperty(ctrlBreakInfo[i], 'sortOrder') === true) {
-                    console.log ('got here');
                     sortOrder = ctrlBreakInfo[i].sortOrder.toUpperCase();
                 }
                 breakOrder.push ({ col: i, order: ctrlBreakInfo[i].ctrlBreak, sortOrder: sortOrder});
