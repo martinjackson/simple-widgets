@@ -14,6 +14,8 @@ The user can select an item in the table.
 
 The user can align whether the columns can be left justified, centered, or right justified.
 
+The user can do automatic totaling a the control break level or the final totals.
+
 The user can print out tables in a PDF format or in an Excel spreadsheet.
 
 ### **Props**
@@ -155,12 +157,13 @@ The dataDate field indicates the format of a date field in the data.  The filter
     - dateleftbold      this will convert the date to the MM/DD/YYYY format, left justify, and bold the date
     - dateright         this will convert the date to the MM/DD/YYYY format and right justify the date
     - daterightbold     this will convert the date to the MM/DD/YYYY format, right justify, and bold the date
-    - money             this will convert the number into a dollar amount with the format of $DD,DDD.DD and will right justify the money data
-    - moneybold         this will convert the number into a dollar amount with the format of $DD,DDD.DD, will right justify, and bold the money data
-    - moneyleft         this will convert the number into a dollar amount with the format of $DD,DDD.DD and will left justify the money data
-    - moneyleftbold     this will convert the number into a dollar amount with the format of $DD,DDD.DD, will left justify, and bold the money data
-    - moneycenter       this will convert the number into a dollar amount with the format of $DD,DDD.DD and will center the money data
-    - moneycenterbold   this will convert the number into a dollar amount with the format of $DD,DDD.DD, will center, and bold the money data
+    - money             this will convert the number into a dollar amount with the format of  \$DD,DDD.DD 
+    and will right justify the money data
+    - moneybold         this will convert the number into a dollar amount with the format of \$DD,DDD.DD, will right justify, and bold the money data
+    - moneyleft         this will convert the number into a dollar amount with the format of \$DD,DDD.DD and will left justify the money data
+    - moneyleftbold     this will convert the number into a dollar amount with the format of \$DD,DDD.DD, will left justify, and bold the money data
+    - moneycenter       this will convert the number into a dollar amount with the format of \$DD,DDD.DD and will center the money data
+    - moneycenterbold   this will convert the number into a dollar amount with the format of \$DD,DDD.DD, will center, and bold the money data
 
    If the date or date and time is already in the correct format, use left, right, or center.  If you do not supply a pdfCol, it will left justify the value for that column.
 
@@ -184,12 +187,12 @@ The dataDate field indicates the format of a date field in the data.  The filter
 
 3.  **eachRowInTable** = a function that indicates how each cell in a row will be displayed.  The function will build a row in the search sort table.  The function is passed a row in the table that needs to be put into the HTML table row format.  If hover props is used, the indexing table and onClick on the tr will need to be added.  The following example is with out the hover props being used:
 
-# Old Format (still works if not dragging)
+# Original Format (still works if not dragging)
 ```javascript
           const eachRowInTable = (row, i) => {
               let key = 'row_' + i + start;
               return (
-                  <tr key={key}>
+                  <tr key={key} onClick={() => transfer(row)}>
                       <td>{row.ORDER_NUM}</td>
                       <td>{row.ITEM}</td>
                       <td>{row.ON_HAND}</td>
@@ -221,7 +224,7 @@ The following example is with the hover props being used:
 
 In the above example, it is the same as the previous example except for the indexing and the onClick on the <tr>.  The indexing will allow the correct data to be selected.  The data array is still in the original order that it came in and the indexes array indicate how the data is displayed.  Each value in the index array is a number that indicates the position in the data array.  So setting it to indexes[i] (current position in the indexes array being processed), places the position of the data in the data array into pos.  The onClick on the <tr> will retrieve the data being hovered over.  It will call the function called functName and pass down the position of the data in the data array.  The startEnd, indexing, and hover attributes must be in the <SearchSortTable> (see the props section below).  There is a full example below.
 
-# New Format (must use if using dragging)
+# Second Format (must use if using dragging)
 ```javascript
     import { getAlignment } from 'simple-widgets';
     ...
@@ -246,7 +249,9 @@ In the above example, it is the same as the previous example except for the inde
 
 In the above example, the row parameter is row in the table to be displayed.  The i is the row number being processed and is only used if the hover prop is used.  The key will make every row in the table unique; otherwise, you will get a warning.  The <tr> and <td> define the rows and columns respectively.  The table.map section goes through each column in the table and prints out the value in that column with row[col.name].  The col.name is the name part in the object for a column in the table.  If the HTML is not returned, nothing will be displayed.  If the align is used for that entry in the table and the word money appears in the align, the value will be formated as money.  If the align is used for that entry in the table and the word date appears in the align, the value will be formated as date. This will also need the indexing prop on the <SearchSortTable> (see the startEnd prop in the props section).  There is a full example below.
 
-If your eachRowInTable function is exactly like the one above and you don't want to type it.  Use the following in the SearchSortTable:
+# Latest Format
+
+If your eachRowInTable function is exactly like the one above and you don't want to type it.  With this format you will not need the indexes, startEnd, and hidden props.  Use the following in the SearchSortTable:
 
 ```javascript
   <SearchSortTable>
@@ -256,74 +261,27 @@ If your eachRowInTable function is exactly like the one above and you don't want
   </SearchSortTable>
 ```
 
-If the default one is used, the hidden information will not need to be passed back and used
-in the eachRowInTable.
-
-The following example is with the hover props being used:
-```javascript
-    import { getAlignment } from 'simple-widgets';
-    ...
-    const eachRowInTable = (row, i) => {
-        let pos = indexes[i];
-        
-        return (
-          <tr key={`row_${i}_${start}`} onClick={() => display(data[pos])}> 
-            { table.map((col, idx) => (
-                <td key={`${col.header}_${idx}_${i}`} className={getAlignment(col.align)} 
-                        hidden={hideCol[idx]}>
-                    row[col.name] }
-                  {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
-                      (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
-                      (hasOwnProperty(props, 'decimal') === true) ? row[col.name].toFixed(props.decimal) :
-                          row[col.name] 
-                  }
-                </td>
-            ))}
-          </tr>
-        )
-    }
-```
-
-In the above example, it is the same as the previous example except for the indexing and the onClick on the <tr>.  The indexing will allow the correct data to be selected.  The data array is still in the original order that it came in and the indexes array indicate how the data is displayed.  Each value in the index array is a number that indicates the position in the data array.  So setting it to indexes[i] (current position in the indexes array being processed), places the position of the data in the data array into pos.  The onClick on the <tr> will retrieve the data being hovered over.  It will call the function called functName and pass down the position of the data in the data array.  The startEnd, indexing, and hover attributes must be in the <SearchSortTable> (see the props section below).  There is a full example below.
-
-The following is an example on how to customize the new eachRowInTable:
+In the above example, it will automatically generate the rows and columns in the table based on the table prop.  The user will not be able to use the transfer prop with the default; therefore, the hover prop is unecessary.
 
 ```javascript
-    const eachRowInTable = (row, i) => {
-        let pos = indexes[i];
+  const transfer = (data) => {
+    setName(data.NAME);
+  }
 
-        return (
-          <tr key={`row_${i}_${start}`} onClick={() => display(dataTest[pos])}> 
-            { table.map((col, idx) => (
-                <td key={`${col.header}_${idx}_${i}`}                           
-                        className={"sw-sst_body_full " + getAlignment(col.align)} 
-                        hidden={hideCol[idx]}>
-                  {   (col.align.indexOf('money') !== -1) ? formatMoney(row[col.name]) : 
-                      (col.align.indexOf('date')  !== -1) ? convertDate(row[col.name]) :
-                      (hasOwnProperty(props, 'decimal') === true) ? row[col.name].toFixed(props.decimal) :
-                      (col.name === 'edit') ? <button name='edit' onClick={nothing}>
-                                                Edit
-                                              </button> :
-                      row[col.name] 
-                  }
-                </td>
-            ))}
-          </tr>
-        )
-    }
+  <SearchSortTable>
+    data=...
+    table=...
+    eachRowInTable="defaultTransfer"
+    transfer={transfer}
+    hover
+  </SearchSortTable>
 ```
 
-In the above example, in between the <td> and </td> is where the customization occurs.  Each column can be customized using the following format:
+In the above example, it will automatically generate the rows and columns in the table based on the table prop.  The defaultTransfer indicates that when a row is clicked on (highlighter row do to the hover prop), the function in the transfer prop will be executed.  You will also want the hover prop.
 
-```javascript
-  { (col.name === 'name of column') ? <formating> :
-    (col.name === 'name of column') ? <formating> : ...
-     row[col.name] }
-```
+### **Examples with all three formats**
 
-There can be either no customization or each column can be customized.
-
-### **Examples (using the old format)**
+### **Examples (using the original format)**
 The following is a simple code example:
 
 ```javascript
@@ -462,7 +420,7 @@ The following example shows how to use the drop down in the column headers:
         }
 ```
 
-### **Examples (using the new format)**
+### **Examples (using the second format)**
 The following example shows how to use the drag with the new eachRowInTable function (see the Drag and Drop section):
 
 ```javascript
@@ -529,7 +487,7 @@ The following example shows how to use the drag with the new eachRowInTable func
         }
 ```
 
-### ***Creating Specialized Table Fields for eachRowInTable
+### ***Creating Specialized Table Fields for the second eachRowInTable format
 
 The user can create their own field entries in the table prop to be used in the eachRowInTable.  For example:
 
@@ -546,8 +504,8 @@ The user can create their own field entries in the table prop to be used in the 
           const [indexing, setIndexing] = useState([]);
           const [table, setTable] = useState(tableTest);
 
-          const setTheTable (table, footer) {
-            setTable(table);
+          const setTheTable (ssTable, ssControl, ssFinal) {
+            setTable(ssTable);
           }
 
           const eachRowInTable = (row, i) => {
@@ -572,7 +530,7 @@ The user can create their own field entries in the table prop to be used in the 
                           eachRowInTable={eachRowInTable}
                           startEnd={startEnd}
                           indexing={getIndexes} 
-                          setTheTable={setTable}
+                          setTheTable={setTheTable}
                           hover />
         }
 ```
@@ -613,9 +571,9 @@ Another example:
 
 In the above example, tableTest contains edit: true, date: true, and money: true correspond to the col.date, col.money, and col.edit in eachRowInTable.  Therefore, the Date in tableTest will be converted to the MM/DD/YYYY format.  The Edit in tableTest will be a button.  The Cost column in tableTest will be converted to the money format.
 
-### **No EachRowInTable Function**
+### **Latest EachRowInTable Function**
 
-The latest version of SearchSortTable will allow to have no eachRowInTable function, on indexing function, no startEnd function and hide function.  Their will still be an eachRowInTable prop, but the function will be replaced with either default or defaultTransfer.  The default one is used if you do not want to select any data to transfer to somewhere else.  The defaultTransfer is used it you want to select data to transfer somewhere else.  This will replace the 
+The latest version of SearchSortTable will allow the user to have no eachRowInTable function, on indexing function, no startEnd function and hidden function.  Their will still be an eachRowInTable prop, but the function will be replaced with either default or defaultTransfer.  The default one is used if you do not want to select any data to transfer to somewhere else.  The defaultTransfer is used it you want to select data to transfer somewhere else.  This will replace the 
 
 ```js
 let pos = indexes[i];
@@ -638,10 +596,12 @@ const transfer = (data) => {
 
 The other props that can be used are: tableTD and firstTD.  The tableTD is a function that is called when there is special formatting for a cell, like a button or link.  The row data and the column information in the table prop are passed in for that cell.  An example of the function would be:
 
+### Latest Format with specialized columns using the tableTD prop
+
 ```js
 let table = [
   ...
-  header: 'Edit', name: '', search: false, sort: false, align: center
+  header: 'Edit', name: '', search: false, sort: false, align: 'center'
   ...
 ]
 
@@ -674,6 +634,8 @@ This will place an Edit button underneath the header Edit for each row in the ta
 
 The firstTD indicates whether the tableTD function is the first item executed or the last item executed (default).  There are two other items that are executed, normally before the tableTD function.  If the align has date somewhere in the align, the date is automatically converted to the MM/DD/YYYY format.  If the align has money somewhere in the align, the number is converted into a money format ($N,NNN.NN) and right aligned.  After that the tableTD function is normally executed.  If firstTD prop is in the set of props, the tableTD function will only be executed and the date and money ones will not.  This will rarely be used.
 
+The else part of the if must be there and must contain return row[col.name]; otherwise, the normal items will not be returned.
+
 ### **Sorting**
 
 If sorting is allowed for that column, there will either be a triangle (ascending order), or an upside down triangle (descending order), or triangle on its side (no order) next to the header.  Intially all the triangles will be on there sides to indicate no order.
@@ -686,7 +648,7 @@ The data is not sorted, but remains in its original state.  The order of the ind
 
 ### **Searching**
 The search bar contains the following:
-1.  A drop down listing all the headers in the table.  Select one to search that column in the table.
+1.  A drop down listing all the headers in the table.  Select one to search that column in the table.  If All is in the drop down, then all columns will be searched.
 2.  A text box to enter the text to be searched for in that header column.
 3.  A Search button to search for the text in the header column.
 4.  A Top button places the first item in the data at the top of the table.  Disables the Top and Previous buttons.
@@ -759,13 +721,17 @@ How to Drag and Drop:
 
 How to Enable the Drag in Search Sort Table:
 1.  In the table prop in each row of the table array, set drag: true.  If drag is false, that column can not be dragged.  However the column that can be dragged can be dropped on by a dragged column.
-2.  Use the new eachRowInTable format.  Look in the eachRowInTable prop for an explanation.
+2.  Use the second or latest eachRowInTable format.  Look in the eachRowInTable prop for an explanation.
 3.  Turn the table into a state variable.
 
 ```javascript
   let sortTable = [...];
 
   const [table, setTable] = useState(sortTable);
+
+  const setTheTable = (ssTable, ssControl, ssFinal) => {
+    setTable(ssTable);
+  }
 ```
 
 4.  Add the setTheTable prop in SearchSortTable configuration.  See the setTheTable prop.
@@ -774,7 +740,7 @@ How to Enable the Drag in Search Sort Table:
   <SearchSortTable 
       data={data}
       table={table}
-      setTheTable={setTable}
+      setTheTable={setTheTable}
       ...
   />
 ```
@@ -793,7 +759,7 @@ How to Enable the Drag in Search Sort Table:
   <SearchSortTable 
       data={data}
       table={table}
-      setTheTable={setTable}
+      setTheTable={setTheTable}
       setTheFooter={footer}
       ...
   />
@@ -1333,6 +1299,7 @@ An example in the search sort table component for final totals.
 Therefore, if firstTD is used as a prop, it will ignore the special formatting for money, date, and decimal.  This parameter should be used very sparingly and probably will be.
 
 11. **footer** = the last row that is to be displayed in a table.  The footer is an array of items that are displayed as a footer in a table.  The footer could be used to contain the totals for the table.  There must be a footer for every column in the table.  Each array element represents one column in the table.  A sample footer might be:
+
 ```javascript
     let footer = [
         'Totals',
@@ -1341,6 +1308,10 @@ Therefore, if firstTD is used as a prop, it will ignore the special formatting f
         totalCAN,
     ];
 ```
+
+The footer is deprecated and should be replaced with controlBreak and finaltotals.
+
+If a footer is used that contains totals, it should not be used with dragging.
 
 12. **headersize** = the font size of each column header in the table.  The header size can be any valid value for a font-size.  An example:
 
@@ -1358,6 +1329,8 @@ The above example indicates that the header size should be x-large.
 
 13. **height** = the height of the scroll box only.  If the height is used it will automatically disable the ability to resize the table.
 
+This is being deprecated.
+
 14. **hidden** = is a function that indicates which columns should be hidden.  This will return an array the size of the number of columns.  Each index will contain a value of true if the column is to be hidden and false if is to be displayed.  This is not needed if default or defaultTransfer for eachRowInTable is used.
 An example would be:
 ```javascript
@@ -1369,6 +1342,8 @@ const hideTheCols = (value) => {
 
 <SearchSortTable hidden={hideTheCols}/>
 ```
+
+This should not be used with the latest format of eachRowInTable.
 
 15. **hover** = indicates when a row in the table is hovered over it will change to the hoverColor or cyan if no hover color is given.  Cyan is the default hover color.  If you want to detect that the hover over row was clicked, the user should have an onClick event in the tr in the eachRowInTable function.
 
@@ -1391,6 +1366,8 @@ const indexing = (value) => {
 
 <SearchSortTable indexing={indexing} />
 ```
+
+This should not be used with the latest format of eachRowInTable.
 
 19. **letters** = will display upper case letters, lower case letters, and digits below the search bar.  
   - To use the letters option:
@@ -1509,21 +1486,75 @@ report="The PDF Report"
   />
 ```
 
-53. **setTheTable** = indicates that a new table is being passed to the parent of SearchSortTable.
-The function that is to be passed to it is the setTable function for the state variables.  Since the table has changed due to a changing of columns, the table in the parent must be changed to the new table also.  See the section on Dragging and Drop.  An example:
+53. **setTheTable** = indicates that a new table, control break, or final totals is being passed to the parent of SearchSortTable.
+This prop is needed if dragging is turned on in the table.  Dragging will change the positions in the table prop array, the control break array, and the final totals array.  If there are no control breaks or final totals, the parameters in the setTheTable function will be null.
+
+The function that is to be passed to wil change the table, control break, and final totals array; therefore, there, state variables will need to be reset.  Since the table has changed due to a changing of columns, the table in the parent must be changed to the new table, control break, and final total.
+
+The format for the function is:
+```js
+const setTheTable (ssTable, ssControl, ssFinal) => {
+  // set the appropriate state variable
+}
+```
+
+The argurments: 
+- ssTable = contains the new main table information if the a column has been dragged.
+- ssControl = contains the new control break information if a column has been dragged.  If there is not control break, ssControl will be null and no there will be not state variable for the control break.
+- ssFinal = contains the new final totals information if a column has been dragged.  If there is not final totals, ssFinal will be null and no there will be not state variable for the final totals.
+
+See the section on Dragging and Drop.  An example:
 
 ```javascript
   let sortTable = [...];
 
   const [table, setTable] = useState(sortTable);
   ...
+  const setTheTable = (ssTable, ssControl, ssFinal) => {
+    setTable(ssTable);
+  }
+  ...
   <SearchSortTable 
     table={table}
     data={data}
-    setTheTable={setTable}
+    eachRowInTable="default"
+    setTheTable={setTheTable}
     ...
   />
 ```
+The changed table is in ssTable and; therefore, the table state variable needs to be updated, since it is passed to SearchSortTable.
+
+Since there were no control break or final total state variables, they did not need to be set.  Also, ssControl and ssFinal have the value of null.
+
+```javascript
+  let sortTable = [...];
+  let tempControlBreak = [...];
+  let tempFinalTotals = [...];
+
+  const [table, setTable] = useState(sortTable);
+  const [controlBreak, setControlBreak] = useState(tempControlBreak);
+  const [finalTotal, setFinalTotal] = useState(tempFinalTotals);
+  ...
+  const setTheTable = (ssTable, ssControl, ssFinal) => {
+    setTable(ssTable);
+    setControlBreak(ssControl);
+    setFinalTotal(ssFinal);
+  }
+  ...
+  <SearchSortTable 
+    table={table}
+    data={data}
+    eachRowInTable="default"
+    controlBreak={controlBreak}
+    finaltotals={finalTotal}
+    setTheTable={setTheTable}
+    ...
+  />
+```
+
+In the above example if dragging is on for that row, then there needs to be state variables for table, control breaks, and final totals.  They can all change positions.  Therefore, the arguments ssControl and ssFinal will have values and will need to be set to their appropriate state variables.
+
+This prop is only used if dragging is allowed.
 
 54. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
@@ -1545,6 +1576,8 @@ const startEnd = (start, end) => {
 
 <SearchSortTable startEnd={startEnd} />
 ```
+
+This has been deprecated if using the latest eachRowInTable format.
 
 59. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
@@ -1592,7 +1625,11 @@ If in the table prop, there is an align of date, money, or decimal it will over 
 
 62. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-63. **transfer** = this is function that trqansfers the data when the ures presses a row in the table.  When a row is pressed, this function is called and transfers the data in the row to the transfer function.  The transfer function accepts the parameter data that contains the data for the row as an object based on the name in the table prop.  The format for the transfer function is:
+63. **transfer** = this is function that transfers the data when the user presses a row in the table.  When a row is pressed, this function is called and transfers the data in the row to the transfer function.  The transfer function accepts the parameter data that contains the data for the row as an object based on the name in the table prop. 
+
+This prop is only used when using the latest eachRowInTable format.
+
+The format for the transfer function is:
 
 ```js
   const transferData = (data) => {
@@ -1600,6 +1637,7 @@ If in the table prop, there is an align of date, money, or decimal it will over 
   }
 
   <SearchSortTable  ...
+                    eachRowInTable="defaultTransfer"
                     transfer={transferData}>
 ```
 
@@ -1609,6 +1647,8 @@ data is an object that contains all the data in a row of the SearchSortTable
 This is used in conjunction with eachRowInTable="defaultTransfer" prop and the hover prop. 
 
 64. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
+
+This is being deprecated.
 
 
 ## CSS Files
@@ -2361,6 +2401,10 @@ const sortExample = (props) => {
   const [table, setTable] = useState(sstable);
   const [footer, setFooter] = useState(theFooter);
 
+  const setTheTable = (ssTable, ssControl, ssFinal) => {
+    setTable(ssTable);
+  }
+
   const startEnd = (start, end) => {
       setStart(start);
   }
@@ -2380,7 +2424,7 @@ const sortExample = (props) => {
                     startEnd={startEnd}
                     indexing={getIndexes}
                     hidden={hideTheColumn}
-                    setTheTable={setTable}
+                    setTheTable={setTheTable}
                     setTheFooter={setFooter}
                     error={error}
                     title="Finance CSV"
@@ -2414,7 +2458,7 @@ const sortExample = (props) => {
 In this example, columns can be dragged to change their position in the table.  The drag: true in the table allows that column to be dragged.  If the drag is false the column can not be dragged; however, it can be dragged onto.  The setTable and setFooter will return the changed table and footer.  The footer has to have the same number of elements as the table.  The table has 5 elements and so does the footer.  Since you can drag columns it is using the new eachRowInTable (for more information see the eachRowInTable prop).  The table will be striped because of the sw-sst_stripe className.  The cells of the table will have black border because of the sw-sst_body_full className.  The hidden prop must be added to the SearchSortTable component to pass back the hidden array.  The choice prop on the SearchSortTable component indicates that there will be choice boxes on the filter input and since filterdaterange is true on the Date header in the sstable.
 
 ### **Example 7**
-This example shows how to do automatic totaling with control breaks and final totals using the new format in the eachRowInTable function:
+This example shows how to do automatic totaling with control breaks and final totals using the second format in the eachRowInTable function. 
 
 ```javascript
 import { getAlignment } from 'simple-widgets';
@@ -2435,12 +2479,37 @@ const sortExample = (props) => {
       { header: 'Amount',     name: 'AMOUNT',     search: true,  sort: true, dropDown: true, drag: true, filterdaterange: true },
   ];
 
+  tempControlBreak = [
+    { hidden: true, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 1, sumtitle: 'Totals:' },
+    { hidden: false, ctrlBreak: 2 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0, sum: true },
+    { hidden: false, ctrlBreak: 0, sum: true, money: true }
+  ]
+
+  tempFinalTotals = [
+    { finaltotal: false },
+    { finaltotal: false, finaltitle: 'Final Totals: ', align: 'left' },
+    { finaltotal: false },
+    { finaltotal: false },
+    { finaltotal: true },
+    { finaltotal: true, money: true}
+  ]
+
   const [error, setError] = useState(false);
   const [start, setStart] = useState(0);
   const [indexing, setIndexing] = useState([]);
   const [hideCols, setHideCols] = useState([]);
   const [table, setTable] = useState(sstable);
-  const [footer, setFooter] = useState(theFooter);
+  const [controlBreak, setControlBreak] = useState(tempControlBreak);
+  const [finalTotals, setFinalTotals] = useState(tempFinalTotals);
+
+  const setTheTable = (ssTable, ssControl, ssFinal) => {
+    setTable(ssTable);
+    setControlBreak(ssControl);
+    setFinalTotals(ssFinal);
+  }
 
   const startEnd = (start, end) => {
       setStart(start);
@@ -2454,23 +2523,6 @@ const sortExample = (props) => {
       setHideCols(columns)
   }
 
-  controlBreak = [
-    { hidden: true, ctrlBreak: 0 },
-    { hidden: false, ctrlBreak: 1, sumtitle: 'Totals:' },
-    { hidden: false, ctrlBreak: 2 },
-    { hidden: false, ctrlBreak: 0 },
-    { hidden: false, ctrlBreak: 0, sum: true },
-    { hidden: false, ctrlBreak: 0, sum: true, money: true }
-  ]
-
-  finalTotals = [
-    { finaltotal: false },
-    { finaltotal: false, finaltitle: 'Final Totals: ', align: 'left' },
-    { finaltotal: false },
-    { finaltotal: false },
-    { finaltotal: true },
-    { finaltotal: true, money: true}
-  ]
 
   <SearchSortTable  data={data}
                     table={table}
@@ -2479,10 +2531,9 @@ const sortExample = (props) => {
                     startEnd={startEnd}
                     indexing={getIndexes}
                     hidden={hideTheColumn}
-                    setTheTable={setTable}
-                    setTheFooter={setFooter}
                     controlBreak={controlBreak}
                     finaltotals={finalTotals}
+                    setTheTable={setTheTable}
                     error={error}
                     title="Finance CSV"
                     scroll
@@ -2513,7 +2564,7 @@ In this example, each control break will have a total and a final total will be 
 In this example, the final totals will be displayed because of the finaltotals array.  The name is hidden; therefore, it does not come into play.  The City (finaltotals in element 1) contains the finaltotal: false, finaltitle: 'Final Totals: ', and align: 'left', indicating that the column will not be totaled and will have the title Final Totals:, and will be left justified.  The State and Zip (finaltotals in element 2 and 3) contains finaltotal: false, indicating the columns should not be totaled. The Num Items (finaltotals in element 4) contains finaltotal: true, indicating the column should be totalled.  The Amount (finaltotals in element 5) contains finaltotal: true and money: true, indicating that the amount column should be totalled and placed in the money format.
 
 ### **Example 8***
-This example shows how to do automatic totaling with control breaks and **NO** final totals using the new format in the eachRowInTable function.  The only change would be in the SearchSortTable by leaving off the finaltotals prop.
+This example shows how to do automatic totaling with control breaks and **NO** final totals using the new format in the eachRowInTable function.  The only change would be in the SearchSortTable by leaving off the finaltotals prop.  The columns can not be dragged.
 
 This example uses some of the items in Example 7.
 
@@ -2525,7 +2576,6 @@ This example uses some of the items in Example 7.
                     startEnd={startEnd}
                     indexing={getIndexes}
                     hidden={hideTheColumn}
-                    setTheTable={setTable}
                     setTheFooter={setFooter}
                     controlBreak={controlBreak}
                     error={error}
@@ -2536,7 +2586,7 @@ This example uses some of the items in Example 7.
 ```
 
 ### **Example 9**
-This example shows how to do automatic totaling with **NO** control breaks and final totals using the new format in the eachRowInTable function.  The only change would be in the SearchSortTable by leaving off the controlBreak prop.
+This example shows how to do automatic totaling with **NO** control breaks and final totals using the new format in the eachRowInTable function.  The only change would be in the SearchSortTable by leaving off the controlBreak prop.  The columns can not be dragged.
 
 This example uses some of the items in Example 7.
 
@@ -2548,8 +2598,6 @@ This example uses some of the items in Example 7.
                     startEnd={startEnd}
                     indexing={getIndexes}
                     hidden={hideTheColumn}
-                    setTheTable={setTable}
-                    setTheFooter={setFooter}
                     finaltotals={finalTotals}
                     error={error}
                     title="Finance CSV"
@@ -2582,11 +2630,31 @@ const sortExample = (props) => {
       { header: 'Amount',     name: 'AMOUNT',     search: true,  sort: true, dropDown: true, drag: true },
   ];
 
+  tempControlBreak = [
+    { hidden: true, ctrlBreak: 0  },
+    { hidden: false, ctrlBreak: 1 },
+    { hidden: false, ctrlBreak: 2 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 },
+    { hidden: false, ctrlBreak: 0 }
+  ]
+
+  tempFinalTotals = [
+    { finaltotal: false },
+    { finaltotal: false, finaltitle: 'Final Totals: ', align: 'left' },
+    { finaltotal: false },
+    { finaltotal: false },
+    { finaltotal: true },
+    { finaltotal: true, money: true}
+  ]
+
   const [error, setError] = useState(false);
   const [start, setStart] = useState(0);
   const [indexing, setIndexing] = useState([]);
   const [hideCols, setHideCols] = useState([]);
   const [table, setTable] = useState(sstable);
+  const [controlBreak, setControlBreak] = useState(tempControlBreak);
+  const [finalTotals, setFinalTotals] = useState(tempFinalTotals);
   const [footer, setFooter] = useState(theFooter);
 
   const startEnd = (start, end) => {
@@ -2601,23 +2669,11 @@ const sortExample = (props) => {
       setHideCols(columns)
   }
 
-  controlBreak = [
-    { hidden: true, ctrlBreak: 0  },
-    { hidden: false, ctrlBreak: 1 },
-    { hidden: false, ctrlBreak: 2 },
-    { hidden: false, ctrlBreak: 0 },
-    { hidden: false, ctrlBreak: 0 },
-    { hidden: false, ctrlBreak: 0 }
-  ]
-
-  finalTotals = [
-    { finaltotal: false },
-    { finaltotal: false, finaltitle: 'Final Totals: ', align: 'left' },
-    { finaltotal: false },
-    { finaltotal: false },
-    { finaltotal: true },
-    { finaltotal: true, money: true}
-  ]
+  const setTheTable = (sstable, ssControl, ssFinal) => {
+      setTable(ssTable);
+      setControlBreak(ssControl);
+      ssFinalTotal(ssFinal);
+  }
 
   <SearchSortTable  data={data}
                     table={table}
@@ -2626,7 +2682,7 @@ const sortExample = (props) => {
                     startEnd={startEnd}
                     indexing={getIndexes}
                     hidden={hideTheColumn}
-                    setTheTable={setTable}
+                    setTheTable={setTheTable}
                     setTheFooter={setFooter}
                     controlBreak={controlBreak}
                     finaltotals={finalTotals}
@@ -2676,11 +2732,7 @@ const sortExample = (props) => {
       { header: 'Amount',     name: 'AMOUNT',     search: true,  sort: true, dropDown: true, drag: true },
   ];
 
-  const [error, setError] = useState(false);
-  const [table, setTable] = useState(sstable);
-  const [footer, setFooter] = useState(theFooter);
-
-  controlBreak = [
+  let tempControlBreak = [
     { hidden: true,  ctrlBreak: 0 },
     { hidden: false, ctrlBreak: 1 },
     { hidden: false, ctrlBreak: 2 },
@@ -2689,7 +2741,7 @@ const sortExample = (props) => {
     { hidden: false, ctrlBreak: 0 }
   ]
 
-  finalTotals = [
+  let tempFinalTotals = [
     { finaltotal: false },
     { finaltotal: false, finaltitle: 'Final Totals: ', align: 'left' },
     { finaltotal: false },
@@ -2698,11 +2750,23 @@ const sortExample = (props) => {
     { finaltotal: true, money: true}
   ]
 
+  const [error, setError] = useState(false);
+  const [table, setTable] = useState(sstable);
+  const [controlBreak, setControlBreak] = useState(tempControlBreak);
+  const [finalTotals, setFinalTotals] = useState(tempFinalTotals);
+  const [footer, setFooter] = useState(theFooter);
+  ...
+  const setTheTable = (ssTable, ssControl, ssFinal) => {
+    setTable(ssTable);
+    setControlBreak(ssControl);
+    setFinalTotals(ssFinal);
+  }
+
   <SearchSortTable  data={data}
                     table={table}
                     MAX_ITEMS={RANGE}
                     eachRowInTable="default"
-                    setTheTable={setTable}
+                    setTheTable={setTheTable}
                     setTheFooter={setFooter}
                     controlBreak={controlBreak}
                     finaltotals={finalTotals}
@@ -2741,6 +2805,10 @@ const sortExample = (props) => {
   const [table, setTable] = useState(sstable);
   const [footer, setFooter] = useState(theFooter);
 
+  const setTheTable = (ssTable, ssControl, ssFinal) => {
+    setTable(ssTable);
+  }
+
   const transferFunct = (data) => {
       console.log ('data: ', data);
   }
@@ -2750,7 +2818,7 @@ const sortExample = (props) => {
                     MAX_ITEMS={RANGE}
                     eachRowInTable="defaultTransfer"
                     transfer={transferFunc}
-                    setTheTable={setTable}
+                    setTheTable={setTheTable}
                     setTheFooter={setFooter}
                     error={error}
                     scroll
@@ -2797,13 +2865,17 @@ const sortExample = (props) => {
 
   const [error, setError] = useState(false);
   const [table, setTable] = useState(sstable);
-
+  ...
+  const setTheTable = (ssTable, ssControl, ssFinal) => {
+    setTable(ssTable);
+  }
+  ...
   <SearchSortTable  data={data}
                     table={table}
                     MAX_ITEMS={RANGE}
                     eachRowInTable="default"
                     tableTD={setColumn}
-                    setTheTable={setTable}
+                    setTheTable={setTheTable}
                     error={error}
                     title="Finance CSV"
                     scroll

@@ -411,7 +411,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             return (
                 <tr key={`eachRowInTableRow_${props.number}_${i}`} className={rowStyle} >
                     {table.map((col, idx) => (
-                        <td key={`${col.header}_${idx}_${i}`}
+                        <td key={`${col.header}_${props.number}_${idx}_${i}`}
                                     className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
                             { [{row, col}].map((obj, i) => setTableTD(obj, i)) }
@@ -431,7 +431,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 <tr key={`eachRowInTableRow_${props.number}_${i}`} className={rowStyle}
                         onClick={() => props.transfer(row)}>
                     {table.map((col, idx) => (
-                        <td key={`${col.header}_${idx}_${i}`}
+                        <td key={`${col.header}_${props.number}_${idx}_${i}`}
                                     className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
                             { [{row, col}].map((obj, i) => setTableTD(obj, i)) }
