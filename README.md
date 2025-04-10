@@ -128,9 +128,11 @@ All of these widgets require the following props:
 
 ## Component Documents
 
+[Accordion](docs/Accordion.md)<br />
 [AlertModal](docs/AlertModal.md)<br />
 [AppCore](docs/AppCore.md)<br />
 [Browser Detect](docs/BrowserDetect.md)<br />
+[Carousel](docs/Carousel.md)<br />
 [CheckBox](docs/CheckBox-Example.md)<br />
 [CheckBoxGroup](docs/CheckBoxGroup.md)<br />
 [Choice](docs/Choice-Example.md)<br />
