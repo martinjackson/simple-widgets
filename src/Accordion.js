@@ -18,11 +18,12 @@ export const Accordion = props => {
 
     return (
         <div>
-            { props.display.map((row) => {
-                return (<AccordionSingle number={number}
-                                        button={row.button}
-                                        text={row.text}
-                                        type={type} /> )})
+            { props.display.map((row,k) => {
+                return (<AccordionSingle key={k}
+                            number={number}
+                            button={row.button}
+                            text={row.text}
+                            type={type} /> )})
             }
         </div>
     );
