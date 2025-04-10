@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { hasOwnProperty } from './hasOwnProperty.js';
 import { AccordionSingle } from './AccordionSingle.js';
