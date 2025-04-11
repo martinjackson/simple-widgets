@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { hasOwnProperty } from './hasOwnProperty.js';
 import { AccordionSingle } from './AccordionSingle.js';
@@ -18,11 +18,12 @@ export const Accordion = props => {
 
     return (
         <div>
-            { props.display.map((row) => {
-                return (<AccordionSingle number={number}
-                                        button={row.button}
-                                        text={row.text}
-                                        type={type} /> )})
+            { props.display.map((row,k) => {
+                return (<AccordionSingle key={k}
+                            number={number}
+                            button={row.button}
+                            text={row.text}
+                            type={type} /> )})
             }
         </div>
     );
