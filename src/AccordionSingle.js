@@ -8,7 +8,6 @@ export const AccordionSingle = props => {
     const [hide, setHide] = useState(true);
 
     const buttonClick = () => {
-        console.log ('hide: ', hide);
         setHide((hide === true) ? false : true);
     }
 
@@ -23,7 +22,6 @@ export const AccordionSingle = props => {
     let keyText = `acc_${props.number}_${props.index}_text`;
     let mainKey = keyButton + '_' + keyText;
 
-    console.log ('rendering');
     return (
         <div>
             <div key={mainKey}>
