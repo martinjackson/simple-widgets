@@ -1,4 +1,4 @@
-# **Accordion**
+# **TextArea**
 
 This will display text area and will also display the number of characters entered and the maximum number of characters below the text area.  Just below the text area will be the following: 
     current-number-characters-in-textarea ***of** maximum-number-characters-in-textarea
