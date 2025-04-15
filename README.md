@@ -160,12 +160,15 @@ All of these widgets require the following props:
 [ProgressCircles](docs/ProgressCircles.md)<br />
 [Radio](docs/Radio-Example.md)<br />
 [Redirect](docs/MenuUtils.md)<br />
+[Scroll Functions](docs/ScrollFunctions.md)<br />
 [Search Functions](docs/SearchFunct.md)<br />
 [SearchSortTable](docs/SearchSortTable.md)<br />
 [SimpleTable](docs/SimpleTable.md)<br />
 [Slider](docs/Slider.md)<br />
 [SpreadSheet](docs/SpreadSheet.md)<br />
 [StatusBox](docs/StatusBox.md)<br />
+[TextArea](docs/TextArea.md)<br />
+[TextAreaError](docs/TextAreaError.md)<br />
 [Theme](docs/Theme.md)<br />
 [XButton](docs/XButton.md)<br />
 

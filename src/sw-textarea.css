@@ -1,0 +1,12 @@
+.sw-textarea_word_count {
+    font-size: 10pt;
+    line-height: 0;
+}
+
+.sw-textarea_word_count_red {
+    font-size: 10pt;
+    line-height: 0;
+    color: red;
+}
+
+
