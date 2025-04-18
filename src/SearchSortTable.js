@@ -300,7 +300,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     const localUserFooter = (hasOwnProperty(props, 'footer') === true) ? props.footer : [];
     const localFinalTotals = (hasOwnProperty(props, 'finaltotals') === true) ? props.finaltotals : [];
-    
+
     let cellBorder = "sw-sst_body_full ";
     if (hasOwnProperty(props, 'noborders') === true) {
         cellBorder = "";
@@ -2451,7 +2451,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     }
 
     let outerBorder = "sw-sst_divStyle";
-    if (hasOwnProperty(props, 'noborders') === true || 
+    if (hasOwnProperty(props, 'noborders') === true ||
         hasOwnProperty(props, 'noOuterBorder') === true) {
         outerBorder = "sw-sst_divStyle2";
     }
@@ -3633,7 +3633,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
 
-        let isUserCtrlBreak = userCtrlBreak(table);
+        // let isUserCtrlBreak = userCtrlBreak(table);
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
             /*if (isUserCtrlBreak === true &&  controlBreakInfo[i].hidden === true &&
@@ -4485,7 +4485,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         for (let i = 0; i < indexes.length; i++) {
-            found = false;
+            let found = false;
             for (let j = 0; j < foundIndexes.length; j++) {
                 if (indexes[i] === foundIndexes[j]) {
                     found = true;

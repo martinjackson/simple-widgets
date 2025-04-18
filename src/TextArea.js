@@ -13,11 +13,11 @@ const trimString = (str, maxLength) => {
         return str;
     }
 }
-  
+
 export const characterCounter = (text) => {
     //added this line for case creating new document
     text = text ? text : '';
-    if ( text !== null && text !== 'undefined' ){
+    if ( text !== 'undefined' ) {     // if (text !== null &&  is alway true
         let len = text.length;
         return len;
     }
@@ -43,7 +43,7 @@ const validate = (props, which) => {
             if (hasOwnProperty(props, errorTable[i].prop) === false) {
                 console.log (`TextArea or TextAreaError is missing the ${errorTable[i].prop} prop`);
                 error = true;
-            }        
+            }
         }
     }
 
