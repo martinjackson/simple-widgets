@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { hasOwnProperty } from './hasOwnProperty';
+// import { hasOwnProperty } from './hasOwnProperty';
 
 export const PageTitle = props => {
     // let smallTitle = <span></span>;
