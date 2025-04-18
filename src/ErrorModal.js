@@ -26,7 +26,7 @@ export const ErrorModal = inProps => {
             {
                 (props.show === true) ?  (
                     <Modal>
-                        <div className="sw-modal_flex">
+                        <div className="sw-modal_flex sw-modal_zindex">
                             <p className="sw-modal_header">Error</p>
                             { (hasOwnProperty(props, 'nodisplayX') === true) ?
                                 <span></span> :

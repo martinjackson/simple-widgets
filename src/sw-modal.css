@@ -68,7 +68,10 @@
     font-size: 24pt;
     font-weight: bold;
     margin-bottom: -10px;
+}
 
+.sw-modal_zindex {
+    z-index: 15;
 }
 
 

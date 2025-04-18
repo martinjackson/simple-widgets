@@ -377,6 +377,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 //    const [done, setDone] = useState(false);
     const [origControlBreakInfo, setOrigControlBreakInfo] = useState([]);
     const [origFinalTotals, setOrigFinalTotals] = useState([]);
+    const [displayAll, setDisplayAll] = useState('N')
 
     // TODO: Ask Jim  hideCols is never used
 
@@ -935,6 +936,11 @@ const _InnerSearchSortTable = (propsPassed) => {
             <span className="sw-invalid_checkForError">
                 <input type="text" name="searchItem" value={searchItem} onChange={(event) => setupSearch(event.target.value)} onClick={() => wasClickedScreen(invalid, SRCHITEM, setInvalid)} className={itemStyle} disabled={props.error} />
                 {(isInvalid(invalid[SRCHITEM], -1) === true) ? <span className="sw-invalid_errMessage">{invalid[SRCHITEM].message}</span> : null }
+            </span>
+            <span>
+                <CheckBox name="displayAll" value={displayAll} className="sw-sst_left_bold"
+                          onChange={(event) => setDisplayAll(event.target.value)}
+                          text="&nbsp;Display All" selectedValue="Y" checkedsymbol="blue" />
             </span>
             <button name="searchButtonName" className={genButtonStyle} onClick={() => searchItemButton()} disabled={props.error}>Search</button>
         </>)
@@ -4463,6 +4469,89 @@ const _InnerSearchSortTable = (propsPassed) => {
                 localInvalid[SRCHITEM].validity === false;    // No problems occurred
     }
 
+    function searchItemButton() {
+        if (displayAll === 'Y') {
+            searchItemButtonAll();
+        } else {
+            searchItemButtonSingle();
+        }
+    }
+
+    function buildIndexes(foundIndexes) {
+        newIndexes = [];
+
+        for (let i = 0; i < foundIndexes.length; i++) {
+            newIndexes.push(foundIndexes[i]);
+        }
+
+        for (let i = 0; i < indexes.length; i++) {
+            found = false;
+            for (let j = 0; j < foundIndexes.length; j++) {
+                if (indexes[i] === foundIndexes[j]) {
+                    found = true;
+                }
+            }
+
+            if (found === false) {
+                newIndexes.push(indexes[i]);
+            }
+        }
+
+        return newIndexes;
+    }
+
+    function searchItemButtonAll() {
+        let foundIndexes = [];
+
+        if (table && validate('Search') === true) {  // Make sure a value has been selected in the drop down and text box
+            let search = null;
+            search = (hasOwnProperty(props,'ignorecase') === true) ?
+                searchItem.toUpperCase() :  // Convert to upper case to ignore case
+                searchItem;
+            // Find a match in the correct column of the data
+
+            let found = false;
+            if (searchHeader !== 'All') {
+                let tableIndex = table.map(function(e) { return e.header; }).indexOf(searchHeader);
+                // Column match
+                if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
+                    foundIndexes = searchDateAll(search, tableIndex, foundIndexes);
+                } else if (hasOwnProperty(props,'searchstart') === true) {
+                    foundIndexes = searchStartAll(search, table[tableIndex].name, foundIndexes);
+                } else {
+                    foundIndexes = searchAnyAll(search, table[tableIndex].name, foundIndexes);
+                }
+
+//            let index = props.data.findIndex(val => val[table[tableIndex].name].toString().startsWith(search));   // Text match
+    //            setStartEnd(index); // Set the start and end to show the found text
+            }
+            else if (hasOwnProperty(props, 'searchall')) {
+                for (let tableIndex = 0; tableIndex < table.length && found === false; tableIndex++) {
+                    if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
+                        foundIndexes = searchDateAll(search, tableIndex, foundIndexes);
+                        console.log('Date foundIndexes :', foundIndexes);
+                    } else if (hasOwnProperty(props,'searchstart') === true && found === false) {
+                        foundIndexes = searchStartAll(search, table[tableIndex].name, foundIndexes);
+                        console.log('Start foundIndexes :', foundIndexes);
+                    } else if (found === false) {
+                        foundIndexes = searchAnyAll(search, table[tableIndex].name, foundIndexes);
+                        console.log('All foundIndexes :', foundIndexes);
+                    }
+                }
+            }
+
+            if (foundIndexes.length === 0) {
+                setAlertMessage(`Could not find ${searchItem} in the table`);
+                setShowAlert(true);
+            } else {
+                let newIndexes = buildIndexes(foundIndexes);
+                console.log('newIndexes :', newIndexes);
+                setIndexes(newIndexes);
+                setStartEnd(0, length, newIndexes);
+            }
+        }
+    }
+
     /********************************************************************************
      *
      * This will search a column in a table until it matches the starting characters
@@ -4471,7 +4560,7 @@ const _InnerSearchSortTable = (propsPassed) => {
      * will match until it finds the first occurrence.
      *
      **********************************************************************************/
-    function searchItemButton() {
+    function searchItemButtonSingle() {
         if (table && validate('Search') === true) {  // Make sure a value has been selected in the drop down and text box
             let search = null;
             search = (hasOwnProperty(props,'ignorecase') === true) ?
@@ -4609,6 +4698,87 @@ const _InnerSearchSortTable = (propsPassed) => {
         return found;
     }
 
+    function searchDateAll(searchItem, tableIndex, foundIndexes) {
+        let data = props.data;  // The data to filter
+        let done = false;
+
+        // Find if the index is in the date table
+
+        for (let i = 0; i < indexes.length; i++) {
+            // The data field is blank or has no value
+            if (data[indexes[i]][table[tableIndex].name] === null) {
+                done = true;
+            } else {    // The field contains a date
+                let dataPart = null;
+                let searchPart = null;
+
+                // Convert the format for the data part
+                if (table[tableIndex].dataDate === 'MM/DD/YYYY') {
+                    dataPart = convertDate2(data[indexes[i]][table[tableIndex].name], '/', 1);
+                } else if (table[tableIndex].dataDate === 'MM-DD-YYYY') {
+                    dataPart = convertDate2(data[indexes[i]][table[tableIndex].name], '-', 1);
+                } else if (table[tableIndex].dataDate === 'MM/DD/YYYY HH:MM:SS') {
+                    dataPart = convertDateTime(data[indexes[i]][table[tableIndex].name], '/', 1);
+                } else if (table[tableIndex].dataDate === 'MM-DD-YYYY HH:MM:SS') {
+                    dataPart = convertDateTime (data[indexes[i]][table[tableIndex].name], '-', 1);
+                } else if (table[tableIndex].dataDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                    dataPart = convertDateTimeReg (data[indexes[i]][table[tableIndex].name]);
+                } else {
+                    dataPart = data[indexes[i]][table[tableIndex].name];
+                }
+
+                // Convert the format for the filter part
+                if (table[tableIndex].searchDate === 'MM/DD/YYYY') {
+                    if (searchItem.length === 'MM/DD/YYYY'.length) {
+                        searchPart = convertDate2(searchItem, '/', 1);
+                    } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('/') !== -1) {
+                        searchPart = convertDate2(searchItem, '/', 2);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else if (table[tableIndex].searchDate === 'MM-DD-YYYY') {
+                    if (searchItem.length === 'MM-DD-YYYY'.length) {
+                        searchPart = convertDate2(searchItem, '-', 1);
+                    } else if (searchItem.length === 'MM-YYYY'.length && searchItem.indexOf('-') !== -1) {
+                        searchPart = convertDate2(searchItem, '-', 2);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else if (table[tableIndex].searchDate === 'MM/DD/YYYY HH:MM:SS') {
+                    if (searchItem.length === 'MM/DD/YYYY HH:MM:SS'.length) {
+                        searchPart = convertDateTime(searchItem, '/', 1);
+                    } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('/') !== -1) {
+                        searchPart = convertDate2(searchItem, '/', 2);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else if (table[tableIndex].searchDate === 'MM-DD-YYYY HH:MM:SS') {
+                    if (searchItem.length === 'MM-DD-YYYY HH:MM:SS'.length) {
+                        searchPart = convertDateTime (searchItem, '-', 1);
+                    } else if (searchItem.length === 'MM/YYYY'.length && searchItem.indexOf('-') !== -1) {
+                        searchPart = convertDate2(searchItem, '-', 2);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else if (table[tableIndex].searchDate === 'YYYY-MM-DDTHH:MM:SS.SSS') {
+                    if (searchItem.length === 'YYYY-MM-DDTHH:MM:SS.SSS'.length) {
+                        searchPart = convertDateTimeReg (searchItem);
+                    } else {
+                        searchPart = searchItem;
+                    }
+                } else {
+                    searchPart = searchItem;
+                }
+
+                if (dataPart.toString().indexOf(searchPart.toString()) !== -1) {  // Compare the dates
+                    foundIndexes.push(tableIndex);
+                }
+            }
+        }
+
+        return foundIndexes;
+    }
+
     /********************************************************************************************
      *
      * This will search through the data until it finds the item in the specified column that
@@ -4632,6 +4802,18 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         return found;
+    }
+
+    function searchStartAll(search, name, foundIndexes) {
+        for (let i = 0; i < length; i++) {
+            let compareStr = (hasOwnProperty(props, 'ignorecase')) ? props.data[indexes[i]][name].toString().toUpperCase() :
+                                                                  props.data[indexes[i]][name].toString();
+            if (compareStr.startsWith(search)) {    // Item was found
+                foundIndexes.push(indexes[i]);
+            }
+        }
+
+        return foundIndexes;
     }
 
     /********************************************************************************************
@@ -4658,6 +4840,22 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         return found;
+    }
+
+    function searchAnyAll(search, name, foundIndexes) {
+        let begin = (hasOwnProperty(props,'nocontsearch') === true || start === 0) ? 0: start + 1;  // Where to start the search
+
+        for (let i = begin; i < props.data.length; i++) {
+            const str = (props.data[indexes[i]][name]) ? props.data[indexes[i]][name].toString() : ''
+            const compareStr = (hasOwnProperty(props, 'ignorecase')) ? str.toUpperCase() : str;
+            console.log('compareStr :', compareStr);
+
+            if (compareStr.indexOf(search) !== -1) {    // Item was found
+                foundIndexes.push(indexes[i]);
+            }
+        }
+
+        return foundIndexes;
     }
 
     /*********************************************************************************************************

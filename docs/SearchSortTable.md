@@ -648,19 +648,17 @@ The data is not sorted, but remains in its original state.  The order of the ind
 
 ### **Searching**
 The search bar contains the following:
-1.  A drop down listing all the headers in the table.  Select one to search that column in the table.  If All is in the drop down, then all columns will be searched.
-2.  A text box to enter the text to be searched for in that header column.
-3.  A Search button to search for the text in the header column.
-4.  A Top button places the first item in the data at the top of the table.  Disables the Top and Previous buttons.
-5.  A Previous button displays the previous MAX_ITEMS of data in the table.  Disables the Top and Previous buttons if at the top of the data.
-6.  A Next button displays the next MAX_ITEMS of data in the table.  Disables the Next and Bottom buttons if at the end of the data.
-7.  A Bottom button places the last MAX_ITEMS of data in the table.  Disabled the Next and Bottom buttons.
+1.  A drop down listing all the headers in the table.  Select one to search that column in the table.  If All is in the drop down, then all columns will be searched.  If All is selected, all columns in the table will be searched for the selected item.
+2.  A text box to enter the text to be searched.
+3.  A Display All checkbox that indicates to display all the items that match the searched item.  If the this box is not checked, it will only display the first item found.
+4.  A Search button to search for the text.  If the Display All checkbox is not checked and the Search button is pressed, it will find the first searched item and place it at the top of the table.  If pressed again, it will find the next item that matches the search and place it at the top of the table.  If the Search button is pressed again the next one is found and so on.
 
 How to search:
 
 1.  Select a header option from the drop down.
 2.  Type a value to search underneath the header selected from the drop down.  This will also take you back to the first data item, which will be at the top of the screen.
-3.  Press the Search button.  The search will search that field until it finds the first item that anywhere within that value and places it as the first item in the table.  For example, suppose you enter 2 for Order Number, then 123 will be displayed as the first item in the table.  If the search button is pressed again, it will find the next data in that column that matches the search item.
+3.  Check the Display All if all the matches are to be viewed at once or leave unchecked and you can go through one at a time by pressing the Search button to see each one.
+4.  Press the Search button.  The search will search that field until it finds the first item that anywhere within that value and places it as the first item in the table.  For example, suppose you enter 2 for Order Number, then 123 will be displayed as the first item in the table.  If the search button is pressed again, it will find the next data in that column that matches the search item.
 
 ### **Filtering**
 
