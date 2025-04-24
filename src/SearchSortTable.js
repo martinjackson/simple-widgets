@@ -10,7 +10,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { css } from "@emotion/react";
 import FadeLoader from "react-spinners/FadeLoader";
 import pdfMake from "pdfmake/build/pdfmake";
-//import pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 import { CSVLink } from 'react-csv';
 
 import '../src/sw-table.css';
@@ -35,7 +35,7 @@ import { hasOwnProperty } from './hasOwnProperty.js';
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 
-//pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.vfs = pdfFonts.vfs;
 
 const upper = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 const lower = [...'abcdefghijklmnopqrstuvwxyz'];
@@ -300,7 +300,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     const localUserFooter = (hasOwnProperty(props, 'footer') === true) ? props.footer : [];
     const localFinalTotals = (hasOwnProperty(props, 'finaltotals') === true) ? props.finaltotals : [];
-
+    
     let cellBorder = "sw-sst_body_full ";
     if (hasOwnProperty(props, 'noborders') === true) {
         cellBorder = "";
@@ -385,9 +385,24 @@ const _InnerSearchSortTable = (propsPassed) => {
     // const [origIndexes, setOrigIndexes] = useState([...startIndexes]);
     const origIndexes = [...startIndexes];  // The original set of indexes that is used when the sort order is neither or control breaks are removed
 
+    let previousRow = null;
+
     const setTableTD = (obj, i) => {
         let row = obj.row;
         let col = obj.col;
+        if (hasOwnProperty(col, 'norepeat') === true && col.norepeat === true) {
+            if (previousRow !== null && row[col.name] === previousRow[col.name]) {
+                if (row[col.name] === table[table.length - 1][col.name]) {
+                    previousRow = row;
+                }
+                return <span></span>;
+            }
+        } 
+
+        if (row[col.name] === table[table.length - 1][col.name]) {
+            previousRow = row;
+        }
+
         if (hasOwnProperty(props, 'tableTD') === true &&
             hasOwnProperty(props, 'firstTD') === true) {
                 return props.tableTD(obj, i);
@@ -2411,6 +2426,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 </tr>
         }
 
+        previousRow = null;
         tableBuild =    <table className={`${hoverClassName} ${tableBorder}`}
                                 name={`table${number}`} key={keyTable}>
                             <thead>
@@ -2451,7 +2467,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     }
 
     let outerBorder = "sw-sst_divStyle";
-    if (hasOwnProperty(props, 'noborders') === true ||
+    if (hasOwnProperty(props, 'noborders') === true || 
         hasOwnProperty(props, 'noOuterBorder') === true) {
         outerBorder = "sw-sst_divStyle2";
     }
@@ -2925,6 +2941,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             }
         }
 
+        previousRow = null;
         return (    // Render the control break
             <Fragment key={`frag_1_${number}_${i}`}>
                 <thead key={`thead_${number}_${i}`}>
@@ -3633,7 +3650,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
 
-        // let isUserCtrlBreak = userCtrlBreak(table);
+        let isUserCtrlBreak = userCtrlBreak(table);
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
             /*if (isUserCtrlBreak === true &&  controlBreakInfo[i].hidden === true &&
@@ -4485,7 +4502,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         for (let i = 0; i < indexes.length; i++) {
-            let found = false;
+            found = false;
             for (let j = 0; j < foundIndexes.length; j++) {
                 if (indexes[i] === foundIndexes[j]) {
                     found = true;
@@ -4529,13 +4546,10 @@ const _InnerSearchSortTable = (propsPassed) => {
                 for (let tableIndex = 0; tableIndex < table.length && found === false; tableIndex++) {
                     if (hasOwnProperty(table[tableIndex], 'dataDate') && hasOwnProperty(table[tableIndex], 'searchDate')) {
                         foundIndexes = searchDateAll(search, tableIndex, foundIndexes);
-                        console.log('Date foundIndexes :', foundIndexes);
                     } else if (hasOwnProperty(props,'searchstart') === true && found === false) {
                         foundIndexes = searchStartAll(search, table[tableIndex].name, foundIndexes);
-                        console.log('Start foundIndexes :', foundIndexes);
                     } else if (found === false) {
                         foundIndexes = searchAnyAll(search, table[tableIndex].name, foundIndexes);
-                        console.log('All foundIndexes :', foundIndexes);
                     }
                 }
             }
@@ -4545,7 +4559,6 @@ const _InnerSearchSortTable = (propsPassed) => {
                 setShowAlert(true);
             } else {
                 let newIndexes = buildIndexes(foundIndexes);
-                console.log('newIndexes :', newIndexes);
                 setIndexes(newIndexes);
                 setStartEnd(0, length, newIndexes);
             }
@@ -4848,7 +4861,6 @@ const _InnerSearchSortTable = (propsPassed) => {
         for (let i = begin; i < props.data.length; i++) {
             const str = (props.data[indexes[i]][name]) ? props.data[indexes[i]][name].toString() : ''
             const compareStr = (hasOwnProperty(props, 'ignorecase')) ? str.toUpperCase() : str;
-            console.log('compareStr :', compareStr);
 
             if (compareStr.indexOf(search) !== -1) {    // Item was found
                 foundIndexes.push(indexes[i]);

@@ -37,6 +37,7 @@ All the possible field values for the table are:
   - filterDate        the format of date for dates that are to be filtered in this column. See below.
   - filterdaterange   indicates whether the date column for the filter should be a range of dates.  Some examples are: Last 2 years, Last Year, Last 6 months, etc.
   - name              the name of the column in the data object for the table
+  - norepeat          indicates that is the previous value for the column is the same as the current column, the current column will be blank.  For control breaks, this value will be present for the first row of the control break.  An example, would be norepeat: true or false.
   - pdfCol            the alignment for the PDF column.  See the Alignment in a Table Cell section.
   - search            indicates whether this column can be searched or not
   - searchDate        the format of the date for dates that are to be searched in this column.  See below.
@@ -185,7 +186,7 @@ The dataDate field indicates the format of a date field in the data.  The filter
    ```
   In the above example, the first entry has header and name blank.  The checked: true option indicates that the header for that column should be a checkbox.  This could be used with the rest rows in that column, to delete the rows that are checked.  The checkbox in the header should be used to check some or all the checkboxes in that row.  The checkedFunct is used to determine the behavoir of the checkbox in the header.
 
-3.  **eachRowInTable** = a function that indicates how each cell in a row will be displayed.  The function will build a row in the search sort table.  The function is passed a row in the table that needs to be put into the HTML table row format.  If hover props is used, the indexing table and onClick on the tr will need to be added.  The following example is with out the hover props being used:
+3.  **eachRowInTable** = (read below for the Latest Format) a function that indicates how each cell in a row will be displayed.  The function will build a row in the search sort table.  The function is passed a row in the table that needs to be put into the HTML table row format.  If hover props is used, the indexing table and onClick on the tr will need to be added.  The following example is with out the hover props being used:
 
 # Original Format (still works if not dragging)
 ```javascript
