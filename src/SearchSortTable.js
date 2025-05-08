@@ -15,22 +15,22 @@ import { CSVLink } from 'react-csv';
 
 import '../src/sw-table.css';
 
-import { CheckBox } from './CheckBox.js';
-import { Choice } from './Choice.js';
-import { ChoiceText } from './ChoiceText.js';
-import { isInvalid, setInvalidScreen, generateInvalid,
-         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-import { AlertModal } from './AlertModal.js';
-import { generateCSSButton } from './Theme.js';
-import { currentDate, convertDate, dateTime } from './DateFunct.js';
-import { formatMoney } from './Common.js';
-import { hasOwnProperty } from './hasOwnProperty.js';
+//import { CheckBox } from './CheckBox.js';
+//import { Choice } from './Choice.js';
+//import { ChoiceText } from './ChoiceText.js';
+//import { isInvalid, setInvalidScreen, generateInvalid,
+//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
+//import { AlertModal } from './AlertModal.js';
+//import { generateCSSButton } from './Theme.js';
+//import { currentDate, convertDate, dateTime } from './DateFunct.js';
+//import { formatMoney } from './Common.js';
+//import { hasOwnProperty } from './hasOwnProperty.js';
 
-//import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
-//    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
-//    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
-//    dateTime
-//} from './index.js'
+import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
+    processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
+    generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
+    dateTime
+} from './index.js';
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -701,7 +701,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             populateDropDown(props.table, indexes);
             setFinalTotals(buildFinalFooters())
         }
-    }, [props.data.length, props.resetIndexes])
+    }, [props.data.length, props.resetIndexes, maximum, maxItems])
 
 
 /*    console.log('props.data.length :', props.data.length);
@@ -768,7 +768,12 @@ const _InnerSearchSortTable = (propsPassed) => {
 
         // Build the values for the row drop down on the bottom right of the screen.
         let values = [];
-        for (let count = props.MAX_ITEMS; count <= 100; count += 5) {
+        let start = props.MAX_ITEMS - 30;
+        
+        if (start < 5 || (start % 5) !== 0) {
+            start = 5;
+        }
+        for (let count = start; count <= 100; count += 5) {
             values.push(count);
         }
 
@@ -984,6 +989,16 @@ const _InnerSearchSortTable = (propsPassed) => {
             title = props.report;
         }
 
+        let subTitle1 = '';
+        if (hasOwnProperty(props, 'reportSub1') === true) {
+            subTitle1 = props.reportSub1;
+        }
+
+        let subTitle2 = '';
+        if (hasOwnProperty(props, 'reportSub2') === true) {
+            subTitle2 = props.reportSub2;
+        }
+
         let docDefinition = {   // This contains the PDF report information
             info: {
                  title: title,
@@ -995,10 +1010,15 @@ const _InnerSearchSortTable = (propsPassed) => {
             ],
             styles: {   // Styles for the header and cell headers
                 header1: {
+                    fontSize: 20,
+                    bold: true,
+                    alignment: 'center',
+//                    margin: [0, 3, 0, 0]
+                },
+                header2: {
                     fontSize: 14,
                     bold: true,
                     alignment: 'center',
-                    margin: [0, 3, 0, 0]
                 },
                 cellLeft: {
                     alignment: 'left',
@@ -1033,6 +1053,8 @@ const _InnerSearchSortTable = (propsPassed) => {
                     { text: 'Report Date: ' +  currentDate(), alignment: 'right', margin: [0, 5, 5, 0]},
                 ]},
                 { text: title, style: 'header1' },
+                { text: subTitle1, style: 'header2' },
+                { text: subTitle2, style: 'header2' },
             ]
         };
         docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' };
@@ -1166,6 +1188,16 @@ const _InnerSearchSortTable = (propsPassed) => {
             title = props.report;
         }
 
+        let subTitle1 = '';
+        if (hasOwnProperty(props, 'reportSub1') === true) {
+            subTitle1 = props.reportSub1
+        }
+
+        let subTitle2 = '';
+        if (hasOwnProperty(props, 'reportSub2') === true) {
+            subTitle2 = props.reportSub2
+        }
+
         let docDefinition = {   // This contains the PDF report information
             info: {
                  title: title,
@@ -1177,10 +1209,15 @@ const _InnerSearchSortTable = (propsPassed) => {
             ],
             styles: {   // Styles for the header and cell headers
                 header1: {
+                    fontSize: 20,
+                    bold: true,
+                    alignment: 'center',
+//                    margin: [0, 3, 0, 0]
+                },
+                header2: {
                     fontSize: 14,
                     bold: true,
                     alignment: 'center',
-                    margin: [0, 3, 0, 0]
                 },
                 cellLeft: {
                     alignment: 'left',
@@ -1215,6 +1252,8 @@ const _InnerSearchSortTable = (propsPassed) => {
                     { text: 'Report Date: ' +  currentDate(), alignment: 'right', margin: [0, 5, 5, 0]},
                 ]},
                 { text: title, style: 'header1' },
+                { text: subTitle1, style: 'header2' },
+                { text: subTitle2, style: 'header2' },
             ]
         };
         docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' };
@@ -1429,6 +1468,16 @@ const _InnerSearchSortTable = (propsPassed) => {
             title = props.report;
         }
 
+        let subTitle1 = '';
+        if (hasOwnProperty(props, 'reportSub1') === true) {
+            subTitle1 = props.reportSub1;
+        }
+
+        let subTitle2 = '';
+        if (hasOwnProperty(props, 'reportSub2') === true) {
+            subTitle2 = props.reportSub2;
+        }
+
         let sidePoints = PDF_PORTRAIT_POINTS;
         if (pdfOrientation === 'Landscape') {
             sidePoints = PDF_LANDSCAPE_POINTS;
@@ -1447,10 +1496,15 @@ const _InnerSearchSortTable = (propsPassed) => {
             ],
             styles: {   // Styles for the header and cell headers
                 header1: {
+                    fontSize: 20,
+                    bold: true,
+                    alignment: 'center',
+//                    margin: [0, 3, 0, 0]
+                },
+                header2: {
                     fontSize: 14,
                     bold: true,
                     alignment: 'center',
-                    margin: [0, 3, 0, 0]
                 },
                 cellLeft: {
                     alignment: 'left',
@@ -1490,6 +1544,8 @@ const _InnerSearchSortTable = (propsPassed) => {
                     { text: 'Report Date: ' +  currentDate(), alignment: 'right', margin: [0, 5, 5, 0]},
                 ]},
                 { text: title, style: 'header1' },
+                { text: subTitle1, style: 'header2' },
+                { text: subTitle2, style: 'header2' },
             ]
         };
         docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' };
@@ -1679,6 +1735,16 @@ const _InnerSearchSortTable = (propsPassed) => {
             title = props.report;
         }
 
+        let subTitle1 = '';
+        if (hasOwnProperty(props, 'reportSub1') === true) {
+            subTitle1 = props.reportSub1;
+        }
+
+        let subTitle2 = '';
+        if (hasOwnProperty(props, 'reportSub2') === true) {
+            subTitle2 = props.reportSub2;
+        }
+
         let docDefinition = {   // This contains the PDF report information
             info: {
                  title: title,
@@ -1690,10 +1756,15 @@ const _InnerSearchSortTable = (propsPassed) => {
             ],
             styles: {   // Styles for the header and cell headers
                 header1: {
+                    fontSize: 20,
+                    bold: true,
+                    alignment: 'center',
+//                    margin: [0, 3, 0, 0]
+                },
+                header2: {
                     fontSize: 14,
                     bold: true,
                     alignment: 'center',
-                    margin: [0, 3, 0, 0]
                 },
                 cellLeft: {
                     alignment: 'left',
@@ -1733,6 +1804,8 @@ const _InnerSearchSortTable = (propsPassed) => {
                     { text: 'Report Date: ' +  currentDate(), alignment: 'right', margin: [0, 5, 5, 0]},
                 ]},
                 { text: title, style: 'header1' },
+                { text: subTitle1, style: 'header2' },
+                { text: subTitle2, style: 'header2' },
             ]
         };
         docDefinition.footer = { text: 'For Official Use Only', alignment: 'center' };
@@ -1951,6 +2024,12 @@ const _InnerSearchSortTable = (propsPassed) => {
         exData.push(['Report Date: ' +  currentDate()]);
         exData.push([' ']);
         exData.push([title]);
+        if (hasOwnProperty(props, 'reportSub1') === true) {
+            exData.push([props.reportSub1]);
+        }
+        if (hasOwnProperty(props, 'reportSub2') === true) {
+            exData.push([props.reportSub2]);
+        }
         exData.push([' ']);
 
         let header = [];    // Header for the excel spreadsheet
@@ -2025,6 +2104,12 @@ const _InnerSearchSortTable = (propsPassed) => {
         exData.push(['Report Date: ' +  currentDate()]);
         exData.push([' ']);
         exData.push([title]);
+        if (hasOwnProperty(props, 'reportSub1') === true) {
+            exData.push([props.reportSub1]);
+        }
+        if (hasOwnProperty(props, 'reportSub2') === true) {
+            exData.push([props.reportSub2]);
+        }
         exData.push([' ']);
 
         // Header for the excel spreadsheet
@@ -4495,14 +4580,14 @@ const _InnerSearchSortTable = (propsPassed) => {
     }
 
     function buildIndexes(foundIndexes) {
-        newIndexes = [];
+        let newIndexes = [];
 
         for (let i = 0; i < foundIndexes.length; i++) {
             newIndexes.push(foundIndexes[i]);
         }
 
         for (let i = 0; i < indexes.length; i++) {
-            found = false;
+            let found = false;
             for (let j = 0; j < foundIndexes.length; j++) {
                 if (indexes[i] === foundIndexes[j]) {
                     found = true;
@@ -4931,7 +5016,10 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
                 // Sum up the column for each row
                 for (let k = 0; k < props.data.length && totaling === true; k++) {
-                    total[j] += props.data[k][table[j].name];
+                    if (props.data[k][table[j].name] !== null &&
+                        props.data[k][table[j].name] !== undefined) {
+                        total[j] += props.data[k][table[j].name];
+                    }
                 }
             }
 

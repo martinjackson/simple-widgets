@@ -275,11 +275,22 @@ last entry and checked: true
 
 -    The data is the spread sheet data that needs to be saved.  It will only have the field names that are to be saved in the sheet array (see above).
 
-3.  ***data*** = contains the spread sheet data.  This is only required if a button for a modal is being used.  If used, data should be set to an empty array.
+3.  ***removeFunct*** = the name of the remove function that will remove the checked data from the data.  This is not required (optional).
+
+```js
+    const removeData = (data) => {
+        ...
+    }
+```
+
+-    The data to be removed are those items that are checked in the spread sheet data.  It will only have the field names that are to be removed in the sheet array (see above).
+
+
+4.  ***data*** = contains the spread sheet data.  This is only required if a button for a modal is being used.  If used, data should be set to an empty array.
 
 The rest of the props are optional:
 
-4.  ***specialProcessing*** = this function is called anytime a value is placed in one of the fields indicated in the sheet array.
+5.  ***specialProcessing*** = this function is called anytime a value is placed in one of the fields indicated in the sheet array.
 
 ```js
     const processValue = (data, name, value, index) {
@@ -296,7 +307,7 @@ The rest of the props are optional:
     - index = the row number in the data array where the data is being placed.
 -   The data needs to be returned so that it can be incorporated into the spread sheet.
 
-5.  ***specialProcessingSave*** = this function is called to do any processing before the save function (see the saveFunct prop) is called.
+6.  ***specialProcessingSave*** = this function is called to do any processing before the save function (see the saveFunct prop) is called.
 ```js
     const processSave = (data) => {
         ...
@@ -308,7 +319,7 @@ The rest of the props are optional:
 -    The name of the specialProcessingSave function is processSave.  The data parameter is the data for the current row being processed in the spread sheet.
 -   The data needs to be returned so that it can be incorporated into the spread sheet.
 
-6.  ***maxItems*** = is the maximum number of items that can be displayed in the spreadsheet.  Pagination is used to see the rest of the rows in the spread sheet.  The default is 50.
+7.  ***maxItems*** = is the maximum number of items that can be displayed in the spreadsheet.  Pagination is used to see the rest of the rows in the spread sheet.  The default is 50.
 
 ```js
     maxItems="30"
@@ -316,7 +327,7 @@ The rest of the props are optional:
 
 -    The maximum number of items to display at one time in the spread sheet is 30.  
 
-7.  ***blankRows*** = the total number of blank rows in the spread sheet.  If all the rows are to be displayed at once, make the maxItems and blankRows the same value.  The default is 100.
+8.  ***blankRows*** = the total number of blank rows in the spread sheet.  If all the rows are to be displayed at once, make the maxItems and blankRows the same value.  The default is 100.
 
 ```js
     blankRows="50"
@@ -324,7 +335,7 @@ The rest of the props are optional:
 
 -    The number of blank rows in the spread sheet will be 50.
 
-8.  ***additionRows*** = the number of additional rows to be added when the Add Rows button is pressed.  The default is 20.
+9.  ***additionRows*** = the number of additional rows to be added when the Add Rows button is pressed.  The default is 20.
 
 ```js
     additionalRows="10"
@@ -332,7 +343,7 @@ The rest of the props are optional:
 
 -    The number of additional rows added to the spread sheet is 10.
 
-9.  ***preload*** = this a function that is called to pre load data into the spreadsheet. The function is called when the spread sheet is initially rendered, when the data is cleared, and when rows are added (it will only do it to the added rows).  The format for the function is:
+10.  ***preload*** = this a function that is called to pre load data into the spreadsheet. The function is called when the spread sheet is initially rendered, when the data is cleared, and when rows are added (it will only do it to the added rows).  The format for the function is:
 
 ```js
     const preLoadData = (data) => {
@@ -346,9 +357,9 @@ The rest of the props are optional:
 - data = the data in the spread sheet.
 - The data needs to be returned so that it can be incorporated into the spread sheet.
 
-10.  ***buttonName*** = the name of the button that is used in conjunction with checked: true (generates a column of checkboxes).  If checked is true, and there is no buttonName, the name of the button will be Remove.  If the name does not match what button is actually doing, then it can be changed.  The behavoir of the button is defined with ***buttonFunct***.
+11.  ***buttonName*** = the name of the button that is used in conjunction with checked: true (generates a column of checkboxes).  If checked is true, and there is no buttonName, the name of the button will be Remove.  If the name does not match what button is actually doing, then it can be changed.  The behavoir of the button is defined with ***buttonFunct***.
 
-11.  ***buttonFunct*** = this is a function that defines the behavior of the name button with ***buttonName***.  This function is called when the user clicks on the button.  The format of the function is:
+12.  ***buttonFunct*** = this is a function that defines the behavior of the name button with ***buttonName***.  This function is called when the user clicks on the button.  The format of the function is:
 
 ```js
     const buttonBehavior = (data) => {
@@ -358,7 +369,7 @@ The rest of the props are optional:
     }
 ```
 
-12.  ***title*** = the centered title to be displayed above the spread sheet.  No title will be displayed if the prop is not present.
+13.  ***title*** = the centered title to be displayed above the spread sheet.  No title will be displayed if the prop is not present.
 
 ```js
     title="Breeding"
@@ -366,21 +377,21 @@ The rest of the props are optional:
 
 -    Breeding will be the title that appears centered before the spread sheet.
 
-13. ***nosave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
+14. ***nosave*** = indicates that the Save button should not appear on the screen.  If this prop is used, there is no need for the saveFunct prop.
 
-14. ***noclear*** = indicates that the Clear button should not appear on the screen.
+15. ***noclear*** = indicates that the Clear button should not appear on the screen.
 
-15. ***noaddrows*** = indicates that the Add Rows button should not appear on the screen.  If this prop is used, there is no need for the additionalRows prop.
+16. ***noaddrows*** = indicates that the Add Rows button should not appear on the screen.  If this prop is used, there is no need for the additionalRows prop.
 
-16. ***nopdf*** = indicates that the PDF button and Orientation drop down should not appear on the screen.
+17. ***nopdf*** = indicates that the PDF button and Orientation drop down should not appear on the screen.
 
-17. ***noexcel*** = indicates that the Excel button should not appear on the screen.
+18. ***noexcel*** = indicates that the Excel button should not appear on the screen.
 
-18. ***alignment*** = this will determine if the Clear, Save, and Remove buttons are on the left, center, or right on the spreadsheet.  The possible values are: left, center (default), and right. 
+19. ***alignment*** = this will determine if the Clear, Save, and Remove buttons are on the left, center, or right on the spreadsheet.  The possible values are: left, center (default), and right. 
 
-19. ***placement*** = indicates whether the Clear, Save, and Remove buttons are on the top or bottom of the spreadsheet.  The possible values are top and bottom (default).
+20. ***placement*** = indicates whether the Clear, Save, and Remove buttons are on the top or bottom of the spreadsheet.  The possible values are top and bottom (default).
 
-20. ***height*** = the height of the spread sheet.  The default is 675px.
+21. ***height*** = the height of the spread sheet.  The default is 675px.
 
 ```js
     height="700px"
@@ -388,7 +399,7 @@ The rest of the props are optional:
 
 -    The height of the spread sheet is 700px.
 
-17. ***error*** = indicates that an error occurred.  This will disable all buttons and certain fields in the spread sheet.
+22. ***error*** = indicates that an error occurred.  This will disable all buttons and certain fields in the spread sheet.
 
 ```js
     error={error}
@@ -396,9 +407,9 @@ The rest of the props are optional:
 
 -    The variable error will be passed into the spread Sheet.
 
-18. ***indexing*** = is a function that returns the indexes into the current data being displayed.  This will rarely be used.  The user will need to add the indexing as a state variable.  See indexing in the Search Sort Table.
+23. ***indexing*** = is a function that returns the indexes into the current data being displayed.  This will rarely be used.  The user will need to add the indexing as a state variable.  See indexing in the Search Sort Table.
 
-19. ***startEnd*** = is a function that returns the current starting and ending positions in the data being displayed.  This will rarely be used.  See startEnd in the Search Sort Table.
+24. ***startEnd*** = is a function that returns the current starting and ending positions in the data being displayed.  This will rarely be used.  See startEnd in the Search Sort Table.
 
 
 ### ***CSS Files***

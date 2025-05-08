@@ -27,7 +27,7 @@ export const SpreadSheet = (props) => {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-      populateDirty(props.data);
+        populateDirty(props.data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.data]);
 
@@ -403,6 +403,7 @@ export const SpreadSheet = (props) => {
             if (newData.length !== 0) {
                 if (hasOwnProperty(props, 'saveFunct') === true) {
                     props.saveFunct(newData);
+//                    populate(ADD, true);
                 }
             }
         }
@@ -427,12 +428,26 @@ export const SpreadSheet = (props) => {
     const removeFunctYes = (data) => {
         let count = 0;
         let localData = [...data];
-
+        
         let filterData = localData.filter(row => { count++; return row.checked !== 'Y'});
         setData(filterData);
 
-        populate(count);
-    }
+        if (hasOwnProperty(props, 'removeFunct') === true) {
+            let removeData = localData.filter(row => { return row.checked === 'Y'});
+
+            for (let i = 0; i < removeData.length; i++) {
+                if (hasOwnProperty(props, 'showmetadata') === false) {
+                    delete removeData[i].dirty;
+                    delete removeData[i].count;
+                    delete removeData[i].checked;
+                }
+            }
+
+            props.removeFunct(removeData);
+        }
+
+//        populate(filterData.length);
+}
 
     const buttonFunct = (data) => {
         let counter = count;
@@ -487,7 +502,7 @@ export const SpreadSheet = (props) => {
         </div>
 
     return (
-        <div>
+        <div className="project_center_table">
             {title}
             {(placement === 'top') ? buttonGroup : null}
             <SearchSortTable
@@ -500,7 +515,6 @@ export const SpreadSheet = (props) => {
                 checkedFunct={processAllChecks}
                 error={props.error}
                 number={1}
-                scroll
                 nofilter={hasOwnProperty(props, 'nofilter')}
                 nopdf={hasOwnProperty(props, 'nopdf')}
                 noexcel={hasOwnProperty(props, 'noexcel')}
