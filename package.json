@@ -1,6 +1,6 @@
 {
   "name": "simple-widgets",
-  "version": "1.42.7",
+  "version": "1.42.8",
   "description": "A Collection of React components to make your React code simpler",
   "main": "dist/index.js",
   "files": [
