@@ -618,7 +618,7 @@ export default Breed2;
         maxItems="50"
         noSave
         noClear
-        noAdditionalRows
+        noaddrows
         error={error}
         data={data} />
  ```
@@ -714,3 +714,37 @@ export default Breed2;
 ```
 
 - In the above example, the Display button will appear next to the Save button.  When the user clicks on the Display button, it will execute the displayFunct (buttonFunct={displayFunct}), which will print out the names of all the people who are checked.
+
+### ***Example 6***
+
+```js
+    let sheet = [        
+        { header: '',           name: '',           checked: true },
+        { header: 'Last Name',  name: 'lastName',   validate: false, save: true,  hidden: true },
+        { header: 'First Name', name: 'firstName',  validate: false, save: false, hidden: false,    type: 'text' },
+        { header: 'City',       name: 'city',       validate: true,  save: false, hidden: false,    type: 'text' },
+        { header: 'State',      name: 'state',      validate: false, save: true,  hidden: true,     type: 'text' },
+        { header: 'Zip Code',   name: 'zip',        validate: false, save: false, hidden: false,    type: 'text' },
+    ];
+
+    const saveData = (data) => {
+        ...
+    }
+
+    const removeData = (data) => {
+        ...
+    }
+
+    return (
+        <div>
+            <SpreadSheet 
+                sheet={sheet}
+                maxItems="50"
+                saveFunct={saveData}
+                removeFunct={removeData}
+                error={error}
+                data={data} />
+        </div>
+    )
+```
+Since the first line of the Sheet has checked set to true.  Therefore, checkboxes will appear at the beginning of each and the Remove button will appear. The rows that are checked will be removed when the Remove button is pressed.  When the Remove button is pressed the remove function will be executed.  The data will only contain the data that is to be removed.
