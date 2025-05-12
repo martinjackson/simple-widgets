@@ -162,7 +162,7 @@ All of these widgets require the following props:
 [Redirect](docs/MenuUtils.md)<br />
 [Scroll Functions](docs/ScrollFunctions.md)<br />
 [Search Functions](docs/SearchFunct.md)<br />
-[SearchSortTable Basics](docs/SearchSortTable.md)<br />
+[SearchSortTable Basics](docs/SearchSortTableBasics.md)<br />
 [SearchSortTable](docs/SearchSortTable.md)<br />
 [SimpleTable](docs/SimpleTable.md)<br />
 [Slider](docs/Slider.md)<br />
