@@ -40,7 +40,7 @@ const data = [
 The following props are needed:
 
 1.  data = this is an array of objects, where each object represents a row in the table
-2.  table = describes the items and the characteristics in the table
+2.  table = describes the columns and the characteristics in the table
 3.  eachRowInTable = default
 4.  searchall = indicates that all rows in the table can be searched.
 
@@ -48,7 +48,7 @@ The following props are needed:
 
 The table is an array of objects in which each object represents a column in the table.
 
-The object has the following fields for the basic table:
+The object (column) has the following fields for the basic table:
 
 1.  header = the name for the column header in the table
 2.  name = the name of the field in the object for the data
