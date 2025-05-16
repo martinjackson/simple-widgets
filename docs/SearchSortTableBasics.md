@@ -43,6 +43,8 @@ The following props are needed:
 2.  table = describes the columns and the characteristics in the table
 3.  eachRowInTable = default
 4.  searchall = indicates that all rows in the table can be searched.
+5.  MAX_ITEMS = the maximum number of rows to display on a page and then use pagination.  The default is 50.
+6.  number = a number that is assigned to each search sort table.  Helps in making sure that each row has a unique key.  The default is zero.  Only need if there is more than one table in the application.
 
 **Table**
 
@@ -94,6 +96,8 @@ The Amount field has the align field of money; therefore, the field will be plac
                      table={table}
                      eachRowInTable="default"
                      searchall
+                     MAX_ITEMS={20}
+                     number={1}
     />
 ```
 
@@ -107,7 +111,8 @@ The following props are needed:
 4.  transfer = the name of the function to transfer the selected row data when the left mouse button is clicked
 5.  hover = highlights the current row the mouse is on to indicate the row that might be transferred
 6.  searchall = indicates that all rows in the table can be searched
-
+7.  MAX_ITEMS = the maximum number of rows to display on a page and then use pagination.  The default is 50.
+8.  number = a number that is assigned to each search sort table.  Helps in making 
 The table will be the same as in the Basic Search Sort Table.
 
 **Example**
@@ -123,6 +128,8 @@ The table will be the same as in the Basic Search Sort Table.
                      transfer={dataTransfer}
                      hover
                      searchall
+                     MAX_ITEMS={30}
+                     number={1}
     />
 ```
 
@@ -139,6 +146,8 @@ This can be combined with any of the other examples.
 3.  eachRowInTable = default (example will use) or defaultTransfer
 4.  controlBreak = an array of objects indicating which columns will be hidden, which columns will be control breaked, which columns will be summed.
 4.  searchall = indicates that all rows in the table can be searched.
+5.  MAX_ITEMS = the maximum number of rows to display on a page and then use pagination.  The default is 50.
+6.  number = a number that is assigned to each search sort table.  Helps in making sure that each row has a unique key.  The default is zero.  Only need if there is more than one table in the application.
 
 **Control Break**
 
@@ -181,6 +190,8 @@ The next to last column will be summed (sum: true) and displayed at end of the c
                      eachRowInTable="default"
                      controlBreak={controlBreak}
                      searchall
+                     MAX_ITEMS={40}
+                     number={3}
 ```
 
 # Search Sort Table to do Final Totals
@@ -194,6 +205,8 @@ This can be combined with any of the other examples.
 3.  eachRowInTable = default (example will use) or defaultTransfer
 4.  finaltotals = an array of objects indicatiing, which columns will be summed.
 4.  searchall = indicates that all rows in the table can be searched.
+5.  MAX_ITEMS = the maximum number of rows to display on a page and then use pagination.  The default is 50.
+6.  number = a number that is assigned to each search sort table.  Helps in making sure that each row has a unique key.  The default is zero.  Only need if there is more than one table in the application.
 
 **Final Totals**
 
@@ -233,6 +246,8 @@ The next to last column will be summed (finaltotal: true) and displayed at end o
                      eachRowInTable="default"
                      finaltotals={finalTotals}
                      searchall
+                     MAX_ITEMS={60}
+                     number={4}
 ```
 
 # Search Sort Table for Header Drop Downs
@@ -245,6 +260,8 @@ The following props are needed:
 2.  table = describes the items and the characteristics in the table
 3.  eachRowInTable = default
 4.  searchall = indicates that all rows in the table can be searched.
+5.  MAX_ITEMS = the maximum number of rows to display on a page and then use pagination.  The default is 50.
+6.  number = a number that is assigned to each search sort table.  Helps in making sure that each row has a unique key.  The default is zero.  Only need if there is more than one table in the application.
 
 **Table**
 
@@ -289,6 +306,8 @@ All the columns have dropDown set to true, indicating all columns can be hidden,
                      table={table}
                      eachRowInTable="default"
                      searchall
+                     MAX_ITEMS={25}
+                     number={5}
     />
 ```
 
@@ -301,6 +320,8 @@ The following props are needed:
 3.  eachRowInTable = default
 4.  setTheTable = since the columns are changing the table array, control break array, and final totals array will change; therefore they must be passed back to the invoking SearchSortTable component.
 4.  searchall = indicates that all rows in the table can be searched.
+5.  MAX_ITEMS = the maximum number of rows to display on a page and then use pagination.  The default is 50.
+6.  number = a number that is assigned to each search sort table.  Helps in making sure that each row has a unique key.  The default is zero.  Only need if there is more than one table in the application.
 
 **Table**
 
@@ -370,6 +391,8 @@ All the columns have drag set to true, indicating all columns can be dragged.
                      finaltotals={finalTotals}
                      setTheTable={setTheTable} 
                      searchall
+                     MAX_ITEMS={35}
+                     number={6}
     />
 ```
 
@@ -396,6 +419,8 @@ Example, if there is no control break or final totals:
                      eachRowInTable="default"
                      setTheTable={setTheTable} 
                      searchall
+                     MAX_ITEMS={35}
+                     number={7}
     />
 ```
 
@@ -426,6 +451,8 @@ Example if there is a control break, but no final totals:
                      controlBreak={controlBreak}
                      setTheTable={setTheTable} 
                      searchall
+                     MAX_ITEMS={35}
+                     number={8}
     />
 ```
 
@@ -454,6 +481,8 @@ Example if there no control break, but final totals:
                      finaltotals={finalTotals}
                      setTheTable={setTheTable} 
                      searchall
+                     MAX_ITEMS={35}
+                     number={9}
     />
 ```
 
@@ -468,6 +497,8 @@ The following props are needed:
 3.  eachRowInTable = default
 4.  tableTD = specifies the function that allows the buttons, anchor tags, etc to be defined
 5.  searchall = indicates that all rows in the table can be searched.
+6.  MAX_ITEMS = the maximum number of rows to display on a page and then use pagination.  The default is 50.
+7.  number = a number that is assigned to each search sort table.  Helps in making sure that each row has a unique key.  The default is zero.  Only need if there is more than one table in the application.
 
 **Table**
 
@@ -555,6 +586,8 @@ If this is missing no data will show up in the table.
                      eachRowInTable="default"
                      tableTD={setColumn}
                      searchall
+                     MAX_ITEMS={45}
+                     number={10}
     />
 ```
 
