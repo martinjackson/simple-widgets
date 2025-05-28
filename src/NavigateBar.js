@@ -4,9 +4,11 @@ import { Link } from './MenuBar';
 import { hasOwnProperty } from './hasOwnProperty.js'
 
 
-let dropDown = [];
+let menuDropDown123 = [];
 
 export const NavigateBar = (props) => {
+    const STOP_VALUE = 2;
+
     const [click, setClick] = useState(false);
     const [menuTree, setMenuTree] = useState([]);
     const [render, setRender] = useState(false);
@@ -15,6 +17,7 @@ export const NavigateBar = (props) => {
     let addition1 = '';
     let addition2 = '';
     let page = '';
+    let topStyle = null;
 
     const buildTree = (menuTree) => {
         for (let i = 0; i < menuTree.length; i++) {
@@ -33,7 +36,7 @@ export const NavigateBar = (props) => {
         setMenuTree(buildTree(menu));
 
         for (let i = 0; i < menu.length; i++) {
-            dropDown.push(false);
+            menuDropDown123.push(false);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.menuTree]);
@@ -52,8 +55,8 @@ export const NavigateBar = (props) => {
             value = false;
         }
 
-        for (let i = 0; i < dropDown.length; i++) {
-            dropDown[i] = false;
+        for (let i = 0; i < menuDropDown123.length; i++) {
+            menuDropDown123[i] = false;
         }
 
         setClick(value);
@@ -67,8 +70,23 @@ export const NavigateBar = (props) => {
         }
     }
 
-    const onMouseEnter = (event, index) => {
-        dropDown[index] = true;
+    const calculateSubmenuPosition = (event, length) => {
+        let subMenuHeight = event.target.offsetHeight * length;
+
+        if ((event.target.offsetTop + subMenuHeight) > window.innerHeight) {
+            let newTop = event.target.offsetTop - subMenuHeight;
+            let cssRoot = document.querySelector(':root');
+            cssRoot.style.setProperty('--sw-menu_top', newTop);
+        } else {
+            let cssRoot = document.querySelector(':root');
+            cssRoot.style.setProperty('--sw-menu_top', 'none');
+        }
+    }
+
+    const onMouseEnter = (event, index, length) => {        
+//    console.log('event :', event);
+        calculateSubmenuPosition(event, length);
+        menuDropDown123[index] = true;
         forceRender();
     };
 
@@ -77,12 +95,12 @@ export const NavigateBar = (props) => {
             index = 0;
         }
 
-        for (let i = index; i < dropDown.length; i++) {
-            dropDown[i] = false;
+        for (let i = index; i < menuDropDown123.length; i++) {
+            menuDropDown123[i] = false;
         }
 
-        forceRender();
         setClick(false);
+        forceRender();
     };
 
     const buildDropDowns = (row, index) => {
@@ -102,17 +120,17 @@ export const NavigateBar = (props) => {
             return (<li
                             key={name}
                             className={navItem}
-                            onMouseEnter={(event) => onMouseEnter(event, row.index)}
+                            onMouseEnter={(event) => onMouseEnter(event, row.index, row.submenu.length)}
                             onMouseLeave={(_event) => onMouseLeave(row.index)}>
                                 <Link
                                   className='sw-nav-links'
                                   title={props.title}   >
                                     {page + row.title + addition1}
                                 </Link>
-                                { (dropDown[row.index] === true) ?
+                                { (menuDropDown123[row.index] === true) ?
                                     <ul
                                         onClick={() => handleClickDD(row.index)}
-                                        className={click ? 'sw-dropdown-menu2 clicked' + navMargin : 'sw-dropdown-menu2' + navMargin}>
+                                        className={click ? 'sw-dropdown-menu2 clicked ' + navMargin : 'sw-dropdown-menu2 ' + navMargin}>
                                         {row.submenu.map(buildDropDowns)}
                                     </ul> : <></> }
                     </li> )
@@ -151,17 +169,17 @@ export const NavigateBar = (props) => {
                 return ( <li
                                 key={name}
                                 className={navItem}
-                                onMouseEnter={(event) => onMouseEnter(event, index)}
+                                onMouseEnter={(event) => onMouseEnter(event, index, row.submenu.length)}
                                 onMouseLeave={() => onMouseLeave(index)}>
                                 <Link
                                   className='sw-nav-links'
                                   title={props.title}   >
                                     {page + row.title + addition2}
                                 </Link>
-                                { (dropDown[index] === true) ?
+                                { (menuDropDown123[index] === true) ?
                                     <ul
                                         onClick={() => handleClick()}
-                                        className={click ? 'sw-dropdown-menu clicked' + dropDownType : 'sw-dropdown-menu' + dropDownType}>
+                                        className={click ? 'sw-dropdown-menu clicked ' + dropDownType : 'sw-dropdown-menu ' + dropDownType}>
                                         {row.submenu.map(buildDropDowns)}
                                     </ul> : <></>
                                 }
