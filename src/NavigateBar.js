@@ -5,9 +5,10 @@ import { hasOwnProperty } from './hasOwnProperty.js'
 
 
 let menuDropDown123 = [];
+let menuStopCount123 = 0;
 
 export const NavigateBar = (props) => {
-    const STOP_VALUE = 2;
+    const STOP_VALUE = 4;
 
     const [click, setClick] = useState(false);
     const [menuTree, setMenuTree] = useState([]);
@@ -17,7 +18,6 @@ export const NavigateBar = (props) => {
     let addition1 = '';
     let addition2 = '';
     let page = '';
-    let topStyle = null;
 
     const buildTree = (menuTree) => {
         for (let i = 0; i < menuTree.length; i++) {
@@ -70,22 +70,45 @@ export const NavigateBar = (props) => {
         }
     }
 
-    const calculateSubmenuPosition = (event, length) => {
+    const calculateSubmenuPositionTop = (event, length) => {
         let subMenuHeight = event.target.offsetHeight * length;
 
-        if ((event.target.offsetTop + subMenuHeight) > window.innerHeight) {
-            let newTop = event.target.offsetTop - subMenuHeight;
+        if ((event.target.offsetTop + subMenuHeight) > window.innerHeight - 100) {
+            let newTop = event.target.offsetTop - subMenuHeight + event.target.offsetHeight;
             let cssRoot = document.querySelector(':root');
-            cssRoot.style.setProperty('--sw-menu_top', newTop);
+            cssRoot.style.setProperty('--sw-menu_top', `${newTop}px`);
         } else {
             let cssRoot = document.querySelector(':root');
             cssRoot.style.setProperty('--sw-menu_top', 'none');
         }
     }
 
+    const calculateSubmenuPositionBot = (event, length) => {
+        let subMenuHeight = (event.target.offsetHeight) * length;
+
+        if ((event.target.offsetTop + subMenuHeight) > window.innerHeight - 100) {
+            let newBottom =  window.innerHeight - event.target.offsetTop - event.target.offsetHeight;
+            if (window.screen.availHeight <= 1080) {
+                newBottom -= 10;
+            }
+
+            if ((window.innerHeight - (newBottom + subMenuHeight + event.target.offsetHeight) < 0)) {
+                let cssRoot = document.querySelector(':root');
+                cssRoot.style.setProperty('--sw-menu_bottom', 'none');
+            } else {
+                let cssRoot = document.querySelector(':root');
+                cssRoot.style.setProperty('--sw-menu_bottom', `${newBottom}px`);
+            }
+        } else {
+            let cssRoot = document.querySelector(':root');
+            cssRoot.style.setProperty('--sw-menu_bottom', 'none');
+        }
+    }
+
     const onMouseEnter = (event, index, length) => {        
-//    console.log('event :', event);
-        calculateSubmenuPosition(event, length);
+//        console.log('event :', event);
+//        calculateSubmenuPositionTop(event, length);
+        calculateSubmenuPositionBot(event, length);
         menuDropDown123[index] = true;
         forceRender();
     };
@@ -100,7 +123,13 @@ export const NavigateBar = (props) => {
         }
 
         setClick(false);
-        forceRender();
+
+        menuStopCount123++;
+        if (props.type === 'vertical' && menuStopCount123 === STOP_VALUE) {
+            menuStopCount123 = 0;
+        } else {
+            forceRender();
+        }
     };
 
     const buildDropDowns = (row, index) => {

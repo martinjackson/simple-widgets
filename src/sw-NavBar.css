@@ -15,6 +15,7 @@
   --sw-slide_time: 500ms;
   --sw-menu_additional: 3.5em;
   --sw-menu_top: none;
+  --sw-menu_bottom: none;
 }
 
 body::-webkit-scrollbar {
