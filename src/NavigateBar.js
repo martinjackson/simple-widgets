@@ -70,6 +70,7 @@ export const NavigateBar = (props) => {
         }
     }
 
+/*    maj 2025-06-02 not used
     const calculateSubmenuPositionTop = (event, length) => {
         let subMenuHeight = event.target.offsetHeight * length;
 
@@ -82,7 +83,7 @@ export const NavigateBar = (props) => {
             cssRoot.style.setProperty('--sw-menu_top', 'none');
         }
     }
-
+*/
     const calculateSubmenuPositionBot = (event, length) => {
         let subMenuHeight = (event.target.offsetHeight) * length;
 
@@ -105,7 +106,7 @@ export const NavigateBar = (props) => {
         }
     }
 
-    const onMouseEnter = (event, index, length) => {        
+    const onMouseEnter = (event, index, length) => {
 //        console.log('event :', event);
 //        calculateSubmenuPositionTop(event, length);
         calculateSubmenuPositionBot(event, length);
