@@ -7,7 +7,7 @@
 
 cd ~/projects/simple-widgets/src/
 
-for file in $(ls *.jsx); do
+for file in $(find . -name '*.jsx'); do
   # Get the base name without the extension
   base_name=$(basename "$file" .jsx)
 
