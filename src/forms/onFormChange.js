@@ -1,5 +1,5 @@
 
-import { applyDeepValueChange } from './applyDeepValueChange.js'
+import { applyDeepValueChange } from '../index.js'
 
 // ----------------------------------------------------------------------------
 function logErrors(e, help, props) {

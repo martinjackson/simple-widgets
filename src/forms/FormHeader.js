@@ -1,8 +1,6 @@
 import React from 'react';
-import { Button } from './Button.js';
-import { AddRecordIcon, CloneRecordIcon } from './img/FormImages.js';
-import { DatabaseLoadingIcon } from './DatabaseLoadingIcon.js';
 
+import { Button, AddRecordIcon, CloneRecordIcon, DatabaseLoadingIcon } from '../index.js'
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const FormHeader = (props) => {

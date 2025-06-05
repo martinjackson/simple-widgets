@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { hasOwnProperty } from './hasOwnProperty.js';
+import { hasOwnProperty } from './index.js';
 
 import './sw-carousel.css';
 
@@ -52,7 +52,7 @@ export const Carousel = props => {
     return (
         <div className="sw-carousel_div">
             <div>
-                <img src={props.display[index].image} 
+                <img src={props.display[index].image}
                      alt={props.display[index].alt}
                      width={width} height={height} />
             </div>
@@ -63,7 +63,7 @@ export const Carousel = props => {
                 <button name="next" onClick={nextButton} className="sw-carousel_button" >
                     {next}
                 </button>
-            </div> 
+            </div>
         </div>
     );
 }

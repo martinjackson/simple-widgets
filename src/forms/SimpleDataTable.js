@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
 
-import { SimpleTable }  from '../SimpleTable.js'
-import { dTS }           from '../time.js'
-
-import { useErrorList } from './useErrorList.js'
-import { Gears }        from './Gears.js'
-import { ErrorList }    from './ErrorList.js'
-import { getAppSpecificInfo } from './model/appSpecificInfo.js'
+import { SimpleTable, dTS, useErrorList, Gears, ErrorList, getAppSpecificInfo } from '../index.js'
 
 // ------------------------------------------------------------------------
 export function SimpleDataTable(props) {

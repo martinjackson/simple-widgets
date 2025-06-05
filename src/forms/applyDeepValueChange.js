@@ -1,10 +1,7 @@
 
 /* global debug */
 
-import { getKeyValues, getGqlName } from './getKeyValues.js'
-import { getGqlPKs } from './model/getTablePKs.js'
-import { dTS, TS }  from '../time.js'
-import { getSubRecord } from './getSubRecord.js'
+import { getKeyValues, getGqlName, getGqlPKs, dTS, TS, getSubRecord } from './index.js'
 
 // ------------------------------------------------------------------------------
 // const O2s = (obj) => JSON.stringify(obj, null, 2)

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getTableColumns } from './model/getTableColumns.js'
+import { getTableColumns } from '../index.js'
 
 // ---------------------------------------------------------------------------------------------------------------------
 const genHdr = (name) => {
