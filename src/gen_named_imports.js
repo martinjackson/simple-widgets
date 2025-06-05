@@ -15,12 +15,23 @@ function getFunctionName(line) {
   return (i != -1) ? word.substr(0,i) : word.trim()
 }
 
-const files = fs.readdirSync('.')
+const files1 = fs.readdirSync('.')
               .filter(fn => fn.endsWith('.js'))
               .filter(fn => fn !== 'gen_imports.js')
               .filter(fn => fn !== 'gen_named_imports.js')
               .filter(fn => fn !== 'index.js')
               .filter(fn => fn !== 'serviceWorker.js')
+
+const files2 = fs.readdirSync('./forms')
+              .filter(fn => fn.endsWith('.js'))
+              .filter(fn => fn !== 'gen_imports.js')
+              .filter(fn => fn !== 'gen_named_imports.js')
+              .filter(fn => fn !== 'index.js')
+              .filter(fn => fn !== 'serviceWorker.js')
+              .map(f => './forms/'+f)
+
+const files = [...files1, ...files2];
+
 
 const ans = files.map( fname => {
   const names = fs.readFileSync(fname,{ encoding : 'utf8' })
