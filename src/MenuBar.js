@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 
-import { NavigateBar, deleteCssRule, hasOwnProperty } from './index.js'
+import { NavigateBar, deleteCssRule, hasOwnProperty, dTS } from './index.js'
 
 export let setMenuPath = (_newPath) => {}
 export let setMenuParms = (_newParms) => {}
@@ -76,11 +76,11 @@ export const MenuBar = (props) => {
     const items = props.menuTree.map(mi => getPaths(mi)).flat()
     const active = items.find(item => item.path === searchPath) || items[0]
 
-    const classStyle = (noSide === true) ? "" : " menubar";
+    const classStyle = (noSide === true) ? "" : " sw-menubar";
 
     const ActComp = active.component;
 
-    let componentClassName = (type === 'horizontal' || open === 'always') ? null : "nav_menu_component"
+    let componentClassName = (type === 'horizontal' || open === 'always') ? null : "sw-nav_menu_component"
 
     const signalUnsaved = (flag) => {     // null or true,   if true they have unsaved data
       if (flag) {
@@ -93,9 +93,9 @@ export const MenuBar = (props) => {
     }
 
     if (componentClassName === null) componentClassName = '';
-    let typeClass = (type === 'horizontal') ? 'nav-menu_horizontal' : 'nav-menu_vertical';
+    let typeClass = (type === 'horizontal') ? 'sw-nav-menu_horizontal' : 'sw-nav-menu_vertical';
     if (format === 'float') {
-        typeClass = 'nav-menu_float';
+        typeClass = 'sw-nav-menu_float';
 
         deleteCssRule ('body::-webkit-scrollbar');
     }
@@ -107,13 +107,12 @@ export const MenuBar = (props) => {
                  menuTree={props.menuTree}
                  symbol={symbol}
                  subsymbol={subSymbol}
-                 formatClass='nav-nav-menu'
+                 formatClass='sw-nav-nav-menu'
                  type={type}
                  open={open}
                  page={(hasOwnProperty(props, 'page')) ? true : false}
                  disabled={disableMenu}
-                 origTabTitle={props.origTabTitle}
-            />
+                 title={props.title}/>
             <div className={`${typeClass} ${componentClassName}`}>
                  <ActComp signalUnsaved={signalUnsaved} {...props} />
             </div>
@@ -121,4 +120,34 @@ export const MenuBar = (props) => {
     )
 }
 
+// ----------------------------------------------------------------------------------
+export const Redirect = (props) => {
+
+  useEffect(() => {
+    setMenuParms(props.parms)
+    setMenuPath(props.to)
+  }, [props.to, props.parms])
+
+  return <></>
+}
+
+// ----------------------------------------------------------------------------------
+export const Link = (props) => {
+
+  if (!props.to || props.to.length < 1)    // same as || props.to === "")
+     return <span className="sw-nav-links">{props.children}</span>
+
+  const click = (e) => {
+      e.preventDefault();
+      console.log(dTS(), `You clicked '${props.to}'`);
+      setMenuParms(props.parms)
+      setMenuPath(props.to)
+      // window.location.search = `?path=${props.to}`    causes page to rerender
+      document.title = `${props.title} - ${props.to}`;
+  }
+
+  const cname = props.className || ""
+
+  return <span className={'sw-nav-links ' + cname} href={props.to} onClick={click}>{props.children}</span>
+}
 

@@ -25,7 +25,11 @@ export function AlertModal(inProps) {
             {
                 props.show === true ?  (
                     <Modal>
-                        <div>
+                        <div className="sw-modal_zindex">
+                            { (hasOwnProperty(props, 'nodisplayX') === true) ?
+                                <span></span> :
+                                <XButton closeFunct={props.closeFunct} />
+                            }
                             <h1>{(props.message === '') ? defProps.message : props.message}</h1>
                             <button name="ok" onClick={() => props.closeFunct(false)} className="sw-modal_abuttonStyle" >OK</button>
                         </div>

@@ -1,4 +1,4 @@
-.dropdown-menu {
+.sw-dropdown-menu {
     display: flex;
     flex-direction: column;
 /*    align-self: self-end; */
@@ -18,52 +18,56 @@
   
   }
 
-  .dropdown-menu-horizontal {
+  .sw-dropdown-menu-horizontal {
     position: absolute;
     top: 100%;
   }
 
-  .dropdown-menu-vertical {
+  .sw-dropdown-menu-vertical {
     position: absolute;
-    left: 100%
+    left: 100%;
+    top: var(--sw-menu_top);
+    bottom: var(--sw-menu_bottom);
   }
   
-  .dropdown-menu li, .dropdown-menu li span  {
+  .sw-dropdown-menu li, .sw-dropdown-menu li span  {
     background: #1888ff;
     cursor: pointer;
   }
   
- .dropdown-menu li:hover span {
+ .sw-dropdown-menu li:hover span {
     background:  #5cabff; 
     border-radius: .25rem;
     box-shadow: 35px 35px 35px 35px rgba(0, 0, 0, 0.7);
     width: var(--sw-menu_width);
   }
 
-  .dropdown-menu li:hover {
+  .sw-dropdown-menu li:hover {
     background: #5cabff; 
     width: var(--sw-menu_width);
   }
 
 
-  .dropdown-menu.clicked {
+  .sw-dropdown-menu.clicked {
     display: none;
     width: var(--sw-menu_width);
   }
 
-  .dropdown-menu2-vertical {
+  .sw-dropdown-menu2-vertical {
     margin-left: var(--sw-menu_vertical_margin_left);
   }
 
-  .dropdown-menu2-horizontal {
+  .sw-dropdown-menu2-horizontal {
     margin-left: var(--sw-menu_horizontal_margin_left);
   }
   
-  .dropdown-menu2 {
-    display: flex;
-    flex-direction: column;
+  .sw-dropdown-menu2 {
+/*    display: flex;
+    flex-direction: column; */
 
     position: fixed;
+    top: 200px;
+    left: 200px;
     list-style: none; 
     text-align: start;
 
@@ -75,35 +79,35 @@
     z-index: 9;
   }
 
-  .dropdown-menu ul {
+  .sw-dropdown-menu ul {
 /*    min-width: 6em; */
     width: var(--sw-menu_width);
 }  
-  .dropdown-menu2 ul {
+  .sw-dropdown-menu2 ul {
 /*    min-width: 6em; */
     width: var(--sw-menu_width);
 }  
 
-  .dropdown-menu li span {
+  .sw-dropdown-menu li span {
 /*    min-width: 6em; */
     width: var(--sw-menu_width);
   }
 
-  .dropdown-menu2 li span {
+  .sw-dropdown-menu2 li span {
 /*    min-width: 6em; */
     cursor: pointer;
     width: var(--sw-menu_width);
   }
   
-  .dropdown-menu2 li:hover span {
+  .sw-dropdown-menu2 li:hover span {
     background: lightblue;
   }
 
-  .dropdown-menu2.clicked {
+  .sw-dropdown-menu2.clicked {
     display: none;
   }
   
-  .dropdown-link {
+  .sw-dropdown-link {
     display: block;
     height: 100%;
     width: 100%;
@@ -113,7 +117,7 @@
   }
 
 
-  .dropdown-link:hover {
+  .sw-dropdown-link:hover {
     background: #5cabff;
     height: 100%;
     width: 100%;

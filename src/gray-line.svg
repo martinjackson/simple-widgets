@@ -1,0 +1,6 @@
+<svg width="10px" height="10px" viewBox="0 0 100 500" id="emoji" xmlns="http://www.w3.org/2000/svg">
+    <g id="colorline">
+        <line stroke="gray" strokeWidth="10" x1="0" x2="100" y1="50" y2="50" />
+    </g>
+</svg>
+

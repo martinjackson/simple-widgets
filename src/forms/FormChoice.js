@@ -2,8 +2,8 @@
 
 import React, { useState } from "react"
 
-import { Choice }                from '../Choice.jsx'
-import { ChoiceTextSearchable }  from '../ChoiceTextSearchable.jsx'
+import { Choice }                from '../Choice.js'
+import { ChoiceTextSearchable }  from '../ChoiceTextSearchable.js'
 import { fetchLookupData }       from './lookupUtil.js'
 import { isFunction }            from './isFunction.js'
 import { value2label }           from './label2value.js'

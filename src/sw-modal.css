@@ -45,3 +45,34 @@
     font-size: var(--sw-theme_buttonFontSize);
     background-color: var(--sw-theme_buttonColor);
 }
+
+.sw-modal_xbuttonStyle {
+    color: black;
+    font: "san-serif";
+    font-weight: var(--sw-theme_buttonFontWeight);
+    font-size: 16pt;
+    background-color: inherit;
+    border: 1px solid lightgray;
+}
+
+.sw-modal_divButton {
+    text-align: right;
+}
+
+.sw-modal_flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sw-modal_header {
+    font-size: 24pt;
+    font-weight: bold;
+    margin-bottom: -10px;
+}
+
+.sw-modal_zindex {
+    z-index: 15;
+}
+
+
+

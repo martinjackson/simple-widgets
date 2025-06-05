@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal, hasOwnProperty } from './index.js'
+import { Modal, XButton, hasOwnProperty } from './index.js';
 
 const defProps = {
     show: true,
@@ -22,7 +22,7 @@ export const ConfirmModal = inProps => {
     }
 
     if (hasOwnProperty(inProps, 'noFunct') === false && hasOwnProperty(inProps, 'closeFunct') === false) {
-        console.error ('ConfirmModal: The closeFunct property is not present');
+        console.error ('ConfirmModal: The closeFunct or noFunct property is not present');
     }
 
     return (
@@ -30,7 +30,11 @@ export const ConfirmModal = inProps => {
             {
                 props.show === true ?  (
                     <Modal>
-                        <div>
+                        <div className="sw-modal_zindex">
+                            { (hasOwnProperty(props, 'nodisplayX') === true) ? 
+                                <span></span> :
+                                <XButton closeFunct={closeModal} />
+                            }
                             <h1>{(props.message === '') ? defProps.message : props.message}</h1>
                             <button name="yes" onClick={async () => processYesFunct()} className="sw-modal_cbuttonStyle" >Yes</button>
                             <button name="no" onClick={async () => processNoFunct()} className="sw-modal_cbuttonStyle" >No</button>
@@ -41,12 +45,16 @@ export const ConfirmModal = inProps => {
         </div>
     );
 
-    function processYesFunct() {
+    function closeModal() {
         if (hasOwnProperty(inProps, 'noFunct') === true && hasOwnProperty(inProps, 'closeFunct') === false) {
             props.noFunct(false);
         } else {
             props.closeFunct(false);
         }
+    }
+
+    function processYesFunct() {
+        closeModal();
 
         if (props.yesFunct !== null) {
             props.yesFunct();
@@ -54,11 +62,7 @@ export const ConfirmModal = inProps => {
     }
 
     function processNoFunct() {
-        if (hasOwnProperty(inProps, 'noFunct') === true && hasOwnProperty(inProps, 'closeFunct') === false) {
-            props.noFunct(false);
-        } else {
-            props.closeFunct(false);
-        }
+        closeModal();
 
         if (props.noFunct !== null) {
             props.noFunct();

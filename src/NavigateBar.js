@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link, hasOwnProperty } from './index.js'
+import { Link } from './MenuBar';
+
+import { hasOwnProperty } from './hasOwnProperty.js'
 
 
-let dropDown = [];
+let menuDropDown123 = [];
+let menuStopCount123 = 0;
 
 export const NavigateBar = (props) => {
+    const STOP_VALUE = 4;
+
     const [click, setClick] = useState(false);
     const [menuTree, setMenuTree] = useState([]);
     const [render, setRender] = useState(false);
@@ -31,7 +36,7 @@ export const NavigateBar = (props) => {
         setMenuTree(buildTree(menu));
 
         for (let i = 0; i < menu.length; i++) {
-            dropDown.push(false);
+            menuDropDown123.push(false);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.menuTree]);
@@ -50,8 +55,8 @@ export const NavigateBar = (props) => {
             value = false;
         }
 
-        for (let i = 0; i < dropDown.length; i++) {
-            dropDown[i] = false;
+        for (let i = 0; i < menuDropDown123.length; i++) {
+            menuDropDown123[i] = false;
         }
 
         setClick(value);
@@ -65,8 +70,47 @@ export const NavigateBar = (props) => {
         }
     }
 
-    const onMouseEnter = (event, index) => {
-        dropDown[index] = true;
+/*    maj 2025-06-02 not used
+    const calculateSubmenuPositionTop = (event, length) => {
+        let subMenuHeight = event.target.offsetHeight * length;
+
+        if ((event.target.offsetTop + subMenuHeight) > window.innerHeight - 100) {
+            let newTop = event.target.offsetTop - subMenuHeight + event.target.offsetHeight;
+            let cssRoot = document.querySelector(':root');
+            cssRoot.style.setProperty('--sw-menu_top', `${newTop}px`);
+        } else {
+            let cssRoot = document.querySelector(':root');
+            cssRoot.style.setProperty('--sw-menu_top', 'none');
+        }
+    }
+*/
+    const calculateSubmenuPositionBot = (event, length) => {
+        let subMenuHeight = (event.target.offsetHeight) * length;
+
+        if ((event.target.offsetTop + subMenuHeight) > window.innerHeight - 100) {
+            let newBottom =  window.innerHeight - event.target.offsetTop - event.target.offsetHeight;
+            if (window.screen.availHeight <= 1080) {
+                newBottom -= 10;
+            }
+
+            if ((window.innerHeight - (newBottom + subMenuHeight + event.target.offsetHeight) < 0)) {
+                let cssRoot = document.querySelector(':root');
+                cssRoot.style.setProperty('--sw-menu_bottom', 'none');
+            } else {
+                let cssRoot = document.querySelector(':root');
+                cssRoot.style.setProperty('--sw-menu_bottom', `${newBottom}px`);
+            }
+        } else {
+            let cssRoot = document.querySelector(':root');
+            cssRoot.style.setProperty('--sw-menu_bottom', 'none');
+        }
+    }
+
+    const onMouseEnter = (event, index, length) => {
+//        console.log('event :', event);
+//        calculateSubmenuPositionTop(event, length);
+        calculateSubmenuPositionBot(event, length);
+        menuDropDown123[index] = true;
         forceRender();
     };
 
@@ -75,12 +119,18 @@ export const NavigateBar = (props) => {
             index = 0;
         }
 
-        for (let i = index; i < dropDown.length; i++) {
-            dropDown[i] = false;
+        for (let i = index; i < menuDropDown123.length; i++) {
+            menuDropDown123[i] = false;
         }
 
-        forceRender();
         setClick(false);
+
+        menuStopCount123++;
+        if (props.type === 'vertical' && menuStopCount123 === STOP_VALUE) {
+            menuStopCount123 = 0;
+        } else {
+            forceRender();
+        }
     };
 
     const buildDropDowns = (row, index) => {
@@ -89,36 +139,36 @@ export const NavigateBar = (props) => {
             name = row.title.replace(' ', '_') + index;
         }
 
-        let navItem = 'nav-item';
-        let navMargin = ' dropdown-menu2-horizontal';
+        let navItem = 'sw-nav-item';
+        let navMargin = ' sw-dropdown-menu2-horizontal';
         if (props.type === 'vertical') {
-            navItem = 'nav-item-vertical';
-            navMargin = ' dropdown-menu2-vertical';
+            navItem = 'sw-nav-item-vertical';
+            navMargin = ' sw-dropdown-menu2-vertical';
         }
 
         if (hasOwnProperty(row, 'submenu')) {
             return (<li
                             key={name}
                             className={navItem}
-                            onMouseEnter={(event) => onMouseEnter(event, row.index)}
+                            onMouseEnter={(event) => onMouseEnter(event, row.index, row.submenu.length)}
                             onMouseLeave={(_event) => onMouseLeave(row.index)}>
                                 <Link
-                                  className='nav-links'
-                                  origTabTitle={props.origTabTitle}   >
+                                  className='sw-nav-links'
+                                  title={props.title}   >
                                     {page + row.title + addition1}
                                 </Link>
-                                { (dropDown[row.index] === true) ?
+                                { (menuDropDown123[row.index] === true) ?
                                     <ul
                                         onClick={() => handleClickDD(row.index)}
-                                        className={click ? 'dropdown-menu2 clicked' + navMargin : 'dropdown-menu2' + navMargin}>
+                                        className={click ? 'sw-dropdown-menu2 clicked ' + navMargin : 'sw-dropdown-menu2 ' + navMargin}>
                                         {row.submenu.map(buildDropDowns)}
                                     </ul> : <></> }
                     </li> )
         } else if (hasOwnProperty(row, 'title')) {
             return (<li key={name}>
                             <Link
-                                className="dropdown-link"
-                                origTabTitle={props.origTabTitle}
+                                className="sw-dropdown-link"
+                                title={props.title}
                                 to={row.path}       >
                                 {page + row.title}
                             </Link>
@@ -133,33 +183,33 @@ export const NavigateBar = (props) => {
                 name = row.title.replace(' ', '_') + index;
             }
 
-            let navItem = 'nav-item'
+            let navItem = 'sw-nav-item'
             if (props.type === 'vertical') {
-                navItem = 'nav-item-vertical';
+                navItem = 'sw-nav-item-vertical';
             }
 
             let dropDownType = '';
             if (props.type === 'horizontal') {
-                dropDownType = ' dropdown-menu-horizontal';
+                dropDownType = ' sw-dropdown-menu-horizontal';
             } else if (props.type === 'vertical') {
-                dropDownType = ' dropdown-menu-vertical';
+                dropDownType = ' sw-dropdown-menu-vertical';
             }
 
             if (hasOwnProperty(row, 'submenu')) {
                 return ( <li
                                 key={name}
                                 className={navItem}
-                                onMouseEnter={(event) => onMouseEnter(event, index)}
+                                onMouseEnter={(event) => onMouseEnter(event, index, row.submenu.length)}
                                 onMouseLeave={() => onMouseLeave(index)}>
                                 <Link
-                                  className='nav-links'
-                                  origTabTitle={props.origTabTitle}   >
+                                  className='sw-nav-links'
+                                  title={props.title}   >
                                     {page + row.title + addition2}
                                 </Link>
-                                { (dropDown[index] === true) ?
+                                { (menuDropDown123[index] === true) ?
                                     <ul
                                         onClick={() => handleClick()}
-                                        className={click ? 'dropdown-menu clicked' + dropDownType : 'dropdown-menu' + dropDownType}>
+                                        className={click ? 'sw-dropdown-menu clicked ' + dropDownType : 'sw-dropdown-menu ' + dropDownType}>
                                         {row.submenu.map(buildDropDowns)}
                                     </ul> : <></>
                                 }
@@ -169,8 +219,8 @@ export const NavigateBar = (props) => {
                             className={navItem}>
                                 <Link
                                    to={row.path}
-                                   className='nav-links'
-                                   origTabTitle={props.origTabTitle}   >
+                                   className='sw-nav-links'
+                                   title={props.title}   >
                                     {page + row.title}
                                 </Link>
                         </li> )
@@ -200,34 +250,34 @@ export const NavigateBar = (props) => {
     let open = '';
     let menuIcon = null;
     if (props.type === 'horizontal') {
-        navType = ' nav-menu-horizontal';
+        navType = ' sw-nav-menu-horizontal';
         if (props.open === 'horizontal' || props.open === 'slide') {
-            open = 'navbar nav-horiz-open-horizontal';
+            open = 'sw-navbar sw-nav-horiz-open-horizontal';
         } else if (props.open === 'always') {
-            open = 'navbar';
+            open = 'sw-navbar';
         }
     } else if (props.type === 'vertical') {
-        navType = ' nav-menu-vertical';
+        navType = ' sw-nav-menu-vertical';
         if (props.open === 'both') {
-            open = `nav-menu-vertical-pad navbar_vertical nav-open-both nav-vertical`;
+            open = `sw-nav-menu-vertical-pad sw-navbar_vertical sw-nav-open-both sw-nav-vertical`;
         } else if (props.open === 'horizontal' || props.open === 'slide') {
-            open = `nav-menu-vertical-pad navbar_vertical nav-open-horizontal nav-vertical`;
+            open = `sw-nav-menu-vertical-pad sw-navbar_vertical sw-nav-open-horizontal sw-nav-vertical`;
         } else if (props.open === 'vertical') {
-            open = `nav-menu-vertical-pad navbar_vertical nav-vertical nav-open-vertical`;
+            open = `sw-nav-menu-vertical-pad sw-navbar_vertical sw-nav-vertical sw-nav-open-vertical`;
         } else if (props.open === 'always') {
-            open = `navbar_vertical nav-vertical nav_menu_vertical_pad_always`;
+            open = `sw-navbar_vertical sw-nav-vertical sw-nav_menu_vertical_pad_always`;
         }
     }
 
     if (props.open !== 'always') {
-        menuIcon = <div className="nav-center">&#x2630;</div>
+        menuIcon = <div className="sw-nav-center">&#x2630;</div>
     }
 
     const disabled = (props.disabled) ? true : null
     return (
         <nav className={`${props.formatClass} ${open}`} disabled={disabled}>
             {menuIcon}
-            <ul className={click ? 'nav-menu active' + navType : 'nav-menu' + navType}>
+            <ul className={click ? 'sw-nav-menu active' + navType : 'sw-nav-menu' + navType}>
                 {buildMainMenu(menuTree)}
             </ul>
         </nav>
