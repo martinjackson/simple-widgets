@@ -28,7 +28,7 @@ import { InputFile } from './InputFile.js'
 import { checkValidityScreen, checkValidityTable, clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, generateInvalid, getInvalidMessage, isConstant, isInvalid, processInvalidStyleScreen, processInvalidStyleTable, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, wasClickedScreen, wasClickedTable } from './Invalid.js' 
 import { Link } from './Link.js' 
 import { List } from './List.js' 
-import { MenuBar, Redirect, getMenuParms, setMenuParms, setMenuPath } from './MenuBar.js' 
+import { MenuBar, getMenuParms, setMenuParms, setMenuPath } from './MenuBar.js' 
 import { Modal, XButton } from './Modal.js' 
 import { NavigateBar } from './NavigateBar.js' 
 import { OpenTab } from './OpenTab.js' 
@@ -85,7 +85,7 @@ InputFile,
 checkValidityScreen, checkValidityTable, clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, generateInvalid, getInvalidMessage, isConstant, isInvalid, processInvalidStyleScreen, processInvalidStyleTable, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, wasClickedScreen, wasClickedTable,
 Link,
 List,
-MenuBar, Redirect, getMenuParms, setMenuParms, setMenuPath,
+MenuBar, getMenuParms, setMenuParms, setMenuPath,
 Modal, XButton,
 NavigateBar,
 OpenTab,

@@ -120,15 +120,4 @@ export const MenuBar = (props) => {
     )
 }
 
-// ----------------------------------------------------------------------------------
-export const Redirect = (props) => {
-
-  useEffect(() => {
-    setMenuParms(props.parms)
-    setMenuPath(props.to)
-  }, [props.to, props.parms])
-
-  return <></>
-}
-
 
