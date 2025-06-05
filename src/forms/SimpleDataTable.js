@@ -40,12 +40,12 @@ export function SimpleDataTable(props) {
       console.log(dTS(), 'using (new record):', data[props.recordName])
     } else {
       const reformated = data[props.recordName].map(r => recSimplify(r))
-      const data = reformated.filter(r => r != null)   // allow recSimplify to eliminate records
+      const data2 = reformated.filter(r => r != null)   // allow recSimplify to eliminate records
 
       if (props.reportRecordCount) {
-        props.reportRecordCount(data.length)
+        props.reportRecordCount(data2.length)
       }
-      setData(data)
+      setData(data2)
 
     }
 
