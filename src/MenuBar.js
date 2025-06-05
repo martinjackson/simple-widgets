@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 
-import { NavigateBar, deleteCssRule, hasOwnProperty, dTS } from './index.js'
+import { NavigateBar, deleteCssRule, hasOwnProperty } from './index.js'
 
 export let setMenuPath = (_newPath) => {}
 export let setMenuParms = (_newParms) => {}
