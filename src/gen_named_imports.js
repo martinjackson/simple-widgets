@@ -1,6 +1,7 @@
 
 
-const fs = require('fs')
+const fs = require('node:fs')
+const path = require('node:path')
 
 console.log(`
   // cSpell:ignore Funct Parms disp
@@ -9,29 +10,46 @@ console.log(`
 
 `)
 
+//-------------------------------------------------------------------------------------
+function goodFile(file) {
+  return file.endsWith('.js') &&
+               !file.includes('gen_imports.js') &&
+               !file.includes('gen_named_imports.js') &&
+               !file.includes('index.js') &&
+               !file.includes('serviceWorker.js')
+}
+
+//-------------------------------------------------------------------------------------
 function getFunctionName(line) {
   const word = line.split(' ')[2]  // get 3rd word
   const i = word.indexOf('(')
   return (i != -1) ? word.substr(0,i) : word.trim()
 }
 
-const files1 = fs.readdirSync('.')
-              .filter(fn => fn.endsWith('.js'))
-              .filter(fn => fn !== 'gen_imports.js')
-              .filter(fn => fn !== 'gen_named_imports.js')
-              .filter(fn => fn !== 'index.js')
-              .filter(fn => fn !== 'serviceWorker.js')
+//-------------------------------------------------------------------------------------
+function getRelativePath(base, file) {
+  return path.relative(base, path.resolve(base, file));
+}
 
-const files2 = fs.readdirSync('./forms')
-              .filter(fn => fn.endsWith('.js'))
-              .filter(fn => fn !== 'gen_imports.js')
-              .filter(fn => fn !== 'gen_named_imports.js')
-              .filter(fn => fn !== 'index.js')
-              .filter(fn => fn !== 'serviceWorker.js')
-              .map(f => './forms/'+f)
+//-------------------------------------------------------------------------------------
+function getAllJsFiles(dir) {
+  let results = [];
+  const list = fs.readdirSync(dir);
+  list.forEach(file => {
+    const fullPath = path.resolve(dir, file);
+    const stat = fs.statSync(fullPath);
+    if (stat && stat.isDirectory()) {
+      // Recurse into subdirectory
+      results = results.concat(getAllJsFiles(fullPath));
+    } else if (goodFile(file)) {
+      // Add file to results if it's a .js file and not excluded
+      results.push(getRelativePath('.', fullPath));
+    }
+  });
+  return results;
+}
 
-const files = [...files1, ...files2];
-
+const files = getAllJsFiles('.');
 
 const ans = files.map( fname => {
   const names = fs.readFileSync(fname,{ encoding : 'utf8' })
