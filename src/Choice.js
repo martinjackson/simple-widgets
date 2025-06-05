@@ -9,7 +9,7 @@ const isValueInOpt = (opt, value) => {
 }
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------
-export const Choice = (props) => {
+export function Choice(props) {
 
     // console.log('>>> Choice(', props, ')')
 
@@ -34,7 +34,7 @@ export const Choice = (props) => {
        }
 
     // eslint-disable-next-line no-unused-vars
-    let {size, list, choices, value, placeholder, ...options} = props          // dont use var value from here, that is less descriptive -- this is a substraction
+    let {size, list, choices, value, placeholder, ...options} = props          // don't use var value from here, that is less descriptive -- this is a subtraction
 
     if (placeholder) {
       placeholder = props.placeholder.trim()

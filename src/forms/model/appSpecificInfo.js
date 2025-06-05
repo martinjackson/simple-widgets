@@ -1,11 +1,11 @@
 
 let appSpecificInfo = {}
 
-export const setAppSpecificInfo = (functionsFromApp) => {
+export function setAppSpecificInfo(functionsFromApp) {
   appSpecificInfo = functionsFromApp
 }
 
-export const getAppSpecificInfo = () => { return appSpecificInfo }
+export function getAppSpecificInfo() { return appSpecificInfo }
 
 export const setAppSpecificInfoExample = 'setAppSpecificInfo({dbStruct, formDictionary, execQuery})'
 

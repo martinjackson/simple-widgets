@@ -1,8 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { Modal, XButton } from './Modal.js';
-
-import { hasOwnProperty } from './hasOwnProperty.js';
+import { Modal, XButton, hasOwnProperty } from './index.js'
 
 const defProps = {
     show: true,
@@ -35,7 +33,7 @@ export const ErrorModal = inProps => {
                         </div>
                         <hr />
                         <h2>{(props.message === '') ? defProps.message : props.message}</h2>
-                        <button name="ok" onClick={() => props.closeFunct(false)} className="sw-modal_ebuttonStyle" >OK</button>
+                        <button name="ok" onClick={() => props.closeFunct(false)} className="sw-modal_ebuttonStyle" >OK</button>                        
                     </Modal>
                 ) : null
             }

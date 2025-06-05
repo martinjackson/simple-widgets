@@ -3,8 +3,7 @@
 
 import React from 'react';
 
-import { CheckBox, CheckBoxGroup, DateInput } from '../index.js'
-import { Input, Form, FormTable, FormChoice, isFunction, ControlledTextarea } from './index.js'
+import { CheckBox, CheckBoxGroup, DateInput, Input, Form, FormTable, FormChoice, isFunction, ControlledTextarea } from '../index.js'
 
 // ---------------------------------------------------------------------------------------------------------------------
 const createFieldTextArea = (f, onChange) => {

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
 
-import { NavigateBar }   from './NavigateBar';
-import { deleteCssRule } from './cssRulesFunct';
-import { dTS }           from './time.js'
+// cSpell:ignore Parms subsymbol
 
-import { hasOwnProperty } from './hasOwnProperty.js'
+import React, { useState } from 'react';
+
+import { NavigateBar, deleteCssRule, hasOwnProperty, dTS } from './index.js'
 
 export let setMenuPath = (_newPath) => {}
 export let setMenuParms = (_newParms) => {}

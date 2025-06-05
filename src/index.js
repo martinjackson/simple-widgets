@@ -4,8 +4,11 @@
   import './index.css'
 
 
+import { Accordion } from './Accordion.js' 
+import { AccordionSingle } from './AccordionSingle.js' 
 import { AlertModal } from './AlertModal.js' 
 import { AppCore } from './AppCore.js' 
+import { Carousel } from './Carousel.js' 
 import { CheckBox } from './CheckBox.js' 
 import { CheckBoxGroup } from './CheckBoxGroup.js' 
 import { Choice } from './Choice.js' 
@@ -25,8 +28,8 @@ import { InputFile } from './InputFile.js'
 import { checkValidityScreen, checkValidityTable, clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, generateInvalid, getInvalidMessage, isConstant, isInvalid, processInvalidStyleScreen, processInvalidStyleTable, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, wasClickedScreen, wasClickedTable } from './Invalid.js' 
 import { Link } from './Link.js' 
 import { List } from './List.js' 
-import { MenuBar, getMenuParms, setMenuParms, setMenuPath } from './MenuBar.js' 
-import { Modal } from './Modal.js' 
+import { Link, MenuBar, Redirect, getMenuParms, setMenuParms, setMenuPath } from './MenuBar.js' 
+import { Modal, XButton } from './Modal.js' 
 import { NavigateBar } from './NavigateBar.js' 
 import { OpenTab } from './OpenTab.js' 
 import { Outline } from './Outline.js' 
@@ -34,12 +37,14 @@ import { PageTitle } from './PageTitle.js'
 import { ProgressCircles } from './ProgressCircles.js' 
 import { Radio } from './Radio.js' 
 import { Redirect } from './Redirect.js' 
+import { scrollToViewByClassName, scrollToViewByID, scrollToViewByName, scrollToViewByTagName } from './ScrollFuncts.js' 
 import { binSearch, search } from './SearchFunct.js' 
 import { SearchSortTable, getAlignment } from './SearchSortTable.js' 
 import { SimpleTable } from './SimpleTable.js' 
 import { Slider } from './Slider.js' 
 import { SpreadSheet } from './SpreadSheet.js' 
 import { StatusBox } from './StatusBox.js' 
+import { TextArea, TextAreaError, characterCounter } from './TextArea.js' 
 import { generateButton, generateCSSButton, generateCSSDefaultButton } from './Theme.js' 
 import { UserSection } from './UserSection.js' 
 import { isBlink, isChrome, isEdge, isEdgeChromium, isFirefox, isIE, isOpera, isSafari } from './browserDetect.js' 
@@ -56,8 +61,11 @@ import { printStackTrace } from './printStackTrace.js'
 import { TS, dTS, now } from './time.js' 
 
 export {
+Accordion,
+AccordionSingle,
 AlertModal,
 AppCore,
+Carousel,
 CheckBox,
 CheckBoxGroup,
 Choice,
@@ -77,8 +85,8 @@ InputFile,
 checkValidityScreen, checkValidityTable, clearInvalidDual, clearInvalidScreen, clearInvalidScreenOnly, clearInvalidTable, generateInvalid, getInvalidMessage, isConstant, isInvalid, processInvalidStyleScreen, processInvalidStyleTable, processStyleScreen, processStyleTable, resetDisplayScreen, resetDisplayTable, setInvalidDual, setInvalidScreen, setInvalidTable, validCheckDual, validCheckScreen, validCheckTable, wasClickedScreen, wasClickedTable,
 Link,
 List,
-MenuBar, getMenuParms, setMenuParms, setMenuPath,
-Modal,
+Link, MenuBar, Redirect, getMenuParms, setMenuParms, setMenuPath,
+Modal, XButton,
 NavigateBar,
 OpenTab,
 Outline,
@@ -86,12 +94,14 @@ PageTitle,
 ProgressCircles,
 Radio,
 Redirect,
+scrollToViewByClassName, scrollToViewByID, scrollToViewByName, scrollToViewByTagName,
 binSearch, search,
 SearchSortTable, getAlignment,
 SimpleTable,
 Slider,
 SpreadSheet,
 StatusBox,
+TextArea, TextAreaError, characterCounter,
 generateButton, generateCSSButton, generateCSSDefaultButton,
 UserSection,
 isBlink, isChrome, isEdge, isEdgeChromium, isFirefox, isIE, isOpera, isSafari,

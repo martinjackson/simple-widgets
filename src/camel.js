@@ -1,5 +1,5 @@
 
-export const toCamelCase = (str) => {
+export function toCamelCase(str) {
 
     return str.toLowerCase()
             .replace(/_/g, ' ')
