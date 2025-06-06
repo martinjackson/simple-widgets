@@ -1,3 +1,6 @@
+
+// ZenCoder prompt: write a unit test for src/ChoiceText.js and create a bash shell script that creates it.
+
 import React from 'react';
 import { render } from '@testing-library/react';
 import { ChoiceText } from '../src/ChoiceText.js';
