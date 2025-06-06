@@ -1,4 +1,3 @@
-
 // ZenCoder prompt: write a unit test for src/AppCore.js and create a bash shell script that creates it.
 // The test should achieve >80% code coverage
 

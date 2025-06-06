@@ -81,3 +81,25 @@ write a unit test for src/ChoiceText.js and create a bash shell script that crea
 ----------------------------------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------------------------------
+
+```bash
+ls -l src/Accordion.js
+src/AccordionSingle.js
+src/AlertModal.js
+src/AppCore.js
+src/Carousel.js
+src/CheckBox.js
+src/Choice.js
+src/ChoiceText.js
+src/ChoiceTextSearchable.js
+src/Common.js
+src/ConfirmModal.js
+src/DateInput.js
+src/ErrorModal.js
+src/Link.js
+src/MenuBar.js
+src/Modal.js
+src/NavigateBar.js
+src/SearchSortTable.js
+src/camel.js
+src/cssRulesFunct.js
