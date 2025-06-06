@@ -1,5 +1,5 @@
 
-import { dTS, toCamelCaseVar, toEnglishPhrase, getTableColumns, getTablePKs, formFromTableInfo } from '../index.js'
+import { dTS, toCamelCaseVar, toEnglishPhrase, getTableColumns, getTablePKs, formFromTableInfo } from '../../index.js'
 
 // ---------------------------------------------------------------------------------------------------------------------
 export const genDictionaryEntry = (nameArgs) => {

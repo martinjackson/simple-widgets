@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal, hasOwnProperty } from './index.js';
+import { Modal, hasOwnProperty, XButton } from './index.js';
 
 const defProps = {
     show: true,

@@ -10,3 +10,4 @@ npm install --save-dev @testing-library/dom
 # over 7 years old -- too old for jest
 # npm install --save-dev jest-svg-transformer
 npm remove jest-svg-transformer
+npm i -D jest-environment-jsdom
