@@ -1,6 +1,9 @@
 // ZenCoder prompt: write a unit test for src/AlertModal.js and create a bash shell script that creates it.
 // The test should achieve >80% code coverage
 
+// ZenCoder prompt: create a test for AlertModal using Playwright and create a bash shell script that creates it.
+// include this prompt as a comment. The test should achieve >80% code coverage
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { AlertModal } from '../src/AlertModal.js';
