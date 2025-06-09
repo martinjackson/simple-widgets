@@ -5,7 +5,7 @@ export const Modal = ({ children }) => {
     const elRef = useRef(null);
 
     if (!elRef.current) {
-        console.log('Modal.js: no elRef     creating one...);
+        console.log('Modal.js: no elRef     creating one...');
         const div = document.createElement('div');
         elRef.current = div;
     }
