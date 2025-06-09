@@ -3,10 +3,13 @@
 
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Modal, XButton } from '../src/Modal.js';
+import { Modal } from '../src/Modal.js';
+import { XButton } from '../src/XButton.js';
 
 describe('Modal Component', () => {
   beforeEach(() => {
+    console.log('Modal.test.js beforeEach()');
+
     const modalRoot = document.createElement('div');
     modalRoot.setAttribute('id', 'sw-modal');
     document.body.appendChild(modalRoot);
@@ -24,6 +27,8 @@ describe('Modal Component', () => {
   });
 
   it('should render children inside the modal', () => {
+    console.log(`Inside 'should render children inside the modal'`);
+
     render(<Modal><div>Modal Content</div></Modal>);
     expect(screen.getByText('Modal Content')).toBeInTheDocument();
   });
