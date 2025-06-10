@@ -19,8 +19,7 @@ import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
     processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
     generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
     dateTime
-} from 'simple-widgets';    /*'./index.js'*/
-
+} from './index.js'
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 

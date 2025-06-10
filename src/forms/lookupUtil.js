@@ -3,9 +3,7 @@
 
 import sizeof from 'object-sizeof'
 
-import { now, TS }    from '../time.js'
-import { isNotEmpty } from './isNotEmpty.js'
-import { getAppSpecificInfo } from './model/appSpecificInfo.js'
+import { now, TS, isNotEmpty, getAppSpecificInfo } from '../index.js'
 
 // -----------------------------------------------------------------------------------------------------
 let pendingLookupQueries = 0;
@@ -317,8 +315,6 @@ export const getLookupSummary = () => {
 // -----------------------------------------------------------------------------------------------------
 
 /*
-
-// import { openGeneralStore, createStoreItem } from './simple-widgets'
 
 not in use  2022-08-23
 

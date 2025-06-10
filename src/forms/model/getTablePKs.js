@@ -1,6 +1,6 @@
 
-import { dTS } from '../../time.js'
-import { getAppSpecificInfo, setAppSpecificInfoExample } from './appSpecificInfo.js';
+import { dTS, getAppSpecificInfo, setAppSpecificInfoExample } from '../../index.js'
+
 
 // -----------------------------------------------------------------------------------------------------
 export const getTablePKs = (tableName) => {

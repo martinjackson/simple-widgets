@@ -2,9 +2,6 @@ import React from 'react';
 
 import { Modal }  from '../Modal.js';
 
-// import '../node_modules/simple-widgets/lib/sw-modal.css';
-// see ./simple-widgets.js
-
 import "./sw-MakeModal.css"
 
 export const MakeModal = props => {
