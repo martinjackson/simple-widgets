@@ -13,7 +13,7 @@ export function sendEmail (emailAddress, message, subject) {
 
       let request = {
           //            url: `http://${location.hostname}:${location.port}/api/mail`,
-          url: `/api/mail`,
+          url: `./api/mail`,
           method: 'post',
           data: {
               subject: subject,

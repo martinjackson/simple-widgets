@@ -17,7 +17,7 @@ const extractSessionParts = (sessionInfo) => {
 }
 
 // ----------------------------------------------------------------------------------------------
-export const AppCore = (props) => {
+export function AppCore(props) {
 
   const getMenu = props.getMenu
 
@@ -48,7 +48,7 @@ export const AppCore = (props) => {
   }
 
   const checkOut = () => {
-    fetch('/api/checkOut')
+    fetch('./api/checkOut')
     .then(status => {
       console.log('checkOut status:', status)
 
@@ -59,12 +59,12 @@ export const AppCore = (props) => {
   }
 
   const checkIn = () => {
-    fetch('/api/checkIn')
+    fetch('./api/checkIn')
     .then(displayErrors)
     .then(response => response.json())
     .then(data => {
       if (props.debug) {
-        console.log(dTS(), '/api/checkIn session info:', data)
+        console.log(dTS(), './api/checkIn session info:', data)
       }
 
       const session = extractSessionParts(data)
@@ -123,13 +123,13 @@ export const AppCore = (props) => {
     )
   }
 
-  // checkIn={checkIn}   call back to functionality in AppCore that tickles the backend /api/checkIn to reload mew user session info
-  // checkOut={checkOut} call back to functionality in AppCore that tickles the backend /api/checkOut to wipe out user session info
+  // checkIn={checkIn}   call back to functionality in AppCore that tickles the backend ./api/checkIn to reload mew user session info
+  // checkOut={checkOut} call back to functionality in AppCore that tickles the backend ./api/checkOut to wipe out user session info
   //
-  // role={role}         current role     retrieved from the backend /api/checkIn API
-  // roleNum={roleNum}   current roleNum  retrieved from the backend /api/checkIn API
-  // username={username} current username retrieved from the backend /api/checkIn API
-  // userId={userId}     current userId   retrieved from the backend /api/checkIn API
+  // role={role}         current role     retrieved from the backend ./api/checkIn API
+  // roleNum={roleNum}   current roleNum  retrieved from the backend ./api/checkIn API
+  // username={username} current username retrieved from the backend ./api/checkIn API
+  // userId={userId}     current userId   retrieved from the backend ./api/checkIn API
 
   // {...props} all of the following
 

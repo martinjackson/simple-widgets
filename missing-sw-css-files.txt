@@ -1,0 +1,24 @@
+✘ [ERROR] Unterminated string literal
+
+    src/Modal.js:8:61:
+      8 │         console.log('Modal.js: no elRef     creating one...);
+        ╵                                                              ^
+
+✘ [ERROR] Could not resolve "./sw-accordion.css"
+
+    src/Accordion.js:5:7:
+      5 │ import './sw-accordion.css';
+        ╵        ~~~~~~~~~~~~~~~~~~~~
+
+✘ [ERROR] Could not resolve "./sw-carousel.css"
+
+    src/Carousel.js:5:7:
+      5 │ import './sw-carousel.css';
+        ╵        ~~~~~~~~~~~~~~~~~~~
+
+✘ [ERROR] Could not resolve "./sw-accordion.css"
+
+    src/AccordionSingle.js:3:7:
+      3 │ import './sw-accordion.css';
+        ╵        ~~~~~~~~~~~~~~~~~~~~
+

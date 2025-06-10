@@ -15,7 +15,7 @@
  *          is false.
  *
  ****************************************************************************/
-export const sanitize = (text, item) => {
+export function sanitize(text, item) {
     const table = [
         'SELECT',
         'DELETE',
@@ -56,24 +56,22 @@ export const sanitize = (text, item) => {
  *                          present)
  * @param {*} decimal       symbol for the decimal point (default is a period (.), if not 
  *                          present)
- * @param {*} thousands     the seperator of every three digits from right to left (default 
+ * @param {*} thousands     the separator of every three digits from right to left (default
  *                          is a comma (,), if not present)
  * @param {*} dollarSign    the value at the beginning of the number (default is a dollar 
  *                          sign ($), if not present)
  * 
  **********************************************************************************************/
-export const formatMoney = (amount, decimalCount = 2, decimal = ".", thousands = ",", dollarSign = '$') => {
+export function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",", dollarSign = '$') {
     try {
-        if (amount === null) return null;
-        
-        // Truncate to the apprpriate number of decimals after the decimal point
+        // Truncate to the appropriate number of decimals after the decimal point
         decimalCount = Math.abs(decimalCount);
         decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
     
         // Determine if the number is negative or positive
         const negativeSign = amount < 0 ? "-" : "";
     
-        // Determine where the thousands seperators belong in the number
+        // Determine where the thousands separators belong in the number
         let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
         let j = (i.length > 3) ? i.length % 3 : 0;
     

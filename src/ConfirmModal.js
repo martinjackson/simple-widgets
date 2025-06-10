@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Modal, XButton } from './Modal.js';
-
-import { hasOwnProperty } from './hasOwnProperty.js'
+import { Modal, XButton, hasOwnProperty } from './index.js';
 
 const defProps = {
     show: true,
@@ -69,6 +67,7 @@ export const ConfirmModal = inProps => {
         if (props.noFunct !== null) {
             props.noFunct();
         }
+
     }
 }
 

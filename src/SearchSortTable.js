@@ -15,17 +15,6 @@ import { CSVLink } from 'react-csv';
 
 import '../src/sw-table.css';
 
-//import { CheckBox } from './CheckBox.js';
-//import { Choice } from './Choice.js';
-//import { ChoiceText } from './ChoiceText.js';
-//import { isInvalid, setInvalidScreen, generateInvalid,
-//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-//import { AlertModal } from './AlertModal.js';
-//import { generateCSSButton } from './Theme.js';
-//import { currentDate, convertDate, dateTime } from './DateFunct.js';
-//import { formatMoney } from './Common.js';
-//import { hasOwnProperty } from './hasOwnProperty.js';
-
 import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
     processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
     generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
@@ -300,7 +289,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     const localUserFooter = (hasOwnProperty(props, 'footer') === true) ? props.footer : [];
     const localFinalTotals = (hasOwnProperty(props, 'finaltotals') === true) ? props.finaltotals : [];
-    
+
     let cellBorder = "sw-sst_body_full ";
     if (hasOwnProperty(props, 'noborders') === true) {
         cellBorder = "";
@@ -397,7 +386,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
                 return <span></span>;
             }
-        } 
+        }
 
         if (row[col.name] === table[table.length - 1][col.name]) {
             previousRow = row;
@@ -769,7 +758,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         // Build the values for the row drop down on the bottom right of the screen.
         let values = [];
         let start = props.MAX_ITEMS - 30;
-        
+
         if (start < 5 || (start % 5) !== 0) {
             start = 5;
         }
@@ -2552,7 +2541,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     }
 
     let outerBorder = "sw-sst_divStyle";
-    if (hasOwnProperty(props, 'noborders') === true || 
+    if (hasOwnProperty(props, 'noborders') === true ||
         hasOwnProperty(props, 'noOuterBorder') === true) {
         outerBorder = "sw-sst_divStyle2";
     }
@@ -3735,7 +3724,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
 
-        let isUserCtrlBreak = userCtrlBreak(table);
+        // let isUserCtrlBreak = userCtrlBreak(table);
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
             /*if (isUserCtrlBreak === true &&  controlBreakInfo[i].hidden === true &&

@@ -9,20 +9,19 @@ import { dTS, setMenuParms, setMenuPath } from './index.js'
 export const Link = (props) => {
 
     if (!props.to || props.to.length < 1) // same as || props.to === "")
-        return <span className="nav-links">{props.children}</span>;
-
-    const origTabTitle = (props.origTabTitle) ? props.origTabTitle : '';
+     return <span className="sw-nav-links">{props.children}</span>
 
     const click = (e) => {
         e.preventDefault();
         console.log(dTS(), `You clicked '${props.to}'`);
-        setMenuParms(props.parms);
-        setMenuPath(props.to);
+        setMenuParms(props.parms)
+        setMenuPath(props.to)
         // window.location.search = `?path=${props.to}`    causes page to rerender
-        document.title = `${origTabTitle} - ${props.to}`;
-    };
+      document.title = `${props.title} - ${props.to}`;
+  }
 
-    const cname = props.className || "";
+  const cname = props.className || ""
 
-    return <span className={'nav-links ' + cname} href={props.to} onClick={click}>{props.children}</span>;
-};
+  return <span className={'sw-nav-links ' + cname} href={props.to} onClick={click}>{props.children}</span>
+}
+

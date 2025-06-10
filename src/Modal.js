@@ -1,38 +1,28 @@
 import React, { useEffect, useRef }  from 'react';
 import { createPortal } from 'react-dom';
-import { hasOwnProperty } from './hasOwnProperty';
-
 
 export const Modal = ({ children }) => {
     const elRef = useRef(null);
 
     if (!elRef.current) {
+        console.log('Modal.js: no elRef     creating one...');
         const div = document.createElement('div');
         elRef.current = div;
     }
 
     useEffect(() => {
-        const modalRoot = document.getElementById('sw-modal');
-        if (modalRoot) {
-            modalRoot.appendChild(elRef.current);
+        let modalRoot = document.getElementById('sw-modal');
+        if (!modalRoot) {
+            console.log('Modal.js: div id=sw-modal not found. creating one...');
 
-            return () => modalRoot.removeChild(elRef.current);
-        } else {
-            console.log('Can not find DOM element ID: sw-modal, Modal widget will not pop up.');
-            console.log('Please add the following to your index.html');
-            console.log('    <div id="sw-modal"></div>');
+            modalRoot = document.createElement('div');
+            modalRoot.setAttribute('id', 'sw-modal'); // Set the ID here
         }
-    }, [])
+        modalRoot.appendChild(elRef.current);
+
+        return () => modalRoot.removeChild(elRef.current);
+        }, [])
 
     return createPortal(<div>{children}</div>, elRef.current);
 };
 
-export const XButton = (props) => {
-    return (
-        <p className="sw-modal_divButton">
-           <button name="close" onClick={() => props.closeFunct(false)} 
-                   className="sw-modal_xbuttonStyle" >X</button>
-           { (hasOwnProperty(props, 'nounder') === true) ? <span></span> : <hr /> }
-        </p>
-    )
-}

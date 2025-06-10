@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-// import { hasOwnProperty } from './hasOwnProperty.js';
-
 import './sw-accordion.css';
 
 export const AccordionSingle = props => {

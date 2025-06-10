@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 
-import { Form }                from './Form.js'
-import { getGqlNameFromForm }  from './FormFields.js'
-import { isFunction }          from './isFunction.js'
-
-import { dTS }                 from '../time.js'
-
+import { Form, getGqlNameFromForm, isFunction, dTS }  from '../index.js'
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 export function SimpleEntryScreen(props) {

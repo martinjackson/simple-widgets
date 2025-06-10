@@ -41,7 +41,7 @@ const deriveChoices = props => {
 
 
 // --------------------------------------------------------------------------------------------------------------------
-export const CheckBox = props => {
+export function CheckBox(props) {
 
   if (hasOwnProperty(props, 'backcolor') === true)
      console.log('props :', props);

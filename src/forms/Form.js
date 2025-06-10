@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 
 import './Form.css'
 
-import { FormFields, getGqlNameFromForm, arrLen, FormHeader, onFormChange, prop2str } from './index.js'
+import { FormFields, getGqlNameFromForm, arrLen, FormHeader, onFormChange, prop2str } from '../index.js'
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export const Form = (props) => {

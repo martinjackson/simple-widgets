@@ -1,11 +1,5 @@
 
-import { dTS } from '../../time.js'
-import { toCamelCaseVar, toEnglishPhrase } from '../toCamelCase.js'
-
-import { getTableColumns }   from './getTableColumns.js'
-import { getTablePKs }       from './getTablePKs.js'
-import { formFromTableInfo } from './formFromTableInfo.js'
-
+import { dTS, toCamelCaseVar, toEnglishPhrase, getTableColumns, getTablePKs, formFromTableInfo } from '../../index.js'
 
 // ---------------------------------------------------------------------------------------------------------------------
 export const genDictionaryEntry = (nameArgs) => {

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Modal, XButton } from './Modal.js';
-
-import { hasOwnProperty } from './hasOwnProperty.js';
+import { Modal, hasOwnProperty, XButton } from './index.js';
 
 const defProps = {
     show: true,
@@ -10,7 +8,7 @@ const defProps = {
     message: 'No Alert message given',
 }
 
-export const AlertModal = inProps => {
+export function AlertModal(inProps) {
 
     const props = {...defProps, ...inProps};
 

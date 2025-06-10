@@ -1,6 +1,6 @@
 
 
-import { fetchLookupData } from './index.js'
+import { fetchLookupData } from '../index.js'
 
 // ------------------------------------------------------------------------
 export function genEmptyRecord(typeName, children=false, whereTraveled=[]) {

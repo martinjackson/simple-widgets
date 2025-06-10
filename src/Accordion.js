@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { hasOwnProperty } from './hasOwnProperty.js';
-import { AccordionSingle } from './AccordionSingle.js';
+import { hasOwnProperty, AccordionSingle } from './index.js';
 
 import './sw-accordion.css';
 

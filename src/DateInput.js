@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { date2str } from './index.js'
-import {Input}      from './forms/index.js'
+import { date2str, Input } from './index.js'
 
 //--------------------------------------------------------------------------------
 export const DateInput = (props) => {
