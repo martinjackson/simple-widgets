@@ -30,7 +30,7 @@ import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
     processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
     generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
     dateTime
-} from './index.js';
+} from 'simple-widgets';    /*'./index.js'*/
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
@@ -422,15 +422,15 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
     }
 
-    const defaultEachRowInTable2 = (row, i) => {
+    const defaultEachRowInTable2 = (row, index) => {
         if (controlBreakInfo.length !== 0) {
             return (
-                <tr key={`eachRowInTableRow_${props.number}_${i}`} className={rowStyle} >
+                <tr key={`eachRowInTableRow_${props.number}_${index}`} className={rowStyle} >
                     {table.map((col, idx) => (
-                        <td key={`${col.header}_${props.number}_${idx}_${i}`}
+                        <td key={`${col.header}_${props.number}_${idx}_${index}`}
                                     className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
-                            { [{row, col}].map((obj, i) => setTableTD(obj, i)) }
+                            { [{row, col}].map((obj) => setTableTD(obj, index, idx)) }
                         </td>
                     ))}
                 </tr>
@@ -440,17 +440,17 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
     }
 
-    const defaultEachRowInTableTransfer = (row, i) => {
+    const defaultEachRowInTableTransfer = (row, index) => {
         if (controlBreakInfo.length !== 0) {
 
             return (
-                <tr key={`eachRowInTableRow_${props.number}_${i}`} className={rowStyle}
+                <tr key={`eachRowInTableRow_${props.number}_${index}`} className={rowStyle}
                         onClick={() => props.transfer(row)}>
                     {table.map((col, idx) => (
-                        <td key={`${col.header}_${props.number}_${idx}_${i}`}
+                        <td key={`${col.header}_${props.number}_${idx}_${index}`}
                                     className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
-                            { [{row, col}].map((obj, i) => setTableTD(obj, i)) }
+                            { [{row, col}].map((obj, i) => setTableTD(obj, index, idx)) }
                         </td>
                     ))}
                 </tr>

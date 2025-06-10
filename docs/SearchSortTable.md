@@ -610,7 +610,7 @@ const editButton = () {
   console.log ('This is the edit button');
 }
 
-const setColumn = (rowcol, i) => {
+const setColumn = (rowcol, rowIndex, colIndex) => {
   let row = rowcol.row; // The data for the row
   let col = rowcol.col; // The data for each object in the table
 
@@ -633,7 +633,13 @@ const setColumn = (rowcol, i) => {
 
 This will place an Edit button underneath the header Edit for each row in the table.  When the button is pressed it will execute the editButton function.
 
-The firstTD indicates whether the tableTD function is the first item executed or the last item executed (default).  There are two other items that are executed, normally before the tableTD function.  If the align has date somewhere in the align, the date is automatically converted to the MM/DD/YYYY format.  If the align has money somewhere in the align, the number is converted into a money format ($N,NNN.NN) and right aligned.  After that the tableTD function is normally executed.  If firstTD prop is in the set of props, the tableTD function will only be executed and the date and money ones will not.  This will rarely be used.
+ There are two other items that are executed, normally before the tableTD function.  If the align has date somewhere in the align, the date is automatically converted to the MM/DD/YYYY format.  If the align has money somewhere in the align, the number is converted into a money format ($N,NNN.NN) and right aligned.  After that the tableTD function is normally executed.  
+
+The parameters are:
+
+1.  rowcol = contains the current row and col being processed.
+2.  rowIndex = current index of row in the data
+3.  colIndex = current index of the column in the table (row for the column)
 
 The else part of the if must be there and must contain return row[col.name]; otherwise, the normal items will not be returned.
 
@@ -1609,7 +1615,7 @@ const editButton = (row) => {
   console.log ('row : ', row);
 }
 
-const setColumn (rowcol, i) => {
+const setColumn (rowcol, rowIndex, colIndex) => {
   let row = rowcol.row;
   let col = rowcol.col;
 
@@ -1625,6 +1631,12 @@ const setColumn (rowcol, i) => {
 
 Explanation of the above example:
 This function must return a value in order to generate a row.  The row contains the data for the selected row in the SearchSortTable.  The column contains a column in the table prop.
+
+The parameters for the setColumn function are:
+
+1.  rowcol = contains the current row and col being processed.
+2.  rowIndex = current index of row in the data
+3.  colIndex = current index of the column in the table (row for the column)
 
 The col.header is looking at the column header in the table prop and if it is an Edit, a button will be placed in that column of the table.  When the button is pressed it will call the edit button and print out the value of the object in row, which is the data from a row in the SearchSortTable.
 
@@ -2897,6 +2909,6 @@ const sortExample = (props) => {
 
 In the SearchSortTable section, notice that eachRowInTable has the value of default.   This is using the eachRowInTable built into SearchSortTable.  Also, if the default is used, there is no need for the hidden function, indexing function, or startEnd function.  The setColumn function is used to create a link.
 
-The setColumn passes down two parameters: rowcol and i.  The rowcol is an object that contains both the row and column for the table prop.  The i is the index into the data array.  The row accesses the entire row of data in the table prop and the column accesses on of the fields in that table.
+The setColumn passes down three parameters: rowcol, rowIndex, and colIndex.  The rowcol is an object that contains both the row and column for the table prop.  The rowIndex is the index into the data array.  The colIndex is index into the table array.  The row accesses the entire row of data in the table prop and the column accesses on of the fields in that table.
 
 The first code in the setColumn is to seperate the row and column.  Next, the column header is checked to see if it is the column that is going to get the link.  If it is the download column, link is returned for that cell.  If is not the download column the standard row[col.name] is returned.  One or the other must be returned.

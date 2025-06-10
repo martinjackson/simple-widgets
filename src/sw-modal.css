@@ -25,9 +25,11 @@
 #sw-modal > div {
     background-color: white;
     max-width: fit-content;
+    max-height: 75%;
     padding: 15px;
     border-radius: 5px;
     text-align: center;
+    overflow-y: scroll;
 }
 
 .sw-modal_marginStyle {
