@@ -375,7 +375,8 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     let previousRow = null;
 
-    const setTableTD = (obj, i) => {
+    // maj 2025-06-12 changed setTableTD from  = (obj, i) => {
+    const setTableTD = (obj, rowIndex, colIndex) => {
         let row = obj.row;
         let col = obj.col;
         if (hasOwnProperty(col, 'norepeat') === true && col.norepeat === true) {
@@ -393,7 +394,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
         if (hasOwnProperty(props, 'tableTD') === true &&
             hasOwnProperty(props, 'firstTD') === true) {
-                return props.tableTD(obj, i);
+                return props.tableTD(obj, rowIndex);
         } else if (col.align.indexOf('money') !== -1) {
             return formatMoney(row[col.name]);
         } else if (col.align.indexOf('datetime') !==  -1) {
@@ -404,7 +405,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             return row[col.name].toFixed(col.decimal);
         } else if (hasOwnProperty(props, 'tableTD') === true &&
                    hasOwnProperty(props, 'firstTD') === false) {
-            return props.tableTD(obj, i);
+            return props.tableTD(obj, rowIndex);
         } else {
             return row[col.name];
         }
