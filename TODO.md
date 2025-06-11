@@ -20,3 +20,13 @@ Don't try testing with npm link (lost two full days, 4/6/2023 and 4/7/2023) chas
 LocalChoice.js:36    name: sex value: m is not found in selection list: (3) [{…}, {…}, {…}]
 LocalChoice.js:162    sex not selectable, lookup undefined does not contain  m => m
 ```
+
+## DeepScan found calls to setTableTD() with three arguments, function only takes two arguements
+
+```bash
+rg 'setTableTD'
+src/SearchSortTable.js
+378:    const setTableTD = (obj, i) => {
+421:                            { [{row, col}].map((obj) => setTableTD(obj, index, idx)) }
+441:                            { [{row, col}].map((obj, i) => setTableTD(obj, index, idx)) }
+```
