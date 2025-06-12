@@ -375,8 +375,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     let previousRow = null;
 
-    // maj 2025-06-12 changed setTableTD from  = (obj, i) => {
-    const setTableTD = (obj, rowIndex, colIndex) => {
+    const setTableTD = (obj, i) => {
         let row = obj.row;
         let col = obj.col;
         if (hasOwnProperty(col, 'norepeat') === true && col.norepeat === true) {
@@ -394,7 +393,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
         if (hasOwnProperty(props, 'tableTD') === true &&
             hasOwnProperty(props, 'firstTD') === true) {
-                return props.tableTD(obj, rowIndex);
+                return props.tableTD(obj, i);
         } else if (col.align.indexOf('money') !== -1) {
             return formatMoney(row[col.name]);
         } else if (col.align.indexOf('datetime') !==  -1) {
@@ -405,7 +404,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             return row[col.name].toFixed(col.decimal);
         } else if (hasOwnProperty(props, 'tableTD') === true &&
                    hasOwnProperty(props, 'firstTD') === false) {
-            return props.tableTD(obj, rowIndex);
+            return props.tableTD(obj, i);
         } else {
             return row[col.name];
         }
@@ -419,7 +418,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         <td key={`${col.header}_${props.number}_${idx}_${index}`}
                                     className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
-                            { [{row, col}].map((obj) => setTableTD(obj, index, idx)) }
+                            { [{row, col}].map((obj) => setTableTD(obj, index /*, idx */)) }
                         </td>
                     ))}
                 </tr>
@@ -439,7 +438,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         <td key={`${col.header}_${props.number}_${idx}_${index}`}
                                     className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
-                            { [{row, col}].map((obj, i) => setTableTD(obj, index, idx)) }
+                            { [{row, col}].map((obj, i) => setTableTD(obj, index /*, idx */)) }
                         </td>
                     ))}
                 </tr>
