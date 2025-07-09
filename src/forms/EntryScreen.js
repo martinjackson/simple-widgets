@@ -74,8 +74,13 @@ function EntryScreenKeyed(props) {                     // local use only (no exp
       return
     }
 
+    // data might look like this   const data = {data: {…}, loading: false, networkStatus: 7}  <-- oracle-ism
+    if (data['data']) {
+      data = data['data']
+    }
+
     setNeedsLoading(false)
-    if (data[props.recordName].length == 0) {
+    if (data[props.recordName] && data[props.recordName].length == 0) {
       console.log(dTS(), 'No ' + props.recordName + ' records retrieved for:', where)
 
       console.log(dTS(), 'using (new record):', data[props.recordName])
@@ -93,8 +98,9 @@ function EntryScreenKeyed(props) {                     // local use only (no exp
   }
 
   const onError = (error) => {
-    const msg = `  EntryScreen useQuery error: ${error.message} --> QueryName: ${props.queryName} Keys:` + JSON.stringify(props.keys)
+    const msg = `  EntryScreen execQuery error: ${error.message} --> QueryName: ${props.queryName} Keys:` + JSON.stringify(props.keys)
     console.log(msg)
+    console.log(error.stack)
     logErrors(msg)
   }
 

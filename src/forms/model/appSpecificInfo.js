@@ -4,12 +4,12 @@ let appSpecificInfo = {}
 export function setAppSpecificInfo(functionsFromApp) {
 
   appSpecificInfo = functionsFromApp
-  console.log('setAppSpecificInfo() <-', appSpecificInfo)
+  // console.log('setAppSpecificInfo() <-', appSpecificInfo)
 
 }
 
 export function getAppSpecificInfo() {
-  console.log('getAppSpecificInfo() <-', appSpecificInfo)
+  // console.log('getAppSpecificInfo() <-', appSpecificInfo)
   return appSpecificInfo
 }
 
