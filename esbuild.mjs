@@ -35,6 +35,7 @@ esbuild
   .build({
     entryPoints: ["./src/index.js"],
     outfile: "dist/index.js",
+    sourcemap: true,
     bundle: true,
     minify: true,
     treeShaking: true,

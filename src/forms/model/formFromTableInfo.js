@@ -1,7 +1,6 @@
 
 
-import { toCamelCaseVar } from '../toCamelCase.js'
-import { getAppSpecificInfo } from './appSpecificInfo.js';
+import { toCamelCaseVar, getAppSpecificInfo } from '../../index.js';
 
 // ---------------------------------------------------------------------------------------------------------------------
 export function formFromTableInfo(table, fields, labels) {

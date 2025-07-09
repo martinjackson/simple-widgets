@@ -13,7 +13,7 @@
     "lint-fix": "eslint src/ --fix",
     "build": "npm run esbuild && npm run pack",
     "esbuild": "rm -rf dist && node esbuild.mjs",
-    "pack": "npm pack --silent --pack-destination ./temp/ && mv ./temp/simple-widgets-${npm_package_version}.tgz ./simple-widgets-${npm_package_version}-esbuild.tgz",
+    "pack": "npm pack --silent && ls -l simple-widgets-${npm_package_version}.tgz",
     "dry": "run-s build dry-run",
     "pub": "run-s build release",
     "example": "See https://github.com/martinjackson/simple-widgets-sample.git",

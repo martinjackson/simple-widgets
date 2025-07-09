@@ -1,4 +1,4 @@
-import { getAppSpecificInfo } from './model/appSpecificInfo.js';
+import { getAppSpecificInfo } from '../index.js'
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 export function getLabels(formName) {

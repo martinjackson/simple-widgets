@@ -69,6 +69,11 @@ function EntryScreenKeyed(props) {                     // local use only (no exp
   const where = { ...props.keys, ...keys }
 
   const onCompleted = (data) => {
+    if (data === null) {
+      console.log(`execQuery(${props.queryName}, { where: ${where} }) returned NULL data.`)
+      return
+    }
+
     setNeedsLoading(false)
     if (data[props.recordName].length == 0) {
       console.log(dTS(), 'No ' + props.recordName + ' records retrieved for:', where)
@@ -88,8 +93,9 @@ function EntryScreenKeyed(props) {                     // local use only (no exp
   }
 
   const onError = (error) => {
-    console.log(`  EntryScreen useQuery error ${props.queryName} Keys:`, props.keys)
-    logErrors(error.message)
+    const msg = `  EntryScreen useQuery error: ${error.message} --> QueryName: ${props.queryName} Keys:` + JSON.stringify(props.keys)
+    console.log(msg)
+    logErrors(msg)
   }
 
   if (needsLoading) {

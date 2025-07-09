@@ -2,15 +2,21 @@
 let appSpecificInfo = {}
 
 export function setAppSpecificInfo(functionsFromApp) {
+
   appSpecificInfo = functionsFromApp
+  console.log('setAppSpecificInfo() <-', appSpecificInfo)
+
 }
 
-export function getAppSpecificInfo() { return appSpecificInfo }
+export function getAppSpecificInfo() {
+  console.log('getAppSpecificInfo() <-', appSpecificInfo)
+  return appSpecificInfo
+}
 
 export const setAppSpecificInfoExample = 'setAppSpecificInfo({dbStruct, formDictionary, execQuery})'
 
 // How to Use:
-//    import { getAppSpecificInfo } from './model/appSpecificInfo.js'
+//    import { getAppSpecificInfo } from 'simple-widgets'
 //    const {dbStruct, formDictionary, execQuery} = getAppSpecificInfo()
 
 
