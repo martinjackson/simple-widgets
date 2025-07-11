@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import { Choice, ChoiceTextSearchable, fetchLookupData, isFunction, value2label } from '../index.js'
+import { Choice, ChoiceTextSearchable, fetchLookupData, value2label } from '../index.js'
 
 // import { isPromise } from './isPromise.js'
 
@@ -65,7 +65,8 @@ const getChoices = (lookup, options, cb) => {
     }
 
   } else {
-    opt = isFunction(options) ? options() : options
+    const optType = (typeof options)
+    opt = (optType === 'function') ? options() : options
   }
 
   if (Array.isArray(opt) && typeof opt[0] == "string") {

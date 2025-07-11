@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Form, getGqlNameFromForm, isFunction, dTS }  from '../index.js'
+import { dTS, Form, getGqlNameFromForm }  from '../index.js'
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 export function SimpleEntryScreen(props) {
@@ -10,8 +10,9 @@ export function SimpleEntryScreen(props) {
 
   const updateRec = props.updateRec
 
-  if (!isFunction(updateRec)) {
-     console.log(dTS(), "*** SimpleEntryScreen missing props.updateRec -- record updates disabled.");
+  const updateRecType = (typeof updateRec)
+  if ( updateRecType != 'function') {
+     console.log(dTS(), "*** SimpleEntryScreen missing props.updateRec -- record updates disabled. typeof updateRec "+updateRecType)
   }
 
   if (props.debug > 1) {
@@ -31,7 +32,7 @@ export function SimpleEntryScreen(props) {
     const pendingKeys = Object.keys(pendingUpdates);
     pendingKeys.forEach(k => {
       const r = pendingUpdates[k];
-      if (isFunction(updateRec)) {
+      if ((typeof updateRec) === 'function') {
         updateRec(r.gqlTable, r.fields, r.where)
           .then(rec => {
             const status = rec.data.updateRecord;

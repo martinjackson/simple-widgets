@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-import { CheckBox, CheckBoxGroup, DateInput, Input, Form, FormTable, FormChoice, isFunction, ControlledTextarea } from '../index.js'
+import { CheckBox, CheckBoxGroup, DateInput, Input, Form, FormTable, FormChoice, ControlledTextarea } from '../index.js'
 
 // ---------------------------------------------------------------------------------------------------------------------
 const createFieldTextArea = (f, onChange) => {
@@ -88,7 +88,8 @@ const createFieldChkBox = (f, onChange) => {
 
       // eslint-disable-next-line no-unused-vars
       const { className, name, ...whatsLeft  } = f
-      const options = isFunction(f.options) ? f.options() : f.options
+      const optionsType = (typeof f.options)
+      const options = (optionsType === 'function') ? f.options() : f.options
 
       return <CheckBox
                     {...whatsLeft}
@@ -104,7 +105,8 @@ const createFieldChkBoxes = (f, onChange) => {
 
       // eslint-disable-next-line no-unused-vars
       const { className, name, ...whatsLeft  } = f
-      const options = isFunction(f.options) ? f.options() : f.options
+      const optionsType = (typeof f.options)
+      const options = (optionsType === 'function') ? f.options() : f.options
 
       return <CheckBoxGroup
                     {...whatsLeft}
