@@ -6,7 +6,7 @@ import React from 'react';
 export const DatabaseLoadingIcon = (props) => {
 
   const cn = (props.className) ? props.className + ' ' : '';
-  const databaseLoading = '/icons8-database.gif'     // dont import complicates bundler rules
+  const databaseLoading = './icons8-database.gif'     // dont import complicates bundler rules
 
   return (<img style={props.style} className={cn + 'sw-DatabaseLoadingIcon'} src={databaseLoading}></img>);
 };
