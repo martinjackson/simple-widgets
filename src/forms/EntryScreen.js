@@ -85,7 +85,7 @@ function EntryScreenKeyed(props) {                     // local use only (no exp
 
       console.log(dTS(), 'using (new record):', data[props.recordName])
     } else {
-      console.log(dTS(), 'loaded record for:', where, data)
+      console.log(dTS(), `loaded data[${props.recordName}] record for:`, where, data)
       setData(data)
 
       // call businessLogic after record has arrived -- allow lookup fields that are based on other fields
