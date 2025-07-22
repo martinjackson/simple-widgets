@@ -15,23 +15,11 @@ import { CSVLink } from 'react-csv';
 
 import '../src/sw-table.css';
 
-//import { CheckBox } from './CheckBox.js';
-//import { Choice } from './Choice.js';
-//import { ChoiceText } from './ChoiceText.js';
-//import { isInvalid, setInvalidScreen, generateInvalid,
-//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
-//import { AlertModal } from './AlertModal.js';
-//import { generateCSSButton } from './Theme.js';
-//import { currentDate, convertDate, dateTime } from './DateFunct.js';
-//import { formatMoney } from './Common.js';
-//import { hasOwnProperty } from './hasOwnProperty.js';
-
 import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
     processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
     generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
     dateTime
-} from 'simple-widgets';    /*'./index.js'*/
-
+} from './index.js'
 
 import funnel from './funnel-filter-svgrepo-com.svg';
 
@@ -3757,7 +3745,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
 
-        let isUserCtrlBreak = userCtrlBreak(table);
+        // let isUserCtrlBreak = userCtrlBreak(table);
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
             /*if (isUserCtrlBreak === true &&  controlBreakInfo[i].hidden === true &&
