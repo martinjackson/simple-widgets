@@ -34,7 +34,6 @@ import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
 
 
 import funnel from './funnel-filter-svgrepo-com.svg';
-import { data } from 'autoprefixer';
 
 pdfMake.vfs = pdfFonts.vfs;
 
