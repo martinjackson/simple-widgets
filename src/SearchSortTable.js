@@ -15,13 +15,26 @@ import { CSVLink } from 'react-csv';
 
 import '../src/sw-table.css';
 
+//import { CheckBox } from './CheckBox.js';
+//import { Choice } from './Choice.js';
+//import { ChoiceText } from './ChoiceText.js';
+//import { isInvalid, setInvalidScreen, generateInvalid,
+//         processInvalidStyleScreen, wasClickedScreen} from './Invalid.js'
+//import { AlertModal } from './AlertModal.js';
+//import { generateCSSButton } from './Theme.js';
+//import { currentDate, convertDate, dateTime } from './DateFunct.js';
+//import { formatMoney } from './Common.js';
+//import { hasOwnProperty } from './hasOwnProperty.js';
+
 import { CheckBox, Choice, isInvalid, setInvalidScreen, generateInvalid,
     processInvalidStyleScreen, wasClickedScreen, AlertModal, ChoiceText,
     generateCSSButton, currentDate, convertDate, formatMoney, hasOwnProperty,
     dateTime
-} from './index.js'
+} from 'simple-widgets';    /*'./index.js'*/
+
 
 import funnel from './funnel-filter-svgrepo-com.svg';
+import { data } from 'autoprefixer';
 
 pdfMake.vfs = pdfFonts.vfs;
 
@@ -288,7 +301,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     const localUserFooter = (hasOwnProperty(props, 'footer') === true) ? props.footer : [];
     const localFinalTotals = (hasOwnProperty(props, 'finaltotals') === true) ? props.finaltotals : [];
-
+    
     let cellBorder = "sw-sst_body_full ";
     if (hasOwnProperty(props, 'noborders') === true) {
         cellBorder = "";
@@ -317,6 +330,13 @@ const _InnerSearchSortTable = (propsPassed) => {
     if (hasOwnProperty(props, 'noborders') === true ||
         hasOwnProperty(props, 'noTableBorder') === true) {
             tableBorder = "sw-sst_table2";
+    }
+
+    let orientation = '';
+    if (hasOwnProperty(props, 'setOrientation') === true) {
+        if (props.setOrientation === 'Portrait' ||props.setOrientation === 'Landscape') {
+            orientation = props.setOrientation;
+        }
     }
 
 // Set the state variables
@@ -353,7 +373,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     const [startPos, setStartPos] = useState([]);                       // Where each control break starts in the indexes
     const [functSelect, setFunctSelect] = useState('');                 // Indicates which aggregate function has been selected
     const [footers, setFooters] = useState(initFooters);                // The aggregate footers placed at the end of each column in the table
-    const [pdfOrientation, setPdfOrientation] = useState('');           // Indicates whether Portrait or Landscape is to selected for the page orientation of the PDF
+    const [pdfOrientation, setPdfOrientation] = useState(orientation);  // Indicates whether Portrait or Landscape is to selected for the page orientation of the PDF
     const [excelData, setExcelData] = useState([]);                     // Contains the data to be placed in the excel spreadsheet
     const [showExcel, setShowExcel] = useState(false);                  // Indicates whether the Excel Display button can be displayed or not
     const [checked, setChecked] = useState('N');                        // Indicates whether the checkbox in the header is checked (Y) or not
@@ -375,7 +395,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
     let previousRow = null;
 
-    const setTableTD = (obj, i) => {
+    const setTableTD = (obj, rowIndex, colIndex) => {
         let row = obj.row;
         let col = obj.col;
         if (hasOwnProperty(col, 'norepeat') === true && col.norepeat === true) {
@@ -385,7 +405,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 }
                 return <span></span>;
             }
-        }
+        } 
 
         if (row[col.name] === table[table.length - 1][col.name]) {
             previousRow = row;
@@ -393,7 +413,7 @@ const _InnerSearchSortTable = (propsPassed) => {
 
         if (hasOwnProperty(props, 'tableTD') === true &&
             hasOwnProperty(props, 'firstTD') === true) {
-                return props.tableTD(obj, i);
+                return props.tableTD(obj, rowIndex, colIndex);
         } else if (col.align.indexOf('money') !== -1) {
             return formatMoney(row[col.name]);
         } else if (col.align.indexOf('datetime') !==  -1) {
@@ -404,7 +424,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             return row[col.name].toFixed(col.decimal);
         } else if (hasOwnProperty(props, 'tableTD') === true &&
                    hasOwnProperty(props, 'firstTD') === false) {
-            return props.tableTD(obj, i);
+            return props.tableTD(obj, rowIndex, colIndex);
         } else {
             return row[col.name];
         }
@@ -418,7 +438,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         <td key={`${col.header}_${props.number}_${idx}_${index}`}
                                     className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
-                            { [{row, col}].map((obj) => setTableTD(obj, index /*, idx */)) }
+                            { [{row, col}].map((obj) => setTableTD(obj, index, idx)) }
                         </td>
                     ))}
                 </tr>
@@ -438,7 +458,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                         <td key={`${col.header}_${props.number}_${idx}_${index}`}
                                     className={cellBorder + getAlignment(col.align)}
                                     hidden={controlBreakInfo[idx].hidden} >
-                            { [{row, col}].map((obj, i) => setTableTD(obj, index /*, idx */)) }
+                            { [{row, col}].map((obj) => setTableTD(obj, index, idx)) }
                         </td>
                     ))}
                 </tr>
@@ -757,7 +777,7 @@ const _InnerSearchSortTable = (propsPassed) => {
         // Build the values for the row drop down on the bottom right of the screen.
         let values = [];
         let start = props.MAX_ITEMS - 30;
-
+        
         if (start < 5 || (start % 5) !== 0) {
             start = 5;
         }
@@ -1974,7 +1994,15 @@ const _InnerSearchSortTable = (propsPassed) => {
         }
 
         if (isControlBreak(controlBreakInfo) === true) {    // There is a control break
-            if (pdfOrientation === 'Card') {
+            if (hasOwnProperty(props, 'pdfFunction') === true) {
+                props.pdfFunction(props.data, 
+                                  table, 
+                                  indexes, 
+                                  controlBreakInfo, 
+                                  controlBreakData,
+                                  finalTotals,
+                                  pdfOrientation);
+            } else if (pdfOrientation === 'Card') {
                 pdfCBCardFormat(false);
             } else if (pdfOrientation === 'Card per Page') {
                 pdfCBCardFormat(true);
@@ -1982,7 +2010,13 @@ const _InnerSearchSortTable = (propsPassed) => {
                 pdfCBButton();
             }
         } else {    // No control break
-            if (pdfOrientation === 'Card') {
+            if (hasOwnProperty(props, 'pdfFunction') === true) {
+                props.pdfFunction(props.data, 
+                                  table, 
+                                  indexes, 
+                                  finalTotals,
+                                  pdfOrientation);
+            } else if (pdfOrientation === 'Card') {
                 pdfRegCardFormat(false);
             } else if (pdfOrientation === 'Card per Page') {
                 pdfRegCardFormat(true);
@@ -2341,6 +2375,7 @@ const _InnerSearchSortTable = (propsPassed) => {
                 <label htmlFor="pdfOrientation">Orientation: </label>
                 <Choice choices={pdfOrientValues} name="pdfOrientation" value={pdfOrientation}
                     onChange={(event) => setPdfOrientation(event.target.value)}
+                    disabled={hasOwnProperty(props, 'setOrientation') ? true : false}
                     onClick={() => wasClickedScreen(invalid, PDFORIENT, setInvalid)}
                     className={processInvalidStyleScreen(invalid, PDFORIENT)}
                     key={`choice_${number}`} />
@@ -2540,7 +2575,7 @@ const _InnerSearchSortTable = (propsPassed) => {
     }
 
     let outerBorder = "sw-sst_divStyle";
-    if (hasOwnProperty(props, 'noborders') === true ||
+    if (hasOwnProperty(props, 'noborders') === true || 
         hasOwnProperty(props, 'noOuterBorder') === true) {
         outerBorder = "sw-sst_divStyle2";
     }
@@ -3723,7 +3758,7 @@ const _InnerSearchSortTable = (propsPassed) => {
             functionList = ['', 'Count', 'Count Distinct', 'Minimum', 'Maximum']
         }
 
-        // let isUserCtrlBreak = userCtrlBreak(table);
+        let isUserCtrlBreak = userCtrlBreak(table);
         let hiddenRender = null;
         if (hasOwnProperty(props, 'nohidden') === false) {
             /*if (isUserCtrlBreak === true &&  controlBreakInfo[i].hidden === true &&

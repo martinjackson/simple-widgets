@@ -1454,37 +1454,89 @@ This should not be used with the latest format of eachRowInTable.
 
   - Card per page = this is the same as Card, except that there is only one card per page.
 
-46. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
+46. **pdffunction** = executes a function that builds and displays a PDF.  The following information is passed down to the function:
+
+  -  data = the data to be displayed
+  -  table = the table array the describes how the table is to be formatted
+  -  indexes = the indexes into the data, used when the data is sorted
+  -  controlBreakInfo = identical to the control information that can be passed down using the controlBreak prop.
+  -  controlBreakData = an array in which each element of the array contains the data for a control break.  It will also contain the footer data.
+  -  finalTotals = identical to the final totals that can be passed down using the finaltotals prop.
+  -  pdfOrientation = the orientation (portrait or landscape) that is selected by the user in the searchSortTable.
+
+An example would be:
+
+```javascript
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+
+  ...
+  const printPDF = async(data, 
+                        table, 
+                        indexes, 
+                        controlBreakInfo, 
+                        controlBreakData, 
+                        finalTotals,
+                        pdfOrientation) => {
+      let docDefinition = {
+          // Build the PDF
+      }
+
+      pdfMake.createPdf(docDefinition).open();    // Display the PDF
+  }
+  ...
+  <SearchSortTable data={data)}
+                   table={table}
+                   eachRowInTable="default"
+                   pdfFunction={printPDF}
+                   number={11}
+                   MAX_ITEMS={50}
+                   controlBreak={controlBreak}
+                   setOrientation="Portrait" />
+```
+
+47. **report** = the titles for the PDF and Excel reports, if a title is. not given.  If a title is given, it use the title over the report title.
 An example would be:
 ```javascript
 report="The PDF Report"
 ```
 
-47. **reportSub1** = a subtitle that will go under the main title for a PDF or Excel.  An example would be:
+48. **reportSub1** = a subtitle that will go under the main title for a PDF or Excel.  An example would be:
 
 ```javascript
 reportSub1="This is subtitle 1"
 ```
 
-48. **reportSub2** = a subtitle that will go under the main title and subtitle 1 for a PDF or Excel.  An example would be:
+49. **reportSub2** = a subtitle that will go under the main title and subtitle 1 for a PDF or Excel.  An example would be:
 
 ```javascript
 reportSub2="This is subtitle 2"
 ```
 
-49. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
+50. **resetIndexes** = reset the indexes back to their original value if true or if false it does not reset the indexes.
 
-50. **rowStyle** = indicates the style of each row in the table.  The possible values are:
+51. **rowStyle** = indicates the style of each row in the table.  The possible values are:
   - none = there is no styling to the row.
   - stripe = indicates that every other row will have a light gray color.  This is the default.
 
-51. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  
+52. **scroll** = this will place the table in a scroll box that allows the table to be scrolled through.  
 
-52. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
+53. **searchall** = the search choice will automatically default to All and it will search all columns not one particular column.
 
-53. **searchstart** = indicates that the search item will only match those data items that start with the search item
+54. **searchstart** = indicates that the search item will only match those data items that start with the search item.
 
-54. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
+55. **setOrientation** = sets the orientation on the searchSortTable screen to either Portrait or Landscape and disables the dropdown so that it can not be changed.
+
+An example would be: 
+```javascript
+<SearchSortTable data={data}
+                  table={table}
+                  eachRowInTable="default"
+                  pdfFunction={printPDF}
+                  setOrientation="Portrait" />
+```
+
+56. **setTheFooter** = indicates that a new footer is being passed to the parent of SearchSortTable.  The function that is to be passed to is the setFooter function for the state variables.  Since the footer has changed due to a changing of columns, the footer in the parent must be changed to the new footer also.  The footer needs to have a many entries as the table array; otherwise, the drag and drop will not work.  See the section on Dragging and Drop.  This prop is only need if a footer prop is being used.  An example
 
 ```javascript
   let sortTable = [...];
@@ -1503,7 +1555,7 @@ reportSub2="This is subtitle 2"
   />
 ```
 
-55. **setTheTable** = indicates that a new table, control break, or final totals is being passed to the parent of SearchSortTable.
+57. **setTheTable** = indicates that a new table, control break, or final totals is being passed to the parent of SearchSortTable.
 This prop is needed if dragging is turned on in the table.  Dragging will change the positions in the table prop array, the control break array, and the final totals array.  If there are no control breaks or final totals, the parameters in the setTheTable function will be null.
 
 The function that is to be passed to wil change the table, control break, and final totals array; therefore, there, state variables will need to be reset.  Since the table has changed due to a changing of columns, the table in the parent must be changed to the new table, control break, and final total.
@@ -1573,16 +1625,16 @@ In the above example if dragging is on for that row, then there needs to be stat
 
 This prop is only used if dragging is allowed.
 
-56. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
+58. **sfbottom** = this will display the search and filter information at the bottom of the table instead of the top.
 
-57. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
+59. **showall** = shows all the items that are in the table either in a scroll box (must use the scroll prop) or not.  This will not limit the number of items in the table; therefore,
 the search bar at the top of the screen will contain the search column, search item, and the All button.  If a search is done, it will place the item found at the top of the screen.  The All button will display all the items on the screen again.
 
-58. **showtable** = this will show the table and headers even if there is no data to display.
+60. **showtable** = this will show the table and headers even if there is no data to display.
 
-59. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
+61. **spinner** = causes a spinner to appear on the page until the data is finished loading into the search sort table.
 
-60. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  This is not needed if default or defaultTransfer are used for eachRowInTable.  See examples.
+62. **startEnd** = is a function that returns the current starting and ending positions in the data being displayed.  This is used in eachRowInTable function i is being used to generate a key.  The user will need to add start to it as in the key prop in the example above.  This is not needed if default or defaultTransfer are used for eachRowInTable.  See examples.
 An example would be:
 ```javascript
 const [start, setStart] = useState(0);
@@ -1596,7 +1648,7 @@ const startEnd = (start, end) => {
 
 This has been deprecated if using the latest eachRowInTable format.
 
-61. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
+63. **startingPos** = is a function that will return an array that contains the start of each control break table in the indexes.
 An exmple would be:
 ```javascript
 const [startPos, setStartPos] = useState([]);
@@ -1607,7 +1659,7 @@ const startingPosition = (value) => {
 
 <SearchSortTable startingPos={startingPosition} />
 ```
-62. **tableTD** = this allows a column in the table to be specified the way the user wants.  For
+64. **tableTD** = this allows a column in the table to be specified the way the user wants.  For
 example, a button, link, etc.  The tableTD is a function that is called to specify how a column is to be formatted.  The format for the functions is as follows:
 
 ```js
@@ -1644,11 +1696,11 @@ There needs to be an else clause, since this function returns a value.  The stan
 
 If in the table prop, there is an align of date, money, or decimal it will over ride what is in the setColumn function.  If this is not desired, place the firstTD prop in as a prop.
 
-63. **title** = supplies a title to be displayed centered at the top of the table.
+65. **title** = supplies a title to be displayed centered at the top of the table.
 
-64. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
+66. **titleSize** = 1 uses a h1 header, 2 uses a h2 header, 3 uses a h3 header, 4 uses a h4 header, 5 uses a h5 header, and 6 uses a h6 header, all other values use an h3 header.  If the titleSize prop is missing h3 will be used as the default.
 
-65. **transfer** = this is function that transfers the data when the user presses a row in the table.  When a row is pressed, this function is called and transfers the data in the row to the transfer function.  The transfer function accepts the parameter data that contains the data for the row as an object based on the name in the table prop. 
+67. **transfer** = this is function that transfers the data when the user presses a row in the table.  When a row is pressed, this function is called and transfers the data in the row to the transfer function.  The transfer function accepts the parameter data that contains the data for the row as an object based on the name in the table prop. 
 
 This prop is only used when using the latest eachRowInTable format.
 
@@ -1669,7 +1721,7 @@ data is an object that contains all the data in a row of the SearchSortTable
 
 This is used in conjunction with eachRowInTable="defaultTransfer" prop and the hover prop. 
 
-66. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
+68. **width** = the width of the scroll box only.  If the width is used it will automatically disable the ability to resize the table.
 
 This is being deprecated.
 
