@@ -90,9 +90,9 @@ export const currentDate = () => {
 export const currentDBDateTime = () => {
     let today = new Date();
     
-    return today.getFullYear().toString().substr(2, 2) + '-' +  // Two digit year
+    return  addDigit(today.getDate().toString()) + '-' +
             monthName(today.getMonth()) + '-' +             // Month as a three letter abbreviation
-            addDigit(today.getDate().toString()) + ' ' +
+            today.getFullYear().toString().substr(2, 2) + ' ' +  // Two digit year
             addDigit(today.getHours().toString()) + ':' + 
             addDigit(today.getMinutes().toString()) + ':' + 
             addDigit(today.getSeconds().toString()) + '.' +
@@ -106,9 +106,10 @@ export const currentDBDateTime = () => {
  *********************************************************************************/
 export const currentDBDate = () => {
     let today = new Date(); // Get the current date
-    return today.getFullYear().toString() + '-' +   // Format the date in the YYYY-MM-DD format
-            addDigit((today.getMonth() + 1).toString()) + '-' + 
-            addDigit(today.getDate().toString());
+
+    return  addDigit(today.getDate().toString()) + '-' +
+            monthName(today.getMonth()) + '-' +             // Month as a three letter abbreviation
+            today.getFullYear().toString().substr(2, 2);  // Two digit year
 }
 
 /**********************************************************************************
