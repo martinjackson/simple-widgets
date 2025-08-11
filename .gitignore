@@ -22,3 +22,6 @@ dist/
 /playwright/.cache/
 
 old-enzyme-tests
+
+src/split.sh
+
