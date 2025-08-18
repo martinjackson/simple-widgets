@@ -30,3 +30,20 @@ src/SearchSortTable.js
 421:                            { [{row, col}].map((obj) => setTableTD(obj, index, idx)) }
 441:                            { [{row, col}].map((obj, i) => setTableTD(obj, index, idx)) }
 ```
+
+## remove the need for dbStruct info to in the forground code
+
+better solution is to make this info from the server side as an api and then
+functions in the application that feed simple-widgets -- not have simple-widgets access
+dbStruct directly.
+
+❯ rg 'dbStruct.*getAppSpecificInfo'
+src/forms/model/getTablePKs.js
+8:  const {dbStruct} = getAppSpecificInfo()
+28:    const {dbStruct} = getAppSpecificInfo()
+
+getTablePKs()          src/forms/model/getTablePKs.js      used by genDictionaryEntry.js
+findTableByGqlName()   src/forms/model/getTablePKs.js      used by getGqlPKs(), src/forms/newRecord.js, src/forms/applyDeepValueChange.js,
+
+formFromTableInfo()    src/forms/model/formFromTableInfo.js  used by src/forms/model/genDictionaryEntry.js
+getTableColumns()      src/forms/model/getTableColumns.js    used by src/forms/model/genDictionaryEntry.js, src/forms/genRowBuilder.js
