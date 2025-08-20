@@ -47,3 +47,14 @@ findTableByGqlName()   src/forms/model/getTablePKs.js      used by getGqlPKs(), 
 
 formFromTableInfo()    src/forms/model/formFromTableInfo.js  used by src/forms/model/genDictionaryEntry.js
 getTableColumns()      src/forms/model/getTableColumns.js    used by src/forms/model/genDictionaryEntry.js, src/forms/genRowBuilder.js
+
+## add feature to Form(props)
+
+Form (& FormTable) only passes numRecs property to FormHeader if showRecCount prop is true
+
+          <FormHeader
+               numRecs={arrLen(dataRow)}
+--OR--
+The line `<div>{recMsg}</div>`  adds a className so in CSS you can make it smaller or invisible.
+
+## The Asterick on required fields does not take up a whole row when the label is blank
