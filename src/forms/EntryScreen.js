@@ -1,7 +1,7 @@
 
 // cSpell:ignore  closeFunct
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { dTS, ErrorList, useErrorList, SimpleEntryScreen, getAppSpecificInfo } from '../index.js'
 
@@ -65,6 +65,21 @@ function EntryScreenKeyed(props) {                     // local use only (no exp
   const [errors, logErrors] = useErrorList()
 
   const [needsLoading, setNeedsLoading] = useState(hasNonNullKeys(keys))
+
+  // This allows application code using EntryScreen to change keys and trigger a reload of the entire form.
+  // This is useful because when a new record is created, the ChoiceField component associated with keys
+  // will need its list reloaded because there are now more choices available.  So the application code will need
+  // to pass the new record's primary key back into EntryScreen if the desired action is to edit the newly created record.
+  useEffect(() => {
+    if (hasNonNullKeys(props.keys)) {
+      setKeys(props.keys)
+      setNeedsLoading(true)
+      if (props.debug > 1) {
+        console.log(dTS(), '== EntryScreenKeyed new props.keys ==', props.keys)
+      }
+
+    }
+  }, [props.keys])
 
   const where = { ...props.keys, ...keys }
 
