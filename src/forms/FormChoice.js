@@ -1,6 +1,8 @@
+
+// cSpell:ignore disp
 /*eslint no-unused-vars: ["warn", { "varsIgnorePattern": "^_" }]*/
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import { Choice, ChoiceTextSearchable, fetchLookupData, value2label } from '../index.js'
 
@@ -127,7 +129,7 @@ export function FormChoice(props) {
       */
 
       /*
-      is this necesary ???
+      is this necessary ???
 
       useEffect(() => {
         const opt = getChoices(props.lookup, props.options, cb)
@@ -143,9 +145,9 @@ export function FormChoice(props) {
       const label = e.target.value                       // if choicesLocal is null, the lookup has no data yet
       const r = choicesLocal.find((op) => op.label === label)
 
-      if (r != null) {                                         // if not found in the choices dont propigate the change
+      if (r != null) {                                         // if not found in the choices don't propagate the change
         const e2 = {target:{name: e.target.name, value:r.value}}
-        // e.target.value = r.value                            // this nolonger works to reuse react synthetic event
+        // e.target.value = r.value                            // this no longer works to reuse react synthetic event
         props.onChange(e2)
       }
     }
