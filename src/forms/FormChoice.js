@@ -82,12 +82,27 @@ export function FormChoice(props) {
       // console.log('>>> FormChoice(',props,')')
 
       // the cb() is for when the lookup changes -- ALSO when a lookup alias definition changes
-      const cb = () => {
-          const opt = getChoices(props.lookup, props.options, cb)
+      const cb = (data=null) => {
+          let opt;
+          if (data) {
+            console.log('   FormChoice observing options changed --- name:', props.name, 'new options:', data)
+            opt = data
+          } else {
+            opt = getChoices(props.lookup, props.options, cb)
+          }
 
           // console.log('   FormChoice options changed --- name:', props.name, 'lookup:', props.lookup, 'opt:', opt)
           setChoicesLocal(opt)
       }
+
+      useEffect(() => {
+        if (props.subscribe) {
+          // if options is a function and that function retrieves from a Zustand store,
+          // this allows for updates to keep choices in sync
+          props.subscribe(cb)
+        }
+      // eslint-disable-next-line react-hooks/exhaustive-deeps
+      }, [props.subscribe])
 
       const [choicesLocal, setChoicesLocal] = useState( getChoices(props.lookup, props.options, cb) )
 

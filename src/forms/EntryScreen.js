@@ -71,7 +71,7 @@ function EntryScreenKeyed(props) {                     // local use only (no exp
   // will need its list reloaded because there are now more choices available.  So the application code will need
   // to pass the new record's primary key back into EntryScreen if the desired action is to edit the newly created record.
   useEffect(() => {
-    if (hasNonNullKeys(props.keys)) {
+    if (hasNonNullKeys(props.keys) && JSON.stringify(keys) !== JSON.stringify(props.keys)) {
       setKeys(props.keys)
       setNeedsLoading(true)
       if (props.debug > 1) {
