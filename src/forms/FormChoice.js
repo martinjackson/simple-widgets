@@ -81,6 +81,9 @@ const getChoices = (lookup, options, cb) => {
 // ---------------------------------------------------------------------------------------------------------------------
 export function FormChoice(props) {
 
+      // eslint-disable-next-line no-unused-vars
+      const { lookup, options, optionsSubscribe, ...whatsLeft } = props
+
       // console.log('>>> FormChoice(',props,')')
 
       // the cb() is for when the lookup changes -- ALSO when a lookup alias definition changes
@@ -90,26 +93,25 @@ export function FormChoice(props) {
             console.log('   FormChoice observing options changed --- name:', props.name, 'new options:', data)
             opt = data
           } else {
-            opt = getChoices(props.lookup, props.options, cb)
+            opt = getChoices(lookup, options, cb)
           }
 
-          // console.log('   FormChoice options changed --- name:', props.name, 'lookup:', props.lookup, 'opt:', opt)
           setChoicesLocal(opt)
       }
 
       useEffect(() => {
-        if (props.subscribe) {
+        if (optionsSubscribe) {
           // if options is a function and that function retrieves from a Zustand store,
           // this allows for updates to keep choices in sync
-          props.subscribe(cb)
+          console.log('<FormChoice> registering with optionsSubscribe.')
+
+          optionsSubscribe(cb)
         }
       // eslint-disable-next-line react-hooks/exhaustive-deeps
-      }, [props.subscribe])
+      }, [optionsSubscribe])
 
-      const [choicesLocal, setChoicesLocal] = useState( getChoices(props.lookup, props.options, cb) )
+      const [choicesLocal, setChoicesLocal] = useState( getChoices(lookup, options, cb) )
 
-      // eslint-disable-next-line no-unused-vars
-      const { lookup, options, ...whatsLeft } = props
       // options: [ {value: label:}, {value: label:}, ]
 
       if (!whatsLeft.required) {
@@ -120,39 +122,19 @@ export function FormChoice(props) {
         whatsLeft.placeholder = " " // default if missing
       }
 
-      /*
-      no longer using react-choice
+      const onChange = (e) => {
+        if (e.target && choicesLocal) {
+          const label = e.target.value                       // if choicesLocal is null, the lookup has no data yet
+          const r = choicesLocal.find((op) => op.label === label)
 
-      if (!whatsLeft.value) {
-        whatsLeft.value = "" // default if missing, react-choice does not like null
+          if (r != null) {                                         // if not found in the choices don't propagate the change
+            const e2 = {target:{name: e.target.name, value:r.value}}
+            // e.target.value = r.value                            // this no longer works to reuse react synthetic event
+            props.onChange(e2)
+          }
+        }
+
       }
-      */
-
-      /*
-      is this necessary ???
-
-      useEffect(() => {
-        const opt = getChoices(props.lookup, props.options, cb)
-        // console.log('   FormChoice useEffect[props.lookup, props.options] name:', props.name, 'opt:', opt);
-        setChoicesLocal(opt)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [props.lookup, props.options])
-      */
-
-  // -----------------------------------------------------
-  const onChange = (e) => {
-    if (e.target && choicesLocal) {
-      const label = e.target.value                       // if choicesLocal is null, the lookup has no data yet
-      const r = choicesLocal.find((op) => op.label === label)
-
-      if (r != null) {                                         // if not found in the choices don't propagate the change
-        const e2 = {target:{name: e.target.name, value:r.value}}
-        // e.target.value = r.value                            // this no longer works to reuse react synthetic event
-        props.onChange(e2)
-      }
-    }
-
-  }
 
       // remove  form-control from className  React-Select already has a box
       let { className } = whatsLeft
