@@ -1,6 +1,4 @@
 
-import axios from 'axios';
-
 // -------------------------------------------------------------------------------------
 export function sendEmail (emailAddress, message, subject) {
 
@@ -22,7 +20,7 @@ export function sendEmail (emailAddress, message, subject) {
           }
       }
 
-      axios(request)  // Send the email
+      fetch(request)  // Send the email
             .then (results => {
                 if (results.data === 'ok') {
                     resolve(results)

@@ -6,7 +6,7 @@ A Collection of components to make your React code simpler.
 
 ---------------------
 
-## From Synk Reports:
+## From Synk Reports
 
 H - word-wrap Regular Expression Denial of Service (ReDoS) Vulnerability
 
@@ -23,7 +23,7 @@ Fix: No remediation path available.
 
 ---------------------
 
-## Breaking Changes:
+## Breaking Changes
 
 - 2025-01-15 Simple-Widgets version 1.42.0 CSS files will not be automatically imported anymore.  This will make it easier for the user to override CSS files from the default CSS settings.
 
@@ -58,8 +58,6 @@ Fix: No remediation path available.
 - 2021-09-01   DatePicker, DatePickerStyle, UnstyledDatePicker are now obsolete  please used DateInput instead (same React props)
 - last version (1.11.3) of simple-widgets to have DatePicker, DatePickerStyle, UnstyledDatePicker `npm install --save simple-widgets@1.11.3`
 
-
-
 Planned removal:
 
 - dropping makeChangeHandler from library (It assumes React Component style 'this', not React components using React Hooks)
@@ -87,10 +85,8 @@ Using [npm](https://www.npmjs.com/):
 In order to use simple-widgets, these dependencies need to be added in the home directory of your project.
 
 ```bash
-npm i @apollo/client @types/react axios deep-object-diff graphql-tag object-sizeof react react-dom --save
+npm i @apollo/client @types/react deep-object-diff graphql-tag object-sizeof react react-dom --save
 ```
-
-
 
 ## How to test the library locally (before publishing to npm)
 
@@ -112,9 +108,9 @@ Some of the basic HTML input field types reqire different functions to handle ch
 This collection of inputs is built on top of those to give a simpler standard interface.
 All of these widgets require the following props:
 
-- name: A unique name for this field with corresponding name in the parent compoent's state _example name="subject"_
-- value: where the input value come from  _example value={this.state.subject}_
-- onChange: function in the parent component to catch/store state changes _example onChange={this.handleChange}_
+- name: A unique name for this field with corresponding name in the parent compoent's state *example name="subject"*
+- value: where the input value come from  *example value={this.state.subject}*
+- onChange: function in the parent component to catch/store state changes *example onChange={this.handleChange}*
 - choices: and a array of Strings as pull down choices
 - selectedValue: want the 'value' should change to when the CheckBox or Radio button is selected
 - text: a label (String or component) displayed following the CheckBox or Radio button
@@ -187,7 +183,6 @@ All of these widgets require the following props:
 1. npm run pack
 2. npm run dry
 3. npm run pub
-
 
 ## Contributing [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/martinjackson/simple-widgets/issues)
 
