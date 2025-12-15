@@ -7,8 +7,8 @@
     "dist"
   ],
   "scripts": {
-    "update": "npm install --legacy-peer-deps --silent; npx npm-force-resolutions ; npm audit",
-    "setup": "npm install  --legacy-peer-deps",
+    "clean": "rm -Rf node_modules *lock* ; npm install",
+    "prep": "npm ci --silent ; npx npm-force-resolutions ; npm audit",
     "build": "npm run esbuild && npm run pack",
     "esbuild": "rm -rf dist && node esbuild.mjs",
     "pack": "npm pack --silent && ls -l simple-widgets-${npm_package_version}.tgz",
@@ -20,22 +20,7 @@
     "test-ct": "playwright test -c playwright-ct.config.js"
   },
   "resolutions": {
-    "got": "11.8.5",
-    "terser": "5.14.2",
-    "parse-path": "6.0.5",
-    "parse-url": "8.1.0",
-    "minimist": "1.2.6",
-    "minimatch": "3.0.5",
-    "glob-parent": "6.0.2",
-    "yargs-parser": "21.0.1",
-    "concat-stream": "2.0.0",
-    "lodash.template": "4.5.0",
-    "vm2": ">=3.9.17",
-    "optionator": "0.9.3",
-    "semver": "7.5.4",
-    "postcss": "8.4.31",
-    "word-wrap": "1.2.5",
-    "braces": "3.0.3"
+     "marked": "17.0.1"
   },
   "repository": {
     "type": "git",
