@@ -1,6 +1,6 @@
 {
   "name": "simple-widgets",
-  "version": "1.43.4",
+  "version": "1.43.6",
   "description": "A Collection of React components to make your React code simpler",
   "main": "dist/index.js",
   "files": [
@@ -20,7 +20,7 @@
     "test-ct": "playwright test -c playwright-ct.config.js"
   },
   "resolutions": {
-     "marked": "17.0.1"
+    "marked": "17.0.1"
   },
   "repository": {
     "type": "git",
