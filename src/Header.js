@@ -22,7 +22,6 @@ export const Header = (props) => {
   const alertLogo   = (props.alertLogo !== undefined) ? props.alertLogo       : ''
   const logoutURL   = (props.logoutURL)               ? props.logoutURL       : ''
   const loginURL    = (props.loginURL)                ? props.loginURL        : ''
-  const setUsername = (props.setUsername)             ? props.setUsername     : () => {console.log('no setUsername fn() passed to Header.');}
 
   let userMsg  = (username === null) ? "You are not logged in" : 'Welcome: ' + username
 
@@ -59,7 +58,6 @@ export const Header = (props) => {
               {dbDisplay}
               </div>
 
-              <HeaderModal show={showModal} username={username} setUser={setUsername} closeFunct={setShowModal}/>
             </div>
             {alert}
           </header>);

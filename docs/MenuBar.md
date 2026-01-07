@@ -4,7 +4,8 @@ This will build a horizontal or vertical menu below the header on the screen.  E
 
 Props:
 
-1.  ***menuTree*** = contains the tree structure of the menu as an array.  An example of the menuTree:
+1. ***menuTree*** = contains the tree structure of the menu as an array.  An example of the menuTree:
+
 ```js
     const menuTree = [
         { title: 'Save', path: '/save', component: () => <Save></Save> },
@@ -57,11 +58,11 @@ The title field is the title that will be displayed on the menu.  The path is th
 
 4.  ***format*** = indicates whether the value is fixed, which means the menu will not move, or float which means that the menu will scroll.  The two possible values are float (default) or fixed.
 
-5.  ***headerfixed*** = indicates that the Header component ([Header](docs/Header.md)) is also fixed and does not move when scrolling.
+5. ***headerfixed*** = indicates that the Header component ([Header](docs/Header.md)) is also fixed and does not move when scrolling.
 
-6.  ***noheader*** = indicates that there is no Header component.
+6. ***noheader*** = indicates that there is no Header component.
 
-7.  ***path*** = if a certain screen is specified in the url (the path in the menutree), it will automatically take you to that screen when the application is launched.  The path that is on the URL must match a path name in the menutree; otherwise it will default to the first screen.  The path should only contain the path name.
+7. ***path*** = if a certain screen is specified in the url (the path in the menutree), it will automatically take you to that screen when the application is launched.  The path that is on the URL must match a path name in the menutree; otherwise it will default to the first screen.  The path should only contain the path name.
 
 8. ***subsymbol*** = indicates whether a down arrow should be placed next to the title that has submenus.  The two possible values are:
     - arrow = place a down arrow next to the title.
@@ -86,34 +87,33 @@ The format prop will allow the menu and header to be fixed (the menu and header 
 
 The following must be done in order to fix the header or the menu (in all the examples listed below it will work for both horizontal or vertical):
 
-1.  ***header is float and menu is float***
+1. ***header is float and menu is float***
         Both the header and menu will scroll of the screen.
         nothing needs to be done
         ***Example***
         ```javascript
             <div>
-              <Header username={user} setUsername={setUser}
+              <Header username={user}
                       title="This is a test" dbDisplay="Test"
                       titleLogo="Logo.svg" />
               <MenuBar menuTree={mtree} type="vertical" open="always"  />
             </div>
         ```
 
-
-2.  ***header is fixed and menu is fixed***
+2. ***header is fixed and menu is fixed***
         The header and the menu will not scroll off the screen.
         MenuBar must have format="fixed".
         ***Example***
         ```javascript
         <div>
-            <Header username={user} setUsername={setUser}
+            <Header username={user}
                     title="This is a test" dbDisplay="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={mtree} type="horizontal" open="always" format="fixed" />
         </div>
         ```
 
-3.  ***no header and the menu is float***
+3. ***no header and the menu is float***
         There is no header at all and the menu will scroll off the screen.
         MenuBar must have format="float"
         ***Example***
@@ -122,7 +122,7 @@ The following must be done in order to fix the header or the menu (in all the ex
             <MenuBar menuTree={mtree} type="horizontal" open="always" format="float" />
         </div>
         ```
-4.  ***no header and the menu is fixed***
+4. ***no header and the menu is fixed***
         There is no header and the menu will not scroll off the screen.
         MenuBar must have format="float"
         ***Example***
@@ -133,14 +133,16 @@ The following must be done in order to fix the header or the menu (in all the ex
         ```
 
 ### SignalUnsaved
+
 This is a function in MenuBar that can be called with a boolean value.  If the boolean value is true, the menu is disabled.  If the value is false, the menu is enabled.  The function is passed down as a prop and is; therefore, called using
+
 ```js
 props.signalUnsaved(true or false)
 ```
+
 This function is automatically declared in MenuBar and is a props for every component in MenuBar.  The user is only using this function that is already declared in MenuBar.  It is not to be declared.
 
 This is used to make sure the screen is saved before leaving it.  See example 10 below.
-
 
 ## CSS Files
 
@@ -168,9 +170,9 @@ The sw-NavBar.css controls the main horizontal or vertical bar across the top of
 
 The DropDown.css controls the drop down (horizontal) on the MenuBar component.  The only items that should be changed are the following:
 
-1.  In the sw-dropdown-menu class, the z-index may need to be changed if it is blocked by other css classes.
-2.  The widths in the sw-dropdown-menu classes.
-3.  The colors, the box-shadow, and pointer types.
+1. In the sw-dropdown-menu class, the z-index may need to be changed if it is blocked by other css classes.
+2. The widths in the sw-dropdown-menu classes.
+3. The colors, the box-shadow, and pointer types.
 
 The css files can be modified to change colors or styling.  Other styling features may also be added.
 
@@ -212,7 +214,6 @@ const App = () => {
 
 There is no type, but there is an open; therefore, the menu symbol will appear and when the mouse is placed on it, it open the horizontal menu from left to right.
 
-
 ### Example 3
 
 ```js
@@ -251,7 +252,6 @@ const App = () => {
 
 This is a vertical menu, that will display a vertical bar with the menu symbol in it.  When the mouse is placed on the menu symbol, it will open the vertical menu to the right.  Any submenus will appear to the right of the menu.
 
-
 If open="always", the vertical menu will appear with no menu symbol.
 
 ### Example 5
@@ -272,7 +272,6 @@ const App = () => {
 
 ```
 
-
 ### All the possible type and open options
 
 ```js
@@ -286,14 +285,15 @@ const App = () => {
 
 ```
 
-6.  ### Example 6
+6. ### Example 6
+
 ```js
 import { MenuBar, Header } from 'simple-widgets';
 
 const App = () => {
     return (
         <div>
-            <Header username={user} setUsername={setUser}
+            <Header username={user}
                     title="This is a test" dbDisplay="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={menuTree} type="horizontal" format="fixed" >
@@ -304,15 +304,15 @@ const App = () => {
 
 There is a header that is fixed and a vertical menu that is fixed.
 
+7. ### Example 7
 
-7.  ### Example 7
 ```js
 import { MenuBar, Header } from 'simple-widgets';
 
 const App = () => {
     return (
         <div>
-            <Header username={user} setUsername={setUser}
+            <Header username={user} 
                     title="This is a test" dbDisplay="Test"
                     titleLogo="Logo.svg" />
             <MenuBar menuTree={menuTree} type="vertical" format="fixed" >
@@ -323,7 +323,8 @@ const App = () => {
 
 There is a header that is fixed and a vertical menu that is fixed.
 
-8.  ### Example 8
+8. ### Example 8
+
 ```js
 import { MenuBar } from 'simple-widgets';
 
@@ -339,7 +340,8 @@ const App = () => {
 
 There is no header and a horizontal menu that is fixed.
 
-9.  ### Example 9
+9. ### Example 9
+
 ```js
 import { MenuBar } from 'simple-widgets';
 
@@ -354,7 +356,8 @@ const App = () => {
 
 There is no header and a vertical menu that is fixed.
 
-10.  ### Example 10 signalUnsaved example (does not show MenuBar)
+10. ### Example 10 signalUnsaved example (does not show MenuBar)
+
 ```js
 const TestComp = () => {
     const [emp, setEmp] = useState('');
