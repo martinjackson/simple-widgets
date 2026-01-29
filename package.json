@@ -165,7 +165,7 @@
     "@emotion/react": "^11.11.1",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
-    "pdfmake": "^0.2.7",
+    "pdfmake": "^0.3.1",
     "react-autobind": "^1.0.6",
     "react-calendar": "^4.6.1",
     "react-csv": "^2.2.2",
