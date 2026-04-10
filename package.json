@@ -1,6 +1,6 @@
 {
   "name": "simple-widgets",
-  "version": "1.43.7",
+  "version": "1.43.8",
   "description": "A Collection of React components to make your React code simpler",
   "main": "dist/index.js",
   "files": [
@@ -72,7 +72,6 @@
     "strip-comments": "^2.0.1"
   },
   "peerDependencies": {
-    "@apollo/client": "^3.7.11",
     "deep-object-diff": "^1.1.9",
     "graphql-tag": "^2.12.6",
     "object-sizeof": "^2.6.1",

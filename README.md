@@ -85,7 +85,7 @@ Using [npm](https://www.npmjs.com/):
 In order to use simple-widgets, these dependencies need to be added in the home directory of your project.
 
 ```bash
-npm i @apollo/client @types/react deep-object-diff graphql-tag object-sizeof react react-dom --save
+npm i @types/react deep-object-diff graphql-tag object-sizeof react react-dom --save
 ```
 
 ## How to test the library locally (before publishing to npm)
